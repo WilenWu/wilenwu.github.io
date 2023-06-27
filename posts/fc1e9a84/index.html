@@ -1,0 +1,669 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0,viewport-fit=cover"><title>大数据手册(Oracle)--Oracle SQL(Functions) | 雷小小</title><meta name="author" content="Tiny Lei"><meta name="copyright" content="Tiny Lei"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="Oracle 常用函数">
+<meta property="og:type" content="article">
+<meta property="og:title" content="大数据手册(Oracle)--Oracle SQL(Functions)">
+<meta property="og:url" content="https://www.tinylei.tech/posts/fc1e9a84/index.html">
+<meta property="og:site_name" content="雷小小">
+<meta property="og:description" content="Oracle 常用函数">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://www.tinylei.tech/img/oracle-functions.png">
+<meta property="article:published_time" content="2021-05-03T08:18:01.000Z">
+<meta property="article:modified_time" content="2023-03-20T15:16:43.717Z">
+<meta property="article:author" content="Tiny Lei">
+<meta property="article:tag" content="大数据">
+<meta property="article:tag" content="sql">
+<meta property="article:tag" content="oracle">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://www.tinylei.tech/img/oracle-functions.png"><link rel="shortcut icon" href="/img/favicon.png"><link rel="canonical" href="https://www.tinylei.tech/posts/fc1e9a84/index.html"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//hm.baidu.com"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><meta name="baidu-site-verification" content="code-7rymn5Bitx"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox/fancybox.min.css" media="print" onload="this.media='all'"><script>var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "https://hm.baidu.com/hm.js?654e7415ab55bed7c9c2bc6d665f03c5";
+  var s = document.getElementsByTagName("script")[0]; 
+  s.parentNode.insertBefore(hm, s);
+})();
+</script><script>const GLOBAL_CONFIG = {
+  root: '/',
+  algolia: undefined,
+  localSearch: {"path":"/search.xml","preload":false,"top_n_per_article":1,"unescape":false,"languages":{"hits_empty":"找不到您查询的内容：${query}","hits_stats":"共找到 ${hits} 篇文章"}},
+  translate: undefined,
+  noticeOutdate: undefined,
+  highlight: {"plugin":"highlighjs","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '天',
+  dateSuffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'fancybox',
+  Snackbar: undefined,
+  source: {
+    justifiedGallery: {
+      js: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery/dist/fjGallery.min.js',
+      css: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery/dist/fjGallery.min.css'
+    }
+  },
+  isPhotoFigcaption: true,
+  islazyload: true,
+  isAnchor: false,
+  percent: {
+    toc: true,
+    rightside: false,
+  },
+  autoDarkmode: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: '大数据手册(Oracle)--Oracle SQL(Functions)',
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: true,
+  postUpdate: '2023-03-20 23:16:43'
+}</script><noscript><style type="text/css">
+  #nav {
+    opacity: 1
+  }
+  .justified-gallery img {
+    opacity: 1
+  }
+
+  #recent-posts time,
+  #post-meta time {
+    display: inline !important
+  }
+</style></noscript><script>(win=>{
+    win.saveToLocal = {
+      set: function setWithExpiry(key, value, ttl) {
+        if (ttl === 0) return
+        const now = new Date()
+        const expiryDay = ttl * 86400000
+        const item = {
+          value: value,
+          expiry: now.getTime() + expiryDay,
+        }
+        localStorage.setItem(key, JSON.stringify(item))
+      },
+
+      get: function getWithExpiry(key) {
+        const itemStr = localStorage.getItem(key)
+
+        if (!itemStr) {
+          return undefined
+        }
+        const item = JSON.parse(itemStr)
+        const now = new Date()
+
+        if (now.getTime() > item.expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return item.value
+      }
+    }
+  
+    win.getScript = url => new Promise((resolve, reject) => {
+      const script = document.createElement('script')
+      script.src = url
+      script.async = true
+      script.onerror = reject
+      script.onload = script.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        script.onload = script.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(script)
+    })
+  
+    win.getCSS = (url,id = false) => new Promise((resolve, reject) => {
+      const link = document.createElement('link')
+      link.rel = 'stylesheet'
+      link.href = url
+      if (id) link.id = id
+      link.onerror = reject
+      link.onload = link.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        link.onload = link.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(link)
+    })
+  
+      win.activateDarkMode = function () {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      win.activateLightMode = function () {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+      const t = saveToLocal.get('theme')
+    
+          if (t === 'dark') activateDarkMode()
+          else if (t === 'light') activateLightMode()
+        
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    
+    const detectApple = () => {
+      if(/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+    })(window)</script><link rel="stylesheet" href="//at.alicdn.com/t/font_2849223_xh1ftc8qym.css"><link rel="stylesheet" href="/css/link-card.css"><!-- hexo injector head_end start --><link rel="stylesheet" href="https://npm.elemecdn.com/hexo-butterfly-tag-plugins-plus@latest/lib/assets/font-awesome-animation.min.css" media="defer" onload="this.media='all'"><link rel="stylesheet" href="https://npm.elemecdn.com/hexo-butterfly-tag-plugins-plus@latest/lib/tag_plugins.css" media="defer" onload="this.media='all'"><script src="https://npm.elemecdn.com/hexo-butterfly-tag-plugins-plus@latest/lib/assets/carousel-touch.js"></script><!-- hexo injector head_end end --><meta name="generator" content="Hexo 6.0.0"><link rel="alternate" href="/atom.xml" title="雷小小" type="application/atom+xml">
+</head><body><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/img/avatar.jpg" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="sidebar-site-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">131</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">103</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">44</div></a></div><hr class="custom-hr"/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/user-guide/"><i class="fa-fw fa fa-compass"></i><span> 用户指南</span></a></div><div class="menus_item"><a class="site-page group hide" href="javascript:void(0);" rel="external nofollow noreferrer"><i class="fa-fw fa fa-book"></i><span> 文档</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></li><li><a class="site-page child" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 归档</span></a></li><li><a class="site-page child" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/gallery/"><i class="fa-fw fa fa-images"></i><span> 图库</span></a></div><div class="menus_item"><a class="site-page" href="/ebook/"><i class="fa-fw fa fa-book-reader"></i><span> 电子书</span></a></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-star"></i><span> 收藏夹</span></a></div><div class="menus_item"><a class="site-page group hide" href="javascript:void(0);" rel="external nofollow noreferrer"><i class="fa-fw fa-solid fa-circle-chevron-down"></i><span> 更多</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/about/"><i class="fa-fw fa fa-user"></i><span> 关于我</span></a></li><li><a class="site-page child" href="/analytics/"><i class="fa-fw fa fa-line-chart"></i><span> 文章统计</span></a></li><li><a class="site-page child" href="/log/"><i class="fa-fw fa fa-history"></i><span> 更新日志</span></a></li></ul></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url('/img/SQL.png')"><nav id="nav"><span id="blog-info"><a href="/" title="雷小小"><img class="site-icon" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/img/favicon.png"/><span class="site-name">雷小小</span></a></span><div id="menus"><div id="search-button"><a class="site-page social-icon search" href="javascript:void(0);" rel="external nofollow noreferrer"><i class="fas fa-search fa-fw"></i><span> 搜索</span></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/user-guide/"><i class="fa-fw fa fa-compass"></i><span> 用户指南</span></a></div><div class="menus_item"><a class="site-page group hide" href="javascript:void(0);" rel="external nofollow noreferrer"><i class="fa-fw fa fa-book"></i><span> 文档</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></li><li><a class="site-page child" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 归档</span></a></li><li><a class="site-page child" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/gallery/"><i class="fa-fw fa fa-images"></i><span> 图库</span></a></div><div class="menus_item"><a class="site-page" href="/ebook/"><i class="fa-fw fa fa-book-reader"></i><span> 电子书</span></a></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-star"></i><span> 收藏夹</span></a></div><div class="menus_item"><a class="site-page group hide" href="javascript:void(0);" rel="external nofollow noreferrer"><i class="fa-fw fa-solid fa-circle-chevron-down"></i><span> 更多</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/about/"><i class="fa-fw fa fa-user"></i><span> 关于我</span></a></li><li><a class="site-page child" href="/analytics/"><i class="fa-fw fa fa-line-chart"></i><span> 文章统计</span></a></li><li><a class="site-page child" href="/log/"><i class="fa-fw fa fa-history"></i><span> 更新日志</span></a></li></ul></div></div><div id="toggle-menu"><a class="site-page" href="javascript:void(0);" rel="external nofollow noreferrer"><i class="fas fa-bars fa-fw"></i></a></div></div></nav><div id="post-info"><h1 class="post-title">大数据手册(Oracle)--Oracle SQL(Functions)<a class="post-edit-link" href="https://gitee.com/WilenWu/myblog/edit/master/source/_posts/bigdata/OracleSQL-Funtions.md" rel="external nofollow noreferrer" title="编辑" target="_blank"><i class="fas fa-pencil-alt"></i></a></h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2021-05-03T08:18:01.000Z" title="发表于 2021-05-03 16:18:01">2021-05-03</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2023-03-20T15:16:43.717Z" title="更新于 2023-03-20 23:16:43">2023-03-20</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/big-data/">Big Data</a><i class="fas fa-angle-right post-meta-separator"></i><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/big-data/oracle/">Oracle</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-wordcount"><i class="far fa-file-word fa-fw post-meta-icon"></i><span class="post-meta-label">字数总计:</span><span class="word-count">1.1k</span><span class="post-meta-separator">|</span><i class="far fa-clock fa-fw post-meta-icon"></i><span class="post-meta-label">阅读时长:</span><span>4分钟</span></span><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title="大数据手册(Oracle)--Oracle SQL(Functions)"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">阅读量:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container"><h1 id="常用函数"><a class="markdownIt-Anchor" href="#常用函数"></a> 常用函数</h1>
+<blockquote>
+<p>Oracle 中常用 dual目标表测试</p>
+</blockquote>
+<h2 id="日期函数"><a class="markdownIt-Anchor" href="#日期函数"></a> 日期函数</h2>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">函数</th>
+<th style="text-align:left">说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">CURRENT_DATE</td>
+<td style="text-align:left">当前日期，默认 “DD-MON-RR”</td>
+</tr>
+<tr>
+<td style="text-align:left">CURRENT_TIMESTAMP</td>
+<td style="text-align:left">当前时间戳，默认 “DD-MON-RR HH:MI:SS.FF”</td>
+</tr>
+<tr>
+<td style="text-align:left">SYSDATE</td>
+<td style="text-align:left">系统时间</td>
+</tr>
+<tr>
+<td style="text-align:left">SYSTIMESTAMP</td>
+<td style="text-align:left">系统时间戳</td>
+</tr>
+<tr>
+<td style="text-align:left">ADD_MONTHS(date,n)</td>
+<td style="text-align:left">日期+月数</td>
+</tr>
+<tr>
+<td style="text-align:left">NEXT_DATE(date,weekchar)</td>
+<td style="text-align:left">下周某一天的日期</td>
+</tr>
+<tr>
+<td style="text-align:left">LAST_DAY(date)</td>
+<td style="text-align:left">当月最后一天</td>
+</tr>
+<tr>
+<td style="text-align:left">MONTHS_BETWEEN(date1,date2)</td>
+<td style="text-align:left">两个日期间隔月数</td>
+</tr>
+<tr>
+<td style="text-align:left">date1 - date2</td>
+<td style="text-align:left">两个日期间隔天数</td>
+</tr>
+<tr>
+<td style="text-align:left">EXTRACT(fmt FROM date)</td>
+<td style="text-align:left">提取日期组件</td>
+</tr>
+<tr>
+<td style="text-align:left">TRUNC(date[, fmt])</td>
+<td style="text-align:left">截断到所在期间的第一天</td>
+</tr>
+<tr>
+<td style="text-align:left">ROUND(date[, fmt])</td>
+<td style="text-align:left">四舍五入到所在期间的第一天</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>fmt 参数：YEAR, MONTH, DAY, HOUR, MINUTE, SECOND</p>
+</blockquote>
+<figure class="highlight sql"><table><tr><td class="code"><pre><span class="line"><span class="keyword">select</span> NEXT_DATE(SYSDATE,<span class="string">&#x27;Tuesday&#x27;</span>) <span class="keyword">FROM</span> dual; <span class="comment">-- 返回下周二的日期</span></span><br><span class="line"><span class="keyword">select</span> <span class="built_in">EXTRACT</span>(<span class="keyword">YEAR</span> <span class="keyword">FROM</span> SYSDATE) <span class="keyword">FROM</span> dual;  <span class="comment">-- 返回年份</span></span><br><span class="line"><span class="keyword">select</span> <span class="built_in">EXTRACT</span>(<span class="keyword">HOUR</span> <span class="keyword">FROM</span> <span class="type">TIMESTAMP</span><span class="string">&#x27;2021-05-05 16:45:12&#x27;</span>) <span class="keyword">FROM</span> dual;  <span class="comment">-- 返回小时数</span></span><br></pre></td></tr></table></figure>
+<p>Oracle 获取本周、本月、本季、本年的第一天和最后一天</p>
+<figure class="highlight sql"><table><tr><td class="code"><pre><span class="line"><span class="comment">--本周</span></span><br><span class="line"><span class="keyword">select</span> trunc(sysdate, <span class="string">&#x27;d&#x27;</span>) <span class="keyword">from</span> dual; <span class="comment">-- 本周第一天，即周日</span></span><br><span class="line"></span><br><span class="line"><span class="comment">--本月</span></span><br><span class="line"><span class="keyword">select</span> trunc(sysdate, <span class="string">&#x27;mm&#x27;</span>) <span class="keyword">from</span> dual;</span><br><span class="line"><span class="keyword">select</span> last_day(trunc(sysdate)) <span class="keyword">from</span> dual;</span><br><span class="line"></span><br><span class="line"><span class="comment">--本季</span></span><br><span class="line"><span class="keyword">select</span> trunc(sysdate, <span class="string">&#x27;Q&#x27;</span>) <span class="keyword">from</span> dual;</span><br><span class="line"><span class="keyword">select</span> add_months(trunc(sysdate, <span class="string">&#x27;Q&#x27;</span>), <span class="number">3</span>) <span class="operator">-</span> <span class="number">1</span> <span class="keyword">from</span> dual;</span><br><span class="line"></span><br><span class="line"><span class="comment">--本年</span></span><br><span class="line"><span class="keyword">select</span> trunc(sysdate, <span class="string">&#x27;yyyy&#x27;</span>) <span class="keyword">from</span> dual;</span><br><span class="line"><span class="keyword">select</span> add_months(trunc(sysdate, <span class="string">&#x27;yyyy&#x27;</span>), <span class="number">12</span>) <span class="operator">-</span> <span class="number">1</span> <span class="keyword">from</span> dual;</span><br></pre></td></tr></table></figure>
+<h2 id="聚合函数"><a class="markdownIt-Anchor" href="#聚合函数"></a> 聚合函数</h2>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">聚合函数(Aggregate)</th>
+<th style="text-align:left">说明（NULL不计入）</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">AVG()</td>
+<td style="text-align:left">平均值</td>
+</tr>
+<tr>
+<td style="text-align:left">SUM()</td>
+<td style="text-align:left">总和</td>
+</tr>
+<tr>
+<td style="text-align:left">COUNT(*)</td>
+<td style="text-align:left">返回表中的记录数</td>
+</tr>
+<tr>
+<td style="text-align:left">COUNT(col)</td>
+<td style="text-align:left">指定列的值的数目</td>
+</tr>
+<tr>
+<td style="text-align:left">MAX()</td>
+<td style="text-align:left">最大值</td>
+</tr>
+<tr>
+<td style="text-align:left">MIN()</td>
+<td style="text-align:left">最小值</td>
+</tr>
+<tr>
+<td style="text-align:left">WM_CONCAT()</td>
+<td style="text-align:left">分组收集</td>
+</tr>
+<tr>
+<td style="text-align:left">CORR(X,Y)</td>
+<td style="text-align:left">相关系数</td>
+</tr>
+</tbody>
+</table>
+<figure class="highlight sql"><table><tr><td class="code"><pre><span class="line"><span class="keyword">select</span> job,wm_concat(ename) <span class="keyword">from</span> employee <span class="keyword">group</span> <span class="keyword">by</span> job;</span><br></pre></td></tr></table></figure>
+<h2 id="数学函数"><a class="markdownIt-Anchor" href="#数学函数"></a> 数学函数</h2>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">函数</th>
+<th style="text-align:left">描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">ROUND(x[,n])</td>
+<td style="text-align:left">四舍五入，默认取整</td>
+</tr>
+<tr>
+<td style="text-align:left">TRUNC(x[,n])</td>
+<td style="text-align:left">截断，默认取整</td>
+</tr>
+<tr>
+<td style="text-align:left">CEIL(x)</td>
+<td style="text-align:left">取上限</td>
+</tr>
+<tr>
+<td style="text-align:left">FLOOR(x)</td>
+<td style="text-align:left">取下限</td>
+</tr>
+<tr>
+<td style="text-align:left">ABS(x)</td>
+<td style="text-align:left">绝对值</td>
+</tr>
+<tr>
+<td style="text-align:left">MOD(x,y)</td>
+<td style="text-align:left">取余数</td>
+</tr>
+<tr>
+<td style="text-align:left">POWER(x,y)</td>
+<td style="text-align:left">乘方</td>
+</tr>
+<tr>
+<td style="text-align:left">SQRT(x)</td>
+<td style="text-align:left">平方根</td>
+</tr>
+<tr>
+<td style="text-align:left">SIN(), ASIN(),TAN(), …</td>
+<td style="text-align:left">三角函数</td>
+</tr>
+</tbody>
+</table>
+<h2 id="字符函数"><a class="markdownIt-Anchor" href="#字符函数"></a> 字符函数</h2>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">函数</th>
+<th style="text-align:left">说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">UPPER(x)</td>
+<td style="text-align:left">换为大写</td>
+</tr>
+<tr>
+<td style="text-align:left">LOWER(x)</td>
+<td style="text-align:left">转换为小写</td>
+</tr>
+<tr>
+<td style="text-align:left">INITCAP(x)</td>
+<td style="text-align:left">首字母大写</td>
+</tr>
+<tr>
+<td style="text-align:left">SUBSTR(x, start[, length])</td>
+<td style="text-align:left">提取子字符串(默认到结尾)<br/> start 参数可以取负数</td>
+</tr>
+<tr>
+<td style="text-align:left">LENGTH(char)</td>
+<td style="text-align:left">获取字符串长度</td>
+</tr>
+<tr>
+<td style="text-align:left">x ||  y</td>
+<td style="text-align:left">字符串连接运算符</td>
+</tr>
+<tr>
+<td style="text-align:left">CONCAT(x,y)</td>
+<td style="text-align:left">字符串连接函数</td>
+</tr>
+<tr>
+<td style="text-align:left">TRIM( [trim_str FROM] x)</td>
+<td style="text-align:left">从 x 两边去除  trim_str(默认空格)</td>
+</tr>
+<tr>
+<td style="text-align:left">LTRIM(x [,trim_str])</td>
+<td style="text-align:left">从 x 左边去除第一个 trim_str(默认空格)</td>
+</tr>
+<tr>
+<td style="text-align:left">RTRIM(x [,trim_str])</td>
+<td style="text-align:left">从 x 右边去除第一个 trim_str(默认空格)</td>
+</tr>
+<tr>
+<td style="text-align:left">REPLACE(x ,old[,new])</td>
+<td style="text-align:left">将 old 替换成 new（默认空格）</td>
+</tr>
+<tr>
+<td style="text-align:left">INSTR(x, str [,start] [,n])</td>
+<td style="text-align:left">在x中搜索str位置</td>
+</tr>
+<tr>
+<td style="text-align:left">LPAD(x, length[, fill])</td>
+<td style="text-align:left">在x左端填充字符串 fill(默认空格) ，长度为length</td>
+</tr>
+<tr>
+<td style="text-align:left">RPAD(x, length[, fill])</td>
+<td style="text-align:left">在x右边填充字符串 fill(默认空格) ，长度为length</td>
+</tr>
+</tbody>
+</table>
+<figure class="highlight sql"><table><tr><td class="code"><pre><span class="line"><span class="keyword">SQL</span><span class="operator">&gt;</span> <span class="keyword">select</span> lpad(<span class="string">&#x27;bill&#x27;</span>,<span class="number">8</span>,<span class="string">&#x27;*&#x27;</span>) <span class="keyword">from</span> dual;</span><br><span class="line"><span class="operator">*</span><span class="operator">*</span><span class="operator">*</span><span class="operator">*</span>bill</span><br></pre></td></tr></table></figure>
+<h2 id="格式化函数"><a class="markdownIt-Anchor" href="#格式化函数"></a> 格式化函数</h2>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">函数</th>
+<th style="text-align:left">说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">TO_CHAR(date, fmt)</td>
+<td style="text-align:left">日期转字符，默认 “DD-MON-RR”</td>
+</tr>
+<tr>
+<td style="text-align:left">TO_CHAR(num, fmt)</td>
+<td style="text-align:left">数字转化为指定格式字符串</td>
+</tr>
+<tr>
+<td style="text-align:left">TO_DATE(char, fmt)</td>
+<td style="text-align:left">字符转日期</td>
+</tr>
+<tr>
+<td style="text-align:left">DATE ‘YYYY-MM-DD’</td>
+<td style="text-align:left">字符转日期</td>
+</tr>
+<tr>
+<td style="text-align:left">TO_NUMBER(char, fmt)</td>
+<td style="text-align:left">字符转数字</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>隐性转换：Oracle 会自动将对应格式的字符类型的数据转化为数字或者日期格式</p>
+</blockquote>
+<figure class="highlight sql"><table><tr><td class="code"><pre><span class="line"><span class="keyword">SQL</span><span class="operator">&gt;</span> <span class="keyword">select</span> TO_CHAR(<span class="number">3.1415</span>, <span class="string">&#x27;9,999.999&#x27;</span>) <span class="keyword">FROM</span> dual;</span><br><span class="line"><span class="keyword">SQL</span><span class="operator">&gt;</span> <span class="keyword">select</span> TO_CHAR(<span class="number">-31415.926</span>, <span class="string">&#x27;L9.9EEEPR&#x27;</span>) <span class="keyword">FROM</span> dual;</span><br><span class="line"><span class="operator">&lt;</span>￥<span class="number">3.1E+04</span><span class="operator">&gt;</span></span><br></pre></td></tr></table></figure>
+<p>常用的数字格式：</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">参数</th>
+<th style="text-align:left">说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">9</td>
+<td style="text-align:left">显示数字</td>
+</tr>
+<tr>
+<td style="text-align:left">0</td>
+<td style="text-align:left">显示零</td>
+</tr>
+<tr>
+<td style="text-align:left">.</td>
+<td style="text-align:left">小数点</td>
+</tr>
+<tr>
+<td style="text-align:left">,</td>
+<td style="text-align:left">千位符</td>
+</tr>
+<tr>
+<td style="text-align:left">$</td>
+<td style="text-align:left">美元符号</td>
+</tr>
+<tr>
+<td style="text-align:left">L</td>
+<td style="text-align:left">本地货币符号</td>
+</tr>
+<tr>
+<td style="text-align:left">EEEE</td>
+<td style="text-align:left">科学计数法</td>
+</tr>
+<tr>
+<td style="text-align:left">PR</td>
+<td style="text-align:left">将负数用尖括号包括表示</td>
+</tr>
+</tbody>
+</table>
+<figure class="highlight sql"><table><tr><td class="code"><pre><span class="line"><span class="keyword">SQL</span><span class="operator">&gt;</span> <span class="keyword">select</span> TO_CHAR(SYSDATE, <span class="string">&#x27;YYYY-MM-DD HH24:MI:SS&#x27;</span>) <span class="keyword">FROM</span> dual;</span><br><span class="line"><span class="keyword">SQL</span><span class="operator">&gt;</span> <span class="keyword">select</span> TO_CHAR(<span class="built_in">LOCALTIMESTAMP</span>(<span class="number">2</span>),<span class="string">&#x27;YYYY-MM-DD HH24:MI:SS.FF&#x27;</span>) <span class="keyword">FROM</span> dual;</span><br></pre></td></tr></table></figure>
+<p>常用的日期格式：</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">参数</th>
+<th style="text-align:left">说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">YYYY</td>
+<td style="text-align:left">年</td>
+</tr>
+<tr>
+<td style="text-align:left">MM</td>
+<td style="text-align:left">月</td>
+</tr>
+<tr>
+<td style="text-align:left">DD</td>
+<td style="text-align:left">日</td>
+</tr>
+</tbody>
+</table>
+<h2 id="通用函数"><a class="markdownIt-Anchor" href="#通用函数"></a> 通用函数</h2>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">函数</th>
+<th style="text-align:left">描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">DECODE(x,value1,result1,…,default)</td>
+<td style="text-align:left">和 CASE…WHEN类似的函数</td>
+</tr>
+<tr>
+<td style="text-align:left">NVL(x, value)</td>
+<td style="text-align:left">返回的是它第一个非空值的参数</td>
+</tr>
+<tr>
+<td style="text-align:left">NVL2(x, value1, value2)</td>
+<td style="text-align:left">返回的是它第一个非空值的参数</td>
+</tr>
+<tr>
+<td style="text-align:left">COALESCE(value1, value2, …)</td>
+<td style="text-align:left">返回第一个不是空值的参数</td>
+</tr>
+<tr>
+<td style="text-align:left">NULLIF(valuel, value2)</td>
+<td style="text-align:left">如果value1和value2相等，函数返回空值</td>
+</tr>
+<tr>
+<td style="text-align:left">GREATEST(value1, value2, …)</td>
+<td style="text-align:left">最大值</td>
+</tr>
+<tr>
+<td style="text-align:left">LEAST(value1, value2, …)</td>
+<td style="text-align:left">最小值</td>
+</tr>
+<tr>
+<td style="text-align:left">PIVOD(aggfun FOR  col IN (value1, value2, …) )</td>
+<td style="text-align:left">透视</td>
+</tr>
+<tr>
+<td style="text-align:left">UNPIVOD(valueName FOR keyName IN(col1,col2,…))</td>
+<td style="text-align:left">逆透视</td>
+</tr>
+</tbody>
+</table>
+<figure class="highlight sql"><table><tr><td class="code"><pre><span class="line"><span class="comment">-- 透视（交叉表）</span></span><br><span class="line"><span class="keyword">select</span> <span class="operator">*</span> <span class="keyword">from</span> (</span><br><span class="line"> <span class="keyword">select</span> times_purchased <span class="keyword">as</span> &quot;Puchase Frequency&quot;, state_code</span><br><span class="line"> <span class="keyword">from</span> customers t</span><br><span class="line"> )</span><br><span class="line"> pivot </span><br><span class="line"> (</span><br><span class="line"> <span class="built_in">count</span>(state_code)</span><br><span class="line"> <span class="keyword">for</span> state_code <span class="keyword">in</span> (<span class="string">&#x27;NY&#x27;</span> <span class="keyword">as</span> &quot;New York&quot;,<span class="string">&#x27;CT&#x27;</span> &quot;Connecticut&quot;,<span class="string">&#x27;NJ&#x27;</span> &quot;New Jersey&quot;,<span class="string">&#x27;FL&#x27;</span> &quot;Florida&quot;,<span class="string">&#x27;MO&#x27;</span> <span class="keyword">as</span> &quot;Missouri&quot;)</span><br><span class="line"> )</span><br><span class="line"> <span class="keyword">order</span> <span class="keyword">by</span> <span class="number">1</span>;</span><br><span class="line"> </span><br><span class="line"> <span class="comment">-- 逆透视</span></span><br><span class="line"> <span class="keyword">select</span> <span class="operator">*</span></span><br><span class="line"> <span class="keyword">from</span> cust_matrix</span><br><span class="line"> unpivot</span><br><span class="line"> (</span><br><span class="line"> state_counts</span><br><span class="line"> <span class="keyword">for</span> state_code <span class="keyword">in</span> (&quot;New York&quot;,&quot;Conn&quot;,&quot;New Jersey&quot;,&quot;Florida&quot;,&quot;Missouri&quot;)</span><br><span class="line"> )</span><br><span class="line"> <span class="keyword">order</span> <span class="keyword">by</span> &quot;Puchase Frequency&quot;, state_code;</span><br></pre></td></tr></table></figure></article><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/%E5%A4%A7%E6%95%B0%E6%8D%AE/">大数据</a><a class="post-meta__tags" href="/tags/sql/">sql</a><a class="post-meta__tags" href="/tags/oracle/">oracle</a></div><div class="post_share"><div class="social-share" data-image="/img/oracle-functions.png" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/js/social-share.min.js" defer></script></div></div><div class="post-reward"><div class="reward-button"><i class="fas fa-qrcode"></i> 打赏</div><div class="reward-main"><ul class="reward-all"><li class="reward-item"><a href="/img/morty3.jpg" target="_blank"><img class="post-qr-code-img" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/img/morty3.jpg" alt="Give me money!"/></a><div class="post-qr-code-desc">Give me money!</div></li></ul></div></div><nav class="pagination-post" id="pagination"><div class="prev-post pull-left"><a href="/posts/6c7e4677/" title="大数据手册(Oracle)--Oracle SQL(TCL)"><img class="cover" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/img/oracle-tcl.png" onerror="onerror=null;src='/img/404_moon.png'" alt="cover of previous post"><div class="pagination-info"><div class="label">上一篇</div><div class="prev_info">大数据手册(Oracle)--Oracle SQL(TCL)</div></div></a></div><div class="next-post pull-right"><a href="/posts/36f93ce2/" title="大数据手册(Oracle)--Oracle SQL(DML)"><img class="cover" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/img/oracle-dml.png" onerror="onerror=null;src='/img/404_moon.png'" alt="cover of next post"><div class="pagination-info"><div class="label">下一篇</div><div class="next_info">大数据手册(Oracle)--Oracle SQL(DML)</div></div></a></div></nav><div class="relatedPosts"><div class="headline"><i class="fas fa-thumbs-up fa-fw"></i><span>相关推荐</span></div><div class="relatedPosts-list"><div><a href="/posts/3928076d/" title="大数据手册(Oracle)--Oracle SQL(DDL)"><img class="cover" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/img/oracle-ddl.png" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2021-05-03</div><div class="title">大数据手册(Oracle)--Oracle SQL(DDL)</div></div></a></div><div><a href="/posts/36f93ce2/" title="大数据手册(Oracle)--Oracle SQL(DML)"><img class="cover" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/img/oracle-dml.png" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2021-05-03</div><div class="title">大数据手册(Oracle)--Oracle SQL(DML)</div></div></a></div><div><a href="/posts/6c7e4677/" title="大数据手册(Oracle)--Oracle SQL(TCL)"><img class="cover" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/img/oracle-tcl.png" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2021-05-03</div><div class="title">大数据手册(Oracle)--Oracle SQL(TCL)</div></div></a></div><div><a href="/posts/5122306f/" title="大数据手册(Oracle)--Oracle SQL(DQL)"><img class="cover" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/img/oracle-dql.png" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2021-05-03</div><div class="title">大数据手册(Oracle)--Oracle SQL(DQL)</div></div></a></div><div><a href="/posts/eb28907e/" title="大数据手册(Oracle)--Oracle SQL(Introduction)"><img class="cover" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/img/introduction-to-oracle-sql.png" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2021-05-03</div><div class="title">大数据手册(Oracle)--Oracle SQL(Introduction)</div></div></a></div><div><a href="/posts/d2c808ff/" title="大数据手册(Hive)--HiveQL(DML)"><img class="cover" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/img/apache-hive-dml.png" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2018-07-03</div><div class="title">大数据手册(Hive)--HiveQL(DML)</div></div></a></div></div></div><hr class="custom-hr"/><div id="post-comment"><div class="comment-head"><div class="comment-headline"><i class="fas fa-comments fa-fw"></i><span> 评论</span></div><div id="comment-switch"><span class="first-comment">Gitalk</span><span class="switch-btn"></span><span class="second-comment">Waline</span></div></div><div class="comment-wrap"><div><div id="gitalk-container"></div></div><div><div id="waline-wrap"></div></div></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="is-center"><div class="avatar-img"><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/img/avatar.jpg" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info__name">Tiny Lei</div><div class="author-info__description">每天进步一点点...</div></div><div class="card-info-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">131</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">103</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">44</div></a></div><div class="card-info-social-icons is-center"><a class="social-icon" href="https://gitee.com/wilenwu" rel="external nofollow noreferrer" target="_blank" title="Gitee"><i class="iconfont icon-gitee"></i></a><a class="social-icon" href="https://github.com/wilenwu" rel="external nofollow noreferrer" target="_blank" title="Github"><i class="iconfont icon-github"></i></a><a class="social-icon" href="https://blog.csdn.net/qq_41518277" rel="external nofollow noreferrer" target="_blank" title="CSDN"><i class="iconfont icon-csdn"></i></a><a class="social-icon" href="/atom.xml" target="_blank" title="RSS"><i class="iconfont icon-rss"></i></a></div></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>公告</span></div><div class="announcement_content">感谢访问本站，若喜欢请收藏^_^</div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%B8%B8%E7%94%A8%E5%87%BD%E6%95%B0"><span class="toc-number">1.</span> <span class="toc-text"> 常用函数</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%97%A5%E6%9C%9F%E5%87%BD%E6%95%B0"><span class="toc-number">1.1.</span> <span class="toc-text"> 日期函数</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%81%9A%E5%90%88%E5%87%BD%E6%95%B0"><span class="toc-number">1.2.</span> <span class="toc-text"> 聚合函数</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%95%B0%E5%AD%A6%E5%87%BD%E6%95%B0"><span class="toc-number">1.3.</span> <span class="toc-text"> 数学函数</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%AD%97%E7%AC%A6%E5%87%BD%E6%95%B0"><span class="toc-number">1.4.</span> <span class="toc-text"> 字符函数</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%A0%BC%E5%BC%8F%E5%8C%96%E5%87%BD%E6%95%B0"><span class="toc-number">1.5.</span> <span class="toc-text"> 格式化函数</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%80%9A%E7%94%A8%E5%87%BD%E6%95%B0"><span class="toc-number">1.6.</span> <span class="toc-text"> 通用函数</span></a></li></ol></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item"><a class="thumbnail" href="/posts/f67b0909/" title="大数据手册(Spark)--Pandas API on Spark"><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/img/apache-spark-pandas.png" onerror="this.onerror=null;this.src='/img/404_moon.png'" alt="大数据手册(Spark)--Pandas API on Spark"/></a><div class="content"><a class="title" href="/posts/f67b0909/" title="大数据手册(Spark)--Pandas API on Spark">大数据手册(Spark)--Pandas API on Spark</a><time datetime="2023-06-07T15:09:56.599Z" title="发表于 2023-06-07 23:09:56">2023-06-07</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/posts/43ce4abf/" title="机器学习(V)--无监督学习"><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/img/ML-unsupervised-learning.png" onerror="this.onerror=null;this.src='/img/404_moon.png'" alt="机器学习(V)--无监督学习"/></a><div class="content"><a class="title" href="/posts/43ce4abf/" title="机器学习(V)--无监督学习">机器学习(V)--无监督学习</a><time datetime="2023-06-07T14:20:00.000Z" title="发表于 2023-06-07 22:20:00">2023-06-07</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/posts/5faa8f40/" title="机器学习(II)--数据预处理"><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/img/ML-data-preprocessing.png" onerror="this.onerror=null;this.src='/img/404_moon.png'" alt="机器学习(II)--数据预处理"/></a><div class="content"><a class="title" href="/posts/5faa8f40/" title="机器学习(II)--数据预处理">机器学习(II)--数据预处理</a><time datetime="2023-05-03T06:36:00.000Z" title="发表于 2023-05-03 14:36:00">2023-05-03</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/posts/8638abf9/" title="机器学习(I)--基础知识"><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/img/ML-overview.png" onerror="this.onerror=null;this.src='/img/404_moon.png'" alt="机器学习(I)--基础知识"/></a><div class="content"><a class="title" href="/posts/8638abf9/" title="机器学习(I)--基础知识">机器学习(I)--基础知识</a><time datetime="2023-05-02T06:36:00.000Z" title="发表于 2023-05-02 14:36:00">2023-05-02</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/posts/12a72af8/" title="看不懂的数字"><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/img/numerals_cover.png" onerror="this.onerror=null;this.src='/img/404_moon.png'" alt="看不懂的数字"/></a><div class="content"><a class="title" href="/posts/12a72af8/" title="看不懂的数字">看不懂的数字</a><time datetime="2023-04-22T03:17:17.000Z" title="发表于 2023-04-22 11:17:17">2023-04-22</time></div></div></div></div></div></div></main><footer id="footer"><div id="footer-wrap"><div class="copyright">&copy;2019 - 2023 By Tiny Lei</div><div class="framework-info"><span>框架 </span><a target="_blank" rel="noopener external nofollow noreferrer" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener external nofollow noreferrer" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside_config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><a id="to_comment" href="#post-comment" title="直达评论"><i class="fas fa-comments"></i></a><button id="go-up" type="button" title="回到顶部"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox/fancybox.umd.min.js"></script><script src="https://cdn.jsdelivr.net/npm/vanilla-lazyload/dist/lazyload.iife.min.js"></script><script>function panguFn () {
+  if (typeof pangu === 'object') pangu.autoSpacingPage()
+  else {
+    getScript('https://cdn.jsdelivr.net/npm/pangu/dist/browser/pangu.min.js')
+      .then(() => {
+        pangu.autoSpacingPage()
+      })
+  }
+}
+
+function panguInit () {
+  if (false){
+    GLOBAL_CONFIG_SITE.isPost && panguFn()
+  } else {
+    panguFn()
+  }
+}
+
+document.addEventListener('DOMContentLoaded', panguInit)</script><div class="js-pjax"><script>(() => {
+  const $mermaid = document.querySelectorAll('#article-container .mermaid-wrap')
+  if ($mermaid.length === 0) return
+  const runMermaid = () => {
+    window.loadMermaid = true
+    const theme = document.documentElement.getAttribute('data-theme') === 'dark' ? 'dark' : 'forest'
+
+    Array.from($mermaid).forEach((item, index) => {
+      const mermaidSrc = item.firstElementChild
+      const mermaidThemeConfig = '%%{init:{ \'theme\':\'' + theme + '\'}}%%\n'
+      const mermaidID = 'mermaid-' + index
+      const mermaidDefinition = mermaidThemeConfig + mermaidSrc.textContent
+
+      const renderFn = mermaid.render(mermaidID, mermaidDefinition)
+
+      const renderV10 = () => {
+        renderFn.then(({svg}) => {
+          mermaidSrc.insertAdjacentHTML('afterend', svg)
+        })
+      }
+
+      const renderV9 = svg => {
+        mermaidSrc.insertAdjacentHTML('afterend', svg)
+      }
+
+      typeof renderFn === 'string' ? renderV9(renderFn) : renderV10()
+    })
+  }
+
+  const loadMermaid = () => {
+    window.loadMermaid ? runMermaid() : getScript('https://cdn.jsdelivr.net/npm/mermaid/dist/mermaid.min.js').then(runMermaid)
+  }
+
+  btf.addModeChange('mermaid', runMermaid)
+
+  window.pjax ? loadMermaid() : document.addEventListener('DOMContentLoaded', loadMermaid)
+})()</script><script>function loadGitalk () {
+  function initGitalk () {
+    var gitalk = new Gitalk(Object.assign({
+      clientID: '7c65134b48b13f306114',
+      clientSecret: 'f049f68368a11925fdb69e57c64839eac94e13c1'',
+      repo: 'gitalk-comments',
+      owner: 'WilenWu',
+      admin: ['WilenWu'],
+      id: 'd708c173fc4c5b14058468430e269763',
+      updateCountCallback: commentCount
+    },null))
+
+    gitalk.render('gitalk-container')
+  }
+
+  if (typeof Gitalk === 'function') initGitalk()
+  else {
+    getCSS('https://cdn.jsdelivr.net/npm/gitalk/dist/gitalk.min.css')
+    getScript('https://cdn.jsdelivr.net/npm/gitalk/dist/gitalk.min.js').then(initGitalk)
+  }
+}
+
+function commentCount(n){
+  let isCommentCount = document.querySelector('#post-meta .gitalk-comment-count')
+  if (isCommentCount) {
+    isCommentCount.textContent= n
+  }
+}
+
+if ('Gitalk' === 'Gitalk' || !true) {
+  if (true) btf.loadComment(document.getElementById('gitalk-container'), loadGitalk)
+  else loadGitalk()
+} else {
+  function loadOtherComment () {
+    loadGitalk()
+  }
+}</script><script>function loadWaline () {
+  function initWaline () {
+    const waline = Waline.init(Object.assign({
+      el: '#waline-wrap',
+      serverURL: 'https://waline-comments-9etq63pcv-wilenwu.vercel.app',
+      pageview: false,
+      dark: 'html[data-theme="dark"]',
+      path: window.location.pathname,
+      comment: false,
+    }, {"requiredMeta":["monsterid"]}))
+  }
+
+  if (typeof Waline === 'object') initWaline()
+  else {
+    getCSS('https://cdn.jsdelivr.net/npm/@waline/client/dist/waline.min.css').then(() => {
+      getScript('https://cdn.jsdelivr.net/npm/@waline/client/dist/waline.min.js').then(initWaline)
+    })
+  }
+}
+
+if ('Gitalk' === 'Waline' || !true) {
+  if (true) btf.loadComment(document.getElementById('waline-wrap'),loadWaline)
+  else setTimeout(loadWaline, 0)
+} else {
+  function loadOtherComment () {
+    loadWaline()
+  }
+}</script></div><script src="/js/custom.js"></script><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script><div id="local-search"><div class="search-dialog"><nav class="search-nav"><span class="search-dialog-title">搜索</span><span id="loading-status"></span><button class="search-close-button"><i class="fas fa-times"></i></button></nav><div class="is-center" id="loading-database"><i class="fas fa-spinner fa-pulse"></i><span>  数据库加载中</span></div><div class="search-wrap"><div id="local-search-input"><div class="local-search-box"><input class="local-search-box--input" placeholder="搜索文章" type="text"/></div></div><hr/><div class="no-result" id="local-search-results"></div><div id="local-search-stats-wrap"></div></div></div><div id="search-mask"></div><script src="/js/search/local-search.js"></script></div></div><!-- hexo injector body_end start --><script async src="//at.alicdn.com/t/font_2032782_8d5kxvn09md.js"></script><!-- hexo injector body_end end --></body></html>

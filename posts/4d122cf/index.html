@@ -1,0 +1,743 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0,viewport-fit=cover"><title>R手册(Data Cleaning)--dplyr and plyr | 雷小小</title><meta name="author" content="Tiny Lei"><meta name="copyright" content="Tiny Lei"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="A Grammar of Data Manipulation">
+<meta property="og:type" content="article">
+<meta property="og:title" content="R手册(Data Cleaning)--dplyr and plyr">
+<meta property="og:url" content="https://www.tinylei.tech/posts/4d122cf/index.html">
+<meta property="og:site_name" content="雷小小">
+<meta property="og:description" content="A Grammar of Data Manipulation">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://www.tinylei.tech/img/dplyr-cover.png">
+<meta property="article:published_time" content="2018-05-01T12:01:45.000Z">
+<meta property="article:modified_time" content="2022-03-19T11:21:30.419Z">
+<meta property="article:author" content="Tiny Lei">
+<meta property="article:tag" content="r">
+<meta property="article:tag" content="tidyverse">
+<meta property="article:tag" content="数据清洗">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://www.tinylei.tech/img/dplyr-cover.png"><link rel="shortcut icon" href="/img/favicon.png"><link rel="canonical" href="https://www.tinylei.tech/posts/4d122cf/index.html"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//hm.baidu.com"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><meta name="baidu-site-verification" content="code-7rymn5Bitx"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox/fancybox.min.css" media="print" onload="this.media='all'"><script>var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "https://hm.baidu.com/hm.js?654e7415ab55bed7c9c2bc6d665f03c5";
+  var s = document.getElementsByTagName("script")[0]; 
+  s.parentNode.insertBefore(hm, s);
+})();
+</script><script>const GLOBAL_CONFIG = {
+  root: '/',
+  algolia: undefined,
+  localSearch: {"path":"/search.xml","preload":false,"top_n_per_article":1,"unescape":false,"languages":{"hits_empty":"找不到您查询的内容：${query}","hits_stats":"共找到 ${hits} 篇文章"}},
+  translate: undefined,
+  noticeOutdate: undefined,
+  highlight: {"plugin":"highlighjs","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '天',
+  dateSuffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'fancybox',
+  Snackbar: undefined,
+  source: {
+    justifiedGallery: {
+      js: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery/dist/fjGallery.min.js',
+      css: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery/dist/fjGallery.min.css'
+    }
+  },
+  isPhotoFigcaption: true,
+  islazyload: true,
+  isAnchor: false,
+  percent: {
+    toc: true,
+    rightside: false,
+  },
+  autoDarkmode: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: 'R手册(Data Cleaning)--dplyr and plyr',
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: true,
+  postUpdate: '2022-03-19 19:21:30'
+}</script><noscript><style type="text/css">
+  #nav {
+    opacity: 1
+  }
+  .justified-gallery img {
+    opacity: 1
+  }
+
+  #recent-posts time,
+  #post-meta time {
+    display: inline !important
+  }
+</style></noscript><script>(win=>{
+    win.saveToLocal = {
+      set: function setWithExpiry(key, value, ttl) {
+        if (ttl === 0) return
+        const now = new Date()
+        const expiryDay = ttl * 86400000
+        const item = {
+          value: value,
+          expiry: now.getTime() + expiryDay,
+        }
+        localStorage.setItem(key, JSON.stringify(item))
+      },
+
+      get: function getWithExpiry(key) {
+        const itemStr = localStorage.getItem(key)
+
+        if (!itemStr) {
+          return undefined
+        }
+        const item = JSON.parse(itemStr)
+        const now = new Date()
+
+        if (now.getTime() > item.expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return item.value
+      }
+    }
+  
+    win.getScript = url => new Promise((resolve, reject) => {
+      const script = document.createElement('script')
+      script.src = url
+      script.async = true
+      script.onerror = reject
+      script.onload = script.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        script.onload = script.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(script)
+    })
+  
+    win.getCSS = (url,id = false) => new Promise((resolve, reject) => {
+      const link = document.createElement('link')
+      link.rel = 'stylesheet'
+      link.href = url
+      if (id) link.id = id
+      link.onerror = reject
+      link.onload = link.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        link.onload = link.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(link)
+    })
+  
+      win.activateDarkMode = function () {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      win.activateLightMode = function () {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+      const t = saveToLocal.get('theme')
+    
+          if (t === 'dark') activateDarkMode()
+          else if (t === 'light') activateLightMode()
+        
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    
+    const detectApple = () => {
+      if(/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+    })(window)</script><link rel="stylesheet" href="//at.alicdn.com/t/font_2849223_xh1ftc8qym.css"><link rel="stylesheet" href="/css/link-card.css"><!-- hexo injector head_end start --><link rel="stylesheet" href="https://npm.elemecdn.com/hexo-butterfly-tag-plugins-plus@latest/lib/assets/font-awesome-animation.min.css" media="defer" onload="this.media='all'"><link rel="stylesheet" href="https://npm.elemecdn.com/hexo-butterfly-tag-plugins-plus@latest/lib/tag_plugins.css" media="defer" onload="this.media='all'"><script src="https://npm.elemecdn.com/hexo-butterfly-tag-plugins-plus@latest/lib/assets/carousel-touch.js"></script><!-- hexo injector head_end end --><meta name="generator" content="Hexo 6.0.0"><link rel="alternate" href="/atom.xml" title="雷小小" type="application/atom+xml">
+</head><body><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/img/avatar.jpg" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="sidebar-site-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">131</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">103</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">44</div></a></div><hr class="custom-hr"/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/user-guide/"><i class="fa-fw fa fa-compass"></i><span> 用户指南</span></a></div><div class="menus_item"><a class="site-page group hide" href="javascript:void(0);" rel="external nofollow noreferrer"><i class="fa-fw fa fa-book"></i><span> 文档</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></li><li><a class="site-page child" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 归档</span></a></li><li><a class="site-page child" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/gallery/"><i class="fa-fw fa fa-images"></i><span> 图库</span></a></div><div class="menus_item"><a class="site-page" href="/ebook/"><i class="fa-fw fa fa-book-reader"></i><span> 电子书</span></a></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-star"></i><span> 收藏夹</span></a></div><div class="menus_item"><a class="site-page group hide" href="javascript:void(0);" rel="external nofollow noreferrer"><i class="fa-fw fa-solid fa-circle-chevron-down"></i><span> 更多</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/about/"><i class="fa-fw fa fa-user"></i><span> 关于我</span></a></li><li><a class="site-page child" href="/analytics/"><i class="fa-fw fa fa-line-chart"></i><span> 文章统计</span></a></li><li><a class="site-page child" href="/log/"><i class="fa-fw fa fa-history"></i><span> 更新日志</span></a></li></ul></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url('/img/dplyr-cover.png')"><nav id="nav"><span id="blog-info"><a href="/" title="雷小小"><img class="site-icon" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/img/favicon.png"/><span class="site-name">雷小小</span></a></span><div id="menus"><div id="search-button"><a class="site-page social-icon search" href="javascript:void(0);" rel="external nofollow noreferrer"><i class="fas fa-search fa-fw"></i><span> 搜索</span></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/user-guide/"><i class="fa-fw fa fa-compass"></i><span> 用户指南</span></a></div><div class="menus_item"><a class="site-page group hide" href="javascript:void(0);" rel="external nofollow noreferrer"><i class="fa-fw fa fa-book"></i><span> 文档</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></li><li><a class="site-page child" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 归档</span></a></li><li><a class="site-page child" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/gallery/"><i class="fa-fw fa fa-images"></i><span> 图库</span></a></div><div class="menus_item"><a class="site-page" href="/ebook/"><i class="fa-fw fa fa-book-reader"></i><span> 电子书</span></a></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-star"></i><span> 收藏夹</span></a></div><div class="menus_item"><a class="site-page group hide" href="javascript:void(0);" rel="external nofollow noreferrer"><i class="fa-fw fa-solid fa-circle-chevron-down"></i><span> 更多</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/about/"><i class="fa-fw fa fa-user"></i><span> 关于我</span></a></li><li><a class="site-page child" href="/analytics/"><i class="fa-fw fa fa-line-chart"></i><span> 文章统计</span></a></li><li><a class="site-page child" href="/log/"><i class="fa-fw fa fa-history"></i><span> 更新日志</span></a></li></ul></div></div><div id="toggle-menu"><a class="site-page" href="javascript:void(0);" rel="external nofollow noreferrer"><i class="fas fa-bars fa-fw"></i></a></div></div></nav><div id="post-info"><h1 class="post-title">R手册(Data Cleaning)--dplyr and plyr<a class="post-edit-link" href="https://gitee.com/WilenWu/myblog/edit/master/source/_posts/R/R(Tidy+Transform)--dplyr.md" rel="external nofollow noreferrer" title="编辑" target="_blank"><i class="fas fa-pencil-alt"></i></a></h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2018-05-01T12:01:45.000Z" title="发表于 2018-05-01 20:01:45">2018-05-01</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2022-03-19T11:21:30.419Z" title="更新于 2022-03-19 19:21:30">2022-03-19</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/r/">R</a><i class="fas fa-angle-right post-meta-separator"></i><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/r/data-cleaning/">Data Cleaning</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-wordcount"><i class="far fa-file-word fa-fw post-meta-icon"></i><span class="post-meta-label">字数总计:</span><span class="word-count">1.2k</span><span class="post-meta-separator">|</span><i class="far fa-clock fa-fw post-meta-icon"></i><span class="post-meta-label">阅读时长:</span><span>6分钟</span></span><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title="R手册(Data Cleaning)--dplyr and plyr"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">阅读量:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container"><span id="more"></span>
+<h1 id="dplyr"><a class="markdownIt-Anchor" href="#dplyr"></a> dplyr</h1>
+<p>dplyr: A Grammar of Data Manipulation<br />
+A fast, consistent tool for working with data frame like objects, both in memory and out of memory.</p>
+<h2 id="转换和添加变量"><a class="markdownIt-Anchor" href="#转换和添加变量"></a> 转换和添加变量</h2>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">函数</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">mutate(data,…)</td>
+<td>添加新变量*(base::transform)*，可以用已存在的变量，可以和聚合函数配合使用</td>
+</tr>
+<tr>
+<td style="text-align:left">mutate_all(.tbl, .funs, …)</td>
+<td><code>.funs</code>: List of function calls generated by funs(), or a character vector of function names, or simply a function</td>
+</tr>
+<tr>
+<td style="text-align:left">mutate_if(.tbl, .predicate, .funs, …)</td>
+<td><code>.predicate</code>: A predicate function to be applied to the columns or a logical vector</td>
+</tr>
+<tr>
+<td style="text-align:left">mutate_at(.tbl, .vars, .funs, …)</td>
+<td><code>.vars</code>: A list of columns generated by vars(), a character vector of column names, a numeric vector of column positions</td>
+</tr>
+<tr>
+<td style="text-align:left">transmute(data,…)</td>
+<td>添加新变量，去除已有的变量</td>
+</tr>
+<tr>
+<td style="text-align:left">case_when(…)</td>
+<td>if…else if…else变体,条件按顺序判定依次执行</td>
+</tr>
+</tbody>
+</table>
+<p><em><strong>for example</strong></em></p>
+<figure class="highlight r"><table><tr><td class="code"><pre><span class="line">mtcars&lt;-mutate(mtcars,x=ifelse(x&gt;<span class="number">100</span>,<span class="literal">NA</span>,x)) <span class="comment">#处理异常值</span></span><br><span class="line">mtcars&lt;-mutate(mtcars,x=<span class="literal">NULL</span>) <span class="comment">#赋值NULL表示删除变量</span></span><br><span class="line">mtcars%&gt;%group_by(cyl)%&gt;%mutate(m=mean(mpg)) <span class="comment"># 添加组内平均值</span></span><br><span class="line">iris %&gt;% mutate_at(vars(matches(<span class="string">&quot;Sepal&quot;</span>)), <span class="built_in">log</span>)</span><br><span class="line">iris %&gt;% as_tibble() %&gt;% mutate_if(is.factor, <span class="built_in">as.character</span>)</span><br><span class="line">iris %&gt;% group_by(Species) %&gt;% mutate_all(funs(inches = . / <span class="number">2.54</span>))</span><br><span class="line"></span><br><span class="line">data %&gt;%mutate(</span><br><span class="line">    newvar = case_when(</span><br><span class="line">            cond1 ~ value1,</span><br><span class="line">            cond2 ~ value2,</span><br><span class="line">            <span class="literal">TRUE</span> ~ other_value )<span class="comment">#相当于else语句</span></span><br><span class="line">  )</span><br></pre></td></tr></table></figure>
+<h2 id="筛选"><a class="markdownIt-Anchor" href="#筛选"></a> 筛选</h2>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">函数</th>
+<th style="text-align:left">说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">filter(data,…)</td>
+<td style="text-align:left">筛选*(base::subset(x, subset, select))*</td>
+</tr>
+<tr>
+<td style="text-align:left">filter_all(.tbl, .vars_predicate)</td>
+<td style="text-align:left"><code>.vars_predicate</code>: A quoted predicate expression as returned by all_vars() or any_vars()</td>
+</tr>
+<tr>
+<td style="text-align:left">filter_if(.tbl, .predicate, .vars_predicate)</td>
+<td style="text-align:left"></td>
+</tr>
+<tr>
+<td style="text-align:left">filter_at(.tbl, .vars, .vars_predicate)</td>
+<td style="text-align:left"><code>.vars</code>: A list of columns generated by vars(), a character vector of column names, a numeric vector of column positions<br><code>popular_dests &lt;- flights %&gt;% group_by(dest) %&gt;% filter(n() &gt; 365)</code></td>
+</tr>
+<tr>
+<td style="text-align:left">slice(.data,…)</td>
+<td style="text-align:left">切片<br><code>slice(mtcars, n())</code><br><code>slice(mtcars, 5:n())</code></td>
+</tr>
+</tbody>
+</table>
+<h2 id="select-and-rename"><a class="markdownIt-Anchor" href="#select-and-rename"></a> select  and rename</h2>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">函数</th>
+<th style="text-align:left">说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">select()</td>
+<td style="text-align:left">用变量名选择变量<br><code>select(flights, -(year:day))</code></td>
+</tr>
+<tr>
+<td style="text-align:left">select_all(.tbl, .funs = list(), …)</td>
+<td style="text-align:left"></td>
+</tr>
+<tr>
+<td style="text-align:left">select_if(.tbl, .predicate, .funs = list(), …)</td>
+<td style="text-align:left"></td>
+</tr>
+<tr>
+<td style="text-align:left">select_at(.tbl, .vars, .funs = list(), …)</td>
+<td style="text-align:left"></td>
+</tr>
+<tr>
+<td style="text-align:left">rename()</td>
+<td style="text-align:left">keeps all variables<br><code>rename(iris, oldname = newname,...)</code></td>
+</tr>
+<tr>
+<td style="text-align:left">rename_all(.tbl, .funs = list(), …)</td>
+<td style="text-align:left"></td>
+</tr>
+<tr>
+<td style="text-align:left">rename_if(.tbl, .predicate, .funs = list(), …)</td>
+<td style="text-align:left"></td>
+</tr>
+<tr>
+<td style="text-align:left">rename_at(.tbl, .vars, .funs = list(), …)</td>
+<td style="text-align:left"></td>
+</tr>
+</tbody>
+</table>
+<p><strong>参数<code>.vars</code></strong>：</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">赋值</th>
+<th style="text-align:left">说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">ends_with()</td>
+<td style="text-align:left">ends with aprefix<br><code>select(iris, starts_with(&quot;Petal&quot;))</code></td>
+</tr>
+<tr>
+<td style="text-align:left">contains()</td>
+<td style="text-align:left">containsaliteralstring</td>
+</tr>
+<tr>
+<td style="text-align:left">matches()</td>
+<td style="text-align:left">匹配正则表达式(regularexpression)</td>
+</tr>
+<tr>
+<td style="text-align:left">num_range()</td>
+<td style="text-align:left">类数字区域likex01,x02,x03.</td>
+</tr>
+<tr>
+<td style="text-align:left">one_of()</td>
+<td style="text-align:left">variables in character vector.</td>
+</tr>
+<tr>
+<td style="text-align:left">everything()</td>
+<td style="text-align:left">换位置输出<br><code>select(flights, time_hour, air_time, everything())</code></td>
+</tr>
+</tbody>
+</table>
+<h2 id="分组"><a class="markdownIt-Anchor" href="#分组"></a> 分组</h2>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">函数</th>
+<th style="text-align:left">说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">group_by(.data, …, add = FALSE)/</td>
+<td style="text-align:left">分组，大多数函数可用已分的组</td>
+</tr>
+<tr>
+<td style="text-align:left">group_by_all(.tbl, .funs = list(), …)</td>
+<td style="text-align:left"></td>
+</tr>
+<tr>
+<td style="text-align:left">group_by_at(.tbl, .vars, .funs = list(), …,)</td>
+<td style="text-align:left"></td>
+</tr>
+<tr>
+<td style="text-align:left">group_by_if(.tbl, .predicate, .funs = list(), …,)</td>
+<td style="text-align:left"></td>
+</tr>
+<tr>
+<td style="text-align:left">ungroup()</td>
+<td style="text-align:left">解除分组</td>
+</tr>
+<tr>
+<td style="text-align:left">base::by(data, INDICES, FUN)</td>
+<td style="text-align:left"><code>indices</code>:要分组的factor or factor list</td>
+</tr>
+</tbody>
+</table>
+<h2 id="聚合"><a class="markdownIt-Anchor" href="#聚合"></a> 聚合</h2>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">函数</th>
+<th style="text-align:left">说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">summarise()</td>
+<td style="text-align:left">reduces multiple values down to a single summary.</td>
+</tr>
+<tr>
+<td style="text-align:left">summarise_all(.tbl, .funs, …)</td>
+<td style="text-align:left"><code>.funs</code>: List of function calls generated by funs(), or a character vector of function names, or simply a function</td>
+</tr>
+<tr>
+<td style="text-align:left">summarise_if(.tbl, .predicate, .funs, …)</td>
+<td style="text-align:left"><code>.predicate</code>: A predicate function to be applied to the columns or a logical vector</td>
+</tr>
+<tr>
+<td style="text-align:left">summarise_at(.tbl, .vars, .funs, …)</td>
+<td style="text-align:left"><code>.vars</code>: A list of columns generated by vars(), a character vector of column names, a numeric vector of column positions</td>
+</tr>
+<tr>
+<td style="text-align:left">do(data,…)</td>
+<td style="text-align:left">补充函数，可以聚合任何函数*(plyr::dlply)*<br><code>a&lt;-iris%&gt;%group_by(Species)%&gt;%do(s=summary(.))</code></td>
+</tr>
+</tbody>
+</table>
+<p><em><strong>for example</strong></em></p>
+<figure class="highlight r"><table><tr><td class="code"><pre><span class="line">mtcars %&gt;% group_by(cyl) %&gt;% summarise(a = n(), b = a + <span class="number">1</span>)</span><br><span class="line">iris %&gt;% group_by(Species) %&gt;% summarise_all(mean)</span><br><span class="line">iris %&gt;% group_by(Species)%&gt;% summarise_all(funs(<span class="built_in">min</span>, <span class="built_in">max</span>))</span><br><span class="line">iris %&gt;% group_by(Species)%&gt;% summarise_all(<span class="built_in">c</span>(<span class="string">&quot;min&quot;</span>, <span class="string">&quot;max&quot;</span>))</span><br><span class="line">iris %&gt;% group_by(Species)%&gt;% summarise_all(funs(Q3 = quantile), probs = <span class="number">0.75</span>)</span><br><span class="line">starwars %&gt;% summarise_at(<span class="built_in">c</span>(<span class="string">&quot;height&quot;</span>, <span class="string">&quot;mass&quot;</span>), mean, na.rm = <span class="literal">TRUE</span>)</span><br><span class="line">starwars %&gt;% summarise_at(vars(height:mass), mean, na.rm = <span class="literal">TRUE</span>)</span><br><span class="line">starwars %&gt;% summarise_if(<span class="built_in">is.numeric</span>, mean, na.rm = <span class="literal">TRUE</span>)</span><br></pre></td></tr></table></figure>
+<h2 id="排序和排名"><a class="markdownIt-Anchor" href="#排序和排名"></a> 排序和排名</h2>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">排序</th>
+<th style="text-align:left">说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left"><code>arrange(data,…, .by_group = FALSE)</code></td>
+<td style="text-align:left"></td>
+</tr>
+<tr>
+<td style="text-align:left"><code>arrange_all, arrange_at, arrange_if</code></td>
+<td style="text-align:left"></td>
+</tr>
+<tr>
+<td style="text-align:left"><code>desc(x)</code></td>
+<td style="text-align:left">降序</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>排名</strong></td>
+<td style="text-align:left"><em>(base::rank)</em></td>
+</tr>
+<tr>
+<td style="text-align:left">row_number(x)</td>
+<td style="text-align:left">先出现先排名</td>
+</tr>
+<tr>
+<td style="text-align:left">min_rank(x)</td>
+<td style="text-align:left">以最小的排名计</td>
+</tr>
+<tr>
+<td style="text-align:left">dense_rank(x)</td>
+<td style="text-align:left">like min_rank(), but with no gaps between ranks</td>
+</tr>
+<tr>
+<td style="text-align:left">percent_rank(x)</td>
+<td style="text-align:left">百分比排名</td>
+</tr>
+<tr>
+<td style="text-align:left">cume_dist(x)</td>
+<td style="text-align:left">累积百分比排名(&lt;=当前排名的比例)</td>
+</tr>
+<tr>
+<td style="text-align:left">ntile(x,n)</td>
+<td style="text-align:left">分成n级的粗略排名</td>
+</tr>
+</tbody>
+</table>
+<p><em><strong>for example</strong></em><br />
+<code>arrange(mtcars, cyl,desc(disp))</code></p>
+<h2 id="表连接"><a class="markdownIt-Anchor" href="#表连接"></a> 表连接</h2>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">函数</th>
+<th style="text-align:left">说明*(base::merge)*</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">inner_join(x, y, by = NULL);<br>left_join; right_join; full_join;</td>
+<td style="text-align:left">1.连接键名相同时，by=c(‘id1’, ‘id2’)<br>2. 连接键名不相同时,by = c(“a” = “b”)</td>
+</tr>
+<tr>
+<td style="text-align:left">semi_join</td>
+<td style="text-align:left">返回y中匹配到的x(x only)</td>
+</tr>
+<tr>
+<td style="text-align:left">anti_join</td>
+<td style="text-align:left">返回y中没有匹配到的x(x only)</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>行/列合并：</strong></td>
+<td style="text-align:left"></td>
+</tr>
+<tr>
+<td style="text-align:left">bind_rows(…, .id = NULL)</td>
+<td style="text-align:left"><em>base::rbinds</em></td>
+</tr>
+<tr>
+<td style="text-align:left">bind_cols(…)</td>
+<td style="text-align:left"><em>base::colbinds</em></td>
+</tr>
+</tbody>
+</table>
+<h2 id="集合运算"><a class="markdownIt-Anchor" href="#集合运算"></a> 集合运算</h2>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">函数</th>
+<th style="text-align:left">说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">intersect(x, y)</td>
+<td style="text-align:left">返回x和y交集。</td>
+</tr>
+<tr>
+<td style="text-align:left">union(x, y)</td>
+<td style="text-align:left">返回x和y并集。</td>
+</tr>
+<tr>
+<td style="text-align:left">setdiff(x, y)</td>
+<td style="text-align:left">返回在x，但不在y数据（差集）</td>
+</tr>
+<tr>
+<td style="text-align:left">setequle(x,y)</td>
+<td style="text-align:left">逻辑，x和y是否相等</td>
+</tr>
+</tbody>
+</table>
+<h2 id="计数"><a class="markdownIt-Anchor" href="#计数"></a> 计数</h2>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">函数</th>
+<th style="text-align:left">说明*(base::nrow)*</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">n()</td>
+<td style="text-align:left">记录数，<code>summarise(), mutate() and filter()</code> 配合函数</td>
+</tr>
+<tr>
+<td style="text-align:left">n_distinct(…, na.rm = FALSE)</td>
+<td style="text-align:left">唯一值计数</td>
+</tr>
+<tr>
+<td style="text-align:left">tally(x, wt, sort = FALSE)</td>
+<td style="text-align:left">计数  <code>mtcars %&gt;% tally()</code></td>
+</tr>
+<tr>
+<td style="text-align:left">count(x, …, wt = NULL, sort = FALSE)</td>
+<td style="text-align:left">组内计数  group_by() + tally() <br> <code>mtcars %&gt;% count(cyl) # cyl分组计数</code></td>
+</tr>
+<tr>
+<td style="text-align:left">add_tally(x, wt, sort = FALSE)</td>
+<td style="text-align:left">添加计数变量  mutate()+tally() <br><code>mtcars %&gt;% add_tally()</code></td>
+</tr>
+<tr>
+<td style="text-align:left">add_count(x, …, wt = NULL, sort = FALSE)</td>
+<td style="text-align:left">添加组内计数变量  group_by() + add_tally() <br><code>mtcars %&gt;% add_count(cyl)</code></td>
+</tr>
+</tbody>
+</table>
+<h2 id="去重"><a class="markdownIt-Anchor" href="#去重"></a> 去重</h2>
+<p><code>distinct(.data, ..., .keep_all = FALSE)</code><br />
+<em>(base::duplicated, base::unique)</em></p>
+<blockquote>
+<ul>
+<li>分组后组内去重</li>
+<li>…  : 指定要去重的列</li>
+<li>.keep_all  是否保留全部列</li>
+</ul>
+</blockquote>
+<p><code>df%&gt;%group_by(col1)%&gt;%distinct(col2,.keep_all=TRUE)</code></p>
+<h2 id="抽样dataframe"><a class="markdownIt-Anchor" href="#抽样dataframe"></a> 抽样(data.frame)</h2>
+<p><strong>for data.frame:</strong><br />
+<code>sample_n(tbl, size, replace = FALSE)</code><br />
+<code>sample_frac(tbl, size, replace = FALSE)</code></p>
+<blockquote>
+<p><strong>for vector:</strong><br />
+base::sample(x,size,replace=FALSE,prob=NULL)</p>
+</blockquote>
+<h2 id="其他函数"><a class="markdownIt-Anchor" href="#其他函数"></a> 其他函数</h2>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">函数</th>
+<th style="text-align:left">说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">nth(x,n,order_by = NULL)<br>first();last()<br>top_n(x, n, wt)</td>
+<td style="text-align:left">提取 first, last or nth value from a vector<br>参数wt排序变量</td>
+</tr>
+<tr>
+<td style="text-align:left">lead(x,n)</td>
+<td style="text-align:left">偏移量</td>
+</tr>
+<tr>
+<td style="text-align:left">lag(x,n)</td>
+<td style="text-align:left">超前或滞后值</td>
+</tr>
+<tr>
+<td style="text-align:left">between(x, left, right)</td>
+<td style="text-align:left"></td>
+</tr>
+<tr>
+<td style="text-align:left">if_else(condition, true, false, missing = NULL)</td>
+<td style="text-align:left"></td>
+</tr>
+<tr>
+<td style="text-align:left">near(x, y)</td>
+<td style="text-align:left">判断浮点数相等</td>
+</tr>
+<tr>
+<td style="text-align:left">all_vars(expr),any_vars(expr)</td>
+<td style="text-align:left">Apply predicate to all variables</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong><code>vars()</code></strong></td>
+<td style="text-align:left">Select variables</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong><code>funs()</code></strong></td>
+<td style="text-align:left">Create a list of functions calls</td>
+</tr>
+</tbody>
+</table>
+<h1 id="plyr"><a class="markdownIt-Anchor" href="#plyr"></a> plyr</h1>
+<p>plyr: Tools for Splitting, Applying and Combining Data</p>
+<p><strong>函数统一格式：</strong></p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">* * ply</span><br><span class="line">|  ---&gt;data structure be processed</span><br><span class="line">----&gt; data structure be returned</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>a: array<br />
+l: list<br />
+d: data.frame<br />
+m: multiple inputs<br />
+r: repeat multiple times<br />
+_: nothing</p>
+</blockquote>
+<p><em><strong>for example</strong></em></p>
+<figure class="highlight r"><table><tr><td class="code"><pre><span class="line">aaply(.data, .margins, .fun = <span class="literal">NULL</span>, ...,.progress = <span class="string">&quot;none&quot;</span>)</span><br><span class="line">ddply(.data, .variables, .fun = <span class="literal">NULL</span>, ..., .progress = <span class="string">&quot;none&quot;</span>)</span><br><span class="line">mdply(cbind(mean = <span class="number">1</span>:<span class="number">5</span>, sd = <span class="number">1</span>:<span class="number">5</span>), rnorm, n = <span class="number">5</span>)</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p><code>参数.progress</code> in (“none”/”text”/”tk”/”win”)</p>
+</blockquote>
+</article><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/r/">r</a><a class="post-meta__tags" href="/tags/tidyverse/">tidyverse</a><a class="post-meta__tags" href="/tags/%E6%95%B0%E6%8D%AE%E6%B8%85%E6%B4%97/">数据清洗</a></div><div class="post_share"><div class="social-share" data-image="/img/dplyr-cover.png" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/js/social-share.min.js" defer></script></div></div><div class="post-reward"><div class="reward-button"><i class="fas fa-qrcode"></i> 打赏</div><div class="reward-main"><ul class="reward-all"><li class="reward-item"><a href="/img/morty3.jpg" target="_blank"><img class="post-qr-code-img" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/img/morty3.jpg" alt="Give me money!"/></a><div class="post-qr-code-desc">Give me money!</div></li></ul></div></div><nav class="pagination-post" id="pagination"><div class="prev-post pull-left"><a href="/posts/2f57a694/" title="正则表达式"><img class="cover" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/img/regexp.jpeg" onerror="onerror=null;src='/img/404_moon.png'" alt="cover of previous post"><div class="pagination-info"><div class="label">上一篇</div><div class="prev_info">正则表达式</div></div></a></div><div class="next-post pull-right"><a href="/posts/c4e3d4d8/" title="R手册(Data Cleaning)--stringr"><img class="cover" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/img/stringr-cover.png" onerror="onerror=null;src='/img/404_moon.png'" alt="cover of next post"><div class="pagination-info"><div class="label">下一篇</div><div class="next_info">R手册(Data Cleaning)--stringr</div></div></a></div></nav><div class="relatedPosts"><div class="headline"><i class="fas fa-thumbs-up fa-fw"></i><span>相关推荐</span></div><div class="relatedPosts-list"><div><a href="/posts/4dcd6b3e/" title="R手册(Data Cleaning)--日期时间"><img class="cover" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/img/r-datetime-cover.svg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2018-05-01</div><div class="title">R手册(Data Cleaning)--日期时间</div></div></a></div><div><a href="/posts/ea1d43b4/" title="R手册(Data Cleaning)--forcats"><img class="cover" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/img/forcats-cover.png" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2018-05-28</div><div class="title">R手册(Data Cleaning)--forcats</div></div></a></div><div><a href="/posts/c4e3d4d8/" title="R手册(Data Cleaning)--stringr"><img class="cover" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/img/stringr-cover.png" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2018-05-01</div><div class="title">R手册(Data Cleaning)--stringr</div></div></a></div><div><a href="/posts/a54cead0/" title="R手册(Data Cleaning)--tidyr"><img class="cover" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/img/tidyr-cover.png" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2018-05-28</div><div class="title">R手册(Data Cleaning)--tidyr</div></div></a></div><div><a href="/posts/2b3aa78e/" title="R手册(Common)--tibble"><img class="cover" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/img/tibble-cover.png" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2018-04-30</div><div class="title">R手册(Common)--tibble</div></div></a></div><div><a href="/posts/4b49693d/" title="R手册(Common)--tidyverse"><img class="cover" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/img/tidyverse-core.png" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2018-04-30</div><div class="title">R手册(Common)--tidyverse</div></div></a></div></div></div><hr class="custom-hr"/><div id="post-comment"><div class="comment-head"><div class="comment-headline"><i class="fas fa-comments fa-fw"></i><span> 评论</span></div><div id="comment-switch"><span class="first-comment">Gitalk</span><span class="switch-btn"></span><span class="second-comment">Waline</span></div></div><div class="comment-wrap"><div><div id="gitalk-container"></div></div><div><div id="waline-wrap"></div></div></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="is-center"><div class="avatar-img"><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/img/avatar.jpg" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info__name">Tiny Lei</div><div class="author-info__description">每天进步一点点...</div></div><div class="card-info-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">131</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">103</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">44</div></a></div><div class="card-info-social-icons is-center"><a class="social-icon" href="https://gitee.com/wilenwu" rel="external nofollow noreferrer" target="_blank" title="Gitee"><i class="iconfont icon-gitee"></i></a><a class="social-icon" href="https://github.com/wilenwu" rel="external nofollow noreferrer" target="_blank" title="Github"><i class="iconfont icon-github"></i></a><a class="social-icon" href="https://blog.csdn.net/qq_41518277" rel="external nofollow noreferrer" target="_blank" title="CSDN"><i class="iconfont icon-csdn"></i></a><a class="social-icon" href="/atom.xml" target="_blank" title="RSS"><i class="iconfont icon-rss"></i></a></div></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>公告</span></div><div class="announcement_content">感谢访问本站，若喜欢请收藏^_^</div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#dplyr"><span class="toc-number">1.</span> <span class="toc-text"> dplyr</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%BD%AC%E6%8D%A2%E5%92%8C%E6%B7%BB%E5%8A%A0%E5%8F%98%E9%87%8F"><span class="toc-number">1.1.</span> <span class="toc-text"> 转换和添加变量</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%AD%9B%E9%80%89"><span class="toc-number">1.2.</span> <span class="toc-text"> 筛选</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#select-and-rename"><span class="toc-number">1.3.</span> <span class="toc-text"> select  and rename</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%88%86%E7%BB%84"><span class="toc-number">1.4.</span> <span class="toc-text"> 分组</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%81%9A%E5%90%88"><span class="toc-number">1.5.</span> <span class="toc-text"> 聚合</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%8E%92%E5%BA%8F%E5%92%8C%E6%8E%92%E5%90%8D"><span class="toc-number">1.6.</span> <span class="toc-text"> 排序和排名</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%A1%A8%E8%BF%9E%E6%8E%A5"><span class="toc-number">1.7.</span> <span class="toc-text"> 表连接</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%9B%86%E5%90%88%E8%BF%90%E7%AE%97"><span class="toc-number">1.8.</span> <span class="toc-text"> 集合运算</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%AE%A1%E6%95%B0"><span class="toc-number">1.9.</span> <span class="toc-text"> 计数</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%8E%BB%E9%87%8D"><span class="toc-number">1.10.</span> <span class="toc-text"> 去重</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%8A%BD%E6%A0%B7dataframe"><span class="toc-number">1.11.</span> <span class="toc-text"> 抽样(data.frame)</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%85%B6%E4%BB%96%E5%87%BD%E6%95%B0"><span class="toc-number">1.12.</span> <span class="toc-text"> 其他函数</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#plyr"><span class="toc-number">2.</span> <span class="toc-text"> plyr</span></a></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item"><a class="thumbnail" href="/posts/f67b0909/" title="大数据手册(Spark)--Pandas API on Spark"><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/img/apache-spark-pandas.png" onerror="this.onerror=null;this.src='/img/404_moon.png'" alt="大数据手册(Spark)--Pandas API on Spark"/></a><div class="content"><a class="title" href="/posts/f67b0909/" title="大数据手册(Spark)--Pandas API on Spark">大数据手册(Spark)--Pandas API on Spark</a><time datetime="2023-06-07T15:09:56.599Z" title="发表于 2023-06-07 23:09:56">2023-06-07</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/posts/43ce4abf/" title="机器学习(V)--无监督学习"><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/img/ML-unsupervised-learning.png" onerror="this.onerror=null;this.src='/img/404_moon.png'" alt="机器学习(V)--无监督学习"/></a><div class="content"><a class="title" href="/posts/43ce4abf/" title="机器学习(V)--无监督学习">机器学习(V)--无监督学习</a><time datetime="2023-06-07T14:20:00.000Z" title="发表于 2023-06-07 22:20:00">2023-06-07</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/posts/5faa8f40/" title="机器学习(II)--数据预处理"><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/img/ML-data-preprocessing.png" onerror="this.onerror=null;this.src='/img/404_moon.png'" alt="机器学习(II)--数据预处理"/></a><div class="content"><a class="title" href="/posts/5faa8f40/" title="机器学习(II)--数据预处理">机器学习(II)--数据预处理</a><time datetime="2023-05-03T06:36:00.000Z" title="发表于 2023-05-03 14:36:00">2023-05-03</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/posts/8638abf9/" title="机器学习(I)--基础知识"><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/img/ML-overview.png" onerror="this.onerror=null;this.src='/img/404_moon.png'" alt="机器学习(I)--基础知识"/></a><div class="content"><a class="title" href="/posts/8638abf9/" title="机器学习(I)--基础知识">机器学习(I)--基础知识</a><time datetime="2023-05-02T06:36:00.000Z" title="发表于 2023-05-02 14:36:00">2023-05-02</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/posts/12a72af8/" title="看不懂的数字"><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/img/numerals_cover.png" onerror="this.onerror=null;this.src='/img/404_moon.png'" alt="看不懂的数字"/></a><div class="content"><a class="title" href="/posts/12a72af8/" title="看不懂的数字">看不懂的数字</a><time datetime="2023-04-22T03:17:17.000Z" title="发表于 2023-04-22 11:17:17">2023-04-22</time></div></div></div></div></div></div></main><footer id="footer"><div id="footer-wrap"><div class="copyright">&copy;2019 - 2023 By Tiny Lei</div><div class="framework-info"><span>框架 </span><a target="_blank" rel="noopener external nofollow noreferrer" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener external nofollow noreferrer" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside_config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><a id="to_comment" href="#post-comment" title="直达评论"><i class="fas fa-comments"></i></a><button id="go-up" type="button" title="回到顶部"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox/fancybox.umd.min.js"></script><script src="https://cdn.jsdelivr.net/npm/vanilla-lazyload/dist/lazyload.iife.min.js"></script><script>function panguFn () {
+  if (typeof pangu === 'object') pangu.autoSpacingPage()
+  else {
+    getScript('https://cdn.jsdelivr.net/npm/pangu/dist/browser/pangu.min.js')
+      .then(() => {
+        pangu.autoSpacingPage()
+      })
+  }
+}
+
+function panguInit () {
+  if (false){
+    GLOBAL_CONFIG_SITE.isPost && panguFn()
+  } else {
+    panguFn()
+  }
+}
+
+document.addEventListener('DOMContentLoaded', panguInit)</script><div class="js-pjax"><script>(() => {
+  const $mermaid = document.querySelectorAll('#article-container .mermaid-wrap')
+  if ($mermaid.length === 0) return
+  const runMermaid = () => {
+    window.loadMermaid = true
+    const theme = document.documentElement.getAttribute('data-theme') === 'dark' ? 'dark' : 'forest'
+
+    Array.from($mermaid).forEach((item, index) => {
+      const mermaidSrc = item.firstElementChild
+      const mermaidThemeConfig = '%%{init:{ \'theme\':\'' + theme + '\'}}%%\n'
+      const mermaidID = 'mermaid-' + index
+      const mermaidDefinition = mermaidThemeConfig + mermaidSrc.textContent
+
+      const renderFn = mermaid.render(mermaidID, mermaidDefinition)
+
+      const renderV10 = () => {
+        renderFn.then(({svg}) => {
+          mermaidSrc.insertAdjacentHTML('afterend', svg)
+        })
+      }
+
+      const renderV9 = svg => {
+        mermaidSrc.insertAdjacentHTML('afterend', svg)
+      }
+
+      typeof renderFn === 'string' ? renderV9(renderFn) : renderV10()
+    })
+  }
+
+  const loadMermaid = () => {
+    window.loadMermaid ? runMermaid() : getScript('https://cdn.jsdelivr.net/npm/mermaid/dist/mermaid.min.js').then(runMermaid)
+  }
+
+  btf.addModeChange('mermaid', runMermaid)
+
+  window.pjax ? loadMermaid() : document.addEventListener('DOMContentLoaded', loadMermaid)
+})()</script><script>function loadGitalk () {
+  function initGitalk () {
+    var gitalk = new Gitalk(Object.assign({
+      clientID: '7c65134b48b13f306114',
+      clientSecret: 'f049f68368a11925fdb69e57c64839eac94e13c1'',
+      repo: 'gitalk-comments',
+      owner: 'WilenWu',
+      admin: ['WilenWu'],
+      id: '3ccf33c7fe029562ae63f105a1b6dfe8',
+      updateCountCallback: commentCount
+    },null))
+
+    gitalk.render('gitalk-container')
+  }
+
+  if (typeof Gitalk === 'function') initGitalk()
+  else {
+    getCSS('https://cdn.jsdelivr.net/npm/gitalk/dist/gitalk.min.css')
+    getScript('https://cdn.jsdelivr.net/npm/gitalk/dist/gitalk.min.js').then(initGitalk)
+  }
+}
+
+function commentCount(n){
+  let isCommentCount = document.querySelector('#post-meta .gitalk-comment-count')
+  if (isCommentCount) {
+    isCommentCount.textContent= n
+  }
+}
+
+if ('Gitalk' === 'Gitalk' || !true) {
+  if (true) btf.loadComment(document.getElementById('gitalk-container'), loadGitalk)
+  else loadGitalk()
+} else {
+  function loadOtherComment () {
+    loadGitalk()
+  }
+}</script><script>function loadWaline () {
+  function initWaline () {
+    const waline = Waline.init(Object.assign({
+      el: '#waline-wrap',
+      serverURL: 'https://waline-comments-9etq63pcv-wilenwu.vercel.app',
+      pageview: false,
+      dark: 'html[data-theme="dark"]',
+      path: window.location.pathname,
+      comment: false,
+    }, {"requiredMeta":["monsterid"]}))
+  }
+
+  if (typeof Waline === 'object') initWaline()
+  else {
+    getCSS('https://cdn.jsdelivr.net/npm/@waline/client/dist/waline.min.css').then(() => {
+      getScript('https://cdn.jsdelivr.net/npm/@waline/client/dist/waline.min.js').then(initWaline)
+    })
+  }
+}
+
+if ('Gitalk' === 'Waline' || !true) {
+  if (true) btf.loadComment(document.getElementById('waline-wrap'),loadWaline)
+  else setTimeout(loadWaline, 0)
+} else {
+  function loadOtherComment () {
+    loadWaline()
+  }
+}</script></div><script src="/js/custom.js"></script><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script><div id="local-search"><div class="search-dialog"><nav class="search-nav"><span class="search-dialog-title">搜索</span><span id="loading-status"></span><button class="search-close-button"><i class="fas fa-times"></i></button></nav><div class="is-center" id="loading-database"><i class="fas fa-spinner fa-pulse"></i><span>  数据库加载中</span></div><div class="search-wrap"><div id="local-search-input"><div class="local-search-box"><input class="local-search-box--input" placeholder="搜索文章" type="text"/></div></div><hr/><div class="no-result" id="local-search-results"></div><div id="local-search-stats-wrap"></div></div></div><div id="search-mask"></div><script src="/js/search/local-search.js"></script></div></div><!-- hexo injector body_end start --><script async src="//at.alicdn.com/t/font_2032782_8d5kxvn09md.js"></script><!-- hexo injector body_end end --></body></html>

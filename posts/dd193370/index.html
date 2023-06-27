@@ -1,0 +1,424 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0,viewport-fit=cover"><title>大数据手册(Hive)--HiveQL(DDL) | 雷小小</title><meta name="author" content="Tiny Lei"><meta name="copyright" content="Tiny Lei"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="数据定义语言(Data Definition Language, DDL)：其语句包括动词CREATE、ALTER和DROP。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="大数据手册(Hive)--HiveQL(DDL)">
+<meta property="og:url" content="https://www.tinylei.tech/posts/dd193370/index.html">
+<meta property="og:site_name" content="雷小小">
+<meta property="og:description" content="数据定义语言(Data Definition Language, DDL)：其语句包括动词CREATE、ALTER和DROP。">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://www.tinylei.tech/img/apache-hive-ddl.png">
+<meta property="article:published_time" content="2018-07-03T09:57:36.000Z">
+<meta property="article:modified_time" content="2023-03-20T15:16:43.701Z">
+<meta property="article:author" content="Tiny Lei">
+<meta property="article:tag" content="大数据">
+<meta property="article:tag" content="hive">
+<meta property="article:tag" content="sql">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://www.tinylei.tech/img/apache-hive-ddl.png"><link rel="shortcut icon" href="/img/favicon.png"><link rel="canonical" href="https://www.tinylei.tech/posts/dd193370/index.html"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//hm.baidu.com"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><meta name="baidu-site-verification" content="code-7rymn5Bitx"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox/fancybox.min.css" media="print" onload="this.media='all'"><script>var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "https://hm.baidu.com/hm.js?654e7415ab55bed7c9c2bc6d665f03c5";
+  var s = document.getElementsByTagName("script")[0]; 
+  s.parentNode.insertBefore(hm, s);
+})();
+</script><script>const GLOBAL_CONFIG = {
+  root: '/',
+  algolia: undefined,
+  localSearch: {"path":"/search.xml","preload":false,"top_n_per_article":1,"unescape":false,"languages":{"hits_empty":"找不到您查询的内容：${query}","hits_stats":"共找到 ${hits} 篇文章"}},
+  translate: undefined,
+  noticeOutdate: undefined,
+  highlight: {"plugin":"highlighjs","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '天',
+  dateSuffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'fancybox',
+  Snackbar: undefined,
+  source: {
+    justifiedGallery: {
+      js: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery/dist/fjGallery.min.js',
+      css: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery/dist/fjGallery.min.css'
+    }
+  },
+  isPhotoFigcaption: true,
+  islazyload: true,
+  isAnchor: false,
+  percent: {
+    toc: true,
+    rightside: false,
+  },
+  autoDarkmode: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: '大数据手册(Hive)--HiveQL(DDL)',
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: true,
+  postUpdate: '2023-03-20 23:16:43'
+}</script><noscript><style type="text/css">
+  #nav {
+    opacity: 1
+  }
+  .justified-gallery img {
+    opacity: 1
+  }
+
+  #recent-posts time,
+  #post-meta time {
+    display: inline !important
+  }
+</style></noscript><script>(win=>{
+    win.saveToLocal = {
+      set: function setWithExpiry(key, value, ttl) {
+        if (ttl === 0) return
+        const now = new Date()
+        const expiryDay = ttl * 86400000
+        const item = {
+          value: value,
+          expiry: now.getTime() + expiryDay,
+        }
+        localStorage.setItem(key, JSON.stringify(item))
+      },
+
+      get: function getWithExpiry(key) {
+        const itemStr = localStorage.getItem(key)
+
+        if (!itemStr) {
+          return undefined
+        }
+        const item = JSON.parse(itemStr)
+        const now = new Date()
+
+        if (now.getTime() > item.expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return item.value
+      }
+    }
+  
+    win.getScript = url => new Promise((resolve, reject) => {
+      const script = document.createElement('script')
+      script.src = url
+      script.async = true
+      script.onerror = reject
+      script.onload = script.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        script.onload = script.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(script)
+    })
+  
+    win.getCSS = (url,id = false) => new Promise((resolve, reject) => {
+      const link = document.createElement('link')
+      link.rel = 'stylesheet'
+      link.href = url
+      if (id) link.id = id
+      link.onerror = reject
+      link.onload = link.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        link.onload = link.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(link)
+    })
+  
+      win.activateDarkMode = function () {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      win.activateLightMode = function () {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+      const t = saveToLocal.get('theme')
+    
+          if (t === 'dark') activateDarkMode()
+          else if (t === 'light') activateLightMode()
+        
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    
+    const detectApple = () => {
+      if(/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+    })(window)</script><link rel="stylesheet" href="//at.alicdn.com/t/font_2849223_xh1ftc8qym.css"><link rel="stylesheet" href="/css/link-card.css"><!-- hexo injector head_end start --><link rel="stylesheet" href="https://npm.elemecdn.com/hexo-butterfly-tag-plugins-plus@latest/lib/assets/font-awesome-animation.min.css" media="defer" onload="this.media='all'"><link rel="stylesheet" href="https://npm.elemecdn.com/hexo-butterfly-tag-plugins-plus@latest/lib/tag_plugins.css" media="defer" onload="this.media='all'"><script src="https://npm.elemecdn.com/hexo-butterfly-tag-plugins-plus@latest/lib/assets/carousel-touch.js"></script><!-- hexo injector head_end end --><meta name="generator" content="Hexo 6.0.0"><link rel="alternate" href="/atom.xml" title="雷小小" type="application/atom+xml">
+</head><body><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/img/avatar.jpg" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="sidebar-site-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">131</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">103</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">44</div></a></div><hr class="custom-hr"/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/user-guide/"><i class="fa-fw fa fa-compass"></i><span> 用户指南</span></a></div><div class="menus_item"><a class="site-page group hide" href="javascript:void(0);" rel="external nofollow noreferrer"><i class="fa-fw fa fa-book"></i><span> 文档</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></li><li><a class="site-page child" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 归档</span></a></li><li><a class="site-page child" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/gallery/"><i class="fa-fw fa fa-images"></i><span> 图库</span></a></div><div class="menus_item"><a class="site-page" href="/ebook/"><i class="fa-fw fa fa-book-reader"></i><span> 电子书</span></a></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-star"></i><span> 收藏夹</span></a></div><div class="menus_item"><a class="site-page group hide" href="javascript:void(0);" rel="external nofollow noreferrer"><i class="fa-fw fa-solid fa-circle-chevron-down"></i><span> 更多</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/about/"><i class="fa-fw fa fa-user"></i><span> 关于我</span></a></li><li><a class="site-page child" href="/analytics/"><i class="fa-fw fa fa-line-chart"></i><span> 文章统计</span></a></li><li><a class="site-page child" href="/log/"><i class="fa-fw fa fa-history"></i><span> 更新日志</span></a></li></ul></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url('/img/apache-hive-bg.png')"><nav id="nav"><span id="blog-info"><a href="/" title="雷小小"><img class="site-icon" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/img/favicon.png"/><span class="site-name">雷小小</span></a></span><div id="menus"><div id="search-button"><a class="site-page social-icon search" href="javascript:void(0);" rel="external nofollow noreferrer"><i class="fas fa-search fa-fw"></i><span> 搜索</span></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/user-guide/"><i class="fa-fw fa fa-compass"></i><span> 用户指南</span></a></div><div class="menus_item"><a class="site-page group hide" href="javascript:void(0);" rel="external nofollow noreferrer"><i class="fa-fw fa fa-book"></i><span> 文档</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></li><li><a class="site-page child" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 归档</span></a></li><li><a class="site-page child" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/gallery/"><i class="fa-fw fa fa-images"></i><span> 图库</span></a></div><div class="menus_item"><a class="site-page" href="/ebook/"><i class="fa-fw fa fa-book-reader"></i><span> 电子书</span></a></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-star"></i><span> 收藏夹</span></a></div><div class="menus_item"><a class="site-page group hide" href="javascript:void(0);" rel="external nofollow noreferrer"><i class="fa-fw fa-solid fa-circle-chevron-down"></i><span> 更多</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/about/"><i class="fa-fw fa fa-user"></i><span> 关于我</span></a></li><li><a class="site-page child" href="/analytics/"><i class="fa-fw fa fa-line-chart"></i><span> 文章统计</span></a></li><li><a class="site-page child" href="/log/"><i class="fa-fw fa fa-history"></i><span> 更新日志</span></a></li></ul></div></div><div id="toggle-menu"><a class="site-page" href="javascript:void(0);" rel="external nofollow noreferrer"><i class="fas fa-bars fa-fw"></i></a></div></div></nav><div id="post-info"><h1 class="post-title">大数据手册(Hive)--HiveQL(DDL)<a class="post-edit-link" href="https://gitee.com/WilenWu/myblog/edit/master/source/_posts/bigdata/Hive-DDL.md" rel="external nofollow noreferrer" title="编辑" target="_blank"><i class="fas fa-pencil-alt"></i></a></h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2018-07-03T09:57:36.000Z" title="发表于 2018-07-03 17:57:36">2018-07-03</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2023-03-20T15:16:43.701Z" title="更新于 2023-03-20 23:16:43">2023-03-20</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/big-data/">Big Data</a><i class="fas fa-angle-right post-meta-separator"></i><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/big-data/hive/">Hive</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-wordcount"><i class="far fa-file-word fa-fw post-meta-icon"></i><span class="post-meta-label">字数总计:</span><span class="word-count">2.6k</span><span class="post-meta-separator">|</span><i class="far fa-clock fa-fw post-meta-icon"></i><span class="post-meta-label">阅读时长:</span><span>10分钟</span></span><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title="大数据手册(Hive)--HiveQL(DDL)"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">阅读量:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container"><h1 id="数据库"><a class="markdownIt-Anchor" href="#数据库"></a> 数据库</h1>
+<figure class="highlight sql"><table><tr><td class="code"><pre><span class="line">USE database_name;</span><br><span class="line">USE <span class="keyword">DEFAULT</span>;</span><br><span class="line"><span class="keyword">SELECT</span> current_database();  <span class="comment">-- 查看使用的数据库</span></span><br><span class="line"><span class="keyword">SHOW</span> (DATABASE<span class="operator">|</span>SCHEMA) [<span class="keyword">LIKE</span> &quot;pattern_with_wildcards&quot;]；  <span class="comment">-- 查看数据库</span></span><br><span class="line"><span class="keyword">DESCRIBE</span> (DATABASE<span class="operator">|</span>SCHEMA) [EXTENDED] db_name;; <span class="comment">-- 查看数据库位置等信息</span></span><br></pre></td></tr></table></figure>
+<h2 id="创建数据库"><a class="markdownIt-Anchor" href="#创建数据库"></a> 创建数据库</h2>
+<figure class="highlight sql"><table><tr><td class="code"><pre><span class="line"><span class="keyword">CREATE</span> [REMOTE] (DATABASE<span class="operator">|</span>SCHEMA) [IF <span class="keyword">NOT</span> <span class="keyword">EXISTS</span>] database_name</span><br><span class="line">  [COMMENT database_comment]</span><br><span class="line">  [LOCATION hdfs_path]</span><br><span class="line">  [MANAGEDLOCATION hdfs_path]</span><br><span class="line">  [<span class="keyword">WITH</span> DBPROPERTIES (property_name<span class="operator">=</span>property_value, ...)];</span><br></pre></td></tr></table></figure>
+<ul>
+<li>HIVE 中 SCHEMA 和 DATABASE 是等同的</li>
+<li>LOCATION 现在指的是外部表的默认目录</li>
+<li>MANAGEDLOCATION 已添加到 Hive 4.0.0 中，指的是内部表的默认目录 (metastore.warehouse.dir)。</li>
+</ul>
+<h2 id="删除数据库"><a class="markdownIt-Anchor" href="#删除数据库"></a> 删除数据库</h2>
+<figure class="highlight sql"><table><tr><td class="code"><pre><span class="line"><span class="keyword">DROP</span> (DATABASE<span class="operator">|</span>SCHEMA) [IF <span class="keyword">EXISTS</span>] database_name [RESTRICT<span class="operator">|</span>CASCADE];</span><br></pre></td></tr></table></figure>
+<ul>
+<li>默认 RESTRICT，如果数据库不为空，则删除将失败。</li>
+<li>要删除数据库时，删除库中的表则使用 CASCADE</li>
+</ul>
+<h2 id="修改数据库"><a class="markdownIt-Anchor" href="#修改数据库"></a> 修改数据库</h2>
+<figure class="highlight sql"><table><tr><td class="code"><pre><span class="line"><span class="keyword">ALTER</span> (DATABASE<span class="operator">|</span>SCHEMA) database_name <span class="keyword">SET</span> DBPROPERTIES (property_name<span class="operator">=</span>property_value, ...);</span><br><span class="line"><span class="keyword">ALTER</span> (DATABASE<span class="operator">|</span>SCHEMA) database_name <span class="keyword">SET</span> OWNER [<span class="keyword">USER</span><span class="operator">|</span>ROLE] user_or_role;</span><br><span class="line"><span class="keyword">ALTER</span> (DATABASE<span class="operator">|</span>SCHEMA) database_name <span class="keyword">SET</span> LOCATION hdfs_path; <span class="comment">-- Hive 2.2</span></span><br><span class="line"><span class="keyword">ALTER</span> (DATABASE<span class="operator">|</span>SCHEMA) database_name <span class="keyword">SET</span> MANAGEDLOCATION hdfs_path; </span><br></pre></td></tr></table></figure>
+<h1 id="连接器"><a class="markdownIt-Anchor" href="#连接器"></a> 连接器</h1>
+<p>hive 4.0.0 中添加了对数据连接器的支持。初始版本包括基于 JDBC 的数据源（如 MYSQL、POSTGRES、DERBY）的连接器实现。后续将添加其他连接器。</p>
+<figure class="highlight sql"><table><tr><td class="code"><pre><span class="line"><span class="keyword">SHOW</span> CONNECTORS;  <span class="comment">-- 列出 Metastore 中定义的所有连接器</span></span><br><span class="line"><span class="keyword">DESCRIBE</span> CONNECTOR [EXTENDED] connector_name;  <span class="comment">-- 显示连接器的名称、注释等</span></span><br></pre></td></tr></table></figure>
+<h2 id="创建连接器"><a class="markdownIt-Anchor" href="#创建连接器"></a> 创建连接器</h2>
+<figure class="highlight sql"><table><tr><td class="code"><pre><span class="line"><span class="keyword">CREATE</span> CONNECTOR [IF <span class="keyword">NOT</span> <span class="keyword">EXISTS</span>] connector_name</span><br><span class="line">   [TYPE datasource_type]</span><br><span class="line">   [URL datasource_url]</span><br><span class="line">   [COMMENT connector_comment]</span><br><span class="line">   [<span class="keyword">WITH</span> DCPROPERTIES (property_name<span class="operator">=</span>property_value, ...)];</span><br></pre></td></tr></table></figure>
+<ul>
+<li>TYPE - 此连接器连接到的远程数据源的类型。例如MYSQL。类型决定了 Driver 类和特定于此数据源的任何其他参数。</li>
+<li>URL - 远程数据源的 URL。如果是 JDBC 数据源，它将是 JDBC 连接 URL。对于 hive 类型，它将是 thrift URL。</li>
+<li>COMMENT - 此连接器的简短描述。</li>
+<li>DCPROPERTIES：连接器属性设置。</li>
+</ul>
+<h2 id="删除连接器"><a class="markdownIt-Anchor" href="#删除连接器"></a> 删除连接器</h2>
+<figure class="highlight sql"><table><tr><td class="code"><pre><span class="line"><span class="keyword">DROP</span> CONNECTOR [IF <span class="keyword">EXISTS</span>] connector_name;</span><br></pre></td></tr></table></figure>
+<h2 id="修改连接器"><a class="markdownIt-Anchor" href="#修改连接器"></a> 修改连接器</h2>
+<figure class="highlight sql"><table><tr><td class="code"><pre><span class="line"><span class="keyword">ALTER</span> CONNECTOR connector_name <span class="keyword">SET</span> DCPROPERTIES (property_name<span class="operator">=</span>property_value, ...);</span><br><span class="line"><span class="keyword">ALTER</span> CONNECTOR connector_name <span class="keyword">SET</span> URL new_url;</span><br><span class="line"><span class="keyword">ALTER</span> CONNECTOR connector_name <span class="keyword">SET</span> OWNER [<span class="keyword">USER</span><span class="operator">|</span>ROLE] user_or_role;</span><br></pre></td></tr></table></figure>
+<h1 id="数据表"><a class="markdownIt-Anchor" href="#数据表"></a> 数据表</h1>
+<figure class="highlight sql"><table><tr><td class="code"><pre><span class="line"><span class="keyword">SHOW</span> TABLES [<span class="keyword">IN</span> database_name] [<span class="keyword">LIKE</span> &quot;pattern_with_wildcards&quot;]; <span class="comment">-- 显示数据库中的表和视图</span></span><br><span class="line"><span class="keyword">SHOW</span> <span class="keyword">TABLE</span> EXTENDED [<span class="keyword">IN</span><span class="operator">|</span><span class="keyword">FROM</span> database_name] <span class="keyword">LIKE</span> <span class="string">&#x27;pattern_with_wildcards&#x27;</span> </span><br><span class="line">	[<span class="keyword">PARTITION</span>(partition_spec)];  <span class="comment">-- 列出基本表信息和文件系统信息</span></span><br><span class="line"><span class="keyword">SHOW</span> TBLPROPERTIES tblname[(property_name)];  <span class="comment">-- 列出表属性信息</span></span><br><span class="line"><span class="keyword">SHOW</span> <span class="keyword">CREATE</span> <span class="keyword">TABLE</span> [db_name.]table_name;  <span class="comment">-- 查看建表语句</span></span><br><span class="line"><span class="keyword">SHOW</span> COLUMNS (<span class="keyword">FROM</span><span class="operator">|</span><span class="keyword">IN</span>) table_name [(<span class="keyword">FROM</span><span class="operator">|</span><span class="keyword">IN</span>) db_name];  <span class="comment">-- 显示表中的所有列</span></span><br><span class="line"><span class="keyword">DESCRIBE</span> [EXTENDED<span class="operator">|</span>FORMATTED] [db_name.]table_name;  <span class="comment">-- 将以序列化形式|表格格式显示元数据</span></span><br></pre></td></tr></table></figure>
+<h2 id="数据存储"><a class="markdownIt-Anchor" href="#数据存储"></a> 数据存储</h2>
+<ul>
+<li>基于HDFS</li>
+<li>分区表：对于数据库中的超大型表，可以通过把它的数据分成若干个小表，从而简化数据库的管理活动</li>
+<li>内部表：存储在 hive.metastore.warehouse.dir 路径属性下，默认情况下类似于<code>/user/hive/warehouse/databasename.db/tablename/</code>.。默认位置可以在表创建期间被<code>location</code>属性覆盖。如果删除内部表或分区，则删除与该表或分区关联的数据和元数据。如果未指定 PURGE 选项，则数据将在定义的时间内移动到垃圾文件夹。</li>
+<li>外部表：外部表描述了外部文件的元数据。在删除这个表的时候只删除了表定义。当文件已经存在或位于远程位置时使用外部表。</li>
+<li>桶表 bucket：经过hash运算后放在不同的桶中，比非分桶表允许更有效的采样。</li>
+</ul>
+<h2 id="创建表"><a class="markdownIt-Anchor" href="#创建表"></a> 创建表</h2>
+<figure class="highlight sql"><table><tr><td class="code"><pre><span class="line"><span class="keyword">CREATE</span> [TEMPORARY] [<span class="keyword">EXTERNAL</span>] <span class="keyword">TABLE</span> [IF <span class="keyword">NOT</span> <span class="keyword">EXISTS</span>] [dbname.]table_name </span><br><span class="line">(</span><br><span class="line">    col_name data_type COMMENT col_comment, </span><br><span class="line">    ... ...</span><br><span class="line">)</span><br><span class="line">COMMENT table_comment</span><br><span class="line">PARTITIONED <span class="keyword">BY</span> (</span><br><span class="line">    col_name data_type COMMENT col_comment, </span><br><span class="line">    ... ...</span><br><span class="line">)</span><br><span class="line">[CLUSTERED <span class="keyword">BY</span> (col_name, ...) </span><br><span class="line">	[SORTED <span class="keyword">BY</span> (col_name [<span class="keyword">ASC</span><span class="operator">|</span><span class="keyword">DESC</span>], ...)] </span><br><span class="line">	<span class="keyword">INTO</span> num BUCKETS</span><br><span class="line">]</span><br><span class="line">[<span class="type">ROW</span> FORMAT DELIMITED</span><br><span class="line">	[FIELDS TERMINATED <span class="keyword">BY</span> <span class="string">&#x27;char&#x27;</span> [ESCAPED <span class="keyword">BY</span> <span class="string">&#x27;char&#x27;</span>]] </span><br><span class="line">	[COLLECTION ITEMS TERMINATED <span class="keyword">BY</span> <span class="string">&#x27;char&#x27;</span>]</span><br><span class="line">    [MAP KEYS TERMINATED <span class="keyword">BY</span> <span class="string">&#x27;char&#x27;</span>] </span><br><span class="line">	[LINES TERMINATED <span class="keyword">BY</span> <span class="string">&#x27;char&#x27;</span>]</span><br><span class="line">    [<span class="keyword">NULL</span> DEFINED <span class="keyword">AS</span> <span class="string">&#x27;char&#x27;</span>]</span><br><span class="line">]</span><br><span class="line">[STORED <span class="keyword">AS</span> file_format]</span><br><span class="line">[LOCATION hdfs_path]</span><br><span class="line">[TBLPROPERTIES (name<span class="operator">=</span><span class="keyword">value</span>, ...)]</span><br></pre></td></tr></table></figure>
+<ul>
+<li>默认创建内部表，其中文件、元数据和统计信息由内部 Hive 进程管理。EXTERNAL 关键字创建外部表，同时提供 LOCATION</li>
+<li>TEMPORARY 创建临时表，只在当前交互时使用，会话结束时被删除</li>
+<li>PARTITIONED BY 子句建立表分区</li>
+<li>TBLPROPERTIES 子句允许预定义表属性，例如
+<ul>
+<li>“comment”=“<em>table_comment</em>” ：设置表注释</li>
+<li>“EXTERNAL”=“TRUE” ：定义为外部表</li>
+<li>“skip.header.line.count”=“n”  ：忽略文件前n行</li>
+<li>“skip.footer.line.count”=“n”  ：忽略文件后n行</li>
+</ul>
+</li>
+<li>STORED AS file_format：指定文件格式，默认 TEXTFILE 纯文本格式，还支持 SEQUENCEFILE|RCFILE|ORC|PARQUET|AVRO|JSONFILE|INPUTFORMAT input_format_classname OUTPUTFORMAT output_format_classname</li>
+<li>ROW FORMAT row_format：使用 DELIMITED 子句读取分隔文件
+<ul>
+<li>FIELDS TERMINATED BY：定义块分隔符</li>
+<li>ESCAPED BY：如果要处理包含分隔符的数据，为分隔符启用转义</li>
+<li>LINES TERMINATED BY：定义行分隔符</li>
+<li>NULL DEFINED AS：自定义 NULL 格式，默认为 ‘\N’</li>
+</ul>
+</li>
+<li>CLUSTERED BY：对表或分区进行分桶，并且可以通过 SORT BY 在该桶内对数据进行排序。</li>
+</ul>
+<p><strong>示例</strong>：</p>
+<figure class="highlight sql"><table><tr><td class="code"><pre><span class="line"><span class="keyword">CREATE</span> <span class="keyword">TABLE</span> page_view(</span><br><span class="line">    viewTime <span class="type">INT</span>, </span><br><span class="line">    userid <span class="type">BIGINT</span>,</span><br><span class="line">    page_url STRING, </span><br><span class="line">    referrer_url STRING,</span><br><span class="line">    friends <span class="keyword">ARRAY</span><span class="operator">&lt;</span><span class="type">BIGINT</span><span class="operator">&gt;</span>, </span><br><span class="line">    properties MAP<span class="operator">&lt;</span>STRING, STRING<span class="operator">&gt;</span></span><br><span class="line">    ip STRING COMMENT <span class="string">&#x27;IP Address of the User&#x27;</span></span><br><span class="line">) COMMENT <span class="string">&#x27;This is the page view table&#x27;</span></span><br><span class="line">PARTITIONED <span class="keyword">BY</span>(dt STRING, country STRING)</span><br><span class="line">CLUSTERED <span class="keyword">BY</span>(userid) SORTED <span class="keyword">BY</span>(viewTime) <span class="keyword">INTO</span> <span class="number">32</span> BUCKETS</span><br><span class="line"><span class="type">ROW</span> FORMAT DELIMITED</span><br><span class="line">    FIELDS TERMINATED <span class="keyword">BY</span> <span class="string">&#x27;,&#x27;</span></span><br><span class="line">    LINES TERMINATED <span class="keyword">BY</span> <span class="string">&#x27;\n&#x27;</span></span><br><span class="line">STORED <span class="keyword">AS</span> TEXTFILE</span><br><span class="line">LOCATION <span class="string">&#x27;&lt;hdfs_location&gt;&#x27;</span>;</span><br></pre></td></tr></table></figure>
+<p>该表对 userid 进行HASH运算分到 32 个桶中。在每个存储桶中，数据按 viewTime 的递增顺序排序。该表将会以更高的效率抽样和查询。如果没有分桶，仍然可以对表进行随机抽样，但效率不高，因为查询必须扫描所有数据。</p>
+<p><strong>CTAS 语句</strong></p>
+<p>还可以通过一个 create-table-as-select (CTAS) 语句中的查询结果来创建和填充表。</p>
+<figure class="highlight sql"><table><tr><td class="code"><pre><span class="line"><span class="keyword">CREATE</span> [TEMPORARY] [<span class="keyword">EXTERNAL</span>] <span class="keyword">TABLE</span> [IF <span class="keyword">NOT</span> <span class="keyword">EXISTS</span>] table_name</span><br><span class="line">[<span class="keyword">AS</span> select_statement];  </span><br></pre></td></tr></table></figure>
+<p><strong>复制表结构</strong></p>
+<p>允许您精确复制现有表定义（不复制其数据）</p>
+<figure class="highlight sql"><table><tr><td class="code"><pre><span class="line"><span class="comment">-- 创建空表，复制已存在的表结构</span></span><br><span class="line"><span class="keyword">CREATE</span> [TEMPORARY] [<span class="keyword">EXTERNAL</span>] <span class="keyword">TABLE</span> [IF <span class="keyword">NOT</span> <span class="keyword">EXISTS</span>] table_name</span><br><span class="line"><span class="keyword">LIKE</span> existing_table_or_view_name;</span><br></pre></td></tr></table></figure>
+<h2 id="创建约束"><a class="markdownIt-Anchor" href="#创建约束"></a> 创建约束</h2>
+<figure class="highlight sql"><table><tr><td class="code"><pre><span class="line"><span class="keyword">CREATE</span> <span class="keyword">TABLE</span> table_name </span><br><span class="line">(</span><br><span class="line">    column_1 data_type [column_constraint ENABLE<span class="operator">|</span>DISABLE NOVALIDATE RELY<span class="operator">|</span>NORELY],</span><br><span class="line">    ... </span><br><span class="line">    [table_constraint]</span><br><span class="line">);</span><br></pre></td></tr></table></figure>
+<p>Hive 支持的约束类型：PRIMARY KEY|UNIQUE|NOT NULL|DEFAULT [default_value]|CHECK [check_expression]<br />
+default_value支持 LITERAL|CURRENT_USER()|CURRENT_DATE()|CURRENT_TIMESTAMP()|NULL</p>
+<figure class="highlight sql"><table><tr><td class="code"><pre><span class="line"><span class="comment">-- table_constraint:</span></span><br><span class="line">[, <span class="keyword">PRIMARY</span> KEY (col_name, ...) DISABLE NOVALIDATE RELY<span class="operator">/</span>NORELY ]</span><br><span class="line">[, <span class="keyword">PRIMARY</span> KEY (col_name, ...) DISABLE NOVALIDATE RELY<span class="operator">/</span>NORELY ]</span><br><span class="line">[, <span class="keyword">CONSTRAINT</span> constraint_name <span class="keyword">FOREIGN</span> KEY (col_name, ...) <span class="keyword">REFERENCES</span> table_name(col_name, ...) DISABLE NOVALIDATE </span><br><span class="line">[, <span class="keyword">CONSTRAINT</span> constraint_name <span class="keyword">UNIQUE</span> (col_name, ...) DISABLE NOVALIDATE RELY<span class="operator">/</span>NORELY ]</span><br><span class="line">[, <span class="keyword">CONSTRAINT</span> constraint_name <span class="keyword">CHECK</span> [check_expression] ENABLE<span class="operator">|</span>DISABLE NOVALIDATE RELY<span class="operator">/</span>NORELY ]</span><br></pre></td></tr></table></figure>
+<p><strong>示例</strong></p>
+<figure class="highlight sql"><table><tr><td class="code"><pre><span class="line"><span class="keyword">create</span> <span class="keyword">table</span> pk(</span><br><span class="line">    id1 <span class="type">integer</span>, </span><br><span class="line">    id2 <span class="type">integer</span>,</span><br><span class="line">    <span class="keyword">primary</span> key(id1, id2) disable novalidate</span><br><span class="line">);</span><br><span class="line"> </span><br><span class="line"><span class="keyword">create</span> <span class="keyword">table</span> fk(</span><br><span class="line">    id1 <span class="type">integer</span>, </span><br><span class="line">    id2 <span class="type">integer</span>,</span><br><span class="line">    <span class="keyword">constraint</span> c1 <span class="keyword">foreign</span> key(id1, id2) <span class="keyword">references</span> pk(id2, id1) disable novalidate</span><br><span class="line">);</span><br><span class="line">  </span><br><span class="line"><span class="keyword">create</span> <span class="keyword">table</span> constraints1(</span><br><span class="line">    id1 <span class="type">integer</span> <span class="keyword">UNIQUE</span> disable novalidate, </span><br><span class="line">    id2 <span class="type">integer</span> <span class="keyword">NOT</span> <span class="keyword">NULL</span>,</span><br><span class="line">    usr string <span class="keyword">DEFAULT</span> <span class="built_in">current_user</span>(), </span><br><span class="line">    price <span class="keyword">double</span> <span class="keyword">CHECK</span> (price <span class="operator">&gt;</span> <span class="number">0</span> <span class="keyword">AND</span> price <span class="operator">&lt;=</span> <span class="number">1000</span>)</span><br><span class="line">);</span><br></pre></td></tr></table></figure>
+<h2 id="删除表"><a class="markdownIt-Anchor" href="#删除表"></a> 删除表</h2>
+<figure class="highlight sql"><table><tr><td class="code"><pre><span class="line"><span class="keyword">DROP</span> <span class="keyword">TABLE</span> [IF <span class="keyword">EXISTS</span>] table_name [PURGE]; <span class="comment">-- 删除表</span></span><br><span class="line"><span class="keyword">TRUNCATE</span> <span class="keyword">TABLE</span> table_name; <span class="comment">-- 截断表</span></span><br></pre></td></tr></table></figure>
+<ul>
+<li>DROP TABLE 删除此表的元数据和数据。如果配置了 Trash（并且未指定 PURGE），则数据实际上会移动到 .Trash/Current 目录。元数据完全丢失。</li>
+<li>删除 EXTERNAL 表时，表中的数据不会从文件系统中删除。如果设置表属性 external.table.purge=true，也会删除数据。</li>
+<li>删除视图引用的表时，不会给出警告（视图失效，必须由用户删除或重新创建）。</li>
+<li>TRUNCATE 从表删除所有行。</li>
+</ul>
+<h2 id="修改表分区"><a class="markdownIt-Anchor" href="#修改表分区"></a> 修改表/分区</h2>
+<p>统一用 partition_spec 代替分区语句</p>
+<figure class="highlight sql"><table><tr><td class="code"><pre><span class="line">(partition_column <span class="operator">=</span> partition_col_value, partition_column <span class="operator">=</span> partition_col_value, ...)</span><br></pre></td></tr></table></figure>
+<p><strong>修改表</strong></p>
+<figure class="highlight sql"><table><tr><td class="code"><pre><span class="line"><span class="keyword">ALTER</span> <span class="keyword">TABLE</span> table_name RENAME <span class="keyword">TO</span> new_table_name;  <span class="comment">-- 重名名表名</span></span><br><span class="line"><span class="keyword">ALTER</span> <span class="keyword">TABLE</span> table_name <span class="keyword">SET</span> TBLPROPERTIES(  <span class="comment">-- 修改表属性</span></span><br><span class="line">    key <span class="operator">=</span> <span class="keyword">value</span>,</span><br><span class="line">    ... ...</span><br><span class="line">);</span><br><span class="line"><span class="keyword">ALTER</span> <span class="keyword">TABLE</span> table_name <span class="keyword">SET</span> TBLPROPERTIES (<span class="string">&#x27;comment&#x27;</span> <span class="operator">=</span> new_comment); <span class="comment">-- 修改表注释</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">ALTER</span> <span class="keyword">TABLE</span> table_name </span><br><span class="line">	CLUSTERED <span class="keyword">BY</span> (col_name, ...) </span><br><span class="line">	[SORTED <span class="keyword">BY</span> (col_name, ...)]</span><br><span class="line">    <span class="keyword">INTO</span> num_buckets BUCKETS;  <span class="comment">-- 更改表的物理存储属性</span></span><br></pre></td></tr></table></figure>
+<p><strong>修改表/分区</strong></p>
+<figure class="highlight sql"><table><tr><td class="code"><pre><span class="line"><span class="keyword">ALTER</span> <span class="keyword">TABLE</span> table_name [<span class="keyword">PARTITION</span> partition_spec] </span><br><span class="line">	<span class="keyword">SET</span> FILEFORMAT file_format;  <span class="comment">-- 修改表/分区文件格式</span></span><br><span class="line"><span class="keyword">ALTER</span> <span class="keyword">TABLE</span> table_name [<span class="keyword">PARTITION</span> partition_spec] </span><br><span class="line">	<span class="keyword">SET</span> LOCATION &quot;new location&quot;;  <span class="comment">-- 修改表/分区位置</span></span><br><span class="line"><span class="keyword">ALTER</span> <span class="keyword">TABLE</span> table_name TOUCH [<span class="keyword">PARTITION</span> partition_spec]; <span class="comment">-- 修改表/分区 TOUCH</span></span><br><span class="line"><span class="keyword">ALTER</span> <span class="keyword">TABLE</span> table_name [<span class="keyword">PARTITION</span> partition_spec]  </span><br><span class="line">	COMPACT <span class="string">&#x27;compaction_type&#x27;</span>[<span class="keyword">AND</span> WAIT]  <span class="comment">-- 更改表/分区压缩</span></span><br><span class="line">    [<span class="keyword">WITH</span> OVERWRITE TBLPROPERTIES (&quot;property&quot;<span class="operator">=</span>&quot;value&quot; , ...)];</span><br></pre></td></tr></table></figure>
+<figure class="highlight sql"><table><tr><td class="code"><pre><span class="line"><span class="comment">-- 更改表/分区保护</span></span><br><span class="line"><span class="keyword">ALTER</span> <span class="keyword">TABLE</span> table_name [<span class="keyword">PARTITION</span> partition_spec] ENABLE<span class="operator">|</span>DISABLE NO_DROP [CASCADE];  </span><br><span class="line"><span class="keyword">ALTER</span> <span class="keyword">TABLE</span> table_name [<span class="keyword">PARTITION</span> partition_spec] ENABLE<span class="operator">|</span>DISABLE OFFLINE;</span><br></pre></td></tr></table></figure>
+<ul>
+<li>可以在表或分区级别设置对数据的保护。启用 NO_DROP 可防止表被删除。启用OFFLINE 可以防止查询表或分区中的数据，但仍然可以访问元数据。</li>
+<li>如果表中的任何分区启用了 NO_DROP，则该表也不能被删除。相反，如果一个表启用了 NO_DROP，那么分区可能会被删除，但是启用 NO_DROP CASCADE 分区也不能被删除，除非drop partition 命令指定 IGNORE PROTECTION 。</li>
+</ul>
+<figure class="highlight sql"><table><tr><td class="code"><pre><span class="line"><span class="comment">-- 更改表/分区合并</span></span><br><span class="line"><span class="keyword">ALTER</span> <span class="keyword">TABLE</span> table_name [<span class="keyword">PARTITION</span> partition_spec] CONCATENATE;</span><br></pre></td></tr></table></figure>
+<p>如果表或分区包含很多小的 RCFiles 或 ORC 文件，那么上面的命令会将它们合并成更大的文件。在 RCFile 的情况下，合并发生在块级别，而对于 ORC 文件，合并发生在条带级别，从而避免解压缩和解码数据的开销。</p>
+<figure class="highlight sql"><table><tr><td class="code"><pre><span class="line"><span class="comment">-- 更改表/分区更新列</span></span><br><span class="line"><span class="keyword">ALTER</span> <span class="keyword">TABLE</span> table_name [<span class="keyword">PARTITION</span> partition_spec] UPDATE COLUMNS;</span><br></pre></td></tr></table></figure>
+<p>在 Hive 3.0.0版中，添加了此命令以让用户将 serde 存储的架构信息同步到 Metastore。</p>
+<p><strong>修改约束</strong></p>
+<figure class="highlight sql"><table><tr><td class="code"><pre><span class="line"><span class="keyword">ALTER</span> <span class="keyword">TABLE</span> table_name <span class="keyword">ADD</span> <span class="keyword">CONSTRAINT</span> constraint_name <span class="keyword">PRIMARY</span> KEY (<span class="keyword">column</span>, ...) DISABLE NOVALIDATE;</span><br><span class="line"><span class="keyword">ALTER</span> <span class="keyword">TABLE</span> table_name <span class="keyword">ADD</span> <span class="keyword">CONSTRAINT</span> constraint_name <span class="keyword">FOREIGN</span> KEY (<span class="keyword">column</span>, ...) <span class="keyword">REFERENCES</span> table_name(<span class="keyword">column</span>, ...) DISABLE NOVALIDATE RELY;</span><br><span class="line"><span class="keyword">ALTER</span> <span class="keyword">TABLE</span> table_name <span class="keyword">ADD</span> <span class="keyword">CONSTRAINT</span> constraint_name <span class="keyword">UNIQUE</span> (<span class="keyword">column</span>, ...) DISABLE NOVALIDATE;</span><br><span class="line"><span class="keyword">ALTER</span> <span class="keyword">TABLE</span> table_name CHANGE <span class="keyword">COLUMN</span> column_name column_name data_type <span class="keyword">CONSTRAINT</span> constraint_name <span class="keyword">NOT</span> <span class="keyword">NULL</span> ENABLE;</span><br><span class="line"><span class="keyword">ALTER</span> <span class="keyword">TABLE</span> table_name CHANGE <span class="keyword">COLUMN</span> column_name column_name data_type <span class="keyword">CONSTRAINT</span> constraint_name <span class="keyword">DEFAULT</span> default_value ENABLE;</span><br><span class="line"><span class="keyword">ALTER</span> <span class="keyword">TABLE</span> table_name CHANGE <span class="keyword">COLUMN</span> column_name column_name data_type <span class="keyword">CONSTRAINT</span> constraint_name <span class="keyword">CHECK</span> check_expression ENABLE;</span><br><span class="line"><span class="comment">-- 删除约束</span></span><br><span class="line"><span class="keyword">ALTER</span> <span class="keyword">TABLE</span> table_name <span class="keyword">DROP</span> <span class="keyword">CONSTRAINT</span> constraint_name;</span><br></pre></td></tr></table></figure>
+<h2 id="修改列"><a class="markdownIt-Anchor" href="#修改列"></a> 修改列</h2>
+<figure class="highlight sql"><table><tr><td class="code"><pre><span class="line"><span class="keyword">ALTER</span> <span class="keyword">TABLE</span> table_name [<span class="keyword">PARTITION</span> partition_spec] </span><br><span class="line">CHANGE [<span class="keyword">COLUMN</span>] col_old_name col_new_name column_type </span><br><span class="line">	[COMMENT col_comment] </span><br><span class="line">    [<span class="keyword">FIRST</span><span class="operator">|</span>AFTER column_name] </span><br><span class="line">    [CASCADE<span class="operator">|</span>RESTRICT];</span><br></pre></td></tr></table></figure>
+<ul>
+<li>此命令将允许用户更改列的名称、数据类型、注释或位置，或它们的任意组合</li>
+<li>CASCADE 命令更改表元数据的列，并将相同的更改级联到所有分区元数据。RESTRICT 是默认设置，将列更改限制为仅对表元数据进行更改</li>
+<li>无论表或分区的保护模式如何，启用CASCADE 都将覆盖表分区的列元数据。谨慎使用。</li>
+<li>FIRST|AFTER column_name 子句更改列位置</li>
+</ul>
+<figure class="highlight sql"><table><tr><td class="code"><pre><span class="line"><span class="keyword">ALTER</span> <span class="keyword">TABLE</span> table_name [<span class="keyword">PARTITION</span> partition_spec]</span><br><span class="line">	<span class="keyword">ADD</span><span class="operator">|</span>REPLACE COLUMNS (col_name data_type [COMMENT col_comment], ...)</span><br><span class="line">    [CASCADE<span class="operator">|</span>RESTRICT];</span><br></pre></td></tr></table></figure>
+<ul>
+<li>ADD COLUMNS 允许您将新列添加到现有列的末尾但在分区列之前</li>
+<li>REPLACE COLUMNS 删除所有现有列并添加新的列集</li>
+<li>REPLACE COLUMNS 也可用于删除列，添加新的列集时去掉需要删除的列即可</li>
+</ul>
+<h2 id="统计信息"><a class="markdownIt-Anchor" href="#统计信息"></a> 统计信息</h2>
+<p>用户可以通过仅查询存储的统计信息而不是触发长时间运行的执行计划来获得。统计信息现在存储在 Hive Metastore 中，用于新创建的或现有的表。当前支持以下统计信息：行数、文件数、存储大小、列分析等</p>
+<p>对于新创建的表或分区，默认情况下会自动计算统计信息。参数如下</p>
+<figure class="highlight sql"><table><tr><td class="code"><pre><span class="line"><span class="keyword">set</span> hive.stats.autogather<span class="operator">=</span><span class="literal">true</span>;</span><br></pre></td></tr></table></figure>
+<p>对于现有的表或分区，用户可以发出 ANALYZE 命令来收集统计信息并将它们写入 Hive MetaStore。该命令的语法如下</p>
+<figure class="highlight sql"><table><tr><td class="code"><pre><span class="line">ANALYZE <span class="keyword">TABLE</span> [db_name.]tablename [<span class="keyword">PARTITION</span>(partition_spec)]</span><br><span class="line">  COMPUTE STATISTICS </span><br><span class="line">  [<span class="keyword">FOR</span> COLUMNS]      </span><br><span class="line">  [CACHE METADATA]       <span class="comment">-- (<span class="doctag">Note:</span> Hive 2.1.0 and later.)</span></span><br><span class="line">  [NOSCAN];</span><br></pre></td></tr></table></figure>
+<p>当指定可选参数 NOSCAN 时，该命令不会扫描文件，只收集文件数和物理大小，而不是所有统计信息。</p>
+<p>显示这些统计信息的语法如下</p>
+<figure class="highlight sql"><table><tr><td class="code"><pre><span class="line"><span class="keyword">DESCRIBE</span> FORMATTED [db_name.]table_name column_name [<span class="keyword">PARTITION</span> (partition_spec)];  <span class="comment">-- 查看收集的列统计信息</span></span><br></pre></td></tr></table></figure>
+</article><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/%E5%A4%A7%E6%95%B0%E6%8D%AE/">大数据</a><a class="post-meta__tags" href="/tags/hive/">hive</a><a class="post-meta__tags" href="/tags/sql/">sql</a></div><div class="post_share"><div class="social-share" data-image="/img/apache-hive-ddl.png" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/js/social-share.min.js" defer></script></div></div><div class="post-reward"><div class="reward-button"><i class="fas fa-qrcode"></i> 打赏</div><div class="reward-main"><ul class="reward-all"><li class="reward-item"><a href="/img/morty3.jpg" target="_blank"><img class="post-qr-code-img" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/img/morty3.jpg" alt="Give me money!"/></a><div class="post-qr-code-desc">Give me money!</div></li></ul></div></div><nav class="pagination-post" id="pagination"><div class="prev-post pull-left"><a href="/posts/e6bd78c5/" title="大数据手册(Hive)--HiveQL(Introduction)"><img class="cover" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/img/hive-cover.jpg" onerror="onerror=null;src='/img/404_moon.png'" alt="cover of previous post"><div class="pagination-info"><div class="label">上一篇</div><div class="prev_info">大数据手册(Hive)--HiveQL(Introduction)</div></div></a></div><div class="next-post pull-right"><a href="/posts/f18b723f/" title="大数据手册(Hive)--HiveQL(Functions)"><img class="cover" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/img/apache-hive-functions.png" onerror="onerror=null;src='/img/404_moon.png'" alt="cover of next post"><div class="pagination-info"><div class="label">下一篇</div><div class="next_info">大数据手册(Hive)--HiveQL(Functions)</div></div></a></div></nav><div class="relatedPosts"><div class="headline"><i class="fas fa-thumbs-up fa-fw"></i><span>相关推荐</span></div><div class="relatedPosts-list"><div><a href="/posts/d2c808ff/" title="大数据手册(Hive)--HiveQL(DML)"><img class="cover" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/img/apache-hive-dml.png" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2018-07-03</div><div class="title">大数据手册(Hive)--HiveQL(DML)</div></div></a></div><div><a href="/posts/297bd708/" title="大数据手册(Hive)--HiveQL(DQL)"><img class="cover" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/img/apache-hive-dql.png" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2018-07-03</div><div class="title">大数据手册(Hive)--HiveQL(DQL)</div></div></a></div><div><a href="/posts/f18b723f/" title="大数据手册(Hive)--HiveQL(Functions)"><img class="cover" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/img/apache-hive-functions.png" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2018-07-03</div><div class="title">大数据手册(Hive)--HiveQL(Functions)</div></div></a></div><div><a href="/posts/e6bd78c5/" title="大数据手册(Hive)--HiveQL(Introduction)"><img class="cover" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/img/hive-cover.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2018-07-03</div><div class="title">大数据手册(Hive)--HiveQL(Introduction)</div></div></a></div><div><a href="/posts/3928076d/" title="大数据手册(Oracle)--Oracle SQL(DDL)"><img class="cover" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/img/oracle-ddl.png" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2021-05-03</div><div class="title">大数据手册(Oracle)--Oracle SQL(DDL)</div></div></a></div><div><a href="/posts/36f93ce2/" title="大数据手册(Oracle)--Oracle SQL(DML)"><img class="cover" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/img/oracle-dml.png" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2021-05-03</div><div class="title">大数据手册(Oracle)--Oracle SQL(DML)</div></div></a></div></div></div><hr class="custom-hr"/><div id="post-comment"><div class="comment-head"><div class="comment-headline"><i class="fas fa-comments fa-fw"></i><span> 评论</span></div><div id="comment-switch"><span class="first-comment">Gitalk</span><span class="switch-btn"></span><span class="second-comment">Waline</span></div></div><div class="comment-wrap"><div><div id="gitalk-container"></div></div><div><div id="waline-wrap"></div></div></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="is-center"><div class="avatar-img"><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/img/avatar.jpg" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info__name">Tiny Lei</div><div class="author-info__description">每天进步一点点...</div></div><div class="card-info-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">131</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">103</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">44</div></a></div><div class="card-info-social-icons is-center"><a class="social-icon" href="https://gitee.com/wilenwu" rel="external nofollow noreferrer" target="_blank" title="Gitee"><i class="iconfont icon-gitee"></i></a><a class="social-icon" href="https://github.com/wilenwu" rel="external nofollow noreferrer" target="_blank" title="Github"><i class="iconfont icon-github"></i></a><a class="social-icon" href="https://blog.csdn.net/qq_41518277" rel="external nofollow noreferrer" target="_blank" title="CSDN"><i class="iconfont icon-csdn"></i></a><a class="social-icon" href="/atom.xml" target="_blank" title="RSS"><i class="iconfont icon-rss"></i></a></div></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>公告</span></div><div class="announcement_content">感谢访问本站，若喜欢请收藏^_^</div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E6%95%B0%E6%8D%AE%E5%BA%93"><span class="toc-number">1.</span> <span class="toc-text"> 数据库</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%88%9B%E5%BB%BA%E6%95%B0%E6%8D%AE%E5%BA%93"><span class="toc-number">1.1.</span> <span class="toc-text"> 创建数据库</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%88%A0%E9%99%A4%E6%95%B0%E6%8D%AE%E5%BA%93"><span class="toc-number">1.2.</span> <span class="toc-text"> 删除数据库</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BF%AE%E6%94%B9%E6%95%B0%E6%8D%AE%E5%BA%93"><span class="toc-number">1.3.</span> <span class="toc-text"> 修改数据库</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E8%BF%9E%E6%8E%A5%E5%99%A8"><span class="toc-number">2.</span> <span class="toc-text"> 连接器</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%88%9B%E5%BB%BA%E8%BF%9E%E6%8E%A5%E5%99%A8"><span class="toc-number">2.1.</span> <span class="toc-text"> 创建连接器</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%88%A0%E9%99%A4%E8%BF%9E%E6%8E%A5%E5%99%A8"><span class="toc-number">2.2.</span> <span class="toc-text"> 删除连接器</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BF%AE%E6%94%B9%E8%BF%9E%E6%8E%A5%E5%99%A8"><span class="toc-number">2.3.</span> <span class="toc-text"> 修改连接器</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E6%95%B0%E6%8D%AE%E8%A1%A8"><span class="toc-number">3.</span> <span class="toc-text"> 数据表</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%95%B0%E6%8D%AE%E5%AD%98%E5%82%A8"><span class="toc-number">3.1.</span> <span class="toc-text"> 数据存储</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%88%9B%E5%BB%BA%E8%A1%A8"><span class="toc-number">3.2.</span> <span class="toc-text"> 创建表</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%88%9B%E5%BB%BA%E7%BA%A6%E6%9D%9F"><span class="toc-number">3.3.</span> <span class="toc-text"> 创建约束</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%88%A0%E9%99%A4%E8%A1%A8"><span class="toc-number">3.4.</span> <span class="toc-text"> 删除表</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BF%AE%E6%94%B9%E8%A1%A8%E5%88%86%E5%8C%BA"><span class="toc-number">3.5.</span> <span class="toc-text"> 修改表&#x2F;分区</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BF%AE%E6%94%B9%E5%88%97"><span class="toc-number">3.6.</span> <span class="toc-text"> 修改列</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%BB%9F%E8%AE%A1%E4%BF%A1%E6%81%AF"><span class="toc-number">3.7.</span> <span class="toc-text"> 统计信息</span></a></li></ol></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item"><a class="thumbnail" href="/posts/f67b0909/" title="大数据手册(Spark)--Pandas API on Spark"><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/img/apache-spark-pandas.png" onerror="this.onerror=null;this.src='/img/404_moon.png'" alt="大数据手册(Spark)--Pandas API on Spark"/></a><div class="content"><a class="title" href="/posts/f67b0909/" title="大数据手册(Spark)--Pandas API on Spark">大数据手册(Spark)--Pandas API on Spark</a><time datetime="2023-06-07T15:09:56.599Z" title="发表于 2023-06-07 23:09:56">2023-06-07</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/posts/43ce4abf/" title="机器学习(V)--无监督学习"><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/img/ML-unsupervised-learning.png" onerror="this.onerror=null;this.src='/img/404_moon.png'" alt="机器学习(V)--无监督学习"/></a><div class="content"><a class="title" href="/posts/43ce4abf/" title="机器学习(V)--无监督学习">机器学习(V)--无监督学习</a><time datetime="2023-06-07T14:20:00.000Z" title="发表于 2023-06-07 22:20:00">2023-06-07</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/posts/5faa8f40/" title="机器学习(II)--数据预处理"><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/img/ML-data-preprocessing.png" onerror="this.onerror=null;this.src='/img/404_moon.png'" alt="机器学习(II)--数据预处理"/></a><div class="content"><a class="title" href="/posts/5faa8f40/" title="机器学习(II)--数据预处理">机器学习(II)--数据预处理</a><time datetime="2023-05-03T06:36:00.000Z" title="发表于 2023-05-03 14:36:00">2023-05-03</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/posts/8638abf9/" title="机器学习(I)--基础知识"><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/img/ML-overview.png" onerror="this.onerror=null;this.src='/img/404_moon.png'" alt="机器学习(I)--基础知识"/></a><div class="content"><a class="title" href="/posts/8638abf9/" title="机器学习(I)--基础知识">机器学习(I)--基础知识</a><time datetime="2023-05-02T06:36:00.000Z" title="发表于 2023-05-02 14:36:00">2023-05-02</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/posts/12a72af8/" title="看不懂的数字"><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/img/numerals_cover.png" onerror="this.onerror=null;this.src='/img/404_moon.png'" alt="看不懂的数字"/></a><div class="content"><a class="title" href="/posts/12a72af8/" title="看不懂的数字">看不懂的数字</a><time datetime="2023-04-22T03:17:17.000Z" title="发表于 2023-04-22 11:17:17">2023-04-22</time></div></div></div></div></div></div></main><footer id="footer"><div id="footer-wrap"><div class="copyright">&copy;2019 - 2023 By Tiny Lei</div><div class="framework-info"><span>框架 </span><a target="_blank" rel="noopener external nofollow noreferrer" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener external nofollow noreferrer" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside_config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><a id="to_comment" href="#post-comment" title="直达评论"><i class="fas fa-comments"></i></a><button id="go-up" type="button" title="回到顶部"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox/fancybox.umd.min.js"></script><script src="https://cdn.jsdelivr.net/npm/vanilla-lazyload/dist/lazyload.iife.min.js"></script><script>function panguFn () {
+  if (typeof pangu === 'object') pangu.autoSpacingPage()
+  else {
+    getScript('https://cdn.jsdelivr.net/npm/pangu/dist/browser/pangu.min.js')
+      .then(() => {
+        pangu.autoSpacingPage()
+      })
+  }
+}
+
+function panguInit () {
+  if (false){
+    GLOBAL_CONFIG_SITE.isPost && panguFn()
+  } else {
+    panguFn()
+  }
+}
+
+document.addEventListener('DOMContentLoaded', panguInit)</script><div class="js-pjax"><script>(() => {
+  const $mermaid = document.querySelectorAll('#article-container .mermaid-wrap')
+  if ($mermaid.length === 0) return
+  const runMermaid = () => {
+    window.loadMermaid = true
+    const theme = document.documentElement.getAttribute('data-theme') === 'dark' ? 'dark' : 'forest'
+
+    Array.from($mermaid).forEach((item, index) => {
+      const mermaidSrc = item.firstElementChild
+      const mermaidThemeConfig = '%%{init:{ \'theme\':\'' + theme + '\'}}%%\n'
+      const mermaidID = 'mermaid-' + index
+      const mermaidDefinition = mermaidThemeConfig + mermaidSrc.textContent
+
+      const renderFn = mermaid.render(mermaidID, mermaidDefinition)
+
+      const renderV10 = () => {
+        renderFn.then(({svg}) => {
+          mermaidSrc.insertAdjacentHTML('afterend', svg)
+        })
+      }
+
+      const renderV9 = svg => {
+        mermaidSrc.insertAdjacentHTML('afterend', svg)
+      }
+
+      typeof renderFn === 'string' ? renderV9(renderFn) : renderV10()
+    })
+  }
+
+  const loadMermaid = () => {
+    window.loadMermaid ? runMermaid() : getScript('https://cdn.jsdelivr.net/npm/mermaid/dist/mermaid.min.js').then(runMermaid)
+  }
+
+  btf.addModeChange('mermaid', runMermaid)
+
+  window.pjax ? loadMermaid() : document.addEventListener('DOMContentLoaded', loadMermaid)
+})()</script><script>function loadGitalk () {
+  function initGitalk () {
+    var gitalk = new Gitalk(Object.assign({
+      clientID: '7c65134b48b13f306114',
+      clientSecret: 'f049f68368a11925fdb69e57c64839eac94e13c1'',
+      repo: 'gitalk-comments',
+      owner: 'WilenWu',
+      admin: ['WilenWu'],
+      id: '020ef421eb8f43cf2ff79384f1ccc387',
+      updateCountCallback: commentCount
+    },null))
+
+    gitalk.render('gitalk-container')
+  }
+
+  if (typeof Gitalk === 'function') initGitalk()
+  else {
+    getCSS('https://cdn.jsdelivr.net/npm/gitalk/dist/gitalk.min.css')
+    getScript('https://cdn.jsdelivr.net/npm/gitalk/dist/gitalk.min.js').then(initGitalk)
+  }
+}
+
+function commentCount(n){
+  let isCommentCount = document.querySelector('#post-meta .gitalk-comment-count')
+  if (isCommentCount) {
+    isCommentCount.textContent= n
+  }
+}
+
+if ('Gitalk' === 'Gitalk' || !true) {
+  if (true) btf.loadComment(document.getElementById('gitalk-container'), loadGitalk)
+  else loadGitalk()
+} else {
+  function loadOtherComment () {
+    loadGitalk()
+  }
+}</script><script>function loadWaline () {
+  function initWaline () {
+    const waline = Waline.init(Object.assign({
+      el: '#waline-wrap',
+      serverURL: 'https://waline-comments-9etq63pcv-wilenwu.vercel.app',
+      pageview: false,
+      dark: 'html[data-theme="dark"]',
+      path: window.location.pathname,
+      comment: false,
+    }, {"requiredMeta":["monsterid"]}))
+  }
+
+  if (typeof Waline === 'object') initWaline()
+  else {
+    getCSS('https://cdn.jsdelivr.net/npm/@waline/client/dist/waline.min.css').then(() => {
+      getScript('https://cdn.jsdelivr.net/npm/@waline/client/dist/waline.min.js').then(initWaline)
+    })
+  }
+}
+
+if ('Gitalk' === 'Waline' || !true) {
+  if (true) btf.loadComment(document.getElementById('waline-wrap'),loadWaline)
+  else setTimeout(loadWaline, 0)
+} else {
+  function loadOtherComment () {
+    loadWaline()
+  }
+}</script></div><script src="/js/custom.js"></script><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script><div id="local-search"><div class="search-dialog"><nav class="search-nav"><span class="search-dialog-title">搜索</span><span id="loading-status"></span><button class="search-close-button"><i class="fas fa-times"></i></button></nav><div class="is-center" id="loading-database"><i class="fas fa-spinner fa-pulse"></i><span>  数据库加载中</span></div><div class="search-wrap"><div id="local-search-input"><div class="local-search-box"><input class="local-search-box--input" placeholder="搜索文章" type="text"/></div></div><hr/><div class="no-result" id="local-search-results"></div><div id="local-search-stats-wrap"></div></div></div><div id="search-mask"></div><script src="/js/search/local-search.js"></script></div></div><!-- hexo injector body_end start --><script async src="//at.alicdn.com/t/font_2032782_8d5kxvn09md.js"></script><!-- hexo injector body_end end --></body></html>

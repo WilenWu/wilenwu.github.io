@@ -1,0 +1,1168 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0,viewport-fit=cover"><title>Python手册(Visualise)--seaborn | 雷小小</title><meta name="author" content="Tiny Lei"><meta name="copyright" content="Tiny Lei"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="基于matplotlib封装的数据可视化库">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Python手册(Visualise)--seaborn">
+<meta property="og:url" content="https://www.tinylei.tech/posts/49513cf1/index.html">
+<meta property="og:site_name" content="雷小小">
+<meta property="og:description" content="基于matplotlib封装的数据可视化库">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://www.tinylei.tech/img/seaborn-cover.svg">
+<meta property="article:published_time" content="2018-05-10T15:20:12.000Z">
+<meta property="article:modified_time" content="2022-03-27T10:12:32.293Z">
+<meta property="article:author" content="Tiny Lei">
+<meta property="article:tag" content="python">
+<meta property="article:tag" content="可视化">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://www.tinylei.tech/img/seaborn-cover.svg"><link rel="shortcut icon" href="/img/favicon.png"><link rel="canonical" href="https://www.tinylei.tech/posts/49513cf1/index.html"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//hm.baidu.com"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><meta name="baidu-site-verification" content="code-7rymn5Bitx"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox/fancybox.min.css" media="print" onload="this.media='all'"><script>var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "https://hm.baidu.com/hm.js?654e7415ab55bed7c9c2bc6d665f03c5";
+  var s = document.getElementsByTagName("script")[0]; 
+  s.parentNode.insertBefore(hm, s);
+})();
+</script><script>const GLOBAL_CONFIG = {
+  root: '/',
+  algolia: undefined,
+  localSearch: {"path":"/search.xml","preload":false,"top_n_per_article":1,"unescape":false,"languages":{"hits_empty":"找不到您查询的内容：${query}","hits_stats":"共找到 ${hits} 篇文章"}},
+  translate: undefined,
+  noticeOutdate: undefined,
+  highlight: {"plugin":"highlighjs","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '天',
+  dateSuffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'fancybox',
+  Snackbar: undefined,
+  source: {
+    justifiedGallery: {
+      js: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery/dist/fjGallery.min.js',
+      css: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery/dist/fjGallery.min.css'
+    }
+  },
+  isPhotoFigcaption: true,
+  islazyload: true,
+  isAnchor: false,
+  percent: {
+    toc: true,
+    rightside: false,
+  },
+  autoDarkmode: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: 'Python手册(Visualise)--seaborn',
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: true,
+  postUpdate: '2022-03-27 18:12:32'
+}</script><noscript><style type="text/css">
+  #nav {
+    opacity: 1
+  }
+  .justified-gallery img {
+    opacity: 1
+  }
+
+  #recent-posts time,
+  #post-meta time {
+    display: inline !important
+  }
+</style></noscript><script>(win=>{
+    win.saveToLocal = {
+      set: function setWithExpiry(key, value, ttl) {
+        if (ttl === 0) return
+        const now = new Date()
+        const expiryDay = ttl * 86400000
+        const item = {
+          value: value,
+          expiry: now.getTime() + expiryDay,
+        }
+        localStorage.setItem(key, JSON.stringify(item))
+      },
+
+      get: function getWithExpiry(key) {
+        const itemStr = localStorage.getItem(key)
+
+        if (!itemStr) {
+          return undefined
+        }
+        const item = JSON.parse(itemStr)
+        const now = new Date()
+
+        if (now.getTime() > item.expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return item.value
+      }
+    }
+  
+    win.getScript = url => new Promise((resolve, reject) => {
+      const script = document.createElement('script')
+      script.src = url
+      script.async = true
+      script.onerror = reject
+      script.onload = script.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        script.onload = script.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(script)
+    })
+  
+    win.getCSS = (url,id = false) => new Promise((resolve, reject) => {
+      const link = document.createElement('link')
+      link.rel = 'stylesheet'
+      link.href = url
+      if (id) link.id = id
+      link.onerror = reject
+      link.onload = link.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        link.onload = link.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(link)
+    })
+  
+      win.activateDarkMode = function () {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      win.activateLightMode = function () {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+      const t = saveToLocal.get('theme')
+    
+          if (t === 'dark') activateDarkMode()
+          else if (t === 'light') activateLightMode()
+        
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    
+    const detectApple = () => {
+      if(/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+    })(window)</script><link rel="stylesheet" href="//at.alicdn.com/t/font_2849223_xh1ftc8qym.css"><link rel="stylesheet" href="/css/link-card.css"><!-- hexo injector head_end start --><link rel="stylesheet" href="https://npm.elemecdn.com/hexo-butterfly-tag-plugins-plus@latest/lib/assets/font-awesome-animation.min.css" media="defer" onload="this.media='all'"><link rel="stylesheet" href="https://npm.elemecdn.com/hexo-butterfly-tag-plugins-plus@latest/lib/tag_plugins.css" media="defer" onload="this.media='all'"><script src="https://npm.elemecdn.com/hexo-butterfly-tag-plugins-plus@latest/lib/assets/carousel-touch.js"></script><!-- hexo injector head_end end --><meta name="generator" content="Hexo 6.0.0"><link rel="alternate" href="/atom.xml" title="雷小小" type="application/atom+xml">
+</head><body><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/img/avatar.jpg" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="sidebar-site-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">131</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">103</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">44</div></a></div><hr class="custom-hr"/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/user-guide/"><i class="fa-fw fa fa-compass"></i><span> 用户指南</span></a></div><div class="menus_item"><a class="site-page group hide" href="javascript:void(0);" rel="external nofollow noreferrer"><i class="fa-fw fa fa-book"></i><span> 文档</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></li><li><a class="site-page child" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 归档</span></a></li><li><a class="site-page child" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/gallery/"><i class="fa-fw fa fa-images"></i><span> 图库</span></a></div><div class="menus_item"><a class="site-page" href="/ebook/"><i class="fa-fw fa fa-book-reader"></i><span> 电子书</span></a></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-star"></i><span> 收藏夹</span></a></div><div class="menus_item"><a class="site-page group hide" href="javascript:void(0);" rel="external nofollow noreferrer"><i class="fa-fw fa-solid fa-circle-chevron-down"></i><span> 更多</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/about/"><i class="fa-fw fa fa-user"></i><span> 关于我</span></a></li><li><a class="site-page child" href="/analytics/"><i class="fa-fw fa fa-line-chart"></i><span> 文章统计</span></a></li><li><a class="site-page child" href="/log/"><i class="fa-fw fa fa-history"></i><span> 更新日志</span></a></li></ul></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url('/img/seaborn-cover.svg')"><nav id="nav"><span id="blog-info"><a href="/" title="雷小小"><img class="site-icon" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/img/favicon.png"/><span class="site-name">雷小小</span></a></span><div id="menus"><div id="search-button"><a class="site-page social-icon search" href="javascript:void(0);" rel="external nofollow noreferrer"><i class="fas fa-search fa-fw"></i><span> 搜索</span></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/user-guide/"><i class="fa-fw fa fa-compass"></i><span> 用户指南</span></a></div><div class="menus_item"><a class="site-page group hide" href="javascript:void(0);" rel="external nofollow noreferrer"><i class="fa-fw fa fa-book"></i><span> 文档</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></li><li><a class="site-page child" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 归档</span></a></li><li><a class="site-page child" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/gallery/"><i class="fa-fw fa fa-images"></i><span> 图库</span></a></div><div class="menus_item"><a class="site-page" href="/ebook/"><i class="fa-fw fa fa-book-reader"></i><span> 电子书</span></a></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-star"></i><span> 收藏夹</span></a></div><div class="menus_item"><a class="site-page group hide" href="javascript:void(0);" rel="external nofollow noreferrer"><i class="fa-fw fa-solid fa-circle-chevron-down"></i><span> 更多</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/about/"><i class="fa-fw fa fa-user"></i><span> 关于我</span></a></li><li><a class="site-page child" href="/analytics/"><i class="fa-fw fa fa-line-chart"></i><span> 文章统计</span></a></li><li><a class="site-page child" href="/log/"><i class="fa-fw fa fa-history"></i><span> 更新日志</span></a></li></ul></div></div><div id="toggle-menu"><a class="site-page" href="javascript:void(0);" rel="external nofollow noreferrer"><i class="fas fa-bars fa-fw"></i></a></div></div></nav><div id="post-info"><h1 class="post-title">Python手册(Visualise)--seaborn<a class="post-edit-link" href="https://gitee.com/WilenWu/myblog/edit/master/source/_posts/python/Python(Visualise)--seaborn.md" rel="external nofollow noreferrer" title="编辑" target="_blank"><i class="fas fa-pencil-alt"></i></a></h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2018-05-10T15:20:12.000Z" title="发表于 2018-05-10 23:20:12">2018-05-10</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2022-03-27T10:12:32.293Z" title="更新于 2022-03-27 18:12:32">2022-03-27</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/python/">Python</a><i class="fas fa-angle-right post-meta-separator"></i><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/python/visualise/">Visualise</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-wordcount"><i class="far fa-file-word fa-fw post-meta-icon"></i><span class="post-meta-label">字数总计:</span><span class="word-count">12k</span><span class="post-meta-separator">|</span><i class="far fa-clock fa-fw post-meta-icon"></i><span class="post-meta-label">阅读时长:</span><span>47分钟</span></span><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title="Python手册(Visualise)--seaborn"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">阅读量:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container"><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://warehouse-1310574346.cos.ap-shanghai.myqcloud.com/images/seaborn/Seaborn.svg" width="100%;" />
+<p><strong>Seaborn</strong>是基于matplotlib的Python可视化库。它提供了一个高级界面来绘制有吸引力的统计图形。</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> numpy <span class="keyword">as</span> np</span><br><span class="line"><span class="keyword">import</span> matplotlib.pyplot <span class="keyword">as</span> plt</span><br><span class="line"><span class="keyword">import</span> seaborn <span class="keyword">as</span> sns</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p><a target="_blank" rel="noopener external nofollow noreferrer" href="http://seaborn.pydata.org/tutorial.html">Seaborn官网</a><br />
+<a target="_blank" rel="noopener external nofollow noreferrer" href="https://blog.csdn.net/lemonbit/article/details/107218373/">Seaborn入门详细教程</a></p>
+</blockquote>
+<h1 id="数据集"><a class="markdownIt-Anchor" href="#数据集"></a> 数据集</h1>
+<p>seaborn自带了一些经典的数据集，用于基本的绘制图表示例数据。在联网状态下，可通过load_dataset 接口进行获取，首次下载后即可通过缓存加载。返回数据集格式为Pandas.DataFrame对象。</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">seaborn.load_dataset( name , cache = <span class="literal">True</span> , data_home = <span class="literal">None</span> , ** kws ) </span><br></pre></td></tr></table></figure>
+<p>常用的经典数据集如下：</p>
+<ul>
+<li>iris：鸢尾花，与sklearn中数据集一致，仅有数值型数据</li>
+<li>tips：小费，主要是中餐和晚餐的数据集，既有分类数据也有数值数据，可用于探索数据间的回归关系</li>
+<li>titanic：泰坦尼克，经典数据集</li>
+</ul>
+<h1 id="关系图"><a class="markdownIt-Anchor" href="#关系图"></a> 关系图</h1>
+<h2 id="核心函数"><a class="markdownIt-Anchor" href="#核心函数"></a> 核心函数</h2>
+<p>seaborn 提供了几个用于表达双变量关系的图表，主要包括散点和线图两类，主要提供了3个 seaborn 接口：</p>
+<ul>
+<li>relplot：(relation plot) 图形级通用接口，依赖于 FacetGrid 类，返回该类实例。relplot可通过kind参数选择绘制图表是scatter还是line类型。</li>
+<li>scatterplot：散点图，等价于 relplot(kind=‘scatter’)。</li>
+<li>lineplot：折线图，等价于 relplot(kind=‘line’)。</li>
+</ul>
+<p>其中relplot为figure-level（可简单理解为操作对象是matplotlib中figure），而后两者是axes-level（对应操作对象是matplotlib中的axes）。但实际上接口调用方式和传参模式都是一致的。</p>
+<p>其核心参数主要包括以下几个：</p>
+<ul>
+<li>data：pandas.DataFrame, numpy.ndarray, mapping, or sequence</li>
+<li>x, y：vector or key in data，指定 x 轴和 y 轴位置的变量</li>
+<li>hue, size, style：vector or key in data，用不同色调（颜色）、大小、样式分组的变量</li>
+<li>row, col：vector or key in data，不同facets绘制的子图</li>
+<li>palette：string, list, dict, or matplotlib.colors.Colormap，调色板</li>
+<li>legend：auto, brief, full, or False，图例</li>
+<li>kind：string, scatter or line，默认为scatter类型。</li>
+<li>kwargs：dict，其他axes-level接口关键参数</li>
+<li>ax：matplotlib.axes.Axes，scatterplot和lineplot设置坐标系统的参数</li>
+</ul>
+<h2 id="散点图"><a class="markdownIt-Anchor" href="#散点图"></a> 散点图</h2>
+<p>以小费数据集为例，绘制两变量散点图如下：</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">tips = sns.load_dataset(<span class="string">&quot;tips&quot;</span>)</span><br><span class="line">sns.relplot(x=<span class="string">&quot;total_bill&quot;</span>, y=<span class="string">&quot;tip&quot;</span>, data=tips)</span><br><span class="line">sns.relplot(x=<span class="string">&quot;total_bill&quot;</span>, y=<span class="string">&quot;tip&quot;</span>, hue=<span class="string">&quot;smoker&quot;</span>, style=<span class="string">&quot;smoker&quot;</span>,data=tips)</span><br><span class="line">sns.relplot(x=<span class="string">&quot;total_bill&quot;</span>, y=<span class="string">&quot;tip&quot;</span>, size=<span class="string">&quot;size&quot;</span>, sizes=(<span class="number">15</span>, <span class="number">200</span>), data=tips)</span><br></pre></td></tr></table></figure>
+<img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://warehouse-1310574346.cos.ap-shanghai.myqcloud.com/images/seaborn/scatter.png" width="100%;" />
+<h2 id="折线图"><a class="markdownIt-Anchor" href="#折线图"></a> 折线图</h2>
+<p>seaborn 中折线图的默认行为是将同一x轴上的多个测量值的平均值作为折线图中的点的位置，并围绕平均值表达的 95% 置信区间。置信区间是使用 bootstrapping 计算的，对于较大的数据集可以禁用它们，也可以定义为标准差。</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">fmri = sns.load_dataset(<span class="string">&quot;fmri&quot;</span>)</span><br><span class="line">sns.relplot(x=<span class="string">&quot;timepoint&quot;</span>, y=<span class="string">&quot;signal&quot;</span>, kind=<span class="string">&quot;line&quot;</span>, data=fmri)</span><br><span class="line">sns.relplot(x=<span class="string">&quot;timepoint&quot;</span>, y=<span class="string">&quot;signal&quot;</span>, ci=<span class="literal">None</span>, kind=<span class="string">&quot;line&quot;</span>, data=fmri)</span><br><span class="line">sns.relplot(x=<span class="string">&quot;timepoint&quot;</span>, y=<span class="string">&quot;signal&quot;</span>, kind=<span class="string">&quot;line&quot;</span>, ci=<span class="string">&quot;sd&quot;</span>, data=fmri)</span><br><span class="line"></span><br><span class="line">sns.relplot(x=<span class="string">&quot;timepoint&quot;</span>, y=<span class="string">&quot;signal&quot;</span>, hue=<span class="string">&quot;event&quot;</span>, kind=<span class="string">&quot;line&quot;</span>, data=fmri)</span><br><span class="line">sns.relplot(x=<span class="string">&quot;timepoint&quot;</span>, y=<span class="string">&quot;signal&quot;</span>, hue=<span class="string">&quot;region&quot;</span>, style=<span class="string">&quot;event&quot;</span>,</span><br><span class="line">            dashes=<span class="literal">False</span>, markers=<span class="literal">True</span>, kind=<span class="string">&quot;line&quot;</span>, data=fmri)</span><br><span class="line">sns.relplot(x=<span class="string">&quot;timepoint&quot;</span>, y=<span class="string">&quot;signal&quot;</span>, hue=<span class="string">&quot;event&quot;</span>, style=<span class="string">&quot;event&quot;</span>,</span><br><span class="line">            kind=<span class="string">&quot;line&quot;</span>, data=fmri)</span><br></pre></td></tr></table></figure>
+<img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://warehouse-1310574346.cos.ap-shanghai.myqcloud.com/images/seaborn/line.png" width="100%;" />
+<h2 id="分面图"><a class="markdownIt-Anchor" href="#分面图"></a> 分面图</h2>
+<p>由于 relplot 是基于FacetGrid，很容易分面可视化。</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">sns.relplot(x=<span class="string">&quot;total_bill&quot;</span>, y=<span class="string">&quot;tip&quot;</span>, hue=<span class="string">&quot;smoker&quot;</span>,</span><br><span class="line">            col=<span class="string">&quot;time&quot;</span>, data=tips);</span><br></pre></td></tr></table></figure>
+<img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://warehouse-1310574346.cos.ap-shanghai.myqcloud.com/images/seaborn/relational_55_0.png" width="80%;" />
+<p>当您想要检查变量的多个级别的影响时，最好在列上对该变量进行分面，然后将分面包装到行中，同时可能希望减小图形大小。这些可视化通常被称为点阵图或小倍数，非常有效。</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">sns.relplot(x=<span class="string">&quot;timepoint&quot;</span>, y=<span class="string">&quot;signal&quot;</span>, hue=<span class="string">&quot;event&quot;</span>, style=<span class="string">&quot;event&quot;</span>,</span><br><span class="line">            col=<span class="string">&quot;subject&quot;</span>, col_wrap=<span class="number">5</span>,</span><br><span class="line">            height=<span class="number">3</span>, aspect=<span class="number">.75</span>, linewidth=<span class="number">2.5</span>,</span><br><span class="line">            kind=<span class="string">&quot;line&quot;</span>, data=fmri.query(<span class="string">&quot;region == &#x27;frontal&#x27;&quot;</span>))</span><br></pre></td></tr></table></figure>
+<img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://warehouse-1310574346.cos.ap-shanghai.myqcloud.com/images/seaborn/relational_59_0.png" width="100%;" />
+<h1 id="分布图"><a class="markdownIt-Anchor" href="#分布图"></a> 分布图</h1>
+<h2 id="核心函数-2"><a class="markdownIt-Anchor" href="#核心函数-2"></a> 核心函数</h2>
+<p>变量分布可用于表达一组数值的分布趋势，包括集中程度、离散程度等。seaborn 内置接口如下</p>
+<ul>
+<li>displot：(distribution plot) 图形级通用接口，依赖于 FacetGrid 类，返回该类实例。接口内置了直方图（histogram, default）、核密度估计图（kde，kernel density estimation）、经验累积分布图（ecdf，empirical cumulative distribution function）以及rug图。</li>
+<li>histplot：单变量或双变量直方图，等价于 displot(kind=‘hist’)。</li>
+<li>kdeplot：单变量或双变量核密度估计，等价于 displot(kind=‘kde’)。</li>
+<li>ecdfplot：经验累积分布图，等价于 displot(kind=‘ecdf’)。</li>
+<li>rugplot：地毯图，沿 x 和 y 轴边缘绘制刻度，通过 displot(rug=True) 来添加。</li>
+<li>distplot：已弃用，单变量分布图。</li>
+</ul>
+<p>其中displot为figure-level（可简单理解为操作对象是matplotlib中figure），而后两者是axes-level（对应操作对象是matplotlib中的axes）。但实际上接口调用方式和传参模式都是一致的。</p>
+<p>其核心参数主要包括以下几个：</p>
+<ul>
+<li>data：pandas.DataFrame, numpy.ndarray, mapping, or sequence</li>
+<li>x, y：vector or key in data，指定 x 轴和 y 轴位置的变量</li>
+<li>hue：vector or key in data，用不同色调（颜色）分组的变量</li>
+<li>row, col：vector or key in data，不同facets绘制的子图</li>
+<li>palette：string, list, dict, or matplotlib.colors.Colormap，调色板</li>
+<li>legend：bool，是否显示图例</li>
+<li>kind：string, one of {hist, kde, ecdf}，默认为hist类型。</li>
+<li>rug：bool，在边缘绘制地毯图</li>
+<li>kwargs：dict，其他axes-level接口关键参数</li>
+<li>ax：matplotlib.axes.Axes，axes-level接口设置坐标系统的参数</li>
+</ul>
+<h2 id="直方图"><a class="markdownIt-Anchor" href="#直方图"></a> 直方图</h2>
+<p>直方图 seaborn.histplot 专用参数：</p>
+<ul>
+<li>weights：vector or key in data，加权变量</li>
+<li>stat：str，在每个 bin 中的聚合统计方法
+<ul>
+<li><code>count</code>: 计数</li>
+<li><code>frequency</code>: 频率，样本数量除以 bin 宽度</li>
+<li><code>probability</code>: or <code>proportion</code>，标准化使得条形高度总和为 1</li>
+<li><code>percent</code>: 标准化使得条形高度总和为 100</li>
+<li><code>density</code>: 标准化使得直方图的总面积等于 1</li>
+</ul>
+</li>
+<li>General_norm：bool，是否将归一化将应用于整个数据集，如果False，则单独归一化</li>
+<li>bins：str, number, vector, or a pair of such values，bin的数量，bin数组</li>
+<li>binwidth：number or pair of numbers， bin 的宽度</li>
+<li>multiple：one of {laye, dodg, stack, fill}，多分组堆叠的方式，仅适用于单变量分布</li>
+<li>element：{bars, step, poly}，直方图统计的可视化表示，仅适用于单变量分布</li>
+<li>fill：bool，是否填充直方图下方的空间，仅适用于单变量分布</li>
+<li>shrink：number，相对于 binwidth 缩放每个条的宽度，仅适用于单变量分布</li>
+<li>kde：bool，是否显示kde，仅适用于单变量分布</li>
+<li>thresh：number or None，统计数据小于或等于此阈值的单元格将是透明的，仅适用于二元分布</li>
+</ul>
+<p>默认情况下，displot()/histplot()根据数据的方差和样本数量选择默认的 bin 大小，它们取决于对数据结构的特定假设，可以用binwidth参数设置，也可指定bin的数量。shrink参数可以稍微缩小bin以强调轴的分类性质。</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">penguins = sns.load_dataset(<span class="string">&quot;penguins&quot;</span>)</span><br><span class="line">sns.displot(penguins, x=<span class="string">&quot;flipper_length_mm&quot;</span>, kde = <span class="literal">True</span>)</span><br><span class="line">sns.displot(penguins, x=<span class="string">&quot;flipper_length_mm&quot;</span>, binwidth=<span class="number">3</span>)</span><br><span class="line">sns.displot(penguins, x=<span class="string">&quot;flipper_length_mm&quot;</span>, bins=<span class="number">20</span>)</span><br><span class="line">tips = sns.load_dataset(<span class="string">&quot;tips&quot;</span>)</span><br><span class="line">sns.displot(tips, x=<span class="string">&quot;day&quot;</span>, shrink=<span class="number">.8</span>)</span><br></pre></td></tr></table></figure>
+<img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://warehouse-1310574346.cos.ap-shanghai.myqcloud.com/images/seaborn/hist_bin.png" width="72%;" />
+<p>默认情况下，不同的直方图相互分层，在某些情况下，它们可能难以区分。一种选择是将直方图的视觉表示从条形图更改为阶梯图。或者，不是将每个条分层，而是可以堆叠或垂直移动。在此图中，完整直方图的轮廓展示单变量分布：</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">sns.displot(penguins, x=<span class="string">&quot;flipper_length_mm&quot;</span>, hue=<span class="string">&quot;species&quot;</span>)</span><br><span class="line">sns.displot(penguins, x=<span class="string">&quot;flipper_length_mm&quot;</span>, hue=<span class="string">&quot;species&quot;</span>, element=<span class="string">&quot;step&quot;</span>)</span><br><span class="line">sns.displot(penguins, x=<span class="string">&quot;flipper_length_mm&quot;</span>, hue=<span class="string">&quot;species&quot;</span>, multiple=<span class="string">&quot;stack&quot;</span>)</span><br><span class="line">sns.displot(penguins, x=<span class="string">&quot;flipper_length_mm&quot;</span>, hue=<span class="string">&quot;sex&quot;</span>, multiple=<span class="string">&quot;dodge&quot;</span>)</span><br></pre></td></tr></table></figure>
+<img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://warehouse-1310574346.cos.ap-shanghai.myqcloud.com/images/seaborn/hist2.png" width="72%;" />
+<p>还有一点要注意，当子集的观察数量不等时，比较它们的计数分布可能并不理想。一种解决方案是使用参数对计数进行归一化。默认情况下，归一化应用于整个分布，因此这只是重新调整条形的高度。通过设置<code>common_norm=False</code>，每个子集将被独立标准化。密度归一化缩放条形，使它们的面积总和为 1。另一种选择是将条形标准化为它们的高度总和为 1，这在变量是离散时最有意义：</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">sns.displot(penguins, x=<span class="string">&quot;flipper_length_mm&quot;</span>, hue=<span class="string">&quot;species&quot;</span>, stat=<span class="string">&quot;density&quot;</span>)</span><br><span class="line">sns.displot(penguins, x=<span class="string">&quot;flipper_length_mm&quot;</span>, hue=<span class="string">&quot;species&quot;</span>, stat=<span class="string">&quot;density&quot;</span>, common_norm=<span class="literal">False</span>)</span><br><span class="line">sns.displot(penguins, x=<span class="string">&quot;flipper_length_mm&quot;</span>, hue=<span class="string">&quot;species&quot;</span>, stat=<span class="string">&quot;probability&quot;</span>)</span><br><span class="line">planets = sns.load_dataset(<span class="string">&quot;planets&quot;</span>)</span><br><span class="line">sns.displot(data=planets, x=<span class="string">&quot;distance&quot;</span>, log_scale=<span class="literal">True</span>)</span><br></pre></td></tr></table></figure>
+<img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://warehouse-1310574346.cos.ap-shanghai.myqcloud.com/images/seaborn/hist_stat.png" width="72%;" />
+<h2 id="核密度估计"><a class="markdownIt-Anchor" href="#核密度估计"></a> 核密度估计</h2>
+<p>直方图旨在通过分箱和计数观察来近似生成数据的潜在概率密度函数。核密度估计 (KDE) 为同一问题提供了不同的解决方案。KDE 图不是使用离散箱，而是使用高斯核平滑观察，产生连续密度估计。</p>
+<p>核密度 seaborn.kdeplot 专用参数：</p>
+<ul>
+<li>bw_meod：string, scalar, or callable, optional，要使用的平滑带宽的方法；passed to <code>scipy.stats.gaussian_kde</code>.</li>
+<li>bw_adjust：number, optional，平滑带宽的缩放因子</li>
+<li>cbar：bool，添加颜色条以注释双变量图中的颜色映射</li>
+<li>multiple：one of {layer, stack, fill}，多分组堆叠的方式，仅适用于单变量分布</li>
+<li>levels：int or vector in [0, 1]，等高线的数量或者列表，仅适用于二元分布</li>
+<li>thresh：number in [0, 1]，低于最低等高线级别时将被忽略，仅适用于二元分布</li>
+<li>fill：bool or None，填充单变量密度曲线下或双变量轮廓之间的区域</li>
+<li>cumulative：bool, optional，累积分布曲线</li>
+</ul>
+<p>与直方图中的 bin 大小非常相似，KDE也可以调整平滑带宽 bw_adjust。如果您分配一个hue变量，将为该变量的每个级别计算单独的密度估计。</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">sns.displot(penguins, x=<span class="string">&quot;flipper_length_mm&quot;</span>, kind=<span class="string">&quot;kde&quot;</span>)</span><br><span class="line">sns.displot(penguins, x=<span class="string">&quot;flipper_length_mm&quot;</span>, kind=<span class="string">&quot;kde&quot;</span>, bw_adjust=<span class="number">.25</span>)</span><br><span class="line">sns.displot(penguins, x=<span class="string">&quot;flipper_length_mm&quot;</span>, hue=<span class="string">&quot;species&quot;</span>, kind=<span class="string">&quot;kde&quot;</span>, fill=<span class="literal">True</span>)</span><br><span class="line">sns.displot(penguins, x=<span class="string">&quot;flipper_length_mm&quot;</span>, hue=<span class="string">&quot;species&quot;</span>, kind=<span class="string">&quot;kde&quot;</span>, multiple=<span class="string">&quot;stack&quot;</span>)</span><br></pre></td></tr></table></figure>
+<img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://warehouse-1310574346.cos.ap-shanghai.myqcloud.com/images/seaborn/kde.png" width="72%;" />
+<p>KDE 方法也不适用于离散数据或数据自然连续但特定值被过度集中的情况。要记住的重要一点是，即使数据本身并不平滑，KDE 也会始终显示平滑曲线。例如，考虑钻石重量的这种分布，可以将直方图和KDE结合起来</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">diamonds = sns.load_dataset(<span class="string">&quot;diamonds&quot;</span>)</span><br><span class="line">sns.displot(diamonds, x=<span class="string">&quot;carat&quot;</span>, kde=<span class="literal">True</span>)</span><br></pre></td></tr></table></figure>
+<img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://warehouse-1310574346.cos.ap-shanghai.myqcloud.com/images/seaborn/kde_carat.png" width="50%;" />
+<h2 id="经验累积分布"><a class="markdownIt-Anchor" href="#经验累积分布"></a> 经验累积分布</h2>
+<p>经验累积分布函数（ECDF）通过每个数据点绘制了一条单调增加的曲线。与直方图或 KDE 不同，它直接表示每个数据点。这意味着没有要考虑的 bin 大小或平滑参数。此外，由于曲线是单调递增的，因此非常适合比较多个分布。</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">sns.displot(penguins, x=<span class="string">&quot;flipper_length_mm&quot;</span>, hue=<span class="string">&quot;species&quot;</span>, kind=<span class="string">&quot;ecdf&quot;</span>)</span><br></pre></td></tr></table></figure>
+<img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://warehouse-1310574346.cos.ap-shanghai.myqcloud.com/images/seaborn/ecdf.png" width="60%;" />
+<h2 id="地毯图"><a class="markdownIt-Anchor" href="#地毯图"></a> 地毯图</h2>
+<p>这是一个不太常用的图表类型，其绘图方式比较朴素：即原原本本的将样本出现的位置绘制在相应坐标轴上，同时忽略出现次数的影响。</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">tips = sns.load_dataset(<span class="string">&quot;tips&quot;</span>)</span><br><span class="line">sns.kdeplot(data=tips, x=<span class="string">&quot;total_bill&quot;</span>)</span><br><span class="line">sns.rugplot(data=tips, x=<span class="string">&quot;total_bill&quot;</span>)</span><br></pre></td></tr></table></figure>
+<img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://warehouse-1310574346.cos.ap-shanghai.myqcloud.com/images/seaborn/rug.png" width="60%;" />
+<h2 id="二元分布"><a class="markdownIt-Anchor" href="#二元分布"></a> 二元分布</h2>
+<ul>
+<li>双变量直方图：将平铺图的矩形内的数据分箱，然后使用填充颜色（类似于heatmap）显示每个矩形内的样本数量。与单变量图一样，bin 大小或平滑带宽的选择将决定该图表示潜在双变量分布的程度。</li>
+<li>二元 KDE 图：类似地，二元 KDE 图使用 2D 高斯函数平滑 (x, y) 样本量。默认表示然后显示2D 密度的轮廓。双变量密度等值线是以密度的等比例绘制的，等高线的最低水平由thresh参数和受控的数量levels控制。</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">sns.displot(penguins, x=<span class="string">&quot;bill_length_mm&quot;</span>, y=<span class="string">&quot;bill_depth_mm&quot;</span>)</span><br><span class="line">sns.displot(penguins, x=<span class="string">&quot;bill_length_mm&quot;</span>, y=<span class="string">&quot;bill_depth_mm&quot;</span>, hue=<span class="string">&quot;species&quot;</span>)</span><br><span class="line">sns.displot(penguins, x=<span class="string">&quot;bill_length_mm&quot;</span>, y=<span class="string">&quot;bill_depth_mm&quot;</span>, binwidth=(<span class="number">2</span>, <span class="number">.5</span>), cbar=<span class="literal">True</span>)</span><br><span class="line">sns.displot(penguins, x=<span class="string">&quot;bill_length_mm&quot;</span>, y=<span class="string">&quot;bill_depth_mm&quot;</span>, kind=<span class="string">&quot;kde&quot;</span>)</span><br><span class="line">sns.displot(penguins, x=<span class="string">&quot;bill_length_mm&quot;</span>, y=<span class="string">&quot;bill_depth_mm&quot;</span>, hue=<span class="string">&quot;species&quot;</span>, kind=<span class="string">&quot;kde&quot;</span>)</span><br><span class="line">sns.displot(penguins, x=<span class="string">&quot;bill_length_mm&quot;</span>, y=<span class="string">&quot;bill_depth_mm&quot;</span>, kind=<span class="string">&quot;kde&quot;</span>, thresh=<span class="number">.2</span>, levels=<span class="number">4</span>)</span><br></pre></td></tr></table></figure>
+<img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://warehouse-1310574346.cos.ap-shanghai.myqcloud.com/images/seaborn/%E4%BA%8C%E5%85%83.png" width="72%;" />
+<h1 id="分类图"><a class="markdownIt-Anchor" href="#分类图"></a> 分类图</h1>
+<h2 id="核心函数-3"><a class="markdownIt-Anchor" href="#核心函数-3"></a> 核心函数</h2>
+<p>Seaborn 中关系型接口 (relplot) 主要用来关注两个数值变量之间的情况，如果主要变量之一是离散变量，则使用分类图接口。</p>
+<p>catplot：（categorical plot）图形级通用接口，依赖于 FacetGrid 类，返回该类实例。此函数始终将变量之一视为分类变量，并在相关轴上的序数位置 (0, 1, … n) 绘制数据，即使数据具有数字或日期类型也是如此。函数内置了三个不同的系列的分类接口。</p>
+<p>分类散点图：</p>
+<ul>
+<li>stripplot：分类散点图，其中一个变量是分类变量。等价于 catplot(kind=‘strip’)，默认值 。</li>
+<li>swarmplot：绘制具有非重叠点的分类散点图。等价于 catplot(kind=‘swarm’)</li>
+</ul>
+<p>分类分布图：</p>
+<ul>
+<li>boxplot：箱线图。等价于 catplot(kind=‘box’)</li>
+<li>violinplot：小提琴图。等价于 catplot(kind=‘violin’)</li>
+<li>boxenplot：为较大的数据集绘制增强型箱线图。等价于 catplot(kind=‘boxen’)</li>
+</ul>
+<p>分类估计图：</p>
+<ul>
+<li>pointplot：使用散点图形显示点估计和置信区间。等价于 catplot(kind=‘point’)</li>
+<li>barplot：条形图。等价于 catplot(kind='b’ar)</li>
+<li>countplot：显示样本量的条形图。等价于 catplot(kind=‘count’)</li>
+</ul>
+<p>其中catplot为figure-level（可简单理解为操作对象是matplotlib中figure），而后三个系列的是axes-level（对应操作对象是matplotlib中的axes）。但实际上接口调用方式和传参模式都是一致的。</p>
+<p>其核心参数主要包括以下几个：</p>
+<ul>
+<li>data：pandas.DataFrame,</li>
+<li>x, y：vector or key in data，指定 x 轴和 y 轴位置的变量</li>
+<li>hue,：vector or key in data，用不同色调（颜色）分组的变量</li>
+<li>row, col：key in data，不同facets绘制的子图</li>
+<li>palette：string, list, dict, or matplotlib.colors.Colormap，调色板</li>
+<li>legend：bool，是否显示图例</li>
+<li>kind：string, one of { strip, swarm, box, violin, boxen, point, bar, count}，默认为strip类型。</li>
+<li>order, hue_order：lists of strings, optional，绘制分类的顺序列表</li>
+<li>kwargs：dict，其他axes-level接口关键参数</li>
+<li>ax：matplotlib.axes.Axes，axes-level接口设置坐标系统的参数</li>
+</ul>
+<h2 id="散点图-2"><a class="markdownIt-Anchor" href="#散点图-2"></a> 散点图</h2>
+<p>相比于两列数据均为数值型数据，可以想象分类数据的散点图将会是多条竖直的散点线。绘图接口有stripplot(default)和swarmplot两种。专用参数主要包括：</p>
+<ul>
+<li>jitter：float, True/1 is special-cased, optional，开启散点少量随机”抖动“调整分类轴上的点的位置。</li>
+<li>dodge：bool, optional，躲避，与hue配合时若为False，则每个级别的点将绘制在彼此之上。</li>
+</ul>
+<p>stripplot 是常规的散点图接口，可通过jitter参数开启散点少量随机”抖动“调整分类轴上的点的位置。swarmplot在stripplot的基础上，不仅将散点图通过抖动来实现相对分离，而且会严格讲各散点一字排开，从而便于直观观察散点的分布聚集情况，它只适用于相对较小的数据集，有时被称为“蜂群”。<br />
+也可以使用<code>order</code>参数在特定于绘图的基础上控制排序。</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">sns.catplot(x=<span class="string">&quot;day&quot;</span>, y=<span class="string">&quot;total_bill&quot;</span>, data=tips)</span><br><span class="line">sns.catplot(x=<span class="string">&quot;day&quot;</span>, y=<span class="string">&quot;total_bill&quot;</span>, kind=<span class="string">&quot;swarm&quot;</span>, data=tips)</span><br><span class="line">sns.catplot(x=<span class="string">&quot;day&quot;</span>, y=<span class="string">&quot;total_bill&quot;</span>, hue=<span class="string">&quot;sex&quot;</span>, kind=<span class="string">&quot;swarm&quot;</span>, data=tips)</span><br><span class="line">sns.catplot(x=<span class="string">&quot;smoker&quot;</span>, y=<span class="string">&quot;tip&quot;</span>, order=[<span class="string">&quot;No&quot;</span>, <span class="string">&quot;Yes&quot;</span>], data=tips)</span><br></pre></td></tr></table></figure>
+<img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://warehouse-1310574346.cos.ap-shanghai.myqcloud.com/images/seaborn/strip.png" width="72%;" />
+<h2 id="分布图-2"><a class="markdownIt-Anchor" href="#分布图-2"></a> 分布图</h2>
+<p>与数值型变量分布类似，seaborn也提供了几个分类型数据常用的分布绘图接口。</p>
+<ul>
+<li>boxplot：箱线图，以一种便于比较变量之间或跨分类变量水平的方式显示定量数据的分布。这种图显示了分布的三个四分位数和极值。“胡须”延伸到位于下四分位数和上四分位数 1.5 IQR 以内的点，然后独立显示超出此范围的观测值，常用于查看数据异常值等。</li>
+<li>boxenplot：是一个增强版的箱线图，即box+enhenced+plot，在标准箱线图的基础上增加了更多的分位数信息，绘图效果更为美观，信息量更大。它最适合更大的数据集</li>
+<li>violinplot：小提琴图，相当于boxplot+kdeplot，即在标准箱线图的基础上增加了kde图的信息，从而可更为直观的查看数据分布情况。因其绘图结果常常酷似小提琴形状，因而得名violinplot。在hue分类仅有2个取值时，还可通过设置split参数实现左右数据合并显示。</li>
+</ul>
+<p>专用参数主要包括：</p>
+<ul>
+<li>dodge：bool, optional，使用hue嵌套时，元素默认应沿分类轴移动，因此它们不会重叠，这种行为被称为“躲避”。如果不需要躲避，则可以禁用。</li>
+<li>whis：float, optional，通过IQR比例扩展图须，此范围之外的点将被识别为异常值。</li>
+<li>split：bool, optional，当使用带有两个级别的变量的色调嵌套时，设为True，更容易地直接比较分布</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">sns.catplot(x=<span class="string">&quot;day&quot;</span>, y=<span class="string">&quot;total_bill&quot;</span>, hue=<span class="string">&quot;smoker&quot;</span>, kind=<span class="string">&quot;box&quot;</span>, data=tips)</span><br><span class="line">tips[<span class="string">&quot;weekend&quot;</span>] = tips[<span class="string">&quot;day&quot;</span>].isin([<span class="string">&quot;Sat&quot;</span>, <span class="string">&quot;Sun&quot;</span>])</span><br><span class="line">sns.catplot(x=<span class="string">&quot;day&quot;</span>, y=<span class="string">&quot;total_bill&quot;</span>, hue=<span class="string">&quot;weekend&quot;</span>,</span><br><span class="line">            kind=<span class="string">&quot;box&quot;</span>, dodge=<span class="literal">False</span>, data=tips)</span><br><span class="line">diamonds = sns.load_dataset(<span class="string">&quot;diamonds&quot;</span>)</span><br><span class="line">sns.catplot(x=<span class="string">&quot;color&quot;</span>, y=<span class="string">&quot;price&quot;</span>, kind=<span class="string">&quot;boxen&quot;</span>,</span><br><span class="line">            data=diamonds.sort_values(<span class="string">&quot;color&quot;</span>))</span><br><span class="line">sns.catplot(x=<span class="string">&quot;day&quot;</span>, y=<span class="string">&quot;total_bill&quot;</span>, hue=<span class="string">&quot;sex&quot;</span>,</span><br><span class="line">            kind=<span class="string">&quot;violin&quot;</span>, split=<span class="literal">True</span>, data=tips)</span><br></pre></td></tr></table></figure>
+<img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://warehouse-1310574346.cos.ap-shanghai.myqcloud.com/images/seaborn/box.png" width="75%;" />
+<p>将swarmplot()/striplot()和箱线图/小提琴图来结合绘图有时也很有用：</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">g = sns.catplot(x=<span class="string">&quot;day&quot;</span>, y=<span class="string">&quot;total_bill&quot;</span>, kind=<span class="string">&quot;violin&quot;</span>, inner=<span class="literal">None</span>, data=tips)</span><br><span class="line">sns.swarmplot(x=<span class="string">&quot;day&quot;</span>, y=<span class="string">&quot;total_bill&quot;</span>, color=<span class="string">&quot;k&quot;</span>, size=<span class="number">3</span>, data=tips, ax=g.ax)</span><br></pre></td></tr></table></figure>
+<img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://warehouse-1310574346.cos.ap-shanghai.myqcloud.com/images/seaborn/violin.png" width="50%;" />
+<h2 id="统计图"><a class="markdownIt-Anchor" href="#统计图"></a> 统计图</h2>
+<ul>
+<li>barplot：条形图以每个矩形高度出了数据的统计量（默认取平均值），并使用误差条表示相应置信区间（confidence intervals，默认值为95%，即参数ci=.95）</li>
+<li>countplot：条形图的一个特例，仅用于表达各分类值计数</li>
+<li>pointplot：与barplot不同，pointplot以相应的点和线表达统计量和置信区间</li>
+</ul>
+<p>专用参数主要包括：</p>
+<ul>
+<li>estimator：callable that maps vector -&gt; scalar, optional，统计函数</li>
+<li>ci：float or “sd” or None, optional，置信区间的大小。如果为&quot;sd&quot;，则绘制标准差。如果None，则不会绘制误差线。</li>
+<li>markers：string or list of strings, optional，每个hue组别的点样式。</li>
+<li>linestyles：string or list of strings, optional，每个hue组别的线条样式。</li>
+<li>join：bool, optional，如果True，将在同一hue组别的点之间相连 。</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">titanic = sns.load_dataset(<span class="string">&quot;titanic&quot;</span>)</span><br><span class="line">sns.catplot(x=<span class="string">&quot;sex&quot;</span>, y=<span class="string">&quot;survived&quot;</span>, hue=<span class="string">&quot;class&quot;</span>, kind=<span class="string">&quot;bar&quot;</span>, data=titanic)</span><br><span class="line">sns.catplot(x=<span class="string">&quot;deck&quot;</span>, kind=<span class="string">&quot;count&quot;</span>, palette=<span class="string">&quot;ch:.25&quot;</span>, data=titanic)</span><br><span class="line">sns.catplot(x=<span class="string">&quot;sex&quot;</span>, y=<span class="string">&quot;survived&quot;</span>, hue=<span class="string">&quot;class&quot;</span>, kind=<span class="string">&quot;point&quot;</span>, data=titanic)</span><br><span class="line">sns.catplot(x=<span class="string">&quot;class&quot;</span>, y=<span class="string">&quot;survived&quot;</span>, hue=<span class="string">&quot;sex&quot;</span>,</span><br><span class="line">            palette=&#123;<span class="string">&quot;male&quot;</span>: <span class="string">&quot;g&quot;</span>, <span class="string">&quot;female&quot;</span>: <span class="string">&quot;m&quot;</span>&#125;,</span><br><span class="line">            markers=[<span class="string">&quot;^&quot;</span>, <span class="string">&quot;o&quot;</span>], linestyles=[<span class="string">&quot;-&quot;</span>, <span class="string">&quot;--&quot;</span>],</span><br><span class="line">            kind=<span class="string">&quot;point&quot;</span>, data=titanic)</span><br></pre></td></tr></table></figure>
+<img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://warehouse-1310574346.cos.ap-shanghai.myqcloud.com/images/seaborn/bar.png" width="72%;" />
+<h1 id="回归图"><a class="markdownIt-Anchor" href="#回归图"></a> 回归图</h1>
+<p>在查看双变量分布关系的基础上，seaborn还提供了简单的线性回归接口。</p>
+<ul>
+<li>lmplot：（regplot+FacetGrid）图形级通用接口，依赖于 FacetGrid 类，返回该类实例。</li>
+<li>regplot：（regression plot）在最简单的调用中，绘制散点图，然后拟合回归线和该回归线的 95% 置信区间。</li>
+<li>residplot：绘制线性回归的残差图，相当于先执行regplot中的回归拟合，而后将回归值与真实值相减结果作为绘图数据。直观来看，当残差结果随机分布于y=0上下较小的区间时，说明具有较好的回归效果。</li>
+</ul>
+<p>其中lmplot为figure-level（可简单理解为操作对象是matplotlib中figure），而regplot和residplot是axes-level（对应操作对象是matplotlib中的axes）。但实际上接口调用方式和传参模式都是一致的。</p>
+<p>其核心参数主要包括以下几个：</p>
+<ul>
+<li>data：pandas.DataFrame,</li>
+<li>x, y：vector or key in data，指定 x 轴和 y 轴位置的变量</li>
+<li>hue,：vector or key in data，用不同色调（颜色）分组的变量</li>
+<li>row, col：key in data，不同facets绘制的子图</li>
+<li>palette：string, list, dict, or matplotlib.colors.Colormap，调色板</li>
+<li>legend：bool，是否显示图例</li>
+<li>{hue,col,row}_order：lists of strings, optional，分面的顺序列表</li>
+<li>fit_reg：bool, optional，拟合回归模型</li>
+<li>ci：int in [0, 100] or None, optional，置信区间的大小，回归线环绕的阴影表示。对于大型数据集，建议将此参数设置为 None 来避免该计算。</li>
+<li>order：int, optional，设置回归模型的阶数，如果大于 1，则用于numpy.polyfit估计多项式回归。例如设置order=2时可以拟合出抛物线型回归线</li>
+<li>logistic：bool, optional，假设y是一个二元变量并用于 statsmodels估计逻辑回归模型。</li>
+<li>lowess：bool, optional，用于statsmodels估计非参数 Lowess 模型（局部加权线性回归）。请注意，目前无法为此类模型绘制置信区间。</li>
+<li>robust：bool, optional，用于statsmodels估计稳健回归。这将减轻异常值的权重。</li>
+<li>logx：bool, optional，估计形式为 y ~ log(x) 的线性回归。请注意， x必须为正数才能使其正常工作。</li>
+<li>kwargs：dict，其他axes-level接口关键参数</li>
+<li>ax：matplotlib.axes.Axes，axes-level接口设置坐标系统的参数</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">sns.lmplot(x=<span class="string">&quot;total_bill&quot;</span>, y=<span class="string">&quot;tip&quot;</span>, data=tips)</span><br><span class="line"><span class="comment"># 还可以绘制离散 x 变量并添加一些抖动：</span></span><br><span class="line">sns.lmplot(x=<span class="string">&quot;size&quot;</span>, y=<span class="string">&quot;total_bill&quot;</span>, data=tips, x_jitter=<span class="number">.1</span>)</span><br><span class="line"><span class="comment"># 用离散 x 变量绘图，显示唯一值的均值和置信区间：</span></span><br><span class="line">sns.lmplot(x=<span class="string">&quot;size&quot;</span>, y=<span class="string">&quot;total_bill&quot;</span>, data=tips,</span><br><span class="line">                 x_estimator=np.mean)</span><br><span class="line"><span class="comment"># 拟合高阶多项式回归</span></span><br><span class="line">ans = sns.load_dataset(<span class="string">&quot;anscombe&quot;</span>)</span><br><span class="line">sns.lmplot(x=<span class="string">&quot;x&quot;</span>, y=<span class="string">&quot;y&quot;</span>, data=ans.loc[ans.dataset == <span class="string">&quot;II&quot;</span>],</span><br><span class="line">                 scatter_kws=&#123;<span class="string">&quot;s&quot;</span>: <span class="number">80</span>&#125;,</span><br><span class="line">                 order=<span class="number">2</span>, ci=<span class="literal">None</span>)</span><br><span class="line"><span class="comment"># 拟合稳健回归并且不绘制置信区间</span></span><br><span class="line">sns.lmplot(x=<span class="string">&quot;x&quot;</span>, y=<span class="string">&quot;y&quot;</span>, data=ans.loc[ans.dataset == <span class="string">&quot;III&quot;</span>],</span><br><span class="line">                 scatter_kws=&#123;<span class="string">&quot;s&quot;</span>: <span class="number">80</span>&#125;,</span><br><span class="line">                 robust=<span class="literal">True</span>, ci=<span class="literal">None</span>)</span><br><span class="line"><span class="comment"># 使用 log(x) 拟合回归模型：</span></span><br><span class="line">sns.lmplot(x=<span class="string">&quot;size&quot;</span>, y=<span class="string">&quot;total_bill&quot;</span>, data=tips,</span><br><span class="line">                 x_estimator=np.mean, logx=<span class="literal">True</span>)</span><br></pre></td></tr></table></figure>
+<img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://warehouse-1310574346.cos.ap-shanghai.myqcloud.com/images/seaborn/reg.png" width="72%;" />
+<p>残差图：直观来看，当残差结果随机分布于y=0上下较小的区间时，说明具有较好的回归效果。</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">sns.residplot(x=<span class="string">&quot;x&quot;</span>, y=<span class="string">&quot;y&quot;</span>, data=anscombe.query(<span class="string">&quot;dataset == &#x27;I&#x27;&quot;</span>),</span><br><span class="line">              scatter_kws=&#123;<span class="string">&quot;s&quot;</span>: <span class="number">80</span>&#125;)</span><br></pre></td></tr></table></figure>
+<img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://warehouse-1310574346.cos.ap-shanghai.myqcloud.com/images/seaborn/resid.png" width="50%;" />
+<p>分面图</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">sns.lmplot(x=<span class="string">&quot;total_bill&quot;</span>, y=<span class="string">&quot;tip&quot;</span>, hue=<span class="string">&quot;smoker&quot;</span>, col=<span class="string">&quot;time&quot;</span>, data=tips)</span><br></pre></td></tr></table></figure>
+<img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://warehouse-1310574346.cos.ap-shanghai.myqcloud.com/images/seaborn/lm.png" width="80%;" />
+<h1 id="矩阵图"><a class="markdownIt-Anchor" href="#矩阵图"></a> 矩阵图</h1>
+<h2 id="热力图"><a class="markdownIt-Anchor" href="#热力图"></a> 热力图</h2>
+<p>矩阵图主要用于表达一组数值型数据的大小关系，在探索数据相关性时也较为实用。</p>
+<p>heatmap：热力图，将矩形数据绘制为颜色编码矩阵。axes-level级函数（对应操作对象是matplotlib中的axes）</p>
+<p>其核心参数主要包括以下几个：</p>
+<ul>
+<li>data：可以强制转换为 ndarray 的二维数据集。如果提供了 Pandas DataFrame，索引/列信息将用于标记列和行。</li>
+<li>vmin, vmax：floats, optional，锚定颜色图的值。</li>
+<li>cmap：matplotlib colormap name or object, or list of colors, optional，从数据值到颜色空间的映射</li>
+<li>center：float, optional，绘制发散数据时居中颜色的值。</li>
+<li>robust：bool, optional，使用稳健的分位数而不是极值来计算颜色图范围。</li>
+<li>annot：bool 或矩形数据集, optional，在每个单元格中写入数据值。请注意，DataFrames 将匹配位置，而不是索引。</li>
+<li>fmt：str, optional，添加注释时使用的字符串格式化代码。</li>
+<li>linewidths：float, optional，将划分每个单元格的线的宽度。</li>
+<li>linecolor：color, optional，将划分每个单元格的线条的颜色。</li>
+<li>cbar：bool, optional，是否绘制颜色条。</li>
+<li>xticklabels, yticklabels：“auto”, bool, list-like, or int, optional，坐标轴标签</li>
+<li>mask：bool array or DataFrame, optional，数据将不会显示在mask为 True 的单元格中。带有缺失值的单元格会被自动屏蔽。</li>
+<li>kwargs：dict，其他axes-level接口关键参数</li>
+<li>ax：matplotlib.axes.Axes，axes-level接口设置坐标系统的参数</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">flights = sns.load_dataset(<span class="string">&quot;flights&quot;</span>)</span><br><span class="line">flights = flights.pivot(<span class="string">&quot;month&quot;</span>, <span class="string">&quot;year&quot;</span>, <span class="string">&quot;passengers&quot;</span>)</span><br><span class="line">ax = sns.heatmap(flights)</span><br><span class="line"><span class="comment"># 使用整数格式用数值注释每个单元格</span></span><br><span class="line">ax = sns.heatmap(flights, annot=<span class="literal">True</span>, fmt=<span class="string">&quot;d&quot;</span>)</span><br><span class="line"><span class="comment"># 在每个单元格之间添加线条</span></span><br><span class="line">ax = sns.heatmap(flights, linewidths=<span class="number">.5</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 使用掩码仅绘制矩阵的一部分</span></span><br><span class="line">corr = np.corrcoef(np.random.randn(<span class="number">10</span>, <span class="number">200</span>))</span><br><span class="line">mask = np.zeros_like(corr)</span><br><span class="line">mask[np.triu_indices_from(mask)] = <span class="literal">True</span></span><br><span class="line">ax = sns.heatmap(corr, mask=mask, vmax=<span class="number">.3</span>)</span><br></pre></td></tr></table></figure>
+<img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://warehouse-1310574346.cos.ap-shanghai.myqcloud.com/images/seaborn/heatmap.png" width="100%;" />
+<h2 id="聚类图"><a class="markdownIt-Anchor" href="#聚类图"></a> 聚类图</h2>
+<p>clustermap：在heatmap()基础上绘制分层聚类的热图。</p>
+<p>其核心参数主要包括以下几个：</p>
+<ul>
+<li>data：2D array-like，用于聚类的矩形数据。不能包含 NA。</li>
+<li>methodstr, optional，用于计算聚类的方法，请参考有关<a target="_blank" rel="noopener external nofollow noreferrer" href="https://docs.scipy.org/doc/scipy/reference/reference/generated/scipy.cluster.hierarchy.linkage.html#scipy.cluster.hierarchy.linkage"><code>scipy.cluster.hierarchy.linkage()</code></a></li>
+<li>z_score：int or None, optional，是否计算行(0)或列(1)的 Z 分数，z = (x - mean)/std。</li>
+<li>standard_scale：int or None, optional，是否Min-Max标准化行(0)或列(1)。</li>
+<li>{row,col}_cluster：bool, optional，聚类{行，列}。</li>
+<li>{row,col}_linkage：numpy.ndarray, optional，行或列的预计算链接矩阵。具体格式见<a target="_blank" rel="noopener external nofollow noreferrer" href="https://docs.scipy.org/doc/scipy/reference/reference/generated/scipy.cluster.hierarchy.linkage.html#scipy.cluster.hierarchy.linkage"><code>scipy.cluster.hierarchy.linkage()</code></a> 。</li>
+<li>{row,col}_colors：list-like or pandas DataFrame/Series, optional，行或列的颜色列表。</li>
+<li>mask：bool array or DataFrame, optional，数据将不会显示在mask为 True 的单元格中。带有缺失值的单元格会被自动屏蔽。</li>
+<li>tree_kws：dict, optional，用于绘制树状图树线的参数，详见<a target="_blank" rel="noopener external nofollow noreferrer" href="https://matplotlib.org/stable/api/collections_api.html#matplotlib.collections.LineCollection"><code>matplotlib.collections.LineCollection</code></a> 。</li>
+<li>kwargs：other keyword arguments，所有其他关键字参数都传递给<code>heatmap()</code></li>
+</ul>
+<p>如下图表展示了鸢尾花数据集聚类图，并添加彩色标签以识别观察结果：</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">sns.set_theme(color_codes=<span class="literal">True</span>)</span><br><span class="line">iris = sns.load_dataset(<span class="string">&quot;iris&quot;</span>)</span><br><span class="line">species = iris.pop(<span class="string">&quot;species&quot;</span>)</span><br><span class="line">lut = <span class="built_in">dict</span>(<span class="built_in">zip</span>(species.unique(), <span class="string">&quot;rbg&quot;</span>))</span><br><span class="line">row_colors = species.<span class="built_in">map</span>(lut)</span><br><span class="line">g = sns.clustermap(iris, row_colors=row_colors)</span><br></pre></td></tr></table></figure>
+<img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://warehouse-1310574346.cos.ap-shanghai.myqcloud.com/images/seaborn/clustermap.png" width="72%;" />
+<h1 id="网格图"><a class="markdownIt-Anchor" href="#网格图"></a> 网格图</h1>
+<h2 id="分面网格"><a class="markdownIt-Anchor" href="#分面网格"></a> 分面网格</h2>
+<p>在探索多维数据时，一种有用的方法是在数据集的不同子集上绘制同一图的多个实例。这种技术有时被称为分面网格绘图。Matplotlib 为制作多轴（multiple axes）图形提供了良好的支持，seaborn 在此基础上构建，将图形结构直接链接到数据集结构。</p>
+<p>seaborn.FacetGrid 类将数据集映射到多个轴，这些轴排列在与数据集中变量级别相对应的行和列网格中。它生成的图通常被称为 <strong>分面网格</strong>。一个FacetGrid最多可以应用到三个维度：row，col 和 hue。图形级函数 （figure-level ）<code>relplot()</code>，<code>displot()</code>，<code>catplot()</code>和 <code>lmplot()</code>都会返回该对象的实例，均可以绘制分面网格。</p>
+<h2 id="配对网格"><a class="markdownIt-Anchor" href="#配对网格"></a> 配对网格</h2>
+<p>当变量数不止2个时，pairplot是查看各变量间配对关系的首选。此函数将创建一个Axes 网格，可视化数据集中所有变量的单变量分布及其所有两两配对关系。显然，绘制结果中的上三角和下三角部分的子图是镜像的。</p>
+<p>实际上，pairplot 旨在轻松绘制一些常见样式，依赖于PairGrid类实现，返回该类实例。如果您需要更大的灵活性，可以直接使用PairGrid。</p>
+<p>其核心参数主要包括以下几个：</p>
+<ul>
+<li>data：pandas.DataFrame</li>
+<li>hue：name of variable in data，用不同色调（颜色）分组的变量</li>
+<li>hue_order：list of strings，色调水平顺序</li>
+<li>palette：dict or seaborn color palette，调色板</li>
+<li>vars：list of variable names in data，要使用的变量，否则使用每个列的数字数据类型。</li>
+<li>{x, y}_vars：lists of variable names in data，绘制行，列的变量名</li>
+<li>kind：{‘scatter’, ‘kde’, ‘hist’, ‘reg’}，配对子图类型，默认scatter</li>
+<li>diag_kind：{‘auto’, ‘hist’, ‘kde’, None}，对角线子图类型</li>
+<li>markers：single matplotlib marker code or list，点样式</li>
+<li>corner：bool，只绘制下三角网格（含对角线）</li>
+<li>dropna：bool，在绘图之前从数据中丢弃缺失值。</li>
+<li>{plot, diag, grid}_kws：dicts，关键字参数的字典。 传递到上下三角绘图函数、对角绘图函数或PairGrid</li>
+</ul>
+<p>pairplot默认使用 scatterplot() 用于变量配对网格，沿对角线使用 histplot()。返回对象是 PairGrid，也可进一步自定义绘图：</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">penguins = sns.load_dataset(<span class="string">&quot;penguins&quot;</span>)</span><br><span class="line">g = sns.pairplot(penguins)</span><br><span class="line">g.map_lower(sns.kdeplot, levels=<span class="number">4</span>, color=<span class="string">&quot;.2&quot;</span>)</span><br></pre></td></tr></table></figure>
+<img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://warehouse-1310574346.cos.ap-shanghai.myqcloud.com/images/seaborn/pairplot_1_0.png" width="80%;" />
+<p>分配变量到 hue，默认对角线改为核密度估计 （KDE），也可用diag_kind强制更换。</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">sns.pairplot(penguins, hue=<span class="string">&quot;species&quot;</span>)</span><br></pre></td></tr></table></figure>
+<img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://warehouse-1310574346.cos.ap-shanghai.myqcloud.com/images/seaborn/pairplot_3_0.png" width="80%;" />
+<p>kind参数决定对角线和对角线外的绘图风格。选择要绘图的变量：vars，x_vars，y_vars</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">sns.pairplot(penguins, kind=<span class="string">&quot;kde&quot;</span>,</span><br><span class="line">    x_vars=[<span class="string">&quot;bill_length_mm&quot;</span>, <span class="string">&quot;bill_depth_mm&quot;</span>, <span class="string">&quot;flipper_length_mm&quot;</span>],</span><br><span class="line">    y_vars=[<span class="string">&quot;bill_length_mm&quot;</span>, <span class="string">&quot;bill_depth_mm&quot;</span>]</span><br><span class="line">)</span><br></pre></td></tr></table></figure>
+<img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://warehouse-1310574346.cos.ap-shanghai.myqcloud.com/images/seaborn/pairplot_5_0.png" width="80%;" />
+<p>设置为仅绘制下三角形：<code>corner=True</code>，并接受关键字参数的调用</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">sns.pairplot(penguins, corner=<span class="literal">True</span>, diag_kws=<span class="built_in">dict</span>(fill=<span class="literal">False</span>))</span><br></pre></td></tr></table></figure>
+<img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://warehouse-1310574346.cos.ap-shanghai.myqcloud.com/images/seaborn/pairplot_7_0.png" width="80%;" />
+<h2 id="联合网格"><a class="markdownIt-Anchor" href="#联合网格"></a> 联合网格</h2>
+<p>jointplot是一个联合图表接口。绘图结果主要有三部分：绘图主体用于表达两个变量关系分布，在其上侧和右侧分别体现2个变量的单变量分布。与 pairplot  类似，jointplot 依赖于JointGrid类，返回该类实例。相比之下，JointGrid可以实现更为丰富的可定制绘图接口。</p>
+<p>其核心参数主要包括以下几个：</p>
+<ul>
+<li>data：pandas.DataFrame, numpy.ndarray, mapping, or sequence</li>
+<li>x, y：vectors or keys in data</li>
+<li>hue：name of variable in data，用不同色调（颜色）分组的变量</li>
+<li>hue_order：list of strings，色调水平顺序</li>
+<li>palette：dict or seaborn color palette，调色板</li>
+<li>kind：{ “scatter” , “kde” , “hist” , “hex” , “reg” , “resid” }，联合图类型，默认scatter</li>
+<li>{x, y}lim：pairs of numbers，设置坐标轴限制</li>
+<li>marginal_ticks：bool，是否显示边缘图刻度</li>
+<li>{joint, marginal}_kws：dicts，绘图组件的其他关键字参数。</li>
+<li>dropna：bool，在绘图之前从数据中丢弃缺失值。</li>
+</ul>
+<p>默认情况下，绘制散点图 scatterplot() 和边缘直方图 histplot() 。同样，要在绘图上添加更多层，可利用返回的 JointGrid 对象上的方法：</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">penguins = sns.load_dataset(<span class="string">&quot;penguins&quot;</span>)</span><br><span class="line">g = sns.jointplot(data=penguins, x=<span class="string">&quot;bill_length_mm&quot;</span>, y=<span class="string">&quot;bill_depth_mm&quot;</span>)</span><br><span class="line">g.plot_joint(sns.kdeplot, color=<span class="string">&quot;r&quot;</span>, zorder=<span class="number">0</span>, levels=<span class="number">6</span>)</span><br><span class="line">g.plot_marginals(sns.rugplot, color=<span class="string">&quot;r&quot;</span>, height=-<span class="number">.15</span>, clip_on=<span class="literal">False</span>)</span><br></pre></td></tr></table></figure>
+<img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://warehouse-1310574346.cos.ap-shanghai.myqcloud.com/images/seaborn/jointplot_1_0.png" width="60%;" />
+<p>与 pairplot() 类似，在 jointplot() 中设置 kind 将改变主体和边缘图：</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">sns.jointplot(</span><br><span class="line">    data=penguins,</span><br><span class="line">    x=<span class="string">&quot;bill_length_mm&quot;</span>, y=<span class="string">&quot;bill_depth_mm&quot;</span>, hue=<span class="string">&quot;species&quot;</span>,</span><br><span class="line">    kind=<span class="string">&quot;kde&quot;</span></span><br><span class="line">)</span><br></pre></td></tr></table></figure>
+<img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://warehouse-1310574346.cos.ap-shanghai.myqcloud.com/images/seaborn/jointplot_3_0.png" width="60%;" />
+<p>也可使用matplotlib.axes.Axes.hexbin() 绘制六角形箱：kind=“hex”。且传递其他关键字参数到基础图。</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">sns.jointplot(data=penguins, </span><br><span class="line">    x=<span class="string">&quot;bill_length_mm&quot;</span>, y=<span class="string">&quot;bill_depth_mm&quot;</span>, </span><br><span class="line">    kind=<span class="string">&quot;hex&quot;</span>,</span><br><span class="line">    marginal_kws=<span class="built_in">dict</span>(bins=<span class="number">25</span>, fill=<span class="literal">False</span>)</span><br><span class="line">)</span><br></pre></td></tr></table></figure>
+<img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://warehouse-1310574346.cos.ap-shanghai.myqcloud.com/images/seaborn/jointplot_5_0.png" width="60%;" />
+<h1 id="主题"><a class="markdownIt-Anchor" href="#主题"></a> 主题</h1>
+<p>seaborn的主题设置主要分为两组，第一组是风格（style）设置，第二组是环境（context）设置，用来缩放图形的各种元素。</p>
+<p>set_theme方法或者set方法(set_theme的别名)可以一次设置多个主题参数，每组参数都可以直接或临时设置。</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">seaborn.set_theme(context=<span class="string">&#x27;notebook&#x27;</span>, style=<span class="string">&#x27;darkgrid&#x27;</span>, palette=<span class="string">&#x27;deep&#x27;</span>, </span><br><span class="line">	font=<span class="string">&#x27;sans-serif&#x27;</span>, font_scale=<span class="number">1</span>, color_codes=<span class="literal">True</span>, rc=<span class="literal">None</span>)</span><br></pre></td></tr></table></figure>
+<p><strong>Parameters</strong></p>
+<ul>
+<li>context：string or dict，风格设置，请参考 plotting_context()</li>
+<li>style：string or dict，环境设置，请参考 axes_style()</li>
+<li>palette：string or dict，调色板设置，请参考 color_palette()</li>
+<li>font：string，字体设置，请参考 matplotlib 字体管理器</li>
+<li>font_scale：float, optional，字体设置，字体大小</li>
+<li>color_codes：bool，默认 True，将使用seaborn调色板</li>
+<li>rc：dict or None，rc 字典参数将覆盖上述内容</li>
+</ul>
+<h2 id="style"><a class="markdownIt-Anchor" href="#style"></a> Style</h2>
+<p>seaborn设置风格的方法主要有三种：</p>
+<ul>
+<li>set_theme：主题通用设置接口</li>
+<li>set_style：风格专用设置接口，设置后全局风格随之改变</li>
+<li>axes_style：在with语句中使用该函数时临时设置当前图（axes级）的风格，同时返回设置后的风格参数。</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">seaborn.set_style(style=<span class="literal">None</span>, rc=<span class="literal">None</span>)</span><br><span class="line">seaborn.axes_style(style=<span class="literal">None</span>, rc=<span class="literal">None</span>)</span><br></pre></td></tr></table></figure>
+<p><strong>Parameters</strong></p>
+<ul>
+<li>style：dict, None, or one of {darkgrid, whitegrid, dark, white, ticks}，参数字典或预配置集的名称</li>
+<li>rc：dict, optional，用于覆盖预设 seaborn 样式字典中的值</li>
+</ul>
+<p>有5种预设 seaborn风格：darkgrid (default)，whitegrid，dark，white，和ticks。它们分别适合不同的应用和个人喜好。</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">tips = sns.load_dataset(<span class="string">&quot;tips&quot;</span>)</span><br><span class="line">fig = plt.figure(figsize=(<span class="number">6</span>, <span class="number">4</span>))</span><br><span class="line">style = [<span class="literal">None</span>, <span class="string">&#x27;darkgrid&#x27;</span>, <span class="string">&#x27;whitegrid&#x27;</span>, <span class="string">&#x27;dark&#x27;</span>, <span class="string">&#x27;white&#x27;</span>, <span class="string">&#x27;ticks&#x27;</span>]</span><br><span class="line"></span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">6</span>):</span><br><span class="line">    <span class="keyword">with</span> sns.axes_style(style[i]):</span><br><span class="line">        ax = plt.subplot(<span class="number">2</span>, <span class="number">3</span>, i+<span class="number">1</span>)</span><br><span class="line">        ax.set_title(style[i])</span><br><span class="line">        ax.set_xlabel(<span class="string">&quot; &quot;</span>); ax.set_ylabel(<span class="string">&quot; &quot;</span>)</span><br><span class="line">        ax.set_xticklabels([]); ax.set_yticklabels([])</span><br><span class="line">        sns.histplot(data=tips, x=<span class="string">&quot;total_bill&quot;</span>)</span><br><span class="line"></span><br><span class="line">plt.show()</span><br></pre></td></tr></table></figure>
+<img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://warehouse-1310574346.cos.ap-shanghai.myqcloud.com/images/seaborn/Figure_1.png" title="seaborn5种内置风格与matplotlib绘图风格对比" width="100%;" />
+<p>对于white和ticks样式还可以从图中删除顶部和右侧没必要的边框线，seaborn可以调用despine()函数来实现</p>
+<figure class="highlight sql"><table><tr><td class="code"><pre><span class="line">seaborn.despine(fig<span class="operator">=</span><span class="keyword">None</span>, ax<span class="operator">=</span><span class="keyword">None</span>, </span><br><span class="line">	top<span class="operator">=</span><span class="literal">True</span>, <span class="keyword">right</span><span class="operator">=</span><span class="literal">True</span>, <span class="keyword">left</span><span class="operator">=</span><span class="literal">False</span>, bottom<span class="operator">=</span><span class="literal">False</span>, </span><br><span class="line">	<span class="keyword">offset</span><span class="operator">=</span><span class="keyword">None</span>, trim<span class="operator">=</span><span class="literal">False</span>)</span><br></pre></td></tr></table></figure>
+<ul>
+<li>fig：matplotlib figure, optional，指定图形的所有轴，默认当前图形</li>
+<li>ax：matplotlib axes, optional：指定要删除的轴，如果制定了fig则忽略</li>
+<li>top, right, left, bottom：boolean, optional</li>
+<li>offset：int or dict, optional，设置每侧轴偏移的绝对距离</li>
+<li>trim：bool, optional，如果为 True，则将边框限制为每个非指定轴上的最小和最大主刻度</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">tips = sns.load_dataset(<span class="string">&quot;tips&quot;</span>)</span><br><span class="line">fig = plt.figure(figsize=(<span class="number">6</span>, <span class="number">3</span>))</span><br><span class="line"></span><br><span class="line">sns.set_style(<span class="string">&quot;white&quot;</span>)</span><br><span class="line">ax = plt.subplot(<span class="number">1</span>, <span class="number">2</span>, <span class="number">1</span>)</span><br><span class="line">ax.set_xlabel(<span class="string">&quot; &quot;</span>); ax.set_ylabel(<span class="string">&quot; &quot;</span>)</span><br><span class="line">sns.histplot(data=tips, x=<span class="string">&quot;total_bill&quot;</span>)</span><br><span class="line">sns.despine(ax=ax)</span><br><span class="line"></span><br><span class="line">ax = plt.subplot(<span class="number">1</span>, <span class="number">2</span>, <span class="number">2</span>)</span><br><span class="line">sns.histplot(data=tips, x=<span class="string">&quot;total_bill&quot;</span>)</span><br><span class="line">ax.set_xlabel(<span class="string">&quot; &quot;</span>); ax.set_ylabel(<span class="string">&quot; &quot;</span>)</span><br><span class="line">sns.despine(ax=ax, offset=<span class="number">10</span>, trim=<span class="literal">True</span>)</span><br><span class="line">plt.show()</span><br></pre></td></tr></table></figure>
+<img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://warehouse-1310574346.cos.ap-shanghai.myqcloud.com/images/seaborn/Figure_3.png" width="80%;" />
+<h2 id="context"><a class="markdownIt-Anchor" href="#context"></a> Context</h2>
+<p>设置环境的方法有三种：</p>
+<ul>
+<li>set_theme：主题通用设置接口</li>
+<li>set_context：环境设置专用接口，设置后全局绘图环境随之改变</li>
+<li>plotting_context：在with语句中使用该函数时临时设置当前图（axes级）的绘图环境，同时返回设置后的环境系列参数。</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">seaborn.plotting_context(context=<span class="literal">None</span>, font_scale=<span class="number">1</span>, rc=<span class="literal">None</span>)</span><br></pre></td></tr></table></figure>
+<p><strong>Parameters</strong></p>
+<ul>
+<li>context：dict, None, or one of {paper, notebook, talk, poster}，参数字典或预配置集的名称</li>
+<li><strong>font_scale</strong>：float, optional，单独配置字体大小</li>
+<li>rc：dict, optional，用于覆盖预设 seaborn 样式字典中的值</li>
+</ul>
+<p>支持4种绘图环境，来控制绘图元素的比例，按相对大小的顺序，依次是paper，notebook (default)，talk，和poster</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">tips = sns.load_dataset(<span class="string">&quot;tips&quot;</span>)</span><br><span class="line">fig = plt.figure(figsize=(<span class="number">8</span>, <span class="number">6</span>))</span><br><span class="line">context = [<span class="string">&#x27;paper&#x27;</span>, <span class="string">&#x27;notebook&#x27;</span>, <span class="string">&#x27;talk&#x27;</span>, <span class="string">&#x27;poster&#x27;</span>]</span><br><span class="line"></span><br><span class="line">sns.set_style(<span class="string">&quot;darkgrid&quot;</span>)</span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">4</span>):</span><br><span class="line">    <span class="keyword">with</span> sns.plotting_context(context[i]):</span><br><span class="line">        ax = plt.subplot(<span class="number">2</span>, <span class="number">2</span>, i+<span class="number">1</span>)</span><br><span class="line">        ax.set_title(context[i])</span><br><span class="line">        ax.set_xlabel(<span class="string">&quot; &quot;</span>); ax.set_ylabel(<span class="string">&quot; &quot;</span>)</span><br><span class="line">        ax.set_xticklabels([]); ax.set_yticklabels([])</span><br><span class="line">        sns.histplot(data=tips, x=<span class="string">&quot;total_bill&quot;</span>)</span><br><span class="line"></span><br><span class="line">plt.show()</span><br></pre></td></tr></table></figure>
+<img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://warehouse-1310574346.cos.ap-shanghai.myqcloud.com/images/seaborn/Figure_2.png" title="seaborn 4种绘图环境对比" width="80%;" />
+<h1 id="调色板"><a class="markdownIt-Anchor" href="#调色板"></a> 调色板</h1>
+<h2 id="选择调色板的工具"><a class="markdownIt-Anchor" href="#选择调色板的工具"></a> 选择调色板的工具</h2>
+<p>由于我们眼睛的工作方式，可以使用三个组件定义特定颜色。我们通常通过指定 RGB 值在计算机中对颜色进行编程，RGB 值设置了显示器中红色、绿色和蓝色通道的强度。但是为了分析颜色的感知属性，最好Hue(色相)、Luminance(亮度)、Saturation(饱和度)三方面考虑。</p>
+<p>使用调色板的通用函数包括以下两个：</p>
+<ul>
+<li>color_palette：返回RGB 元组列表或连续colormap。在with语句中用来配置一个临时调色板</li>
+<li>set_palette：设置默认调色板</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">seaborn.color_palette(palette=<span class="literal">None</span>, n_colors=<span class="literal">None</span>, desat=<span class="literal">None</span>, as_cmap=<span class="literal">False</span>)</span><br><span class="line">seaborn.set_palette(palette, n_colors=<span class="literal">None</span>, desat=<span class="literal">None</span>, color_codes=<span class="literal">False</span>)</span><br></pre></td></tr></table></figure>
+<p><strong>Parameters</strong></p>
+<ul>
+<li>palette: None, string, or sequence, optional
+<ul>
+<li>seaborn 预设的调色板名称</li>
+<li>matplotlib colormap</li>
+<li>matplotlib 可接受的任何格式的颜色序列</li>
+</ul>
+</li>
+<li>n_colors：int, optional，调色板中的颜色数。如果None，默认值将取决于如何palette指定</li>
+<li>desat：float, optional，每种颜色的不饱和度</li>
+<li>as_cmap：bool，配色是否离散，如果为 True，则颜色返回连续colormap</li>
+<li>color_codes：bool，如果True且palette是seaborn 调色板，则将速记颜色代码（例如&quot;rgb&quot;等）重新映射到该调色板</li>
+</ul>
+<p>从广义上讲，有以下三类调色板：</p>
+<ul>
+<li>定性调色板，适合表示分类数据，定性调色板中变化的主要维度是色调</li>
+<li>顺序调色板，适合表示数字数据，顺序调色板中变化的主要维度是亮度</li>
+<li>发散调色板，适用于表示具有分类边界的数字数据</li>
+</ul>
+<h2 id="定性调色板"><a class="markdownIt-Anchor" href="#定性调色板"></a> 定性调色板</h2>
+<p><strong>Seaborn支持6类matplotlib调色板</strong>：(deep, muted, bright, pastel, dark, colorblind)</p>
+<img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://warehouse-1310574346.cos.ap-shanghai.myqcloud.com/images/seaborn/color_palettes_22_0.png" width="75%;" />
+<p>为了便于查看调色板样式，seaborn还提供了一个专门绘制颜色结果的方法palplot。</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">sns.palplot(sns.color_palette())</span><br></pre></td></tr></table></figure>
+<img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://warehouse-1310574346.cos.ap-shanghai.myqcloud.com/images/seaborn/Figure_4.png" width="80%;" />
+<p><strong>使用圆形颜色系统</strong>：当您有任意数量的类别时，可在圆形颜色空间中绘制均匀间隔的颜色（在保持亮度和饱和度不变的情况下，色调会发生变化）</p>
+<p>seaborn.husl_palette，在 HUSL 色调空间中获取一组均匀间隔的颜色<br />
+seaborn.hls_palette，在 HLS 色调空间中获取一组均匀间隔的颜色</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">sns.color_palette(<span class="string">&quot;hls&quot;</span>, <span class="number">8</span>)</span><br><span class="line">sns.color_palette(<span class="string">&quot;husl&quot;</span>, <span class="number">6</span>)</span><br></pre></td></tr></table></figure>
+<img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://warehouse-1310574346.cos.ap-shanghai.myqcloud.com/images/seaborn/hls.png" width="80%;" />
+<img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://warehouse-1310574346.cos.ap-shanghai.myqcloud.com/images/seaborn/husl.png" width="60%;" />
+<p><strong>使用分类 Color Brewer 调色板</strong>：(Paired, Set2)</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">sns.color_palette(<span class="string">&quot;Set2&quot;</span>)</span><br><span class="line">sns.color_palette(<span class="string">&quot;Paired&quot;</span>)</span><br></pre></td></tr></table></figure>
+<img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://warehouse-1310574346.cos.ap-shanghai.myqcloud.com/images/seaborn/set2.png" width="60%;" />
+<img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://warehouse-1310574346.cos.ap-shanghai.myqcloud.com/images/seaborn/paired.png" width="80%;" />
+<p><strong>使用来自 xkcd 颜色名称制作调色板</strong>：</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">colors = [<span class="string">&quot;windows blue&quot;</span>, <span class="string">&quot;amber&quot;</span>, <span class="string">&quot;greyish&quot;</span>, <span class="string">&quot;faded green&quot;</span>, <span class="string">&quot;dusty purple&quot;</span>]</span><br><span class="line">sns.palplot(sns.xkcd_palette(colors))</span><br></pre></td></tr></table></figure>
+<img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://warehouse-1310574346.cos.ap-shanghai.myqcloud.com/images/seaborn/xkcd.png" width="60%;" />
+<h2 id="顺序调色板"><a class="markdownIt-Anchor" href="#顺序调色板"></a> 顺序调色板</h2>
+<p>顺序调色板中变化的主要维度是亮度。当您映射数字数据时，一些 seaborn 函数将默认为顺序调色板</p>
+<p><strong>Seaborn包括四个感知均匀连续的色彩映射表</strong>：rocket, mako, flare, crest</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">sns.color_palette(<span class="string">&quot;rocket&quot;</span>, as_cmap=<span class="literal">True</span>)</span><br><span class="line">sns.color_palette(<span class="string">&quot;mako&quot;</span>, as_cmap=<span class="literal">True</span>)</span><br><span class="line">sns.color_palette(<span class="string">&quot;flare&quot;</span>, as_cmap=<span class="literal">True</span>)</span><br><span class="line">sns.color_palette(<span class="string">&quot;crest&quot;</span>, as_cmap=<span class="literal">True</span>)</span><br></pre></td></tr></table></figure>
+<img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://warehouse-1310574346.cos.ap-shanghai.myqcloud.com/images/seaborn/rocket.png" width="60%;" />
+<img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://warehouse-1310574346.cos.ap-shanghai.myqcloud.com/images/seaborn/mako.png" width="60%;" />
+<img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://warehouse-1310574346.cos.ap-shanghai.myqcloud.com/images/seaborn/flare.png" width="60%;" />
+<img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://warehouse-1310574346.cos.ap-shanghai.myqcloud.com/images/seaborn/crest.png" width="60%;" />
+<p>与 matplotlib 中的约定一样，每个连续的颜色图都有一个反向版本，后缀为<code>&quot;_r&quot;</code>：</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">sns.color_palette(<span class="string">&quot;rocket_r&quot;</span>, as_cmap=<span class="literal">True</span>)</span><br></pre></td></tr></table></figure>
+<img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://warehouse-1310574346.cos.ap-shanghai.myqcloud.com/images/seaborn/rocket_r.png" width="60%;" />
+<p><strong>连续的cubehelix 调色板</strong></p>
+<p>seaborn.cubehelix_palette，从立方体螺旋系统制作一个连续的调色板</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">sns.cubehelix_palette(as_cmap=<span class="literal">True</span>)</span><br><span class="line">sns.color_palette(<span class="string">&quot;cubehelix&quot;</span>, as_cmap=<span class="literal">True</span>) <span class="comment"># 使用 Matplotlib 内置的cubehelix 调色板</span></span><br><span class="line"></span><br><span class="line">sns.cubehelix_palette(start=<span class="number">.5</span>, rot=-<span class="number">.5</span>, as_cmap=<span class="literal">True</span>)</span><br><span class="line">sns.color_palette(<span class="string">&quot;ch:start=.2,rot=-.3&quot;</span>, as_cmap=<span class="literal">True</span>)</span><br></pre></td></tr></table></figure>
+<p>seaborn cubehelix_palette() 函数返回的默认调色板与 matplotlib 的默认值略有不同。</p>
+<img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://warehouse-1310574346.cos.ap-shanghai.myqcloud.com/images/seaborn/cubehelix.png" width="60%;" />
+<img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://warehouse-1310574346.cos.ap-shanghai.myqcloud.com/images/seaborn/cubehelix_plt.png" width="60%;" />
+<img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://warehouse-1310574346.cos.ap-shanghai.myqcloud.com/images/seaborn/st.png" width="60%;" />
+<img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://warehouse-1310574346.cos.ap-shanghai.myqcloud.com/images/seaborn/chst.png" width="60%;" />
+<p><strong>自定义顺序调色板</strong></p>
+<p>seaborn.dark_palette  制作一个从深色到单一color的调色板<br />
+seaborn.light_palette  制作一个从浅色到单一color的调色板</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">sns.light_palette(<span class="string">&quot;seagreen&quot;</span>, as_cmap=<span class="literal">True</span>)</span><br><span class="line">sns.dark_palette(<span class="string">&quot;#69d&quot;</span>, reverse=<span class="literal">True</span>, as_cmap=<span class="literal">True</span>)</span><br><span class="line">sns.color_palette(<span class="string">&quot;light:b&quot;</span>, as_cmap=<span class="literal">True</span>)</span><br></pre></td></tr></table></figure>
+<img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://warehouse-1310574346.cos.ap-shanghai.myqcloud.com/images/seaborn/light.png" width="60%;" />
+<img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://warehouse-1310574346.cos.ap-shanghai.myqcloud.com/images/seaborn/dark.png" width="60%;" />
+<img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://warehouse-1310574346.cos.ap-shanghai.myqcloud.com/images/seaborn/lb.png" width="60%;" />
+<p><strong>顺序 Color Brewer 调色板</strong></p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">sns.color_palette(<span class="string">&quot;Blues&quot;</span>, as_cmap=<span class="literal">True</span>)</span><br><span class="line">sns.color_palette(<span class="string">&quot;YlOrBr&quot;</span>, as_cmap=<span class="literal">True</span>)</span><br></pre></td></tr></table></figure>
+<img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://warehouse-1310574346.cos.ap-shanghai.myqcloud.com/images/seaborn/cpb.png" width="60%;" />
+<img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://warehouse-1310574346.cos.ap-shanghai.myqcloud.com/images/seaborn/cpY.png" width="60%;" />
+<h2 id="发散调色板"><a class="markdownIt-Anchor" href="#发散调色板"></a> 发散调色板</h2>
+<p><strong>Seaborn 预设两个感知上统一的发散调色板</strong>：vlag 和 icefire 。它们的两极都使用蓝色和红色，许多人直观地将其处理为冷和热。</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">sns.color_palette(<span class="string">&quot;vlag&quot;</span>, as_cmap=<span class="literal">True</span>)</span><br><span class="line">sns.color_palette(<span class="string">&quot;icefire&quot;</span>, as_cmap=<span class="literal">True</span>)</span><br></pre></td></tr></table></figure>
+<img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://warehouse-1310574346.cos.ap-shanghai.myqcloud.com/images/seaborn/vlag.png" width="60%;" />
+<img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://warehouse-1310574346.cos.ap-shanghai.myqcloud.com/images/seaborn/icefire.png" width="60%;" />
+<p><strong>自定义发散调色板</strong>：seaborn 函数 diverging_palette 在两种 HUSL 颜色之间制作一个发散的调色板。</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">sns.diverging_palette(<span class="number">220</span>, <span class="number">20</span>, as_cmap=<span class="literal">True</span>)</span><br></pre></td></tr></table></figure>
+<img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://warehouse-1310574346.cos.ap-shanghai.myqcloud.com/images/seaborn/diverging_palette.png" width="60%;" />
+<p><strong>matplotlib 内置的 Color Brewer 发散调色板</strong></p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">sns.color_palette(<span class="string">&quot;Spectral&quot;</span>, as_cmap=<span class="literal">True</span>)</span><br><span class="line">sns.color_palette(<span class="string">&quot;coolwarm&quot;</span>, as_cmap=<span class="literal">True</span>)</span><br></pre></td></tr></table></figure>
+<img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://warehouse-1310574346.cos.ap-shanghai.myqcloud.com/images/seaborn/Spectral.png" width="60%;" />
+<img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://warehouse-1310574346.cos.ap-shanghai.myqcloud.com/images/seaborn/coolwarm.png" width="60%;" />
+<h2 id="调色板小部件"><a class="markdownIt-Anchor" href="#调色板小部件"></a> 调色板小部件</h2>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">工具</th>
+<th style="text-align:left">说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left"><code>seaborn.choose_colorbrewer_palette( data_type , as_cmap = False )</code></td>
+<td style="text-align:left">从 ColorBrewer 集中选择一个调色板。</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>seaborn.choose_cubehelix_palette( as_cmap = False )</code></td>
+<td style="text-align:left">启动交互式小部件以创建顺序立方体螺旋调色板。</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>seaborn.choose_light_palette( input = 'husl' , as_cmap = False )</code></td>
+<td style="text-align:left">启动交互式小部件以创建轻量级顺序调色板。</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>seaborn.choose_dark_palette( input = 'husl' , as_cmap = False )</code></td>
+<td style="text-align:left">启动交互式小部件以创建深色顺序调色板。</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>seaborn.choose_diverging_palette( as_cmap = False )</code></td>
+<td style="text-align:left">启动交互式小部件以选择不同的调色板。</td>
+</tr>
+</tbody>
+</table>
+<h1 id="基础类"><a class="markdownIt-Anchor" href="#基础类"></a> 基础类</h1>
+<p>seaborn中的绘图接口大多依赖于相应的类实现，但却并未开放所有的类接口。实际上，可供用户调用的类只有3个：<strong>JointGrid</strong>、<strong>PairGrid</strong>和<strong>FacetGrid</strong>，而FacetGrid是seaborn中很多其他绘图接口的基类。</p>
+<h2 id="facetgrid"><a class="markdownIt-Anchor" href="#facetgrid"></a> FacetGrid</h2>
+<p>FacetGrid类将数据集映射到多个轴，这些轴排列在与数据集中变量级别相对应的行和列网格中。它生成的图通常被称为<strong>分面网格</strong>。一个FacetGrid最多可以应用到三个维度：row，col 和 hue。每一个<code>relplot()</code>，<code>displot()</code>，<code>catplot()</code>和 <code>lmplot()</code>都会返回该类的实例。</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">seaborn</span>.<span class="title">FacetGrid</span>(<span class="params">**kwargs</span>)</span></span><br></pre></td></tr></table></figure>
+<p>其初始化核心参数主要包括以下几个：</p>
+<ul>
+<li>data：DataFrame</li>
+<li>row, col, hue：string (variable name)，定义网格的不同维度</li>
+<li>col_wrap：int，每行允许的最大网格数</li>
+<li>share{x,y}：bool, ‘col’, or ‘row’ optional，共享x/y轴</li>
+<li>height, aspect：scalar，每个刻面的高度，纵横比</li>
+<li>palette：string, list, dict, or matplotlib.colors.Colormap，调色板</li>
+<li>legend_out：bool，是否中间右侧图形外显示图例</li>
+<li>{hue,col,row}_order：lists of strings, optional，分面的顺序列表</li>
+<li>hue_kws：dictionary of param -&gt; list of values mapping，其他绘图关键字参数（例如散点图中的标记）</li>
+<li>despine：bool，删除顶部和右侧的边框</li>
+<li>margin_titles：bool，行变量的标题绘制在最后一列的右侧</li>
+<li>{x, y}lim：tuples，每个刻面的坐标轴限制（仅当 share{x, y} = True 时可用）</li>
+<li>subplot_kws：dict，传递给 matplotlib subplot(s) 方法的关键字参数字典</li>
+<li>gridspec_kws：dict，传递给matplotlib.gridspec.GridSpec (via matplotlib.figure.Figure.subplots())的关键字参数字典 。</li>
+</ul>
+<p>FacetGrid 的基本工作流程：</p>
+<ol>
+<li>调用FacetGrid会初始化网格会并设置 matplotlib 图形和Axes，但不会在它们上面绘制任何东西。</li>
+<li>然后将绘图函数传递给<code>FacetGrid.map()</code>或<code>FacetGrid.map_dataframe()</code>。使用自定义函数时请遵循官网规则。</li>
+<li>最后，可以使用其他方法调整绘图。如更改轴标签、使用不同刻度或添加图例等操作。</li>
+</ol>
+<p>例如，假设我们想检查 tips数据集中午餐和晚餐之间的差异：</p>
+<blockquote>
+<p>在大多数情况下，使用图形级函数（例如<code>relplot()</code>或<code>catplot()</code>）比<code>FacetGrid</code>直接使用更好。</p>
+</blockquote>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">g = sns.FacetGrid(tips, col=<span class="string">&quot;sex&quot;</span>, hue=<span class="string">&quot;smoker&quot;</span>)</span><br><span class="line">g.<span class="built_in">map</span>(sns.scatterplot, <span class="string">&quot;total_bill&quot;</span>, <span class="string">&quot;tip&quot;</span>, alpha=<span class="number">.7</span>)</span><br><span class="line">g.add_legend()</span><br></pre></td></tr></table></figure>
+<img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://warehouse-1310574346.cos.ap-shanghai.myqcloud.com/images/seaborn/FacetGrid.png" width="100%;" />
+<p>要在每个面上添加水平或垂直参考线，请使用FacetGrid.refline()：</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">g = sns.FacetGrid(tips, col=<span class="string">&quot;time&quot;</span>, margin_titles=<span class="literal">True</span>)</span><br><span class="line">g.map_dataframe(sns.scatterplot, x=<span class="string">&quot;total_bill&quot;</span>, y=<span class="string">&quot;tip&quot;</span>)</span><br><span class="line">g.refline(y=tips[<span class="string">&quot;tip&quot;</span>].median())</span><br></pre></td></tr></table></figure>
+<img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://warehouse-1310574346.cos.ap-shanghai.myqcloud.com/images/seaborn/FacetGrid_refline.png" width="80%;" />
+<p>该FacetGrid对象还有一些其他有用的参数和方法来调整绘图：</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">g = sns.FacetGrid(tips, col=<span class="string">&quot;sex&quot;</span>, row=<span class="string">&quot;time&quot;</span>, margin_titles=<span class="literal">True</span>)</span><br><span class="line">g.map_dataframe(sns.scatterplot, x=<span class="string">&quot;total_bill&quot;</span>, y=<span class="string">&quot;tip&quot;</span>)</span><br><span class="line">g.set_axis_labels(<span class="string">&quot;Total bill ($)&quot;</span>, <span class="string">&quot;Tip ($)&quot;</span>)</span><br><span class="line">g.set_titles(col_template=<span class="string">&quot;&#123;col_name&#125; patrons&quot;</span>, row_template=<span class="string">&quot;&#123;row_name&#125;&quot;</span>)</span><br><span class="line">g.<span class="built_in">set</span>(xlim=(<span class="number">0</span>, <span class="number">60</span>), ylim=(<span class="number">0</span>, <span class="number">12</span>), xticks=[<span class="number">10</span>, <span class="number">30</span>, <span class="number">50</span>], yticks=[<span class="number">2</span>, <span class="number">6</span>, <span class="number">10</span>])</span><br><span class="line">g.tight_layout()</span><br><span class="line">g.savefig(<span class="string">&quot;facet_plot.png&quot;</span>)</span><br></pre></td></tr></table></figure>
+<img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://warehouse-1310574346.cos.ap-shanghai.myqcloud.com/images/seaborn/FacetGrid_23_0.png" width="72%;" />
+<table>
+<thead>
+<tr>
+<th style="text-align:left">Methods</th>
+<th style="text-align:left">说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left"><code>__init__(self, data, *[, row, col, hue, …])</code></td>
+<td style="text-align:left">初始化 matplotlib 图和 FacetGrid 对象</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>add_legend(self[, legend_data, title, …])</code></td>
+<td style="text-align:left">绘制一个图例</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>despine(self, **kwargs)</code></td>
+<td style="text-align:left">删除刻面边框</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>facet_axis(self, row_i, col_j[, modify_state])</code></td>
+<td style="text-align:left">激活由这些索引标识的轴并返回它</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>facet_data(self)</code></td>
+<td style="text-align:left">每个刻面的名称索引和数据子集的生成器</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>map(self, func, *args, **kwargs)</code></td>
+<td style="text-align:left">将绘图函数应用于数据的每个刻面的子集</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>map_dataframe(self, func, *args, **kwargs)</code></td>
+<td style="text-align:left">类似 .map，但是将 args 作为字符串传递，并在 kwargs 中插入数据。</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>refline(self, *[, x, y, color, linestyle])</code></td>
+<td style="text-align:left">为每个面添加参考线</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>savefig(self, *args, **kwargs)</code></td>
+<td style="text-align:left">保存绘图</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>set(self, **kwargs)</code></td>
+<td style="text-align:left">设置属性通用方法</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>set_axis_labels(self[, x_var, y_var, …])</code></td>
+<td style="text-align:left">在网格的左列和底行上设置轴标签</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>set_titles(self[, template, row_template, …])</code></td>
+<td style="text-align:left">在每个面上方或网格边距上绘制标题</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>set_xlabels(self[, label, clear_inner])</code></td>
+<td style="text-align:left">在网格的底行标记 x 轴</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>set_xticklabels(self[, labels, step])</code></td>
+<td style="text-align:left">设置网格的 x 轴刻度标签</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>set_ylabels(self[, label, clear_inner])</code></td>
+<td style="text-align:left">在网格的底行标记 y 轴</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>set_yticklabels(self[, labels])</code></td>
+<td style="text-align:left">设置网格的 y 轴刻度标签</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>tight_layout(self, *args, **kwargs)</code></td>
+<td style="text-align:left">在排除图例的矩形内调用 fig.tight_layout</td>
+</tr>
+</tbody>
+</table>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">Attributes</th>
+<th style="text-align:left">说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left"><code>ax</code></td>
+<td style="text-align:left">The matplotlib.axes.Axes when no faceting variables are assigned.</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>axes</code></td>
+<td style="text-align:left">matplotlib.axes.Axes网格中的对象数组</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>axes_dict</code></td>
+<td style="text-align:left">刻面名称到相应matplotlib.axes.Axes的映射</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>figure</code></td>
+<td style="text-align:left">访问matplotlib.figure.Figure网格下的对象</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>legend</code></td>
+<td style="text-align:left">访问matplotlib.legend.Legend对象</td>
+</tr>
+</tbody>
+</table>
+<h2 id="pairgrid"><a class="markdownIt-Anchor" href="#pairgrid"></a> PairGrid</h2>
+<p>PairGrid 用于在数据集中绘制配对关系的子图网格。不同的axes-level绘图函数可用于绘制上下三角形中的双变量图，并且每个变量的单变量分布可以显示在对角线上。</p>
+<p>其初始化核心参数主要包括以下几个：</p>
+<ul>
+<li>data：pandas.DataFrame</li>
+<li>hue：name of variable in data，用不同色调（颜色）分组的变量</li>
+<li>hue_order：list of strings，色调水平顺序</li>
+<li>hue_kws：dictionary of param -&gt; list of values mapping，其他绘图关键字参数（例如散点图中的标记）</li>
+<li>palette：dict or seaborn color palette，调色板</li>
+<li>vars：list of variable names in data，要使用的变量，否则使用每个列的数字数据类型。</li>
+<li>{x, y}_vars：lists of variable names in data，绘制行，列的变量名</li>
+<li>corner：bool，只绘制下三角网格（含对角线）</li>
+<li>height, aspect：scalar，每个刻面的高度，纵横比</li>
+<li>despine：bool，删除顶部和右侧的边框</li>
+<li>layout_pad：scalar，axes之间的填充宽度，传递给 fig.tight_layout</li>
+<li>dropna：bool，在绘图之前从数据中丢弃缺失值。</li>
+</ul>
+<p>PairGrid 的基本工作流程：</p>
+<ol>
+<li>调用PairGrid会初始化网格会并设置 matplotlib 图形和Axes，但不会在它们上面绘制任何东西。</li>
+<li>然后将双变量函数传递给 PairGrid 的 map 系列方法，在每个Axes上绘制双变量关系。</li>
+<li>最后，可以使用其他方法调整绘图。如更改轴标签、使用不同刻度或添加图例等操作。</li>
+</ol>
+<p>例如，如下案例调用了PairGrid类实现，与标准pairplot不同的是效果更为丰富。</p>
+<p>将双变量函数传递给 PairGrid.map() ：</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">penguins = sns.load_dataset(<span class="string">&quot;penguins&quot;</span>)</span><br><span class="line">g = sns.PairGrid(penguins)</span><br><span class="line">g.<span class="built_in">map</span>(sns.scatterplot)</span><br></pre></td></tr></table></figure>
+<img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://warehouse-1310574346.cos.ap-shanghai.myqcloud.com/images/seaborn/PairGrid_3_0.png" width="100%;" />
+<p>将不同的函数分别传递对角线 (map_diag) 和非对角线 (map_offdiag) 上来显示不同图：</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">g = sns.PairGrid(penguins, hue=<span class="string">&quot;species&quot;</span>)</span><br><span class="line">g.map_diag(sns.histplot)</span><br><span class="line">g.map_offdiag(sns.scatterplot, size=penguins[<span class="string">&quot;sex&quot;</span>])</span><br><span class="line">g.add_legend(title=<span class="string">&quot;&quot;</span>, adjust_subtitles=<span class="literal">True</span>)</span><br></pre></td></tr></table></figure>
+<img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://warehouse-1310574346.cos.ap-shanghai.myqcloud.com/images/seaborn/PairGrid_5_0.png" width="100%;" />
+<p>也可以在上下三角形和对角线上使用不同的函数：</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">g = sns.PairGrid(penguins, diag_sharey=<span class="literal">False</span>, corner=<span class="literal">True</span>)</span><br><span class="line">g.map_lower(sns.scatterplot)</span><br><span class="line">g.map_diag(sns.kdeplot)</span><br></pre></td></tr></table></figure>
+<img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://warehouse-1310574346.cos.ap-shanghai.myqcloud.com/images/seaborn/PairGrid_9_0.png" width="100%;" />
+<p>默认情况下，数据集中的每个数字列都会使用。可用参数精确控制使用哪些变量：</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">x_vars = [<span class="string">&quot;body_mass_g&quot;</span>, <span class="string">&quot;bill_length_mm&quot;</span>, <span class="string">&quot;bill_depth_mm&quot;</span>, <span class="string">&quot;flipper_length_mm&quot;</span>]</span><br><span class="line">y_vars = [<span class="string">&quot;body_mass_g&quot;</span>]</span><br><span class="line">g = sns.PairGrid(penguins, hue=<span class="string">&quot;species&quot;</span>, x_vars=x_vars, y_vars=y_vars)</span><br><span class="line">g.map_diag(sns.histplot, multiple=<span class="string">&quot;stack&quot;</span>, element=<span class="string">&quot;step&quot;</span>)</span><br><span class="line">g.map_offdiag(sns.scatterplot)</span><br><span class="line">g.add_legend()</span><br></pre></td></tr></table></figure>
+<img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://warehouse-1310574346.cos.ap-shanghai.myqcloud.com/images/seaborn/PairGrid_11_0.png" width="100%;" />
+<table>
+<thead>
+<tr>
+<th style="text-align:left">Methods</th>
+<th style="text-align:left">说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">__<code>init__(self, data, *[, hue, hue_order, …])</code></td>
+<td style="text-align:left">初始化 matplotlib 图和 PairGrid 对象</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>add_legend(self[, legend_data, title, …])</code></td>
+<td style="text-align:left">绘制一个图例</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>map(self, func, **kwargs)</code></td>
+<td style="text-align:left">每个子图中绘制相同函数的图</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>map_diag(self, func, **kwargs)</code></td>
+<td style="text-align:left">对角线子图上单变量分布图</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>map_offdiag(self, func, **kwargs)</code></td>
+<td style="text-align:left">非对角线子图上双变量分布图</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>map_upper(self, func, **kwargs)</code></td>
+<td style="text-align:left">上三角形子图上双变量分布图</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>map_lower(self, func, **kwargs)</code></td>
+<td style="text-align:left">下三角形子图上双变量分布图</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>savefig(self, *args, **kwargs)</code></td>
+<td style="text-align:left">保存绘图</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>set(self, **kwargs)</code></td>
+<td style="text-align:left">设置属性通用方法</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>tight_layout(self, *args, **kwargs)</code></td>
+<td style="text-align:left">在排除图例的矩形内调用 fig.tight_layout</td>
+</tr>
+</tbody>
+</table>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">Attributes</th>
+<th style="text-align:left">说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left"><code>figure</code></td>
+<td style="text-align:left">访问matplotlib.figure.Figure网格下的对象</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>legend</code></td>
+<td style="text-align:left">访问matplotlib.legend.Legend对象</td>
+</tr>
+</tbody>
+</table>
+<h2 id="jointgrid"><a class="markdownIt-Anchor" href="#jointgrid"></a> JointGrid</h2>
+<p>JointGrid 用于绘制带有边缘分布的双变量图。不同的axes-level绘图函数可用于绘制联合图和边缘图。</p>
+<p>其初始化核心参数主要包括以下几个：</p>
+<ul>
+<li>data：pandas.DataFrame, numpy.ndarray, mapping, or sequence</li>
+<li>x, y：vectors or keys in data</li>
+<li>hue：vector or key in data，用不同色调（颜色）分组的变量</li>
+<li>hue_order：list of strings，色调水平顺序</li>
+<li>palette：dict or seaborn color palette，调色板</li>
+<li>height, ratio：number，图形高度，联合图和边缘图比例</li>
+<li>{x, y}lim：pairs of numbers，设置坐标轴限制</li>
+<li>marginal_ticks：bool，是否显示边缘图刻度</li>
+<li>space：联合图和边缘图之间的空白</li>
+<li>dropna：bool，在绘图之前从数据中丢弃缺失值。</li>
+<li>hue_norm：tuple or matplotlib.colors.Normalize，将数据映射到 [0, 1]</li>
+</ul>
+<p>JointGrid 的基本工作流程：</p>
+<ol>
+<li>调用JointGrid会初始化网格会并设置 matplotlib 图形和Axes，但不会在它们上面绘制任何东西。</li>
+<li>然后用 JointGrid 的方法接收一对函数（一个用于联合图，一个用于两个边缘图）</li>
+<li>最后，可以使用其他方法调整绘图。如更改轴标签、使用不同刻度或添加图例等操作。</li>
+</ol>
+<p>最简单的绘图方法，JointGrid.plot() 方法接收一对函数（一个用于联合图，一个用于两个边缘图）</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">g = sns.JointGrid(data=penguins, x=<span class="string">&quot;bill_length_mm&quot;</span>, y=<span class="string">&quot;bill_depth_mm&quot;</span>, hue=<span class="string">&quot;species&quot;</span>)</span><br><span class="line">g.plot(sns.scatterplot, sns.histplot)</span><br></pre></td></tr></table></figure>
+<img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://warehouse-1310574346.cos.ap-shanghai.myqcloud.com/images/seaborn/JointGrid_1_0.png" width="60%;" />
+<p>如果您需要将不同的关键字参数传递给每个函数，则必须调用 JointGrid.plot_joint() 和JointGrid.plot_marginals()：</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">g = sns.JointGrid(data=penguins, x=<span class="string">&quot;bill_length_mm&quot;</span>, y=<span class="string">&quot;bill_depth_mm&quot;</span>)</span><br><span class="line">g.plot_joint(sns.scatterplot, s=<span class="number">100</span>, alpha=<span class="number">.5</span>)</span><br><span class="line">g.plot_marginals(sns.histplot, kde=<span class="literal">True</span>)</span><br></pre></td></tr></table></figure>
+<img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://warehouse-1310574346.cos.ap-shanghai.myqcloud.com/images/seaborn/JointGrid_7_0.png" width="60%;" />
+<p>还可以通过访问 JointGrid 子图（ax_joint, ax_marg_x, ax_marg_y）的形式来绘图</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">g = sns.JointGrid()</span><br><span class="line">x, y = penguins[&quot;bill_length_mm&quot;], penguins[&quot;bill_depth_mm&quot;]</span><br><span class="line">sns.scatterplot(x=x, y=y, ec=&quot;b&quot;, fc=&quot;none&quot;, s=100, linewidth=1.5, ax=g.ax_joint)</span><br><span class="line">sns.histplot(x=x, fill=False, linewidth=2, ax=g.ax_marg_x)</span><br><span class="line">sns.kdeplot(y=y, linewidth=2, ax=g.ax_marg_y)</span><br></pre></td></tr></table></figure>
+<img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://warehouse-1310574346.cos.ap-shanghai.myqcloud.com/images/seaborn/JointGrid_11_0.png" width="60%;" />
+<p>JointGrid 可接受任何seaborn绘图函数</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">g = sns.JointGrid(data=penguins, x=<span class="string">&quot;bill_length_mm&quot;</span>, y=<span class="string">&quot;bill_depth_mm&quot;</span>)</span><br><span class="line">g.plot(sns.regplot, sns.boxplot)</span><br></pre></td></tr></table></figure>
+<img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://warehouse-1310574346.cos.ap-shanghai.myqcloud.com/images/seaborn/JointGrid_13_0.png" width="60%;" />
+<table>
+<thead>
+<tr>
+<th style="text-align:left">Methods</th>
+<th style="text-align:left">说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left"><code>__init__(self, *[, x, y, data, height, …])</code></td>
+<td style="text-align:left">初始化 matplotlib 图和 JointGrid 对象</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>plot(self, joint_func, marginal_func, **kwargs)</code></td>
+<td style="text-align:left">传递联合图函数和边缘图函数</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>plot_joint(self, func, **kwargs)</code></td>
+<td style="text-align:left">传递联合图函数</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>plot_marginals(self, func, **kwargs)</code></td>
+<td style="text-align:left">传递边缘图函数</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>refline(self, *[, x, y, joint, marginal, …])</code></td>
+<td style="text-align:left">添加参考线</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>savefig(self, *args, **kwargs)</code></td>
+<td style="text-align:left">保存绘图</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>set(self, **kwargs)</code></td>
+<td style="text-align:left">设置属性通用方法</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>set_axis_labels(self[, xlabel, ylabel])</code></td>
+<td style="text-align:left">设置坐标轴标签</td>
+</tr>
+</tbody>
+</table>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">Attributes</th>
+<th style="text-align:left">说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left"><code>figure</code></td>
+<td style="text-align:left">访问matplotlib.figure.Figure网格下的对象</td>
+</tr>
+</tbody>
+</table>
+</article><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/python/">python</a><a class="post-meta__tags" href="/tags/%E5%8F%AF%E8%A7%86%E5%8C%96/">可视化</a></div><div class="post_share"><div class="social-share" data-image="/img/seaborn-cover.svg" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/js/social-share.min.js" defer></script></div></div><div class="post-reward"><div class="reward-button"><i class="fas fa-qrcode"></i> 打赏</div><div class="reward-main"><ul class="reward-all"><li class="reward-item"><a href="/img/morty3.jpg" target="_blank"><img class="post-qr-code-img" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/img/morty3.jpg" alt="Give me money!"/></a><div class="post-qr-code-desc">Give me money!</div></li></ul></div></div><nav class="pagination-post" id="pagination"><div class="prev-post pull-left"><a href="/posts/6c94e349/" title="Python手册(Machine Learning)--statsmodels"><img class="cover" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/img/statsmodels.svg" onerror="onerror=null;src='/img/404_moon.png'" alt="cover of previous post"><div class="pagination-info"><div class="label">上一篇</div><div class="prev_info">Python手册(Machine Learning)--statsmodels</div></div></a></div><div class="next-post pull-right"><a href="/posts/31520356/" title="Python手册(Data Analysis)--pandas(Time Series)"><img class="cover" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/img/pandas-cover.png" onerror="onerror=null;src='/img/404_moon.png'" alt="cover of next post"><div class="pagination-info"><div class="label">下一篇</div><div class="next_info">Python手册(Data Analysis)--pandas(Time Series)</div></div></a></div></nav><div class="relatedPosts"><div class="headline"><i class="fas fa-thumbs-up fa-fw"></i><span>相关推荐</span></div><div class="relatedPosts-list"><div><a href="/posts/f347fe66/" title="Python手册(Visualise)--matplotlib"><img class="cover" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/img/matplotlib-top.jpeg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2018-05-20</div><div class="title">Python手册(Visualise)--matplotlib</div></div></a></div><div><a href="/posts/264c088/" title="大数据手册(Spark)--PySpark Core"><img class="cover" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/img/apache-spark-core.png" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2020-01-03</div><div class="title">大数据手册(Spark)--PySpark Core</div></div></a></div><div><a href="/posts/f67b0909/" title="大数据手册(Spark)--Pandas API on Spark"><img class="cover" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/img/apache-spark-pandas.png" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2023-06-07</div><div class="title">大数据手册(Spark)--Pandas API on Spark</div></div></a></div><div><a href="/posts/bb755aa3/" title="大数据手册(Spark)--PySpark SQL"><img class="cover" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/img/apache-spark-sql.png" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2020-01-03</div><div class="title">大数据手册(Spark)--PySpark SQL</div></div></a></div><div><a href="/posts/34eba6aa/" title="大数据手册(Spark)--PySpark Streaming"><img class="cover" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/img/apache-spark-streaming.png" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2020-01-13</div><div class="title">大数据手册(Spark)--PySpark Streaming</div></div></a></div><div><a href="/posts/75974533/" title="大数据手册(Spark)--PySpark MLlib"><img class="cover" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/img/apache-spark-mllib.png" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2020-01-09</div><div class="title">大数据手册(Spark)--PySpark MLlib</div></div></a></div></div></div><hr class="custom-hr"/><div id="post-comment"><div class="comment-head"><div class="comment-headline"><i class="fas fa-comments fa-fw"></i><span> 评论</span></div><div id="comment-switch"><span class="first-comment">Gitalk</span><span class="switch-btn"></span><span class="second-comment">Waline</span></div></div><div class="comment-wrap"><div><div id="gitalk-container"></div></div><div><div id="waline-wrap"></div></div></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="is-center"><div class="avatar-img"><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/img/avatar.jpg" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info__name">Tiny Lei</div><div class="author-info__description">每天进步一点点...</div></div><div class="card-info-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">131</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">103</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">44</div></a></div><div class="card-info-social-icons is-center"><a class="social-icon" href="https://gitee.com/wilenwu" rel="external nofollow noreferrer" target="_blank" title="Gitee"><i class="iconfont icon-gitee"></i></a><a class="social-icon" href="https://github.com/wilenwu" rel="external nofollow noreferrer" target="_blank" title="Github"><i class="iconfont icon-github"></i></a><a class="social-icon" href="https://blog.csdn.net/qq_41518277" rel="external nofollow noreferrer" target="_blank" title="CSDN"><i class="iconfont icon-csdn"></i></a><a class="social-icon" href="/atom.xml" target="_blank" title="RSS"><i class="iconfont icon-rss"></i></a></div></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>公告</span></div><div class="announcement_content">感谢访问本站，若喜欢请收藏^_^</div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E6%95%B0%E6%8D%AE%E9%9B%86"><span class="toc-number">1.</span> <span class="toc-text"> 数据集</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%85%B3%E7%B3%BB%E5%9B%BE"><span class="toc-number">2.</span> <span class="toc-text"> 关系图</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%A0%B8%E5%BF%83%E5%87%BD%E6%95%B0"><span class="toc-number">2.1.</span> <span class="toc-text"> 核心函数</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%95%A3%E7%82%B9%E5%9B%BE"><span class="toc-number">2.2.</span> <span class="toc-text"> 散点图</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%8A%98%E7%BA%BF%E5%9B%BE"><span class="toc-number">2.3.</span> <span class="toc-text"> 折线图</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%88%86%E9%9D%A2%E5%9B%BE"><span class="toc-number">2.4.</span> <span class="toc-text"> 分面图</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%88%86%E5%B8%83%E5%9B%BE"><span class="toc-number">3.</span> <span class="toc-text"> 分布图</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%A0%B8%E5%BF%83%E5%87%BD%E6%95%B0-2"><span class="toc-number">3.1.</span> <span class="toc-text"> 核心函数</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%9B%B4%E6%96%B9%E5%9B%BE"><span class="toc-number">3.2.</span> <span class="toc-text"> 直方图</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%A0%B8%E5%AF%86%E5%BA%A6%E4%BC%B0%E8%AE%A1"><span class="toc-number">3.3.</span> <span class="toc-text"> 核密度估计</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%BB%8F%E9%AA%8C%E7%B4%AF%E7%A7%AF%E5%88%86%E5%B8%83"><span class="toc-number">3.4.</span> <span class="toc-text"> 经验累积分布</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%9C%B0%E6%AF%AF%E5%9B%BE"><span class="toc-number">3.5.</span> <span class="toc-text"> 地毯图</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BA%8C%E5%85%83%E5%88%86%E5%B8%83"><span class="toc-number">3.6.</span> <span class="toc-text"> 二元分布</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%88%86%E7%B1%BB%E5%9B%BE"><span class="toc-number">4.</span> <span class="toc-text"> 分类图</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%A0%B8%E5%BF%83%E5%87%BD%E6%95%B0-3"><span class="toc-number">4.1.</span> <span class="toc-text"> 核心函数</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%95%A3%E7%82%B9%E5%9B%BE-2"><span class="toc-number">4.2.</span> <span class="toc-text"> 散点图</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%88%86%E5%B8%83%E5%9B%BE-2"><span class="toc-number">4.3.</span> <span class="toc-text"> 分布图</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%BB%9F%E8%AE%A1%E5%9B%BE"><span class="toc-number">4.4.</span> <span class="toc-text"> 统计图</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%9B%9E%E5%BD%92%E5%9B%BE"><span class="toc-number">5.</span> <span class="toc-text"> 回归图</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E7%9F%A9%E9%98%B5%E5%9B%BE"><span class="toc-number">6.</span> <span class="toc-text"> 矩阵图</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%83%AD%E5%8A%9B%E5%9B%BE"><span class="toc-number">6.1.</span> <span class="toc-text"> 热力图</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%81%9A%E7%B1%BB%E5%9B%BE"><span class="toc-number">6.2.</span> <span class="toc-text"> 聚类图</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E7%BD%91%E6%A0%BC%E5%9B%BE"><span class="toc-number">7.</span> <span class="toc-text"> 网格图</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%88%86%E9%9D%A2%E7%BD%91%E6%A0%BC"><span class="toc-number">7.1.</span> <span class="toc-text"> 分面网格</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%85%8D%E5%AF%B9%E7%BD%91%E6%A0%BC"><span class="toc-number">7.2.</span> <span class="toc-text"> 配对网格</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%81%94%E5%90%88%E7%BD%91%E6%A0%BC"><span class="toc-number">7.3.</span> <span class="toc-text"> 联合网格</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E4%B8%BB%E9%A2%98"><span class="toc-number">8.</span> <span class="toc-text"> 主题</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#style"><span class="toc-number">8.1.</span> <span class="toc-text"> Style</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#context"><span class="toc-number">8.2.</span> <span class="toc-text"> Context</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E8%B0%83%E8%89%B2%E6%9D%BF"><span class="toc-number">9.</span> <span class="toc-text"> 调色板</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%80%89%E6%8B%A9%E8%B0%83%E8%89%B2%E6%9D%BF%E7%9A%84%E5%B7%A5%E5%85%B7"><span class="toc-number">9.1.</span> <span class="toc-text"> 选择调色板的工具</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%AE%9A%E6%80%A7%E8%B0%83%E8%89%B2%E6%9D%BF"><span class="toc-number">9.2.</span> <span class="toc-text"> 定性调色板</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%A1%BA%E5%BA%8F%E8%B0%83%E8%89%B2%E6%9D%BF"><span class="toc-number">9.3.</span> <span class="toc-text"> 顺序调色板</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%8F%91%E6%95%A3%E8%B0%83%E8%89%B2%E6%9D%BF"><span class="toc-number">9.4.</span> <span class="toc-text"> 发散调色板</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%B0%83%E8%89%B2%E6%9D%BF%E5%B0%8F%E9%83%A8%E4%BB%B6"><span class="toc-number">9.5.</span> <span class="toc-text"> 调色板小部件</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%9F%BA%E7%A1%80%E7%B1%BB"><span class="toc-number">10.</span> <span class="toc-text"> 基础类</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#facetgrid"><span class="toc-number">10.1.</span> <span class="toc-text"> FacetGrid</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#pairgrid"><span class="toc-number">10.2.</span> <span class="toc-text"> PairGrid</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#jointgrid"><span class="toc-number">10.3.</span> <span class="toc-text"> JointGrid</span></a></li></ol></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item"><a class="thumbnail" href="/posts/f67b0909/" title="大数据手册(Spark)--Pandas API on Spark"><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/img/apache-spark-pandas.png" onerror="this.onerror=null;this.src='/img/404_moon.png'" alt="大数据手册(Spark)--Pandas API on Spark"/></a><div class="content"><a class="title" href="/posts/f67b0909/" title="大数据手册(Spark)--Pandas API on Spark">大数据手册(Spark)--Pandas API on Spark</a><time datetime="2023-06-07T15:09:56.599Z" title="发表于 2023-06-07 23:09:56">2023-06-07</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/posts/43ce4abf/" title="机器学习(V)--无监督学习"><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/img/ML-unsupervised-learning.png" onerror="this.onerror=null;this.src='/img/404_moon.png'" alt="机器学习(V)--无监督学习"/></a><div class="content"><a class="title" href="/posts/43ce4abf/" title="机器学习(V)--无监督学习">机器学习(V)--无监督学习</a><time datetime="2023-06-07T14:20:00.000Z" title="发表于 2023-06-07 22:20:00">2023-06-07</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/posts/5faa8f40/" title="机器学习(II)--数据预处理"><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/img/ML-data-preprocessing.png" onerror="this.onerror=null;this.src='/img/404_moon.png'" alt="机器学习(II)--数据预处理"/></a><div class="content"><a class="title" href="/posts/5faa8f40/" title="机器学习(II)--数据预处理">机器学习(II)--数据预处理</a><time datetime="2023-05-03T06:36:00.000Z" title="发表于 2023-05-03 14:36:00">2023-05-03</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/posts/8638abf9/" title="机器学习(I)--基础知识"><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/img/ML-overview.png" onerror="this.onerror=null;this.src='/img/404_moon.png'" alt="机器学习(I)--基础知识"/></a><div class="content"><a class="title" href="/posts/8638abf9/" title="机器学习(I)--基础知识">机器学习(I)--基础知识</a><time datetime="2023-05-02T06:36:00.000Z" title="发表于 2023-05-02 14:36:00">2023-05-02</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/posts/12a72af8/" title="看不懂的数字"><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/img/numerals_cover.png" onerror="this.onerror=null;this.src='/img/404_moon.png'" alt="看不懂的数字"/></a><div class="content"><a class="title" href="/posts/12a72af8/" title="看不懂的数字">看不懂的数字</a><time datetime="2023-04-22T03:17:17.000Z" title="发表于 2023-04-22 11:17:17">2023-04-22</time></div></div></div></div></div></div></main><footer id="footer"><div id="footer-wrap"><div class="copyright">&copy;2019 - 2023 By Tiny Lei</div><div class="framework-info"><span>框架 </span><a target="_blank" rel="noopener external nofollow noreferrer" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener external nofollow noreferrer" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside_config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><a id="to_comment" href="#post-comment" title="直达评论"><i class="fas fa-comments"></i></a><button id="go-up" type="button" title="回到顶部"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox/fancybox.umd.min.js"></script><script src="https://cdn.jsdelivr.net/npm/vanilla-lazyload/dist/lazyload.iife.min.js"></script><script>function panguFn () {
+  if (typeof pangu === 'object') pangu.autoSpacingPage()
+  else {
+    getScript('https://cdn.jsdelivr.net/npm/pangu/dist/browser/pangu.min.js')
+      .then(() => {
+        pangu.autoSpacingPage()
+      })
+  }
+}
+
+function panguInit () {
+  if (false){
+    GLOBAL_CONFIG_SITE.isPost && panguFn()
+  } else {
+    panguFn()
+  }
+}
+
+document.addEventListener('DOMContentLoaded', panguInit)</script><div class="js-pjax"><script>(() => {
+  const $mermaid = document.querySelectorAll('#article-container .mermaid-wrap')
+  if ($mermaid.length === 0) return
+  const runMermaid = () => {
+    window.loadMermaid = true
+    const theme = document.documentElement.getAttribute('data-theme') === 'dark' ? 'dark' : 'forest'
+
+    Array.from($mermaid).forEach((item, index) => {
+      const mermaidSrc = item.firstElementChild
+      const mermaidThemeConfig = '%%{init:{ \'theme\':\'' + theme + '\'}}%%\n'
+      const mermaidID = 'mermaid-' + index
+      const mermaidDefinition = mermaidThemeConfig + mermaidSrc.textContent
+
+      const renderFn = mermaid.render(mermaidID, mermaidDefinition)
+
+      const renderV10 = () => {
+        renderFn.then(({svg}) => {
+          mermaidSrc.insertAdjacentHTML('afterend', svg)
+        })
+      }
+
+      const renderV9 = svg => {
+        mermaidSrc.insertAdjacentHTML('afterend', svg)
+      }
+
+      typeof renderFn === 'string' ? renderV9(renderFn) : renderV10()
+    })
+  }
+
+  const loadMermaid = () => {
+    window.loadMermaid ? runMermaid() : getScript('https://cdn.jsdelivr.net/npm/mermaid/dist/mermaid.min.js').then(runMermaid)
+  }
+
+  btf.addModeChange('mermaid', runMermaid)
+
+  window.pjax ? loadMermaid() : document.addEventListener('DOMContentLoaded', loadMermaid)
+})()</script><script>function loadGitalk () {
+  function initGitalk () {
+    var gitalk = new Gitalk(Object.assign({
+      clientID: '7c65134b48b13f306114',
+      clientSecret: 'f049f68368a11925fdb69e57c64839eac94e13c1'',
+      repo: 'gitalk-comments',
+      owner: 'WilenWu',
+      admin: ['WilenWu'],
+      id: '2d9048b1dcee6d7ad2a6ce58ea7de207',
+      updateCountCallback: commentCount
+    },null))
+
+    gitalk.render('gitalk-container')
+  }
+
+  if (typeof Gitalk === 'function') initGitalk()
+  else {
+    getCSS('https://cdn.jsdelivr.net/npm/gitalk/dist/gitalk.min.css')
+    getScript('https://cdn.jsdelivr.net/npm/gitalk/dist/gitalk.min.js').then(initGitalk)
+  }
+}
+
+function commentCount(n){
+  let isCommentCount = document.querySelector('#post-meta .gitalk-comment-count')
+  if (isCommentCount) {
+    isCommentCount.textContent= n
+  }
+}
+
+if ('Gitalk' === 'Gitalk' || !true) {
+  if (true) btf.loadComment(document.getElementById('gitalk-container'), loadGitalk)
+  else loadGitalk()
+} else {
+  function loadOtherComment () {
+    loadGitalk()
+  }
+}</script><script>function loadWaline () {
+  function initWaline () {
+    const waline = Waline.init(Object.assign({
+      el: '#waline-wrap',
+      serverURL: 'https://waline-comments-9etq63pcv-wilenwu.vercel.app',
+      pageview: false,
+      dark: 'html[data-theme="dark"]',
+      path: window.location.pathname,
+      comment: false,
+    }, {"requiredMeta":["monsterid"]}))
+  }
+
+  if (typeof Waline === 'object') initWaline()
+  else {
+    getCSS('https://cdn.jsdelivr.net/npm/@waline/client/dist/waline.min.css').then(() => {
+      getScript('https://cdn.jsdelivr.net/npm/@waline/client/dist/waline.min.js').then(initWaline)
+    })
+  }
+}
+
+if ('Gitalk' === 'Waline' || !true) {
+  if (true) btf.loadComment(document.getElementById('waline-wrap'),loadWaline)
+  else setTimeout(loadWaline, 0)
+} else {
+  function loadOtherComment () {
+    loadWaline()
+  }
+}</script></div><script src="/js/custom.js"></script><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script><div id="local-search"><div class="search-dialog"><nav class="search-nav"><span class="search-dialog-title">搜索</span><span id="loading-status"></span><button class="search-close-button"><i class="fas fa-times"></i></button></nav><div class="is-center" id="loading-database"><i class="fas fa-spinner fa-pulse"></i><span>  数据库加载中</span></div><div class="search-wrap"><div id="local-search-input"><div class="local-search-box"><input class="local-search-box--input" placeholder="搜索文章" type="text"/></div></div><hr/><div class="no-result" id="local-search-results"></div><div id="local-search-stats-wrap"></div></div></div><div id="search-mask"></div><script src="/js/search/local-search.js"></script></div></div><!-- hexo injector body_end start --><script async src="//at.alicdn.com/t/font_2032782_8d5kxvn09md.js"></script><!-- hexo injector body_end end --></body></html>

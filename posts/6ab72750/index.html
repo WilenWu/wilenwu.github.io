@@ -1,0 +1,401 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0,viewport-fit=cover"><title>YAML 基础语法 | 雷小小</title><meta name="author" content="Tiny Lei"><meta name="copyright" content="Tiny Lei"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="YAML （发音 &#x2F;ˈjæməl&#x2F; ）是 YAML Ain’t a Markup Language（YAML不是一种标记语言）的递归缩写。在开发的这种语言时，YAML 的意思其实是：“Yet Another Markup Language”（仍是一种标记语言），但为了强调这种语言以数据做为中心，而不是以标记语言为重点，而用反向缩略语重命名。 YAML 是一个可读性高，用来表达资料序列化的格式。特别">
+<meta property="og:type" content="article">
+<meta property="og:title" content="YAML 基础语法">
+<meta property="og:url" content="https://www.tinylei.tech/posts/6ab72750/index.html">
+<meta property="og:site_name" content="雷小小">
+<meta property="og:description" content="YAML （发音 &#x2F;ˈjæməl&#x2F; ）是 YAML Ain’t a Markup Language（YAML不是一种标记语言）的递归缩写。在开发的这种语言时，YAML 的意思其实是：“Yet Another Markup Language”（仍是一种标记语言），但为了强调这种语言以数据做为中心，而不是以标记语言为重点，而用反向缩略语重命名。 YAML 是一个可读性高，用来表达资料序列化的格式。特别">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://www.tinylei.tech/img/yaml-tutorial.jpg">
+<meta property="article:published_time" content="2021-12-03T15:12:27.000Z">
+<meta property="article:modified_time" content="2023-03-20T15:16:43.748Z">
+<meta property="article:author" content="Tiny Lei">
+<meta property="article:tag" content="标记语言">
+<meta property="article:tag" content="yaml">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://www.tinylei.tech/img/yaml-tutorial.jpg"><link rel="shortcut icon" href="/img/favicon.png"><link rel="canonical" href="https://www.tinylei.tech/posts/6ab72750/index.html"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//hm.baidu.com"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><meta name="baidu-site-verification" content="code-7rymn5Bitx"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox/fancybox.min.css" media="print" onload="this.media='all'"><script>var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "https://hm.baidu.com/hm.js?654e7415ab55bed7c9c2bc6d665f03c5";
+  var s = document.getElementsByTagName("script")[0]; 
+  s.parentNode.insertBefore(hm, s);
+})();
+</script><script>const GLOBAL_CONFIG = {
+  root: '/',
+  algolia: undefined,
+  localSearch: {"path":"/search.xml","preload":false,"top_n_per_article":1,"unescape":false,"languages":{"hits_empty":"找不到您查询的内容：${query}","hits_stats":"共找到 ${hits} 篇文章"}},
+  translate: undefined,
+  noticeOutdate: undefined,
+  highlight: {"plugin":"highlighjs","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '天',
+  dateSuffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'fancybox',
+  Snackbar: undefined,
+  source: {
+    justifiedGallery: {
+      js: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery/dist/fjGallery.min.js',
+      css: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery/dist/fjGallery.min.css'
+    }
+  },
+  isPhotoFigcaption: true,
+  islazyload: true,
+  isAnchor: false,
+  percent: {
+    toc: true,
+    rightside: false,
+  },
+  autoDarkmode: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: 'YAML 基础语法',
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: true,
+  postUpdate: '2023-03-20 23:16:43'
+}</script><noscript><style type="text/css">
+  #nav {
+    opacity: 1
+  }
+  .justified-gallery img {
+    opacity: 1
+  }
+
+  #recent-posts time,
+  #post-meta time {
+    display: inline !important
+  }
+</style></noscript><script>(win=>{
+    win.saveToLocal = {
+      set: function setWithExpiry(key, value, ttl) {
+        if (ttl === 0) return
+        const now = new Date()
+        const expiryDay = ttl * 86400000
+        const item = {
+          value: value,
+          expiry: now.getTime() + expiryDay,
+        }
+        localStorage.setItem(key, JSON.stringify(item))
+      },
+
+      get: function getWithExpiry(key) {
+        const itemStr = localStorage.getItem(key)
+
+        if (!itemStr) {
+          return undefined
+        }
+        const item = JSON.parse(itemStr)
+        const now = new Date()
+
+        if (now.getTime() > item.expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return item.value
+      }
+    }
+  
+    win.getScript = url => new Promise((resolve, reject) => {
+      const script = document.createElement('script')
+      script.src = url
+      script.async = true
+      script.onerror = reject
+      script.onload = script.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        script.onload = script.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(script)
+    })
+  
+    win.getCSS = (url,id = false) => new Promise((resolve, reject) => {
+      const link = document.createElement('link')
+      link.rel = 'stylesheet'
+      link.href = url
+      if (id) link.id = id
+      link.onerror = reject
+      link.onload = link.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        link.onload = link.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(link)
+    })
+  
+      win.activateDarkMode = function () {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      win.activateLightMode = function () {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+      const t = saveToLocal.get('theme')
+    
+          if (t === 'dark') activateDarkMode()
+          else if (t === 'light') activateLightMode()
+        
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    
+    const detectApple = () => {
+      if(/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+    })(window)</script><link rel="stylesheet" href="//at.alicdn.com/t/font_2849223_xh1ftc8qym.css"><link rel="stylesheet" href="/css/link-card.css"><!-- hexo injector head_end start --><link rel="stylesheet" href="https://npm.elemecdn.com/hexo-butterfly-tag-plugins-plus@latest/lib/assets/font-awesome-animation.min.css" media="defer" onload="this.media='all'"><link rel="stylesheet" href="https://npm.elemecdn.com/hexo-butterfly-tag-plugins-plus@latest/lib/tag_plugins.css" media="defer" onload="this.media='all'"><script src="https://npm.elemecdn.com/hexo-butterfly-tag-plugins-plus@latest/lib/assets/carousel-touch.js"></script><!-- hexo injector head_end end --><meta name="generator" content="Hexo 6.0.0"><link rel="alternate" href="/atom.xml" title="雷小小" type="application/atom+xml">
+</head><body><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/img/avatar.jpg" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="sidebar-site-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">131</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">103</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">44</div></a></div><hr class="custom-hr"/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/user-guide/"><i class="fa-fw fa fa-compass"></i><span> 用户指南</span></a></div><div class="menus_item"><a class="site-page group hide" href="javascript:void(0);" rel="external nofollow noreferrer"><i class="fa-fw fa fa-book"></i><span> 文档</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></li><li><a class="site-page child" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 归档</span></a></li><li><a class="site-page child" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/gallery/"><i class="fa-fw fa fa-images"></i><span> 图库</span></a></div><div class="menus_item"><a class="site-page" href="/ebook/"><i class="fa-fw fa fa-book-reader"></i><span> 电子书</span></a></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-star"></i><span> 收藏夹</span></a></div><div class="menus_item"><a class="site-page group hide" href="javascript:void(0);" rel="external nofollow noreferrer"><i class="fa-fw fa-solid fa-circle-chevron-down"></i><span> 更多</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/about/"><i class="fa-fw fa fa-user"></i><span> 关于我</span></a></li><li><a class="site-page child" href="/analytics/"><i class="fa-fw fa fa-line-chart"></i><span> 文章统计</span></a></li><li><a class="site-page child" href="/log/"><i class="fa-fw fa fa-history"></i><span> 更新日志</span></a></li></ul></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url('/img/yaml-cover.jpg')"><nav id="nav"><span id="blog-info"><a href="/" title="雷小小"><img class="site-icon" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/img/favicon.png"/><span class="site-name">雷小小</span></a></span><div id="menus"><div id="search-button"><a class="site-page social-icon search" href="javascript:void(0);" rel="external nofollow noreferrer"><i class="fas fa-search fa-fw"></i><span> 搜索</span></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/user-guide/"><i class="fa-fw fa fa-compass"></i><span> 用户指南</span></a></div><div class="menus_item"><a class="site-page group hide" href="javascript:void(0);" rel="external nofollow noreferrer"><i class="fa-fw fa fa-book"></i><span> 文档</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></li><li><a class="site-page child" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 归档</span></a></li><li><a class="site-page child" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/gallery/"><i class="fa-fw fa fa-images"></i><span> 图库</span></a></div><div class="menus_item"><a class="site-page" href="/ebook/"><i class="fa-fw fa fa-book-reader"></i><span> 电子书</span></a></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-star"></i><span> 收藏夹</span></a></div><div class="menus_item"><a class="site-page group hide" href="javascript:void(0);" rel="external nofollow noreferrer"><i class="fa-fw fa-solid fa-circle-chevron-down"></i><span> 更多</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/about/"><i class="fa-fw fa fa-user"></i><span> 关于我</span></a></li><li><a class="site-page child" href="/analytics/"><i class="fa-fw fa fa-line-chart"></i><span> 文章统计</span></a></li><li><a class="site-page child" href="/log/"><i class="fa-fw fa fa-history"></i><span> 更新日志</span></a></li></ul></div></div><div id="toggle-menu"><a class="site-page" href="javascript:void(0);" rel="external nofollow noreferrer"><i class="fas fa-bars fa-fw"></i></a></div></div></nav><div id="post-info"><h1 class="post-title">YAML 基础语法<a class="post-edit-link" href="https://gitee.com/WilenWu/myblog/edit/master/source/_posts/markup-language/YAML.md" rel="external nofollow noreferrer" title="编辑" target="_blank"><i class="fas fa-pencil-alt"></i></a></h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2021-12-03T15:12:27.000Z" title="发表于 2021-12-03 23:12:27">2021-12-03</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2023-03-20T15:16:43.748Z" title="更新于 2023-03-20 23:16:43">2023-03-20</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/markup-language/">Markup Language</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-wordcount"><i class="far fa-file-word fa-fw post-meta-icon"></i><span class="post-meta-label">字数总计:</span><span class="word-count">2k</span><span class="post-meta-separator">|</span><i class="far fa-clock fa-fw post-meta-icon"></i><span class="post-meta-label">阅读时长:</span><span>8分钟</span></span><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title="YAML 基础语法"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">阅读量:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container"><p><strong>YAML</strong> （发音 /ˈjæməl/ ）是 <strong>Y</strong>AML <strong>A</strong>in’t a <strong>M</strong>arkup <strong>L</strong>anguage（YAML不是一种标记语言）的递归缩写。在开发的这种语言时，YAML 的意思其实是：“Yet Another Markup Language”（仍是一种标记语言），但为了强调这种语言以数据做为中心，而不是以标记语言为重点，而用反向缩略语重命名。</p>
+<p>YAML 是一个可读性高，用来表达资料序列化的格式。特别适合用来表达或编辑数据结构、各种配置文件、倾印调试内容、文件大纲。</p>
+<span id="more"></span>
+<p>YAML 官网 <a target="_blank" rel="noopener external nofollow noreferrer" href="https://yaml.org/">The Official YAML Web Site</a> 。本文介绍 YAML 的基础语法，可以在<a target="_blank" rel="noopener external nofollow noreferrer" href="https://nodeca.github.io/js-yaml/">JS-YAML</a> 进行JavaScript解析。</p>
+<h1 id="基本语法"><a class="markdownIt-Anchor" href="#基本语法"></a> 基本语法</h1>
+<ul>
+<li>大小写敏感。</li>
+<li>使用缩进表示层级关系。</li>
+<li>缩进不允许使用 Tab 键，只允许空格。</li>
+<li>缩进的空格数不重要，只要相同层级的元素左对齐即可。</li>
+<li>文件中的字符串不需要使用引号标识。如果字符串之中包含空格或特殊字符，则需要放在引号之中（单引号和双引号均可）。</li>
+<li><code>#</code> 表示注释，只支持单行注释。</li>
+<li>一个文件中可以包含多个文档的内容。文档间用 <code>---</code>  表示一份内容的开始，也可以使用 <code>...</code> 表示一份内容的结束（非必需）。如果只是单个文档，分隔符 <code>---</code> 可省略。</li>
+<li>YAML在使用逗号及冒号时，后面都必须接一个空白字符，所以可以在字符串或数值中自由加入分隔符号而不需引号。</li>
+<li>YAML 文件一般以<code>.yml</code>为扩展名。</li>
+</ul>
+<figure class="highlight yaml"><table><tr><td class="code"><pre><span class="line"><span class="comment"># Ranking of 1998 home runs</span></span><br><span class="line"><span class="meta">---</span></span><br><span class="line"><span class="bullet">-</span> <span class="string">Mark</span> <span class="string">McGwire</span></span><br><span class="line"><span class="bullet">-</span> <span class="string">Sammy</span> <span class="string">Sosa</span></span><br><span class="line"><span class="bullet">-</span> <span class="string">Ken</span> <span class="string">Griffey</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># Team ranking</span></span><br><span class="line"><span class="meta">---</span></span><br><span class="line"><span class="bullet">-</span> <span class="string">Chicago</span> <span class="string">Cubs</span></span><br><span class="line"><span class="bullet">-</span> <span class="string">St</span> <span class="string">Louis</span> <span class="string">Cardinals</span></span><br></pre></td></tr></table></figure>
+<h1 id="数据类型"><a class="markdownIt-Anchor" href="#数据类型"></a> 数据类型</h1>
+<p>YAML 数据结构有很多种，但它们都可以用三个基本的数据类型表示</p>
+<ul>
+<li>映射 (mappings)：键值对的集合，也称为哈希（hashes）、字典（dictionaries）</li>
+<li>序列 (sequences)：一组按次序排列的值，也称为序列（arrays）、列表（lists）</li>
+<li>标量 (scalars)：单个的、不可再分的值</li>
+</ul>
+<p>YAML提供缩进区块（block ）以及内置（inline）两种格式，来表示映射和序列。</p>
+<h2 id="序列"><a class="markdownIt-Anchor" href="#序列"></a> 序列</h2>
+<p>习惯上序列比较常用区块格式（block format）表示，也就是用短杠加空格（<code>-</code>）来标记每个条目</p>
+<figure class="highlight yaml"><table><tr><td class="code"><pre><span class="line"><span class="bullet">-</span> <span class="string">value1</span></span><br><span class="line"><span class="bullet">-</span> <span class="string">value2</span></span><br><span class="line"><span class="bullet">-</span> <span class="string">value3</span></span><br></pre></td></tr></table></figure>
+<p>同时也支持行内置格式（inline format），用方括号<code>[]</code>包裹，并用逗号加空格分隔</p>
+<figure class="highlight yaml"><table><tr><td class="code"><pre><span class="line">[<span class="string">value1</span>, <span class="string">value2</span>, <span class="string">value3</span>]</span><br></pre></td></tr></table></figure>
+<p>YAML 支持多维序列，用缩进表示层级关系</p>
+<figure class="highlight yaml"><table><tr><td class="code"><pre><span class="line"><span class="bullet">-</span></span><br><span class="line">  <span class="bullet">-</span> <span class="string">value1</span></span><br><span class="line">  <span class="bullet">-</span> <span class="string">value2</span></span><br><span class="line"><span class="bullet">-</span></span><br><span class="line">  <span class="bullet">-</span> <span class="string">value3</span></span><br><span class="line">  <span class="bullet">-</span> <span class="string">value4</span></span><br></pre></td></tr></table></figure>
+<p>内置形式为</p>
+<figure class="highlight yaml"><table><tr><td class="code"><pre><span class="line">[[<span class="string">value1</span>, <span class="string">value2</span>], [<span class="string">value3</span>, <span class="string">value4</span>]]</span><br></pre></td></tr></table></figure>
+<h2 id="映射"><a class="markdownIt-Anchor" href="#映射"></a> 映射</h2>
+<p>映射使用冒号加空格来标记每个键值对</p>
+<figure class="highlight yaml"><table><tr><td class="code"><pre><span class="line"><span class="attr">key:</span> <span class="string">value</span></span><br></pre></td></tr></table></figure>
+<p>映射区块形式（block format）使用缩进格式的层级关系分隔</p>
+<figure class="highlight yaml"><table><tr><td class="code"><pre><span class="line"><span class="attr">key:</span> </span><br><span class="line">    <span class="attr">child-key1:</span> <span class="string">value1</span></span><br><span class="line">    <span class="attr">child-key2:</span> <span class="string">value2</span></span><br></pre></td></tr></table></figure>
+<p>内置形式（inline format）在大括号中使用逗号加空格分隔 <code>key: value</code> 对</p>
+<figure class="highlight yaml"><table><tr><td class="code"><pre><span class="line"><span class="attr">key:</span> &#123;<span class="attr">child-key1:</span> <span class="string">value1</span>, <span class="attr">child-key2:</span> <span class="string">value2</span>&#125; </span><br></pre></td></tr></table></figure>
+<p>使用问号加空格声明一个复杂映射，允许你使用多个词汇（序列）来组成键，配合冒号加空格生成值</p>
+<figure class="highlight yaml"><table><tr><td class="code"><pre><span class="line"><span class="string">?</span> <span class="bullet">-</span> <span class="string">Detroit</span> <span class="string">Tigers</span></span><br><span class="line">  <span class="bullet">-</span> <span class="string">Chicago</span> <span class="string">cubs</span></span><br><span class="line"><span class="string">:</span> <span class="bullet">-</span> <span class="number">2001-07-23</span></span><br><span class="line"></span><br><span class="line"><span class="string">?</span> [ <span class="string">New</span> <span class="string">York</span> <span class="string">Yankees</span>, <span class="string">Atlanta</span> <span class="string">Braves</span> ]</span><br><span class="line"><span class="string">:</span> [ <span class="number">2001-07-02</span>, <span class="number">2001-08-12</span>, <span class="number">2001-08-14</span> ]</span><br></pre></td></tr></table></figure>
+<p>内置形式为</p>
+<figure class="highlight yaml"><table><tr><td class="code"><pre><span class="line">[<span class="string">complex-key1</span>, <span class="string">complex-key2</span>]<span class="string">:</span> [<span class="string">complex-value1</span>, <span class="string">complex-value2</span>]</span><br></pre></td></tr></table></figure>
+<p>序列和映射可以构成<strong>复合结构</strong></p>
+<figure class="highlight yaml"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 映射中使用序列</span></span><br><span class="line"><span class="attr">languages:</span> </span><br><span class="line">  <span class="bullet">-</span> <span class="string">Ruby</span></span><br><span class="line">  <span class="bullet">-</span> <span class="string">Perl</span></span><br><span class="line">  <span class="bullet">-</span> <span class="string">Python</span> </span><br><span class="line">  </span><br><span class="line"><span class="comment"># 映射中使用映射</span></span><br><span class="line"><span class="attr">websites:</span></span><br><span class="line">  <span class="attr">YAML:</span> <span class="string">yaml.org</span> </span><br><span class="line">  <span class="attr">Ruby:</span> <span class="string">ruby-lang.org</span> </span><br><span class="line">  <span class="attr">Python:</span> <span class="string">python.org</span> </span><br><span class="line">  <span class="attr">Perl:</span> <span class="string">use.perl.org</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 序列中使用映射</span></span><br><span class="line"><span class="bullet">-</span></span><br><span class="line">  <span class="attr">name:</span> <span class="string">Mark</span> <span class="string">McGwire</span></span><br><span class="line">  <span class="attr">hr:</span>   <span class="number">65</span></span><br><span class="line">  <span class="attr">avg:</span>  <span class="number">0.278</span></span><br><span class="line"><span class="bullet">-</span></span><br><span class="line">  <span class="attr">name:</span> <span class="string">Sammy</span> <span class="string">Sosa</span></span><br><span class="line">  <span class="attr">hr:</span>   <span class="number">63</span></span><br><span class="line">  <span class="attr">avg:</span>  <span class="number">0.288</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 序列中使用序列</span></span><br><span class="line"><span class="bullet">-</span> [<span class="string">name</span>        , <span class="string">hr</span>, <span class="string">avg</span>  ]</span><br><span class="line"><span class="bullet">-</span> [<span class="string">Mark</span> <span class="string">McGwire</span>, <span class="number">65</span>, <span class="number">0.278</span>]</span><br><span class="line"><span class="bullet">-</span> [<span class="string">Sammy</span> <span class="string">Sosa</span>  , <span class="number">63</span>, <span class="number">0.288</span>]</span><br><span class="line"></span><br><span class="line"><span class="comment"># 紧凑的嵌套映射</span></span><br><span class="line"><span class="bullet">-</span> <span class="attr">item    :</span> <span class="string">Super</span> <span class="string">Hoop</span></span><br><span class="line">  <span class="attr">quantity:</span> <span class="number">1</span></span><br><span class="line"><span class="bullet">-</span> <span class="attr">item    :</span> <span class="string">Basketball</span></span><br><span class="line">  <span class="attr">quantity:</span> <span class="number">4</span></span><br><span class="line"><span class="bullet">-</span> <span class="attr">item    :</span> <span class="string">Big</span> <span class="string">Shoes</span></span><br><span class="line">  <span class="attr">quantity:</span> <span class="number">1</span></span><br></pre></td></tr></table></figure>
+<h2 id="标量"><a class="markdownIt-Anchor" href="#标量"></a> 标量</h2>
+<p>标量是最基本的，不可再分的值，包括：</p>
+<ul>
+<li>
+<p><strong>字符串(str)</strong>：默认不使用引号包裹。如果字符串之中包含空格或特殊字符，需要放在引号之中（单引号和双引号均可）。</p>
+<figure class="highlight yaml"><table><tr><td class="code"><pre><span class="line"><span class="attr">unicode:</span> <span class="string">&quot;Sosa did fine.\u263A&quot;</span></span><br><span class="line"><span class="attr">control:</span> <span class="string">&quot;\b1998\t1999\t2000\n&quot;</span></span><br><span class="line"><span class="attr">hex esc:</span> <span class="string">&quot;\x0d\x0a is \r\n&quot;</span></span><br><span class="line"></span><br><span class="line"><span class="attr">single:</span> <span class="string">&#x27;&quot;Howdy!&quot; he cried.&#x27;</span></span><br><span class="line"><span class="attr">quoted:</span> <span class="string">&#x27; # Not a &#x27;</span><span class="string">&#x27;comment&#x27;</span><span class="string">&#x27;.&#x27;</span></span><br><span class="line"><span class="attr">tie-fighter:</span> <span class="string">&#x27;|\-*-/|&#x27;</span></span><br></pre></td></tr></table></figure>
+</li>
+<li>
+<p><strong>布尔值(bool)</strong>：</p>
+<figure class="highlight yaml"><table><tr><td class="code"><pre><span class="line"><span class="bullet">-</span> [<span class="literal">true</span>, <span class="literal">True</span>, <span class="literal">TRUE</span>]</span><br><span class="line"><span class="bullet">-</span> [<span class="literal">false</span>, <span class="literal">False</span>, <span class="literal">FALSE</span>]</span><br></pre></td></tr></table></figure>
+</li>
+<li>
+<p><strong>整数(int)</strong>：支持二进制、八进制和十六进制</p>
+<figure class="highlight yaml"><table><tr><td class="code"><pre><span class="line"><span class="attr">canonical:</span> <span class="number">12345</span></span><br><span class="line"><span class="attr">decimal:</span> <span class="string">+12345</span></span><br><span class="line"><span class="attr">octal:</span> <span class="string">0o14</span></span><br><span class="line"><span class="attr">hexadecimal:</span> <span class="number">0xC</span></span><br></pre></td></tr></table></figure>
+</li>
+<li>
+<p><strong>浮点数(float)</strong>：支持科学计数法</p>
+<figure class="highlight yaml"><table><tr><td class="code"><pre><span class="line"><span class="attr">canonical:</span> <span class="number">1.23015e+3</span></span><br><span class="line"><span class="attr">exponential:</span> <span class="number">12.3015e+02</span></span><br><span class="line"><span class="attr">fixed:</span> <span class="number">1230.15</span></span><br><span class="line"><span class="attr">negative infinity:</span> <span class="string">-.inf</span></span><br><span class="line"><span class="attr">not a number:</span> <span class="string">.nan</span></span><br></pre></td></tr></table></figure>
+</li>
+<li>
+<p><strong>空值(null)</strong>：<code>~/null/Null</code> 都表示空值，不指定值默认也是空值</p>
+<figure class="highlight yaml"><table><tr><td class="code"><pre><span class="line"><span class="attr">empty:</span></span><br><span class="line"><span class="attr">canonical:</span> <span class="string">~</span></span><br><span class="line"><span class="attr">english:</span> <span class="literal">null</span></span><br><span class="line"><span class="attr">English:</span> <span class="literal">Null</span></span><br><span class="line"><span class="string">~:</span> <span class="literal">null</span> <span class="string">key</span></span><br></pre></td></tr></table></figure>
+</li>
+<li>
+<p><strong>时间戳(timestamp)</strong>：使用 ISO 8601格式，最后使用<code>+/-</code>代表时区</p>
+<figure class="highlight yaml"><table><tr><td class="code"><pre><span class="line"><span class="attr">canonical:</span> <span class="number">2001-12-15T02:59:43.1Z</span></span><br><span class="line"><span class="attr">iso8601:</span> <span class="number">2001-12-14t21:59:43.10-05:00</span></span><br><span class="line"><span class="attr">spaced:</span> <span class="number">2001-12-14 21:59:43.10 -5</span></span><br><span class="line"><span class="attr">date:</span> <span class="number">2002-12-14</span></span><br></pre></td></tr></table></figure>
+</li>
+<li>
+<p>YAML 会自动判定标量类型。但有时候也可以用两个感叹号显示标注类型</p>
+</li>
+</ul>
+<figure class="highlight yaml"><table><tr><td class="code"><pre><span class="line"><span class="attr">not-date:</span> <span class="type">!!str</span> <span class="number">2002-04-28</span></span><br><span class="line"></span><br><span class="line"><span class="attr">picture:</span> <span class="type">!!binary</span> <span class="string">|</span></span><br><span class="line"><span class="string"> R0lGODlhDAAMAIQAAP//9/X</span></span><br><span class="line"><span class="string"> 17unp5WZmZgAAAOfn515eXv</span></span><br><span class="line"><span class="string"> Pz7Y6OjuDg4J+fn5OTk6enp</span></span><br><span class="line"><span class="string"> 56enmleECcgggoBADs=</span></span><br></pre></td></tr></table></figure>
+<h2 id="集合"><a class="markdownIt-Anchor" href="#集合"></a> 集合</h2>
+<figure class="highlight yaml"><table><tr><td class="code"><pre><span class="line"><span class="comment"># Sets are represented as a</span></span><br><span class="line"><span class="comment"># Mapping where each key is</span></span><br><span class="line"><span class="comment"># associated with a null value</span></span><br><span class="line"><span class="string">---</span> <span class="type">!!set</span></span><br><span class="line"><span class="string">?</span> <span class="string">Mark</span> <span class="string">McGwire</span></span><br><span class="line"><span class="string">?</span> <span class="string">Sammy</span> <span class="string">Sosa</span></span><br><span class="line"><span class="string">?</span> <span class="string">Ken</span> <span class="string">Griffey</span></span><br></pre></td></tr></table></figure>
+<h2 id="有序映射"><a class="markdownIt-Anchor" href="#有序映射"></a> 有序映射</h2>
+<figure class="highlight yaml"><table><tr><td class="code"><pre><span class="line"><span class="comment"># Ordered maps are represented as</span></span><br><span class="line"><span class="comment"># A sequence of mappings, with</span></span><br><span class="line"><span class="comment"># each mapping having one key</span></span><br><span class="line"><span class="string">---</span> <span class="type">!!omap</span></span><br><span class="line"><span class="bullet">-</span> <span class="attr">Mark McGwire:</span> <span class="number">65</span></span><br><span class="line"><span class="bullet">-</span> <span class="attr">Sammy Sosa:</span> <span class="number">63</span></span><br><span class="line"><span class="bullet">-</span> <span class="attr">Ken Griffey:</span> <span class="number">58</span></span><br></pre></td></tr></table></figure>
+<h1 id="区块字符"><a class="markdownIt-Anchor" href="#区块字符"></a> 区块字符</h1>
+<p>字符串可以写成多行，默认每行开头的缩进和行末空白会被去除，换行符会被转为空格。</p>
+<figure class="highlight yaml"><table><tr><td class="code"><pre><span class="line"><span class="attr">demo:</span> </span><br><span class="line">  <span class="string">Mark</span> <span class="string">McGwire&#x27;s</span></span><br><span class="line">  <span class="string">year</span> <span class="string">was</span> <span class="string">crippled</span></span><br><span class="line">    <span class="string">by</span> <span class="string">a</span> <span class="string">knee</span> <span class="string">injury.</span></span><br></pre></td></tr></table></figure>
+<p>转换为 JavaScript</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line">&#123; <span class="attr">demo</span>: <span class="string">&#x27;Mark McGwire\&#x27;s year was crippled by a knee injury.&#x27;</span> &#125;</span><br></pre></td></tr></table></figure>
+<p>YAML 还有两种语法可以书写多行文字（multi-line strings），一种为保留换行，另一种为折叠换行。</p>
+<ul>
+<li><strong>保留换行(Newlines preserved)</strong>：使用 <code>|</code> 字符，默认每行开头的缩进（以首行为基准）和行末空白会被去除，而额外的缩进会保留。</li>
+<li><strong>折叠换行(Newlines folded)</strong>：使用 <code>&gt;</code> 字符，和保留换行不同的是，只有空白行才视为换行，原本的换行字符会被转换成空白字符，而行首缩进会被去除。</li>
+<li><code>|</code> 字符或 <code>&gt;</code> 字符后跟 <code>+</code> 可以保留文字块末尾的换行符，跟<code>-</code>表示删除文字块末尾的换行符号。</li>
+</ul>
+<figure class="highlight yaml"><table><tr><td class="code"><pre><span class="line"><span class="attr">name:</span> <span class="string">Mark</span> <span class="string">McGwire</span></span><br><span class="line"><span class="attr">accomplishment:</span> <span class="string">&gt;</span></span><br><span class="line"><span class="string">  Mark set a major league</span></span><br><span class="line"><span class="string">  home run record in 1998.</span></span><br><span class="line"><span class="string"></span><span class="attr">stats:</span> <span class="string">|</span></span><br><span class="line"><span class="string">  65 Home Runs</span></span><br><span class="line"><span class="string">  0.278 Batting Average</span></span><br><span class="line"><span class="string"></span>  </span><br><span class="line"><span class="attr">with plus:</span> <span class="string">|+</span></span><br><span class="line"><span class="string">  This scalar</span></span><br><span class="line"><span class="string">  spans many lines.</span></span><br><span class="line"><span class="string"></span>  </span><br><span class="line"><span class="attr">with minus:</span> <span class="string">|-</span></span><br><span class="line"><span class="string">  What a year!</span></span><br><span class="line"><span class="string"></span>  </span><br></pre></td></tr></table></figure>
+<p>转换为 JavaScript</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line">&#123; <span class="attr">name</span>: <span class="string">&#x27;Mark McGwire&#x27;</span>,</span><br><span class="line">  <span class="attr">accomplishment</span>: <span class="string">&#x27;Mark set a major league home run record in 1998.\n&#x27;</span>,</span><br><span class="line">  <span class="attr">stats</span>: <span class="string">&#x27;65 Home Runs\n0.278 Batting Average\n&#x27;</span>,</span><br><span class="line">  <span class="string">&#x27;with plus&#x27;</span>: <span class="string">&#x27;This scalar\nspans many lines.\n\n&#x27;</span>,</span><br><span class="line">  <span class="string">&#x27;with minus&#x27;</span>: <span class="string">&#x27;What a year!&#x27;</span> &#125;</span><br></pre></td></tr></table></figure>
+<h1 id="引用"><a class="markdownIt-Anchor" href="#引用"></a> 引用</h1>
+<p>为了维持文件的简洁，并避免资料输入的错误，YAML提供了锚点标记 (<code>&amp;</code>)、锚点引用 (<code>*</code>) 和序列合并 (<code>&lt;&lt;</code>) 。<br />
+重复的内容在YAML中可以使用 <code>&amp;</code> 来定义锚点和别名，使用 <code>*</code> 来引用锚点。合并只有序列中可以使用，使用 <code>&lt;&lt;</code> 可以将键值自锚点标记复制到当前序列中。</p>
+<p>下面是一个例子:</p>
+<figure class="highlight yaml"><table><tr><td class="code"><pre><span class="line"><span class="attr">merge:</span></span><br><span class="line">  <span class="comment"># 定义并命名了4各锚点 (anchor)</span></span><br><span class="line">  <span class="bullet">-</span> <span class="string">&amp;CENTER</span> &#123; <span class="attr">x:</span> <span class="number">1</span>, <span class="attr">y:</span> <span class="number">2</span> &#125;</span><br><span class="line">  <span class="bullet">-</span> <span class="meta">&amp;LEFT</span></span><br><span class="line">    <span class="attr">x:</span> <span class="number">0</span></span><br><span class="line">    <span class="attr">y:</span> <span class="number">2</span></span><br><span class="line">  <span class="bullet">-</span> <span class="string">&amp;BIG</span> &#123; <span class="attr">r:</span> <span class="number">10</span> &#125;</span><br><span class="line">  <span class="bullet">-</span> <span class="meta">&amp;SMALL</span></span><br><span class="line">    <span class="attr">r:</span> <span class="number">1</span> </span><br><span class="line"></span><br><span class="line">  <span class="comment"># 以下序列中的映射都是相等的：</span></span><br><span class="line"></span><br><span class="line">  <span class="bullet">-</span> <span class="comment"># 明确的键值对</span></span><br><span class="line">    <span class="attr">x:</span> <span class="number">1</span></span><br><span class="line">    <span class="attr">y:</span> <span class="number">2</span></span><br><span class="line">    <span class="attr">r:</span> <span class="number">10</span></span><br><span class="line">    <span class="attr">label:</span> <span class="string">nothing</span></span><br><span class="line"></span><br><span class="line">  <span class="bullet">-</span> <span class="comment"># 合并一个键值对</span></span><br><span class="line">    <span class="string">&lt;&lt;</span> <span class="string">:</span> <span class="meta">*CENTER</span></span><br><span class="line">    <span class="attr">r:</span> <span class="number">10</span></span><br><span class="line">    <span class="attr">label:</span> <span class="string">center</span></span><br><span class="line"></span><br><span class="line">  <span class="bullet">-</span> <span class="comment"># 合并多个键值对</span></span><br><span class="line">    <span class="string">&lt;&lt;</span> <span class="string">:</span> [<span class="string">*CENTER</span>, <span class="string">*BIG</span>] </span><br><span class="line">    <span class="attr">label:</span> <span class="string">center/big</span></span><br><span class="line"></span><br><span class="line">  <span class="bullet">-</span> <span class="comment"># 覆盖</span></span><br><span class="line">    <span class="string">&lt;&lt;</span> <span class="string">:</span>  </span><br><span class="line">      <span class="bullet">-</span> <span class="meta">*LEFT</span></span><br><span class="line">      <span class="bullet">-</span> <span class="meta">*BIG</span></span><br><span class="line">      <span class="bullet">-</span> <span class="string">*SMALL</span> </span><br><span class="line">    <span class="attr">x:</span> <span class="number">1</span></span><br><span class="line">    <span class="attr">label:</span> <span class="string">left/big/small</span></span><br></pre></td></tr></table></figure>
+<p>转换为 JavaScript</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line">&#123; <span class="attr">merge</span>: </span><br><span class="line">   [ &#123; <span class="attr">x</span>: <span class="number">1</span>, <span class="attr">y</span>: <span class="number">2</span> &#125;,</span><br><span class="line">     &#123; <span class="attr">x</span>: <span class="number">0</span>, <span class="attr">y</span>: <span class="number">2</span> &#125;,</span><br><span class="line">     &#123; <span class="attr">r</span>: <span class="number">10</span> &#125;,</span><br><span class="line">     &#123; <span class="attr">r</span>: <span class="number">1</span> &#125;,</span><br><span class="line">     &#123; <span class="attr">x</span>: <span class="number">1</span>, <span class="attr">y</span>: <span class="number">2</span>, <span class="attr">r</span>: <span class="number">10</span>, <span class="attr">label</span>: <span class="string">&#x27;nothing&#x27;</span> &#125;,</span><br><span class="line">     &#123; <span class="attr">x</span>: <span class="number">1</span>, <span class="attr">y</span>: <span class="number">2</span>, <span class="attr">r</span>: <span class="number">10</span>, <span class="attr">label</span>: <span class="string">&#x27;center&#x27;</span> &#125;,</span><br><span class="line">     &#123; <span class="attr">x</span>: <span class="number">1</span>, <span class="attr">y</span>: <span class="number">2</span>, <span class="attr">r</span>: <span class="number">10</span>, <span class="attr">label</span>: <span class="string">&#x27;center/big&#x27;</span> &#125;,</span><br><span class="line">     &#123; <span class="attr">x</span>: <span class="number">1</span>, <span class="attr">y</span>: <span class="number">2</span>, <span class="attr">r</span>: <span class="number">10</span>, <span class="attr">label</span>: <span class="string">&#x27;left/big/small&#x27;</span> &#125; </span><br><span class="line">   ] &#125;</span><br></pre></td></tr></table></figure>
+<h1 id="示例"><a class="markdownIt-Anchor" href="#示例"></a> 示例</h1>
+<p>以下是YAML的两个完整示例。第一个是样本发票，第二个是示例日志文件。</p>
+<p><strong>例 2.27 发票</strong></p>
+<figure class="highlight yaml"><table><tr><td class="code"><pre><span class="line"><span class="string">---</span> <span class="type">!&lt;tag:clarkevans.com,2002:invoice&gt;</span></span><br><span class="line"><span class="attr">invoice:</span> <span class="number">34843</span></span><br><span class="line"><span class="attr">date   :</span> <span class="number">2001-01-23</span></span><br><span class="line"><span class="attr">bill-to:</span> <span class="meta">&amp;id001</span></span><br><span class="line">  <span class="attr">given  :</span> <span class="string">Chris</span></span><br><span class="line">  <span class="attr">family :</span> <span class="string">Dumars</span></span><br><span class="line">  <span class="attr">address:</span></span><br><span class="line">    <span class="attr">lines:</span> <span class="string">|</span></span><br><span class="line"><span class="string">      458 Walkman Dr.</span></span><br><span class="line"><span class="string">      Suite #292</span></span><br><span class="line"><span class="string"></span>    <span class="attr">city    :</span> <span class="string">Royal</span> <span class="string">Oak</span></span><br><span class="line">    <span class="attr">state   :</span> <span class="string">MI</span></span><br><span class="line">    <span class="attr">postal  :</span> <span class="number">48046</span></span><br><span class="line"><span class="attr">ship-to:</span> <span class="meta">*id001</span></span><br><span class="line"><span class="attr">product:</span></span><br><span class="line"><span class="bullet">-</span> <span class="attr">sku         :</span> <span class="string">BL394D</span></span><br><span class="line">  <span class="attr">quantity    :</span> <span class="number">4</span></span><br><span class="line">  <span class="attr">description :</span> <span class="string">Basketball</span></span><br><span class="line">  <span class="attr">price       :</span> <span class="number">450.00</span></span><br><span class="line"><span class="bullet">-</span> <span class="attr">sku         :</span> <span class="string">BL4438H</span></span><br><span class="line">  <span class="attr">quantity    :</span> <span class="number">1</span></span><br><span class="line">  <span class="attr">description :</span> <span class="string">Super</span> <span class="string">Hoop</span></span><br><span class="line">  <span class="attr">price       :</span> <span class="number">2392.00</span></span><br><span class="line"><span class="attr">tax  :</span> <span class="number">251.42</span></span><br><span class="line"><span class="attr">total:</span> <span class="number">4443.52</span></span><br><span class="line"><span class="attr">comments:</span></span><br><span class="line">  <span class="string">Late</span> <span class="string">afternoon</span> <span class="string">is</span> <span class="string">best.</span></span><br><span class="line">  <span class="string">Backup</span> <span class="string">contact</span> <span class="string">is</span> <span class="string">Nancy</span></span><br><span class="line">  <span class="string">Billsmer</span> <span class="string">@</span> <span class="number">338</span><span class="number">-4338</span><span class="string">.</span></span><br></pre></td></tr></table></figure>
+<p><strong>例 2.28 日志文件</strong></p>
+<figure class="highlight yaml"><table><tr><td class="code"><pre><span class="line"><span class="meta">---</span></span><br><span class="line"><span class="attr">Time:</span> <span class="number">2001-11-23 15:01:42 -5</span></span><br><span class="line"><span class="attr">User:</span> <span class="string">ed</span></span><br><span class="line"><span class="attr">Warning:</span></span><br><span class="line">  <span class="string">This</span> <span class="string">is</span> <span class="string">an</span> <span class="string">error</span> <span class="string">message</span></span><br><span class="line">  <span class="string">for</span> <span class="string">the</span> <span class="string">log</span> <span class="string">file</span></span><br><span class="line"><span class="meta">---</span></span><br><span class="line"><span class="attr">Time:</span> <span class="number">2001-11-23 15:02:31 -5</span></span><br><span class="line"><span class="attr">User:</span> <span class="string">ed</span></span><br><span class="line"><span class="attr">Warning:</span></span><br><span class="line">  <span class="string">A</span> <span class="string">slightly</span> <span class="string">different</span> <span class="string">error</span></span><br><span class="line">  <span class="string">message.</span></span><br><span class="line"><span class="meta">---</span></span><br><span class="line"><span class="attr">Date:</span> <span class="number">2001-11-23 15:03:17 -5</span></span><br><span class="line"><span class="attr">User:</span> <span class="string">ed</span></span><br><span class="line"><span class="attr">Fatal:</span></span><br><span class="line">  <span class="string">Unknown</span> <span class="string">variable</span> <span class="string">&quot;bar&quot;</span></span><br><span class="line"><span class="attr">Stack:</span></span><br><span class="line"><span class="bullet">-</span> <span class="attr">file:</span> <span class="string">TopClass.py</span></span><br><span class="line">  <span class="attr">line:</span> <span class="number">23</span></span><br><span class="line">  <span class="attr">code:</span> <span class="string">|</span></span><br><span class="line"><span class="string">    x = MoreObject(&quot;345\n&quot;)</span></span><br><span class="line"><span class="string"></span><span class="bullet">-</span> <span class="attr">file:</span> <span class="string">MoreClass.py</span></span><br><span class="line">  <span class="attr">line:</span> <span class="number">58</span></span><br><span class="line">  <span class="attr">code:</span> <span class="string">|-</span></span><br><span class="line">    <span class="string">foo</span> <span class="string">=</span> <span class="string">bar</span></span><br></pre></td></tr></table></figure>
+</article><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/%E6%A0%87%E8%AE%B0%E8%AF%AD%E8%A8%80/">标记语言</a><a class="post-meta__tags" href="/tags/yaml/">yaml</a></div><div class="post_share"><div class="social-share" data-image="/img/yaml-tutorial.jpg" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/js/social-share.min.js" defer></script></div></div><div class="post-reward"><div class="reward-button"><i class="fas fa-qrcode"></i> 打赏</div><div class="reward-main"><ul class="reward-all"><li class="reward-item"><a href="/img/morty3.jpg" target="_blank"><img class="post-qr-code-img" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/img/morty3.jpg" alt="Give me money!"/></a><div class="post-qr-code-desc">Give me money!</div></li></ul></div></div><nav class="pagination-post" id="pagination"><div class="prev-post pull-left"><a href="/posts/2957012b/" title="标记语言概览"><img class="cover" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/img/markup-cover.jpg" onerror="onerror=null;src='/img/404_moon.png'" alt="cover of previous post"><div class="pagination-info"><div class="label">上一篇</div><div class="prev_info">标记语言概览</div></div></a></div><div class="next-post pull-right"><a href="/posts/c18c7e9b/" title="SVG 入门教程"><img class="cover" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/img/SVG-cover.svg" onerror="onerror=null;src='/img/404_moon.png'" alt="cover of next post"><div class="pagination-info"><div class="label">下一篇</div><div class="next_info">SVG 入门教程</div></div></a></div></nav><div class="relatedPosts"><div class="headline"><i class="fas fa-thumbs-up fa-fw"></i><span>相关推荐</span></div><div class="relatedPosts-list"><div><a href="/posts/95bcc2fb/" title="Python手册(Documentation)--PyYAML"><img class="cover" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/img/PyYAML-cover.png" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2021-12-20</div><div class="title">Python手册(Documentation)--PyYAML</div></div></a></div><div><a href="/posts/b6db1d88/" title="GitHub Flavored Markdown 规范"><img class="cover" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/img/GFM.png" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2018-04-30</div><div class="title">GitHub Flavored Markdown 规范</div></div></a></div><div><a href="/posts/17cdf739/" title="JSON 介绍"><img class="cover" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/img/json-cover.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2021-11-23</div><div class="title">JSON 介绍</div></div></a></div><div><a href="/posts/b9652820/" title="KaTeX 数学符号列表"><img class="cover" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/img/katex.png" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2019-04-22</div><div class="title">KaTeX 数学符号列表</div></div></a></div><div><a href="/posts/2957012b/" title="标记语言概览"><img class="cover" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/img/markup-cover.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2021-11-23</div><div class="title">标记语言概览</div></div></a></div><div><a href="/posts/c18c7e9b/" title="SVG 入门教程"><img class="cover" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/img/SVG-cover.svg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2021-12-12</div><div class="title">SVG 入门教程</div></div></a></div></div></div><hr class="custom-hr"/><div id="post-comment"><div class="comment-head"><div class="comment-headline"><i class="fas fa-comments fa-fw"></i><span> 评论</span></div><div id="comment-switch"><span class="first-comment">Gitalk</span><span class="switch-btn"></span><span class="second-comment">Waline</span></div></div><div class="comment-wrap"><div><div id="gitalk-container"></div></div><div><div id="waline-wrap"></div></div></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="is-center"><div class="avatar-img"><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/img/avatar.jpg" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info__name">Tiny Lei</div><div class="author-info__description">每天进步一点点...</div></div><div class="card-info-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">131</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">103</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">44</div></a></div><div class="card-info-social-icons is-center"><a class="social-icon" href="https://gitee.com/wilenwu" rel="external nofollow noreferrer" target="_blank" title="Gitee"><i class="iconfont icon-gitee"></i></a><a class="social-icon" href="https://github.com/wilenwu" rel="external nofollow noreferrer" target="_blank" title="Github"><i class="iconfont icon-github"></i></a><a class="social-icon" href="https://blog.csdn.net/qq_41518277" rel="external nofollow noreferrer" target="_blank" title="CSDN"><i class="iconfont icon-csdn"></i></a><a class="social-icon" href="/atom.xml" target="_blank" title="RSS"><i class="iconfont icon-rss"></i></a></div></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>公告</span></div><div class="announcement_content">感谢访问本站，若喜欢请收藏^_^</div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%9F%BA%E6%9C%AC%E8%AF%AD%E6%B3%95"><span class="toc-number">1.</span> <span class="toc-text"> 基本语法</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B"><span class="toc-number">2.</span> <span class="toc-text"> 数据类型</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%BA%8F%E5%88%97"><span class="toc-number">2.1.</span> <span class="toc-text"> 序列</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%98%A0%E5%B0%84"><span class="toc-number">2.2.</span> <span class="toc-text"> 映射</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%A0%87%E9%87%8F"><span class="toc-number">2.3.</span> <span class="toc-text"> 标量</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%9B%86%E5%90%88"><span class="toc-number">2.4.</span> <span class="toc-text"> 集合</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%9C%89%E5%BA%8F%E6%98%A0%E5%B0%84"><span class="toc-number">2.5.</span> <span class="toc-text"> 有序映射</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%8C%BA%E5%9D%97%E5%AD%97%E7%AC%A6"><span class="toc-number">3.</span> <span class="toc-text"> 区块字符</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%BC%95%E7%94%A8"><span class="toc-number">4.</span> <span class="toc-text"> 引用</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E7%A4%BA%E4%BE%8B"><span class="toc-number">5.</span> <span class="toc-text"> 示例</span></a></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item"><a class="thumbnail" href="/posts/f67b0909/" title="大数据手册(Spark)--Pandas API on Spark"><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/img/apache-spark-pandas.png" onerror="this.onerror=null;this.src='/img/404_moon.png'" alt="大数据手册(Spark)--Pandas API on Spark"/></a><div class="content"><a class="title" href="/posts/f67b0909/" title="大数据手册(Spark)--Pandas API on Spark">大数据手册(Spark)--Pandas API on Spark</a><time datetime="2023-06-07T15:09:56.599Z" title="发表于 2023-06-07 23:09:56">2023-06-07</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/posts/43ce4abf/" title="机器学习(V)--无监督学习"><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/img/ML-unsupervised-learning.png" onerror="this.onerror=null;this.src='/img/404_moon.png'" alt="机器学习(V)--无监督学习"/></a><div class="content"><a class="title" href="/posts/43ce4abf/" title="机器学习(V)--无监督学习">机器学习(V)--无监督学习</a><time datetime="2023-06-07T14:20:00.000Z" title="发表于 2023-06-07 22:20:00">2023-06-07</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/posts/5faa8f40/" title="机器学习(II)--数据预处理"><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/img/ML-data-preprocessing.png" onerror="this.onerror=null;this.src='/img/404_moon.png'" alt="机器学习(II)--数据预处理"/></a><div class="content"><a class="title" href="/posts/5faa8f40/" title="机器学习(II)--数据预处理">机器学习(II)--数据预处理</a><time datetime="2023-05-03T06:36:00.000Z" title="发表于 2023-05-03 14:36:00">2023-05-03</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/posts/8638abf9/" title="机器学习(I)--基础知识"><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/img/ML-overview.png" onerror="this.onerror=null;this.src='/img/404_moon.png'" alt="机器学习(I)--基础知识"/></a><div class="content"><a class="title" href="/posts/8638abf9/" title="机器学习(I)--基础知识">机器学习(I)--基础知识</a><time datetime="2023-05-02T06:36:00.000Z" title="发表于 2023-05-02 14:36:00">2023-05-02</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/posts/12a72af8/" title="看不懂的数字"><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/img/numerals_cover.png" onerror="this.onerror=null;this.src='/img/404_moon.png'" alt="看不懂的数字"/></a><div class="content"><a class="title" href="/posts/12a72af8/" title="看不懂的数字">看不懂的数字</a><time datetime="2023-04-22T03:17:17.000Z" title="发表于 2023-04-22 11:17:17">2023-04-22</time></div></div></div></div></div></div></main><footer id="footer"><div id="footer-wrap"><div class="copyright">&copy;2019 - 2023 By Tiny Lei</div><div class="framework-info"><span>框架 </span><a target="_blank" rel="noopener external nofollow noreferrer" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener external nofollow noreferrer" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside_config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><a id="to_comment" href="#post-comment" title="直达评论"><i class="fas fa-comments"></i></a><button id="go-up" type="button" title="回到顶部"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox/fancybox.umd.min.js"></script><script src="https://cdn.jsdelivr.net/npm/vanilla-lazyload/dist/lazyload.iife.min.js"></script><script>function panguFn () {
+  if (typeof pangu === 'object') pangu.autoSpacingPage()
+  else {
+    getScript('https://cdn.jsdelivr.net/npm/pangu/dist/browser/pangu.min.js')
+      .then(() => {
+        pangu.autoSpacingPage()
+      })
+  }
+}
+
+function panguInit () {
+  if (false){
+    GLOBAL_CONFIG_SITE.isPost && panguFn()
+  } else {
+    panguFn()
+  }
+}
+
+document.addEventListener('DOMContentLoaded', panguInit)</script><div class="js-pjax"><script>(() => {
+  const $mermaid = document.querySelectorAll('#article-container .mermaid-wrap')
+  if ($mermaid.length === 0) return
+  const runMermaid = () => {
+    window.loadMermaid = true
+    const theme = document.documentElement.getAttribute('data-theme') === 'dark' ? 'dark' : 'forest'
+
+    Array.from($mermaid).forEach((item, index) => {
+      const mermaidSrc = item.firstElementChild
+      const mermaidThemeConfig = '%%{init:{ \'theme\':\'' + theme + '\'}}%%\n'
+      const mermaidID = 'mermaid-' + index
+      const mermaidDefinition = mermaidThemeConfig + mermaidSrc.textContent
+
+      const renderFn = mermaid.render(mermaidID, mermaidDefinition)
+
+      const renderV10 = () => {
+        renderFn.then(({svg}) => {
+          mermaidSrc.insertAdjacentHTML('afterend', svg)
+        })
+      }
+
+      const renderV9 = svg => {
+        mermaidSrc.insertAdjacentHTML('afterend', svg)
+      }
+
+      typeof renderFn === 'string' ? renderV9(renderFn) : renderV10()
+    })
+  }
+
+  const loadMermaid = () => {
+    window.loadMermaid ? runMermaid() : getScript('https://cdn.jsdelivr.net/npm/mermaid/dist/mermaid.min.js').then(runMermaid)
+  }
+
+  btf.addModeChange('mermaid', runMermaid)
+
+  window.pjax ? loadMermaid() : document.addEventListener('DOMContentLoaded', loadMermaid)
+})()</script><script>function loadGitalk () {
+  function initGitalk () {
+    var gitalk = new Gitalk(Object.assign({
+      clientID: '7c65134b48b13f306114',
+      clientSecret: 'f049f68368a11925fdb69e57c64839eac94e13c1'',
+      repo: 'gitalk-comments',
+      owner: 'WilenWu',
+      admin: ['WilenWu'],
+      id: 'e45a22515022b2b17a2739ff398c5094',
+      updateCountCallback: commentCount
+    },null))
+
+    gitalk.render('gitalk-container')
+  }
+
+  if (typeof Gitalk === 'function') initGitalk()
+  else {
+    getCSS('https://cdn.jsdelivr.net/npm/gitalk/dist/gitalk.min.css')
+    getScript('https://cdn.jsdelivr.net/npm/gitalk/dist/gitalk.min.js').then(initGitalk)
+  }
+}
+
+function commentCount(n){
+  let isCommentCount = document.querySelector('#post-meta .gitalk-comment-count')
+  if (isCommentCount) {
+    isCommentCount.textContent= n
+  }
+}
+
+if ('Gitalk' === 'Gitalk' || !true) {
+  if (true) btf.loadComment(document.getElementById('gitalk-container'), loadGitalk)
+  else loadGitalk()
+} else {
+  function loadOtherComment () {
+    loadGitalk()
+  }
+}</script><script>function loadWaline () {
+  function initWaline () {
+    const waline = Waline.init(Object.assign({
+      el: '#waline-wrap',
+      serverURL: 'https://waline-comments-9etq63pcv-wilenwu.vercel.app',
+      pageview: false,
+      dark: 'html[data-theme="dark"]',
+      path: window.location.pathname,
+      comment: false,
+    }, {"requiredMeta":["monsterid"]}))
+  }
+
+  if (typeof Waline === 'object') initWaline()
+  else {
+    getCSS('https://cdn.jsdelivr.net/npm/@waline/client/dist/waline.min.css').then(() => {
+      getScript('https://cdn.jsdelivr.net/npm/@waline/client/dist/waline.min.js').then(initWaline)
+    })
+  }
+}
+
+if ('Gitalk' === 'Waline' || !true) {
+  if (true) btf.loadComment(document.getElementById('waline-wrap'),loadWaline)
+  else setTimeout(loadWaline, 0)
+} else {
+  function loadOtherComment () {
+    loadWaline()
+  }
+}</script></div><script src="/js/custom.js"></script><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script><div id="local-search"><div class="search-dialog"><nav class="search-nav"><span class="search-dialog-title">搜索</span><span id="loading-status"></span><button class="search-close-button"><i class="fas fa-times"></i></button></nav><div class="is-center" id="loading-database"><i class="fas fa-spinner fa-pulse"></i><span>  数据库加载中</span></div><div class="search-wrap"><div id="local-search-input"><div class="local-search-box"><input class="local-search-box--input" placeholder="搜索文章" type="text"/></div></div><hr/><div class="no-result" id="local-search-results"></div><div id="local-search-stats-wrap"></div></div></div><div id="search-mask"></div><script src="/js/search/local-search.js"></script></div></div><!-- hexo injector body_end start --><script async src="//at.alicdn.com/t/font_2032782_8d5kxvn09md.js"></script><!-- hexo injector body_end end --></body></html>

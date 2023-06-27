@@ -1,0 +1,429 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0,viewport-fit=cover"><title>Python手册(Python Basics)--命令行参数 | 雷小小</title><meta name="author" content="Tiny Lei"><meta name="copyright" content="Tiny Lei"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="轻松编写更友好的命令行参数接口，包括 sys.argv, getopt, argparse">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Python手册(Python Basics)--命令行参数">
+<meta property="og:url" content="https://www.tinylei.tech/posts/97d915c4/index.html">
+<meta property="og:site_name" content="雷小小">
+<meta property="og:description" content="轻松编写更友好的命令行参数接口，包括 sys.argv, getopt, argparse">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://www.tinylei.tech/img/python-argparse-cover.png">
+<meta property="article:published_time" content="2021-11-10T13:52:50.000Z">
+<meta property="article:modified_time" content="2022-03-20T12:35:28.227Z">
+<meta property="article:author" content="Tiny Lei">
+<meta property="article:tag" content="python">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://www.tinylei.tech/img/python-argparse-cover.png"><link rel="shortcut icon" href="/img/favicon.png"><link rel="canonical" href="https://www.tinylei.tech/posts/97d915c4/index.html"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//hm.baidu.com"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><meta name="baidu-site-verification" content="code-7rymn5Bitx"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox/fancybox.min.css" media="print" onload="this.media='all'"><script>var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "https://hm.baidu.com/hm.js?654e7415ab55bed7c9c2bc6d665f03c5";
+  var s = document.getElementsByTagName("script")[0]; 
+  s.parentNode.insertBefore(hm, s);
+})();
+</script><script>const GLOBAL_CONFIG = {
+  root: '/',
+  algolia: undefined,
+  localSearch: {"path":"/search.xml","preload":false,"top_n_per_article":1,"unescape":false,"languages":{"hits_empty":"找不到您查询的内容：${query}","hits_stats":"共找到 ${hits} 篇文章"}},
+  translate: undefined,
+  noticeOutdate: undefined,
+  highlight: {"plugin":"highlighjs","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '天',
+  dateSuffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'fancybox',
+  Snackbar: undefined,
+  source: {
+    justifiedGallery: {
+      js: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery/dist/fjGallery.min.js',
+      css: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery/dist/fjGallery.min.css'
+    }
+  },
+  isPhotoFigcaption: true,
+  islazyload: true,
+  isAnchor: false,
+  percent: {
+    toc: true,
+    rightside: false,
+  },
+  autoDarkmode: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: 'Python手册(Python Basics)--命令行参数',
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: true,
+  postUpdate: '2022-03-20 20:35:28'
+}</script><noscript><style type="text/css">
+  #nav {
+    opacity: 1
+  }
+  .justified-gallery img {
+    opacity: 1
+  }
+
+  #recent-posts time,
+  #post-meta time {
+    display: inline !important
+  }
+</style></noscript><script>(win=>{
+    win.saveToLocal = {
+      set: function setWithExpiry(key, value, ttl) {
+        if (ttl === 0) return
+        const now = new Date()
+        const expiryDay = ttl * 86400000
+        const item = {
+          value: value,
+          expiry: now.getTime() + expiryDay,
+        }
+        localStorage.setItem(key, JSON.stringify(item))
+      },
+
+      get: function getWithExpiry(key) {
+        const itemStr = localStorage.getItem(key)
+
+        if (!itemStr) {
+          return undefined
+        }
+        const item = JSON.parse(itemStr)
+        const now = new Date()
+
+        if (now.getTime() > item.expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return item.value
+      }
+    }
+  
+    win.getScript = url => new Promise((resolve, reject) => {
+      const script = document.createElement('script')
+      script.src = url
+      script.async = true
+      script.onerror = reject
+      script.onload = script.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        script.onload = script.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(script)
+    })
+  
+    win.getCSS = (url,id = false) => new Promise((resolve, reject) => {
+      const link = document.createElement('link')
+      link.rel = 'stylesheet'
+      link.href = url
+      if (id) link.id = id
+      link.onerror = reject
+      link.onload = link.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        link.onload = link.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(link)
+    })
+  
+      win.activateDarkMode = function () {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      win.activateLightMode = function () {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+      const t = saveToLocal.get('theme')
+    
+          if (t === 'dark') activateDarkMode()
+          else if (t === 'light') activateLightMode()
+        
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    
+    const detectApple = () => {
+      if(/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+    })(window)</script><link rel="stylesheet" href="//at.alicdn.com/t/font_2849223_xh1ftc8qym.css"><link rel="stylesheet" href="/css/link-card.css"><!-- hexo injector head_end start --><link rel="stylesheet" href="https://npm.elemecdn.com/hexo-butterfly-tag-plugins-plus@latest/lib/assets/font-awesome-animation.min.css" media="defer" onload="this.media='all'"><link rel="stylesheet" href="https://npm.elemecdn.com/hexo-butterfly-tag-plugins-plus@latest/lib/tag_plugins.css" media="defer" onload="this.media='all'"><script src="https://npm.elemecdn.com/hexo-butterfly-tag-plugins-plus@latest/lib/assets/carousel-touch.js"></script><!-- hexo injector head_end end --><meta name="generator" content="Hexo 6.0.0"><link rel="alternate" href="/atom.xml" title="雷小小" type="application/atom+xml">
+</head><body><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/img/avatar.jpg" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="sidebar-site-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">131</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">103</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">44</div></a></div><hr class="custom-hr"/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/user-guide/"><i class="fa-fw fa fa-compass"></i><span> 用户指南</span></a></div><div class="menus_item"><a class="site-page group hide" href="javascript:void(0);" rel="external nofollow noreferrer"><i class="fa-fw fa fa-book"></i><span> 文档</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></li><li><a class="site-page child" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 归档</span></a></li><li><a class="site-page child" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/gallery/"><i class="fa-fw fa fa-images"></i><span> 图库</span></a></div><div class="menus_item"><a class="site-page" href="/ebook/"><i class="fa-fw fa fa-book-reader"></i><span> 电子书</span></a></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-star"></i><span> 收藏夹</span></a></div><div class="menus_item"><a class="site-page group hide" href="javascript:void(0);" rel="external nofollow noreferrer"><i class="fa-fw fa-solid fa-circle-chevron-down"></i><span> 更多</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/about/"><i class="fa-fw fa fa-user"></i><span> 关于我</span></a></li><li><a class="site-page child" href="/analytics/"><i class="fa-fw fa fa-line-chart"></i><span> 文章统计</span></a></li><li><a class="site-page child" href="/log/"><i class="fa-fw fa fa-history"></i><span> 更新日志</span></a></li></ul></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url('/img/python-top-img.svg')"><nav id="nav"><span id="blog-info"><a href="/" title="雷小小"><img class="site-icon" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/img/favicon.png"/><span class="site-name">雷小小</span></a></span><div id="menus"><div id="search-button"><a class="site-page social-icon search" href="javascript:void(0);" rel="external nofollow noreferrer"><i class="fas fa-search fa-fw"></i><span> 搜索</span></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/user-guide/"><i class="fa-fw fa fa-compass"></i><span> 用户指南</span></a></div><div class="menus_item"><a class="site-page group hide" href="javascript:void(0);" rel="external nofollow noreferrer"><i class="fa-fw fa fa-book"></i><span> 文档</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></li><li><a class="site-page child" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 归档</span></a></li><li><a class="site-page child" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/gallery/"><i class="fa-fw fa fa-images"></i><span> 图库</span></a></div><div class="menus_item"><a class="site-page" href="/ebook/"><i class="fa-fw fa fa-book-reader"></i><span> 电子书</span></a></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-star"></i><span> 收藏夹</span></a></div><div class="menus_item"><a class="site-page group hide" href="javascript:void(0);" rel="external nofollow noreferrer"><i class="fa-fw fa-solid fa-circle-chevron-down"></i><span> 更多</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/about/"><i class="fa-fw fa fa-user"></i><span> 关于我</span></a></li><li><a class="site-page child" href="/analytics/"><i class="fa-fw fa fa-line-chart"></i><span> 文章统计</span></a></li><li><a class="site-page child" href="/log/"><i class="fa-fw fa fa-history"></i><span> 更新日志</span></a></li></ul></div></div><div id="toggle-menu"><a class="site-page" href="javascript:void(0);" rel="external nofollow noreferrer"><i class="fas fa-bars fa-fw"></i></a></div></div></nav><div id="post-info"><h1 class="post-title">Python手册(Python Basics)--命令行参数<a class="post-edit-link" href="https://gitee.com/WilenWu/myblog/edit/master/source/_posts/python/Python(Standard-Library)--get-argv.md" rel="external nofollow noreferrer" title="编辑" target="_blank"><i class="fas fa-pencil-alt"></i></a></h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2021-11-10T13:52:50.000Z" title="发表于 2021-11-10 21:52:50">2021-11-10</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2022-03-20T12:35:28.227Z" title="更新于 2022-03-20 20:35:28">2022-03-20</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/python/">Python</a><i class="fas fa-angle-right post-meta-separator"></i><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/python/standard-library/">Standard Library</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-wordcount"><i class="far fa-file-word fa-fw post-meta-icon"></i><span class="post-meta-label">字数总计:</span><span class="word-count">3k</span><span class="post-meta-separator">|</span><i class="far fa-clock fa-fw post-meta-icon"></i><span class="post-meta-label">阅读时长:</span><span>12分钟</span></span><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title="Python手册(Python Basics)--命令行参数"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">阅读量:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container"><h1 id="命令行参数"><a class="markdownIt-Anchor" href="#命令行参数"></a> 命令行参数</h1>
+<p>Python 命令行可以使用 <code>-h</code> 参数查看帮助信息</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">$ python -h </span><br><span class="line">usage: python [option] ... [-c cmd | -m mod | file | -] [arg] ... </span><br><span class="line">Options <span class="keyword">and</span> arguments (<span class="keyword">and</span> corresponding environment variables): </span><br><span class="line">-c cmd : program passed <span class="keyword">in</span> <span class="keyword">as</span> string (terminates option <span class="built_in">list</span>) </span><br><span class="line">-d     : debug output <span class="keyword">from</span> parser (also PYTHONDEBUG=x) </span><br><span class="line">-E     : ignore environment variables (such <span class="keyword">as</span> PYTHONPATH) </span><br><span class="line">-h     : <span class="built_in">print</span> this <span class="built_in">help</span> message <span class="keyword">and</span> exit</span><br><span class="line"><span class="meta">... </span>... </span><br></pre></td></tr></table></figure>
+<p>命令行参数包含位置参数与选项参数，位置参数不带横杠，而选项参数带横杠。如果是短选项参数加前缀 <code>-</code>，长选项参数加前缀 <code>--</code>。<br />
+位置参数：按照位置直接赋值即可，如 <code>python script.py a b c</code>。<br />
+选项参数：可以在终端赋值，也可以不赋值。 赋值时需要按照格式加参数名，如 <code>python script.py --foo a -f b c</code>。</p>
+<h1 id="sys-模块"><a class="markdownIt-Anchor" href="#sys-模块"></a> sys 模块</h1>
+<p>Python 将命令行参数以列表形式存储于 <code>sys.argv</code> 。<a target="_blank" rel="noopener external nofollow noreferrer" href="http://xn--demo-zu6fx14c.py">例如demo.py</a> 文件代码如下：</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> sys</span><br><span class="line"><span class="built_in">print</span>(sys.argv)</span><br></pre></td></tr></table></figure>
+<p>在命令行中执行以上代码，输出结果为：</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta">$</span><span class="bash"> python demo.py one two three</span></span><br><span class="line">[&#x27;demo.py&#x27;, &#x27;one&#x27;, &#x27;two&#x27;, &#x27;three&#x27;]</span><br></pre></td></tr></table></figure>
+<p>其中 <code>argv[0]</code>为脚本的名称（是否是完整的路径名取决于操作系统）。</p>
+<h1 id="getopt-模块"><a class="markdownIt-Anchor" href="#getopt-模块"></a> getopt 模块</h1>
+<p>此模块专门协助脚本解析 <code>sys.argv</code> 中的命令行参数。支持短选项模式 <code>-</code> 和长选项模式 <code>--</code>，使得程序的参数更加灵活。该模块提供了两个方法及一个异常处理来解析命令行参数。</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">getopt.getopt(args, shortopts, longopts=[])</span><br></pre></td></tr></table></figure>
+<p>该方法用于解析命令行选项与形参列表。</p>
+<ul>
+<li><strong>args</strong>: 要解析的命令行参数列表，不包含脚本的名称 argv[0] 。</li>
+<li><strong>shortopts</strong> : 由短选项 (<code>-</code>)字母名称组成的字符串，若字母有后缀 <code>:</code> 表示该选项，必须附加参数。</li>
+<li><strong>longopts</strong> : 由长选项 (<code>--</code>)名称组成的列表，若名称后加 <code>=</code> 表示该选项必须有附加的参数，不带等号表示该选项不附加参数。命令行中的长选项只要提供了恰好能匹配可接受选项之一的选项名称前缀即可被识别。 举例来说，如果 longopts 为 [‘foo’, ‘frob’]，则选项 --fo 将匹配为 --foo，但 --f 将不能得到唯一匹配，因此将引发 GetoptError。</li>
+</ul>
+<p>返回值由两个元素组成：第一个是 <code>(option, value)</code> 对的列表；第二个是在去除该选项列表后余下参数列表。列表中选项的排列顺序与它们被解析的顺序相同，因此允许多次出现。 长选项与短选项可以混用。</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">getopt.gnu_getopt(args, shortopts, longopts=[])</span><br></pre></td></tr></table></figure>
+<p>此方法与 <code>getopt()</code>类似，区别在于它默认使用 GNU 风格的扫描模式。 这意味着选项和非选项参数可能会混在一起。<code>getopt()</code>函数将在遇到非选项参数时立即停止处理选项。</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">Exception getopt.GetoptError</span><br></pre></td></tr></table></figure>
+<p>当参数列表中出现不可识别的选项或者当一个需要参数的选项未带参数时将引发此异常。 此异常的参数是一个指明错误原因的字符串。属性 msg 和 opt 为相关选项的错误信息。</p>
+<p>一个仅使用 Unix 风格选项的例子:</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="keyword">import</span> getopt</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>args = <span class="string">&#x27;-a -b -cfoo -d bar a1 a2&#x27;</span>.split()</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>args</span><br><span class="line">[<span class="string">&#x27;-a&#x27;</span>, <span class="string">&#x27;-b&#x27;</span>, <span class="string">&#x27;-cfoo&#x27;</span>, <span class="string">&#x27;-d&#x27;</span>, <span class="string">&#x27;bar&#x27;</span>, <span class="string">&#x27;a1&#x27;</span>, <span class="string">&#x27;a2&#x27;</span>]</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>optlist, args = getopt.getopt(args, <span class="string">&#x27;abc:d:&#x27;</span>)</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>optlist</span><br><span class="line">[(<span class="string">&#x27;-a&#x27;</span>, <span class="string">&#x27;&#x27;</span>), (<span class="string">&#x27;-b&#x27;</span>, <span class="string">&#x27;&#x27;</span>), (<span class="string">&#x27;-c&#x27;</span>, <span class="string">&#x27;foo&#x27;</span>), (<span class="string">&#x27;-d&#x27;</span>, <span class="string">&#x27;bar&#x27;</span>)]</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>args</span><br><span class="line">[<span class="string">&#x27;a1&#x27;</span>, <span class="string">&#x27;a2&#x27;</span>]</span><br></pre></td></tr></table></figure>
+<p>在脚本中，典型的命令行参数用法类似这样:</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> getopt, sys</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">main</span>():</span></span><br><span class="line">    <span class="keyword">try</span>:</span><br><span class="line">        opts, args = getopt.getopt(sys.argv[<span class="number">1</span>:], <span class="string">&quot;hi:o:&quot;</span>, [<span class="string">&quot;help&quot;</span>, <span class="string">&quot;input=&quot;</span>, <span class="string">&quot;output=&quot;</span>])</span><br><span class="line">    <span class="keyword">except</span> getopt.GetoptError <span class="keyword">as</span> err:</span><br><span class="line">        <span class="comment"># print help information and exit:</span></span><br><span class="line">        <span class="built_in">print</span>(err)  <span class="comment"># will print something like &quot;option -a not recognized&quot;</span></span><br><span class="line">        <span class="built_in">print</span>(sys.argv[<span class="number">0</span>] + <span class="string">&#x27; -i &lt;input&gt; -o &lt;output&gt;&#x27;</span>)</span><br><span class="line">        sys.exit(<span class="number">2</span>)</span><br><span class="line">    <span class="keyword">for</span> o, a <span class="keyword">in</span> opts:</span><br><span class="line">        <span class="keyword">if</span> o <span class="keyword">in</span> (<span class="string">&quot;-h&quot;</span>, <span class="string">&quot;--help&quot;</span>):</span><br><span class="line">            <span class="built_in">print</span>(<span class="string">&#x27;test.py -i &lt;input&gt; -o &lt;output&gt;&#x27;</span>)</span><br><span class="line">            sys.exit()</span><br><span class="line">        <span class="keyword">elif</span> o <span class="keyword">in</span> (<span class="string">&quot;-i&quot;</span>, <span class="string">&quot;--input&quot;</span>):</span><br><span class="line">            <span class="built_in">input</span> = a </span><br><span class="line">        <span class="keyword">elif</span> o <span class="keyword">in</span> (<span class="string">&quot;-o&quot;</span>, <span class="string">&quot;--output&quot;</span>):</span><br><span class="line">            output = a</span><br><span class="line">        <span class="keyword">else</span>:</span><br><span class="line">            <span class="keyword">assert</span> <span class="literal">False</span>, <span class="string">&quot;unhandled option&quot;</span></span><br><span class="line">    <span class="comment"># ...</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> __name__ == <span class="string">&quot;__main__&quot;</span>:</span><br><span class="line">    main()</span><br></pre></td></tr></table></figure>
+<h1 id="argparse模块"><a class="markdownIt-Anchor" href="#argparse模块"></a> argparse模块</h1>
+<h2 id="概要"><a class="markdownIt-Anchor" href="#概要"></a> 概要</h2>
+<p><a target="_blank" rel="noopener external nofollow noreferrer" href="https://docs.python.org/zh-cn/3/library/argparse.html">argparse</a> 模块可以轻松编写更友好的命令行参数接口，并从<code>sys.argv</code>解析出那些参数。 该模块还会自动生成帮助和使用手册，并在用户给程序传入无效参数时报出错误信息。</p>
+<p>argparse 模块解析命令行参数通常有以下几步：</p>
+<ol>
+<li>创建解析器： <code>parser = argparse.ArgumentParser()</code>，该 ArgumentParser 对象包含将命令行解析成 Python 数据类型所需的全部信息。</li>
+<li>添加参数：通过调用 <code>parser.add_argument()</code> 方法添加参数信息。</li>
+<li>解析参数：通过调用 <code>args = parser.parse_args()</code> 方法创建储存参数的Namespace对象。通常该方法会被不带参数调用，自动从 <code>sys.argv</code> 中确定命令行参数。最终通过Namespace对象的属性使用参数。</li>
+</ol>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="comment"># filename: script.py</span></span><br><span class="line"><span class="keyword">import</span> argparse</span><br><span class="line">parser = argparse.ArgumentParser(description = <span class="string">&#x27;hello world !&#x27;</span>)</span><br><span class="line">parser.add_argument(<span class="string">&#x27;-i&#x27;</span>, <span class="string">&#x27;--input&#x27;</span>)</span><br><span class="line">parser.add_argument(<span class="string">&#x27;-o&#x27;</span>, <span class="string">&#x27;--output&#x27;</span>)</span><br><span class="line">args = parser.parse_args()</span><br><span class="line"><span class="comment"># ... do something ...</span></span><br></pre></td></tr></table></figure>
+<p>运行程序时，使用 <code>-h</code> 或 <code>--help</code> 的方式获得帮助信息。包括自己在 <code>add_argument()</code> 的help中添加的内容。</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta">$</span><span class="bash"> python script.py --<span class="built_in">help</span></span></span><br><span class="line">usage: script.py [-h] [-i INPUT] [-o OUTPUT]</span><br><span class="line"></span><br><span class="line">hello world !</span><br><span class="line"></span><br><span class="line">optional arguments:</span><br><span class="line">  -h, --help            show this help message and exit</span><br><span class="line">  -i INPUT, --input INPUT</span><br><span class="line">  -o OUTPUT, --output OUTPUT</span><br></pre></td></tr></table></figure>
+<h2 id="创建解析器"><a class="markdownIt-Anchor" href="#创建解析器"></a> 创建解析器</h2>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">parser = argparse.ArgumentParser()</span><br></pre></td></tr></table></figure>
+<p>所有的参数都应当作为关键字参数传入，常用参数列表：</p>
+<ul>
+<li>prog - 程序的名称，默认值<code>sys.argv[0]</code>。可以在帮助消息里可以通过 <code>%(prog)s</code> 格式来引用。</li>
+<li>description - 在参数帮助文档之前显示的文本，简要描述这个程序的用途。</li>
+<li>add_help - 为解析器添加一个 <code>-h/--help</code> 选项，默认值 True</li>
+</ul>
+<h2 id="解析参数"><a class="markdownIt-Anchor" href="#解析参数"></a> 解析参数</h2>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">parser.parse_args(args, namespace)</span><br></pre></td></tr></table></figure>
+<p>将参数字符串转换为 Namespace 对象，并将参数设为该对象的属性。</p>
+<ul>
+<li>args - 要解析的字符串列表。 默认值是从 <code>sys.argv</code> 获取。
+<ul>
+<li>对于长选项（名称长度超过一个字符的选项），选项和值也可以作为单个命令行参数传入，使用 <code>=</code> 分隔它们即可。如 <code>--foo=FOO</code></li>
+<li>对于短选项（长度只有一个字符的选项），选项和它的值可以拼接在一起。如<code>-xX</code></li>
+</ul>
+</li>
+<li>namespace - 用于获取属性的对象。 默认值是一个新的空 Namespace 对象</li>
+</ul>
+<h2 id="添加参数"><a class="markdownIt-Anchor" href="#添加参数"></a> 添加参数</h2>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">parser.add_argument(name <span class="keyword">or</span> flags...[, action][, nargs][, const][, default][, <span class="built_in">type</span>][, choices][, required][, <span class="built_in">help</span>][, metavar][, dest])</span><br></pre></td></tr></table></figure>
+<ul>
+<li>
+<p>name or flags - 位置参数或选项参数名，例如 <code>foo</code> 或 <code>-f, --foo</code>。选项参数会以 <code>-</code> 前缀识别，剩下的参数则会被假定为位置参数。</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span>parser.add_argument(<span class="string">&#x27;bar&#x27;</span>)          <span class="comment"># 位置参数</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>parser.add_argument(<span class="string">&#x27;-f&#x27;</span>, <span class="string">&#x27;--foo&#x27;</span>)  <span class="comment"># 可选参数</span></span><br></pre></td></tr></table></figure>
+</li>
+<li>
+<p>const - 不从命令行中读取但被 action 和 nargs 需求的常数。</p>
+</li>
+<li>
+<p>action - 将命令行参数与动作相关联。</p>
+<ul>
+<li><code>'store'</code> - 默认，存储参数的值。</li>
+<li><code>'store_const'</code> - 存储 <code>const</code> 指定的常数。当命令行参数启用，但未被赋值时使用<code>const</code>的值。</li>
+<li><code>'store_true'</code> and <code>'store_false'</code> - 这些是 <code>'store_const'</code> 存储 <code>True</code> 和 <code>False</code> 特例。</li>
+<li><code>'append'</code> - 存储一个列表，并将每个参数值追加到列表中。此时允许多次使用选项参数。</li>
+<li><code>'append_const'</code> - 这存储一个列表，并将 <code>const</code> 命名参数指定的值追加到列表中。</li>
+<li>等等</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span>parser = argparse.ArgumentParser()</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>parser.add_argument(<span class="string">&#x27;--foo&#x27;</span>, action=<span class="string">&#x27;store_const&#x27;</span>, const=<span class="number">42</span>)</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>parser.add_argument(<span class="string">&#x27;--bar&#x27;</span>, action=<span class="string">&#x27;store_true&#x27;</span>)</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>parser.add_argument(<span class="string">&#x27;--baz&#x27;</span>, action=<span class="string">&#x27;store_true&#x27;</span>)</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>parser.parse_args(<span class="string">&#x27;--foo --bar&#x27;</span>.split())</span><br><span class="line">Namespace(foo=<span class="number">42</span>, bar=<span class="literal">True</span>, baz=<span class="literal">False</span>)</span><br><span class="line"></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>parser = argparse.ArgumentParser()</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>parser.add_argument(<span class="string">&#x27;--foo&#x27;</span>, action=<span class="string">&#x27;append&#x27;</span>)</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>parser.parse_args(<span class="string">&#x27;--foo 1 --foo 2&#x27;</span>.split())</span><br><span class="line">Namespace(foo=[<span class="string">&#x27;1&#x27;</span>, <span class="string">&#x27;2&#x27;</span>])</span><br></pre></td></tr></table></figure>
+</li>
+<li>
+<p>nargs - 应当关联的终端参数值的个数：</p>
+<ul>
+<li><code>N</code> : （一个整数）命令行中的 N 个参数值会被聚集到一个列表中</li>
+<li><code>?</code> : 从命令行中消耗 0 或 1 个参数值</li>
+<li><code>*</code> : 命令行中 0 或所有参数值会被聚集到一个列表中</li>
+<li><code>+</code> : 命令行中所有参数值会被聚集到一个列表中，并且至少提供1个值</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span>parser = argparse.ArgumentParser()</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>parser.add_argument(<span class="string">&#x27;--foo&#x27;</span>, nargs=<span class="number">2</span>)</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>parser.add_argument(<span class="string">&#x27;bar&#x27;</span>, nargs=<span class="string">&#x27;*&#x27;</span>)</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>parser.parse_args(<span class="string">&#x27;a b c --foo 1 2&#x27;</span>.split())</span><br><span class="line">Namespace(bar=[<span class="string">&#x27;a&#x27;</span>, <span class="string">&#x27;b&#x27;</span>, <span class="string">&#x27;c&#x27;</span>], foo=[<span class="string">&#x27;1&#x27;</span>, <span class="string">&#x27;2&#x27;</span>])</span><br></pre></td></tr></table></figure>
+</li>
+<li>
+<p>default - 选项参数未在命令行出现时，采用的默认值。</p>
+</li>
+<li>
+<p>type - 输入参数被转换成的类型，默认 str。普通内置类型和函数可被用作类型转换器。</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span>parser = argparse.ArgumentParser()</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>parser.add_argument(<span class="string">&#x27;--length&#x27;</span>, default=<span class="string">&#x27;10&#x27;</span>, <span class="built_in">type</span>=<span class="built_in">int</span>)</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>parser.add_argument(<span class="string">&#x27;--width&#x27;</span>, default=<span class="number">10.5</span>, <span class="built_in">type</span>=<span class="built_in">int</span>)</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>parser.parse_args()</span><br><span class="line">Namespace(length=<span class="number">10</span>, width=<span class="number">10.5</span>)</span><br></pre></td></tr></table></figure>
+</li>
+<li>
+<p>choices - 容器中是可用的参数值。</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span>parser = argparse.ArgumentParser(prog=<span class="string">&#x27;game.py&#x27;</span>)</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>parser.add_argument(<span class="string">&#x27;move&#x27;</span>, choices=[<span class="string">&#x27;rock&#x27;</span>, <span class="string">&#x27;paper&#x27;</span>, <span class="string">&#x27;scissors&#x27;</span>])</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>parser.parse_args([<span class="string">&#x27;rock&#x27;</span>])</span><br><span class="line">Namespace(move=<span class="string">&#x27;rock&#x27;</span>)</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>parser.parse_args([<span class="string">&#x27;fire&#x27;</span>])</span><br><span class="line">usage: game.py [-h] &#123;rock,paper,scissors&#125;</span><br><span class="line">game.py: error: argument move: invalid choice: <span class="string">&#x27;fire&#x27;</span> (choose <span class="keyword">from</span> <span class="string">&#x27;rock&#x27;</span>,</span><br><span class="line"><span class="string">&#x27;paper&#x27;</span>, <span class="string">&#x27;scissors&#x27;</span>)</span><br></pre></td></tr></table></figure>
+</li>
+<li>
+<p>required - 选项参数是否必须 True/False。</p>
+</li>
+<li>
+<p>help - 参数的简单描述，一般是通过在命令行中使用 <code>-h</code> 或 <code>--help</code> 的方式获得帮助信息。</p>
+</li>
+<li>
+<p>metavar - 在使用帮助消息时的参数显示名称。<code>parse_args()</code> 返回对象的属性名称仍然会由 <code>dest</code> 值确定。<br />
+当使用 <code>nargs</code> 值大于1时，提供一个元组给 <code>metavar</code> 即为每个参数值指定不同的显示信息。</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span>parser = argparse.ArgumentParser(prog=<span class="string">&#x27;PROG&#x27;</span>)</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>parser.add_argument(<span class="string">&#x27;-x&#x27;</span>, nargs=<span class="number">2</span>)</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>parser.add_argument(<span class="string">&#x27;--foo&#x27;</span>, nargs=<span class="number">2</span>, metavar=(<span class="string">&#x27;bar&#x27;</span>, <span class="string">&#x27;baz&#x27;</span>))</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>parser.print_help()</span><br><span class="line">usage: PROG [-h] [-x X X] [--foo bar baz]</span><br><span class="line"></span><br><span class="line">options:</span><br><span class="line"> -h, --<span class="built_in">help</span>     show this <span class="built_in">help</span> message <span class="keyword">and</span> exit</span><br><span class="line"> -x X X</span><br><span class="line"> --foo bar baz</span><br></pre></td></tr></table></figure>
+</li>
+<li>
+<p>dest - 自定义 <code>parse_args()</code> 返回对象上的参数名。</p>
+<ul>
+<li>对于位置参数，<code>dest</code>通常会作为 <code>add_argument()</code>的第一个参数提供</li>
+<li>对于选项参数，长/短选项字符串会去掉开头的 <code>--</code> 或 <code>-</code>来生成 <code>dest</code> 的值</li>
+<li>参数内部的 <code>-</code> 字符都将被转换为 <code>_</code> 字符以确保字符串是有效的属性名称</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span>parser = argparse.ArgumentParser()</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>parser.add_argument(<span class="string">&#x27;--foo&#x27;</span>, dest=<span class="string">&#x27;bar&#x27;</span>)</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>parser.parse_args(<span class="string">&#x27;--foo XXX&#x27;</span>.split())</span><br><span class="line">Namespace(bar=<span class="string">&#x27;XXX&#x27;</span>)</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<h2 id="典型案例"><a class="markdownIt-Anchor" href="#典型案例"></a> 典型案例</h2>
+<p>以下代码是一个 Python 程序，它获取一个整数列表并计算总和或者最大值：</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> argparse</span><br><span class="line"></span><br><span class="line">parser = argparse.ArgumentParser(description=<span class="string">&#x27;Process some integers.&#x27;</span>)</span><br><span class="line">parser.add_argument(<span class="string">&#x27;integers&#x27;</span>, metavar=<span class="string">&#x27;N&#x27;</span>, <span class="built_in">type</span>=<span class="built_in">int</span>, nargs=<span class="string">&#x27;+&#x27;</span>,</span><br><span class="line">                    <span class="built_in">help</span>=<span class="string">&#x27;an integer for the accumulator&#x27;</span>)</span><br><span class="line">parser.add_argument(<span class="string">&#x27;--sum&#x27;</span>, dest=<span class="string">&#x27;accumulate&#x27;</span>, action=<span class="string">&#x27;store_const&#x27;</span>,</span><br><span class="line">                    const=<span class="built_in">sum</span>, default=<span class="built_in">max</span>,</span><br><span class="line">                    <span class="built_in">help</span>=<span class="string">&#x27;sum the integers (default: find the max)&#x27;</span>)</span><br><span class="line"></span><br><span class="line">args = parser.parse_args()</span><br><span class="line"><span class="built_in">print</span>(args.accumulate(args.integers))</span><br></pre></td></tr></table></figure>
+<p>假设上面的 Python 代码保存在名为 <code>prog.py</code> 的文件中，它可以在命令行运行并提供有用的帮助信息：</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta">$</span><span class="bash"> python prog.py -h</span></span><br><span class="line">usage: prog.py [-h] [--sum] N [N ...]</span><br><span class="line"></span><br><span class="line">Process some integers.</span><br><span class="line"></span><br><span class="line">positional arguments:</span><br><span class="line"> N           an integer for the accumulator</span><br><span class="line"></span><br><span class="line">options:</span><br><span class="line"> -h, --help  show this help message and exit</span><br><span class="line"> --sum       sum the integers (default: find the max)</span><br></pre></td></tr></table></figure>
+<p>当使用适当的参数运行时，它会输出命令行传入整数的总和或者最大值：</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta">$</span><span class="bash"> python prog.py 1 2 3 4</span></span><br><span class="line">4</span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">$</span><span class="bash"> python prog.py 1 2 3 4 --sum</span></span><br><span class="line">10</span><br></pre></td></tr></table></figure>
+<h2 id="互斥参数组"><a class="markdownIt-Anchor" href="#互斥参数组"></a> 互斥参数组</h2>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">parser.add_mutually_exclusive_group(required=<span class="literal">False</span>)</span><br></pre></td></tr></table></figure>
+<p>创建一个互斥组。 <code>argparse</code>将会确保互斥组中只有一个参数在命令行中可用</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="comment"># filename: prog.py</span></span><br><span class="line"><span class="keyword">import</span> argparse</span><br><span class="line"></span><br><span class="line">parser = argparse.ArgumentParser(description=<span class="string">&quot;calculate X to the power of Y&quot;</span>)</span><br><span class="line">group = parser.add_mutually_exclusive_group()</span><br><span class="line">group.add_argument(<span class="string">&quot;-v&quot;</span>, <span class="string">&quot;--verbose&quot;</span>, action=<span class="string">&quot;store_true&quot;</span>)</span><br><span class="line">group.add_argument(<span class="string">&quot;-q&quot;</span>, <span class="string">&quot;--quiet&quot;</span>, action=<span class="string">&quot;store_true&quot;</span>)</span><br><span class="line">parser.add_argument(<span class="string">&quot;x&quot;</span>, <span class="built_in">type</span>=<span class="built_in">int</span>, <span class="built_in">help</span>=<span class="string">&quot;the base&quot;</span>)</span><br><span class="line">parser.add_argument(<span class="string">&quot;y&quot;</span>, <span class="built_in">type</span>=<span class="built_in">int</span>, <span class="built_in">help</span>=<span class="string">&quot;the exponent&quot;</span>)</span><br><span class="line">args = parser.parse_args()</span><br><span class="line">answer = args.x**args.y</span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> args.quiet:</span><br><span class="line">    <span class="built_in">print</span>(answer)</span><br><span class="line"><span class="keyword">elif</span> args.verbose:</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">&quot;&#123;&#125; to the power &#123;&#125; equals &#123;&#125;&quot;</span>.<span class="built_in">format</span>(args.x, args.y, answer))</span><br><span class="line"><span class="keyword">else</span>:</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">&quot;&#123;&#125;^&#123;&#125; == &#123;&#125;&quot;</span>.<span class="built_in">format</span>(args.x, args.y, answer))</span><br></pre></td></tr></table></figure>
+<p>注意 <code>[-v | -q]</code>，它的意思是说我们可以使用 <code>-v</code> 或 <code>-q</code>，但不能同时使用两者：</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta">$</span><span class="bash"> python3 prog.py --<span class="built_in">help</span></span></span><br><span class="line">usage: prog.py [-h] [-v | -q] x y</span><br><span class="line"></span><br><span class="line">calculate X to the power of Y</span><br><span class="line"></span><br><span class="line">positional arguments:</span><br><span class="line">  x              the base</span><br><span class="line">  y              the exponent</span><br><span class="line"></span><br><span class="line">options:</span><br><span class="line">  -h, --help     show this help message and exit</span><br><span class="line">  -v, --verbose</span><br><span class="line">  -q, --quiet</span><br><span class="line"><span class="meta">  </span></span><br><span class="line"><span class="meta">$</span><span class="bash"> python prog.py 2 3</span></span><br><span class="line">2^3 == 8</span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">$</span><span class="bash"> python prog.py 2 3 --verbose</span></span><br><span class="line">2 to the power 3 equals 8</span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">$</span><span class="bash"> python prog.py --quiet 2 3</span></span><br><span class="line">8</span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">$</span><span class="bash"> python prog.py -q -v 2 3</span></span><br><span class="line">usage: prog.py [-h] [-v | -q] x y</span><br><span class="line">prog.py: error: argument -v/--verbose: not allowed with argument -q/--quiet</span><br></pre></td></tr></table></figure>
+</article><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/python/">python</a></div><div class="post_share"><div class="social-share" data-image="/img/python-argparse-cover.png" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/js/social-share.min.js" defer></script></div></div><div class="post-reward"><div class="reward-button"><i class="fas fa-qrcode"></i> 打赏</div><div class="reward-main"><ul class="reward-all"><li class="reward-item"><a href="/img/morty3.jpg" target="_blank"><img class="post-qr-code-img" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/img/morty3.jpg" alt="Give me money!"/></a><div class="post-qr-code-desc">Give me money!</div></li></ul></div></div><nav class="pagination-post" id="pagination"><div class="prev-post pull-left"><a href="/posts/4fd8493d/" title="电子书文件格式"><img class="cover" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/img/books.jpg" onerror="onerror=null;src='/img/404_moon.png'" alt="cover of previous post"><div class="pagination-info"><div class="label">上一篇</div><div class="prev_info">电子书文件格式</div></div></a></div><div class="next-post pull-right"><a href="/posts/64b738be/" title="Python手册(Standard Library)--string"><img class="cover" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/img/sudoku.jpeg" onerror="onerror=null;src='/img/404_moon.png'" alt="cover of next post"><div class="pagination-info"><div class="label">下一篇</div><div class="next_info">Python手册(Standard Library)--string</div></div></a></div></nav><div class="relatedPosts"><div class="headline"><i class="fas fa-thumbs-up fa-fw"></i><span>相关推荐</span></div><div class="relatedPosts-list"><div><a href="/posts/264c088/" title="大数据手册(Spark)--PySpark Core"><img class="cover" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/img/apache-spark-core.png" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2020-01-03</div><div class="title">大数据手册(Spark)--PySpark Core</div></div></a></div><div><a href="/posts/f67b0909/" title="大数据手册(Spark)--Pandas API on Spark"><img class="cover" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/img/apache-spark-pandas.png" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2023-06-07</div><div class="title">大数据手册(Spark)--Pandas API on Spark</div></div></a></div><div><a href="/posts/bb755aa3/" title="大数据手册(Spark)--PySpark SQL"><img class="cover" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/img/apache-spark-sql.png" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2020-01-03</div><div class="title">大数据手册(Spark)--PySpark SQL</div></div></a></div><div><a href="/posts/34eba6aa/" title="大数据手册(Spark)--PySpark Streaming"><img class="cover" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/img/apache-spark-streaming.png" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2020-01-13</div><div class="title">大数据手册(Spark)--PySpark Streaming</div></div></a></div><div><a href="/posts/75974533/" title="大数据手册(Spark)--PySpark MLlib"><img class="cover" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/img/apache-spark-mllib.png" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2020-01-09</div><div class="title">大数据手册(Spark)--PySpark MLlib</div></div></a></div><div><a href="/posts/31520356/" title="Python手册(Data Analysis)--pandas(Time Series)"><img class="cover" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/img/pandas-cover.png" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2018-05-12</div><div class="title">Python手册(Data Analysis)--pandas(Time Series)</div></div></a></div></div></div><hr class="custom-hr"/><div id="post-comment"><div class="comment-head"><div class="comment-headline"><i class="fas fa-comments fa-fw"></i><span> 评论</span></div><div id="comment-switch"><span class="first-comment">Gitalk</span><span class="switch-btn"></span><span class="second-comment">Waline</span></div></div><div class="comment-wrap"><div><div id="gitalk-container"></div></div><div><div id="waline-wrap"></div></div></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="is-center"><div class="avatar-img"><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/img/avatar.jpg" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info__name">Tiny Lei</div><div class="author-info__description">每天进步一点点...</div></div><div class="card-info-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">131</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">103</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">44</div></a></div><div class="card-info-social-icons is-center"><a class="social-icon" href="https://gitee.com/wilenwu" rel="external nofollow noreferrer" target="_blank" title="Gitee"><i class="iconfont icon-gitee"></i></a><a class="social-icon" href="https://github.com/wilenwu" rel="external nofollow noreferrer" target="_blank" title="Github"><i class="iconfont icon-github"></i></a><a class="social-icon" href="https://blog.csdn.net/qq_41518277" rel="external nofollow noreferrer" target="_blank" title="CSDN"><i class="iconfont icon-csdn"></i></a><a class="social-icon" href="/atom.xml" target="_blank" title="RSS"><i class="iconfont icon-rss"></i></a></div></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>公告</span></div><div class="announcement_content">感谢访问本站，若喜欢请收藏^_^</div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%91%BD%E4%BB%A4%E8%A1%8C%E5%8F%82%E6%95%B0"><span class="toc-number">1.</span> <span class="toc-text"> 命令行参数</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#sys-%E6%A8%A1%E5%9D%97"><span class="toc-number">2.</span> <span class="toc-text"> sys 模块</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#getopt-%E6%A8%A1%E5%9D%97"><span class="toc-number">3.</span> <span class="toc-text"> getopt 模块</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#argparse%E6%A8%A1%E5%9D%97"><span class="toc-number">4.</span> <span class="toc-text"> argparse模块</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%A6%82%E8%A6%81"><span class="toc-number">4.1.</span> <span class="toc-text"> 概要</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%88%9B%E5%BB%BA%E8%A7%A3%E6%9E%90%E5%99%A8"><span class="toc-number">4.2.</span> <span class="toc-text"> 创建解析器</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%A7%A3%E6%9E%90%E5%8F%82%E6%95%B0"><span class="toc-number">4.3.</span> <span class="toc-text"> 解析参数</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%B7%BB%E5%8A%A0%E5%8F%82%E6%95%B0"><span class="toc-number">4.4.</span> <span class="toc-text"> 添加参数</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%85%B8%E5%9E%8B%E6%A1%88%E4%BE%8B"><span class="toc-number">4.5.</span> <span class="toc-text"> 典型案例</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BA%92%E6%96%A5%E5%8F%82%E6%95%B0%E7%BB%84"><span class="toc-number">4.6.</span> <span class="toc-text"> 互斥参数组</span></a></li></ol></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item"><a class="thumbnail" href="/posts/f67b0909/" title="大数据手册(Spark)--Pandas API on Spark"><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/img/apache-spark-pandas.png" onerror="this.onerror=null;this.src='/img/404_moon.png'" alt="大数据手册(Spark)--Pandas API on Spark"/></a><div class="content"><a class="title" href="/posts/f67b0909/" title="大数据手册(Spark)--Pandas API on Spark">大数据手册(Spark)--Pandas API on Spark</a><time datetime="2023-06-07T15:09:56.599Z" title="发表于 2023-06-07 23:09:56">2023-06-07</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/posts/43ce4abf/" title="机器学习(V)--无监督学习"><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/img/ML-unsupervised-learning.png" onerror="this.onerror=null;this.src='/img/404_moon.png'" alt="机器学习(V)--无监督学习"/></a><div class="content"><a class="title" href="/posts/43ce4abf/" title="机器学习(V)--无监督学习">机器学习(V)--无监督学习</a><time datetime="2023-06-07T14:20:00.000Z" title="发表于 2023-06-07 22:20:00">2023-06-07</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/posts/5faa8f40/" title="机器学习(II)--数据预处理"><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/img/ML-data-preprocessing.png" onerror="this.onerror=null;this.src='/img/404_moon.png'" alt="机器学习(II)--数据预处理"/></a><div class="content"><a class="title" href="/posts/5faa8f40/" title="机器学习(II)--数据预处理">机器学习(II)--数据预处理</a><time datetime="2023-05-03T06:36:00.000Z" title="发表于 2023-05-03 14:36:00">2023-05-03</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/posts/8638abf9/" title="机器学习(I)--基础知识"><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/img/ML-overview.png" onerror="this.onerror=null;this.src='/img/404_moon.png'" alt="机器学习(I)--基础知识"/></a><div class="content"><a class="title" href="/posts/8638abf9/" title="机器学习(I)--基础知识">机器学习(I)--基础知识</a><time datetime="2023-05-02T06:36:00.000Z" title="发表于 2023-05-02 14:36:00">2023-05-02</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/posts/12a72af8/" title="看不懂的数字"><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/img/numerals_cover.png" onerror="this.onerror=null;this.src='/img/404_moon.png'" alt="看不懂的数字"/></a><div class="content"><a class="title" href="/posts/12a72af8/" title="看不懂的数字">看不懂的数字</a><time datetime="2023-04-22T03:17:17.000Z" title="发表于 2023-04-22 11:17:17">2023-04-22</time></div></div></div></div></div></div></main><footer id="footer"><div id="footer-wrap"><div class="copyright">&copy;2019 - 2023 By Tiny Lei</div><div class="framework-info"><span>框架 </span><a target="_blank" rel="noopener external nofollow noreferrer" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener external nofollow noreferrer" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside_config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><a id="to_comment" href="#post-comment" title="直达评论"><i class="fas fa-comments"></i></a><button id="go-up" type="button" title="回到顶部"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox/fancybox.umd.min.js"></script><script src="https://cdn.jsdelivr.net/npm/vanilla-lazyload/dist/lazyload.iife.min.js"></script><script>function panguFn () {
+  if (typeof pangu === 'object') pangu.autoSpacingPage()
+  else {
+    getScript('https://cdn.jsdelivr.net/npm/pangu/dist/browser/pangu.min.js')
+      .then(() => {
+        pangu.autoSpacingPage()
+      })
+  }
+}
+
+function panguInit () {
+  if (false){
+    GLOBAL_CONFIG_SITE.isPost && panguFn()
+  } else {
+    panguFn()
+  }
+}
+
+document.addEventListener('DOMContentLoaded', panguInit)</script><div class="js-pjax"><script>(() => {
+  const $mermaid = document.querySelectorAll('#article-container .mermaid-wrap')
+  if ($mermaid.length === 0) return
+  const runMermaid = () => {
+    window.loadMermaid = true
+    const theme = document.documentElement.getAttribute('data-theme') === 'dark' ? 'dark' : 'forest'
+
+    Array.from($mermaid).forEach((item, index) => {
+      const mermaidSrc = item.firstElementChild
+      const mermaidThemeConfig = '%%{init:{ \'theme\':\'' + theme + '\'}}%%\n'
+      const mermaidID = 'mermaid-' + index
+      const mermaidDefinition = mermaidThemeConfig + mermaidSrc.textContent
+
+      const renderFn = mermaid.render(mermaidID, mermaidDefinition)
+
+      const renderV10 = () => {
+        renderFn.then(({svg}) => {
+          mermaidSrc.insertAdjacentHTML('afterend', svg)
+        })
+      }
+
+      const renderV9 = svg => {
+        mermaidSrc.insertAdjacentHTML('afterend', svg)
+      }
+
+      typeof renderFn === 'string' ? renderV9(renderFn) : renderV10()
+    })
+  }
+
+  const loadMermaid = () => {
+    window.loadMermaid ? runMermaid() : getScript('https://cdn.jsdelivr.net/npm/mermaid/dist/mermaid.min.js').then(runMermaid)
+  }
+
+  btf.addModeChange('mermaid', runMermaid)
+
+  window.pjax ? loadMermaid() : document.addEventListener('DOMContentLoaded', loadMermaid)
+})()</script><script>function loadGitalk () {
+  function initGitalk () {
+    var gitalk = new Gitalk(Object.assign({
+      clientID: '7c65134b48b13f306114',
+      clientSecret: 'f049f68368a11925fdb69e57c64839eac94e13c1'',
+      repo: 'gitalk-comments',
+      owner: 'WilenWu',
+      admin: ['WilenWu'],
+      id: 'b6697b331d136ea3319ab538e066eae4',
+      updateCountCallback: commentCount
+    },null))
+
+    gitalk.render('gitalk-container')
+  }
+
+  if (typeof Gitalk === 'function') initGitalk()
+  else {
+    getCSS('https://cdn.jsdelivr.net/npm/gitalk/dist/gitalk.min.css')
+    getScript('https://cdn.jsdelivr.net/npm/gitalk/dist/gitalk.min.js').then(initGitalk)
+  }
+}
+
+function commentCount(n){
+  let isCommentCount = document.querySelector('#post-meta .gitalk-comment-count')
+  if (isCommentCount) {
+    isCommentCount.textContent= n
+  }
+}
+
+if ('Gitalk' === 'Gitalk' || !true) {
+  if (true) btf.loadComment(document.getElementById('gitalk-container'), loadGitalk)
+  else loadGitalk()
+} else {
+  function loadOtherComment () {
+    loadGitalk()
+  }
+}</script><script>function loadWaline () {
+  function initWaline () {
+    const waline = Waline.init(Object.assign({
+      el: '#waline-wrap',
+      serverURL: 'https://waline-comments-9etq63pcv-wilenwu.vercel.app',
+      pageview: false,
+      dark: 'html[data-theme="dark"]',
+      path: window.location.pathname,
+      comment: false,
+    }, {"requiredMeta":["monsterid"]}))
+  }
+
+  if (typeof Waline === 'object') initWaline()
+  else {
+    getCSS('https://cdn.jsdelivr.net/npm/@waline/client/dist/waline.min.css').then(() => {
+      getScript('https://cdn.jsdelivr.net/npm/@waline/client/dist/waline.min.js').then(initWaline)
+    })
+  }
+}
+
+if ('Gitalk' === 'Waline' || !true) {
+  if (true) btf.loadComment(document.getElementById('waline-wrap'),loadWaline)
+  else setTimeout(loadWaline, 0)
+} else {
+  function loadOtherComment () {
+    loadWaline()
+  }
+}</script></div><script src="/js/custom.js"></script><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script><div id="local-search"><div class="search-dialog"><nav class="search-nav"><span class="search-dialog-title">搜索</span><span id="loading-status"></span><button class="search-close-button"><i class="fas fa-times"></i></button></nav><div class="is-center" id="loading-database"><i class="fas fa-spinner fa-pulse"></i><span>  数据库加载中</span></div><div class="search-wrap"><div id="local-search-input"><div class="local-search-box"><input class="local-search-box--input" placeholder="搜索文章" type="text"/></div></div><hr/><div class="no-result" id="local-search-results"></div><div id="local-search-stats-wrap"></div></div></div><div id="search-mask"></div><script src="/js/search/local-search.js"></script></div></div><!-- hexo injector body_end start --><script async src="//at.alicdn.com/t/font_2032782_8d5kxvn09md.js"></script><!-- hexo injector body_end end --></body></html>

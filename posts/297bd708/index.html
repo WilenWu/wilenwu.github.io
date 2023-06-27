@@ -1,0 +1,961 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0,viewport-fit=cover"><title>大数据手册(Hive)--HiveQL(DQL) | 雷小小</title><meta name="author" content="Tiny Lei"><meta name="copyright" content="Tiny Lei"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="数据查询语言(Data Query Language, DQL）：用以从表中获得数据，包括 SELECT，WHERE，ORDER BY，GROUP BY和HAVING等。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="大数据手册(Hive)--HiveQL(DQL)">
+<meta property="og:url" content="https://www.tinylei.tech/posts/297bd708/index.html">
+<meta property="og:site_name" content="雷小小">
+<meta property="og:description" content="数据查询语言(Data Query Language, DQL）：用以从表中获得数据，包括 SELECT，WHERE，ORDER BY，GROUP BY和HAVING等。">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://www.tinylei.tech/img/apache-hive-dql.png">
+<meta property="article:published_time" content="2018-07-03T09:57:36.000Z">
+<meta property="article:modified_time" content="2023-03-20T15:16:43.701Z">
+<meta property="article:author" content="Tiny Lei">
+<meta property="article:tag" content="大数据">
+<meta property="article:tag" content="hive">
+<meta property="article:tag" content="sql">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://www.tinylei.tech/img/apache-hive-dql.png"><link rel="shortcut icon" href="/img/favicon.png"><link rel="canonical" href="https://www.tinylei.tech/posts/297bd708/index.html"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//hm.baidu.com"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><meta name="baidu-site-verification" content="code-7rymn5Bitx"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox/fancybox.min.css" media="print" onload="this.media='all'"><script>var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "https://hm.baidu.com/hm.js?654e7415ab55bed7c9c2bc6d665f03c5";
+  var s = document.getElementsByTagName("script")[0]; 
+  s.parentNode.insertBefore(hm, s);
+})();
+</script><script>const GLOBAL_CONFIG = {
+  root: '/',
+  algolia: undefined,
+  localSearch: {"path":"/search.xml","preload":false,"top_n_per_article":1,"unescape":false,"languages":{"hits_empty":"找不到您查询的内容：${query}","hits_stats":"共找到 ${hits} 篇文章"}},
+  translate: undefined,
+  noticeOutdate: undefined,
+  highlight: {"plugin":"highlighjs","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '天',
+  dateSuffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'fancybox',
+  Snackbar: undefined,
+  source: {
+    justifiedGallery: {
+      js: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery/dist/fjGallery.min.js',
+      css: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery/dist/fjGallery.min.css'
+    }
+  },
+  isPhotoFigcaption: true,
+  islazyload: true,
+  isAnchor: false,
+  percent: {
+    toc: true,
+    rightside: false,
+  },
+  autoDarkmode: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: '大数据手册(Hive)--HiveQL(DQL)',
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: true,
+  postUpdate: '2023-03-20 23:16:43'
+}</script><noscript><style type="text/css">
+  #nav {
+    opacity: 1
+  }
+  .justified-gallery img {
+    opacity: 1
+  }
+
+  #recent-posts time,
+  #post-meta time {
+    display: inline !important
+  }
+</style></noscript><script>(win=>{
+    win.saveToLocal = {
+      set: function setWithExpiry(key, value, ttl) {
+        if (ttl === 0) return
+        const now = new Date()
+        const expiryDay = ttl * 86400000
+        const item = {
+          value: value,
+          expiry: now.getTime() + expiryDay,
+        }
+        localStorage.setItem(key, JSON.stringify(item))
+      },
+
+      get: function getWithExpiry(key) {
+        const itemStr = localStorage.getItem(key)
+
+        if (!itemStr) {
+          return undefined
+        }
+        const item = JSON.parse(itemStr)
+        const now = new Date()
+
+        if (now.getTime() > item.expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return item.value
+      }
+    }
+  
+    win.getScript = url => new Promise((resolve, reject) => {
+      const script = document.createElement('script')
+      script.src = url
+      script.async = true
+      script.onerror = reject
+      script.onload = script.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        script.onload = script.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(script)
+    })
+  
+    win.getCSS = (url,id = false) => new Promise((resolve, reject) => {
+      const link = document.createElement('link')
+      link.rel = 'stylesheet'
+      link.href = url
+      if (id) link.id = id
+      link.onerror = reject
+      link.onload = link.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        link.onload = link.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(link)
+    })
+  
+      win.activateDarkMode = function () {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      win.activateLightMode = function () {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+      const t = saveToLocal.get('theme')
+    
+          if (t === 'dark') activateDarkMode()
+          else if (t === 'light') activateLightMode()
+        
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    
+    const detectApple = () => {
+      if(/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+    })(window)</script><link rel="stylesheet" href="//at.alicdn.com/t/font_2849223_xh1ftc8qym.css"><link rel="stylesheet" href="/css/link-card.css"><!-- hexo injector head_end start --><link rel="stylesheet" href="https://npm.elemecdn.com/hexo-butterfly-tag-plugins-plus@latest/lib/assets/font-awesome-animation.min.css" media="defer" onload="this.media='all'"><link rel="stylesheet" href="https://npm.elemecdn.com/hexo-butterfly-tag-plugins-plus@latest/lib/tag_plugins.css" media="defer" onload="this.media='all'"><script src="https://npm.elemecdn.com/hexo-butterfly-tag-plugins-plus@latest/lib/assets/carousel-touch.js"></script><!-- hexo injector head_end end --><meta name="generator" content="Hexo 6.0.0"><link rel="alternate" href="/atom.xml" title="雷小小" type="application/atom+xml">
+</head><body><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/img/avatar.jpg" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="sidebar-site-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">131</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">103</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">44</div></a></div><hr class="custom-hr"/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/user-guide/"><i class="fa-fw fa fa-compass"></i><span> 用户指南</span></a></div><div class="menus_item"><a class="site-page group hide" href="javascript:void(0);" rel="external nofollow noreferrer"><i class="fa-fw fa fa-book"></i><span> 文档</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></li><li><a class="site-page child" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 归档</span></a></li><li><a class="site-page child" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/gallery/"><i class="fa-fw fa fa-images"></i><span> 图库</span></a></div><div class="menus_item"><a class="site-page" href="/ebook/"><i class="fa-fw fa fa-book-reader"></i><span> 电子书</span></a></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-star"></i><span> 收藏夹</span></a></div><div class="menus_item"><a class="site-page group hide" href="javascript:void(0);" rel="external nofollow noreferrer"><i class="fa-fw fa-solid fa-circle-chevron-down"></i><span> 更多</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/about/"><i class="fa-fw fa fa-user"></i><span> 关于我</span></a></li><li><a class="site-page child" href="/analytics/"><i class="fa-fw fa fa-line-chart"></i><span> 文章统计</span></a></li><li><a class="site-page child" href="/log/"><i class="fa-fw fa fa-history"></i><span> 更新日志</span></a></li></ul></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url('/img/apache-hive-bg.png')"><nav id="nav"><span id="blog-info"><a href="/" title="雷小小"><img class="site-icon" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/img/favicon.png"/><span class="site-name">雷小小</span></a></span><div id="menus"><div id="search-button"><a class="site-page social-icon search" href="javascript:void(0);" rel="external nofollow noreferrer"><i class="fas fa-search fa-fw"></i><span> 搜索</span></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/user-guide/"><i class="fa-fw fa fa-compass"></i><span> 用户指南</span></a></div><div class="menus_item"><a class="site-page group hide" href="javascript:void(0);" rel="external nofollow noreferrer"><i class="fa-fw fa fa-book"></i><span> 文档</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></li><li><a class="site-page child" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 归档</span></a></li><li><a class="site-page child" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/gallery/"><i class="fa-fw fa fa-images"></i><span> 图库</span></a></div><div class="menus_item"><a class="site-page" href="/ebook/"><i class="fa-fw fa fa-book-reader"></i><span> 电子书</span></a></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-star"></i><span> 收藏夹</span></a></div><div class="menus_item"><a class="site-page group hide" href="javascript:void(0);" rel="external nofollow noreferrer"><i class="fa-fw fa-solid fa-circle-chevron-down"></i><span> 更多</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/about/"><i class="fa-fw fa fa-user"></i><span> 关于我</span></a></li><li><a class="site-page child" href="/analytics/"><i class="fa-fw fa fa-line-chart"></i><span> 文章统计</span></a></li><li><a class="site-page child" href="/log/"><i class="fa-fw fa fa-history"></i><span> 更新日志</span></a></li></ul></div></div><div id="toggle-menu"><a class="site-page" href="javascript:void(0);" rel="external nofollow noreferrer"><i class="fas fa-bars fa-fw"></i></a></div></div></nav><div id="post-info"><h1 class="post-title">大数据手册(Hive)--HiveQL(DQL)<a class="post-edit-link" href="https://gitee.com/WilenWu/myblog/edit/master/source/_posts/bigdata/Hive-DQL.md" rel="external nofollow noreferrer" title="编辑" target="_blank"><i class="fas fa-pencil-alt"></i></a></h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2018-07-03T09:57:36.000Z" title="发表于 2018-07-03 17:57:36">2018-07-03</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2023-03-20T15:16:43.701Z" title="更新于 2023-03-20 23:16:43">2023-03-20</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/big-data/">Big Data</a><i class="fas fa-angle-right post-meta-separator"></i><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/big-data/hive/">Hive</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-wordcount"><i class="far fa-file-word fa-fw post-meta-icon"></i><span class="post-meta-label">字数总计:</span><span class="word-count">6.2k</span><span class="post-meta-separator">|</span><i class="far fa-clock fa-fw post-meta-icon"></i><span class="post-meta-label">阅读时长:</span><span>26分钟</span></span><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title="大数据手册(Hive)--HiveQL(DQL)"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">阅读量:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container"><h1 id="数据查询"><a class="markdownIt-Anchor" href="#数据查询"></a> 数据查询</h1>
+<h2 id="select"><a class="markdownIt-Anchor" href="#select"></a> Select</h2>
+<figure class="highlight sql"><table><tr><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> [<span class="keyword">ALL</span> <span class="operator">|</span> <span class="keyword">DISTINCT</span>] select_expr, select_expr, ...</span><br><span class="line"><span class="keyword">FROM</span> table_reference</span><br><span class="line">[<span class="keyword">WHERE</span> where_condition]</span><br><span class="line">[<span class="keyword">GROUP</span> <span class="keyword">BY</span> col_list] [<span class="keyword">HAVING</span> having_condition]</span><br><span class="line">[<span class="keyword">ORDER</span> <span class="keyword">BY</span> col_list]</span><br><span class="line">[CLUSTER <span class="keyword">BY</span> col_list] <span class="operator">|</span> [DISTRIBUTE <span class="keyword">BY</span> col_list] [SORT <span class="keyword">BY</span> col_list]</span><br><span class="line">[LIMIT [<span class="keyword">offset</span>,] <span class="keyword">rows</span>]</span><br></pre></td></tr></table></figure>
+<ul>
+<li>SELECT 语句可以是 union 查询的一部分，也可以是另一个查询的子查询。</li>
+<li>table_reference表示查询的输入。它可以是常规表、视图、连接查询或子查询。</li>
+<li>在反引号 ( `) 中指定的任何列名都按字面处理。</li>
+<li>默认为 ALL 返回所有匹配的行。DISTINCT 指定从结果集中删除重复行。</li>
+</ul>
+<p><strong>WHERE 语句</strong>：是一个布尔表达式。Hive在 WHERE 子句中支持许多运算符、 UDF 和某些类型的子查询。</p>
+<figure class="highlight sql"><table><tr><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> <span class="operator">*</span> <span class="keyword">FROM</span> sales <span class="keyword">WHERE</span> amount <span class="operator">&gt;</span> <span class="number">10</span> <span class="keyword">AND</span> region <span class="operator">=</span> &quot;US&quot;</span><br></pre></td></tr></table></figure>
+<p><strong>LIMIT 子句</strong>：可用于限制 SELECT 语句返回的行数。</p>
+<p>LIMIT 需要一个或两个数字参数，它们都必须是非负整数常量。第一个参数指定要返回的第一行的偏移量，第二个参数指定要返回的最大行数。当给出单个参数时，它代表最大行数，偏移量默认为 0。</p>
+<p>以下查询返回要创建的前 5 个客户</p>
+<figure class="highlight sql"><table><tr><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> <span class="operator">*</span> <span class="keyword">FROM</span> customers <span class="keyword">ORDER</span> <span class="keyword">BY</span> create_date LIMIT <span class="number">5</span>;</span><br></pre></td></tr></table></figure>
+<p>以下查询返回要创建的第 3 个到第 7 个客户</p>
+<figure class="highlight sql"><table><tr><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> <span class="operator">*</span> <span class="keyword">FROM</span> customers <span class="keyword">ORDER</span> <span class="keyword">BY</span> create_date LIMIT <span class="number">2</span>, <span class="number">5</span>;</span><br></pre></td></tr></table></figure>
+<p><strong>REGEX 列规则</strong></p>
+<p>配置属性 <code>hive.support.quoted.identifiers = none</code>，则反引号内被解释为 Java 正则表达式。以下查询选择除 ds 和 hr 之外的所有列。</p>
+<figure class="highlight sql"><table><tr><td class="code"><pre><span class="line">hive.support.quoted.identifiers <span class="operator">=</span> <span class="keyword">none</span>;</span><br><span class="line"><span class="keyword">SELECT</span> `(ds<span class="operator">|</span>hr)?<span class="operator">+</span>.<span class="operator">+</span>` <span class="keyword">FROM</span> sales;</span><br></pre></td></tr></table></figure>
+<p><strong>分区查询</strong></p>
+<p>通常，SELECT 查询会扫描整个表（除了用于采样）。如果表是使用PARTITIONED BY子句创建的，则查询可以进行分区修剪并仅扫描与查询指定的分区相关的表的一小部分。</p>
+<h2 id="group-by"><a class="markdownIt-Anchor" href="#group-by"></a> Group By</h2>
+<p>使用 group by 子句时，select 语句只能包含 group by 子句中包含的列。当然，您也可以尽可能多的聚合函数。例如，为了按性别计算不同用户的数量，可以编写以下查询：</p>
+<figure class="highlight sql"><table><tr><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> pv_users.gender, <span class="built_in">count</span> (<span class="keyword">DISTINCT</span> pv_users.userid)</span><br><span class="line"><span class="keyword">FROM</span> pv_users</span><br><span class="line"><span class="keyword">GROUP</span> <span class="keyword">BY</span> pv_users.gender;</span><br></pre></td></tr></table></figure>
+<p>可以同时进行多个聚合，但是，任何两个聚合都不能具有不同的 DISTINCT 列。例如，以下是可能的</p>
+<figure class="highlight sql"><table><tr><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> pv_users.gender, <span class="built_in">count</span>(<span class="operator">*</span>)</span><br><span class="line">	<span class="built_in">count</span>(<span class="keyword">DISTINCT</span> pv_users.userid), </span><br><span class="line">	<span class="built_in">sum</span>(<span class="keyword">DISTINCT</span> pv_users.userid)</span><br><span class="line"><span class="keyword">FROM</span> pv_users</span><br><span class="line"><span class="keyword">GROUP</span> <span class="keyword">BY</span> pv_users.gender;</span><br></pre></td></tr></table></figure>
+<p>但是，<strong>不允许</strong>在同一个查询中使用多个 DISTINCT 表达式。</p>
+<figure class="highlight sql"><table><tr><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> pv_users.gender, </span><br><span class="line">	<span class="built_in">count</span>(<span class="keyword">DISTINCT</span> pv_users.userid), </span><br><span class="line">	<span class="built_in">count</span>(<span class="keyword">DISTINCT</span> pv_users.ip)</span><br><span class="line"><span class="keyword">FROM</span> pv_users</span><br><span class="line"><span class="keyword">GROUP</span> <span class="keyword">BY</span> pv_users.gender;</span><br></pre></td></tr></table></figure>
+<p><strong>map 端聚合</strong></p>
+<p><em>hive.map.aggr</em>控制我们如何进行聚合，默认值为false。如果设置为true，Hive会直接在map任务中做一级聚合。<br />
+这通常提供更好的效率，但可能需要更多内存才能成功运行。</p>
+<figure class="highlight sql"><table><tr><td class="code"><pre><span class="line"><span class="keyword">set</span> hive.map.aggr<span class="operator">=</span><span class="literal">true</span>;</span><br><span class="line"><span class="keyword">SELECT</span> <span class="built_in">COUNT</span>(<span class="operator">*</span>) <span class="keyword">FROM</span> table2;</span><br></pre></td></tr></table></figure>
+<h2 id="order"><a class="markdownIt-Anchor" href="#order"></a> Order</h2>
+<p><strong>ORDER BY</strong> ：Hive QL 中的ORDER BY语法类似于SQL 语言中的ORDER BY语法。</p>
+<figure class="highlight sql"><table><tr><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> expressions <span class="keyword">FROM</span> src </span><br><span class="line"><span class="keyword">ORDER</span> <span class="keyword">BY</span> colName [<span class="keyword">ASC</span> <span class="operator">|</span> <span class="keyword">DESC</span>] [NULLS <span class="keyword">FIRST</span> <span class="operator">|</span> NULLS <span class="keyword">LAST</span>] , ...</span><br></pre></td></tr></table></figure>
+<ul>
+<li>在严格模式下（即hive.mapred.mode =strict），order by 子句后面必须跟一个 limit 子句。。原因是为了强制所有结果的总顺序，必须有一个reducer来对最终输出进行排序。如果输出中的行数太大，单个reducer可能需要很长时间才能完成。</li>
+<li>默认排序顺序是升序 (ASC)。ASC 顺序的默认空排序顺序是 NULLS FIRST，而 DESC 顺序的默认空排序顺序是 NULLS LAST。</li>
+</ul>
+<p><strong>SORT BY</strong> ：类似于ORDER BY语法。区别在于ORDER BY保证输出中的总顺序，而SORT BY只保证reducer中行的排序。如果有多个reducer，SORT BY 可能会给出部分排序的最终结果。</p>
+<figure class="highlight sql"><table><tr><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> expressions <span class="keyword">FROM</span> src </span><br><span class="line">SORT <span class="keyword">BY</span> colName [<span class="keyword">ASC</span> <span class="operator">|</span> <span class="keyword">DESC</span>] [NULLS <span class="keyword">FIRST</span> <span class="operator">|</span> NULLS <span class="keyword">LAST</span>] , ...</span><br></pre></td></tr></table></figure>
+<p><strong>Cluster By 和 Distribute By 的语法</strong></p>
+<p>Cluster By和Distribute By主要与Transform/Map-Reduce Scripts 一起使用。但是，如果需要为后续查询的输出进行分区和排序，它有时在 SELECT 语句中很有用。</p>
+<figure class="highlight sql"><table><tr><td class="code"><pre><span class="line"><span class="keyword">select</span> <span class="operator">*</span> <span class="keyword">from</span> emp </span><br><span class="line">	distribute <span class="keyword">by</span> deptno <span class="comment">-- 指定分区</span></span><br><span class="line">	sort <span class="keyword">by</span> sal;         <span class="comment">-- 局部排序</span></span><br><span class="line"><span class="keyword">select</span> <span class="operator">*</span> <span class="keyword">from</span> emp cluster <span class="keyword">by</span> sal;   <span class="comment">-- 同时指定分区和排序字段</span></span><br></pre></td></tr></table></figure>
+<p>Cluster By是Distribute By和Sort By的快捷方式。Hive 使用Distribute By中的列在 reducer 之间分配行。具有相同Distribute By列的所有行都将进入相同的 reducer。</p>
+<p>用户可以指定Distribute By和Sort By，而不是指定Cluster By，因此分区列和排序列可以不同。通常的情况是分区列是排序列的前缀，但这不是必需的。</p>
+<figure class="highlight sql"><table><tr><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> col1, col2 <span class="keyword">FROM</span> t1 CLUSTER <span class="keyword">BY</span> col1;</span><br><span class="line"><span class="keyword">SELECT</span> col1, col2 <span class="keyword">FROM</span> t1 DISTRIBUTE <span class="keyword">BY</span> col1;</span><br><span class="line"><span class="keyword">SELECT</span> col1, col2 <span class="keyword">FROM</span> t1 DISTRIBUTE <span class="keyword">BY</span> col1 SORT <span class="keyword">BY</span> col1 <span class="keyword">ASC</span>, col2 <span class="keyword">DESC</span>;</span><br></pre></td></tr></table></figure>
+<h2 id="joins"><a class="markdownIt-Anchor" href="#joins"></a> Joins</h2>
+<img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://warehouse-1310574346.cos.ap-shanghai.myqcloud.com/images/common/hive_join.png" alt="join" width="80%" />
+<p><strong>连接语法</strong></p>
+<figure class="highlight sql"><table><tr><td class="code"><pre><span class="line">select_statement</span><br><span class="line"><span class="keyword">FROM</span> from_statement</span><br><span class="line"><span class="keyword">JOIN</span> table_reference join_condition </span><br><span class="line"><span class="keyword">WHERE</span> where_condition</span><br><span class="line"></span><br><span class="line"><span class="comment">-- join_condition: ON (expr = expr[ AND expr = expr ...])</span></span><br></pre></td></tr></table></figure>
+<p>用户可以使用关键字来限定连接类型</p>
+<ul>
+<li>内连接：``[INNER] JOIN`，默认值，join_condition 可选（去除后等效于交叉连接）</li>
+<li>外连接：<code>&#123;LEFT|RIGHT|FULL&#125; [OUTER] JOIN</code>，左保留、右保留或两侧保留</li>
+<li>半连接：<code>LEFT SEMI JOIN</code> ，等价于 IN/EXISTS 子查询。只能返回左表记录，连接时遇到右表重复记录，左表会跳过。</li>
+<li>交叉连接：<code>CROSS JOIN</code>，join_condition可选</li>
+<li>联接发生在 WHERE 子句之前</li>
+<li>无论是 LEFT JOIN 还是 RIGHT JOIN，连接都是从左到右关联的。</li>
+</ul>
+<p><strong>Example</strong></p>
+<p>简单连接</p>
+<figure class="highlight sql"><table><tr><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> pv.<span class="operator">*</span>, u.gender, u.age <span class="keyword">FROM</span> <span class="keyword">user</span> u </span><br><span class="line"><span class="keyword">JOIN</span> page_view pv <span class="keyword">ON</span> (pv.userid <span class="operator">=</span> u.id)</span><br><span class="line"><span class="keyword">WHERE</span> pv.date <span class="operator">=</span> <span class="string">&#x27;2008-03-03&#x27;</span>;</span><br><span class="line"><span class="keyword">SELECT</span> a.<span class="operator">*</span> <span class="keyword">FROM</span> a <span class="keyword">LEFT</span> <span class="keyword">OUTER</span> <span class="keyword">JOIN</span> b <span class="keyword">ON</span> (a.id <span class="operator">&lt;&gt;</span> b.id);</span><br></pre></td></tr></table></figure>
+<p>多表连接</p>
+<figure class="highlight sql"><table><tr><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> pv.<span class="operator">*</span>, u.gender, u.age, f.friends <span class="keyword">FROM</span> page_view pv </span><br><span class="line">	<span class="keyword">JOIN</span> <span class="keyword">user</span> u <span class="keyword">ON</span> (pv.userid <span class="operator">=</span> u.id) </span><br><span class="line">	<span class="keyword">JOIN</span> friend_list f <span class="keyword">ON</span> (u.id <span class="operator">=</span> f.uid)</span><br><span class="line"><span class="keyword">WHERE</span> pv.date <span class="operator">=</span> <span class="string">&#x27;2008-03-03&#x27;</span>;</span><br></pre></td></tr></table></figure>
+<p>连接前预过滤</p>
+<figure class="highlight sql"><table><tr><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> a.val, b.val <span class="keyword">FROM</span> a </span><br><span class="line"><span class="keyword">LEFT</span> <span class="keyword">OUTER</span> <span class="keyword">JOIN</span> b</span><br><span class="line"><span class="keyword">ON</span> (a.key<span class="operator">=</span>b.key <span class="keyword">AND</span> b.ds<span class="operator">=</span><span class="string">&#x27;2009-07-07&#x27;</span> <span class="keyword">AND</span> a.ds<span class="operator">=</span><span class="string">&#x27;2009-07-07&#x27;</span>);</span><br></pre></td></tr></table></figure>
+<p>半连接</p>
+<figure class="highlight sql"><table><tr><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> u.<span class="operator">*</span> <span class="keyword">FROM</span> <span class="keyword">user</span> u </span><br><span class="line"><span class="keyword">LEFT</span> SEMI <span class="keyword">JOIN</span> page_view pv <span class="keyword">ON</span> (pv.userid <span class="operator">=</span> u.id)</span><br><span class="line"><span class="keyword">WHERE</span> pv.date <span class="operator">=</span> <span class="string">&#x27;2008-03-03&#x27;</span>;</span><br><span class="line"><span class="comment">-- 等价于</span></span><br><span class="line"><span class="keyword">SELECT</span> u.<span class="operator">*</span> <span class="keyword">FROM</span> <span class="keyword">user</span> u </span><br><span class="line"><span class="keyword">WHERE</span> pv.date <span class="operator">=</span> <span class="string">&#x27;2008-03-03&#x27;</span></span><br><span class="line">    <span class="keyword">AND</span> u.id <span class="keyword">IN</span> (<span class="keyword">SELECT</span> pv.userid <span class="keyword">FROM</span> page_view pv);</span><br></pre></td></tr></table></figure>
+<p><strong>map/reduce 作业</strong></p>
+<p>如果每个表的连接子句中都使用了相同的列，则 Hive 会将多个表的连接转换为单个 map/reduce 作业，例如</p>
+<figure class="highlight sql"><table><tr><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> a.val, b.val, c.val <span class="keyword">FROM</span> a </span><br><span class="line">	<span class="keyword">JOIN</span> b <span class="keyword">ON</span> (a.key <span class="operator">=</span> b.key1) </span><br><span class="line">	<span class="keyword">JOIN</span> c <span class="keyword">ON</span> (c.key <span class="operator">=</span> b.key1)</span><br></pre></td></tr></table></figure>
+<p>转换为单个 map/reduce 作业，因为连接中只涉及 b 的 key1 列。在连接的每个 map/reduce 阶段，序列中的最后一个表通过 reducer 流式传输，而其他表则被缓存。因此，将最大的表出现在序列的最后，有助于减少reducer 中用于缓存连接键的特定值的行所需的内存。</p>
+<p>另一方面</p>
+<figure class="highlight sql"><table><tr><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> a.val, b.val, c.val <span class="keyword">FROM</span> a </span><br><span class="line">	<span class="keyword">JOIN</span> b <span class="keyword">ON</span> (a.key <span class="operator">=</span> b.key1) </span><br><span class="line">	<span class="keyword">JOIN</span> c <span class="keyword">ON</span> (c.key <span class="operator">=</span> b.key2)</span><br></pre></td></tr></table></figure>
+<p>被转换为两个 map/reduce 作业，因为 b 中的 key1 列用于第一个连接条件，而 b 中的 key2 列用于第二个连接条件。第一个 map/reduce 作业将 a 与 b 连接，然后在第二个 map/reduce 作业中将结果与 c 连接。</p>
+<p><strong>STREAMTABLE</strong>：在连接的每个 map/reduce 阶段，可以通过提示指定要流式传输的表。例如</p>
+<figure class="highlight sql"><table><tr><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> <span class="comment">/*+ STREAMTABLE(a) */</span> a.val, b.val, c.val <span class="keyword">FROM</span> a </span><br><span class="line">	<span class="keyword">JOIN</span> b <span class="keyword">ON</span> (a.key <span class="operator">=</span> b.key1) </span><br><span class="line">	<span class="keyword">JOIN</span> c <span class="keyword">ON</span> (c.key <span class="operator">=</span> b.key1)</span><br></pre></td></tr></table></figure>
+<p>所有三个表都连接在一个 map/reduce 作业中，表 b 和 c 的键的特定值的值缓冲在 reducer 的内存中。然后对于从 a 中检索的每一行，使用缓冲的行计算连接。如果省略 STREAMTABLE 提示，Hive 会流式传输连接中最右边的表。</p>
+<p><strong>MAPJOIN</strong>：如果要连接的表只有一个表且很小，则连接可以仅 map 作业执行</p>
+<figure class="highlight sql"><table><tr><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> <span class="comment">/*+ MAPJOIN(b) */</span> a.key, a.value</span><br><span class="line"><span class="keyword">FROM</span> a <span class="keyword">JOIN</span> b <span class="keyword">ON</span> a.key <span class="operator">=</span> b.key;</span><br></pre></td></tr></table></figure>
+<p>不需要 reducer，对于 A 的每个映射器，B 都被完全读取。限制是不能执行FULL/RIGHT OUTER JOIN b。</p>
+<h2 id="union"><a class="markdownIt-Anchor" href="#union"></a> Union</h2>
+<p><strong>语法</strong>：UNION 用于将多个 SELECT 语句的结果组合成一个结果集</p>
+<figure class="highlight sql"><table><tr><td class="code"><pre><span class="line">select_statement </span><br><span class="line"><span class="keyword">UNION</span> [<span class="keyword">ALL</span> <span class="operator">|</span> <span class="keyword">DISTINCT</span>] select_statement </span><br><span class="line"><span class="keyword">UNION</span> [<span class="keyword">ALL</span> <span class="operator">|</span> <span class="keyword">DISTINCT</span>] select_statement </span><br><span class="line">... ...;</span><br></pre></td></tr></table></figure>
+<ul>
+<li>UNION的默认行为 是从结果中删除重复的行，DISTINCT 关键字可选。</li>
+<li>可以在同一查询中混合使用 UNION ALL 和 UNION DISTINCT。混合 UNION 类型的处理方式是 DISTINCT 联合覆盖其左侧的任何 ALL 联合。</li>
+<li>每个 select_statement 返回的列数、列名称、列类型必须相同。否则，将引发架构错误。</li>
+</ul>
+<p><strong>FROM 子句中的 UNION</strong>：如果必须对 UNION 的结果进行一些额外的处理，可以将整个语句表达式嵌入到 FROM 子句中，如下所示：</p>
+<figure class="highlight sql"><table><tr><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> <span class="operator">*</span></span><br><span class="line"><span class="keyword">FROM</span> (</span><br><span class="line">  select_statement</span><br><span class="line">  <span class="keyword">UNION</span> <span class="keyword">ALL</span></span><br><span class="line">  select_statement</span><br><span class="line">) unionResult</span><br></pre></td></tr></table></figure>
+<figure class="highlight sql"><table><tr><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> u.id, actions.date</span><br><span class="line"><span class="keyword">FROM</span> (</span><br><span class="line">    <span class="keyword">SELECT</span> av.uid <span class="keyword">AS</span> uid</span><br><span class="line">    <span class="keyword">FROM</span> action_video av</span><br><span class="line">    <span class="keyword">WHERE</span> av.date <span class="operator">=</span> <span class="string">&#x27;2008-06-03&#x27;</span></span><br><span class="line">    <span class="keyword">UNION</span> <span class="keyword">ALL</span></span><br><span class="line">    <span class="keyword">SELECT</span> ac.uid <span class="keyword">AS</span> uid</span><br><span class="line">    <span class="keyword">FROM</span> action_comment ac</span><br><span class="line">    <span class="keyword">WHERE</span> ac.date <span class="operator">=</span> <span class="string">&#x27;2008-06-03&#x27;</span></span><br><span class="line"> ) actions <span class="keyword">JOIN</span> users u <span class="keyword">ON</span> (u.id <span class="operator">=</span> actions.uid)</span><br></pre></td></tr></table></figure>
+<p><strong>子规范</strong>：要将 ORDER BY、SORT BY、CLUSTER BY、DISTRIBUTE BY 或 LIMIT 应用于单个 SELECT，请将子句放在包含 SELECT 的括号内：</p>
+<figure class="highlight sql"><table><tr><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> key <span class="keyword">FROM</span> (<span class="keyword">SELECT</span> key <span class="keyword">FROM</span> src <span class="keyword">ORDER</span> <span class="keyword">BY</span> key LIMIT <span class="number">10</span>) subq1</span><br><span class="line"><span class="keyword">UNION</span></span><br><span class="line"><span class="keyword">SELECT</span> key <span class="keyword">FROM</span> (<span class="keyword">SELECT</span> key <span class="keyword">FROM</span> src1 <span class="keyword">ORDER</span> <span class="keyword">BY</span> key LIMIT <span class="number">10</span>) subq2</span><br></pre></td></tr></table></figure>
+<p>要将 ORDER BY、SORT BY、CLUSTER BY、DISTRIBUTE BY 或 LIMIT 子句应用于整个 UNION 结果，请将子句放在最后。</p>
+<figure class="highlight sql"><table><tr><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> key <span class="keyword">FROM</span> src</span><br><span class="line"><span class="keyword">UNION</span></span><br><span class="line"><span class="keyword">SELECT</span> key <span class="keyword">FROM</span> src1 </span><br><span class="line"><span class="keyword">ORDER</span> <span class="keyword">BY</span> key LIMIT <span class="number">10</span></span><br></pre></td></tr></table></figure>
+<h1 id="lateral-view"><a class="markdownIt-Anchor" href="#lateral-view"></a> Lateral View</h1>
+<h2 id="lateral-view-syntax"><a class="markdownIt-Anchor" href="#lateral-view-syntax"></a> Lateral View Syntax</h2>
+<figure class="highlight sql"><table><tr><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> select_statement <span class="keyword">FROM</span> baseTable </span><br><span class="line"><span class="keyword">LATERAL</span> <span class="keyword">VIEW</span> [<span class="keyword">OUTER</span>] udtf(expression) tableAlias [<span class="keyword">AS</span> columnAlias, columnAlias, ...]</span><br></pre></td></tr></table></figure>
+<p>LATERAL VIEW 和表生成函数 (UDTF) 配合使用。LATERAL VIEW 首先将 UDTF 应用于基表的每一行，然后将输出结果 JOIN 基表输入行形成虚拟表，并重名名虚拟表。</p>
+<p><strong>例如</strong>：基表 pageAds</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">pageid(STRING)</th>
+<th style="text-align:left">adid_list(Array&lt;int&gt;)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">front_page</td>
+<td style="text-align:left">[1, 2, 3]</td>
+</tr>
+<tr>
+<td style="text-align:left">contact_page</td>
+<td style="text-align:left">[3, 4, 5]</td>
+</tr>
+</tbody>
+</table>
+<figure class="highlight sql"><table><tr><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> pageid, adid</span><br><span class="line"><span class="keyword">FROM</span> pageAds <span class="keyword">LATERAL</span> <span class="keyword">VIEW</span> explode(adid_list) adTable <span class="keyword">AS</span> adid;</span><br></pre></td></tr></table></figure>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">pageid (string)</th>
+<th style="text-align:left">adid (int)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">“front_page”</td>
+<td style="text-align:left">1</td>
+</tr>
+<tr>
+<td style="text-align:left">“front_page”</td>
+<td style="text-align:left">2</td>
+</tr>
+<tr>
+<td style="text-align:left">“front_page”</td>
+<td style="text-align:left">3</td>
+</tr>
+<tr>
+<td style="text-align:left">“contact_page”</td>
+<td style="text-align:left">3</td>
+</tr>
+<tr>
+<td style="text-align:left">“contact_page”</td>
+<td style="text-align:left">4</td>
+</tr>
+<tr>
+<td style="text-align:left">“contact_page”</td>
+<td style="text-align:left">5</td>
+</tr>
+</tbody>
+</table>
+<p>然后为了计算特定广告出现的次数，可以使用 count/group by：</p>
+<figure class="highlight sql"><table><tr><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> adid, <span class="built_in">count</span>(<span class="number">1</span>)</span><br><span class="line"><span class="keyword">FROM</span> pageAds <span class="keyword">LATERAL</span> <span class="keyword">VIEW</span> explode(adid_list) adTable <span class="keyword">AS</span> adid</span><br><span class="line"><span class="keyword">GROUP</span> <span class="keyword">BY</span> adid;</span><br></pre></td></tr></table></figure>
+<table>
+<thead>
+<tr>
+<th>adid</th>
+<th>count(1)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1</td>
+<td>1</td>
+</tr>
+<tr>
+<td>2</td>
+<td>1</td>
+</tr>
+<tr>
+<td>3</td>
+<td>2</td>
+</tr>
+<tr>
+<td>4</td>
+<td>1</td>
+</tr>
+<tr>
+<td>5</td>
+<td>1</td>
+</tr>
+</tbody>
+</table>
+<h2 id="multiple-lateral-views"><a class="markdownIt-Anchor" href="#multiple-lateral-views"></a> Multiple Lateral Views</h2>
+<p>一个 FROM 子句可以有多个 LATERAL VIEW 子句。后续的 LATERAL VIEWS 可以引用 LATERAL VIEW 左侧出现的任何表中的列。例如：</p>
+<figure class="highlight sql"><table><tr><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> <span class="operator">*</span> <span class="keyword">FROM</span> exampleTable</span><br><span class="line"><span class="keyword">LATERAL</span> <span class="keyword">VIEW</span> explode(col1) myTable1 <span class="keyword">AS</span> myCol1</span><br><span class="line"><span class="keyword">LATERAL</span> <span class="keyword">VIEW</span> explode(myCol1) myTable2 <span class="keyword">AS</span> myCol2;</span><br></pre></td></tr></table></figure>
+<p>LATERAL VIEW 子句按它们出现的顺序应用。例如基表：</p>
+<table>
+<thead>
+<tr>
+<th>Array&lt;int&gt; col1</th>
+<th>Array&lt;string&gt; col2</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>[1, 2]</td>
+<td>[a&quot;, “b”, “c”]</td>
+</tr>
+<tr>
+<td>[3, 4]</td>
+<td>[d&quot;, “e”, “f”]</td>
+</tr>
+</tbody>
+</table>
+<figure class="highlight sql"><table><tr><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> myCol1, col2 <span class="keyword">FROM</span> baseTable</span><br><span class="line"><span class="keyword">LATERAL</span> <span class="keyword">VIEW</span> explode(col1) myTable1 <span class="keyword">AS</span> myCol1;</span><br></pre></td></tr></table></figure>
+<table>
+<thead>
+<tr>
+<th>int mycol1</th>
+<th>Array&lt;string&gt; col2</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1</td>
+<td>[a&quot;, “b”, “c”]</td>
+</tr>
+<tr>
+<td>2</td>
+<td>[a&quot;, “b”, “c”]</td>
+</tr>
+<tr>
+<td>3</td>
+<td>[d&quot;, “e”, “f”]</td>
+</tr>
+<tr>
+<td>4</td>
+<td>[d&quot;, “e”, “f”]</td>
+</tr>
+</tbody>
+</table>
+<p>添加额外 LATERAL VIEW 的查询：</p>
+<figure class="highlight sql"><table><tr><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> myCol1, myCol2 <span class="keyword">FROM</span> baseTable</span><br><span class="line"><span class="keyword">LATERAL</span> <span class="keyword">VIEW</span> explode(col1) myTable1 <span class="keyword">AS</span> myCol1</span><br><span class="line"><span class="keyword">LATERAL</span> <span class="keyword">VIEW</span> explode(col2) myTable2 <span class="keyword">AS</span> myCol2;</span><br></pre></td></tr></table></figure>
+<table>
+<thead>
+<tr>
+<th>int myCol1</th>
+<th>string myCol2</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1</td>
+<td>“a”</td>
+</tr>
+<tr>
+<td>1</td>
+<td>“b”</td>
+</tr>
+<tr>
+<td>1</td>
+<td>“c”</td>
+</tr>
+<tr>
+<td>…</td>
+<td>…</td>
+</tr>
+</tbody>
+</table>
+<h2 id="outer-lateral-views"><a class="markdownIt-Anchor" href="#outer-lateral-views"></a> Outer Lateral Views</h2>
+<p>当使用的 UDTF 不生成任何行时，基表源行则永远不会出现在结果中。例如当<code>explode</code>要分解的列为空时很容易发生这种情况 。在这种情况下，用户也可以指定可选关键字 OUTER 来生成行，并且将使用<code>NULL</code>填充UDTF 生成的行值。例如：</p>
+<figure class="highlight sql"><table><tr><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> <span class="operator">*</span> <span class="keyword">FROM</span> src <span class="keyword">LATERAL</span> <span class="keyword">VIEW</span> <span class="keyword">OUTER</span> explode(<span class="keyword">array</span>()) C <span class="keyword">AS</span> a limit <span class="number">10</span>;</span><br></pre></td></tr></table></figure>
+<h2 id="distinct"><a class="markdownIt-Anchor" href="#distinct"></a> Distinct</h2>
+<p>Hive 2.1.0 及更高版本中，Distinct 支持聚合函数。例子如下：</p>
+<figure class="highlight sql"><table><tr><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> <span class="built_in">COUNT</span>(<span class="keyword">DISTINCT</span> a) <span class="keyword">OVER</span> (<span class="keyword">PARTITION</span> <span class="keyword">BY</span> c <span class="keyword">ORDER</span> <span class="keyword">BY</span> d <span class="keyword">ROWS</span> <span class="keyword">BETWEEN</span> <span class="number">1</span> PRECEDING <span class="keyword">AND</span> <span class="number">1</span> FOLLOWING) <span class="keyword">FROM</span> T</span><br></pre></td></tr></table></figure>
+<p>目前添加了对 OVER 子句中引用聚合函数的支持</p>
+<figure class="highlight sql"><table><tr><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> <span class="built_in">rank</span>() <span class="keyword">OVER</span> (<span class="keyword">ORDER</span> <span class="keyword">BY</span> <span class="built_in">sum</span>(b)) <span class="keyword">FROM</span> T <span class="keyword">GROUP</span> <span class="keyword">BY</span> a;</span><br></pre></td></tr></table></figure>
+<h1 id="增强聚合"><a class="markdownIt-Anchor" href="#增强聚合"></a> 增强聚合</h1>
+<h2 id="grouping-sets-子句"><a class="markdownIt-Anchor" href="#grouping-sets-子句"></a> GROUPING SETS 子句</h2>
+<p>GROUP BY中的GROUPING SETS子句允许我们在同一数据集分组时指定多个分组选项，等效于多次分组后 UNION 。</p>
+<figure class="highlight sql"><table><tr><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> a, b, <span class="built_in">SUM</span>(c) <span class="keyword">FROM</span> tab1 <span class="keyword">GROUP</span> <span class="keyword">BY</span> a, b <span class="keyword">GROUPING</span> SETS ( (a,b) ) ;</span><br><span class="line"><span class="comment">-- 等效于</span></span><br><span class="line"><span class="keyword">SELECT</span> a, b, <span class="built_in">SUM</span>(c) <span class="keyword">FROM</span> tab1 <span class="keyword">GROUP</span> <span class="keyword">BY</span> a, b ;</span><br><span class="line"></span><br><span class="line"><span class="keyword">SELECT</span> a, b, <span class="built_in">SUM</span>(c) <span class="keyword">FROM</span> tab1 <span class="keyword">GROUP</span> <span class="keyword">BY</span> a, b <span class="keyword">GROUPING</span> SETS ( (a,b), a);</span><br><span class="line"><span class="comment">-- 等效于</span></span><br><span class="line"><span class="keyword">SELECT</span> a, b, <span class="built_in">SUM</span>(c) <span class="keyword">FROM</span> tab1 <span class="keyword">GROUP</span> <span class="keyword">BY</span> a, b</span><br><span class="line"><span class="keyword">UNION</span></span><br><span class="line"><span class="keyword">SELECT</span> a, <span class="keyword">null</span>, <span class="built_in">SUM</span>(c) <span class="keyword">FROM</span> tab1 <span class="keyword">GROUP</span> <span class="keyword">BY</span> a ;</span><br><span class="line"></span><br><span class="line"><span class="keyword">SELECT</span> a,b, <span class="built_in">SUM</span>(c) <span class="keyword">FROM</span> tab1 <span class="keyword">GROUP</span> <span class="keyword">BY</span> a, b <span class="keyword">GROUPING</span> SETS (a,b);</span><br><span class="line"><span class="comment">-- 等效于</span></span><br><span class="line"><span class="keyword">SELECT</span> a, <span class="keyword">null</span>, <span class="built_in">SUM</span>(c) <span class="keyword">FROM</span> tab1 <span class="keyword">GROUP</span> <span class="keyword">BY</span> a</span><br><span class="line"><span class="keyword">UNION</span></span><br><span class="line"><span class="keyword">SELECT</span> <span class="keyword">null</span>, b, <span class="built_in">SUM</span>(c) <span class="keyword">FROM</span> tab1 <span class="keyword">GROUP</span> <span class="keyword">BY</span> b</span><br><span class="line"></span><br><span class="line"><span class="keyword">SELECT</span> a, b, <span class="built_in">SUM</span>(c) <span class="keyword">FROM</span> tab1 <span class="keyword">GROUP</span> <span class="keyword">BY</span> a, b <span class="keyword">GROUPING</span> SETS ( (a, b), a, b, ( ) );</span><br><span class="line"><span class="comment">-- 等效于</span></span><br><span class="line"><span class="keyword">SELECT</span> a, b, <span class="built_in">SUM</span>(c) <span class="keyword">FROM</span> tab1 <span class="keyword">GROUP</span> <span class="keyword">BY</span> a, b</span><br><span class="line"><span class="keyword">UNION</span></span><br><span class="line"><span class="keyword">SELECT</span> a, <span class="keyword">null</span>, <span class="built_in">SUM</span>(c) <span class="keyword">FROM</span> tab1 <span class="keyword">GROUP</span> <span class="keyword">BY</span> a, <span class="keyword">null</span></span><br><span class="line"><span class="keyword">UNION</span></span><br><span class="line"><span class="keyword">SELECT</span> <span class="keyword">null</span>, b, <span class="built_in">SUM</span>(c) <span class="keyword">FROM</span> tab1 <span class="keyword">GROUP</span> <span class="keyword">BY</span> <span class="keyword">null</span>, b</span><br><span class="line"><span class="keyword">UNION</span></span><br><span class="line"><span class="keyword">SELECT</span> <span class="keyword">null</span>, <span class="keyword">null</span>, <span class="built_in">SUM</span>(c) <span class="keyword">FROM</span> tab1;</span><br></pre></td></tr></table></figure>
+<p>其中 GROUPING SETS子句中的空白集（）计算总体合计。缺失的分组名用 null 代替。</p>
+<h2 id="grouping__id-伪列"><a class="markdownIt-Anchor" href="#grouping__id-伪列"></a> GROUPING__ID 伪列</h2>
+<p><code>GROUPING__ID</code> 表示结果属于哪一个分组集合，第一个集合 <code>GROUPING__ID</code> 为0，按数学中的组合顺序依次加1，如果部分分组集合未在统计范围， <code>GROUPING__ID</code> 序号仍会保留。</p>
+<figure class="highlight sql"><table><tr><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> a, b, <span class="built_in">SUM</span>(c), GROUPING__ID <span class="keyword">FROM</span> tab1 <span class="keyword">GROUP</span> <span class="keyword">BY</span> a, b <span class="keyword">GROUPING</span> SETS ( (a, b), a, b, ( ) ) ;</span><br><span class="line"><span class="comment">-- 等效于</span></span><br><span class="line"><span class="keyword">SELECT</span> a, b, <span class="built_in">SUM</span>(c), <span class="number">0</span> <span class="keyword">as</span> GROUPING__ID <span class="keyword">FROM</span> tab1 <span class="keyword">GROUP</span> <span class="keyword">BY</span> a, b</span><br><span class="line"><span class="keyword">UNION</span></span><br><span class="line"><span class="keyword">SELECT</span> a, <span class="keyword">null</span>, <span class="built_in">SUM</span>(c), <span class="number">1</span> <span class="keyword">as</span> GROUPING__ID <span class="keyword">FROM</span> tab1 <span class="keyword">GROUP</span> <span class="keyword">BY</span> a, <span class="keyword">null</span></span><br><span class="line"><span class="keyword">UNION</span></span><br><span class="line"><span class="keyword">SELECT</span> <span class="keyword">null</span>, b, <span class="built_in">SUM</span>(c), <span class="number">2</span> <span class="keyword">as</span> GROUPING__ID <span class="keyword">FROM</span> tab1 <span class="keyword">GROUP</span> <span class="keyword">BY</span> <span class="keyword">null</span>, b</span><br><span class="line"><span class="keyword">UNION</span></span><br><span class="line"><span class="keyword">SELECT</span> <span class="keyword">null</span>, <span class="keyword">null</span>, <span class="built_in">SUM</span>(c), <span class="number">3</span> <span class="keyword">as</span> GROUPING__ID <span class="keyword">FROM</span> tab1</span><br></pre></td></tr></table></figure>
+<h2 id="grouping-函数"><a class="markdownIt-Anchor" href="#grouping-函数"></a> GROUPING 函数</h2>
+<p>如果某一分组列存在null值，该怎样区分null到底是由数据null还是由于 GROUPING SETS 分组生成的null呢。这里 GROUPING 函数来区分，如果是数据本身的值(null或其他值)，GROUPING (col) 将会在这一行返回0，如果这一行不是由分组列自身值聚合，将会返回1。</p>
+<p>例如数据集</p>
+<figure class="highlight sql"><table><tr><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> key, <span class="keyword">value</span>,<span class="built_in">count</span>(<span class="operator">*</span>) <span class="keyword">FROM</span> tb <span class="keyword">GROUP</span> <span class="keyword">BY</span> key, <span class="keyword">value</span>;</span><br></pre></td></tr></table></figure>
+<table>
+<thead>
+<tr>
+<th>key</th>
+<th>value</th>
+<th>count(*)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1</td>
+<td>1</td>
+<td>5</td>
+</tr>
+<tr>
+<td>1</td>
+<td>NULL</td>
+<td>2</td>
+</tr>
+<tr>
+<td>2</td>
+<td>2</td>
+<td>3</td>
+</tr>
+<tr>
+<td>3</td>
+<td>3</td>
+<td>6</td>
+</tr>
+<tr>
+<td>3</td>
+<td>NULL</td>
+<td>2</td>
+</tr>
+<tr>
+<td>4</td>
+<td>5</td>
+<td>3</td>
+</tr>
+</tbody>
+</table>
+<figure class="highlight sql"><table><tr><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> key, <span class="keyword">value</span>, GROUPING__ID, <span class="keyword">grouping</span>(key), <span class="keyword">grouping</span>(<span class="keyword">value</span>), <span class="built_in">count</span>(<span class="operator">*</span>)</span><br><span class="line"><span class="keyword">FROM</span> tb</span><br><span class="line"><span class="keyword">GROUP</span> <span class="keyword">BY</span> key, <span class="keyword">value</span> <span class="keyword">WITH</span> <span class="keyword">ROLLUP</span>;</span><br></pre></td></tr></table></figure>
+<table>
+<thead>
+<tr>
+<th>key</th>
+<th>value</th>
+<th>GROUPING__ID</th>
+<th>grouping(key)</th>
+<th>grouping(value)</th>
+<th>count(*)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1</td>
+<td>1</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>5</td>
+</tr>
+<tr>
+<td>1</td>
+<td>NULL</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>2</td>
+</tr>
+<tr>
+<td>2</td>
+<td>2</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>3</td>
+</tr>
+<tr>
+<td>3</td>
+<td>3</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>6</td>
+</tr>
+<tr>
+<td>3</td>
+<td>NULL</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>2</td>
+</tr>
+<tr>
+<td>4</td>
+<td>5</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>3</td>
+</tr>
+<tr>
+<td>1</td>
+<td>NULL</td>
+<td>1</td>
+<td>0</td>
+<td>1</td>
+<td>7</td>
+</tr>
+<tr>
+<td>2</td>
+<td>NULL</td>
+<td>1</td>
+<td>0</td>
+<td>1</td>
+<td>3</td>
+</tr>
+<tr>
+<td>3</td>
+<td>NULL</td>
+<td>1</td>
+<td>0</td>
+<td>1</td>
+<td>8</td>
+</tr>
+<tr>
+<td>4</td>
+<td>NULL</td>
+<td>1</td>
+<td>0</td>
+<td>1</td>
+<td>3</td>
+</tr>
+<tr>
+<td>NULL</td>
+<td>NULL</td>
+<td>3</td>
+<td>1</td>
+<td>1</td>
+<td>21</td>
+</tr>
+</tbody>
+</table>
+<p>GROUPING 函数使用示例</p>
+<figure class="highlight sql"><table><tr><td class="code"><pre><span class="line"><span class="keyword">select</span> if(<span class="keyword">grouping</span>(<span class="keyword">month</span>)<span class="operator">=</span><span class="number">1</span>,<span class="string">&#x27;all_months&#x27;</span>,<span class="keyword">month</span>) <span class="keyword">as</span> <span class="keyword">month</span>,  </span><br><span class="line">    if(<span class="keyword">grouping</span>(area)<span class="operator">=</span><span class="number">1</span>,<span class="string">&#x27;all_area&#x27;</span>,area) <span class="keyword">as</span> area, </span><br><span class="line">    <span class="built_in">sum</span>(income)  </span><br><span class="line"><span class="keyword">from</span> people  </span><br><span class="line"><span class="keyword">group</span> <span class="keyword">by</span> <span class="keyword">month</span>,area wirh <span class="keyword">cube</span></span><br><span class="line"><span class="keyword">order</span> <span class="keyword">by</span> <span class="keyword">month</span>,area;</span><br></pre></td></tr></table></figure>
+<h2 id="cube-和-rollup"><a class="markdownIt-Anchor" href="#cube-和-rollup"></a> CUBE 和 ROLLUP</h2>
+<p>WITH CUBE/ROLLUP 语法仅在 GROUP BY 语句中使用。</p>
+<figure class="highlight sql"><table><tr><td class="code"><pre><span class="line"><span class="keyword">GROUP</span> <span class="keyword">BY</span> a, b, c <span class="keyword">WITH</span> <span class="keyword">CUBE</span> <span class="comment">-- 等效于</span></span><br><span class="line"><span class="keyword">GROUP</span> <span class="keyword">BY</span> a, b, c <span class="keyword">GROUPING</span> SETS ( (a, b, c), (a, b), (b, c), (a, c), (a), (b), (c), ( ))</span><br><span class="line"><span class="keyword">GROUP</span> <span class="keyword">BY</span> a, b, c, <span class="keyword">WITH</span> <span class="keyword">ROLLUP</span> <span class="comment">-- 等效于</span></span><br><span class="line"><span class="keyword">GROUP</span> <span class="keyword">BY</span> a, b, c <span class="keyword">GROUPING</span> SETS ( (a, b, c), (a, b), (a), ( ))</span><br></pre></td></tr></table></figure>
+<p>CUBE 语句返回分组列 a, b, c 所有组合的分组聚合数据。<br />
+ROLLUP 语句进行分层聚合，从右向左依次将列值设为 NULL 层级聚合，直到全部分组列都为NULL统计整个表的聚合，对分组列存在包含关系的聚合特别实用（如果使用 CUBE 则会存在若干重复数据）。</p>
+<figure class="highlight sql"><table><tr><td class="code"><pre><span class="line"><span class="keyword">select</span> <span class="keyword">year</span>,quarter,<span class="keyword">month</span>,<span class="built_in">sum</span>(income) </span><br><span class="line"><span class="keyword">from</span> people </span><br><span class="line"><span class="keyword">group</span> <span class="keyword">by</span> <span class="keyword">year</span>,quarter,<span class="keyword">month</span> <span class="keyword">with</span> <span class="keyword">rollup</span>;</span><br></pre></td></tr></table></figure>
+<table>
+<thead>
+<tr>
+<th>year</th>
+<th>quarter</th>
+<th>month</th>
+<th>sum(income)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>2021</td>
+<td>1</td>
+<td>1</td>
+<td>10</td>
+</tr>
+<tr>
+<td>2021</td>
+<td>1</td>
+<td>2</td>
+<td>11</td>
+</tr>
+<tr>
+<td>2021</td>
+<td>1</td>
+<td>3</td>
+<td>10</td>
+</tr>
+<tr>
+<td>2021</td>
+<td>2</td>
+<td>4</td>
+<td>9</td>
+</tr>
+<tr>
+<td>2021</td>
+<td>1</td>
+<td>NULL</td>
+<td>31</td>
+</tr>
+<tr>
+<td>2021</td>
+<td>2</td>
+<td>NULL</td>
+<td>9</td>
+</tr>
+<tr>
+<td>2021</td>
+<td>NULL</td>
+<td>NULL</td>
+<td>40</td>
+</tr>
+<tr>
+<td>NULL</td>
+<td>NULL</td>
+<td>NULL</td>
+<td>40</td>
+</tr>
+</tbody>
+</table>
+<h1 id="cte"><a class="markdownIt-Anchor" href="#cte"></a> CTE</h1>
+<p>复杂的SQL语句时，可能某个子查询在多个层级多个地方存在重复使用的情况，这个时候我们可以使用 WITH 语句将其独立出来，极大提高SQL可读性。<br />
+WITH  语句称为公用表表达式（Common Table Expression, CTE），是一个临时查询表。该查询必须紧接在SELECT或INSERT关键字之前。CTE仅在单个语句的执行范围内定义。一个或多个CTE可以在Hive SELECT，INSERT，CREATE TABLE AS SELECT 或 CREATE VIEW AS SELECT 语句中使用。</p>
+<figure class="highlight sql"><table><tr><td class="code"><pre><span class="line"><span class="keyword">WITH</span> CommonTableExpression </span><br><span class="line">(, CommonTableExpression)</span><br><span class="line"><span class="keyword">SELECT</span> select_statement <span class="keyword">FROM</span> from_statement;</span><br></pre></td></tr></table></figure>
+<ul>
+<li>子查询中不支持WITH子句</li>
+<li>视图，CTAS和INSERT语句均支持CTE</li>
+<li>不支持递归查询</li>
+<li>目前 oracle、sql server、hive等均支持 with as 用法，但 mysql并不支持！</li>
+</ul>
+<figure class="highlight sql"><table><tr><td class="code"><pre><span class="line"><span class="comment">-- select example</span></span><br><span class="line"><span class="keyword">with</span> q1 <span class="keyword">as</span> (</span><br><span class="line">    <span class="keyword">select</span> key <span class="keyword">from</span> q2 <span class="keyword">where</span> key <span class="operator">=</span> <span class="string">&#x27;5&#x27;</span></span><br><span class="line">),</span><br><span class="line">q2 <span class="keyword">as</span> ( </span><br><span class="line">    <span class="keyword">select</span> key <span class="keyword">from</span> src <span class="keyword">where</span> key <span class="operator">=</span> <span class="string">&#x27;5&#x27;</span></span><br><span class="line">)</span><br><span class="line"><span class="keyword">select</span> <span class="operator">*</span> <span class="keyword">from</span> q1;</span><br><span class="line"></span><br><span class="line"><span class="comment">-- insert example</span></span><br><span class="line"><span class="keyword">create</span> <span class="keyword">table</span> s1 <span class="keyword">like</span> src;</span><br><span class="line"><span class="keyword">with</span> q1 <span class="keyword">as</span> (</span><br><span class="line">    <span class="keyword">select</span> key, <span class="keyword">value</span> <span class="keyword">from</span> src <span class="keyword">where</span> key <span class="operator">=</span> <span class="string">&#x27;5&#x27;</span></span><br><span class="line">)</span><br><span class="line"><span class="keyword">from</span> q1</span><br><span class="line"><span class="keyword">insert</span> overwrite <span class="keyword">table</span> s1</span><br><span class="line"><span class="keyword">select</span> <span class="operator">*</span>;</span><br><span class="line"> </span><br><span class="line"><span class="comment">-- ctas example</span></span><br><span class="line"><span class="keyword">create</span> <span class="keyword">table</span> s2 <span class="keyword">as</span></span><br><span class="line"><span class="keyword">with</span> q1 <span class="keyword">as</span> (</span><br><span class="line">    <span class="keyword">select</span> key <span class="keyword">from</span> src <span class="keyword">where</span> key <span class="operator">=</span> <span class="string">&#x27;4&#x27;</span></span><br><span class="line">)</span><br><span class="line"><span class="keyword">select</span> <span class="operator">*</span> <span class="keyword">from</span> q1;</span><br></pre></td></tr></table></figure>
+<p>这里必须注意 WITH 语句和后面的语句是一个整体，中间不能有分号。同级 WITH 关键字只能使用一次，多个子句间用逗号分割；最后一个 with 子句与下面的查询之间不能有逗号，只通过右括号分割。</p>
+<h1 id="子查询"><a class="markdownIt-Anchor" href="#子查询"></a> 子查询</h1>
+<h2 id="from-子句"><a class="markdownIt-Anchor" href="#from-子句"></a> FROM 子句</h2>
+<figure class="highlight sql"><table><tr><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> ... <span class="keyword">FROM</span> (subquery) [<span class="keyword">AS</span>] name </span><br></pre></td></tr></table></figure>
+<p>FROM 子句中的子查询，必须为子查询命名，因为 FROM 子句中的每个表都必须有一个名称。</p>
+<h2 id="where-子句"><a class="markdownIt-Anchor" href="#where-子句"></a> WHERE 子句</h2>
+<p>IN 和 NOT IN 子查询：</p>
+<figure class="highlight sql"><table><tr><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> <span class="operator">*</span> <span class="keyword">FROM</span> A <span class="keyword">WHERE</span> A.a <span class="keyword">IN</span> (<span class="keyword">SELECT</span> foo <span class="keyword">FROM</span> B);</span><br></pre></td></tr></table></figure>
+<p>EXISTS 和 NOT EXISTS 子查询（相关子查询）：</p>
+<figure class="highlight sql"><table><tr><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> A <span class="keyword">FROM</span> T1 <span class="keyword">WHERE</span> <span class="keyword">EXISTS</span> (<span class="keyword">SELECT</span> B <span class="keyword">FROM</span> T2 <span class="keyword">WHERE</span> T1.X <span class="operator">=</span> T2.Y);</span><br></pre></td></tr></table></figure>
+<p>限制：</p>
+<ul>
+<li>这些子查询仅在表达式的右侧受支持。</li>
+<li>IN/NOT IN 子查询只能选择一列。</li>
+<li>EXISTS/NOT EXISTS 必须有一个或多个相关连接。</li>
+<li>仅在WHERE 子句中的子查询支持对父查询的引用。</li>
+</ul>
+<h1 id="抽样"><a class="markdownIt-Anchor" href="#抽样"></a> 抽样</h1>
+<h2 id="抽样分桶表"><a class="markdownIt-Anchor" href="#抽样分桶表"></a> 抽样分桶表</h2>
+<p>TABLESAMPLE 子句允许用户为数据样本而不是整个表编写查询。语法如下：</p>
+<figure class="highlight sql"><table><tr><td class="code"><pre><span class="line">table_sample: <span class="keyword">TABLESAMPLE</span> (BUCKET x <span class="keyword">OUT</span> <span class="keyword">OF</span> y [<span class="keyword">ON</span> colname])</span><br></pre></td></tr></table></figure>
+<p>TABLESAMPLE 子句可以添加到 FROM 子句中的任何表后。表的行在 colname 上分桶到编号为 1 到 y 的 y 个桶中，返回属于桶 x 的行。colname表示进行采样的列，可以是表中的非分区列之一，也可以是 rand() 表示对整行进行随机采样。</p>
+<p>在以下示例中，返回表 source 的 32 个桶中的第 3 个桶。s 是表别名。</p>
+<figure class="highlight sql"><table><tr><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> <span class="operator">*</span> <span class="keyword">FROM</span> source <span class="keyword">TABLESAMPLE</span>(BUCKET <span class="number">3</span> <span class="keyword">OUT</span> <span class="keyword">OF</span> <span class="number">32</span> <span class="keyword">ON</span> rand()) s;</span><br></pre></td></tr></table></figure>
+<p>通常，抽样是在 CREATE TABLE 语句的 CLUSTERED BY 子句中指定的列上完成的。如果表 ‘source’ 是用 ‘CLUSTERED BY id INTO 32 BUCKETS’ 创建的。在以下示例中，我们从 source 表的 32 个存储桶中选择第三个存储桶：</p>
+<figure class="highlight sql"><table><tr><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> <span class="operator">*</span> <span class="keyword">FROM</span> source <span class="keyword">TABLESAMPLE</span>(BUCKET <span class="number">3</span> <span class="keyword">OUT</span> <span class="keyword">OF</span> <span class="number">32</span> <span class="keyword">ON</span> id);</span><br></pre></td></tr></table></figure>
+<p>y 必须是表创建时指定的表中存储桶数的倍数或除数。</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">TABLESAMPLE(BUCKET 3` `OUT OF ``16` `ON id)</span><br></pre></td></tr></table></figure>
+<p>将挑选出第 3 个和第 19 个集群，因为每个桶将由 (32/16)=2 个集群组成。</p>
+<p>另一方面， TABLESAMPLE 子句</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">TABLESAMPLE(BUCKET ``3` `OUT OF ``64` `ON id)</span><br></pre></td></tr></table></figure>
+<p>将挑选出第三个集群的一半，因为每个桶将由 (32/64)=1/2 的集群组成。</p>
+<h2 id="块抽样"><a class="markdownIt-Anchor" href="#块抽样"></a> 块抽样</h2>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">block_sample: TABLESAMPLE (n PERCENT)</span><br></pre></td></tr></table></figure>
+<p>这将允许 Hive 选择至少 n% 的数据大小（注意它不一定意味着行数）作为输入。仅支持CombineHiveInputFormat，不处理一些特殊的压缩格式。如果采样失败，MapReduce 作业的输入将是整个表/分区。抽样的粒度为HDFS 块级别大小。例如，如果块大小为 256MB，即使输入大小的 n% 仅为 100MB，您也会获得 256MB 的数据。</p>
+<p>在以下示例中，查询将使用 0.1% 或更大的输入大小。</p>
+<figure class="highlight sql"><table><tr><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> <span class="operator">*</span> <span class="keyword">FROM</span> source <span class="keyword">TABLESAMPLE</span>(<span class="number">0.1</span> <span class="keyword">PERCENT</span>) s;</span><br></pre></td></tr></table></figure>
+<p>有时你想用不同的块对相同的数据进行采样，你可以改变这个种子数：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">set hive.sample.seednumber=&lt;INTEGER&gt;;</span><br></pre></td></tr></table></figure>
+<p>或者用户可以指定要读取的总长度，但它与 PERCENT 采样有相同的限制。</p>
+<figure class="highlight sql"><table><tr><td class="code"><pre><span class="line">block_sample: <span class="keyword">TABLESAMPLE</span> (ByteLengthLiteral)</span><br><span class="line"></span><br><span class="line">ByteLengthLiteral : (Digit)<span class="operator">+</span> (<span class="string">&#x27;b&#x27;</span> <span class="operator">|</span> <span class="string">&#x27;B&#x27;</span> <span class="operator">|</span> <span class="string">&#x27;k&#x27;</span> <span class="operator">|</span> <span class="string">&#x27;K&#x27;</span> <span class="operator">|</span> <span class="string">&#x27;m&#x27;</span> <span class="operator">|</span> <span class="string">&#x27;M&#x27;</span> <span class="operator">|</span> <span class="string">&#x27;g&#x27;</span> <span class="operator">|</span> <span class="string">&#x27;G&#x27;</span>)</span><br></pre></td></tr></table></figure>
+<p>在以下示例中，查询将使用 100M 或更大的输入大小。</p>
+<figure class="highlight sql"><table><tr><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> <span class="operator">*</span> <span class="keyword">FROM</span> source <span class="keyword">TABLESAMPLE</span>(<span class="number">100</span>M) s;</span><br></pre></td></tr></table></figure>
+<p>Hive 还支持按行数限制输入，但它的作用与以上两种不同。首先，它不需要CombineHiveInputFormat，这意味着它可以与非本地表一起使用。其次，用户给出的行数应用于每个拆分。因此总行数可能因输入拆分的数量而异。</p>
+<figure class="highlight sql"><table><tr><td class="code"><pre><span class="line">block_sample: <span class="keyword">TABLESAMPLE</span> (n <span class="keyword">ROWS</span>)</span><br></pre></td></tr></table></figure>
+<p>例如，以下查询将从每个输入拆分中获取前 10 行。</p>
+<figure class="highlight sql"><table><tr><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> <span class="operator">*</span> <span class="keyword">FROM</span> source <span class="keyword">TABLESAMPLE</span>(<span class="number">10</span> <span class="keyword">ROWS</span>);</span><br></pre></td></tr></table></figure>
+<h1 id="transform"><a class="markdownIt-Anchor" href="#transform"></a> Transform</h1>
+<h2 id="transformmap-reduce-syntax"><a class="markdownIt-Anchor" href="#transformmap-reduce-syntax"></a> Transform/Map-Reduce Syntax</h2>
+<p>Hive 提供了在SQL中调用自定义 Map/Reduce 脚本的功能，适合实现Hive中没有的功能又不想写UDF的情况。</p>
+<figure class="highlight sql"><table><tr><td class="code"><pre><span class="line"><span class="keyword">FROM</span> (</span><br><span class="line">  <span class="keyword">FROM</span> src</span><br><span class="line">  MAP col_expr1, col_expr2, ...</span><br><span class="line">  [inRowFormat]</span><br><span class="line">  <span class="keyword">USING</span> <span class="string">&#x27;my_map_script&#x27;</span></span><br><span class="line">  [ <span class="keyword">AS</span> colname1, colname2, ...]</span><br><span class="line">  [outRowFormat] [RECORDREADER className]</span><br><span class="line">  [CLUSTER <span class="keyword">BY</span> col_list] <span class="operator">|</span> [DISTRIBUTE <span class="keyword">BY</span> col_list] [SORT <span class="keyword">BY</span> col_list]</span><br><span class="line">   src_alias</span><br><span class="line">)</span><br><span class="line">REDUCE col_expr1, col_expr2, ...</span><br><span class="line">  [inRowFormat]</span><br><span class="line">  <span class="keyword">USING</span> <span class="string">&#x27;my_reduce_script&#x27;</span></span><br><span class="line">  [ <span class="keyword">AS</span> colname1, colname2, ...]</span><br><span class="line">  [outRowFormat] [RECORDREADER className]</span><br><span class="line">; </span><br></pre></td></tr></table></figure>
+<ul>
+<li>
+<p>inRowFormat/outRowFormat：rowFormat</p>
+</li>
+<li>
+<p>请注意，在提供给用户脚本之前，列将被转换为字符串并由 TAB 分隔，并且用户脚本的标准输出将被视为以 TAB 分隔的字符串列。类似地，所有 NULL 值都将转换为字符串 “\N”。这些默认值可以被 ROW FORMAT rowFormat 覆盖。</p>
+</li>
+<li>
+<p>rowFormat：</p>
+</li>
+</ul>
+<figure class="highlight sql"><table><tr><td class="code"><pre><span class="line">DELIMITED [FIELDS TERMINATED <span class="keyword">BY</span> <span class="type">char</span>]</span><br><span class="line">          [COLLECTION ITEMS TERMINATED <span class="keyword">BY</span> <span class="type">char</span>]</span><br><span class="line">          [MAP KEYS TERMINATED <span class="keyword">BY</span> <span class="type">char</span>]</span><br><span class="line">          [ESCAPED <span class="keyword">BY</span> <span class="type">char</span>]</span><br><span class="line">          [LINES SEPARATED <span class="keyword">BY</span> <span class="type">char</span>]</span><br><span class="line"><span class="comment">-- OR</span></span><br><span class="line">SERDE serde_name [<span class="keyword">WITH</span> SERDEPROPERTIES</span><br><span class="line">                       property_name<span class="operator">=</span>property_value,</span><br><span class="line">                       property_name<span class="operator">=</span>property_value, ...]</span><br></pre></td></tr></table></figure>
+<p>当然，MAP 和 REDUCE 都是更通用的TRANSFORM的语法糖</p>
+<figure class="highlight sql"><table><tr><td class="code"><pre><span class="line"><span class="keyword">FROM</span> (</span><br><span class="line">  <span class="keyword">FROM</span> src</span><br><span class="line">  <span class="keyword">SELECT</span> TRANSFORM (col_expr1, col_expr2, ...)</span><br><span class="line">  [inRowFormat]</span><br><span class="line">  <span class="keyword">USING</span> <span class="string">&#x27;my_map_script&#x27;</span></span><br><span class="line">  [ <span class="keyword">AS</span> colname1, colname2, ...]</span><br><span class="line">  [outRowFormat] [RECORDREADER className]</span><br><span class="line">  [CLUSTER <span class="keyword">BY</span> col_list] <span class="operator">|</span> [DISTRIBUTE <span class="keyword">BY</span> col_list] [SORT <span class="keyword">BY</span> col_list]</span><br><span class="line">   src_alias</span><br><span class="line">)</span><br><span class="line"><span class="keyword">SELECT</span> TRANSFORM (col_expr1, col_expr2, ...)</span><br><span class="line">  [inRowFormat]</span><br><span class="line">  <span class="keyword">USING</span> <span class="string">&#x27;my_reduce_script&#x27;</span></span><br><span class="line">  [ <span class="keyword">AS</span> colname1, colname2, ...]</span><br><span class="line">  [outRowFormat] [RECORDREADER className]</span><br><span class="line">;</span><br></pre></td></tr></table></figure>
+<p><strong>示例#1</strong></p>
+<figure class="highlight sql"><table><tr><td class="code"><pre><span class="line"><span class="keyword">FROM</span> (</span><br><span class="line">     <span class="keyword">FROM</span> pv_users</span><br><span class="line">     MAP pv_users.userid, pv_users.date</span><br><span class="line">     <span class="keyword">USING</span> <span class="string">&#x27;map_script&#x27;</span></span><br><span class="line">     <span class="keyword">AS</span> dt, uid</span><br><span class="line">     CLUSTER <span class="keyword">BY</span> dt) map_output</span><br><span class="line"><span class="keyword">INSERT</span> OVERWRITE <span class="keyword">TABLE</span> pv_users_reduced</span><br><span class="line">     REDUCE map_output.dt, map_output.uid</span><br><span class="line">     <span class="keyword">USING</span> <span class="string">&#x27;reduce_script&#x27;</span></span><br><span class="line">     <span class="keyword">AS</span> <span class="type">date</span>, count;</span><br></pre></td></tr></table></figure>
+<p>示例map脚本 (weekday_mapper.py)</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> sys</span><br><span class="line"><span class="keyword">import</span> datetime</span><br><span class="line"> </span><br><span class="line"><span class="keyword">for</span> line <span class="keyword">in</span> sys.stdin:</span><br><span class="line">  line = line.strip()</span><br><span class="line">  userid, unixtime = line.split(<span class="string">&#x27;\t&#x27;</span>)</span><br><span class="line">  weekday = datetime.datetime.fromtimestamp(<span class="built_in">float</span>(unixtime)).isoweekday()</span><br><span class="line">  <span class="built_in">print</span> <span class="string">&#x27;,&#x27;</span>.join([userid, <span class="built_in">str</span>(weekday)])</span><br></pre></td></tr></table></figure>
+<p>当然，内部查询也可以这样写：</p>
+<figure class="highlight sql"><table><tr><td class="code"><pre><span class="line"><span class="keyword">FROM</span> (</span><br><span class="line">  <span class="keyword">FROM</span> pv_users</span><br><span class="line">  <span class="keyword">SELECT</span> TRANSFORM(pv_users.userid, pv_users.date)</span><br><span class="line">  <span class="keyword">USING</span> <span class="string">&#x27;map_script&#x27;</span></span><br><span class="line">  <span class="keyword">AS</span> dt, uid</span><br><span class="line">  CLUSTER <span class="keyword">BY</span> dt) map_output</span><br><span class="line"><span class="keyword">INSERT</span> OVERWRITE <span class="keyword">TABLE</span> pv_users_reduced</span><br><span class="line">  <span class="keyword">SELECT</span> TRANSFORM(map_output.dt, map_output.uid)</span><br><span class="line">  <span class="keyword">USING</span> <span class="string">&#x27;reduce_script&#x27;</span></span><br><span class="line">  <span class="keyword">AS</span> <span class="type">date</span>, count;</span><br></pre></td></tr></table></figure>
+<p><strong>示例#2</strong></p>
+<figure class="highlight sql"><table><tr><td class="code"><pre><span class="line"><span class="keyword">FROM</span> (</span><br><span class="line">  <span class="keyword">FROM</span> src</span><br><span class="line">  <span class="keyword">SELECT</span> TRANSFORM(src.key, src.value) </span><br><span class="line">  <span class="type">ROW</span> FORMAT SERDE <span class="string">&#x27;org.apache.hadoop.hive.contrib.serde2.TypedBytesSerDe&#x27;</span></span><br><span class="line">  <span class="keyword">USING</span> <span class="string">&#x27;/bin/cat&#x27;</span></span><br><span class="line">  <span class="keyword">AS</span> (tkey, tvalue) </span><br><span class="line">  <span class="type">ROW</span> FORMAT SERDE <span class="string">&#x27;org.apache.hadoop.hive.contrib.serde2.TypedBytesSerDe&#x27;</span></span><br><span class="line">  RECORDREADER <span class="string">&#x27;org.apache.hadoop.hive.contrib.util.typedbytes.TypedBytesRecordReader&#x27;</span></span><br><span class="line">) tmap</span><br><span class="line"><span class="keyword">INSERT</span> OVERWRITE <span class="keyword">TABLE</span> dest1 <span class="keyword">SELECT</span> tkey, tvalue</span><br></pre></td></tr></table></figure>
+<h2 id="schema-less-mapreduce"><a class="markdownIt-Anchor" href="#schema-less-mapreduce"></a> Schema-less map/reduce</h2>
+<p>如果 USING map_script 之后没有 AS 子句，Hive 假设脚本的输出包含两部分：key 位于第一个 tab 之前，value 位于第一个 tab 之后的其余部分。 请注意，这与指定 AS key, value 不同，因为在这种情况下，如果有多个 tab，value 仅包含第一个tab和第二个tab之间的部分。</p>
+<p>注意，我们可以直接执行CLUSTER BY 键，而无需指定脚本的输出模式。</p>
+<figure class="highlight sql"><table><tr><td class="code"><pre><span class="line"><span class="keyword">FROM</span> (</span><br><span class="line">    <span class="keyword">FROM</span> pv_users</span><br><span class="line">    MAP pv_users.userid, pv_users.date</span><br><span class="line">    <span class="keyword">USING</span> <span class="string">&#x27;map_script&#x27;</span></span><br><span class="line">    CLUSTER <span class="keyword">BY</span> key) map_output</span><br><span class="line"> </span><br><span class="line"><span class="keyword">INSERT</span> OVERWRITE <span class="keyword">TABLE</span> pv_users_reduced</span><br><span class="line">    REDUCE map_output.dt, map_output.uid</span><br><span class="line">    <span class="keyword">USING</span> <span class="string">&#x27;reduce_script&#x27;</span></span><br><span class="line">    <span class="keyword">AS</span> <span class="type">date</span>, count;</span><br></pre></td></tr></table></figure>
+<p>用户可以指定 Distribute By 和Sort By，而不是指定 cluster by ，所以分区列和排序列可以不同，排序列可选。</p>
+<figure class="highlight sql"><table><tr><td class="code"><pre><span class="line"><span class="keyword">FROM</span> (</span><br><span class="line">    <span class="keyword">FROM</span> pv_users</span><br><span class="line">    MAP pv_users.userid, pv_users.date</span><br><span class="line">    <span class="keyword">USING</span> <span class="string">&#x27;map_script&#x27;</span></span><br><span class="line">    <span class="keyword">AS</span> c1, c2, c3</span><br><span class="line">    DISTRIBUTE <span class="keyword">BY</span> c2</span><br><span class="line">    SORT <span class="keyword">BY</span> c2, c1) map_output</span><br><span class="line"> </span><br><span class="line"><span class="keyword">INSERT</span> OVERWRITE <span class="keyword">TABLE</span> pv_users_reduced</span><br><span class="line">    REDUCE map_output.c1, map_output.c2, map_output.c3</span><br><span class="line">    <span class="keyword">USING</span> <span class="string">&#x27;reduce_script&#x27;</span></span><br><span class="line">    <span class="keyword">AS</span> <span class="type">date</span>, count;</span><br></pre></td></tr></table></figure>
+<h2 id="typing-the-output-of-transform"><a class="markdownIt-Anchor" href="#typing-the-output-of-transform"></a> Typing the output of TRANSFORM</h2>
+<p>默认情况下，脚本的输出字段为字符串，例如</p>
+<figure class="highlight sql"><table><tr><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> TRANSFORM(stuff) <span class="keyword">USING</span> <span class="string">&#x27;script&#x27;</span> <span class="keyword">AS</span> thing1, thing2</span><br></pre></td></tr></table></figure>
+<p>它们可以使用以下语法进行转换</p>
+<figure class="highlight sql"><table><tr><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> TRANSFORM(stuff) <span class="keyword">USING</span> <span class="string">&#x27;script&#x27;</span> <span class="keyword">AS</span> (thing1 <span class="type">INT</span>, thing2 <span class="type">INT</span>)</span><br></pre></td></tr></table></figure>
+<h1 id="explain"><a class="markdownIt-Anchor" href="#explain"></a> EXPLAIN</h1>
+<p>Hive 提供了一个<code>EXPLAIN</code>命令显示查询执行计划。该语句的语法如下：</p>
+<figure class="highlight sql"><table><tr><td class="code"><pre><span class="line">EXPLAIN [EXTENDED<span class="operator">|</span>CBO<span class="operator">|</span>AST<span class="operator">|</span>DEPENDENCY<span class="operator">|</span><span class="keyword">AUTHORIZATION</span><span class="operator">|</span>LOCKS<span class="operator">|</span>VECTORIZATION<span class="operator">|</span>ANALYZE] query</span><br></pre></td></tr></table></figure>
+<ul>
+<li>
+<p>采用EXTENDED的EXPLAIN语句生成有关执行计划的额外信息。这通常是文件名等物理信息。</p>
+</li>
+<li>
+<p>一个 Hive 查询被转换成一个stages序列（它更像是一个有向无环图，DAG）。这些stages可能是 map/reduce 阶段，或者它们甚至可能是执行元存储或文件系统操作（如移动和重命名）的阶段。解释输出分为三部分：</p>
+<ul>
+<li>
+<p>查询的抽象语法树</p>
+</li>
+<li>
+<p>计划不同stages之间的依赖关系</p>
+</li>
+<li>
+<p>每个stage的描述</p>
+</li>
+</ul>
+<p>stages本身的描述显示了一系列运算符以及与运算符关联的元数据。元数据可能包括诸如 FilterOperator 的过滤器表达式或 SelectOperator 的选择表达式或 FileSinkOperator 的输出文件名之类的内容。</p>
+</li>
+<li>
+<p>CBO 子句输出 Calcite 优化器生成的计划。从 Hive 版本 4.0.0开始。</p>
+<figure class="highlight sql"><table><tr><td class="code"><pre><span class="line">EXPLAIN [FORMATTED] CBO [COST<span class="operator">|</span>JOINCOST]</span><br></pre></td></tr></table></figure>
+<ul>
+<li>
+<p>COST 选项打印使用 Calcite 默认成本模型计算的计划和成本。</p>
+</li>
+<li>
+<p>JOINCOST 选项打印使用用于连接重新排序的成本模型计算的计划和成本。</p>
+</li>
+</ul>
+</li>
+<li>
+<p>AST子句输出查询的抽象语法树</p>
+</li>
+<li>
+<p>DEPENDENCY子句显示了输入的各种属性，包含表和分区。如果通过视图访问表，则依赖项会显示父项。</p>
+</li>
+<li>
+<p>AUTHORIZATION子句显示所有的实体需要被授权执行（如果存在）的查询和授权失败。</p>
+</li>
+<li>
+<p>LOCKS子句了解系统将获得哪些锁来运行指定的查询。从 Hive 版本 3.2.0开始。</p>
+</li>
+<li>
+<p>VECTORIZATION子句向 EXPLAIN 输出添加详细信息，显示为什么 Map 和 Reduce 工作未矢量化。自 Hive 版本 2.3.0开始。</p>
+<figure class="highlight sql"><table><tr><td class="code"><pre><span class="line">EXPLAIN VECTORIZATION [<span class="keyword">ONLY</span>] [SUMMARY<span class="operator">|</span>OPERATOR<span class="operator">|</span>EXPRESSION<span class="operator">|</span>DETAIL]</span><br></pre></td></tr></table></figure>
+<ul>
+<li>ONLY选项会抑制大多数非矢量化元素。</li>
+<li>SUMMARY（默认）显示 PLAN 的矢量化信息（启用矢量化）以及 Map 和 Reduce 工作的摘要。</li>
+<li>OPERATOR显示运算符的矢量化信息。例如Filter矢量化。包括SUMMARY的所有信息。</li>
+<li>EXPRESSION显示表达式的矢量化信息。例如谓词表达式。包括SUMMARY和OPERATOR的所有信息。</li>
+<li>DETAIL显示详细级别的矢量化信息。它包括SUMMARY、OPERATOR和EXPRESSION的所有信息。</li>
+<li>默认值是SUMMARY，但不带ONLY选项。</li>
+</ul>
+</li>
+<li>
+<p>ANALYZE子句使用实际行数注释计划，格式为：（估计行数）/（实际行数）</p>
+</li>
+<li>
+<p>User-level Explain Output</p>
+</li>
+</ul>
+<p><strong>示例</strong></p>
+<figure class="highlight sql"><table><tr><td class="code"><pre><span class="line">EXPLAIN</span><br><span class="line"><span class="keyword">FROM</span> src <span class="keyword">INSERT</span> OVERWRITE <span class="keyword">TABLE</span> dest_g1 <span class="keyword">SELECT</span> src.key, <span class="built_in">sum</span>(substr(src.value,<span class="number">4</span>)) <span class="keyword">GROUP</span> <span class="keyword">BY</span> src.key;</span><br></pre></td></tr></table></figure>
+<ul>
+<li>
+<p>依赖图</p>
+<figure class="highlight sql"><table><tr><td class="code"><pre><span class="line">STAGE DEPENDENCIES:</span><br><span class="line">  Stage<span class="number">-1</span> <span class="keyword">is</span> a root stage</span><br><span class="line">  Stage<span class="number">-2</span> depends <span class="keyword">on</span> stages: Stage<span class="number">-1</span></span><br><span class="line">  Stage<span class="number">-0</span> depends <span class="keyword">on</span> stages: Stage<span class="number">-2</span></span><br></pre></td></tr></table></figure>
+<p>这表明Stage-1是根阶段，Stage-1完成后执行Stage-2，Stage-2完成后执行Stage-0。</p>
+</li>
+<li>
+<p>每个阶段的计划</p>
+</li>
+</ul>
+</article><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/%E5%A4%A7%E6%95%B0%E6%8D%AE/">大数据</a><a class="post-meta__tags" href="/tags/hive/">hive</a><a class="post-meta__tags" href="/tags/sql/">sql</a></div><div class="post_share"><div class="social-share" data-image="/img/apache-hive-dql.png" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/js/social-share.min.js" defer></script></div></div><div class="post-reward"><div class="reward-button"><i class="fas fa-qrcode"></i> 打赏</div><div class="reward-main"><ul class="reward-all"><li class="reward-item"><a href="/img/morty3.jpg" target="_blank"><img class="post-qr-code-img" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/img/morty3.jpg" alt="Give me money!"/></a><div class="post-qr-code-desc">Give me money!</div></li></ul></div></div><nav class="pagination-post" id="pagination"><div class="prev-post pull-left"><a href="/posts/f18b723f/" title="大数据手册(Hive)--HiveQL(Functions)"><img class="cover" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/img/apache-hive-functions.png" onerror="onerror=null;src='/img/404_moon.png'" alt="cover of previous post"><div class="pagination-info"><div class="label">上一篇</div><div class="prev_info">大数据手册(Hive)--HiveQL(Functions)</div></div></a></div><div class="next-post pull-right"><a href="/posts/d2c808ff/" title="大数据手册(Hive)--HiveQL(DML)"><img class="cover" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/img/apache-hive-dml.png" onerror="onerror=null;src='/img/404_moon.png'" alt="cover of next post"><div class="pagination-info"><div class="label">下一篇</div><div class="next_info">大数据手册(Hive)--HiveQL(DML)</div></div></a></div></nav><div class="relatedPosts"><div class="headline"><i class="fas fa-thumbs-up fa-fw"></i><span>相关推荐</span></div><div class="relatedPosts-list"><div><a href="/posts/d2c808ff/" title="大数据手册(Hive)--HiveQL(DML)"><img class="cover" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/img/apache-hive-dml.png" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2018-07-03</div><div class="title">大数据手册(Hive)--HiveQL(DML)</div></div></a></div><div><a href="/posts/f18b723f/" title="大数据手册(Hive)--HiveQL(Functions)"><img class="cover" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/img/apache-hive-functions.png" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2018-07-03</div><div class="title">大数据手册(Hive)--HiveQL(Functions)</div></div></a></div><div><a href="/posts/dd193370/" title="大数据手册(Hive)--HiveQL(DDL)"><img class="cover" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/img/apache-hive-ddl.png" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2018-07-03</div><div class="title">大数据手册(Hive)--HiveQL(DDL)</div></div></a></div><div><a href="/posts/e6bd78c5/" title="大数据手册(Hive)--HiveQL(Introduction)"><img class="cover" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/img/hive-cover.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2018-07-03</div><div class="title">大数据手册(Hive)--HiveQL(Introduction)</div></div></a></div><div><a href="/posts/3928076d/" title="大数据手册(Oracle)--Oracle SQL(DDL)"><img class="cover" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/img/oracle-ddl.png" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2021-05-03</div><div class="title">大数据手册(Oracle)--Oracle SQL(DDL)</div></div></a></div><div><a href="/posts/36f93ce2/" title="大数据手册(Oracle)--Oracle SQL(DML)"><img class="cover" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/img/oracle-dml.png" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2021-05-03</div><div class="title">大数据手册(Oracle)--Oracle SQL(DML)</div></div></a></div></div></div><hr class="custom-hr"/><div id="post-comment"><div class="comment-head"><div class="comment-headline"><i class="fas fa-comments fa-fw"></i><span> 评论</span></div><div id="comment-switch"><span class="first-comment">Gitalk</span><span class="switch-btn"></span><span class="second-comment">Waline</span></div></div><div class="comment-wrap"><div><div id="gitalk-container"></div></div><div><div id="waline-wrap"></div></div></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="is-center"><div class="avatar-img"><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/img/avatar.jpg" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info__name">Tiny Lei</div><div class="author-info__description">每天进步一点点...</div></div><div class="card-info-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">131</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">103</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">44</div></a></div><div class="card-info-social-icons is-center"><a class="social-icon" href="https://gitee.com/wilenwu" rel="external nofollow noreferrer" target="_blank" title="Gitee"><i class="iconfont icon-gitee"></i></a><a class="social-icon" href="https://github.com/wilenwu" rel="external nofollow noreferrer" target="_blank" title="Github"><i class="iconfont icon-github"></i></a><a class="social-icon" href="https://blog.csdn.net/qq_41518277" rel="external nofollow noreferrer" target="_blank" title="CSDN"><i class="iconfont icon-csdn"></i></a><a class="social-icon" href="/atom.xml" target="_blank" title="RSS"><i class="iconfont icon-rss"></i></a></div></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>公告</span></div><div class="announcement_content">感谢访问本站，若喜欢请收藏^_^</div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E6%95%B0%E6%8D%AE%E6%9F%A5%E8%AF%A2"><span class="toc-number">1.</span> <span class="toc-text"> 数据查询</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#select"><span class="toc-number">1.1.</span> <span class="toc-text"> Select</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#group-by"><span class="toc-number">1.2.</span> <span class="toc-text"> Group By</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#order"><span class="toc-number">1.3.</span> <span class="toc-text"> Order</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#joins"><span class="toc-number">1.4.</span> <span class="toc-text"> Joins</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#union"><span class="toc-number">1.5.</span> <span class="toc-text"> Union</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#lateral-view"><span class="toc-number">2.</span> <span class="toc-text"> Lateral View</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#lateral-view-syntax"><span class="toc-number">2.1.</span> <span class="toc-text"> Lateral View Syntax</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#multiple-lateral-views"><span class="toc-number">2.2.</span> <span class="toc-text"> Multiple Lateral Views</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#outer-lateral-views"><span class="toc-number">2.3.</span> <span class="toc-text"> Outer Lateral Views</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#distinct"><span class="toc-number">2.4.</span> <span class="toc-text"> Distinct</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%A2%9E%E5%BC%BA%E8%81%9A%E5%90%88"><span class="toc-number">3.</span> <span class="toc-text"> 增强聚合</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#grouping-sets-%E5%AD%90%E5%8F%A5"><span class="toc-number">3.1.</span> <span class="toc-text"> GROUPING SETS 子句</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#grouping__id-%E4%BC%AA%E5%88%97"><span class="toc-number">3.2.</span> <span class="toc-text"> GROUPING__ID 伪列</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#grouping-%E5%87%BD%E6%95%B0"><span class="toc-number">3.3.</span> <span class="toc-text"> GROUPING 函数</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#cube-%E5%92%8C-rollup"><span class="toc-number">3.4.</span> <span class="toc-text"> CUBE 和 ROLLUP</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#cte"><span class="toc-number">4.</span> <span class="toc-text"> CTE</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%AD%90%E6%9F%A5%E8%AF%A2"><span class="toc-number">5.</span> <span class="toc-text"> 子查询</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#from-%E5%AD%90%E5%8F%A5"><span class="toc-number">5.1.</span> <span class="toc-text"> FROM 子句</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#where-%E5%AD%90%E5%8F%A5"><span class="toc-number">5.2.</span> <span class="toc-text"> WHERE 子句</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E6%8A%BD%E6%A0%B7"><span class="toc-number">6.</span> <span class="toc-text"> 抽样</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%8A%BD%E6%A0%B7%E5%88%86%E6%A1%B6%E8%A1%A8"><span class="toc-number">6.1.</span> <span class="toc-text"> 抽样分桶表</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%9D%97%E6%8A%BD%E6%A0%B7"><span class="toc-number">6.2.</span> <span class="toc-text"> 块抽样</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#transform"><span class="toc-number">7.</span> <span class="toc-text"> Transform</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#transformmap-reduce-syntax"><span class="toc-number">7.1.</span> <span class="toc-text"> Transform&#x2F;Map-Reduce Syntax</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#schema-less-mapreduce"><span class="toc-number">7.2.</span> <span class="toc-text"> Schema-less map&#x2F;reduce</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#typing-the-output-of-transform"><span class="toc-number">7.3.</span> <span class="toc-text"> Typing the output of TRANSFORM</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#explain"><span class="toc-number">8.</span> <span class="toc-text"> EXPLAIN</span></a></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item"><a class="thumbnail" href="/posts/f67b0909/" title="大数据手册(Spark)--Pandas API on Spark"><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/img/apache-spark-pandas.png" onerror="this.onerror=null;this.src='/img/404_moon.png'" alt="大数据手册(Spark)--Pandas API on Spark"/></a><div class="content"><a class="title" href="/posts/f67b0909/" title="大数据手册(Spark)--Pandas API on Spark">大数据手册(Spark)--Pandas API on Spark</a><time datetime="2023-06-07T15:09:56.599Z" title="发表于 2023-06-07 23:09:56">2023-06-07</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/posts/43ce4abf/" title="机器学习(V)--无监督学习"><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/img/ML-unsupervised-learning.png" onerror="this.onerror=null;this.src='/img/404_moon.png'" alt="机器学习(V)--无监督学习"/></a><div class="content"><a class="title" href="/posts/43ce4abf/" title="机器学习(V)--无监督学习">机器学习(V)--无监督学习</a><time datetime="2023-06-07T14:20:00.000Z" title="发表于 2023-06-07 22:20:00">2023-06-07</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/posts/5faa8f40/" title="机器学习(II)--数据预处理"><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/img/ML-data-preprocessing.png" onerror="this.onerror=null;this.src='/img/404_moon.png'" alt="机器学习(II)--数据预处理"/></a><div class="content"><a class="title" href="/posts/5faa8f40/" title="机器学习(II)--数据预处理">机器学习(II)--数据预处理</a><time datetime="2023-05-03T06:36:00.000Z" title="发表于 2023-05-03 14:36:00">2023-05-03</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/posts/8638abf9/" title="机器学习(I)--基础知识"><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/img/ML-overview.png" onerror="this.onerror=null;this.src='/img/404_moon.png'" alt="机器学习(I)--基础知识"/></a><div class="content"><a class="title" href="/posts/8638abf9/" title="机器学习(I)--基础知识">机器学习(I)--基础知识</a><time datetime="2023-05-02T06:36:00.000Z" title="发表于 2023-05-02 14:36:00">2023-05-02</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/posts/12a72af8/" title="看不懂的数字"><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/img/numerals_cover.png" onerror="this.onerror=null;this.src='/img/404_moon.png'" alt="看不懂的数字"/></a><div class="content"><a class="title" href="/posts/12a72af8/" title="看不懂的数字">看不懂的数字</a><time datetime="2023-04-22T03:17:17.000Z" title="发表于 2023-04-22 11:17:17">2023-04-22</time></div></div></div></div></div></div></main><footer id="footer"><div id="footer-wrap"><div class="copyright">&copy;2019 - 2023 By Tiny Lei</div><div class="framework-info"><span>框架 </span><a target="_blank" rel="noopener external nofollow noreferrer" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener external nofollow noreferrer" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside_config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><a id="to_comment" href="#post-comment" title="直达评论"><i class="fas fa-comments"></i></a><button id="go-up" type="button" title="回到顶部"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox/fancybox.umd.min.js"></script><script src="https://cdn.jsdelivr.net/npm/vanilla-lazyload/dist/lazyload.iife.min.js"></script><script>function panguFn () {
+  if (typeof pangu === 'object') pangu.autoSpacingPage()
+  else {
+    getScript('https://cdn.jsdelivr.net/npm/pangu/dist/browser/pangu.min.js')
+      .then(() => {
+        pangu.autoSpacingPage()
+      })
+  }
+}
+
+function panguInit () {
+  if (false){
+    GLOBAL_CONFIG_SITE.isPost && panguFn()
+  } else {
+    panguFn()
+  }
+}
+
+document.addEventListener('DOMContentLoaded', panguInit)</script><div class="js-pjax"><script>(() => {
+  const $mermaid = document.querySelectorAll('#article-container .mermaid-wrap')
+  if ($mermaid.length === 0) return
+  const runMermaid = () => {
+    window.loadMermaid = true
+    const theme = document.documentElement.getAttribute('data-theme') === 'dark' ? 'dark' : 'forest'
+
+    Array.from($mermaid).forEach((item, index) => {
+      const mermaidSrc = item.firstElementChild
+      const mermaidThemeConfig = '%%{init:{ \'theme\':\'' + theme + '\'}}%%\n'
+      const mermaidID = 'mermaid-' + index
+      const mermaidDefinition = mermaidThemeConfig + mermaidSrc.textContent
+
+      const renderFn = mermaid.render(mermaidID, mermaidDefinition)
+
+      const renderV10 = () => {
+        renderFn.then(({svg}) => {
+          mermaidSrc.insertAdjacentHTML('afterend', svg)
+        })
+      }
+
+      const renderV9 = svg => {
+        mermaidSrc.insertAdjacentHTML('afterend', svg)
+      }
+
+      typeof renderFn === 'string' ? renderV9(renderFn) : renderV10()
+    })
+  }
+
+  const loadMermaid = () => {
+    window.loadMermaid ? runMermaid() : getScript('https://cdn.jsdelivr.net/npm/mermaid/dist/mermaid.min.js').then(runMermaid)
+  }
+
+  btf.addModeChange('mermaid', runMermaid)
+
+  window.pjax ? loadMermaid() : document.addEventListener('DOMContentLoaded', loadMermaid)
+})()</script><script>function loadGitalk () {
+  function initGitalk () {
+    var gitalk = new Gitalk(Object.assign({
+      clientID: '7c65134b48b13f306114',
+      clientSecret: 'f049f68368a11925fdb69e57c64839eac94e13c1'',
+      repo: 'gitalk-comments',
+      owner: 'WilenWu',
+      admin: ['WilenWu'],
+      id: '2f5274822608215a946e3c5ec3b5caad',
+      updateCountCallback: commentCount
+    },null))
+
+    gitalk.render('gitalk-container')
+  }
+
+  if (typeof Gitalk === 'function') initGitalk()
+  else {
+    getCSS('https://cdn.jsdelivr.net/npm/gitalk/dist/gitalk.min.css')
+    getScript('https://cdn.jsdelivr.net/npm/gitalk/dist/gitalk.min.js').then(initGitalk)
+  }
+}
+
+function commentCount(n){
+  let isCommentCount = document.querySelector('#post-meta .gitalk-comment-count')
+  if (isCommentCount) {
+    isCommentCount.textContent= n
+  }
+}
+
+if ('Gitalk' === 'Gitalk' || !true) {
+  if (true) btf.loadComment(document.getElementById('gitalk-container'), loadGitalk)
+  else loadGitalk()
+} else {
+  function loadOtherComment () {
+    loadGitalk()
+  }
+}</script><script>function loadWaline () {
+  function initWaline () {
+    const waline = Waline.init(Object.assign({
+      el: '#waline-wrap',
+      serverURL: 'https://waline-comments-9etq63pcv-wilenwu.vercel.app',
+      pageview: false,
+      dark: 'html[data-theme="dark"]',
+      path: window.location.pathname,
+      comment: false,
+    }, {"requiredMeta":["monsterid"]}))
+  }
+
+  if (typeof Waline === 'object') initWaline()
+  else {
+    getCSS('https://cdn.jsdelivr.net/npm/@waline/client/dist/waline.min.css').then(() => {
+      getScript('https://cdn.jsdelivr.net/npm/@waline/client/dist/waline.min.js').then(initWaline)
+    })
+  }
+}
+
+if ('Gitalk' === 'Waline' || !true) {
+  if (true) btf.loadComment(document.getElementById('waline-wrap'),loadWaline)
+  else setTimeout(loadWaline, 0)
+} else {
+  function loadOtherComment () {
+    loadWaline()
+  }
+}</script></div><script src="/js/custom.js"></script><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script><div id="local-search"><div class="search-dialog"><nav class="search-nav"><span class="search-dialog-title">搜索</span><span id="loading-status"></span><button class="search-close-button"><i class="fas fa-times"></i></button></nav><div class="is-center" id="loading-database"><i class="fas fa-spinner fa-pulse"></i><span>  数据库加载中</span></div><div class="search-wrap"><div id="local-search-input"><div class="local-search-box"><input class="local-search-box--input" placeholder="搜索文章" type="text"/></div></div><hr/><div class="no-result" id="local-search-results"></div><div id="local-search-stats-wrap"></div></div></div><div id="search-mask"></div><script src="/js/search/local-search.js"></script></div></div><!-- hexo injector body_end start --><script async src="//at.alicdn.com/t/font_2032782_8d5kxvn09md.js"></script><!-- hexo injector body_end end --></body></html>
