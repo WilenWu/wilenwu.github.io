@@ -1,11 +1,11 @@
 <!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0,viewport-fit=cover"><title>大数据手册(Spark)--PySpark MLlib | 雷小小</title><meta name="author" content="Tiny Lei"><meta name="copyright" content="Tiny Lei"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="Spark 包含 MLlib，它是在大规模数据上进行机器学习所需的算法库。数据科学家可以在任何 Hadoop 数据源上使用 R 或 Python 对机器学习模型进行训练，这些数据源使用 MLlib 保存，并且被导入到基于 Java 或 Scala 的管道当中。Spark 专为在内存中运行的快速交互式计算而设计，使机器学习可以快速运行。它的算法包含分类、回归、集群、协同过滤和模式挖掘等功能。  ML">
 <meta property="og:type" content="article">
 <meta property="og:title" content="大数据手册(Spark)--PySpark MLlib">
-<meta property="og:url" content="https://wilenwu.gitee.io/posts/75974533/index.html">
+<meta property="og:url" content="https://www.tinylei.tech/posts/75974533/index.html">
 <meta property="og:site_name" content="雷小小">
 <meta property="og:description" content="Spark 包含 MLlib，它是在大规模数据上进行机器学习所需的算法库。数据科学家可以在任何 Hadoop 数据源上使用 R 或 Python 对机器学习模型进行训练，这些数据源使用 MLlib 保存，并且被导入到基于 Java 或 Scala 的管道当中。Spark 专为在内存中运行的快速交互式计算而设计，使机器学习可以快速运行。它的算法包含分类、回归、集群、协同过滤和模式挖掘等功能。  ML">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="https://wilenwu.gitee.io/img/apache-spark-mllib.png">
+<meta property="og:image" content="https://www.tinylei.tech/img/apache-spark-mllib.png">
 <meta property="article:published_time" content="2020-01-09T08:29:34.000Z">
 <meta property="article:modified_time" content="2023-03-20T15:16:43.717Z">
 <meta property="article:author" content="Tiny Lei">
@@ -14,7 +14,7 @@
 <meta property="article:tag" content="spark">
 <meta property="article:tag" content="python">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="https://wilenwu.gitee.io/img/apache-spark-mllib.png"><link rel="shortcut icon" href="/img/favicon.png"><link rel="canonical" href="https://wilenwu.gitee.io/posts/75974533/index.html"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//hm.baidu.com"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><meta name="baidu-site-verification" content="code-7rymn5Bitx"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox/fancybox.min.css" media="print" onload="this.media='all'"><script>var _hmt = _hmt || [];
+<meta name="twitter:image" content="https://www.tinylei.tech/img/apache-spark-mllib.png"><link rel="shortcut icon" href="/img/favicon.png"><link rel="canonical" href="https://www.tinylei.tech/posts/75974533/index.html"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//hm.baidu.com"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><meta name="baidu-site-verification" content="code-7rymn5Bitx"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox/fancybox.min.css" media="print" onload="this.media='all'"><script>var _hmt = _hmt || [];
 (function() {
   var hm = document.createElement("script");
   hm.src = "https://hm.baidu.com/hm.js?654e7415ab55bed7c9c2bc6d665f03c5";
