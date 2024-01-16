@@ -1,0 +1,344 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0,viewport-fit=cover"><title>大数据手册(Hadoop)--Hadoop安装配置 | 雷小小</title><meta name="author" content="Tiny Lei"><meta name="copyright" content="Tiny Lei"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="本文默认在 zsh 终端安装配置，若使用bash终端，环境变量的配置文件相应变化。 若安装包下载缓慢，可复制链接到迅雷下载，亲测极速～   安装Java环境 下载并解压安装包 sudo tar -zxvf .&#x2F;jdk-8u391-linux-x64.tar.gz -C &#x2F;usr&#x2F;local&#x2F; 配置环境变量 vi ~&#x2F;.zshrc # set java environmentexport JAVA">
+<meta property="og:type" content="article">
+<meta property="og:title" content="大数据手册(Hadoop)--Hadoop安装配置">
+<meta property="og:url" content="https://wilenwu.gitee.io/posts/250f35c4/index.html">
+<meta property="og:site_name" content="雷小小">
+<meta property="og:description" content="本文默认在 zsh 终端安装配置，若使用bash终端，环境变量的配置文件相应变化。 若安装包下载缓慢，可复制链接到迅雷下载，亲测极速～   安装Java环境 下载并解压安装包 sudo tar -zxvf .&#x2F;jdk-8u391-linux-x64.tar.gz -C &#x2F;usr&#x2F;local&#x2F; 配置环境变量 vi ~&#x2F;.zshrc # set java environmentexport JAVA">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://wilenwu.gitee.io/img/apache-hadoop-cover.png">
+<meta property="article:published_time" content="2024-01-15T14:00:00.000Z">
+<meta property="article:modified_time" content="2024-01-16T16:09:09.883Z">
+<meta property="article:author" content="Tiny Lei">
+<meta property="article:tag" content="大数据">
+<meta property="article:tag" content="hadoop">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://wilenwu.gitee.io/img/apache-hadoop-cover.png"><link rel="shortcut icon" href="/img/favicon.png"><link rel="canonical" href="https://wilenwu.gitee.io/posts/250f35c4/index.html"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//hm.baidu.com"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><meta name="baidu-site-verification" content="code-7rymn5Bitx"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox/fancybox.min.css" media="print" onload="this.media='all'"><script>var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "https://hm.baidu.com/hm.js?654e7415ab55bed7c9c2bc6d665f03c5";
+  var s = document.getElementsByTagName("script")[0]; 
+  s.parentNode.insertBefore(hm, s);
+})();
+</script><script>const GLOBAL_CONFIG = {
+  root: '/',
+  algolia: undefined,
+  localSearch: {"path":"/search.xml","preload":false,"top_n_per_article":1,"unescape":false,"languages":{"hits_empty":"找不到您查询的内容：${query}","hits_stats":"共找到 ${hits} 篇文章"}},
+  translate: undefined,
+  noticeOutdate: undefined,
+  highlight: {"plugin":"highlighjs","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '天',
+  dateSuffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'fancybox',
+  Snackbar: undefined,
+  source: {
+    justifiedGallery: {
+      js: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery/dist/fjGallery.min.js',
+      css: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery/dist/fjGallery.min.css'
+    }
+  },
+  isPhotoFigcaption: true,
+  islazyload: true,
+  isAnchor: false,
+  percent: {
+    toc: true,
+    rightside: false,
+  },
+  autoDarkmode: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: '大数据手册(Hadoop)--Hadoop安装配置',
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: true,
+  postUpdate: '2024-01-17 00:09:09'
+}</script><noscript><style type="text/css">
+  #nav {
+    opacity: 1
+  }
+  .justified-gallery img {
+    opacity: 1
+  }
+
+  #recent-posts time,
+  #post-meta time {
+    display: inline !important
+  }
+</style></noscript><script>(win=>{
+    win.saveToLocal = {
+      set: function setWithExpiry(key, value, ttl) {
+        if (ttl === 0) return
+        const now = new Date()
+        const expiryDay = ttl * 86400000
+        const item = {
+          value: value,
+          expiry: now.getTime() + expiryDay,
+        }
+        localStorage.setItem(key, JSON.stringify(item))
+      },
+
+      get: function getWithExpiry(key) {
+        const itemStr = localStorage.getItem(key)
+
+        if (!itemStr) {
+          return undefined
+        }
+        const item = JSON.parse(itemStr)
+        const now = new Date()
+
+        if (now.getTime() > item.expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return item.value
+      }
+    }
+  
+    win.getScript = url => new Promise((resolve, reject) => {
+      const script = document.createElement('script')
+      script.src = url
+      script.async = true
+      script.onerror = reject
+      script.onload = script.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        script.onload = script.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(script)
+    })
+  
+    win.getCSS = (url,id = false) => new Promise((resolve, reject) => {
+      const link = document.createElement('link')
+      link.rel = 'stylesheet'
+      link.href = url
+      if (id) link.id = id
+      link.onerror = reject
+      link.onload = link.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        link.onload = link.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(link)
+    })
+  
+      win.activateDarkMode = function () {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      win.activateLightMode = function () {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+      const t = saveToLocal.get('theme')
+    
+          if (t === 'dark') activateDarkMode()
+          else if (t === 'light') activateLightMode()
+        
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    
+    const detectApple = () => {
+      if(/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+    })(window)</script><link rel="stylesheet" href="//at.alicdn.com/t/font_2849223_xh1ftc8qym.css"><link rel="stylesheet" href="/css/link-card.css"><!-- hexo injector head_end start --><link rel="stylesheet" href="https://npm.elemecdn.com/hexo-butterfly-tag-plugins-plus@latest/lib/assets/font-awesome-animation.min.css" media="defer" onload="this.media='all'"><link rel="stylesheet" href="https://npm.elemecdn.com/hexo-butterfly-tag-plugins-plus@latest/lib/tag_plugins.css" media="defer" onload="this.media='all'"><script src="https://npm.elemecdn.com/hexo-butterfly-tag-plugins-plus@latest/lib/assets/carousel-touch.js"></script><!-- hexo injector head_end end --><meta name="generator" content="Hexo 6.0.0"><link rel="alternate" href="/atom.xml" title="雷小小" type="application/atom+xml">
+</head><body><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/img/avatar.jpg" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="sidebar-site-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">139</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">105</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">42</div></a></div><hr class="custom-hr"/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/user-guide/"><i class="fa-fw fa fa-compass"></i><span> 用户指南</span></a></div><div class="menus_item"><a class="site-page group hide" href="javascript:void(0);" rel="external nofollow noreferrer"><i class="fa-fw fa fa-book"></i><span> 文档</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></li><li><a class="site-page child" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 归档</span></a></li><li><a class="site-page child" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/gallery/"><i class="fa-fw fa fa-images"></i><span> 图库</span></a></div><div class="menus_item"><a class="site-page" href="/ebook/"><i class="fa-fw fa fa-book-reader"></i><span> 电子书</span></a></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-star"></i><span> 收藏夹</span></a></div><div class="menus_item"><a class="site-page group hide" href="javascript:void(0);" rel="external nofollow noreferrer"><i class="fa-fw fa-solid fa-circle-chevron-down"></i><span> 更多</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/about/"><i class="fa-fw fa fa-user"></i><span> 关于我</span></a></li><li><a class="site-page child" href="/analytics/"><i class="fa-fw fa fa-line-chart"></i><span> 文章统计</span></a></li><li><a class="site-page child" href="/log/"><i class="fa-fw fa fa-history"></i><span> 更新日志</span></a></li></ul></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url('/img/apache-hadoop-logo.svg')"><nav id="nav"><span id="blog-info"><a href="/" title="雷小小"><img class="site-icon" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/img/favicon.png"/><span class="site-name">雷小小</span></a></span><div id="menus"><div id="search-button"><a class="site-page social-icon search" href="javascript:void(0);" rel="external nofollow noreferrer"><i class="fas fa-search fa-fw"></i><span> 搜索</span></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/user-guide/"><i class="fa-fw fa fa-compass"></i><span> 用户指南</span></a></div><div class="menus_item"><a class="site-page group hide" href="javascript:void(0);" rel="external nofollow noreferrer"><i class="fa-fw fa fa-book"></i><span> 文档</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></li><li><a class="site-page child" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 归档</span></a></li><li><a class="site-page child" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/gallery/"><i class="fa-fw fa fa-images"></i><span> 图库</span></a></div><div class="menus_item"><a class="site-page" href="/ebook/"><i class="fa-fw fa fa-book-reader"></i><span> 电子书</span></a></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-star"></i><span> 收藏夹</span></a></div><div class="menus_item"><a class="site-page group hide" href="javascript:void(0);" rel="external nofollow noreferrer"><i class="fa-fw fa-solid fa-circle-chevron-down"></i><span> 更多</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/about/"><i class="fa-fw fa fa-user"></i><span> 关于我</span></a></li><li><a class="site-page child" href="/analytics/"><i class="fa-fw fa fa-line-chart"></i><span> 文章统计</span></a></li><li><a class="site-page child" href="/log/"><i class="fa-fw fa fa-history"></i><span> 更新日志</span></a></li></ul></div></div><div id="toggle-menu"><a class="site-page" href="javascript:void(0);" rel="external nofollow noreferrer"><i class="fas fa-bars fa-fw"></i></a></div></div></nav><div id="post-info"><h1 class="post-title">大数据手册(Hadoop)--Hadoop安装配置<a class="post-edit-link" href="https://gitee.com/WilenWu/myblog/edit/master/source/_posts/bigdata/Hadoop-Installation.md" rel="external nofollow noreferrer" title="编辑" target="_blank"><i class="fas fa-pencil-alt"></i></a></h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2024-01-15T14:00:00.000Z" title="发表于 2024-01-15 22:00:00">2024-01-15</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2024-01-16T16:09:09.883Z" title="更新于 2024-01-17 00:09:09">2024-01-17</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/big-data/">Big Data</a><i class="fas fa-angle-right post-meta-separator"></i><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/big-data/hadoop/">Hadoop</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-wordcount"><i class="far fa-file-word fa-fw post-meta-icon"></i><span class="post-meta-label">字数总计:</span><span class="word-count">1.4k</span><span class="post-meta-separator">|</span><i class="far fa-clock fa-fw post-meta-icon"></i><span class="post-meta-label">阅读时长:</span><span>6分钟</span></span><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title="大数据手册(Hadoop)--Hadoop安装配置"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">阅读量:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container"><blockquote>
+<p>本文默认在 zsh 终端安装配置，若使用bash终端，环境变量的配置文件相应变化。<br />
+若安装包下载缓慢，可复制链接到迅雷下载，亲测极速～</p>
+</blockquote>
+<h1 id="安装java环境"><a class="markdownIt-Anchor" href="#安装java环境"></a> 安装Java环境</h1>
+<p>下载并解压安装包</p>
+<figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">sudo tar -zxvf ./jdk-8u391-linux-x64.tar.gz -C /usr/<span class="built_in">local</span>/</span><br></pre></td></tr></table></figure>
+<p>配置环境变量 <code>vi ~/.zshrc</code></p>
+<figure class="highlight sh"><table><tr><td class="code"><pre><span class="line"><span class="comment"># set java environment</span></span><br><span class="line"><span class="built_in">export</span> JAVA_HOME=/usr/opt/jdk-1.8.0_391</span><br><span class="line"><span class="built_in">export</span> JRE_HOME=<span class="variable">$&#123;JAVA_HOME&#125;</span>/jre</span><br><span class="line"><span class="built_in">export</span> CLASSPATH=.:<span class="variable">$&#123;JAVA_HOME&#125;</span>/lib:<span class="variable">$&#123;JRE_HOME&#125;</span>/lib</span><br><span class="line"><span class="built_in">export</span> PATH=<span class="variable">$JAVA_HOME</span>/bin:<span class="variable">$PATH</span></span><br></pre></td></tr></table></figure>
+<h1 id="配置ssh免密登陆"><a class="markdownIt-Anchor" href="#配置ssh免密登陆"></a> 配置SSH免密登陆</h1>
+<p>我们需要配置成SSH无密码登陆。利用 ssh-keygen 生成密钥，并将密钥加入到授权中</p>
+<figure class="highlight sh"><table><tr><td class="code"><pre><span class="line"><span class="built_in">cd</span> ~/.ssh/                     <span class="comment"># 若没有该目录，请先执行一次ssh localhost</span></span><br><span class="line">ssh-keygen -t rsa -C username@email.com  <span class="comment"># 会有提示，都按回车就可以</span></span><br><span class="line">cat ./id_rsa.pub &gt;&gt; ./authorized_keys  <span class="comment"># 加入授权</span></span><br></pre></td></tr></table></figure>
+<p>然后可以使用如下命令验证</p>
+<figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">ssh localhost</span><br></pre></td></tr></table></figure>
+<h1 id="安装-hadoop"><a class="markdownIt-Anchor" href="#安装-hadoop"></a> 安装 Hadoop</h1>
+<p>下载并解压安装包</p>
+<figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">sudo tar -zxvf ./hadoop-3.3.6.tar.gz -C /usr/<span class="built_in">local</span>/</span><br></pre></td></tr></table></figure>
+<p>配置环境变量  <code>vi ~/.zshrc</code></p>
+<figure class="highlight sh"><table><tr><td class="code"><pre><span class="line"><span class="comment"># set hadoop environment</span></span><br><span class="line"><span class="built_in">export</span> HADOOP_HOME=/usr/<span class="built_in">local</span>/hadoop-3.3.6</span><br><span class="line"><span class="built_in">export</span> HADOOP_COMMON_HOME=<span class="variable">$HADOOP_HOME</span></span><br><span class="line"><span class="built_in">export</span> HADOOP_COMMON_LIB_NATIVE_DIR=<span class="variable">$HADOOP_HOME</span>/lib/native</span><br><span class="line"><span class="built_in">export</span> HADOOP_OPTS=<span class="string">&quot;-Djava.library.path=<span class="variable">$HADOOP_HOME</span>/lib/nativ&quot;</span></span><br><span class="line"><span class="built_in">export</span> PATH=<span class="variable">$HADOOP_HOME</span>/bin:<span class="variable">$HADOOP_HOME</span>/sbin:<span class="variable">$PATH</span></span><br></pre></td></tr></table></figure>
+<p>创建软连接，方便操作路径</p>
+<figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">ln -s /usr/<span class="built_in">local</span>/hadoop-3.3.6 hadoop</span><br></pre></td></tr></table></figure>
+<p>输入如下命令来检查 Hadoop 是否可用，成功则会显示 Hadoop 版本信息：</p>
+<figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">hadoop version</span><br></pre></td></tr></table></figure>
+<h1 id="伪分布式环境配置"><a class="markdownIt-Anchor" href="#伪分布式环境配置"></a> 伪分布式环境配置</h1>
+<p>Hadoop 可以在单节点上以伪分布式的方式运行，Hadoop 进程以分离的 Java 进程来运行，节点既作为 NameNode 也作为 DataNode，同时，读取的是 HDFS 中的文件。</p>
+<p>Hadoop 的配置文件位于 etc/hadoop/ 中，伪分布式主要需要修改2个配置文件 <strong>core-site.xml</strong> 和 <strong>hdfs-site.xml</strong> 。Hadoop的配置文件是 xml 格式，每个配置以声明 property 的 name 和 value 的方式来实现。</p>
+<p>修改配置文件 <strong>core-site.xml</strong></p>
+<figure class="highlight xml"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">configuration</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">property</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">name</span>&gt;</span>hadoop.tmp.dir<span class="tag">&lt;/<span class="name">name</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">value</span>&gt;</span>file:/usr/local/hadoop/tmp<span class="tag">&lt;/<span class="name">value</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">description</span>&gt;</span>A base for other temporary directories.<span class="tag">&lt;/<span class="name">description</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">property</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">property</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">name</span>&gt;</span>fs.default.name<span class="tag">&lt;/<span class="name">name</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">value</span>&gt;</span>hdfs://localhost:9000<span class="tag">&lt;/<span class="name">value</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">property</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">configuration</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p>有时候会因为localhost地址出错，可直接将 <a target="_blank" rel="noopener external nofollow noreferrer" href="http://fs.default.name">fs.default.name</a> 值修改为 hdfs://127.0.0.1:9000</p>
+<p>同样的，修改配置文件 <strong>hdfs-site.xml</strong>：</p>
+<figure class="highlight xml"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">configuration</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">property</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">name</span>&gt;</span>dfs.replication<span class="tag">&lt;/<span class="name">name</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">value</span>&gt;</span>1<span class="tag">&lt;/<span class="name">value</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">description</span>&gt;</span>hdfs备份数<span class="tag">&lt;/<span class="name">description</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">property</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">property</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">name</span>&gt;</span>dfs.namenode.name.dir<span class="tag">&lt;/<span class="name">name</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">value</span>&gt;</span>file:/usr/local/hadoop/tmp/dfs/name<span class="tag">&lt;/<span class="name">value</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">property</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">property</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">name</span>&gt;</span>dfs.datanode.data.dir<span class="tag">&lt;/<span class="name">name</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">value</span>&gt;</span>file:/usr/local/hadoop/tmp/dfs/data<span class="tag">&lt;/<span class="name">value</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">property</span>&gt;</span></span><br><span class="line"></span><br><span class="line">  <span class="comment">&lt;!--当losthost解析出错时配置以下声明--&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">property</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">name</span>&gt;</span>dfs.http.address<span class="tag">&lt;/<span class="name">name</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">value</span>&gt;</span>127.0.0.1:9870<span class="tag">&lt;/<span class="name">value</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">description</span>&gt;</span>NameNode address<span class="tag">&lt;/<span class="name">description</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">property</span>&gt;</span> </span><br><span class="line">    <span class="tag">&lt;<span class="name">property</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">name</span>&gt;</span>dfs.secondary.http.address<span class="tag">&lt;/<span class="name">name</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">value</span>&gt;</span>127.0.0.1:9890<span class="tag">&lt;/<span class="name">value</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">description</span>&gt;</span>SecondaryNameNode address<span class="tag">&lt;<span class="name">description</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">property</span>&gt;</span> </span><br><span class="line"><span class="tag">&lt;/<span class="name">configuration</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p>Hadoop 的运行方式是由配置文件决定的（运行 Hadoop 时会读取配置文件），因此如果需要从伪分布式模式切换回非分布式模式，需要删除 core-site.xml 中的配置项。</p>
+<p>此外，伪分布式虽然只需要配置 <a target="_blank" rel="noopener external nofollow noreferrer" href="http://fs.default.name">fs.default.name</a> 和 dfs.replication 就可以运行（官方教程如此），不过若没有配置 hadoop.tmp.dir 参数，则默认使用的临时目录为 /tmp/hadoo-hadoop，而这个目录在重启时有可能被系统清理掉，导致必须重新执行 format 才行。所以我们进行了设置，同时也指定 dfs.namenode.name.dir 和 dfs.datanode.data.dir，否则在接下来的步骤中可能会出错。</p>
+<p>配置 <strong>mapped-site.xml</strong></p>
+<figure class="highlight xml"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">configuration</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">property</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">name</span>&gt;</span>mapreduce.framework.name<span class="tag">&lt;/<span class="name">name</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">value</span>&gt;</span>yarn<span class="tag">&lt;/<span class="name">value</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">description</span>&gt;</span>指定mapreduce运行在yarn上<span class="tag">&lt;/<span class="name">description</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="name">property</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">configuration</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p>配置 <strong>yarn-site.xml</strong></p>
+<figure class="highlight xml"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">configuration</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">property</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">name</span>&gt;</span>yarn.nodemanager.aux-services<span class="tag">&lt;/<span class="name">name</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">value</span>&gt;</span>mapreduce_shuffle<span class="tag">&lt;/<span class="name">value</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="name">property</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">property</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">name</span>&gt;</span>yarn.nodemanager.aux-services.mapreduce.shuffle.class<span class="tag">&lt;/<span class="name">name</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">value</span>&gt;</span>org.apache.hadoop.mapred.ShuffleHandler<span class="tag">&lt;/<span class="name">value</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="name">property</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">property</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">name</span>&gt;</span>yarn.resourcemanager.hostname<span class="tag">&lt;/<span class="name">name</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">value</span>&gt;</span>localhost<span class="tag">&lt;/<span class="name">value</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="name">property</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">property</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">name</span>&gt;</span>yarn.acl.enable<span class="tag">&lt;/<span class="name">name</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">value</span>&gt;</span>0<span class="tag">&lt;/<span class="name">value</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="name">property</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p>当java路径无法识别时，可在 <strong><a target="_blank" rel="noopener external nofollow noreferrer" href="http://hadoop-env.sh">hadoop-env.sh</a></strong> 文件配置</p>
+<figure class="highlight sh"><table><tr><td class="code"><pre><span class="line"><span class="built_in">export</span> JAVA_HOME=/usr/opt/jdk-1.8.0_391</span><br></pre></td></tr></table></figure>
+<p>配置完成后，执行 NameNode 的格式化，相当于一个文件系统的初始化</p>
+<figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">hdfs namenode -format</span><br></pre></td></tr></table></figure>
+<p>成功的话，会看到 “successfully formatted” 的提示。</p>
+<p>接着启动 hadoop集群</p>
+<figure class="highlight sh"><table><tr><td class="code"><pre><span class="line"><span class="variable">$HADOOP_HOME</span>/sbin/start-all.sh</span><br></pre></td></tr></table></figure>
+<p>启动完成后，可以通过命令 <code>jps</code> 来判断是否成功启动，若成功启动则会列出如下进程:</p>
+<figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">15013 ResourceManager</span><br><span class="line">14822 SecondaryNameNode</span><br><span class="line">30103 Jps</span><br><span class="line">14583 NameNode</span><br><span class="line">15112 NodeManager</span><br><span class="line">14686 DataNode</span><br></pre></td></tr></table></figure>
+<p>也可在 web UI 查看 <a target="_blank" rel="noopener external nofollow noreferrer" href="http://localhost:9870">http://localhost:9870</a></p>
+<h1 id="分布式集群配置免密钥登陆"><a class="markdownIt-Anchor" href="#分布式集群配置免密钥登陆"></a> 分布式集群配置免密钥登陆</h1>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment">#在每个节点生成公钥文件</span></span><br><span class="line"><span class="built_in">cd</span> ~/.ssh                      <span class="comment">#进到当前用户的隐藏目录</span></span><br><span class="line">ssh-keygen -t rsa              <span class="comment">#用rsa生成密钥，一路回车</span></span><br><span class="line">cp id_rsa.pub authorized_keys   <span class="comment">#把公钥复制一份，并改名为authorized_keys</span></span><br><span class="line"><span class="comment">#这步执行完后，在当前机器执行ssh localhost可以无密码登录本机了</span></span><br><span class="line"></span><br><span class="line"><span class="comment">#每个节点的公钥文件复制到master节点</span></span><br><span class="line">scp authorized_keys master@master：~/download/note01_keys   <span class="comment">#重命名公钥便于整合</span></span><br><span class="line">scp authorized_keys master@master：~/download/note01_keys</span><br><span class="line">... ...</span><br><span class="line"></span><br><span class="line"> <span class="comment">#进入master节点，整合公钥文件分发到所有节点覆盖</span></span><br><span class="line">cat ~/download/note01_keys &gt;&gt; ~/.ssh/authorized_keys</span><br><span class="line">cat ~/download/note02_keys &gt;&gt; ~/.ssh/authorized_keys</span><br><span class="line">... ...</span><br><span class="line">scp ~/.ssh/authorized_keys node01@node01：~/.ssh/authorized_keys</span><br><span class="line">scp ~/.ssh/authorized_keys node02@node02：~/.ssh/authorized_keys</span><br><span class="line">... ...</span><br><span class="line"></span><br><span class="line"><span class="comment">#在每个节点更改公钥的权限</span></span><br><span class="line">chmod 600 authorized_keys</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>参考资料：<br />
+<a target="_blank" rel="noopener external nofollow noreferrer" href="https://dblab.xmu.edu.cn/blog/2441/">Hadoop3.1.3安装教程_单机/伪分布式配置_Hadoop3.1.3/Ubuntu18.04(16.04)</a></p>
+</blockquote>
+</article><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/%E5%A4%A7%E6%95%B0%E6%8D%AE/">大数据</a><a class="post-meta__tags" href="/tags/hadoop/">hadoop</a></div><div class="post_share"><div class="social-share" data-image="/img/apache-hadoop-cover.png" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/js/social-share.min.js" defer></script></div></div><div class="post-reward"><div class="reward-button"><i class="fas fa-qrcode"></i> 打赏</div><div class="reward-main"><ul class="reward-all"><li class="reward-item"><a href="/img/morty3.jpg" target="_blank"><img class="post-qr-code-img" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/img/morty3.jpg" alt="Give me money!"/></a><div class="post-qr-code-desc">Give me money!</div></li></ul></div></div><nav class="pagination-post" id="pagination"><div class="prev-post pull-full"><a href="/posts/dd512a75/" title="大数据手册(Hive)--Hive安装配置"><img class="cover" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/img/hive-cover.jpg" onerror="onerror=null;src='/img/404_moon.png'" alt="cover of previous post"><div class="pagination-info"><div class="label">上一篇</div><div class="prev_info">大数据手册(Hive)--Hive安装配置</div></div></a></div></nav><div class="relatedPosts"><div class="headline"><i class="fas fa-thumbs-up fa-fw"></i><span>相关推荐</span></div><div class="relatedPosts-list"><div><a href="/posts/c5386d49/" title="大数据手册(Hadoop)--Hadoop简介"><img class="cover" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/img/apache-hadoop-cover.png" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2021-05-04</div><div class="title">大数据手册(Hadoop)--Hadoop简介</div></div></a></div><div><a href="/posts/b557dff1/" title="数据仓库和数据湖简介"><img class="cover" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/img/apache-hadoop-cover.png" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2023-12-27</div><div class="title">数据仓库和数据湖简介</div></div></a></div><div><a href="/posts/dd193370/" title="大数据手册(Hive)--HiveQL(DDL)"><img class="cover" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/img/apache-hive-ddl.png" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2018-07-03</div><div class="title">大数据手册(Hive)--HiveQL(DDL)</div></div></a></div><div><a href="/posts/f18b723f/" title="大数据手册(Hive)--HiveQL(Functions)"><img class="cover" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/img/apache-hive-functions.png" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2018-07-03</div><div class="title">大数据手册(Hive)--HiveQL(Functions)</div></div></a></div><div><a href="/posts/297bd708/" title="大数据手册(Hive)--HiveQL(DQL)"><img class="cover" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/img/apache-hive-dql.png" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2018-07-03</div><div class="title">大数据手册(Hive)--HiveQL(DQL)</div></div></a></div><div><a href="/posts/d2c808ff/" title="大数据手册(Hive)--HiveQL(DML)"><img class="cover" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/img/apache-hive-dml.png" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2018-07-03</div><div class="title">大数据手册(Hive)--HiveQL(DML)</div></div></a></div></div></div><hr class="custom-hr"/><div id="post-comment"><div class="comment-head"><div class="comment-headline"><i class="fas fa-comments fa-fw"></i><span> 评论</span></div><div id="comment-switch"><span class="first-comment">Gitalk</span><span class="switch-btn"></span><span class="second-comment">Waline</span></div></div><div class="comment-wrap"><div><div id="gitalk-container"></div></div><div><div id="waline-wrap"></div></div></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="is-center"><div class="avatar-img"><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/img/avatar.jpg" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info__name">Tiny Lei</div><div class="author-info__description">每天进步一点点...</div></div><div class="card-info-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">139</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">105</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">42</div></a></div><div class="card-info-social-icons is-center"><a class="social-icon" href="https://gitee.com/wilenwu" rel="external nofollow noreferrer" target="_blank" title="Gitee"><i class="iconfont icon-gitee"></i></a><a class="social-icon" href="https://github.com/wilenwu" rel="external nofollow noreferrer" target="_blank" title="Github"><i class="iconfont icon-github"></i></a><a class="social-icon" href="https://blog.csdn.net/qq_41518277" rel="external nofollow noreferrer" target="_blank" title="CSDN"><i class="iconfont icon-csdn"></i></a><a class="social-icon" href="/atom.xml" target="_blank" title="RSS"><i class="iconfont icon-rss"></i></a></div></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>公告</span></div><div class="announcement_content">感谢访问本站，若喜欢请收藏^_^</div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%AE%89%E8%A3%85java%E7%8E%AF%E5%A2%83"><span class="toc-number">1.</span> <span class="toc-text"> 安装Java环境</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E9%85%8D%E7%BD%AEssh%E5%85%8D%E5%AF%86%E7%99%BB%E9%99%86"><span class="toc-number">2.</span> <span class="toc-text"> 配置SSH免密登陆</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%AE%89%E8%A3%85-hadoop"><span class="toc-number">3.</span> <span class="toc-text"> 安装 Hadoop</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E4%BC%AA%E5%88%86%E5%B8%83%E5%BC%8F%E7%8E%AF%E5%A2%83%E9%85%8D%E7%BD%AE"><span class="toc-number">4.</span> <span class="toc-text"> 伪分布式环境配置</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%88%86%E5%B8%83%E5%BC%8F%E9%9B%86%E7%BE%A4%E9%85%8D%E7%BD%AE%E5%85%8D%E5%AF%86%E9%92%A5%E7%99%BB%E9%99%86"><span class="toc-number">5.</span> <span class="toc-text"> 分布式集群配置免密钥登陆</span></a></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item"><a class="thumbnail" href="/posts/250f35c4/" title="大数据手册(Hadoop)--Hadoop安装配置"><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/img/apache-hadoop-cover.png" onerror="this.onerror=null;this.src='/img/404_moon.png'" alt="大数据手册(Hadoop)--Hadoop安装配置"/></a><div class="content"><a class="title" href="/posts/250f35c4/" title="大数据手册(Hadoop)--Hadoop安装配置">大数据手册(Hadoop)--Hadoop安装配置</a><time datetime="2024-01-15T14:00:00.000Z" title="发表于 2024-01-15 22:00:00">2024-01-15</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/posts/dd512a75/" title="大数据手册(Hive)--Hive安装配置"><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/img/hive-cover.jpg" onerror="this.onerror=null;this.src='/img/404_moon.png'" alt="大数据手册(Hive)--Hive安装配置"/></a><div class="content"><a class="title" href="/posts/dd512a75/" title="大数据手册(Hive)--Hive安装配置">大数据手册(Hive)--Hive安装配置</a><time datetime="2024-01-15T14:00:00.000Z" title="发表于 2024-01-15 22:00:00">2024-01-15</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/posts/d02a6da3/" title="大数据手册(Spark)--Spark安装配置"><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/img/apache-spark-overview.png" onerror="this.onerror=null;this.src='/img/404_moon.png'" alt="大数据手册(Spark)--Spark安装配置"/></a><div class="content"><a class="title" href="/posts/d02a6da3/" title="大数据手册(Spark)--Spark安装配置">大数据手册(Spark)--Spark安装配置</a><time datetime="2024-01-15T14:00:00.000Z" title="发表于 2024-01-15 22:00:00">2024-01-15</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/posts/2da646b7/" title="Mac终端配置文件"><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/img/openbook.jpg" onerror="this.onerror=null;this.src='/img/404_moon.png'" alt="Mac终端配置文件"/></a><div class="content"><a class="title" href="/posts/2da646b7/" title="Mac终端配置文件">Mac终端配置文件</a><time datetime="2024-01-12T13:59:32.000Z" title="发表于 2024-01-12 21:59:32">2024-01-12</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/posts/b557dff1/" title="数据仓库和数据湖简介"><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/img/apache-hadoop-cover.png" onerror="this.onerror=null;this.src='/img/404_moon.png'" alt="数据仓库和数据湖简介"/></a><div class="content"><a class="title" href="/posts/b557dff1/" title="数据仓库和数据湖简介">数据仓库和数据湖简介</a><time datetime="2023-12-27T13:22:00.000Z" title="发表于 2023-12-27 21:22:00">2023-12-27</time></div></div></div></div></div></div></main><footer id="footer"><div id="footer-wrap"><div class="copyright">&copy;2019 - 2024 By Tiny Lei</div><div class="framework-info"><span>框架 </span><a target="_blank" rel="noopener external nofollow noreferrer" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener external nofollow noreferrer" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside_config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><a id="to_comment" href="#post-comment" title="直达评论"><i class="fas fa-comments"></i></a><button id="go-up" type="button" title="回到顶部"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox/fancybox.umd.min.js"></script><script src="https://cdn.jsdelivr.net/npm/vanilla-lazyload/dist/lazyload.iife.min.js"></script><script>function panguFn () {
+  if (typeof pangu === 'object') pangu.autoSpacingPage()
+  else {
+    getScript('https://cdn.jsdelivr.net/npm/pangu/dist/browser/pangu.min.js')
+      .then(() => {
+        pangu.autoSpacingPage()
+      })
+  }
+}
+
+function panguInit () {
+  if (false){
+    GLOBAL_CONFIG_SITE.isPost && panguFn()
+  } else {
+    panguFn()
+  }
+}
+
+document.addEventListener('DOMContentLoaded', panguInit)</script><div class="js-pjax"><script>(() => {
+  const $mermaid = document.querySelectorAll('#article-container .mermaid-wrap')
+  if ($mermaid.length === 0) return
+  const runMermaid = () => {
+    window.loadMermaid = true
+    const theme = document.documentElement.getAttribute('data-theme') === 'dark' ? 'dark' : 'forest'
+
+    Array.from($mermaid).forEach((item, index) => {
+      const mermaidSrc = item.firstElementChild
+      const mermaidThemeConfig = '%%{init:{ \'theme\':\'' + theme + '\'}}%%\n'
+      const mermaidID = 'mermaid-' + index
+      const mermaidDefinition = mermaidThemeConfig + mermaidSrc.textContent
+
+      const renderFn = mermaid.render(mermaidID, mermaidDefinition)
+
+      const renderV10 = () => {
+        renderFn.then(({svg}) => {
+          mermaidSrc.insertAdjacentHTML('afterend', svg)
+        })
+      }
+
+      const renderV9 = svg => {
+        mermaidSrc.insertAdjacentHTML('afterend', svg)
+      }
+
+      typeof renderFn === 'string' ? renderV9(renderFn) : renderV10()
+    })
+  }
+
+  const loadMermaid = () => {
+    window.loadMermaid ? runMermaid() : getScript('https://cdn.jsdelivr.net/npm/mermaid/dist/mermaid.min.js').then(runMermaid)
+  }
+
+  btf.addModeChange('mermaid', runMermaid)
+
+  window.pjax ? loadMermaid() : document.addEventListener('DOMContentLoaded', loadMermaid)
+})()</script><script>function loadGitalk () {
+  function initGitalk () {
+    var gitalk = new Gitalk(Object.assign({
+      clientID: '7c65134b48b13f306114',
+      clientSecret: 'f049f68368a11925fdb69e57c64839eac94e13c1'',
+      repo: 'gitalk-comments',
+      owner: 'WilenWu',
+      admin: ['WilenWu'],
+      id: '33e8dba1cf7f2a73d30bfd9fe571171b',
+      updateCountCallback: commentCount
+    },null))
+
+    gitalk.render('gitalk-container')
+  }
+
+  if (typeof Gitalk === 'function') initGitalk()
+  else {
+    getCSS('https://cdn.jsdelivr.net/npm/gitalk/dist/gitalk.min.css')
+    getScript('https://cdn.jsdelivr.net/npm/gitalk/dist/gitalk.min.js').then(initGitalk)
+  }
+}
+
+function commentCount(n){
+  let isCommentCount = document.querySelector('#post-meta .gitalk-comment-count')
+  if (isCommentCount) {
+    isCommentCount.textContent= n
+  }
+}
+
+if ('Gitalk' === 'Gitalk' || !true) {
+  if (true) btf.loadComment(document.getElementById('gitalk-container'), loadGitalk)
+  else loadGitalk()
+} else {
+  function loadOtherComment () {
+    loadGitalk()
+  }
+}</script><script>function loadWaline () {
+  function initWaline () {
+    const waline = Waline.init(Object.assign({
+      el: '#waline-wrap',
+      serverURL: 'https://waline-comments-9etq63pcv-wilenwu.vercel.app',
+      pageview: false,
+      dark: 'html[data-theme="dark"]',
+      path: window.location.pathname,
+      comment: false,
+    }, {"requiredMeta":["monsterid"]}))
+  }
+
+  if (typeof Waline === 'object') initWaline()
+  else {
+    getCSS('https://cdn.jsdelivr.net/npm/@waline/client/dist/waline.min.css').then(() => {
+      getScript('https://cdn.jsdelivr.net/npm/@waline/client/dist/waline.min.js').then(initWaline)
+    })
+  }
+}
+
+if ('Gitalk' === 'Waline' || !true) {
+  if (true) btf.loadComment(document.getElementById('waline-wrap'),loadWaline)
+  else setTimeout(loadWaline, 0)
+} else {
+  function loadOtherComment () {
+    loadWaline()
+  }
+}</script></div><script src="/js/custom.js"></script><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script><div id="local-search"><div class="search-dialog"><nav class="search-nav"><span class="search-dialog-title">搜索</span><span id="loading-status"></span><button class="search-close-button"><i class="fas fa-times"></i></button></nav><div class="is-center" id="loading-database"><i class="fas fa-spinner fa-pulse"></i><span>  数据库加载中</span></div><div class="search-wrap"><div id="local-search-input"><div class="local-search-box"><input class="local-search-box--input" placeholder="搜索文章" type="text"/></div></div><hr/><div class="no-result" id="local-search-results"></div><div id="local-search-stats-wrap"></div></div></div><div id="search-mask"></div><script src="/js/search/local-search.js"></script></div></div><!-- hexo injector body_end start --><script async src="//at.alicdn.com/t/font_2032782_8d5kxvn09md.js"></script><!-- hexo injector body_end end --></body></html>

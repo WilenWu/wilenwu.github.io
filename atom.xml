@@ -6,7 +6,7 @@
   <link href="https://wilenwu.gitee.io/atom.xml" rel="self"/>
   
   <link href="https://wilenwu.gitee.io/"/>
-  <updated>2023-12-27T15:14:49.494Z</updated>
+  <updated>2024-01-16T16:09:09.883Z</updated>
   <id>https://wilenwu.gitee.io/</id>
   
   <author>
@@ -15,6 +15,130 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>大数据手册(Hadoop)--Hadoop安装配置</title>
+    <link href="https://wilenwu.gitee.io/posts/250f35c4/"/>
+    <id>https://wilenwu.gitee.io/posts/250f35c4/</id>
+    <published>2024-01-15T14:00:00.000Z</published>
+    <updated>2024-01-16T16:09:09.883Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;blockquote&gt;
+&lt;p&gt;本文默认在 zsh 终端安装配置，若使用bash终端，环境变量的配置文件相应变化。&lt;br /&gt;
+若安装包下载缓慢，可复制链接到迅雷下载，亲测极速～&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;h1 id=&quot;安装java环境&quot;&gt;&lt;a</summary>
+        
+      
+    
+    
+    
+    <category term="Big Data" scheme="https://wilenwu.gitee.io/categories/big-data/"/>
+    
+    <category term="Hadoop" scheme="https://wilenwu.gitee.io/categories/big-data/hadoop/"/>
+    
+    
+    <category term="大数据" scheme="https://wilenwu.gitee.io/tags/%E5%A4%A7%E6%95%B0%E6%8D%AE/"/>
+    
+    <category term="hadoop" scheme="https://wilenwu.gitee.io/tags/hadoop/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>大数据手册(Hive)--Hive安装配置</title>
+    <link href="https://wilenwu.gitee.io/posts/dd512a75/"/>
+    <id>https://wilenwu.gitee.io/posts/dd512a75/</id>
+    <published>2024-01-15T14:00:00.000Z</published>
+    <updated>2024-01-16T15:39:07.442Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;blockquote&gt;
+&lt;p&gt;本文默认在 zsh 终端安装配置，若使用bash终端，环境变量的配置文件相应变化。&lt;br /&gt;
+若安装包下载缓慢，可复制链接到迅雷下载，亲测极速～&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;h1 id=&quot;准备工作&quot;&gt;&lt;a</summary>
+        
+      
+    
+    
+    
+    <category term="Big Data" scheme="https://wilenwu.gitee.io/categories/big-data/"/>
+    
+    <category term="Hive" scheme="https://wilenwu.gitee.io/categories/big-data/hive/"/>
+    
+    
+    <category term="大数据" scheme="https://wilenwu.gitee.io/tags/%E5%A4%A7%E6%95%B0%E6%8D%AE/"/>
+    
+    <category term="hive" scheme="https://wilenwu.gitee.io/tags/hive/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>大数据手册(Spark)--Spark安装配置</title>
+    <link href="https://wilenwu.gitee.io/posts/d02a6da3/"/>
+    <id>https://wilenwu.gitee.io/posts/d02a6da3/</id>
+    <published>2024-01-15T14:00:00.000Z</published>
+    <updated>2024-01-16T15:39:07.443Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;blockquote&gt;
+&lt;p&gt;本文默认在 zsh 终端安装配置，若使用bash终端，环境变量的配置文件相应变化。&lt;br /&gt;
+若安装包下载缓慢，可复制链接到迅雷下载，亲测极速～&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;h1 id=&quot;准备工作&quot;&gt;&lt;a</summary>
+        
+      
+    
+    
+    
+    <category term="Big Data" scheme="https://wilenwu.gitee.io/categories/big-data/"/>
+    
+    <category term="Spark" scheme="https://wilenwu.gitee.io/categories/big-data/spark/"/>
+    
+    
+    <category term="大数据" scheme="https://wilenwu.gitee.io/tags/%E5%A4%A7%E6%95%B0%E6%8D%AE/"/>
+    
+    <category term="spark" scheme="https://wilenwu.gitee.io/tags/spark/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Mac终端配置文件</title>
+    <link href="https://wilenwu.gitee.io/posts/2da646b7/"/>
+    <id>https://wilenwu.gitee.io/posts/2da646b7/</id>
+    <published>2024-01-12T13:59:32.000Z</published>
+    <updated>2024-01-16T15:39:07.439Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;p&gt;zsh，或 Z Shell，是一个 Unix-Like 系统（如 macOS 或 Linux）下的 shell 命令行解释器。它支持强大的自动补全能力，拥有丰富的插件，具有高可定制性，而且与 bash</summary>
+        
+      
+    
+    
+    
+    <category term="General" scheme="https://wilenwu.gitee.io/categories/general/"/>
+    
+    
+    <category term="terminal" scheme="https://wilenwu.gitee.io/tags/terminal/"/>
+    
+  </entry>
   
   <entry>
     <title>数据仓库和数据湖简介</title>
@@ -45,14 +169,14 @@
   </entry>
   
   <entry>
-    <title>线性代数(下册)</title>
-    <link href="https://wilenwu.gitee.io/posts/f92cc4e9/"/>
-    <id>https://wilenwu.gitee.io/posts/f92cc4e9/</id>
+    <title>线性代数(上册)</title>
+    <link href="https://wilenwu.gitee.io/posts/40113498/"/>
+    <id>https://wilenwu.gitee.io/posts/40113498/</id>
     <published>2023-09-10T15:51:00.000Z</published>
-    <updated>2023-12-15T09:53:48.467Z</updated>
+    <updated>2023-10-04T06:44:28.924Z</updated>
     
     
-    <summary type="html">线性空间和内积、特征值与特征向量、二次型与合同、矩阵分解等</summary>
+    <summary type="html">本文从线性变换出发理解线性代数的本质</summary>
     
     
     
@@ -78,14 +202,14 @@
   </entry>
   
   <entry>
-    <title>线性代数(上册)</title>
-    <link href="https://wilenwu.gitee.io/posts/40113498/"/>
-    <id>https://wilenwu.gitee.io/posts/40113498/</id>
+    <title>线性代数(下册)</title>
+    <link href="https://wilenwu.gitee.io/posts/f92cc4e9/"/>
+    <id>https://wilenwu.gitee.io/posts/f92cc4e9/</id>
     <published>2023-09-10T15:51:00.000Z</published>
-    <updated>2023-10-04T06:44:28.924Z</updated>
+    <updated>2023-12-15T09:53:48.467Z</updated>
     
     
-    <summary type="html">本文从线性变换出发理解线性代数的本质</summary>
+    <summary type="html">线性空间和内积、特征值与特征向量、二次型与合同、矩阵分解等</summary>
     
     
     
@@ -453,110 +577,6 @@
     
     
     <category term="数学" scheme="https://wilenwu.gitee.io/tags/%E6%95%B0%E5%AD%A6/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>Git 快速参考指南</title>
-    <link href="https://wilenwu.gitee.io/posts/f48f437a/"/>
-    <id>https://wilenwu.gitee.io/posts/f48f437a/</id>
-    <published>2022-06-20T15:36:00.000Z</published>
-    <updated>2023-03-20T15:16:43.748Z</updated>
-    
-    
-      
-      
-        
-        
-    <summary type="html">&lt;h1 id=&quot;git-起步&quot;&gt;&lt;a class=&quot;markdownIt-Anchor&quot; href=&quot;#git-起步&quot;&gt;&lt;/a&gt; Git 起步&lt;/h1&gt;
-&lt;h2 id=&quot;版本控制系统&quot;&gt;&lt;a class=&quot;markdownIt-Anchor&quot;</summary>
-        
-      
-    
-    
-    
-    <category term="General" scheme="https://wilenwu.gitee.io/categories/general/"/>
-    
-    
-    <category term="git" scheme="https://wilenwu.gitee.io/tags/git/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>几种常用的曲线</title>
-    <link href="https://wilenwu.gitee.io/posts/7020ba93/"/>
-    <id>https://wilenwu.gitee.io/posts/7020ba93/</id>
-    <published>2022-04-09T13:13:01.000Z</published>
-    <updated>2023-07-17T05:00:39.290Z</updated>
-    
-    
-      
-      
-        
-        
-    <summary type="html">&lt;ol&gt;
-&lt;li&gt;笛卡儿叶形线(Folium of Descartes)，也称茉莉花瓣曲线&lt;br /&gt;
-直角坐标方程 &lt;span class=&quot;katex&quot;&gt;&lt;span</summary>
-        
-      
-    
-    
-    
-    <category term="Mathematics" scheme="https://wilenwu.gitee.io/categories/mathematics/"/>
-    
-    <category term="附录" scheme="https://wilenwu.gitee.io/categories/mathematics/%E9%99%84%E5%BD%95/"/>
-    
-    
-    <category term="数学" scheme="https://wilenwu.gitee.io/tags/%E6%95%B0%E5%AD%A6/"/>
-    
-    <category term="曲线" scheme="https://wilenwu.gitee.io/tags/%E6%9B%B2%E7%BA%BF/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>通用物理常数</title>
-    <link href="https://wilenwu.gitee.io/posts/40832a91/"/>
-    <id>https://wilenwu.gitee.io/posts/40832a91/</id>
-    <published>2022-04-06T13:27:18.000Z</published>
-    <updated>2023-07-17T05:21:16.145Z</updated>
-    
-    
-      
-      
-        
-        
-    <summary type="html">&lt;h1 id=&quot;国际单位制&quot;&gt;&lt;a class=&quot;markdownIt-Anchor&quot; href=&quot;#国际单位制&quot;&gt;&lt;/a&gt; 国际单位制&lt;/h1&gt;
-&lt;p&gt;国际单位制（The International System of</summary>
-        
-      
-    
-    
-    
-    <category term="Physics" scheme="https://wilenwu.gitee.io/categories/physics/"/>
-    
-    <category term="附录" scheme="https://wilenwu.gitee.io/categories/physics/%E9%99%84%E5%BD%95/"/>
-    
-    
-    <category term="物理" scheme="https://wilenwu.gitee.io/tags/%E7%89%A9%E7%90%86/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>Hexo 博客魔改优化方法</title>
-    <link href="https://wilenwu.gitee.io/posts/18fbd3bc/"/>
-    <id>https://wilenwu.gitee.io/posts/18fbd3bc/</id>
-    <published>2022-03-06T06:26:06.000Z</published>
-    <updated>2023-03-20T15:16:43.732Z</updated>
-    
-    
-    <summary type="html">&lt;p&gt;魔改方法千千万，作为一个小白，我是一个也不熟练！下面列出几种方法，哪条简单走那条。&lt;/p&gt;</summary>
-    
-    
-    
-    <category term="Blog" scheme="https://wilenwu.gitee.io/categories/blog/"/>
-    
-    
-    <category term="hexo" scheme="https://wilenwu.gitee.io/tags/hexo/"/>
     
   </entry>
   
