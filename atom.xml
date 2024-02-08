@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <feed xmlns="http://www.w3.org/2005/Atom">
   <title>雷小小</title>
-  <icon>https://www.tinylei.tech/icon.png</icon>
+  <icon>https://wilenwu.gitee.io/icon.png</icon>
   <subtitle>寄蜉蝣于天地，渺沧海之一粟</subtitle>
-  <link href="https://www.tinylei.tech/atom.xml" rel="self"/>
+  <link href="https://wilenwu.gitee.io/atom.xml" rel="self"/>
   
-  <link href="https://www.tinylei.tech/"/>
+  <link href="https://wilenwu.gitee.io/"/>
   <updated>2024-02-08T16:10:22.092Z</updated>
-  <id>https://www.tinylei.tech/</id>
+  <id>https://wilenwu.gitee.io/</id>
   
   <author>
     <name>Tiny Lei</name>
@@ -18,8 +18,8 @@
   
   <entry>
     <title>Python手册(Machine Learning)--LightGBM</title>
-    <link href="https://www.tinylei.tech/posts/44910830/"/>
-    <id>https://www.tinylei.tech/posts/44910830/</id>
+    <link href="https://wilenwu.gitee.io/posts/44910830/"/>
+    <id>https://wilenwu.gitee.io/posts/44910830/</id>
     <published>2024-01-25T14:15:00.000Z</published>
     <updated>2024-02-08T16:10:22.092Z</updated>
     
@@ -35,21 +35,21 @@
     
     
     
-    <category term="Python" scheme="https://www.tinylei.tech/categories/python/"/>
+    <category term="Python" scheme="https://wilenwu.gitee.io/categories/python/"/>
     
-    <category term="Machine Learning" scheme="https://www.tinylei.tech/categories/python/machine-learning/"/>
+    <category term="Machine Learning" scheme="https://wilenwu.gitee.io/categories/python/machine-learning/"/>
     
     
-    <category term="机器学习" scheme="https://www.tinylei.tech/tags/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/"/>
+    <category term="机器学习" scheme="https://wilenwu.gitee.io/tags/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/"/>
     
-    <category term="python" scheme="https://www.tinylei.tech/tags/python/"/>
+    <category term="python" scheme="https://wilenwu.gitee.io/tags/python/"/>
     
   </entry>
   
   <entry>
     <title>Python手册(Machine Learning)--XGBoost</title>
-    <link href="https://www.tinylei.tech/posts/c46d5dae/"/>
-    <id>https://www.tinylei.tech/posts/c46d5dae/</id>
+    <link href="https://wilenwu.gitee.io/posts/c46d5dae/"/>
+    <id>https://wilenwu.gitee.io/posts/c46d5dae/</id>
     <published>2024-01-25T14:15:00.000Z</published>
     <updated>2024-02-08T16:15:13.490Z</updated>
     
@@ -67,21 +67,21 @@ num_round =</summary>
     
     
     
-    <category term="Python" scheme="https://www.tinylei.tech/categories/python/"/>
+    <category term="Python" scheme="https://wilenwu.gitee.io/categories/python/"/>
     
-    <category term="Machine Learning" scheme="https://www.tinylei.tech/categories/python/machine-learning/"/>
+    <category term="Machine Learning" scheme="https://wilenwu.gitee.io/categories/python/machine-learning/"/>
     
     
-    <category term="机器学习" scheme="https://www.tinylei.tech/tags/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/"/>
+    <category term="机器学习" scheme="https://wilenwu.gitee.io/tags/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/"/>
     
-    <category term="python" scheme="https://www.tinylei.tech/tags/python/"/>
+    <category term="python" scheme="https://wilenwu.gitee.io/tags/python/"/>
     
   </entry>
   
   <entry>
     <title>大数据手册(Flink)--Flink安装配置</title>
-    <link href="https://www.tinylei.tech/posts/7ff308e2/"/>
-    <id>https://www.tinylei.tech/posts/7ff308e2/</id>
+    <link href="https://wilenwu.gitee.io/posts/7ff308e2/"/>
+    <id>https://wilenwu.gitee.io/posts/7ff308e2/</id>
     <published>2024-01-17T15:30:00.000Z</published>
     <updated>2024-01-25T15:32:49.360Z</updated>
     
@@ -100,21 +100,21 @@ num_round =</summary>
     
     
     
-    <category term="Big Data" scheme="https://www.tinylei.tech/categories/big-data/"/>
+    <category term="Big Data" scheme="https://wilenwu.gitee.io/categories/big-data/"/>
     
-    <category term="Flink" scheme="https://www.tinylei.tech/categories/big-data/flink/"/>
+    <category term="Flink" scheme="https://wilenwu.gitee.io/categories/big-data/flink/"/>
     
     
-    <category term="大数据" scheme="https://www.tinylei.tech/tags/%E5%A4%A7%E6%95%B0%E6%8D%AE/"/>
+    <category term="大数据" scheme="https://wilenwu.gitee.io/tags/%E5%A4%A7%E6%95%B0%E6%8D%AE/"/>
     
-    <category term="flink" scheme="https://www.tinylei.tech/tags/flink/"/>
+    <category term="flink" scheme="https://wilenwu.gitee.io/tags/flink/"/>
     
   </entry>
   
   <entry>
     <title>大数据手册(Kafka)--Kafka安装配置</title>
-    <link href="https://www.tinylei.tech/posts/3adf88b8/"/>
-    <id>https://www.tinylei.tech/posts/3adf88b8/</id>
+    <link href="https://wilenwu.gitee.io/posts/3adf88b8/"/>
+    <id>https://wilenwu.gitee.io/posts/3adf88b8/</id>
     <published>2024-01-17T15:30:00.000Z</published>
     <updated>2024-01-25T15:35:32.705Z</updated>
     
@@ -133,21 +133,21 @@ num_round =</summary>
     
     
     
-    <category term="Big Data" scheme="https://www.tinylei.tech/categories/big-data/"/>
+    <category term="Big Data" scheme="https://wilenwu.gitee.io/categories/big-data/"/>
     
-    <category term="Kafka" scheme="https://www.tinylei.tech/categories/big-data/kafka/"/>
+    <category term="Kafka" scheme="https://wilenwu.gitee.io/categories/big-data/kafka/"/>
     
     
-    <category term="大数据" scheme="https://www.tinylei.tech/tags/%E5%A4%A7%E6%95%B0%E6%8D%AE/"/>
+    <category term="大数据" scheme="https://wilenwu.gitee.io/tags/%E5%A4%A7%E6%95%B0%E6%8D%AE/"/>
     
-    <category term="kafka" scheme="https://www.tinylei.tech/tags/kafka/"/>
+    <category term="kafka" scheme="https://wilenwu.gitee.io/tags/kafka/"/>
     
   </entry>
   
   <entry>
     <title>大数据手册(Hadoop)--Hadoop安装配置</title>
-    <link href="https://www.tinylei.tech/posts/250f35c4/"/>
-    <id>https://www.tinylei.tech/posts/250f35c4/</id>
+    <link href="https://wilenwu.gitee.io/posts/250f35c4/"/>
+    <id>https://wilenwu.gitee.io/posts/250f35c4/</id>
     <published>2024-01-15T14:00:00.000Z</published>
     <updated>2024-01-18T16:26:32.815Z</updated>
     
@@ -166,21 +166,21 @@ num_round =</summary>
     
     
     
-    <category term="Big Data" scheme="https://www.tinylei.tech/categories/big-data/"/>
+    <category term="Big Data" scheme="https://wilenwu.gitee.io/categories/big-data/"/>
     
-    <category term="Hadoop" scheme="https://www.tinylei.tech/categories/big-data/hadoop/"/>
+    <category term="Hadoop" scheme="https://wilenwu.gitee.io/categories/big-data/hadoop/"/>
     
     
-    <category term="大数据" scheme="https://www.tinylei.tech/tags/%E5%A4%A7%E6%95%B0%E6%8D%AE/"/>
+    <category term="大数据" scheme="https://wilenwu.gitee.io/tags/%E5%A4%A7%E6%95%B0%E6%8D%AE/"/>
     
-    <category term="hadoop" scheme="https://www.tinylei.tech/tags/hadoop/"/>
+    <category term="hadoop" scheme="https://wilenwu.gitee.io/tags/hadoop/"/>
     
   </entry>
   
   <entry>
     <title>大数据手册(Hive)--Hive安装配置</title>
-    <link href="https://www.tinylei.tech/posts/dd512a75/"/>
-    <id>https://www.tinylei.tech/posts/dd512a75/</id>
+    <link href="https://wilenwu.gitee.io/posts/dd512a75/"/>
+    <id>https://wilenwu.gitee.io/posts/dd512a75/</id>
     <published>2024-01-15T14:00:00.000Z</published>
     <updated>2024-01-28T04:55:53.125Z</updated>
     
@@ -199,21 +199,21 @@ num_round =</summary>
     
     
     
-    <category term="Big Data" scheme="https://www.tinylei.tech/categories/big-data/"/>
+    <category term="Big Data" scheme="https://wilenwu.gitee.io/categories/big-data/"/>
     
-    <category term="Hive" scheme="https://www.tinylei.tech/categories/big-data/hive/"/>
+    <category term="Hive" scheme="https://wilenwu.gitee.io/categories/big-data/hive/"/>
     
     
-    <category term="大数据" scheme="https://www.tinylei.tech/tags/%E5%A4%A7%E6%95%B0%E6%8D%AE/"/>
+    <category term="大数据" scheme="https://wilenwu.gitee.io/tags/%E5%A4%A7%E6%95%B0%E6%8D%AE/"/>
     
-    <category term="hive" scheme="https://www.tinylei.tech/tags/hive/"/>
+    <category term="hive" scheme="https://wilenwu.gitee.io/tags/hive/"/>
     
   </entry>
   
   <entry>
     <title>大数据手册(Spark)--Spark安装配置</title>
-    <link href="https://www.tinylei.tech/posts/d02a6da3/"/>
-    <id>https://www.tinylei.tech/posts/d02a6da3/</id>
+    <link href="https://wilenwu.gitee.io/posts/d02a6da3/"/>
+    <id>https://wilenwu.gitee.io/posts/d02a6da3/</id>
     <published>2024-01-15T14:00:00.000Z</published>
     <updated>2024-01-29T13:27:25.549Z</updated>
     
@@ -232,21 +232,21 @@ num_round =</summary>
     
     
     
-    <category term="Big Data" scheme="https://www.tinylei.tech/categories/big-data/"/>
+    <category term="Big Data" scheme="https://wilenwu.gitee.io/categories/big-data/"/>
     
-    <category term="Spark" scheme="https://www.tinylei.tech/categories/big-data/spark/"/>
+    <category term="Spark" scheme="https://wilenwu.gitee.io/categories/big-data/spark/"/>
     
     
-    <category term="大数据" scheme="https://www.tinylei.tech/tags/%E5%A4%A7%E6%95%B0%E6%8D%AE/"/>
+    <category term="大数据" scheme="https://wilenwu.gitee.io/tags/%E5%A4%A7%E6%95%B0%E6%8D%AE/"/>
     
-    <category term="spark" scheme="https://www.tinylei.tech/tags/spark/"/>
+    <category term="spark" scheme="https://wilenwu.gitee.io/tags/spark/"/>
     
   </entry>
   
   <entry>
     <title>Mac终端配置文件</title>
-    <link href="https://www.tinylei.tech/posts/2da646b7/"/>
-    <id>https://www.tinylei.tech/posts/2da646b7/</id>
+    <link href="https://wilenwu.gitee.io/posts/2da646b7/"/>
+    <id>https://wilenwu.gitee.io/posts/2da646b7/</id>
     <published>2024-01-12T13:59:32.000Z</published>
     <updated>2024-01-16T15:39:07.439Z</updated>
     
@@ -261,17 +261,17 @@ num_round =</summary>
     
     
     
-    <category term="General" scheme="https://www.tinylei.tech/categories/general/"/>
+    <category term="General" scheme="https://wilenwu.gitee.io/categories/general/"/>
     
     
-    <category term="terminal" scheme="https://www.tinylei.tech/tags/terminal/"/>
+    <category term="terminal" scheme="https://wilenwu.gitee.io/tags/terminal/"/>
     
   </entry>
   
   <entry>
     <title>数据仓库和数据湖简介</title>
-    <link href="https://www.tinylei.tech/posts/b557dff1/"/>
-    <id>https://www.tinylei.tech/posts/b557dff1/</id>
+    <link href="https://wilenwu.gitee.io/posts/b557dff1/"/>
+    <id>https://wilenwu.gitee.io/posts/b557dff1/</id>
     <published>2023-12-27T13:22:00.000Z</published>
     <updated>2023-12-27T15:14:49.494Z</updated>
     
@@ -287,19 +287,19 @@ num_round =</summary>
     
     
     
-    <category term="Big Data" scheme="https://www.tinylei.tech/categories/big-data/"/>
+    <category term="Big Data" scheme="https://wilenwu.gitee.io/categories/big-data/"/>
     
-    <category term="Hadoop" scheme="https://www.tinylei.tech/categories/big-data/hadoop/"/>
+    <category term="Hadoop" scheme="https://wilenwu.gitee.io/categories/big-data/hadoop/"/>
     
     
-    <category term="大数据" scheme="https://www.tinylei.tech/tags/%E5%A4%A7%E6%95%B0%E6%8D%AE/"/>
+    <category term="大数据" scheme="https://wilenwu.gitee.io/tags/%E5%A4%A7%E6%95%B0%E6%8D%AE/"/>
     
   </entry>
   
   <entry>
     <title>线性代数(上册)</title>
-    <link href="https://www.tinylei.tech/posts/40113498/"/>
-    <id>https://www.tinylei.tech/posts/40113498/</id>
+    <link href="https://wilenwu.gitee.io/posts/40113498/"/>
+    <id>https://wilenwu.gitee.io/posts/40113498/</id>
     <published>2023-09-10T15:51:00.000Z</published>
     <updated>2023-10-04T06:44:28.924Z</updated>
     
@@ -308,31 +308,31 @@ num_round =</summary>
     
     
     
-    <category term="Mathematics" scheme="https://www.tinylei.tech/categories/mathematics/"/>
+    <category term="Mathematics" scheme="https://wilenwu.gitee.io/categories/mathematics/"/>
     
-    <category term="现代数学" scheme="https://www.tinylei.tech/categories/mathematics/%E7%8E%B0%E4%BB%A3%E6%95%B0%E5%AD%A6/"/>
+    <category term="现代数学" scheme="https://wilenwu.gitee.io/categories/mathematics/%E7%8E%B0%E4%BB%A3%E6%95%B0%E5%AD%A6/"/>
     
     
-    <category term="数学" scheme="https://www.tinylei.tech/tags/%E6%95%B0%E5%AD%A6/"/>
+    <category term="数学" scheme="https://wilenwu.gitee.io/tags/%E6%95%B0%E5%AD%A6/"/>
     
-    <category term="线性代数" scheme="https://www.tinylei.tech/tags/%E7%BA%BF%E6%80%A7%E4%BB%A3%E6%95%B0/"/>
+    <category term="线性代数" scheme="https://wilenwu.gitee.io/tags/%E7%BA%BF%E6%80%A7%E4%BB%A3%E6%95%B0/"/>
     
-    <category term="矩阵" scheme="https://www.tinylei.tech/tags/%E7%9F%A9%E9%98%B5/"/>
+    <category term="矩阵" scheme="https://wilenwu.gitee.io/tags/%E7%9F%A9%E9%98%B5/"/>
     
-    <category term="特征值" scheme="https://www.tinylei.tech/tags/%E7%89%B9%E5%BE%81%E5%80%BC/"/>
+    <category term="特征值" scheme="https://wilenwu.gitee.io/tags/%E7%89%B9%E5%BE%81%E5%80%BC/"/>
     
-    <category term="特征向量" scheme="https://www.tinylei.tech/tags/%E7%89%B9%E5%BE%81%E5%90%91%E9%87%8F/"/>
+    <category term="特征向量" scheme="https://wilenwu.gitee.io/tags/%E7%89%B9%E5%BE%81%E5%90%91%E9%87%8F/"/>
     
-    <category term="线性变换" scheme="https://www.tinylei.tech/tags/%E7%BA%BF%E6%80%A7%E5%8F%98%E6%8D%A2/"/>
+    <category term="线性变换" scheme="https://wilenwu.gitee.io/tags/%E7%BA%BF%E6%80%A7%E5%8F%98%E6%8D%A2/"/>
     
-    <category term="二次型" scheme="https://www.tinylei.tech/tags/%E4%BA%8C%E6%AC%A1%E5%9E%8B/"/>
+    <category term="二次型" scheme="https://wilenwu.gitee.io/tags/%E4%BA%8C%E6%AC%A1%E5%9E%8B/"/>
     
   </entry>
   
   <entry>
     <title>线性代数(下册)</title>
-    <link href="https://www.tinylei.tech/posts/f92cc4e9/"/>
-    <id>https://www.tinylei.tech/posts/f92cc4e9/</id>
+    <link href="https://wilenwu.gitee.io/posts/f92cc4e9/"/>
+    <id>https://wilenwu.gitee.io/posts/f92cc4e9/</id>
     <published>2023-09-10T15:51:00.000Z</published>
     <updated>2023-12-15T09:53:48.467Z</updated>
     
@@ -341,54 +341,54 @@ num_round =</summary>
     
     
     
-    <category term="Mathematics" scheme="https://www.tinylei.tech/categories/mathematics/"/>
+    <category term="Mathematics" scheme="https://wilenwu.gitee.io/categories/mathematics/"/>
     
-    <category term="现代数学" scheme="https://www.tinylei.tech/categories/mathematics/%E7%8E%B0%E4%BB%A3%E6%95%B0%E5%AD%A6/"/>
+    <category term="现代数学" scheme="https://wilenwu.gitee.io/categories/mathematics/%E7%8E%B0%E4%BB%A3%E6%95%B0%E5%AD%A6/"/>
     
     
-    <category term="数学" scheme="https://www.tinylei.tech/tags/%E6%95%B0%E5%AD%A6/"/>
+    <category term="数学" scheme="https://wilenwu.gitee.io/tags/%E6%95%B0%E5%AD%A6/"/>
     
-    <category term="线性代数" scheme="https://www.tinylei.tech/tags/%E7%BA%BF%E6%80%A7%E4%BB%A3%E6%95%B0/"/>
+    <category term="线性代数" scheme="https://wilenwu.gitee.io/tags/%E7%BA%BF%E6%80%A7%E4%BB%A3%E6%95%B0/"/>
     
-    <category term="矩阵" scheme="https://www.tinylei.tech/tags/%E7%9F%A9%E9%98%B5/"/>
+    <category term="矩阵" scheme="https://wilenwu.gitee.io/tags/%E7%9F%A9%E9%98%B5/"/>
     
-    <category term="特征值" scheme="https://www.tinylei.tech/tags/%E7%89%B9%E5%BE%81%E5%80%BC/"/>
+    <category term="特征值" scheme="https://wilenwu.gitee.io/tags/%E7%89%B9%E5%BE%81%E5%80%BC/"/>
     
-    <category term="特征向量" scheme="https://www.tinylei.tech/tags/%E7%89%B9%E5%BE%81%E5%90%91%E9%87%8F/"/>
+    <category term="特征向量" scheme="https://wilenwu.gitee.io/tags/%E7%89%B9%E5%BE%81%E5%90%91%E9%87%8F/"/>
     
-    <category term="线性变换" scheme="https://www.tinylei.tech/tags/%E7%BA%BF%E6%80%A7%E5%8F%98%E6%8D%A2/"/>
+    <category term="线性变换" scheme="https://wilenwu.gitee.io/tags/%E7%BA%BF%E6%80%A7%E5%8F%98%E6%8D%A2/"/>
     
-    <category term="二次型" scheme="https://www.tinylei.tech/tags/%E4%BA%8C%E6%AC%A1%E5%9E%8B/"/>
+    <category term="二次型" scheme="https://wilenwu.gitee.io/tags/%E4%BA%8C%E6%AC%A1%E5%9E%8B/"/>
     
   </entry>
   
   <entry>
     <title>大数据手册(Spark)--Pandas API on Spark</title>
-    <link href="https://www.tinylei.tech/posts/f67b0909/"/>
-    <id>https://www.tinylei.tech/posts/f67b0909/</id>
+    <link href="https://wilenwu.gitee.io/posts/f67b0909/"/>
+    <id>https://wilenwu.gitee.io/posts/f67b0909/</id>
     <published>2023-06-07T15:09:56.599Z</published>
     <updated>2023-03-20T15:16:43.717Z</updated>
     
     
     
     
-    <category term="Big Data" scheme="https://www.tinylei.tech/categories/big-data/"/>
+    <category term="Big Data" scheme="https://wilenwu.gitee.io/categories/big-data/"/>
     
-    <category term="Spark" scheme="https://www.tinylei.tech/categories/big-data/spark/"/>
+    <category term="Spark" scheme="https://wilenwu.gitee.io/categories/big-data/spark/"/>
     
     
-    <category term="大数据" scheme="https://www.tinylei.tech/tags/%E5%A4%A7%E6%95%B0%E6%8D%AE/"/>
+    <category term="大数据" scheme="https://wilenwu.gitee.io/tags/%E5%A4%A7%E6%95%B0%E6%8D%AE/"/>
     
-    <category term="spark" scheme="https://www.tinylei.tech/tags/spark/"/>
+    <category term="spark" scheme="https://wilenwu.gitee.io/tags/spark/"/>
     
-    <category term="python" scheme="https://www.tinylei.tech/tags/python/"/>
+    <category term="python" scheme="https://wilenwu.gitee.io/tags/python/"/>
     
   </entry>
   
   <entry>
     <title>机器学习(V)--无监督学习</title>
-    <link href="https://www.tinylei.tech/posts/43ce4abf/"/>
-    <id>https://www.tinylei.tech/posts/43ce4abf/</id>
+    <link href="https://wilenwu.gitee.io/posts/43ce4abf/"/>
+    <id>https://wilenwu.gitee.io/posts/43ce4abf/</id>
     <published>2023-06-07T14:20:00.000Z</published>
     <updated>2023-10-06T12:34:39.164Z</updated>
     
@@ -403,19 +403,19 @@ num_round =</summary>
     
     
     
-    <category term="Artificial Intelligence" scheme="https://www.tinylei.tech/categories/artificial-intelligence/"/>
+    <category term="Artificial Intelligence" scheme="https://wilenwu.gitee.io/categories/artificial-intelligence/"/>
     
-    <category term="Machine Learning" scheme="https://www.tinylei.tech/categories/artificial-intelligence/machine-learning/"/>
+    <category term="Machine Learning" scheme="https://wilenwu.gitee.io/categories/artificial-intelligence/machine-learning/"/>
     
     
-    <category term="机器学习" scheme="https://www.tinylei.tech/tags/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/"/>
+    <category term="机器学习" scheme="https://wilenwu.gitee.io/tags/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/"/>
     
   </entry>
   
   <entry>
     <title>机器学习(II)--数据预处理</title>
-    <link href="https://www.tinylei.tech/posts/5faa8f40/"/>
-    <id>https://www.tinylei.tech/posts/5faa8f40/</id>
+    <link href="https://wilenwu.gitee.io/posts/5faa8f40/"/>
+    <id>https://wilenwu.gitee.io/posts/5faa8f40/</id>
     <published>2023-05-03T06:36:00.000Z</published>
     <updated>2023-12-27T15:24:40.665Z</updated>
     
@@ -431,19 +431,19 @@ num_round =</summary>
     
     
     
-    <category term="Artificial Intelligence" scheme="https://www.tinylei.tech/categories/artificial-intelligence/"/>
+    <category term="Artificial Intelligence" scheme="https://wilenwu.gitee.io/categories/artificial-intelligence/"/>
     
-    <category term="Machine Learning" scheme="https://www.tinylei.tech/categories/artificial-intelligence/machine-learning/"/>
+    <category term="Machine Learning" scheme="https://wilenwu.gitee.io/categories/artificial-intelligence/machine-learning/"/>
     
     
-    <category term="机器学习" scheme="https://www.tinylei.tech/tags/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/"/>
+    <category term="机器学习" scheme="https://wilenwu.gitee.io/tags/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/"/>
     
   </entry>
   
   <entry>
     <title>机器学习(I)--基础知识</title>
-    <link href="https://www.tinylei.tech/posts/8638abf9/"/>
-    <id>https://www.tinylei.tech/posts/8638abf9/</id>
+    <link href="https://wilenwu.gitee.io/posts/8638abf9/"/>
+    <id>https://wilenwu.gitee.io/posts/8638abf9/</id>
     <published>2023-05-02T06:36:00.000Z</published>
     <updated>2023-06-28T11:34:44.679Z</updated>
     
@@ -459,19 +459,19 @@ num_round =</summary>
     
     
     
-    <category term="Artificial Intelligence" scheme="https://www.tinylei.tech/categories/artificial-intelligence/"/>
+    <category term="Artificial Intelligence" scheme="https://wilenwu.gitee.io/categories/artificial-intelligence/"/>
     
-    <category term="Machine Learning" scheme="https://www.tinylei.tech/categories/artificial-intelligence/machine-learning/"/>
+    <category term="Machine Learning" scheme="https://wilenwu.gitee.io/categories/artificial-intelligence/machine-learning/"/>
     
     
-    <category term="机器学习" scheme="https://www.tinylei.tech/tags/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/"/>
+    <category term="机器学习" scheme="https://wilenwu.gitee.io/tags/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/"/>
     
   </entry>
   
   <entry>
     <title>看不懂的数字</title>
-    <link href="https://www.tinylei.tech/posts/12a72af8/"/>
-    <id>https://www.tinylei.tech/posts/12a72af8/</id>
+    <link href="https://wilenwu.gitee.io/posts/12a72af8/"/>
+    <id>https://wilenwu.gitee.io/posts/12a72af8/</id>
     <published>2023-04-22T03:17:17.000Z</published>
     <updated>2023-04-30T15:00:32.601Z</updated>
     
@@ -487,17 +487,17 @@ num_round =</summary>
     
     
     
-    <category term="General" scheme="https://www.tinylei.tech/categories/general/"/>
+    <category term="General" scheme="https://wilenwu.gitee.io/categories/general/"/>
     
     
-    <category term="数字" scheme="https://www.tinylei.tech/tags/%E6%95%B0%E5%AD%97/"/>
+    <category term="数字" scheme="https://wilenwu.gitee.io/tags/%E6%95%B0%E5%AD%97/"/>
     
   </entry>
   
   <entry>
     <title>机器学习(III)--模型选择与评估</title>
-    <link href="https://www.tinylei.tech/posts/cc734464/"/>
-    <id>https://www.tinylei.tech/posts/cc734464/</id>
+    <link href="https://wilenwu.gitee.io/posts/cc734464/"/>
+    <id>https://wilenwu.gitee.io/posts/cc734464/</id>
     <published>2022-11-27T13:40:00.000Z</published>
     <updated>2024-01-29T12:38:18.930Z</updated>
     
@@ -513,25 +513,25 @@ num_round =</summary>
     
     
     
-    <category term="Artificial Intelligence" scheme="https://www.tinylei.tech/categories/artificial-intelligence/"/>
+    <category term="Artificial Intelligence" scheme="https://wilenwu.gitee.io/categories/artificial-intelligence/"/>
     
-    <category term="Machine Learning" scheme="https://www.tinylei.tech/categories/artificial-intelligence/machine-learning/"/>
+    <category term="Machine Learning" scheme="https://wilenwu.gitee.io/categories/artificial-intelligence/machine-learning/"/>
     
     
-    <category term="机器学习" scheme="https://www.tinylei.tech/tags/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/"/>
+    <category term="机器学习" scheme="https://wilenwu.gitee.io/tags/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/"/>
     
-    <category term="模型评估" scheme="https://www.tinylei.tech/tags/%E6%A8%A1%E5%9E%8B%E8%AF%84%E4%BC%B0/"/>
+    <category term="模型评估" scheme="https://wilenwu.gitee.io/tags/%E6%A8%A1%E5%9E%8B%E8%AF%84%E4%BC%B0/"/>
     
-    <category term="混淆矩阵" scheme="https://www.tinylei.tech/tags/%E6%B7%B7%E6%B7%86%E7%9F%A9%E9%98%B5/"/>
+    <category term="混淆矩阵" scheme="https://wilenwu.gitee.io/tags/%E6%B7%B7%E6%B7%86%E7%9F%A9%E9%98%B5/"/>
     
-    <category term="roc曲线" scheme="https://www.tinylei.tech/tags/roc%E6%9B%B2%E7%BA%BF/"/>
+    <category term="roc曲线" scheme="https://wilenwu.gitee.io/tags/roc%E6%9B%B2%E7%BA%BF/"/>
     
   </entry>
   
   <entry>
     <title>机器学习(IV)--监督学习</title>
-    <link href="https://www.tinylei.tech/posts/3c1747d9/"/>
-    <id>https://www.tinylei.tech/posts/3c1747d9/</id>
+    <link href="https://wilenwu.gitee.io/posts/3c1747d9/"/>
+    <id>https://wilenwu.gitee.io/posts/3c1747d9/</id>
     <published>2022-11-27T13:40:00.000Z</published>
     <updated>2023-06-29T04:17:03.201Z</updated>
     
@@ -546,19 +546,19 @@ num_round =</summary>
     
     
     
-    <category term="Artificial Intelligence" scheme="https://www.tinylei.tech/categories/artificial-intelligence/"/>
+    <category term="Artificial Intelligence" scheme="https://wilenwu.gitee.io/categories/artificial-intelligence/"/>
     
-    <category term="Machine Learning" scheme="https://www.tinylei.tech/categories/artificial-intelligence/machine-learning/"/>
+    <category term="Machine Learning" scheme="https://wilenwu.gitee.io/categories/artificial-intelligence/machine-learning/"/>
     
     
-    <category term="机器学习" scheme="https://www.tinylei.tech/tags/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/"/>
+    <category term="机器学习" scheme="https://wilenwu.gitee.io/tags/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/"/>
     
   </entry>
   
   <entry>
     <title>Progress Bars with Python</title>
-    <link href="https://www.tinylei.tech/posts/6fe4228f/"/>
-    <id>https://www.tinylei.tech/posts/6fe4228f/</id>
+    <link href="https://wilenwu.gitee.io/posts/6fe4228f/"/>
+    <id>https://wilenwu.gitee.io/posts/6fe4228f/</id>
     <published>2022-08-18T14:16:33.000Z</published>
     <updated>2024-02-04T16:48:37.636Z</updated>
     
@@ -567,19 +567,19 @@ num_round =</summary>
     
     
     
-    <category term="Python" scheme="https://www.tinylei.tech/categories/python/"/>
+    <category term="Python" scheme="https://wilenwu.gitee.io/categories/python/"/>
     
-    <category term="General" scheme="https://www.tinylei.tech/categories/python/general/"/>
+    <category term="General" scheme="https://wilenwu.gitee.io/categories/python/general/"/>
     
     
-    <category term="python" scheme="https://www.tinylei.tech/tags/python/"/>
+    <category term="python" scheme="https://wilenwu.gitee.io/tags/python/"/>
     
   </entry>
   
   <entry>
     <title>固有洛伦兹变换的严格推导</title>
-    <link href="https://www.tinylei.tech/posts/55b8eadb/"/>
-    <id>https://www.tinylei.tech/posts/55b8eadb/</id>
+    <link href="https://wilenwu.gitee.io/posts/55b8eadb/"/>
+    <id>https://wilenwu.gitee.io/posts/55b8eadb/</id>
     <published>2022-07-24T10:41:28.000Z</published>
     <updated>2023-07-17T04:51:56.669Z</updated>
     
@@ -588,16 +588,16 @@ num_round =</summary>
     
     
     
-    <category term="Physics" scheme="https://www.tinylei.tech/categories/physics/"/>
+    <category term="Physics" scheme="https://wilenwu.gitee.io/categories/physics/"/>
     
-    <category term="附录" scheme="https://www.tinylei.tech/categories/physics/%E9%99%84%E5%BD%95/"/>
+    <category term="附录" scheme="https://wilenwu.gitee.io/categories/physics/%E9%99%84%E5%BD%95/"/>
     
     
-    <category term="物理" scheme="https://www.tinylei.tech/tags/%E7%89%A9%E7%90%86/"/>
+    <category term="物理" scheme="https://wilenwu.gitee.io/tags/%E7%89%A9%E7%90%86/"/>
     
-    <category term="相对论" scheme="https://www.tinylei.tech/tags/%E7%9B%B8%E5%AF%B9%E8%AE%BA/"/>
+    <category term="相对论" scheme="https://wilenwu.gitee.io/tags/%E7%9B%B8%E5%AF%B9%E8%AE%BA/"/>
     
-    <category term="洛伦兹变换" scheme="https://www.tinylei.tech/tags/%E6%B4%9B%E4%BC%A6%E5%85%B9%E5%8F%98%E6%8D%A2/"/>
+    <category term="洛伦兹变换" scheme="https://wilenwu.gitee.io/tags/%E6%B4%9B%E4%BC%A6%E5%85%B9%E5%8F%98%E6%8D%A2/"/>
     
   </entry>
   
