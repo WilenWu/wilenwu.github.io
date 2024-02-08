@@ -1,18 +1,18 @@
 <!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0,viewport-fit=cover"><title>Python手册(Machine Learning)--sklearn | 雷小小</title><meta name="author" content="Tiny Lei"><meta name="copyright" content="Tiny Lei"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="基于 SciPy 构建的机器学习 Python 模块">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Python手册(Machine Learning)--sklearn">
-<meta property="og:url" content="https://wilenwu.gitee.io/posts/861261b5/index.html">
+<meta property="og:url" content="https://www.tinylei.tech/posts/861261b5/index.html">
 <meta property="og:site_name" content="雷小小">
 <meta property="og:description" content="基于 SciPy 构建的机器学习 Python 模块">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="https://wilenwu.gitee.io/img/sklearn-cover.svg">
+<meta property="og:image" content="https://www.tinylei.tech/img/sklearn-cover.svg">
 <meta property="article:published_time" content="2018-05-10T15:08:52.000Z">
-<meta property="article:modified_time" content="2023-12-15T09:53:13.216Z">
+<meta property="article:modified_time" content="2024-02-08T15:22:35.794Z">
 <meta property="article:author" content="Tiny Lei">
 <meta property="article:tag" content="机器学习">
 <meta property="article:tag" content="python">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="https://wilenwu.gitee.io/img/sklearn-cover.svg"><link rel="shortcut icon" href="/img/favicon.png"><link rel="canonical" href="https://wilenwu.gitee.io/posts/861261b5/index.html"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//hm.baidu.com"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><meta name="baidu-site-verification" content="code-7rymn5Bitx"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox/fancybox.min.css" media="print" onload="this.media='all'"><script>var _hmt = _hmt || [];
+<meta name="twitter:image" content="https://www.tinylei.tech/img/sklearn-cover.svg"><link rel="shortcut icon" href="/img/favicon.png"><link rel="canonical" href="https://www.tinylei.tech/posts/861261b5/index.html"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//hm.baidu.com"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><meta name="baidu-site-verification" content="code-7rymn5Bitx"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox/fancybox.min.css" media="print" onload="this.media='all'"><script>var _hmt = _hmt || [];
 (function() {
   var hm = document.createElement("script");
   hm.src = "https://hm.baidu.com/hm.js?654e7415ab55bed7c9c2bc6d665f03c5";
@@ -66,7 +66,7 @@
   isHome: false,
   isHighlightShrink: false,
   isToc: true,
-  postUpdate: '2023-12-15 17:53:13'
+  postUpdate: '2024-02-08 23:22:35'
 }</script><noscript><style type="text/css">
   #nav {
     opacity: 1
@@ -171,7 +171,10 @@
     }
     detectApple()
     })(window)</script><link rel="stylesheet" href="//at.alicdn.com/t/font_2849223_xh1ftc8qym.css"><link rel="stylesheet" href="/css/link-card.css"><!-- hexo injector head_end start --><link rel="stylesheet" href="https://npm.elemecdn.com/hexo-butterfly-tag-plugins-plus@latest/lib/assets/font-awesome-animation.min.css" media="defer" onload="this.media='all'"><link rel="stylesheet" href="https://npm.elemecdn.com/hexo-butterfly-tag-plugins-plus@latest/lib/tag_plugins.css" media="defer" onload="this.media='all'"><script src="https://npm.elemecdn.com/hexo-butterfly-tag-plugins-plus@latest/lib/assets/carousel-touch.js"></script><!-- hexo injector head_end end --><meta name="generator" content="Hexo 6.0.0"><link rel="alternate" href="/atom.xml" title="雷小小" type="application/atom+xml">
-</head><body><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/img/avatar.jpg" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="sidebar-site-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">139</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">105</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">42</div></a></div><hr class="custom-hr"/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/user-guide/"><i class="fa-fw fa fa-compass"></i><span> 用户指南</span></a></div><div class="menus_item"><a class="site-page group hide" href="javascript:void(0);" rel="external nofollow noreferrer"><i class="fa-fw fa fa-book"></i><span> 文档</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></li><li><a class="site-page child" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 归档</span></a></li><li><a class="site-page child" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/gallery/"><i class="fa-fw fa fa-images"></i><span> 图库</span></a></div><div class="menus_item"><a class="site-page" href="/ebook/"><i class="fa-fw fa fa-book-reader"></i><span> 电子书</span></a></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-star"></i><span> 收藏夹</span></a></div><div class="menus_item"><a class="site-page group hide" href="javascript:void(0);" rel="external nofollow noreferrer"><i class="fa-fw fa-solid fa-circle-chevron-down"></i><span> 更多</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/about/"><i class="fa-fw fa fa-user"></i><span> 关于我</span></a></li><li><a class="site-page child" href="/analytics/"><i class="fa-fw fa fa-line-chart"></i><span> 文章统计</span></a></li><li><a class="site-page child" href="/log/"><i class="fa-fw fa fa-history"></i><span> 更新日志</span></a></li></ul></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url('/img/sklearn-top-img.svg')"><nav id="nav"><span id="blog-info"><a href="/" title="雷小小"><img class="site-icon" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/img/favicon.png"/><span class="site-name">雷小小</span></a></span><div id="menus"><div id="search-button"><a class="site-page social-icon search" href="javascript:void(0);" rel="external nofollow noreferrer"><i class="fas fa-search fa-fw"></i><span> 搜索</span></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/user-guide/"><i class="fa-fw fa fa-compass"></i><span> 用户指南</span></a></div><div class="menus_item"><a class="site-page group hide" href="javascript:void(0);" rel="external nofollow noreferrer"><i class="fa-fw fa fa-book"></i><span> 文档</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></li><li><a class="site-page child" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 归档</span></a></li><li><a class="site-page child" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/gallery/"><i class="fa-fw fa fa-images"></i><span> 图库</span></a></div><div class="menus_item"><a class="site-page" href="/ebook/"><i class="fa-fw fa fa-book-reader"></i><span> 电子书</span></a></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-star"></i><span> 收藏夹</span></a></div><div class="menus_item"><a class="site-page group hide" href="javascript:void(0);" rel="external nofollow noreferrer"><i class="fa-fw fa-solid fa-circle-chevron-down"></i><span> 更多</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/about/"><i class="fa-fw fa fa-user"></i><span> 关于我</span></a></li><li><a class="site-page child" href="/analytics/"><i class="fa-fw fa fa-line-chart"></i><span> 文章统计</span></a></li><li><a class="site-page child" href="/log/"><i class="fa-fw fa fa-history"></i><span> 更新日志</span></a></li></ul></div></div><div id="toggle-menu"><a class="site-page" href="javascript:void(0);" rel="external nofollow noreferrer"><i class="fas fa-bars fa-fw"></i></a></div></div></nav><div id="post-info"><h1 class="post-title">Python手册(Machine Learning)--sklearn<a class="post-edit-link" href="https://gitee.com/WilenWu/myblog/edit/master/source/_posts/python/Python(Machine-Learning)--sklearn.md" rel="external nofollow noreferrer" title="编辑" target="_blank"><i class="fas fa-pencil-alt"></i></a></h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2018-05-10T15:08:52.000Z" title="发表于 2018-05-10 23:08:52">2018-05-10</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2023-12-15T09:53:13.216Z" title="更新于 2023-12-15 17:53:13">2023-12-15</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/python/">Python</a><i class="fas fa-angle-right post-meta-separator"></i><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/python/machine-learning/">Machine Learning</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-wordcount"><i class="far fa-file-word fa-fw post-meta-icon"></i><span class="post-meta-label">字数总计:</span><span class="word-count">2.5k</span><span class="post-meta-separator">|</span><i class="far fa-clock fa-fw post-meta-icon"></i><span class="post-meta-label">阅读时长:</span><span>10分钟</span></span><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title="Python手册(Machine Learning)--sklearn"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">阅读量:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container"><p><a target="_blank" rel="noopener external nofollow noreferrer" href="https://sklearn.apachecn.org/"><strong>Scikit-Learn</strong></a>: The most popular and widely used library for machine learning in Python.</p>
+</head><body><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/img/avatar.jpg" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="sidebar-site-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">140</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">105</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">43</div></a></div><hr class="custom-hr"/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/user-guide/"><i class="fa-fw fa fa-compass"></i><span> 用户指南</span></a></div><div class="menus_item"><a class="site-page group hide" href="javascript:void(0);" rel="external nofollow noreferrer"><i class="fa-fw fa fa-book"></i><span> 文档</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></li><li><a class="site-page child" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 归档</span></a></li><li><a class="site-page child" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/gallery/"><i class="fa-fw fa fa-images"></i><span> 图库</span></a></div><div class="menus_item"><a class="site-page" href="/ebook/"><i class="fa-fw fa fa-book-reader"></i><span> 电子书</span></a></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-star"></i><span> 收藏夹</span></a></div><div class="menus_item"><a class="site-page group hide" href="javascript:void(0);" rel="external nofollow noreferrer"><i class="fa-fw fa-solid fa-circle-chevron-down"></i><span> 更多</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/about/"><i class="fa-fw fa fa-user"></i><span> 关于我</span></a></li><li><a class="site-page child" href="/analytics/"><i class="fa-fw fa fa-line-chart"></i><span> 文章统计</span></a></li><li><a class="site-page child" href="/log/"><i class="fa-fw fa fa-history"></i><span> 更新日志</span></a></li></ul></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url('/img/sklearn-top-img.svg')"><nav id="nav"><span id="blog-info"><a href="/" title="雷小小"><img class="site-icon" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/img/favicon.png"/><span class="site-name">雷小小</span></a></span><div id="menus"><div id="search-button"><a class="site-page social-icon search" href="javascript:void(0);" rel="external nofollow noreferrer"><i class="fas fa-search fa-fw"></i><span> 搜索</span></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/user-guide/"><i class="fa-fw fa fa-compass"></i><span> 用户指南</span></a></div><div class="menus_item"><a class="site-page group hide" href="javascript:void(0);" rel="external nofollow noreferrer"><i class="fa-fw fa fa-book"></i><span> 文档</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></li><li><a class="site-page child" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 归档</span></a></li><li><a class="site-page child" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/gallery/"><i class="fa-fw fa fa-images"></i><span> 图库</span></a></div><div class="menus_item"><a class="site-page" href="/ebook/"><i class="fa-fw fa fa-book-reader"></i><span> 电子书</span></a></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-star"></i><span> 收藏夹</span></a></div><div class="menus_item"><a class="site-page group hide" href="javascript:void(0);" rel="external nofollow noreferrer"><i class="fa-fw fa-solid fa-circle-chevron-down"></i><span> 更多</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/about/"><i class="fa-fw fa fa-user"></i><span> 关于我</span></a></li><li><a class="site-page child" href="/analytics/"><i class="fa-fw fa fa-line-chart"></i><span> 文章统计</span></a></li><li><a class="site-page child" href="/log/"><i class="fa-fw fa fa-history"></i><span> 更新日志</span></a></li></ul></div></div><div id="toggle-menu"><a class="site-page" href="javascript:void(0);" rel="external nofollow noreferrer"><i class="fas fa-bars fa-fw"></i></a></div></div></nav><div id="post-info"><h1 class="post-title">Python手册(Machine Learning)--sklearn<a class="post-edit-link" href="https://gitee.com/WilenWu/myblog/edit/master/source/_posts/python/Python(Machine-Learning)--sklearn.md" rel="external nofollow noreferrer" title="编辑" target="_blank"><i class="fas fa-pencil-alt"></i></a></h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2018-05-10T15:08:52.000Z" title="发表于 2018-05-10 23:08:52">2018-05-10</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2024-02-08T15:22:35.794Z" title="更新于 2024-02-08 23:22:35">2024-02-08</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/python/">Python</a><i class="fas fa-angle-right post-meta-separator"></i><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/python/machine-learning/">Machine Learning</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-wordcount"><i class="far fa-file-word fa-fw post-meta-icon"></i><span class="post-meta-label">字数总计:</span><span class="word-count">7.6k</span><span class="post-meta-separator">|</span><i class="far fa-clock fa-fw post-meta-icon"></i><span class="post-meta-label">阅读时长:</span><span>33分钟</span></span><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title="Python手册(Machine Learning)--sklearn"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">阅读量:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container"><h1 id="overview"><a class="markdownIt-Anchor" href="#overview"></a> Overview</h1>
+<p><code>Scikit-learn</code>是一个开源机器学习库，支持监督和非监督学习。它还为模型拟合、数据预处理、模型选择、模型评估和许多其他实用程序提供了各种工具。</p>
+<p><code>Scikit-learn</code>提供数十种内置的机器学习算法和模型，称为 estimator (估计器)。估计器是任何从数据中学习的对象；它可能是分类、回归或聚类算法，也可能是从原始数据中提取/过滤有用特征的。每个估计器都可以使用 <code>fit</code> 方法拟合数据，然后使用 <code>predict</code> 方法预测或使用<code>transform</code>方法转化数据。</p>
+<p><a target="_blank" rel="noopener external nofollow noreferrer" href="https://sklearn.apachecn.org/"><strong>Scikit-Learn</strong></a>: The most popular and widely used library for machine learning in Python.</p>
 <ul>
 <li>分类：SVM、近邻、随机森林、逻辑回归等等。</li>
 <li>回归：Lasso、岭回归等等。</li>
@@ -180,49 +183,103 @@
 <li>选型：网格搜索、交叉验证、度量。</li>
 <li>预处理：特征提取、标准化。</li>
 </ul>
-<span id="more"></span>
-<h1 id="建模流程the-simplest-sklearn-workflow"><a class="markdownIt-Anchor" href="#建模流程the-simplest-sklearn-workflow"></a> 建模流程(The simplest sklearn workflow)</h1>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">X_train,y_train,x_test,y_test=getData() <span class="comment"># 训练集和测试集</span></span><br><span class="line">model=somemodel()<span class="comment"># 定义模型</span></span><br><span class="line">model.fit(X_train,y_train)<span class="comment"># 拟合模型 </span></span><br><span class="line">predictions=model.predict(x_test) <span class="comment">#模型预测</span></span><br><span class="line">model.get_params() <span class="comment"># 获得这个模型的参数</span></span><br><span class="line">score=model.score(x_test,y_test) <span class="comment"># 为模型进行打分</span></span><br></pre></td></tr></table></figure>
-<p><strong>Model Fitting</strong></p>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="comment"># Supervised learning </span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>lr.fit(X, y) </span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>svc.fit(X_train, y_train)  </span><br><span class="line"></span><br><span class="line"><span class="comment"># Unsupervised Learning </span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>k_means.fit(X_train) </span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>pca_model = pca.fit_transform(X_train)</span><br></pre></td></tr></table></figure>
-<p><strong>Prediction</strong></p>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="comment"># Supervised Estimators </span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>y_pred = svc.predict(np.random.random((<span class="number">2</span>,<span class="number">5</span>))) </span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>y_pred = lr.predict(X_test) </span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>y_pred = knn.predict_proba(X_test)   </span><br><span class="line"></span><br><span class="line"><span class="comment"># Unsupervised Estimators </span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>y_pred = k_means.predict(X_test)</span><br></pre></td></tr></table></figure>
-<h1 id="数据集datasets"><a class="markdownIt-Anchor" href="#数据集datasets"></a> 数据集(Datasets)</h1>
-<p><code>import sklearn.datasets</code></p>
-<h2 id="加载示例数据集"><a class="markdownIt-Anchor" href="#加载示例数据集"></a> 加载示例数据集</h2>
+<h2 id="建模流程"><a class="markdownIt-Anchor" href="#建模流程"></a> 建模流程</h2>
+<blockquote>
+<p>The simplest sklearn workflow</p>
+</blockquote>
+<p>以下是一个简单的示例，以 GradientBoostingClassifier 为例，简述下sklearn建模流程：</p>
+<p>Step 1: 加载数据集</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">from</span> sklearn.datasets <span class="keyword">import</span> load_digits</span><br><span class="line"><span class="keyword">from</span> sklearn.model_selection <span class="keyword">import</span> train_test_split</span><br><span class="line"></span><br><span class="line">X, y = load_digits(n_class = <span class="number">2</span>, return_X_y = <span class="literal">True</span>) <span class="comment"># 加载数据集</span></span><br><span class="line">X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=<span class="number">0.3</span>) <span class="comment"># 拆分数据</span></span><br></pre></td></tr></table></figure>
+<p>Step 2: 拟合模型</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">from</span> sklearn.ensemble <span class="keyword">import</span> GradientBoostingClassifier</span><br><span class="line"></span><br><span class="line">clf = GradientBoostingClassifier() <span class="comment"># 定义模型</span></span><br><span class="line">clf.fit(X_train,y_train) <span class="comment"># 拟合模型</span></span><br><span class="line">clf.get_params() <span class="comment"># 获得模型的参数</span></span><br></pre></td></tr></table></figure>
+<p>Step 3: 模型评估</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">clf.score(X_test,y_test)</span><br></pre></td></tr></table></figure>
+<p>Step 4: 模型保存和导入</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">from</span> sklearn.externals <span class="keyword">import</span> joblib</span><br><span class="line"></span><br><span class="line">joblib.dump(clf, <span class="string">&#x27;GBDT.pkl&#x27;</span>)  <span class="comment"># 保存</span></span><br><span class="line">clf = joblib.load(<span class="string">&#x27;GBDT.pkl&#x27;</span>)  <span class="comment"># 导入</span></span><br></pre></td></tr></table></figure>
+<p>Step 5: 模型预测</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">y_pred = clf.predict(X_test)  </span><br><span class="line">y_prob = clf.predict_proba(X_test)  <span class="comment"># 概率预测</span></span><br></pre></td></tr></table></figure>
+<h2 id="数据准备"><a class="markdownIt-Anchor" href="#数据准备"></a> 数据准备</h2>
 <table>
 <thead>
 <tr>
-<th>加载</th>
-<th>适用类型</th>
+<th>内置数据集</th>
+<th>说明</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td>datasets.load_iris()</td>
-<td>分类</td>
+<td>load_iris</td>
+<td>鸢尾花数据集(150x4)，常用于分类任务</td>
 </tr>
 <tr>
-<td>datasets.load_boston()</td>
-<td>回归</td>
+<td>load_boston</td>
+<td>波士顿房价预测，常用于回归任务示例</td>
 </tr>
 <tr>
-<td>datasets.load_didits()</td>
-<td>分类(数字图片)</td>
+<td>load_digits</td>
+<td>手写数字预测(1797x64)，常用于神经网络</td>
 </tr>
 </tbody>
 </table>
-<h2 id="创建数据集"><a class="markdownIt-Anchor" href="#创建数据集"></a> 创建数据集</h2>
-<p><code>datasets.make_classification()</code>创建分类数据集<br />
-<code>datasets.make_regression()</code>创建回归数据集</p>
-<blockquote>
-<p>参数：<br />
-n_samples：指定样本数<br />
-n_features：指定特征数<br />
-n_classes：指定几分类</p>
-</blockquote>
-<h1 id="回归和分类regression-and-classification"><a class="markdownIt-Anchor" href="#回归和分类regression-and-classification"></a> 回归和分类(Regression and Classification)</h1>
-<h2 id="线性模型"><a class="markdownIt-Anchor" href="#线性模型"></a> 线性模型</h2>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="keyword">from</span> sklearn.datasets <span class="keyword">import</span> load_iris, load_digits</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>data = load_iris()</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>data.target[[<span class="number">10</span>, <span class="number">25</span>, <span class="number">50</span>]]</span><br><span class="line">array([<span class="number">0</span>, <span class="number">0</span>, <span class="number">1</span>])</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="built_in">list</span>(data.target_names)</span><br><span class="line">[<span class="string">&#x27;setosa&#x27;</span>, <span class="string">&#x27;versicolor&#x27;</span>, <span class="string">&#x27;virginica&#x27;</span>]</span><br><span class="line"></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>X, y = load_digits(n_class=<span class="number">2</span>, return_X_y=<span class="literal">True</span>)</span><br></pre></td></tr></table></figure>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">创建数据集</th>
+<th style="text-align:left">说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">make_classification</td>
+<td style="text-align:left">生成分类数据集</td>
+</tr>
+<tr>
+<td style="text-align:left">make_blobs</td>
+<td style="text-align:left">生成分类数据集，有更大的灵活性</td>
+</tr>
+<tr>
+<td style="text-align:left">make_multilabel_classification</td>
+<td style="text-align:left">生成带有多个标签的分类数据</td>
+</tr>
+<tr>
+<td style="text-align:left">make_regression</td>
+<td style="text-align:left">生成回归数据集</td>
+</tr>
+<tr>
+<td style="text-align:left">make_circles</td>
+<td style="text-align:left">生成2d分类数据集，两个球面</td>
+</tr>
+<tr>
+<td style="text-align:left">make_moons</td>
+<td style="text-align:left">生成2d分类数据集，两个交错半圆</td>
+</tr>
+</tbody>
+</table>
+<p>常用参数：</p>
+<ul>
+<li>n_samples：指定样本数</li>
+<li>n_features：指定特征数</li>
+<li>n_classes：分类问题类的数量</li>
+<li>n_informative：有效特征数量</li>
+<li>n_redundant：冗余特征数量</li>
+<li>n_repeated：重复特征数量</li>
+<li>n_clusters_per_class：每个类的集群数量</li>
+<li>coef：bool，否返回线性模型的系数</li>
+<li>random_state：随机数</li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">&gt;&gt;&gt; from sklearn.datasets import make_classification, make_regression</span><br><span class="line">&gt;&gt;&gt; from sklearn.datasets import make_classification</span><br><span class="line">&gt;&gt;&gt; X, y = make_classification(random_state=42)</span><br><span class="line">&gt;&gt;&gt; X.shape</span><br><span class="line">(100, 20)</span><br><span class="line">&gt;&gt;&gt; y.shape</span><br><span class="line">(100,)</span><br><span class="line">&gt;&gt;&gt; list(y[:5])</span><br><span class="line">[0, 0, 1, 1, 0]</span><br></pre></td></tr></table></figure>
+<h2 id="数据集拆分"><a class="markdownIt-Anchor" href="#数据集拆分"></a> 数据集拆分</h2>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">from</span> sklearn.model_selection  <span class="keyword">import</span> train_test_split</span><br></pre></td></tr></table></figure>
+<p>常用参数：</p>
+<ul>
+<li>test_size：float，样本比例，默认0.25；int，样本量</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=<span class="number">0.25</span>)</span><br></pre></td></tr></table></figure>
+<h2 id="模型持久化"><a class="markdownIt-Anchor" href="#模型持久化"></a> 模型持久化</h2>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 已建好模型 model</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># pickle</span></span><br><span class="line"><span class="keyword">import</span> pickle</span><br><span class="line"><span class="keyword">with</span> <span class="built_in">open</span>(<span class="string">&#x27;model.pickle&#x27;</span>,<span class="string">&#x27;wb&#x27;</span>) <span class="keyword">as</span> f:</span><br><span class="line">    pickle.dumps(model,f)  <span class="comment"># 保存</span></span><br><span class="line"><span class="keyword">with</span> <span class="built_in">open</span>(<span class="string">&#x27;model.pickle&#x27;</span>,<span class="string">&#x27;rb&#x27;</span>) <span class="keyword">as</span> f:</span><br><span class="line">    clf = pickle.loads(f)  <span class="comment"># 读取</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># joblib</span></span><br><span class="line"><span class="keyword">from</span>  sklearn.externals <span class="keyword">import</span> joblib</span><br><span class="line">joblib.dump(model, <span class="string">&#x27;model.pkl&#x27;</span>)  <span class="comment"># 保存</span></span><br><span class="line">model = joblib.load(<span class="string">&#x27;model.pkl&#x27;</span>)  <span class="comment"># 导入</span></span><br></pre></td></tr></table></figure>
+<h1 id="机器学习常用算法"><a class="markdownIt-Anchor" href="#机器学习常用算法"></a> 机器学习常用算法</h1>
+<h2 id="回归和分类"><a class="markdownIt-Anchor" href="#回归和分类"></a> 回归和分类</h2>
 <table>
 <thead>
 <tr>
@@ -269,7 +326,6 @@ n_classes：指定几分类</p>
 </tr>
 </tbody>
 </table>
-<h2 id="支持向量机"><a class="markdownIt-Anchor" href="#支持向量机"></a> 支持向量机</h2>
 <table>
 <thead>
 <tr>
@@ -288,7 +344,6 @@ n_classes：指定几分类</p>
 </tr>
 </tbody>
 </table>
-<h2 id="最近邻算法"><a class="markdownIt-Anchor" href="#最近邻算法"></a> 最近邻算法</h2>
 <table>
 <thead>
 <tr>
@@ -323,7 +378,6 @@ n_classes：指定几分类</p>
 </tr>
 </tbody>
 </table>
-<h2 id="高斯过程"><a class="markdownIt-Anchor" href="#高斯过程"></a> 高斯过程</h2>
 <table>
 <thead>
 <tr>
@@ -346,7 +400,6 @@ n_classes：指定几分类</p>
 </tr>
 </tbody>
 </table>
-<h2 id="决策树"><a class="markdownIt-Anchor" href="#决策树"></a> 决策树</h2>
 <table>
 <thead>
 <tr>
@@ -365,7 +418,6 @@ n_classes：指定几分类</p>
 </tr>
 </tbody>
 </table>
-<h2 id="内核岭回归"><a class="markdownIt-Anchor" href="#内核岭回归"></a> 内核岭回归</h2>
 <table>
 <thead>
 <tr>
@@ -380,7 +432,6 @@ n_classes：指定几分类</p>
 </tr>
 </tbody>
 </table>
-<h2 id="等式回归"><a class="markdownIt-Anchor" href="#等式回归"></a> 等式回归</h2>
 <table>
 <thead>
 <tr>
@@ -395,7 +446,6 @@ n_classes：指定几分类</p>
 </tr>
 </tbody>
 </table>
-<h2 id="多类多标签算法"><a class="markdownIt-Anchor" href="#多类多标签算法"></a> 多类多标签算法</h2>
 <table>
 <thead>
 <tr>
@@ -410,7 +460,6 @@ n_classes：指定几分类</p>
 </tr>
 </tbody>
 </table>
-<h2 id="朴素贝叶斯分类器"><a class="markdownIt-Anchor" href="#朴素贝叶斯分类器"></a> 朴素贝叶斯分类器</h2>
 <table>
 <thead>
 <tr>
@@ -433,7 +482,6 @@ n_classes：指定几分类</p>
 </tr>
 </tbody>
 </table>
-<h2 id="集成方法"><a class="markdownIt-Anchor" href="#集成方法"></a> 集成方法</h2>
 <table>
 <thead>
 <tr>
@@ -444,43 +492,43 @@ n_classes：指定几分类</p>
 <tbody>
 <tr>
 <td>BaggingClassifier</td>
-<td>Bagging</td>
+<td>Bagging分类</td>
 </tr>
 <tr>
 <td>BaggingRegressor</td>
-<td></td>
+<td>Bagging回归</td>
 </tr>
 <tr>
 <td>RandomForestClassifier</td>
-<td>随机森林</td>
+<td>随机森林分类</td>
 </tr>
 <tr>
 <td>RandomForestRegressor</td>
-<td></td>
+<td>随机森林回归</td>
 </tr>
 <tr>
 <td>ExtraTreesClassifier</td>
-<td>极限随机树</td>
+<td>极限随机树分类</td>
 </tr>
 <tr>
 <td>ExtraTreesRegressor</td>
-<td></td>
+<td>极限随机树回归</td>
 </tr>
 <tr>
 <td>AdaBoostClassifier</td>
-<td>AdaBoost</td>
+<td>AdaBoost分类</td>
 </tr>
 <tr>
 <td>AdaBoostRegressor</td>
-<td></td>
+<td>AdaBoost回归</td>
 </tr>
 <tr>
 <td>GradientBoostingClassifier</td>
-<td>Gradient Tree Boosting (梯度树提升)</td>
+<td>梯度树提升分类</td>
 </tr>
 <tr>
 <td>GradientBoostingRegressor</td>
-<td></td>
+<td>梯度树提升回归</td>
 </tr>
 <tr>
 <td>VotingClassifier</td>
@@ -488,7 +536,6 @@ n_classes：指定几分类</p>
 </tr>
 </tbody>
 </table>
-<h2 id="神经网络"><a class="markdownIt-Anchor" href="#神经网络"></a> 神经网络</h2>
 <table>
 <thead>
 <tr>
@@ -499,11 +546,11 @@ n_classes：指定几分类</p>
 <tbody>
 <tr>
 <td>MLPClassifier</td>
-<td>多层感知器(MLP)</td>
+<td>多层感知器(MLP)分类</td>
 </tr>
 <tr>
 <td>MLPRegressor</td>
-<td></td>
+<td>多层感知器(MLP)回归</td>
 </tr>
 </tbody>
 </table>
@@ -526,7 +573,7 @@ n_classes：指定几分类</p>
 </tr>
 </tbody>
 </table>
-<h1 id="聚类clustering"><a class="markdownIt-Anchor" href="#聚类clustering"></a> 聚类(Clustering)</h1>
+<h2 id="聚类"><a class="markdownIt-Anchor" href="#聚类"></a> 聚类</h2>
 <table>
 <thead>
 <tr>
@@ -563,10 +610,16 @@ n_classes：指定几分类</p>
 <td>Birch</td>
 <td></td>
 </tr>
+</tbody>
+</table>
+<table>
+<thead>
 <tr>
-<td><strong>sklearn.cluster.bicluster</strong></td>
-<td>双聚类</td>
+<th><strong>sklearn.cluster.bicluster</strong></th>
+<th>双聚类</th>
 </tr>
+</thead>
+<tbody>
 <tr>
 <td>SpectralCoclustering</td>
 <td></td>
@@ -577,27 +630,26 @@ n_classes：指定几分类</p>
 </tr>
 </tbody>
 </table>
-<h1 id="降维dimensionalityreduction"><a class="markdownIt-Anchor" href="#降维dimensionalityreduction"></a> 降维(DimensionalityReduction)</h1>
-<h2 id="矩阵分解sklearndecomposition"><a class="markdownIt-Anchor" href="#矩阵分解sklearndecomposition"></a> 矩阵分解(sklearn.decomposition)</h2>
+<h2 id="矩阵分解"><a class="markdownIt-Anchor" href="#矩阵分解"></a> 矩阵分解</h2>
 <table>
 <thead>
 <tr>
-<th>主成分分析（PCA）</th>
-<th></th>
+<th>sklearn.decomposition</th>
+<th>矩阵分解</th>
 </tr>
 </thead>
 <tbody>
 <tr>
 <td>PCA</td>
-<td>准确的PCA和概率解释</td>
+<td>准确的主成分分析和概率解释</td>
 </tr>
 <tr>
 <td>IncrementalPCA</td>
-<td>增量PCA</td>
+<td>增量主成分分析</td>
 </tr>
 <tr>
 <td>KernelPCA</td>
-<td>核 PCA</td>
+<td>核主成分分析</td>
 </tr>
 <tr>
 <td>SparsePCA</td>
@@ -605,19 +657,11 @@ n_classes：指定几分类</p>
 </tr>
 <tr>
 <td>MiniBatchSparsePCA</td>
-<td>小批量稀疏 PCA</td>
-</tr>
-<tr>
-<td><strong>截断奇异值分解</strong></td>
-<td></td>
+<td>小批量稀疏主成分分析</td>
 </tr>
 <tr>
 <td>TruncatedSVD</td>
-<td></td>
-</tr>
-<tr>
-<td><em>词典学习：</em></td>
-<td></td>
+<td>截断奇异值分解</td>
 </tr>
 <tr>
 <td>SparseCoder</td>
@@ -632,44 +676,28 @@ n_classes：指定几分类</p>
 <td>小批量字典学习</td>
 </tr>
 <tr>
-<td><strong>因子分析</strong></td>
-<td></td>
-</tr>
-<tr>
 <td>FactorAnalysis</td>
-<td>高斯分布</td>
+<td>高斯分布因子分析</td>
 </tr>
 <tr>
 <td>FastICA</td>
-<td>隐变量基于非高斯分布</td>
-</tr>
-<tr>
-<td><strong>独立成分分析（ICA）</strong></td>
-<td></td>
+<td>隐变量基于非高斯分布因子分析</td>
 </tr>
 <tr>
 <td>FastICA</td>
-<td></td>
-</tr>
-<tr>
-<td><strong>非负矩阵分解(NMF 或 NNMF)</strong></td>
-<td></td>
+<td>独立成分分析</td>
 </tr>
 <tr>
 <td>NMF</td>
-<td></td>
-</tr>
-<tr>
-<td><strong>隐 Dirichlet 分配（LDA）</strong></td>
-<td></td>
+<td>非负矩阵分解</td>
 </tr>
 <tr>
 <td>LatentDirichletAllocation</td>
-<td></td>
+<td>隐 Dirichlet 分配（LDA）</td>
 </tr>
 </tbody>
 </table>
-<h2 id="流形学习sklearnmanifold"><a class="markdownIt-Anchor" href="#流形学习sklearnmanifold"></a> 流形学习(sklearn.manifold)</h2>
+<h2 id="流形学习"><a class="markdownIt-Anchor" href="#流形学习"></a> 流形学习</h2>
 <table>
 <thead>
 <tr>
@@ -700,187 +728,664 @@ n_classes：指定几分类</p>
 </tr>
 </tbody>
 </table>
-<h1 id="模型选择modelselection"><a class="markdownIt-Anchor" href="#模型选择modelselection"></a> 模型选择(ModelSelection)</h1>
-<p><code>import sklearn.model_selection</code></p>
-<h2 id="数据集拆分train_test_split"><a class="markdownIt-Anchor" href="#数据集拆分train_test_split"></a> 数据集拆分(train_test_split)</h2>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">from</span> sklearn.model_selection  <span class="keyword">import</span> train_test_split</span><br><span class="line">X_train, X_test, y_train,   y_test = train_test_split(X, y, test_size=<span class="literal">None</span>,train_size=<span class="literal">None</span>)</span><br></pre></td></tr></table></figure>
-<blockquote>
-<p>参数test_size：float(样本比例,默认0.25), int(样本量)</p>
-</blockquote>
-<h2 id="交叉验证"><a class="markdownIt-Anchor" href="#交叉验证"></a> 交叉验证</h2>
-<ul>
-<li>交叉验证-单指标(cross_val_score)</li>
-</ul>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">scores=model_selection.cross_val_score(model,X,y,</span><br><span class="line">  scoring=<span class="literal">None</span>,cv=<span class="literal">None</span>,</span><br><span class="line">  n_jobs=<span class="number">1</span>,verbose=<span class="number">0</span>,fit_params=<span class="literal">None</span>)</span><br><span class="line"></span><br><span class="line">scores.mean()</span><br></pre></td></tr></table></figure>
-<blockquote>
-<p>return ndarray(包含所有的结果)<br />
-scoring：评分方法<br />
-cv(Cross-validation)：cv数量<br />
-n_jobs：并行数</p>
-</blockquote>
-<ul>
-<li>交叉验证-多度量评估(cross_validate)：用法同cross_val_score</li>
-<li>通过交叉验证获取预测(cross_val_predict)</li>
-</ul>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">predicted=cross_val_predict(model,X,y,cv=<span class="literal">None</span>)</span><br></pre></td></tr></table></figure>
-<h2 id="调整估计器的超参数"><a class="markdownIt-Anchor" href="#调整估计器的超参数"></a> 调整估计器的超参数</h2>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">estimator.get_params()  <span class="comment"># 获取估计器参数</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 网格搜索</span></span><br><span class="line">GridSearchCV(model,param_grid,scoring=<span class="literal">None</span>,verbose=<span class="number">0</span>) </span><br><span class="line"><span class="comment"># param_grid:dict or list</span></span><br><span class="line"><span class="comment"># verbose：日志冗长度，int：冗长度，0：不输出训练过程，1：偶尔输出，&gt;1：对每个子模型都输出。</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 随机搜索</span></span><br><span class="line">RandomizedSearchCV()</span><br></pre></td></tr></table></figure>
-<blockquote>
-<p><strong>评分参数</strong>：<a target="_blank" rel="noopener external nofollow noreferrer" href="http://sklearn.apachecn.org/cn/0.19.0/modules/model_evaluation.html">sklearn.metrics</a></p>
-</blockquote>
-<p>Examples:</p>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span>iris =   datasets.load_iris()</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>parameters =   &#123;<span class="string">&#x27;kernel&#x27;</span>:(<span class="string">&#x27;linear&#x27;</span>, <span class="string">&#x27;rbf&#x27;</span>), <span class="string">&#x27;C&#x27;</span>:[<span class="number">1</span>, <span class="number">10</span>]&#125; <span class="comment">#超参数</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>svc = svm.SVC()</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>clf =   GridSearchCV(svc, parameters)</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>clf.fit(iris.data, iris.target)</span><br><span class="line"><span class="comment"># 属性：</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>clf.best_params_      <span class="comment">#最优参数</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>clf.best_estimator_   <span class="comment">#最优估计器</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>clf.best_score_       <span class="comment">#最优得分</span></span><br></pre></td></tr></table></figure>
-<h2 id="验证曲线-绘制得分曲线以评估模型-validation_curve"><a class="markdownIt-Anchor" href="#验证曲线-绘制得分曲线以评估模型-validation_curve"></a> 验证曲线: 绘制得分曲线以评估模型 (validation_curve)</h2>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span>param_range=logspace(-<span class="number">6</span>,<span class="number">0</span>,<span class="number">5</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 验证曲线</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>train_scores,valid_scores=validation_curve(</span><br><span class="line">      model, X, y,</span><br><span class="line">      param_name, param_range=param_range, <span class="comment">#参数名字和参数设定范围</span></span><br><span class="line">      cv=<span class="literal">None</span>, scoring=<span class="literal">None</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 得分</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>train_scores_mean=np.mean(train_scores,axis=<span class="number">1</span>)</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>valid_scores_mean=np.mean(valid_scores,axis=<span class="number">1</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 可视化</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>plt.plot(param_range,train_scores_mean,colur=<span class="string">&#x27;r&#x27;</span>,label=<span class="string">&#x27;training&#x27;</span>)</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>plt.plot(param_range,valid_scores_mean,colur=<span class="string">&#x27;g&#x27;</span>,label=<span class="string">&#x27;Cross-validation&#x27;</span>)</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>plt.show()</span><br></pre></td></tr></table></figure>
-<h2 id="学习曲线learning_curve"><a class="markdownIt-Anchor" href="#学习曲线learning_curve"></a> 学习曲线(learning_curve)</h2>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">train_sizes,train_scores,valid_scores = learning_curve(model, X, y, train_sizes, cv=<span class="literal">None</span>, scoring=<span class="literal">None</span>)</span><br></pre></td></tr></table></figure>
-<h2 id="模型评分metric"><a class="markdownIt-Anchor" href="#模型评分metric"></a> 模型评分<a target="_blank" rel="noopener external nofollow noreferrer" href="http://sklearn.apachecn.org/cn/0.19.0/modules/model_evaluation.html">(Metric)</a></h2>
-<p><code>import sklearn.metrics</code></p>
+<h1 id="模型选择和评估"><a class="markdownIt-Anchor" href="#模型选择和评估"></a> 模型选择和评估</h1>
+<h2 id="评分指标"><a class="markdownIt-Anchor" href="#评分指标"></a> 评分指标</h2>
 <table>
 <thead>
 <tr>
-<th>Function</th>
+<th>sklearn.metrics</th>
 <th>Description</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td>accuracy_score</td>
+<td>accuracy_score(y_true, y_pred)</td>
 <td>分类：准确率</td>
 </tr>
 <tr>
-<td>log_loss</td>
+<td>balanced_accuracy_score(y_true, y_pred)</td>
+<td>分类：平衡准确率</td>
+</tr>
+<tr>
+<td>f1_score(y_true, y_pred)</td>
+<td>分类：f1 score</td>
+</tr>
+<tr>
+<td>precision_score(y_true, y_pred)</td>
+<td>分类：精准率</td>
+</tr>
+<tr>
+<td>average_precision_score(y_true, y_pred)</td>
+<td>分类：平均精准率</td>
+</tr>
+<tr>
+<td>log_loss(y_true, y_pred)</td>
 <td>分类：损失</td>
 </tr>
 <tr>
-<td>roc_auc_score</td>
+<td>roc_auc_score(y_true, y_score)<br>auc(fpr, tpr)</td>
 <td>分类：auc值(ROC曲线下面积）</td>
 </tr>
 <tr>
-<td>confusion_matrix</td>
+<td>recall_score(y_true, y_pred)</td>
+<td>分类：召回率</td>
+</tr>
+<tr>
+<td>confusion_matrix(y_true, y_pred)</td>
 <td>分类：混淆矩阵</td>
 </tr>
 <tr>
-<td>mean_absolute_error</td>
-<td>回归：平均绝对误差</td>
+<td>explained_variance_score(y_true, y_pred)</td>
+<td>回归：可解释方差</td>
 </tr>
 <tr>
-<td>mean_squared_error</td>
-<td>回归</td>
+<td>mean_absolute_error(y_true, y_pred)</td>
+<td>回归：MAE</td>
 </tr>
 <tr>
-<td>r2_score</td>
-<td>回归：R^2</td>
+<td>mean_squared_error(y_true, y_pred)</td>
+<td>回归：均方误差（MSE）</td>
+</tr>
+<tr>
+<td>root_mean_squared_error(y_true, y_pred)</td>
+<td>回归：均方标准差（RMSE)</td>
+</tr>
+<tr>
+<td>r2_score(y_true, y_pred)</td>
+<td>回归：R<sup>2</sup></td>
 </tr>
 <tr>
 <td>label_ranking_loss</td>
 <td>排序度量</td>
 </tr>
 <tr>
-<td>mutual_info_scor</td>
-<td>聚类</td>
+<td>adjusted_mutual_info_score</td>
+<td>聚类：互信息</td>
 </tr>
 <tr>
-<td>adjusted_rand_score</td>
-<td>聚类：调整rand指数</td>
+<td>completeness_score</td>
+<td>聚类：完整性</td>
 </tr>
 <tr>
 <td>homogeneity_score</td>
-<td>聚类</td>
-</tr>
-<tr>
-<td>v_measure_score</td>
-<td>聚类</td>
+<td>聚类：同质性</td>
 </tr>
 </tbody>
 </table>
-<h2 id="模型持久化"><a class="markdownIt-Anchor" href="#模型持久化"></a> 模型持久化</h2>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="comment"># pickle</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="comment">#已有建好的模型model</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="keyword">import</span> pickle</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="keyword">with</span> <span class="built_in">open</span>(<span class="string">&#x27;model.pickle&#x27;</span>,<span class="string">&#x27;wb&#x27;</span>) <span class="keyword">as</span> f:</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>    pickle.dumps(model,f)  <span class="comment">#保存</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="keyword">with</span> <span class="built_in">open</span>(<span class="string">&#x27;model.pickle&#x27;</span>,<span class="string">&#x27;rb&#x27;</span>) <span class="keyword">as</span> f:</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>    clf = pickle.loads(f)  <span class="comment">#读取</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># joblib</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="keyword">from</span>  sklearn.externals <span class="keyword">import</span> joblib</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>joblib.dump(model, <span class="string">&#x27;filename.pkl&#x27;</span>)  <span class="comment"># 保存</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>model = joblib.load(<span class="string">&#x27;filename.pkl&#x27;</span>)  <span class="comment"># 导入</span></span><br></pre></td></tr></table></figure>
-<h1 id="特征选择sklearnfeature_selection"><a class="markdownIt-Anchor" href="#特征选择sklearnfeature_selection"></a> 特征选择(sklearn.feature_selection)</h1>
+<p>示例：</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="keyword">import</span> numpy <span class="keyword">as</span> np</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="keyword">from</span> sklearn.metrics <span class="keyword">import</span> accuracy_score</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>y_pred = [<span class="number">0</span>, <span class="number">2</span>, <span class="number">1</span>, <span class="number">3</span>]</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>y_true = [<span class="number">0</span>, <span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>]</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>accuracy_score(y_true, y_pred)</span><br><span class="line"><span class="number">0.5</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>accuracy_score(y_true, y_pred, normalize=<span class="literal">False</span>)</span><br><span class="line"><span class="number">2.0</span></span><br></pre></td></tr></table></figure>
+<p>混淆矩阵：</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span>y_true = [<span class="number">0</span>, <span class="number">0</span>, <span class="number">0</span>, <span class="number">1</span>, <span class="number">1</span>, <span class="number">1</span>, <span class="number">1</span>, <span class="number">1</span>]</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>y_pred = [<span class="number">0</span>, <span class="number">1</span>, <span class="number">0</span>, <span class="number">1</span>, <span class="number">0</span>, <span class="number">1</span>, <span class="number">0</span>, <span class="number">1</span>]</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>confusion_matrix(y_true, y_pred, normalize=<span class="string">&#x27;all&#x27;</span>)</span><br><span class="line">array([[<span class="number">0.25</span> , <span class="number">0.125</span>],</span><br><span class="line">       [<span class="number">0.25</span> , <span class="number">0.375</span>]])</span><br><span class="line"></span><br><span class="line"><span class="comment"># For binary problems, we can get counts of true negatives, false positives, false negatives and true positives as follows:</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>tn, fp, fn, tp = confusion_matrix(y_true, y_pred).ravel()</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>tn, fp, fn, tp</span><br><span class="line">(<span class="number">2</span>, <span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>)</span><br></pre></td></tr></table></figure>
+<p>分类报告：</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="keyword">from</span> sklearn.metrics <span class="keyword">import</span> classification_report</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>y_true = [<span class="number">0</span>, <span class="number">1</span>, <span class="number">2</span>, <span class="number">2</span>, <span class="number">0</span>]</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>y_pred = [<span class="number">0</span>, <span class="number">0</span>, <span class="number">2</span>, <span class="number">1</span>, <span class="number">0</span>]</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>target_names = [<span class="string">&#x27;class 0&#x27;</span>, <span class="string">&#x27;class 1&#x27;</span>, <span class="string">&#x27;class 2&#x27;</span>]</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="built_in">print</span>(classification_report(y_true, y_pred, target_names=target_names))</span><br><span class="line">              precision    recall  f1-score   support</span><br><span class="line"></span><br><span class="line">     <span class="class"><span class="keyword">class</span> 0       0.67      1.00      0.80         2</span></span><br><span class="line"><span class="class">     <span class="title">class</span> 1       0.00      0.00      0.00         1</span></span><br><span class="line"><span class="class">     <span class="title">class</span> 2       1.00      0.50      0.67         2</span></span><br><span class="line"><span class="class"></span></span><br><span class="line"><span class="class">    <span class="title">accuracy</span>                           0.60         5</span></span><br><span class="line"><span class="class">   <span class="title">macro</span> <span class="title">avg</span>       0.56      0.50      0.49         5</span></span><br><span class="line"><span class="class"><span class="title">weighted</span> <span class="title">avg</span>       0.67      0.60      0.59         5</span></span><br></pre></td></tr></table></figure>
+<p><strong>从二分类到多分类多标签</strong></p>
+<p>一些指标基本上是为二进制分类任务定义的（例如 f1_score，roc_auc_score），这些情况下，只评估正类，默认情况下正类被标记为 1（当然也可以通过 pos_label 参数配置）。</p>
+<p>在将二分类度量扩展到多类或多标签问题时，数据被视为二分类问题的集合。在可用的情况下，应该使用average参数从下面选择计算方法。</p>
+<ul>
+<li><code>&quot;macro&quot;</code>简单地计算二分类度量的平均值，给每个类同等权重</li>
+<li><code>&quot;weighted&quot;</code> 计算每个类分数的加权平均值，权重由数据样本权重得到</li>
+<li><code>&quot;micro&quot;</code>在多标签任务中，微平均可能是首选</li>
+<li><code>&quot;samples&quot;</code>仅适用于多标签问题</li>
+<li>选择<code>average=None</code>将返回一个包含每个类分数的数组</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="keyword">from</span> sklearn <span class="keyword">import</span> metrics</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>y_true = [<span class="number">0</span>, <span class="number">1</span>, <span class="number">2</span>, <span class="number">0</span>, <span class="number">1</span>, <span class="number">2</span>]</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>y_pred = [<span class="number">0</span>, <span class="number">2</span>, <span class="number">1</span>, <span class="number">0</span>, <span class="number">0</span>, <span class="number">1</span>]</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>metrics.precision_score(y_true, y_pred, labels=[<span class="number">0</span>, <span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>], average=<span class="string">&#x27;macro&#x27;</span>)</span><br><span class="line"><span class="number">0.166</span>...</span><br></pre></td></tr></table></figure>
+<h2 id="交叉验证"><a class="markdownIt-Anchor" href="#交叉验证"></a> 交叉验证</h2>
+<p><strong>单指标评估</strong></p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">scores = cross_val_score(estimator, X, y=<span class="literal">None</span>, scoring=<span class="literal">None</span>, cv=<span class="literal">None</span>)</span><br></pre></td></tr></table></figure>
+<p>常用参数：</p>
+<ul>
+<li>scoring：评分函数或sklearn预定义的评分字符串</li>
+<li>cv：交叉验证(Cross-validation)数量</li>
+</ul>
+<p>return：包含所有的结果的 ndarray</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="keyword">from</span> sklearn <span class="keyword">import</span> svm, datasets</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="keyword">from</span> sklearn.model_selection <span class="keyword">import</span> cross_val_score</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>X, y = datasets.load_iris(return_X_y=<span class="literal">True</span>)</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>clf = svm.SVC(random_state=<span class="number">0</span>)</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>cross_val_score(clf, X, y, cv=<span class="number">5</span>, scoring=<span class="string">&#x27;recall_macro&#x27;</span>)</span><br><span class="line">array([<span class="number">0.96</span>..., <span class="number">0.96</span>..., <span class="number">0.96</span>..., <span class="number">0.93</span>..., <span class="number">1.</span>        ])</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>Note：如果传递了错误的评分名称，则会引发InvalidParameterError。您可以通过调用get_scorer_names来检索所有可用度量的名称。</p>
+</blockquote>
+<p><strong>多指标评估</strong></p>
+<p>Scikit-learn还允许在<code>GridSearchCV</code>、<code>RandomizedSearchCV</code>和<code>cross_validate</code>中评估多个指标。</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">scores = cross_validate(estimator, X, y=<span class="literal">None</span>, scoring=<span class="literal">None</span>, cv=<span class="literal">None</span>)</span><br></pre></td></tr></table></figure>
+<p>常用参数：</p>
+<ul>
+<li>scoring：str, callable, list, tuple, or dict</li>
+<li>cv：交叉验证(Cross-validation)数量</li>
+</ul>
+<p>return：包含所有的结果的 dict</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span>cv_results = cross_validate(lasso, X, y, cv=<span class="number">3</span>)</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="built_in">sorted</span>(cv_results.keys())</span><br><span class="line">[<span class="string">&#x27;fit_time&#x27;</span>, <span class="string">&#x27;score_time&#x27;</span>, <span class="string">&#x27;test_score&#x27;</span>]</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>cv_results[<span class="string">&#x27;test_score&#x27;</span>]</span><br><span class="line">array([<span class="number">0.3315057</span> , <span class="number">0.08022103</span>, <span class="number">0.03531816</span>])</span><br></pre></td></tr></table></figure>
+<p>多个指标可以指定为列表、元组或一组预定义的记分器名称：</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span>scoring = [<span class="string">&#x27;accuracy&#x27;</span>, <span class="string">&#x27;precision&#x27;</span>]</span><br></pre></td></tr></table></figure>
+<p>或者作为dict映射记分器名称到预定义或自定义记分函数：</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="keyword">from</span> sklearn.metrics <span class="keyword">import</span> make_scorer</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>scoring = &#123;<span class="string">&#x27;prec_macro&#x27;</span>: <span class="string">&#x27;precision_macro&#x27;</span>,</span><br><span class="line"><span class="meta">... </span>           <span class="string">&#x27;rec_macro&#x27;</span>: make_scorer(recall_score, average=<span class="string">&#x27;macro&#x27;</span>)&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="roc-曲线"><a class="markdownIt-Anchor" href="#roc-曲线"></a> ROC 曲线</h2>
+<p>Receiver operating characteristic (ROC)</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="keyword">import</span> numpy <span class="keyword">as</span> np</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="keyword">from</span> sklearn.metrics <span class="keyword">import</span> roc_curve</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>y = np.array([<span class="number">1</span>, <span class="number">1</span>, <span class="number">2</span>, <span class="number">2</span>])</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>scores = np.array([<span class="number">0.1</span>, <span class="number">0.4</span>, <span class="number">0.35</span>, <span class="number">0.8</span>])</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>fpr, tpr, thresholds = roc_curve(y, scores, pos_label=<span class="number">2</span>)</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>fpr</span><br><span class="line">array([<span class="number">0.</span> , <span class="number">0.</span> , <span class="number">0.5</span>, <span class="number">0.5</span>, <span class="number">1.</span> ])</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>tpr</span><br><span class="line">array([<span class="number">0.</span> , <span class="number">0.5</span>, <span class="number">0.5</span>, <span class="number">1.</span> , <span class="number">1.</span> ])</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>thresholds</span><br><span class="line">array([ inf, <span class="number">0.8</span> , <span class="number">0.4</span> , <span class="number">0.35</span>, <span class="number">0.1</span> ])</span><br></pre></td></tr></table></figure>
+<img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://warehouse-1310574346.cos.ap-shanghai.myqcloud.com/images/ML/roc-curves.png" alt="roc-curves" style="zoom:67%;" />
+<h2 id="回归模型残差分布"><a class="markdownIt-Anchor" href="#回归模型残差分布"></a> 回归模型残差分布</h2>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="keyword">import</span> matplotlib.pyplot <span class="keyword">as</span> plt</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="keyword">from</span> sklearn.datasets <span class="keyword">import</span> load_diabetes</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="keyword">from</span> sklearn.linear_model <span class="keyword">import</span> Ridge</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="keyword">from</span> sklearn.metrics <span class="keyword">import</span> PredictionErrorDisplay</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>X, y = load_diabetes(return_X_y=<span class="literal">True</span>)</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>ridge = Ridge().fit(X, y)</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>y_pred = ridge.predict(X)</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>display = PredictionErrorDisplay(y_true=y, y_pred=y_pred)</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>display.plot()</span><br><span class="line">&lt;...&gt;</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>plt.show()</span><br></pre></td></tr></table></figure>
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://scikit-learn.org/stable/_images/sphx_glr_plot_cv_predict_001.png" alt="" /></p>
+<p>当拟合线性最小二乘回归模型时（LinearRegression和Ridge），我们可以使用此图来检查是否满足一些模型假设，特别是残差应不相关，其期望值应为零，其方差应为常数。</p>
+<h2 id="验证曲线"><a class="markdownIt-Anchor" href="#验证曲线"></a> 验证曲线</h2>
+<p>绘制得分曲线以评估模型</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="keyword">import</span> numpy <span class="keyword">as</span> np</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="keyword">from</span> sklearn.model_selection <span class="keyword">import</span> validation_curve</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="keyword">from</span> sklearn.svm <span class="keyword">import</span> SVC</span><br><span class="line"></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>train_scores, valid_scores = validation_curve(</span><br><span class="line"><span class="meta">... </span>    SVC(kernel=<span class="string">&quot;linear&quot;</span>), X, y, </span><br><span class="line"><span class="meta">... </span>    param_name=<span class="string">&quot;C&quot;</span>,  <span class="comment"># 验证参数名称</span></span><br><span class="line"><span class="meta">... </span>    param_range=np.logspace(-<span class="number">7</span>, <span class="number">3</span>, <span class="number">3</span>), <span class="comment"># 参数取值范围</span></span><br><span class="line"><span class="meta">... </span>    cv=<span class="literal">None</span>, scoring=<span class="literal">None</span>)</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>train_scores</span><br><span class="line">array([[<span class="number">0.90</span>..., <span class="number">0.94</span>..., <span class="number">0.91</span>..., <span class="number">0.89</span>..., <span class="number">0.92</span>...],</span><br><span class="line">       [<span class="number">0.9</span>... , <span class="number">0.92</span>..., <span class="number">0.93</span>..., <span class="number">0.92</span>..., <span class="number">0.93</span>...],</span><br><span class="line">       [<span class="number">0.97</span>..., <span class="number">1.</span>..   , <span class="number">0.98</span>..., <span class="number">0.97</span>..., <span class="number">0.99</span>...]])</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>valid_scores</span><br><span class="line">array([[<span class="number">0.9</span>..., <span class="number">0.9</span>... , <span class="number">0.9</span>... , <span class="number">0.96</span>..., <span class="number">0.9</span>... ],</span><br><span class="line">       [<span class="number">0.9</span>..., <span class="number">0.83</span>..., <span class="number">0.96</span>..., <span class="number">0.96</span>..., <span class="number">0.93</span>...],</span><br><span class="line">       [<span class="number">1.</span>... , <span class="number">0.93</span>..., <span class="number">1.</span>...  , <span class="number">1.</span>...  , <span class="number">0.9</span>... ]])</span><br></pre></td></tr></table></figure>
+<p>如果训练分数和验证分数都很低，模型将不合适。如果训练分数高，验证分数低，则模型过拟合，否则效果很好。</p>
+<p>可以使用 validation_curve 的 from_estimator 方法来只绘制验证曲线：</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="keyword">from</span> sklearn.model_selection <span class="keyword">import</span> ValidationCurveDisplay</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>ValidationCurveDisplay.from_estimator(</span><br><span class="line">     SVC(kernel=<span class="string">&quot;linear&quot;</span>), X, y, param_name=<span class="string">&quot;C&quot;</span>, param_range=np.logspace(-<span class="number">7</span>, <span class="number">3</span>, <span class="number">10</span>)</span><br><span class="line">  )</span><br></pre></td></tr></table></figure>
+<h2 id="学习曲线"><a class="markdownIt-Anchor" href="#学习曲线"></a> 学习曲线</h2>
+<p>学习曲线显示了不同数量的训练样本的估计器的验证和训练分数。可以让我们了解从添加更多训练数据中获益多少，以及估算器是否因方差误差或偏差误差而造成更多损失。</p>
+<p>可以使用函数learning_curve来生成绘制此类学习曲线所需的值：</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="keyword">from</span> sklearn.model_selection <span class="keyword">import</span> learning_curve</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="keyword">from</span> sklearn.svm <span class="keyword">import</span> SVC</span><br><span class="line"></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>train_sizes, train_scores, valid_scores = learning_curve(</span><br><span class="line"><span class="meta">... </span>    SVC(kernel=<span class="string">&#x27;linear&#x27;</span>), X, y, train_sizes=[<span class="number">50</span>, <span class="number">80</span>, <span class="number">110</span>], cv=<span class="number">5</span>)</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>train_sizes</span><br><span class="line">array([ <span class="number">50</span>, <span class="number">80</span>, <span class="number">110</span>])</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>train_scores</span><br><span class="line">array([[<span class="number">0.98</span>..., <span class="number">0.98</span> , <span class="number">0.98</span>..., <span class="number">0.98</span>..., <span class="number">0.98</span>...],</span><br><span class="line">       [<span class="number">0.98</span>..., <span class="number">1.</span>   , <span class="number">0.98</span>..., <span class="number">0.98</span>..., <span class="number">0.98</span>...],</span><br><span class="line">       [<span class="number">0.98</span>..., <span class="number">1.</span>   , <span class="number">0.98</span>..., <span class="number">0.98</span>..., <span class="number">0.99</span>...]])</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>valid_scores</span><br><span class="line">array([[<span class="number">1.</span> ,  <span class="number">0.93</span>...,  <span class="number">1.</span> ,  <span class="number">1.</span> ,  <span class="number">0.96</span>...],</span><br><span class="line">       [<span class="number">1.</span> ,  <span class="number">0.96</span>...,  <span class="number">1.</span> ,  <span class="number">1.</span> ,  <span class="number">0.96</span>...],</span><br><span class="line">       [<span class="number">1.</span> ,  <span class="number">0.96</span>...,  <span class="number">1.</span> ,  <span class="number">1.</span> ,  <span class="number">0.96</span>...]])</span><br></pre></td></tr></table></figure>
+<p>可以使用LearningCurveDisplay的from_estimator方法来只绘制学习曲线</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="keyword">from</span> sklearn.model_selection <span class="keyword">import</span> LearningCurveDisplay</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>LearningCurveDisplay.from_estimator(</span><br><span class="line">   		SVC(kernel=<span class="string">&quot;linear&quot;</span>), X, y, train_sizes=[<span class="number">50</span>, <span class="number">80</span>, <span class="number">110</span>], cv=<span class="number">5</span>)</span><br></pre></td></tr></table></figure>
+<h1 id="超参数调优"><a class="markdownIt-Anchor" href="#超参数调优"></a> 超参数调优</h1>
+<p>超参数是估计器中没有直接学习的参数。在scikit-learn中，它们作为参数传递给估计器类的构造函数。建议在超参数空间中搜索最佳交叉验证分数进行优化。要获得估计器所有参数的名称和当前值，请使用：</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">estimator.get_params()</span><br></pre></td></tr></table></figure>
+<p>sklearn 提供了两种方法用于超参数调优：</p>
 <table>
 <thead>
 <tr>
-<th>sklearn.feature_selection</th>
-<th></th>
+<th>sklearn.model_selection</th>
+<th>模型选择</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td>VarianceThreshold</td>
-<td>移除低方差特征，单变量特征选择</td>
+<td>GridSearchCV</td>
+<td>网格搜索详尽地考虑了所有参数组合</td>
 </tr>
 <tr>
-<td>SelectKBest</td>
-<td>移除那些除了评分最高的 K 个特征之外的所有特征</td>
-</tr>
-<tr>
-<td>SelectPercentile</td>
-<td>移除除了用户指定的最高得分百分比之外的所有特征</td>
-</tr>
-<tr>
-<td>GenericUnivariateSelect</td>
-<td>允许使用可配置方法来进行单变量特征选择。它允许超参数搜索评估器来选择最好的单变量特征</td>
-</tr>
-<tr>
-<td>RFECV</td>
-<td>递归式特征消除</td>
+<td>RandomizedSearchCV</td>
+<td>随机搜索可以从具有指定分布的参数空间中抽样给定数量的候选者</td>
 </tr>
 </tbody>
 </table>
-<blockquote>
-<p>检验：<br />
-对于回归: f_regression , mutual_info_regression<br />
-对于分类: chi2 , f_classif , mutual_info_classif</p>
-</blockquote>
-<h1 id="预处理pre-processing"><a class="markdownIt-Anchor" href="#预处理pre-processing"></a> 预处理(Pre-Processing)</h1>
-<p><code>import sklearn.preprocessing</code></p>
+<p>这两个工具都有连续的减半对应工具 HalvingGridSearchCV和HalvingRandomSearchCV，它们可以更快地找到良好的参数组合。</p>
+<h2 id="网格搜索"><a class="markdownIt-Anchor" href="#网格搜索"></a> 网格搜索</h2>
+<p>GridSearchCV 将评估所有可能的参数值组合，并保留最佳组合。</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">GridSearchCV(estimator, param_grid, scoring=<span class="literal">None</span>, cv=<span class="literal">None</span>, verbose=<span class="number">0</span>)</span><br></pre></td></tr></table></figure>
+<p>常用参数：</p>
+<ul>
+<li>estimator：估计器</li>
+<li>param_grid：参数 dict or list of dict</li>
+<li>verbose：日志冗长度，int：冗长度，0：不输出训练过程，1：偶尔输出，&gt;1：对每个子模型都输出。</li>
+<li>scoring：控制评分，见 sklearn.metrics</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>常用方法</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>fit(X, y)</td>
+<td>拟合所有参数</td>
+</tr>
+<tr>
+<td>get_params()</td>
+<td>获得估计器的参数</td>
+</tr>
+<tr>
+<td>predict(X)</td>
+<td>调用最优参数估计器的predict方法</td>
+</tr>
+<tr>
+<td>predict_proba(X)</td>
+<td>调用最优参数估计器的predict_proba方法</td>
+</tr>
+<tr>
+<td>transform(X)</td>
+<td>调用最优参数估计器的transform方法</td>
+</tr>
+</tbody>
+</table>
+<table>
+<thead>
+<tr>
+<th>常用属性</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>cv_results_</td>
+<td>dict of numpy (masked) ndarrays</td>
+</tr>
+<tr>
+<td>best_params_</td>
+<td>最优参数</td>
+</tr>
+<tr>
+<td>best_estimator_</td>
+<td>最优估计器</td>
+</tr>
+<tr>
+<td>best_score_</td>
+<td>最优得分</td>
+</tr>
+</tbody>
+</table>
+<p>Examples:</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="keyword">from</span> sklearn <span class="keyword">import</span> svm, datasets</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="keyword">from</span> sklearn.model_selection <span class="keyword">import</span> GridSearchCV</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>iris = datasets.load_iris()</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>parameters = &#123;<span class="string">&#x27;kernel&#x27;</span>:(<span class="string">&#x27;linear&#x27;</span>, <span class="string">&#x27;rbf&#x27;</span>), <span class="string">&#x27;C&#x27;</span>:[<span class="number">1</span>, <span class="number">10</span>]&#125;</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>svc = svm.SVC()</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>clf = GridSearchCV(svc, parameters)</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>clf.fit(iris.data, iris.target)</span><br><span class="line">GridSearchCV(estimator=SVC(),</span><br><span class="line">             param_grid=&#123;<span class="string">&#x27;C&#x27;</span>: [<span class="number">1</span>, <span class="number">10</span>], <span class="string">&#x27;kernel&#x27;</span>: (<span class="string">&#x27;linear&#x27;</span>, <span class="string">&#x27;rbf&#x27;</span>)&#125;)</span><br></pre></td></tr></table></figure>
+<h2 id="随机搜索"><a class="markdownIt-Anchor" href="#随机搜索"></a> 随机搜索</h2>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">RandomizedSearchCV(estimator, param_grid, n_iter=<span class="number">10</span>, scoring=<span class="literal">None</span>, cv=<span class="literal">None</span>, verbose=<span class="number">0</span>)</span><br></pre></td></tr></table></figure>
+<p>常用参数：</p>
+<ul>
+<li>param_grid：参数 dict or list</li>
+<li>verbose：日志冗长度，int：冗长度，0：不输出训练过程，1：偶尔输出，&gt;1：对每个子模型都输出。</li>
+<li>scoring：控制评分，见 sklearn.metrics</li>
+<li>n_iter：参数指定计算预算，即抽样候选数或抽样迭代的数量。</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>常用方法</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>fit(X, y)</td>
+<td>拟合所有参数</td>
+</tr>
+<tr>
+<td>get_params()</td>
+<td>获得估计器的参数</td>
+</tr>
+<tr>
+<td>predict(X)</td>
+<td>调用最优参数估计器的predict方法</td>
+</tr>
+<tr>
+<td>predict_proba(X)</td>
+<td>调用最优参数估计器的predict_proba方法</td>
+</tr>
+<tr>
+<td>transform(X)</td>
+<td>调用最优参数估计器的transform方法</td>
+</tr>
+</tbody>
+</table>
+<table>
+<thead>
+<tr>
+<th>常用属性</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>cv_results_</td>
+<td>dict of numpy (masked) ndarrays</td>
+</tr>
+<tr>
+<td>best_params_</td>
+<td>最优参数</td>
+</tr>
+<tr>
+<td>best_estimator_</td>
+<td>最优估计器</td>
+</tr>
+<tr>
+<td>best_score_</td>
+<td>最优得分</td>
+</tr>
+</tbody>
+</table>
+<p>Examples:</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="keyword">from</span> sklearn.datasets <span class="keyword">import</span> load_iris</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="keyword">from</span> sklearn.linear_model <span class="keyword">import</span> LogisticRegression</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="keyword">from</span> sklearn.model_selection <span class="keyword">import</span> RandomizedSearchCV</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="keyword">from</span> scipy.stats <span class="keyword">import</span> uniform</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>iris = load_iris()</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>logistic = LogisticRegression(solver=<span class="string">&#x27;saga&#x27;</span>, tol=<span class="number">1e-2</span>, max_iter=<span class="number">200</span>,</span><br><span class="line"><span class="meta">... </span>                              random_state=<span class="number">0</span>)</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>distributions = <span class="built_in">dict</span>(C=uniform(loc=<span class="number">0</span>, scale=<span class="number">4</span>),</span><br><span class="line"><span class="meta">... </span>                     penalty=[<span class="string">&#x27;l2&#x27;</span>, <span class="string">&#x27;l1&#x27;</span>])</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>clf = RandomizedSearchCV(logistic, distributions, random_state=<span class="number">0</span>)</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>search = clf.fit(iris.data, iris.target)</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>search.best_params_</span><br><span class="line">&#123;<span class="string">&#x27;C&#x27;</span>: <span class="number">2.</span>.., <span class="string">&#x27;penalty&#x27;</span>: <span class="string">&#x27;l1&#x27;</span>&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="贝叶斯优化"><a class="markdownIt-Anchor" href="#贝叶斯优化"></a> 贝叶斯优化</h2>
+<h2 id="连续减半搜索"><a class="markdownIt-Anchor" href="#连续减半搜索"></a> 连续减半搜索</h2>
+<p>Scikit-learn还提供了HalvingGridSearchCV和HalvingRandomSearchCV估计器，可用于使用连续减半搜索参数空间。</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">HalvingGridSearchCV(estimator, param_distributions, cv=<span class="number">5</span>, scoring=<span class="literal">None</span>, verbose=<span class="number">0</span>)</span><br><span class="line">HalvingRandomSearchCV(estimator, param_distributions, cv=<span class="number">5</span>, scoring=<span class="literal">None</span>, verbose=<span class="number">0</span>)</span><br></pre></td></tr></table></figure>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="keyword">from</span> sklearn.datasets <span class="keyword">import</span> make_classification</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="keyword">from</span> sklearn.ensemble <span class="keyword">import</span> RandomForestClassifier</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="keyword">from</span> sklearn.experimental <span class="keyword">import</span> enable_halving_search_cv  <span class="comment"># noqa</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="keyword">from</span> sklearn.model_selection <span class="keyword">import</span> HalvingGridSearchCV</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="keyword">import</span> pandas <span class="keyword">as</span> pd</span><br><span class="line">&gt;&gt;&gt;</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>param_grid = &#123;<span class="string">&#x27;max_depth&#x27;</span>: [<span class="number">3</span>, <span class="number">5</span>, <span class="number">10</span>],</span><br><span class="line"><span class="meta">... </span>              <span class="string">&#x27;min_samples_split&#x27;</span>: [<span class="number">2</span>, <span class="number">5</span>, <span class="number">10</span>]&#125;</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>base_estimator = RandomForestClassifier(random_state=<span class="number">0</span>)</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>X, y = make_classification(n_samples=<span class="number">1000</span>, random_state=<span class="number">0</span>)</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>sh = HalvingGridSearchCV(base_estimator, param_grid, cv=<span class="number">5</span>,</span><br><span class="line"><span class="meta">... </span>                         factor=<span class="number">2</span>, resource=<span class="string">&#x27;n_estimators&#x27;</span>,</span><br><span class="line"><span class="meta">... </span>                         max_resources=<span class="number">30</span>).fit(X, y)</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>sh.best_estimator_</span><br><span class="line">RandomForestClassifier(max_depth=<span class="number">5</span>, n_estimators=<span class="number">24</span>, random_state=<span class="number">0</span>)</span><br></pre></td></tr></table></figure>
+<h1 id="数据预处理"><a class="markdownIt-Anchor" href="#数据预处理"></a> 数据预处理</h1>
+<p>scikit-learn 提供了数据清洗、特征变换、特征提取、特征生成的数据处理估计器。</p>
+<p>这些估计器通过<code>fit</code>方法从训练集学习模型参数（例如标准化的平均值和标准差），然后通过<code>transform</code>方法转换数据。<code>fit_transform</code>方法可以同时训练和转换数据，可能更方便、更有效。</p>
+<h2 id="pipeline"><a class="markdownIt-Anchor" href="#pipeline"></a> Pipeline</h2>
+<p>Pipeline允许按顺序将多个估计器连接成一个。这很有用，因为处理数据时通常有固定的步骤序列，例如特征选择、标准化和分类。</p>
+<p>Pipeline 调用<code>fit</code>与依次对每个估计器调用<code>fit</code>相同，然后对输入数据调用<code>transform</code>并传递到下一步。Pipeline 具有管道中最后一个估计器的所有方法。因此，Pipeline 的中间步骤必须必须实现<code>fit</code>和<code>transform</code>方法，最终估算器只需要实现<code>fit</code>。Pipeline 中的估计器可以使用memory参数进行缓存。</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">sklearn.pipeline.Pipeline(steps, *, memory=<span class="literal">None</span>, verbose=<span class="literal">False</span>)</span><br></pre></td></tr></table></figure>
+<table>
+<thead>
+<tr>
+<th>常用方法</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>fit(X, y)</td>
+<td>拟合模型</td>
+</tr>
+<tr>
+<td>get_params()</td>
+<td>获得估计器的参数</td>
+</tr>
+<tr>
+<td>fit_predict(X, y)</td>
+<td>转换数据，并调用最终估计器fit_predict方法</td>
+</tr>
+<tr>
+<td>fit_transform(X, y)</td>
+<td>拟合模型，并调用最终估计器transform方法</td>
+</tr>
+<tr>
+<td>predict(X)</td>
+<td>转换数据，并调用最终估计器的predict方法</td>
+</tr>
+<tr>
+<td>predict_proba(X)</td>
+<td>转换数据，并调用最终估计器的predict_proba方法</td>
+</tr>
+<tr>
+<td>transform(X)</td>
+<td>转换数据，并调用最终估计器的transform方法</td>
+</tr>
+</tbody>
+</table>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="keyword">from</span> sklearn.svm <span class="keyword">import</span> SVC</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="keyword">from</span> sklearn.preprocessing <span class="keyword">import</span> StandardScaler</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="keyword">from</span> sklearn.datasets <span class="keyword">import</span> make_classification</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="keyword">from</span> sklearn.pipeline <span class="keyword">import</span> Pipeline</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>X, y = make_classification(random_state=<span class="number">0</span>)</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>X_train, X_test, y_train, y_test = train_test_split(X, y,</span><br><span class="line"><span class="meta">... </span>                                                    random_state=<span class="number">0</span>)</span><br><span class="line"></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>pipe = Pipeline([(<span class="string">&#x27;scaler&#x27;</span>, StandardScaler()), (<span class="string">&#x27;svc&#x27;</span>, SVC())])</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="comment"># The pipeline can be used as any other estimator</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="comment"># and avoids leaking the test set into the train set</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>pipe.fit(X_train, y_train)</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>pipe.score(X_test, y_test)</span><br><span class="line"><span class="number">0.88</span></span><br></pre></td></tr></table></figure>
 <h2 id="标准化"><a class="markdownIt-Anchor" href="#标准化"></a> 标准化</h2>
-<ul>
-<li>标准化</li>
-</ul>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">X_scaled =   preprocessing.scale(X_train)</span><br></pre></td></tr></table></figure>
-<ul>
-<li>将特征缩放至特定范围内</li>
-</ul>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="comment"># MinMaxScaler</span></span><br><span class="line">min_max_scaler =   preprocessing.MinMaxScaler()</span><br><span class="line">X_train_minmax =   min_max_scaler.fit_transform(X_train)</span><br><span class="line">X_test_minmax =   min_max_scaler.transform(X_test)</span><br><span class="line"><span class="comment"># X_std   =(X-X.min)/(X.max-X.min)</span></span><br><span class="line"><span class="comment"># X_scaled = X_std * (max -   min) + min</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># MaxAbsScaler</span></span><br><span class="line">max_abs_scaler   = preprocessing.MaxAbsScaler()</span><br><span class="line">X_train_maxabs =   max_abs_scaler.fit_transform(X_train)</span><br><span class="line">X_test_maxabs =   max_abs_scaler.transform(X_test)</span><br><span class="line"><span class="comment"># X_std =X/X.max</span></span><br></pre></td></tr></table></figure>
-<ul>
-<li>缩放有离群值的数据</li>
-</ul>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">RobustScaler =   preprocessing.RobustScaler()</span><br><span class="line">X_train_RobustScaler =   RobustScaler.fit_transform(X_train)</span><br><span class="line">X_test_RobustScaler =   RobustScaler.transform(X_test)</span><br></pre></td></tr></table></figure>
-<h2 id="非线性转换无参数转换"><a class="markdownIt-Anchor" href="#非线性转换无参数转换"></a> 非线性转换(无参数转换)</h2>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">quantile_transformer =   preprocessing.QuantileTransformer(random_state=<span class="number">0</span>)</span><br><span class="line">X_train_trans =   quantile_transformer.fit_transform(X_train)</span><br><span class="line">X_test_trans =   quantile_transformer.transform(X_test)</span><br></pre></td></tr></table></figure>
-<h2 id="归一化"><a class="markdownIt-Anchor" href="#归一化"></a> 归一化</h2>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">X_normalized =   preprocessing.normalize(X, norm=<span class="string">&#x27;l2&#x27;</span>)</span><br></pre></td></tr></table></figure>
-<h2 id="二值化"><a class="markdownIt-Anchor" href="#二值化"></a> 二值化</h2>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">binarizer =   preprocessing.Binarizer(threshold=<span class="number">0.0</span>)</span><br><span class="line">binarizer.transform(X)</span><br></pre></td></tr></table></figure>
+<table>
+<thead>
+<tr>
+<th>sklearn.preprocessing</th>
+<th>预处理</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>StandardScaler()</td>
+<td>标准化</td>
+</tr>
+<tr>
+<td>Normalizer(norm=‘l2’)</td>
+<td>使用<code>l1</code>、<code>l2</code>或<code>max</code>规范标准化</td>
+</tr>
+<tr>
+<td>MinMaxScaler()</td>
+<td>将特征缩放至特定范围内</td>
+</tr>
+<tr>
+<td>MaxAbsScaler()</td>
+<td>缩放稀疏数据的推荐方法</td>
+</tr>
+<tr>
+<td>RobustScaler()</td>
+<td>缩放有离群值的数据</td>
+</tr>
+</tbody>
+</table>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="keyword">from</span> sklearn <span class="keyword">import</span> preprocessing</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="keyword">import</span> numpy <span class="keyword">as</span> np</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>X_train = np.array([[ <span class="number">1.</span>, -<span class="number">1.</span>,  <span class="number">2.</span>],</span><br><span class="line"><span class="meta">... </span>                    [ <span class="number">2.</span>,  <span class="number">0.</span>,  <span class="number">0.</span>],</span><br><span class="line"><span class="meta">... </span>                    [ <span class="number">0.</span>,  <span class="number">1.</span>, -<span class="number">1.</span>]])</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>scaler = preprocessing.StandardScaler().fit(X_train)</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>scaler</span><br><span class="line">StandardScaler()</span><br><span class="line"></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>scaler.mean_</span><br><span class="line">array([<span class="number">1.</span> ..., <span class="number">0.</span> ..., <span class="number">0.33</span>...])</span><br><span class="line"></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>scaler.scale_</span><br><span class="line">array([<span class="number">0.81</span>..., <span class="number">0.81</span>..., <span class="number">1.24</span>...])</span><br><span class="line"></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>X_scaled = scaler.transform(X_train)</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>X_scaled</span><br><span class="line">array([[ <span class="number">0.</span>  ..., -<span class="number">1.22</span>...,  <span class="number">1.33</span>...],</span><br><span class="line">       [ <span class="number">1.22</span>...,  <span class="number">0.</span>  ..., -<span class="number">0.26</span>...],</span><br><span class="line">       [-<span class="number">1.22</span>...,  <span class="number">1.22</span>..., -<span class="number">1.06</span>...]])</span><br></pre></td></tr></table></figure>
+<h2 id="非线性变换"><a class="markdownIt-Anchor" href="#非线性变换"></a> 非线性变换</h2>
+<table>
+<thead>
+<tr>
+<th>sklearn.preprocessing</th>
+<th>预处理</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>QuantileTransformer</td>
+<td>分位数转换，将数据映射到值在0到1之间的均匀分布</td>
+</tr>
+<tr>
+<td>PowerTransformer</td>
+<td>幂变换，将数据从任何分布映射到尽可能接近高斯分布，以稳定方差并最小化倾斜度。</td>
+</tr>
+</tbody>
+</table>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span>pt = preprocessing.PowerTransformer(method=<span class="string">&#x27;box-cox&#x27;</span>, standardize=<span class="literal">False</span>)</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>X_lognormal = np.random.RandomState(<span class="number">616</span>).lognormal(size=(<span class="number">3</span>, <span class="number">3</span>))</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>X_lognormal</span><br><span class="line">array([[<span class="number">1.28</span>..., <span class="number">1.18</span>..., <span class="number">0.84</span>...],</span><br><span class="line">       [<span class="number">0.94</span>..., <span class="number">1.60</span>..., <span class="number">0.38</span>...],</span><br><span class="line">       [<span class="number">1.35</span>..., <span class="number">0.21</span>..., <span class="number">1.09</span>...]])</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>pt.fit_transform(X_lognormal)</span><br><span class="line">array([[ <span class="number">0.49</span>...,  <span class="number">0.17</span>..., -<span class="number">0.15</span>...],</span><br><span class="line">       [-<span class="number">0.05</span>...,  <span class="number">0.58</span>..., -<span class="number">0.57</span>...],</span><br><span class="line">       [ <span class="number">0.69</span>..., -<span class="number">0.84</span>...,  <span class="number">0.10</span>...]])</span><br></pre></td></tr></table></figure>
 <h2 id="分类特征编码"><a class="markdownIt-Anchor" href="#分类特征编码"></a> 分类特征编码</h2>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">enc =   preprocessing.OneHotEncoder(n_values=<span class="string">&#x27;auto&#x27;</span>, categorical_features=<span class="string">&#x27;all&#x27;</span>)</span><br><span class="line">enc.fit(X_train)</span><br><span class="line">enc.transform(X_test).toarray()</span><br></pre></td></tr></table></figure>
-<h2 id="缺失值插补"><a class="markdownIt-Anchor" href="#缺失值插补"></a> 缺失值插补</h2>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">imp =   preprocessing.Imputer(missing_values=<span class="string">&#x27;NaN&#x27;</span>, strategy=<span class="string">&#x27;mean&#x27;</span>, axis=<span class="number">0</span>)</span><br><span class="line">imp.fit(X_train)</span><br><span class="line">imp.transform(X_test)</span><br></pre></td></tr></table></figure>
-<blockquote>
-<p>参数：strategy :{‘mean’,‘median’,‘most_frequent’}</p>
-</blockquote>
+<table>
+<thead>
+<tr>
+<th>sklearn.preprocessing</th>
+<th>预处理</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>OrdinalEncoder</td>
+<td>编码分类特征</td>
+</tr>
+<tr>
+<td>OneHotEncoder</td>
+<td>One-hot 编码</td>
+</tr>
+</tbody>
+</table>
+<p>常用参数：</p>
+<ul>
+<li>drop=‘if_binary’：删除二分类特征的第一个类别</li>
+<li>handle_unknown：’error’, ‘ignore’：未知类别编码为0, ‘infrequent_if_exist’：未知类别编码到低频率类别</li>
+<li>min_frequency：生成低频率类别。int or float</li>
+<li>max_categories：类别数，可生成低频率类别。</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span>X = [[<span class="string">&#x27;male&#x27;</span>, <span class="string">&#x27;US&#x27;</span>, <span class="string">&#x27;Safari&#x27;</span>],</span><br><span class="line"><span class="meta">... </span>     [<span class="string">&#x27;female&#x27;</span>, <span class="string">&#x27;Europe&#x27;</span>, <span class="string">&#x27;Firefox&#x27;</span>],</span><br><span class="line"><span class="meta">... </span>     [<span class="string">&#x27;female&#x27;</span>, <span class="string">&#x27;Asia&#x27;</span>, <span class="string">&#x27;Chrome&#x27;</span>]]</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>drop_enc = preprocessing.OneHotEncoder(drop=<span class="string">&#x27;if_binary&#x27;</span>).fit(X)</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>drop_enc.categories_</span><br><span class="line">[array([<span class="string">&#x27;female&#x27;</span>, <span class="string">&#x27;male&#x27;</span>], dtype=<span class="built_in">object</span>), </span><br><span class="line"> array([<span class="string">&#x27;Asia&#x27;</span>, <span class="string">&#x27;Europe&#x27;</span>, <span class="string">&#x27;US&#x27;</span>], dtype=<span class="built_in">object</span>),</span><br><span class="line"> array([<span class="string">&#x27;Chrome&#x27;</span>, <span class="string">&#x27;Firefox&#x27;</span>, <span class="string">&#x27;Safari&#x27;</span>], dtype=<span class="built_in">object</span>)]</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>drop_enc.transform(X).toarray()</span><br><span class="line">array([[<span class="number">1.</span>, <span class="number">0.</span>, <span class="number">0.</span>, <span class="number">1.</span>, <span class="number">0.</span>, <span class="number">0.</span>, <span class="number">1.</span>],</span><br><span class="line">       [<span class="number">0.</span>, <span class="number">0.</span>, <span class="number">1.</span>, <span class="number">0.</span>, <span class="number">0.</span>, <span class="number">1.</span>, <span class="number">0.</span>],</span><br><span class="line">       [<span class="number">0.</span>, <span class="number">1.</span>, <span class="number">0.</span>, <span class="number">0.</span>, <span class="number">1.</span>, <span class="number">0.</span>, <span class="number">0.</span>]])</span><br></pre></td></tr></table></figure>
+<p>OneHotEncoder和OrdinalEncoder支持为每个功能将不频繁的类别汇总到单个输出中。能够收集不频繁类别的参数是min_frequency和max_categories。</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span>X = np.array([[<span class="string">&#x27;dog&#x27;</span>] * <span class="number">5</span> + [<span class="string">&#x27;cat&#x27;</span>] * <span class="number">20</span> + [<span class="string">&#x27;rabbit&#x27;</span>] * <span class="number">10</span> +</span><br><span class="line"><span class="meta">... </span>              [<span class="string">&#x27;snake&#x27;</span>] * <span class="number">3</span>], dtype=<span class="built_in">object</span>).T</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>enc = preprocessing.OneHotEncoder(min_frequency=<span class="number">6</span>, sparse_output=<span class="literal">False</span>).fit(X)</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>enc.infrequent_categories_</span><br><span class="line">[array([<span class="string">&#x27;dog&#x27;</span>, <span class="string">&#x27;snake&#x27;</span>], dtype=<span class="built_in">object</span>)]</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>enc.transform(np.array([[<span class="string">&#x27;dog&#x27;</span>], [<span class="string">&#x27;cat&#x27;</span>], [<span class="string">&#x27;rabbit&#x27;</span>], [<span class="string">&#x27;snake&#x27;</span>]]))</span><br><span class="line">array([[<span class="number">0.</span>, <span class="number">0.</span>, <span class="number">1.</span>],</span><br><span class="line">       [<span class="number">1.</span>, <span class="number">0.</span>, <span class="number">0.</span>],</span><br><span class="line">       [<span class="number">0.</span>, <span class="number">1.</span>, <span class="number">0.</span>],</span><br><span class="line">       [<span class="number">0.</span>, <span class="number">0.</span>, <span class="number">1.</span>]])</span><br></pre></td></tr></table></figure>
+<p><strong>彩蛋：常用的年龄编码</strong></p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">bins = [<span class="number">0</span>, <span class="number">1</span>, <span class="number">13</span>, <span class="number">20</span>, <span class="number">60</span>, np.inf]</span><br><span class="line">labels = [<span class="string">&#x27;infant&#x27;</span>, <span class="string">&#x27;kid&#x27;</span>, <span class="string">&#x27;teen&#x27;</span>, <span class="string">&#x27;adult&#x27;</span>, <span class="string">&#x27;senior citizen&#x27;</span>]</span><br></pre></td></tr></table></figure>
+<h2 id="连续特征离散化"><a class="markdownIt-Anchor" href="#连续特征离散化"></a> 连续特征离散化</h2>
+<table>
+<thead>
+<tr>
+<th>sklearn.preprocessing</th>
+<th>预处理</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>KBinsDiscretizer</td>
+<td>K-bins离散化</td>
+</tr>
+<tr>
+<td>Binarizer(threshold=0.0)</td>
+<td>二值化</td>
+</tr>
+</tbody>
+</table>
+<p>常用参数：</p>
+<ul>
+<li>n_bins：分箱数</li>
+<li>encode：{‘onehot’, ‘onehot-dense’, ‘ordinal’}, default='onehot’</li>
+<li>strategy：定义分箱策略。{‘uniform’, ‘quantile’, ‘kmeans’}, default=‘quantile’</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span>X = np.array([[ -<span class="number">3.</span>, <span class="number">5.</span>, <span class="number">15</span> ],</span><br><span class="line"><span class="meta">... </span>              [  <span class="number">0.</span>, <span class="number">6.</span>, <span class="number">14</span> ],</span><br><span class="line"><span class="meta">... </span>              [  <span class="number">6.</span>, <span class="number">3.</span>, <span class="number">11</span> ]])</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>est = preprocessing.KBinsDiscretizer(n_bins=[<span class="number">3</span>, <span class="number">2</span>, <span class="number">2</span>], encode=<span class="string">&#x27;ordinal&#x27;</span>).fit(X)</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>est.transform(X)                      </span><br><span class="line">array([[ <span class="number">0.</span>, <span class="number">1.</span>, <span class="number">1.</span>],</span><br><span class="line">       [ <span class="number">1.</span>, <span class="number">1.</span>, <span class="number">1.</span>],</span><br><span class="line">       [ <span class="number">2.</span>, <span class="number">0.</span>, <span class="number">0.</span>]])</span><br></pre></td></tr></table></figure>
+<p>注意：第一个和最后一个分箱边界被扩展到无穷 <code>[-np.inf, bin_edges[1:-1], np.inf]</code>。因此，对于当前示例，这些特征边界被定义为：</p>
+<ul>
+<li>feature 1: <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mo stretchy="false">[</mo><mo>−</mo><mi>inf</mi><mo>⁡</mo><mo separator="true">,</mo><mo>−</mo><mn>1</mn><mo stretchy="false">]</mo><mo separator="true">,</mo><mo stretchy="false">[</mo><mo>−</mo><mn>1</mn><mo separator="true">,</mo><mn>2</mn><mo stretchy="false">)</mo><mo separator="true">,</mo><mo stretchy="false">[</mo><mn>2</mn><mo separator="true">,</mo><mo>+</mo><mi>inf</mi><mo>⁡</mo><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">[-\inf,-1],[-1,2),[2,+\inf)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mopen">[</span><span class="mord">−</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mop">in<span style="margin-right:0.07778em;">f</span></span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord">−</span><span class="mord">1</span><span class="mclose">]</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mopen">[</span><span class="mord">−</span><span class="mord">1</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord">2</span><span class="mclose">)</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mopen">[</span><span class="mord">2</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord">+</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mop">in<span style="margin-right:0.07778em;">f</span></span><span class="mclose">)</span></span></span></span></li>
+<li>feature 2: <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mo stretchy="false">[</mo><mo>−</mo><mi>inf</mi><mo>⁡</mo><mo separator="true">,</mo><mn>5</mn><mo stretchy="false">]</mo><mo separator="true">,</mo><mo stretchy="false">(</mo><mn>5</mn><mo separator="true">,</mo><mo>+</mo><mi>inf</mi><mo>⁡</mo><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">[-\inf,5],(5,+\inf)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mopen">[</span><span class="mord">−</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mop">in<span style="margin-right:0.07778em;">f</span></span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord">5</span><span class="mclose">]</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mopen">(</span><span class="mord">5</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord">+</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mop">in<span style="margin-right:0.07778em;">f</span></span><span class="mclose">)</span></span></span></span></li>
+<li>feature 3:  <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mo stretchy="false">[</mo><mo>−</mo><mi>inf</mi><mo>⁡</mo><mo separator="true">,</mo><mn>14</mn><mo stretchy="false">]</mo><mo separator="true">,</mo><mo stretchy="false">(</mo><mn>14</mn><mo separator="true">,</mo><mo>+</mo><mi>inf</mi><mo>⁡</mo><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">[-\inf,14],(14,+\inf)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mopen">[</span><span class="mord">−</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mop">in<span style="margin-right:0.07778em;">f</span></span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord">1</span><span class="mord">4</span><span class="mclose">]</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mopen">(</span><span class="mord">1</span><span class="mord">4</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord">+</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mop">in<span style="margin-right:0.07778em;">f</span></span><span class="mclose">)</span></span></span></span></li>
+</ul>
 <h2 id="生成多项式特征"><a class="markdownIt-Anchor" href="#生成多项式特征"></a> 生成多项式特征</h2>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">X=[X1,X2]</span><br><span class="line">poly = preprocessing.PolynomialFeatures(degree=<span class="number">2</span>, interaction_only=<span class="literal">False</span>)</span><br><span class="line">poly.fit_transform(X)</span><br></pre></td></tr></table></figure>
-<blockquote>
-<p>参数：<br />
-degree=2：X   的特征从[X1,X2]转换为[1,X1,X2,X1<sup>2,X1X2,X2</sup>2]<br />
-interaction_only：只有交互项[1,X1,X2,X1X2]</p>
-</blockquote>
-<h1 id="其他"><a class="markdownIt-Anchor" href="#其他"></a> 其他</h1>
-<h2 id="协方差估计sklearncovariance"><a class="markdownIt-Anchor" href="#协方差估计sklearncovariance"></a> 协方差估计(sklearn.covariance)</h2>
-<p><code>empirical_covariance</code>  经验协方差</p>
-<h2 id="特征提取sklearnfeature_extraction"><a class="markdownIt-Anchor" href="#特征提取sklearnfeature_extraction"></a> 特征提取(sklearn.feature_extraction)</h2>
-<p>可用于提取符合机器学习算法支持的特征，比如文本和图片。</p>
-<h2 id="概率校准sklearncalibration"><a class="markdownIt-Anchor" href="#概率校准sklearncalibration"></a> 概率校准(sklearn.calibration)</h2>
-<p>CalibratedClassifierCV</p>
-<h1 id="附录"><a class="markdownIt-Anchor" href="#附录"></a> 附录</h1>
-<h2 id="建模-demo"><a class="markdownIt-Anchor" href="#建模-demo"></a> 建模 Demo</h2>
-<figure class="highlight py"><table><tr><td class="code"><pre><span class="line"><span class="comment"># load module</span></span><br><span class="line"><span class="keyword">import</span> pandas <span class="keyword">as</span> pd</span><br><span class="line"><span class="keyword">from</span> sklearn.ensemble <span class="keyword">import</span> GradientBoostingClassifier</span><br><span class="line"><span class="keyword">from</span> xgboost.sklearn <span class="keyword">import</span> XGBClassifier</span><br><span class="line"><span class="keyword">import</span> lightgbm <span class="keyword">as</span> LGB</span><br><span class="line"><span class="keyword">from</span> sklearn.model_selection <span class="keyword">import</span> train_test_split</span><br><span class="line"><span class="keyword">from</span> sklearn.metrics <span class="keyword">import</span> accuracy_score, roc_auc_score</span><br><span class="line"><span class="keyword">import</span> matplotlib.pyplot <span class="keyword">as</span> plt</span><br><span class="line"></span><br><span class="line"><span class="comment"># load datasets</span></span><br><span class="line">data = pd.read_csv(<span class="string">&#x27;digits.csv&#x27;</span>, encoding=<span class="string">&#x27;utf8&#x27;</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># data analysis</span></span><br><span class="line"><span class="built_in">print</span>(data.shape)</span><br><span class="line"><span class="built_in">print</span>(data.dtypes)</span><br><span class="line"></span><br><span class="line"><span class="comment"># data split</span></span><br><span class="line">X_train, X_test, y_train, y_test = train_test_split(data[:-<span class="number">1</span>], data[-<span class="number">1</span>], test_size=<span class="number">0.3</span>, random_state=<span class="number">42</span>)</span><br><span class="line">X_train, X_valid, y_train, y_valid = train_test_split(X_train, y_train, test_size=<span class="number">0.2</span>, random_state=<span class="number">42</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># Model Fitting</span></span><br><span class="line">train_data = LGB.Dataset(X_train, y_train)</span><br><span class="line">valid_data = LGB.Dataset(X_valid, y_valid)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 先利用一些常规超参数设置，使用较高的学习率获得一个基础模型，方便后续的调参效率。</span></span><br><span class="line">params = &#123;</span><br><span class="line">    <span class="string">&#x27;task&#x27;</span>: <span class="string">&#x27;train&#x27;</span>, <span class="comment"># 指定任务，可选train，predict等</span></span><br><span class="line">    <span class="string">&#x27;boosting_type&#x27;</span>: <span class="string">&#x27;gbdt&#x27;</span>,  <span class="comment"># 提升方法，可选gbdt、rf等。</span></span><br><span class="line">     <span class="string">&#x27;objective&#x27;</span>: <span class="string">&#x27;binary&#x27;</span>,  <span class="comment"># 目标函数，如果是回归任务，可l2、l1、huber、quantile等；如果是分类任务，可选binary、multiclass等</span></span><br><span class="line">     <span class="string">&#x27;metric&#x27;</span>: &#123;<span class="string">&#x27;auc&#x27;</span>&#125;,</span><br><span class="line">     <span class="string">&#x27;nthread&#x27;</span>: <span class="number">4</span>,</span><br><span class="line">     <span class="string">&#x27;learning_rate&#x27;</span>: <span class="number">0.1</span>, <span class="comment"># 学习率</span></span><br><span class="line">     <span class="string">&#x27;verbosity&#x27;</span>: -<span class="number">1</span>,</span><br><span class="line">    <span class="string">&#x27;num_trees&#x27;</span> = <span class="number">2</span>,  <span class="comment"># 树的数量</span></span><br><span class="line">     <span class="string">&#x27;num_leaves&#x27;</span>: <span class="number">60</span>,  <span class="comment"># 每棵树的叶子数</span></span><br><span class="line">     <span class="string">&#x27;max_depth&#x27;</span>: <span class="number">5</span>,  <span class="comment"># 树的最大深度</span></span><br><span class="line">     <span class="string">&#x27;scale_pos_weight&#x27;</span>:<span class="number">1.5</span>, <span class="comment">#正负样本比</span></span><br><span class="line">     <span class="string">&#x27;feature_fraction&#x27;</span>: <span class="number">1.0</span>,  <span class="comment"># 特征的随机采样率</span></span><br><span class="line">     <span class="string">&#x27;bagging_ fraction&#x27;</span>: <span class="number">0.9</span>,  <span class="comment"># 样本的随机采样率</span></span><br><span class="line">     <span class="string">&#x27;bagging_freq&#x27;</span>: <span class="number">5</span>,  <span class="comment"># 若启用bagging并设置迭代轮次，上述的特征与样本的的随机采样需要设置</span></span><br><span class="line">     <span class="string">&#x27;lambda_l1&#x27;</span>: <span class="number">0.001</span>,  <span class="comment"># L1正则化</span></span><br><span class="line">     <span class="string">&#x27;lambda_12&#x27;</span>: <span class="number">0.001</span>, <span class="comment"># L2正则化</span></span><br><span class="line">     <span class="string">&#x27;min_split_gain&#x27;</span>: <span class="number">1.0</span></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line"><span class="comment"># 使用callback回调方法early stopping控制过拟合风险，当验证集上的精度若干轮不下降，提前停止训练。</span></span><br><span class="line">callback=[LGB.early_stopping(stopping_rounds=<span class="number">10</span>,verbose=<span class="literal">True</span>), LGB.log_evaluation(period=<span class="number">10</span>,show_stdv=<span class="literal">True</span>)]</span><br><span class="line"></span><br><span class="line"><span class="comment"># train</span></span><br><span class="line">clf=lgb.train(params, train_data, valid_sets=[valid_data], num_boost_round=<span class="number">2000</span>, callbacks=callback)</span><br><span class="line"></span><br><span class="line"><span class="comment"># model evaluate</span></span><br><span class="line">y_pred=clf.predict(X_test)  <span class="comment"># predict_proba()</span></span><br><span class="line"><span class="built_in">print</span>(roc_auc_score(y_test,y_pred))</span><br><span class="line"></span><br><span class="line"><span class="comment"># feature_importance</span></span><br><span class="line"><span class="built_in">print</span>(clf.feature_importance())</span><br><span class="line">plt.figure(figsize=(<span class="number">12</span>,<span class="number">6</span>))</span><br><span class="line">LGB.plot_importance(clf)</span><br><span class="line">plt.title(<span class="string">&quot;Feature importances&quot;</span>)</span><br><span class="line">plt.show()</span><br><span class="line"></span><br><span class="line"><span class="comment"># save </span></span><br><span class="line">clf.save_model(<span class="string">&#x27;LGB.txt&#x27;</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># load </span></span><br><span class="line">clf=LGB.Booster(model_file=<span class="string">&#x27;LGB.txt&#x27;</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># prediction</span></span><br><span class="line">X=spark.sql(<span class="string">&#x27;select...&#x27;</span>).toPandas()</span><br><span class="line">y_pred=clf.predict(X)</span><br><span class="line"></span><br><span class="line">df=pd.concat([X, y_pred],axis=<span class="number">0</span>)</span><br><span class="line">df=spark.createDataFrame(df,df.columns)</span><br><span class="line">df.write.mode(<span class="string">&#x27;overwrite&#x27;</span>).saveAsTable(tablename,partitionBy=<span class="literal">None</span>)</span><br></pre></td></tr></table></figure>
-<h2 id="决策树可视化"><a class="markdownIt-Anchor" href="#决策树可视化"></a> 决策树可视化</h2>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">from</span> sklearn.datasets <span class="keyword">import</span> load_iris</span><br><span class="line"><span class="keyword">from</span> sklearn <span class="keyword">import</span> tree</span><br><span class="line"><span class="keyword">from</span> IPython.display <span class="keyword">import</span> Image</span><br><span class="line"><span class="keyword">import</span> pydotplus</span><br><span class="line"></span><br><span class="line">iris = load_iris()</span><br><span class="line"><span class="comment"># 训练模型</span></span><br><span class="line">clf = tree.DecisionTreeClassifier(max_depth = <span class="number">5</span>)</span><br><span class="line">clf.fit(iris.data, iris.target)</span><br><span class="line"><span class="comment"># 绘制决策树</span></span><br><span class="line">dot_data = tree.export_graphviz(clf, </span><br><span class="line">                 feature_names = iris.feature_names, </span><br><span class="line">                 class_names = iris.target_names, </span><br><span class="line">                 filled=<span class="literal">True</span>)</span><br><span class="line">graph = pydotplus.graph_from_dot_data(dot_data)</span><br><span class="line">Image(graph.create_png())</span><br></pre></td></tr></table></figure>
-<img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://warehouse-1310574346.cos.ap-shanghai.myqcloud.com/images/ML/Decision-Tree.png" style="zoom:67%;" />
-</article><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/">机器学习</a><a class="post-meta__tags" href="/tags/python/">python</a></div><div class="post_share"><div class="social-share" data-image="/img/sklearn-cover.svg" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/js/social-share.min.js" defer></script></div></div><div class="post-reward"><div class="reward-button"><i class="fas fa-qrcode"></i> 打赏</div><div class="reward-main"><ul class="reward-all"><li class="reward-item"><a href="/img/morty3.jpg" target="_blank"><img class="post-qr-code-img" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/img/morty3.jpg" alt="Give me money!"/></a><div class="post-qr-code-desc">Give me money!</div></li></ul></div></div><nav class="pagination-post" id="pagination"><div class="prev-post pull-left"><a href="/posts/b1aa3aed/" title="Python手册(Scientific Computing)--SciPy"><img class="cover" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/img/scipy-cover.svg" onerror="onerror=null;src='/img/404_moon.png'" alt="cover of previous post"><div class="pagination-info"><div class="label">上一篇</div><div class="prev_info">Python手册(Scientific Computing)--SciPy</div></div></a></div><div class="next-post pull-right"><a href="/posts/6c94e349/" title="Python手册(Machine Learning)--statsmodels"><img class="cover" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/img/statsmodels.svg" onerror="onerror=null;src='/img/404_moon.png'" alt="cover of next post"><div class="pagination-info"><div class="label">下一篇</div><div class="next_info">Python手册(Machine Learning)--statsmodels</div></div></a></div></nav><div class="relatedPosts"><div class="headline"><i class="fas fa-thumbs-up fa-fw"></i><span>相关推荐</span></div><div class="relatedPosts-list"><div><a href="/posts/75974533/" title="大数据手册(Spark)--PySpark MLlib"><img class="cover" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/img/apache-spark-mllib.png" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2020-01-09</div><div class="title">大数据手册(Spark)--PySpark MLlib</div></div></a></div><div><a href="/posts/6c94e349/" title="Python手册(Machine Learning)--statsmodels"><img class="cover" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/img/statsmodels.svg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2018-05-10</div><div class="title">Python手册(Machine Learning)--statsmodels</div></div></a></div><div><a href="/posts/cc734464/" title="机器学习(III)--模型选择与评估"><img class="cover" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/img/ML-model-selection-and-evaluation.png" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2022-11-27</div><div class="title">机器学习(III)--模型选择与评估</div></div></a></div><div><a href="/posts/5faa8f40/" title="机器学习(II)--数据预处理"><img class="cover" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/img/ML-data-preprocessing.png" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2023-05-03</div><div class="title">机器学习(II)--数据预处理</div></div></a></div><div><a href="/posts/3c1747d9/" title="机器学习(IV)--监督学习"><img class="cover" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/img/ML-supervised-learning.png" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2022-11-27</div><div class="title">机器学习(IV)--监督学习</div></div></a></div><div><a href="/posts/8638abf9/" title="机器学习(I)--基础知识"><img class="cover" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/img/ML-overview.png" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2023-05-02</div><div class="title">机器学习(I)--基础知识</div></div></a></div></div></div><hr class="custom-hr"/><div id="post-comment"><div class="comment-head"><div class="comment-headline"><i class="fas fa-comments fa-fw"></i><span> 评论</span></div><div id="comment-switch"><span class="first-comment">Gitalk</span><span class="switch-btn"></span><span class="second-comment">Waline</span></div></div><div class="comment-wrap"><div><div id="gitalk-container"></div></div><div><div id="waline-wrap"></div></div></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="is-center"><div class="avatar-img"><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/img/avatar.jpg" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info__name">Tiny Lei</div><div class="author-info__description">每天进步一点点...</div></div><div class="card-info-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">139</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">105</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">42</div></a></div><div class="card-info-social-icons is-center"><a class="social-icon" href="https://gitee.com/wilenwu" rel="external nofollow noreferrer" target="_blank" title="Gitee"><i class="iconfont icon-gitee"></i></a><a class="social-icon" href="https://github.com/wilenwu" rel="external nofollow noreferrer" target="_blank" title="Github"><i class="iconfont icon-github"></i></a><a class="social-icon" href="https://blog.csdn.net/qq_41518277" rel="external nofollow noreferrer" target="_blank" title="CSDN"><i class="iconfont icon-csdn"></i></a><a class="social-icon" href="/atom.xml" target="_blank" title="RSS"><i class="iconfont icon-rss"></i></a></div></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>公告</span></div><div class="announcement_content">感谢访问本站，若喜欢请收藏^_^</div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%BB%BA%E6%A8%A1%E6%B5%81%E7%A8%8Bthe-simplest-sklearn-workflow"><span class="toc-number">1.</span> <span class="toc-text"> 建模流程(The simplest sklearn workflow)</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E6%95%B0%E6%8D%AE%E9%9B%86datasets"><span class="toc-number">2.</span> <span class="toc-text"> 数据集(Datasets)</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%8A%A0%E8%BD%BD%E7%A4%BA%E4%BE%8B%E6%95%B0%E6%8D%AE%E9%9B%86"><span class="toc-number">2.1.</span> <span class="toc-text"> 加载示例数据集</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%88%9B%E5%BB%BA%E6%95%B0%E6%8D%AE%E9%9B%86"><span class="toc-number">2.2.</span> <span class="toc-text"> 创建数据集</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%9B%9E%E5%BD%92%E5%92%8C%E5%88%86%E7%B1%BBregression-and-classification"><span class="toc-number">3.</span> <span class="toc-text"> 回归和分类(Regression and Classification)</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%BA%BF%E6%80%A7%E6%A8%A1%E5%9E%8B"><span class="toc-number">3.1.</span> <span class="toc-text"> 线性模型</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%94%AF%E6%8C%81%E5%90%91%E9%87%8F%E6%9C%BA"><span class="toc-number">3.2.</span> <span class="toc-text"> 支持向量机</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%9C%80%E8%BF%91%E9%82%BB%E7%AE%97%E6%B3%95"><span class="toc-number">3.3.</span> <span class="toc-text"> 最近邻算法</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%AB%98%E6%96%AF%E8%BF%87%E7%A8%8B"><span class="toc-number">3.4.</span> <span class="toc-text"> 高斯过程</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%86%B3%E7%AD%96%E6%A0%91"><span class="toc-number">3.5.</span> <span class="toc-text"> 决策树</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%86%85%E6%A0%B8%E5%B2%AD%E5%9B%9E%E5%BD%92"><span class="toc-number">3.6.</span> <span class="toc-text"> 内核岭回归</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%AD%89%E5%BC%8F%E5%9B%9E%E5%BD%92"><span class="toc-number">3.7.</span> <span class="toc-text"> 等式回归</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%A4%9A%E7%B1%BB%E5%A4%9A%E6%A0%87%E7%AD%BE%E7%AE%97%E6%B3%95"><span class="toc-number">3.8.</span> <span class="toc-text"> 多类多标签算法</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%9C%B4%E7%B4%A0%E8%B4%9D%E5%8F%B6%E6%96%AF%E5%88%86%E7%B1%BB%E5%99%A8"><span class="toc-number">3.9.</span> <span class="toc-text"> 朴素贝叶斯分类器</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%9B%86%E6%88%90%E6%96%B9%E6%B3%95"><span class="toc-number">3.10.</span> <span class="toc-text"> 集成方法</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C"><span class="toc-number">3.11.</span> <span class="toc-text"> 神经网络</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%AB%98%E6%96%AF%E6%B7%B7%E5%90%88%E6%A8%A1%E5%9E%8B"><span class="toc-number">3.12.</span> <span class="toc-text"> 高斯混合模型</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E8%81%9A%E7%B1%BBclustering"><span class="toc-number">4.</span> <span class="toc-text"> 聚类(Clustering)</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E9%99%8D%E7%BB%B4dimensionalityreduction"><span class="toc-number">5.</span> <span class="toc-text"> 降维(DimensionalityReduction)</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%9F%A9%E9%98%B5%E5%88%86%E8%A7%A3sklearndecomposition"><span class="toc-number">5.1.</span> <span class="toc-text"> 矩阵分解(sklearn.decomposition)</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%B5%81%E5%BD%A2%E5%AD%A6%E4%B9%A0sklearnmanifold"><span class="toc-number">5.2.</span> <span class="toc-text"> 流形学习(sklearn.manifold)</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E6%A8%A1%E5%9E%8B%E9%80%89%E6%8B%A9modelselection"><span class="toc-number">6.</span> <span class="toc-text"> 模型选择(ModelSelection)</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%95%B0%E6%8D%AE%E9%9B%86%E6%8B%86%E5%88%86train_test_split"><span class="toc-number">6.1.</span> <span class="toc-text"> 数据集拆分(train_test_split)</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BA%A4%E5%8F%89%E9%AA%8C%E8%AF%81"><span class="toc-number">6.2.</span> <span class="toc-text"> 交叉验证</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%B0%83%E6%95%B4%E4%BC%B0%E8%AE%A1%E5%99%A8%E7%9A%84%E8%B6%85%E5%8F%82%E6%95%B0"><span class="toc-number">6.3.</span> <span class="toc-text"> 调整估计器的超参数</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%AA%8C%E8%AF%81%E6%9B%B2%E7%BA%BF-%E7%BB%98%E5%88%B6%E5%BE%97%E5%88%86%E6%9B%B2%E7%BA%BF%E4%BB%A5%E8%AF%84%E4%BC%B0%E6%A8%A1%E5%9E%8B-validation_curve"><span class="toc-number">6.4.</span> <span class="toc-text"> 验证曲线: 绘制得分曲线以评估模型 (validation_curve)</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%AD%A6%E4%B9%A0%E6%9B%B2%E7%BA%BFlearning_curve"><span class="toc-number">6.5.</span> <span class="toc-text"> 学习曲线(learning_curve)</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%A8%A1%E5%9E%8B%E8%AF%84%E5%88%86metric"><span class="toc-number">6.6.</span> <span class="toc-text"> 模型评分(Metric)</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%A8%A1%E5%9E%8B%E6%8C%81%E4%B9%85%E5%8C%96"><span class="toc-number">6.7.</span> <span class="toc-text"> 模型持久化</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E7%89%B9%E5%BE%81%E9%80%89%E6%8B%A9sklearnfeature_selection"><span class="toc-number">7.</span> <span class="toc-text"> 特征选择(sklearn.feature_selection)</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E9%A2%84%E5%A4%84%E7%90%86pre-processing"><span class="toc-number">8.</span> <span class="toc-text"> 预处理(Pre-Processing)</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%A0%87%E5%87%86%E5%8C%96"><span class="toc-number">8.1.</span> <span class="toc-text"> 标准化</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%9D%9E%E7%BA%BF%E6%80%A7%E8%BD%AC%E6%8D%A2%E6%97%A0%E5%8F%82%E6%95%B0%E8%BD%AC%E6%8D%A2"><span class="toc-number">8.2.</span> <span class="toc-text"> 非线性转换(无参数转换)</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%BD%92%E4%B8%80%E5%8C%96"><span class="toc-number">8.3.</span> <span class="toc-text"> 归一化</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BA%8C%E5%80%BC%E5%8C%96"><span class="toc-number">8.4.</span> <span class="toc-text"> 二值化</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%88%86%E7%B1%BB%E7%89%B9%E5%BE%81%E7%BC%96%E7%A0%81"><span class="toc-number">8.5.</span> <span class="toc-text"> 分类特征编码</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%BC%BA%E5%A4%B1%E5%80%BC%E6%8F%92%E8%A1%A5"><span class="toc-number">8.6.</span> <span class="toc-text"> 缺失值插补</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%94%9F%E6%88%90%E5%A4%9A%E9%A1%B9%E5%BC%8F%E7%89%B9%E5%BE%81"><span class="toc-number">8.7.</span> <span class="toc-text"> 生成多项式特征</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%85%B6%E4%BB%96"><span class="toc-number">9.</span> <span class="toc-text"> 其他</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%8D%8F%E6%96%B9%E5%B7%AE%E4%BC%B0%E8%AE%A1sklearncovariance"><span class="toc-number">9.1.</span> <span class="toc-text"> 协方差估计(sklearn.covariance)</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%89%B9%E5%BE%81%E6%8F%90%E5%8F%96sklearnfeature_extraction"><span class="toc-number">9.2.</span> <span class="toc-text"> 特征提取(sklearn.feature_extraction)</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%A6%82%E7%8E%87%E6%A0%A1%E5%87%86sklearncalibration"><span class="toc-number">9.3.</span> <span class="toc-text"> 概率校准(sklearn.calibration)</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E9%99%84%E5%BD%95"><span class="toc-number">10.</span> <span class="toc-text"> 附录</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%BB%BA%E6%A8%A1-demo"><span class="toc-number">10.1.</span> <span class="toc-text"> 建模 Demo</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%86%B3%E7%AD%96%E6%A0%91%E5%8F%AF%E8%A7%86%E5%8C%96"><span class="toc-number">10.2.</span> <span class="toc-text"> 决策树可视化</span></a></li></ol></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item"><a class="thumbnail" href="/posts/250f35c4/" title="大数据手册(Hadoop)--Hadoop安装配置"><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/img/apache-hadoop-cover.png" onerror="this.onerror=null;this.src='/img/404_moon.png'" alt="大数据手册(Hadoop)--Hadoop安装配置"/></a><div class="content"><a class="title" href="/posts/250f35c4/" title="大数据手册(Hadoop)--Hadoop安装配置">大数据手册(Hadoop)--Hadoop安装配置</a><time datetime="2024-01-15T14:00:00.000Z" title="发表于 2024-01-15 22:00:00">2024-01-15</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/posts/dd512a75/" title="大数据手册(Hive)--Hive安装配置"><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/img/hive-cover.jpg" onerror="this.onerror=null;this.src='/img/404_moon.png'" alt="大数据手册(Hive)--Hive安装配置"/></a><div class="content"><a class="title" href="/posts/dd512a75/" title="大数据手册(Hive)--Hive安装配置">大数据手册(Hive)--Hive安装配置</a><time datetime="2024-01-15T14:00:00.000Z" title="发表于 2024-01-15 22:00:00">2024-01-15</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/posts/d02a6da3/" title="大数据手册(Spark)--Spark安装配置"><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/img/apache-spark-overview.png" onerror="this.onerror=null;this.src='/img/404_moon.png'" alt="大数据手册(Spark)--Spark安装配置"/></a><div class="content"><a class="title" href="/posts/d02a6da3/" title="大数据手册(Spark)--Spark安装配置">大数据手册(Spark)--Spark安装配置</a><time datetime="2024-01-15T14:00:00.000Z" title="发表于 2024-01-15 22:00:00">2024-01-15</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/posts/2da646b7/" title="Mac终端配置文件"><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/img/openbook.jpg" onerror="this.onerror=null;this.src='/img/404_moon.png'" alt="Mac终端配置文件"/></a><div class="content"><a class="title" href="/posts/2da646b7/" title="Mac终端配置文件">Mac终端配置文件</a><time datetime="2024-01-12T13:59:32.000Z" title="发表于 2024-01-12 21:59:32">2024-01-12</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/posts/b557dff1/" title="数据仓库和数据湖简介"><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/img/apache-hadoop-cover.png" onerror="this.onerror=null;this.src='/img/404_moon.png'" alt="数据仓库和数据湖简介"/></a><div class="content"><a class="title" href="/posts/b557dff1/" title="数据仓库和数据湖简介">数据仓库和数据湖简介</a><time datetime="2023-12-27T13:22:00.000Z" title="发表于 2023-12-27 21:22:00">2023-12-27</time></div></div></div></div></div></div></main><footer id="footer"><div id="footer-wrap"><div class="copyright">&copy;2019 - 2024 By Tiny Lei</div><div class="framework-info"><span>框架 </span><a target="_blank" rel="noopener external nofollow noreferrer" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener external nofollow noreferrer" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside_config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><a id="to_comment" href="#post-comment" title="直达评论"><i class="fas fa-comments"></i></a><button id="go-up" type="button" title="回到顶部"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox/fancybox.umd.min.js"></script><script src="https://cdn.jsdelivr.net/npm/vanilla-lazyload/dist/lazyload.iife.min.js"></script><script>function panguFn () {
+<table>
+<thead>
+<tr>
+<th>sklearn.preprocessing</th>
+<th>预处理</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>PolynomialFeatures(degree=2, interaction_only=False)</td>
+<td>生成多项式特征</td>
+</tr>
+</tbody>
+</table>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="keyword">import</span> numpy <span class="keyword">as</span> np</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="keyword">from</span> sklearn.preprocessing <span class="keyword">import</span> PolynomialFeatures</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>X = np.arange(<span class="number">6</span>).reshape(<span class="number">3</span>, <span class="number">2</span>)</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>X</span><br><span class="line">array([[<span class="number">0</span>, <span class="number">1</span>],</span><br><span class="line">       [<span class="number">2</span>, <span class="number">3</span>],</span><br><span class="line">       [<span class="number">4</span>, <span class="number">5</span>]])</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>poly = PolynomialFeatures(degree=<span class="number">2</span>, interaction_only=<span class="literal">True</span>)</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>poly.fit_transform(X)</span><br><span class="line">array([[ <span class="number">1.</span>,  <span class="number">0.</span>,  <span class="number">1.</span>,  <span class="number">0.</span>],</span><br><span class="line">       [ <span class="number">1.</span>,  <span class="number">2.</span>,  <span class="number">3.</span>,  <span class="number">6.</span>],</span><br><span class="line">       [ <span class="number">1.</span>,  <span class="number">4.</span>,  <span class="number">5.</span>, <span class="number">20.</span>]])</span><br></pre></td></tr></table></figure>
+<ul>
+<li><code>degree=2</code>：<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>X</mi></mrow><annotation encoding="application/x-tex">X</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.68333em;vertical-align:0em;"></span><span class="mord mathdefault" style="margin-right:0.07847em;">X</span></span></span></span> 的特征从<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mo stretchy="false">(</mo><msub><mi>X</mi><mn>1</mn></msub><mo separator="true">,</mo><msub><mi>X</mi><mn>2</mn></msub><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">(X_1, X_2)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mopen">(</span><span class="mord"><span class="mord mathdefault" style="margin-right:0.07847em;">X</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.30110799999999993em;"><span style="top:-2.5500000000000003em;margin-left:-0.07847em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">1</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord"><span class="mord mathdefault" style="margin-right:0.07847em;">X</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.30110799999999993em;"><span style="top:-2.5500000000000003em;margin-left:-0.07847em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">2</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mclose">)</span></span></span></span> 转换为 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mo stretchy="false">(</mo><mn>1</mn><mo separator="true">,</mo><msub><mi>X</mi><mn>1</mn></msub><mo separator="true">,</mo><msub><mi>X</mi><mn>2</mn></msub><mo separator="true">,</mo><msubsup><mi>X</mi><mn>1</mn><mn>2</mn></msubsup><mo separator="true">,</mo><msub><mi>X</mi><mn>1</mn></msub><msub><mi>X</mi><mn>2</mn></msub><mo separator="true">,</mo><msubsup><mi>X</mi><mn>2</mn><mn>2</mn></msubsup><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">(1,X_1,X_2,X_1^2,X_1X_2,X_2^2)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1.064108em;vertical-align:-0.25em;"></span><span class="mopen">(</span><span class="mord">1</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord"><span class="mord mathdefault" style="margin-right:0.07847em;">X</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.30110799999999993em;"><span style="top:-2.5500000000000003em;margin-left:-0.07847em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">1</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord"><span class="mord mathdefault" style="margin-right:0.07847em;">X</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.30110799999999993em;"><span style="top:-2.5500000000000003em;margin-left:-0.07847em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">2</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord"><span class="mord mathdefault" style="margin-right:0.07847em;">X</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.8141079999999999em;"><span style="top:-2.4518920000000004em;margin-left:-0.07847em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">1</span></span></span><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">2</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.24810799999999997em;"><span></span></span></span></span></span></span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord"><span class="mord mathdefault" style="margin-right:0.07847em;">X</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.30110799999999993em;"><span style="top:-2.5500000000000003em;margin-left:-0.07847em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">1</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mord"><span class="mord mathdefault" style="margin-right:0.07847em;">X</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.30110799999999993em;"><span style="top:-2.5500000000000003em;margin-left:-0.07847em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">2</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord"><span class="mord mathdefault" style="margin-right:0.07847em;">X</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.8141079999999999em;"><span style="top:-2.4518920000000004em;margin-left:-0.07847em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">2</span></span></span><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">2</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.24810799999999997em;"><span></span></span></span></span></span></span><span class="mclose">)</span></span></span></span></li>
+<li><code>interaction_only=True</code>：只生成交互项 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mo stretchy="false">(</mo><mn>1</mn><mo separator="true">,</mo><msub><mi>X</mi><mn>1</mn></msub><mo separator="true">,</mo><msub><mi>X</mi><mn>2</mn></msub><mo separator="true">,</mo><msub><mi>X</mi><mn>1</mn></msub><msub><mi>X</mi><mn>2</mn></msub><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">(1,X_1,X_2,X_1X_2)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mopen">(</span><span class="mord">1</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord"><span class="mord mathdefault" style="margin-right:0.07847em;">X</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.30110799999999993em;"><span style="top:-2.5500000000000003em;margin-left:-0.07847em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">1</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord"><span class="mord mathdefault" style="margin-right:0.07847em;">X</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.30110799999999993em;"><span style="top:-2.5500000000000003em;margin-left:-0.07847em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">2</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord"><span class="mord mathdefault" style="margin-right:0.07847em;">X</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.30110799999999993em;"><span style="top:-2.5500000000000003em;margin-left:-0.07847em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">1</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mord"><span class="mord mathdefault" style="margin-right:0.07847em;">X</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.30110799999999993em;"><span style="top:-2.5500000000000003em;margin-left:-0.07847em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">2</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mclose">)</span></span></span></span></li>
+</ul>
+<h2 id="缺失值插补"><a class="markdownIt-Anchor" href="#缺失值插补"></a> 缺失值插补</h2>
+<p>scikit-learn估计器假设数组中的所有值都是数值，且都有意义。</p>
+<table>
+<thead>
+<tr>
+<th>sklearn.impute</th>
+<th>缺失值插补</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>SimpleImputer</td>
+<td>单变量插补</td>
+</tr>
+<tr>
+<td>IterativeImputer</td>
+<td>多重插补</td>
+</tr>
+<tr>
+<td>KNNImputer</td>
+<td>最近邻插补</td>
+</tr>
+<tr>
+<td>MissingIndicator</td>
+<td>标记缺失值</td>
+</tr>
+</tbody>
+</table>
+<p>SimpleImputer类提供了估算缺失值的基本策略。缺失值可以用提供的常量值估算，也可以使用缺失值所在的每列的统计信息（平均值、中位数或最频繁值）。该类还允许不同的缺失值编码。</p>
+<p>常用参数：</p>
+<ul>
+<li>missing_values：缺失值的占位符。int, float, str, np.nan, None or <a target="_blank" rel="noopener external nofollow noreferrer" href="http://pandas.NA">pandas.NA</a>, default=np.nan</li>
+<li>strategy：估算策略。“mean”, “median”, “most_frequent”, “constant”, default=’mean’</li>
+<li>fill_value：str or numerical value, default=None。当 strategy=“constant”，fill_value 用于替换所有出现的 missing_values。</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="keyword">import</span> numpy <span class="keyword">as</span> np</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="keyword">from</span> sklearn.impute <span class="keyword">import</span> SimpleImputer</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>imp_mean = SimpleImputer(missing_values=np.nan, strategy=<span class="string">&#x27;mean&#x27;</span>)</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>imp_mean.fit([[<span class="number">7</span>, <span class="number">2</span>, <span class="number">3</span>], [<span class="number">4</span>, np.nan, <span class="number">6</span>], [<span class="number">10</span>, <span class="number">5</span>, <span class="number">9</span>]])</span><br><span class="line">SimpleImputer()</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>X = [[np.nan, <span class="number">2</span>, <span class="number">3</span>], [<span class="number">4</span>, np.nan, <span class="number">6</span>], [<span class="number">10</span>, np.nan, <span class="number">9</span>]]</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="built_in">print</span>(imp_mean.transform(X))</span><br><span class="line">[[ <span class="number">7.</span>   <span class="number">2.</span>   <span class="number">3.</span> ]</span><br><span class="line"> [ <span class="number">4.</span>   <span class="number">3.5</span>  <span class="number">6.</span> ]</span><br><span class="line"> [<span class="number">10.</span>   <span class="number">3.5</span>  <span class="number">9.</span> ]]</span><br></pre></td></tr></table></figure>
+<p>当使用’most_frequent’或’constant’策略时，SimpleImputer还支持分类数据插补：</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="keyword">import</span> pandas <span class="keyword">as</span> pd</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>df = pd.DataFrame([[<span class="string">&quot;a&quot;</span>, <span class="string">&quot;x&quot;</span>],</span><br><span class="line"><span class="meta">... </span>                   [np.nan, <span class="string">&quot;y&quot;</span>],</span><br><span class="line"><span class="meta">... </span>                   [<span class="string">&quot;a&quot;</span>, np.nan],</span><br><span class="line"><span class="meta">... </span>                   [<span class="string">&quot;b&quot;</span>, <span class="string">&quot;y&quot;</span>]], dtype=<span class="string">&quot;category&quot;</span>)</span><br><span class="line">...</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>imp = SimpleImputer(strategy=<span class="string">&quot;most_frequent&quot;</span>)</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="built_in">print</span>(imp.fit_transform(df))</span><br><span class="line">[[<span class="string">&#x27;a&#x27;</span> <span class="string">&#x27;x&#x27;</span>]</span><br><span class="line"> [<span class="string">&#x27;a&#x27;</span> <span class="string">&#x27;y&#x27;</span>]</span><br><span class="line"> [<span class="string">&#x27;a&#x27;</span> <span class="string">&#x27;y&#x27;</span>]</span><br><span class="line"> [<span class="string">&#x27;b&#x27;</span> <span class="string">&#x27;y&#x27;</span>]]</span><br></pre></td></tr></table></figure>
+<p>更复杂的方法是使用 IterativeImputer类，该类将每个缺失值的特征指定为目标变量y，其他特征列被处理为输入变量X，然后拟合回归模型，用预测值插补缺失值。迭代 max_iter次，返回最后一轮估算的结果。</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="keyword">import</span> numpy <span class="keyword">as</span> np</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="keyword">from</span> sklearn.experimental <span class="keyword">import</span> enable_iterative_imputer</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="keyword">from</span> sklearn.impute <span class="keyword">import</span> IterativeImputer</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>imp = IterativeImputer(max_iter=<span class="number">10</span>, random_state=<span class="number">0</span>)</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>imp.fit([[<span class="number">1</span>, <span class="number">2</span>], [<span class="number">3</span>, <span class="number">6</span>], [<span class="number">4</span>, <span class="number">8</span>], [np.nan, <span class="number">3</span>], [<span class="number">7</span>, np.nan]])</span><br><span class="line">IterativeImputer(random_state=<span class="number">0</span>)</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>X_test = [[np.nan, <span class="number">2</span>], [<span class="number">6</span>, np.nan], [np.nan, <span class="number">6</span>]]</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="comment"># the model learns that the second feature is double the first</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="built_in">print</span>(np.<span class="built_in">round</span>(imp.transform(X_test)))</span><br><span class="line">[[ <span class="number">1.</span>  <span class="number">2.</span>]</span><br><span class="line"> [ <span class="number">6.</span> <span class="number">12.</span>]</span><br><span class="line"> [ <span class="number">3.</span>  <span class="number">6.</span>]]</span><br></pre></td></tr></table></figure>
+<p>KNNImputer使用k-Nearest Neighbors方法填充缺失值。默认情况下，使用欧几里得距离查找最近的邻居。每个缺失的值都使用n_neighbors个最近邻的均值填充。</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="keyword">import</span> numpy <span class="keyword">as</span> np</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="keyword">from</span> sklearn.impute <span class="keyword">import</span> KNNImputer</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>nan = np.nan</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>X = [[<span class="number">1</span>, <span class="number">2</span>, nan], [<span class="number">3</span>, <span class="number">4</span>, <span class="number">3</span>], [nan, <span class="number">6</span>, <span class="number">5</span>], [<span class="number">8</span>, <span class="number">8</span>, <span class="number">7</span>]]</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>imputer = KNNImputer(n_neighbors=<span class="number">2</span>, weights=<span class="string">&quot;uniform&quot;</span>)</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>imputer.fit_transform(X)</span><br><span class="line">array([[<span class="number">1.</span> , <span class="number">2.</span> , <span class="number">4.</span> ],</span><br><span class="line">       [<span class="number">3.</span> , <span class="number">4.</span> , <span class="number">3.</span> ],</span><br><span class="line">       [<span class="number">5.5</span>, <span class="number">6.</span> , <span class="number">5.</span> ],</span><br><span class="line">       [<span class="number">8.</span> , <span class="number">8.</span> , <span class="number">7.</span> ]])</span><br></pre></td></tr></table></figure>
+<p>MissingIndicator 将数据集转换为相应的 bool 矩阵，用来标记缺失值。</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="keyword">from</span> sklearn.impute <span class="keyword">import</span> MissingIndicator</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>X = np.array([[-<span class="number">1</span>, -<span class="number">1</span>, <span class="number">1</span>, <span class="number">3</span>],</span><br><span class="line"><span class="meta">... </span>              [<span class="number">4</span>, -<span class="number">1</span>, <span class="number">0</span>, -<span class="number">1</span>],</span><br><span class="line"><span class="meta">... </span>              [<span class="number">8</span>, -<span class="number">1</span>, <span class="number">1</span>, <span class="number">0</span>]])</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>indicator = MissingIndicator(missing_values=-<span class="number">1</span>)</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>mask_missing_values_only = indicator.fit_transform(X)</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>mask_missing_values_only</span><br><span class="line">array([[ <span class="literal">True</span>,  <span class="literal">True</span>, <span class="literal">False</span>],</span><br><span class="line">       [<span class="literal">False</span>,  <span class="literal">True</span>,  <span class="literal">True</span>],</span><br><span class="line">       [<span class="literal">False</span>,  <span class="literal">True</span>, <span class="literal">False</span>]])</span><br></pre></td></tr></table></figure>
+<h2 id="特征选择"><a class="markdownIt-Anchor" href="#特征选择"></a> 特征选择</h2>
+<table>
+<thead>
+<tr>
+<th>sklearn.feature_selection</th>
+<th>特征选择</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>VarianceThreshold(threshold=0.0)</td>
+<td>移除低方差特征，单变量特征选择</td>
+</tr>
+<tr>
+<td>SelectKBest(score_func, k=10)</td>
+<td>选择 K 个评分最高的特征</td>
+</tr>
+<tr>
+<td>SelectPercentile(score_func, percentile=10)</td>
+<td>根据最高分数的百分位数选择特征</td>
+</tr>
+<tr>
+<td>RFECV</td>
+<td>在交叉验证中执行递归式特征消除</td>
+</tr>
+<tr>
+<td>SelectFromModel</td>
+<td>通过特征重要性筛选特征</td>
+</tr>
+<tr>
+<td>SequentialFeatureSelector</td>
+<td>顺序特征选择</td>
+</tr>
+</tbody>
+</table>
+<p>评分函数：</p>
+<ul>
+<li>对于回归问题：f_regression , mutual_info_regression</li>
+<li>对于分类问题：chi2 , f_classif , mutual_info_classif</li>
+</ul>
+<p>单变量特征选择通过单变量统计相关性选择最佳特征。</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="keyword">from</span> sklearn.datasets <span class="keyword">import</span> load_iris</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="keyword">from</span> sklearn.feature_selection <span class="keyword">import</span> SelectKBest</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="keyword">from</span> sklearn.feature_selection <span class="keyword">import</span> f_classif</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>X, y = load_iris(return_X_y=<span class="literal">True</span>)</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>X.shape</span><br><span class="line">(<span class="number">150</span>, <span class="number">4</span>)</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>X_new = SelectKBest(f_classif, k=<span class="number">2</span>).fit_transform(X, y)</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>X_new.shape</span><br><span class="line">(<span class="number">150</span>, <span class="number">2</span>)</span><br></pre></td></tr></table></figure>
+<p>递归式特征消除 RFECV 通过特征重要性筛选特征</p>
+<p>常用参数：</p>
+<ul>
+<li>estimator：具有fit方法的监督学习估计器，通过<code>coef_</code>属性或<code>feature_importances_</code>属性筛选特征</li>
+<li>step：int，每次迭代删除的特征数量，float，每次迭代要删除的特征百分比</li>
+<li>min_features_to_select：要选择的最小特征数</li>
+<li>cv：交叉验证</li>
+<li>scoring：评分函数</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="keyword">from</span> sklearn.datasets <span class="keyword">import</span> make_friedman1</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="keyword">from</span> sklearn.feature_selection <span class="keyword">import</span> RFECV</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="keyword">from</span> sklearn.svm <span class="keyword">import</span> SVR</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>X, y = make_friedman1(n_samples=<span class="number">50</span>, n_features=<span class="number">10</span>, random_state=<span class="number">0</span>)</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>estimator = SVR(kernel=<span class="string">&quot;linear&quot;</span>)</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>selector = RFECV(estimator, step=<span class="number">1</span>, cv=<span class="number">5</span>)</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>selector = selector.fit(X, y)</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>selector.support_</span><br><span class="line">array([ <span class="literal">True</span>,  <span class="literal">True</span>,  <span class="literal">True</span>,  <span class="literal">True</span>,  <span class="literal">True</span>, <span class="literal">False</span>, <span class="literal">False</span>, <span class="literal">False</span>, <span class="literal">False</span>,</span><br><span class="line">       <span class="literal">False</span>])</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>selector.ranking_</span><br><span class="line">array([<span class="number">1</span>, <span class="number">1</span>, <span class="number">1</span>, <span class="number">1</span>, <span class="number">1</span>, <span class="number">6</span>, <span class="number">4</span>, <span class="number">3</span>, <span class="number">2</span>, <span class="number">5</span>])</span><br></pre></td></tr></table></figure>
+<p>SelectFromModel 通过特征重要性筛选特征</p>
+<p>常用参数：</p>
+<ul>
+<li>estimator：具有fit方法的监督学习估计器，通过<code>coef_</code>属性或<code>feature_importances_</code>属性筛选特征</li>
+<li>threshold：特征选择的阈值，大于阈值的特征将被留下。float，特征百分比，str，“median”, “mean” or “0.1*mean”</li>
+<li>min_features_to_select：要选择的最小特征数</li>
+</ul>
+<p>SequentialFeatureSelector  按顺序添加（向前选择）或删除（向后选择）特征，以贪婪的方式找出最佳特征子集</p>
+<p>常用参数：</p>
+<ul>
+<li>estimator：估计器</li>
+<li>n_features_to_select：要选择的特征数量。“auto”, int or float, default=”auto”</li>
+<li>direction：向前或向后搜索。{‘forward’, ‘backward’}, default=’forward’</li>
+<li>scoring：评分。str or callable, default=None</li>
+<li>cv：交叉验证</li>
+</ul>
+<h1 id="增量学习"><a class="markdownIt-Anchor" href="#增量学习"></a> 增量学习</h1>
+<p>我们在现实模型的训练过程中会有一些细节问题需要我们去解决。比如在很多流量很大的电商及资讯类网站的推荐系统中，每天的数据其实是增长很快的，所以模型迭代的频率也是非常高的；或者训练数据量太多的时候，模型有时候会出现Memory Error的错误。在这两种情况下，那么增量学习（incremental learning）就派上用场了。增量学习是近来才出现的概念，其目的在于训练数据的同时，也能保留以前模型的效果，即在之前模型的基础上对新增的数据进行训练，从而使模型能不断适应最新的数据。</p>
+<h2 id="partial_fit-方法"><a class="markdownIt-Anchor" href="#partial_fit-方法"></a> partial_fit 方法</h2>
+<p>sklearn中提供了很多增量学习算法。虽然不是所有的算法都可以增量学习，但是提供了 partial_fit 方法的估计器都可以进行增量学习。事实上，使用 mini-batch的数据进行增量学习是这些估计器的核心，因为它能让内存中始终只有少量的数据。</p>
+<p>以下是不同任务的增量估计器列表：</p>
+<ul>
+<li>Classification
+<ul>
+<li>sklearn.naive_bayes.MultinomialNB</li>
+<li>sklearn.naive_bayes.BernoulliNB</li>
+<li>sklearn.linear_model.Perceptron</li>
+<li>sklearn.linear_model.SGDClassifier</li>
+<li>sklearn.linear_model.PassiveAggressiveClassifier</li>
+<li>sklearn.neural_network.MLPClassifier</li>
+</ul>
+</li>
+<li>Regression
+<ul>
+<li>sklearn.linear_model.SGDRegressor</li>
+<li>sklearn.linear_model.PassiveAggressiveRegressor</li>
+<li>sklearn.neural_network.MLPRegressor</li>
+</ul>
+</li>
+<li>Clustering
+<ul>
+<li>sklearn.cluster.MiniBatchKMeans</li>
+<li>sklearn.cluster.Birch</li>
+</ul>
+</li>
+<li>Decomposition / feature Extraction
+<ul>
+<li>sklearn.decomposition.MiniBatchDictionaryLearning</li>
+<li>sklearn.decomposition.IncrementalPCA</li>
+<li>sklearn.decomposition.LatentDirichletAllocation</li>
+<li>sklearn.decomposition.MiniBatchNMF</li>
+</ul>
+</li>
+<li>Preprocessing
+<ul>
+<li>sklearn.preprocessing.StandardScaler</li>
+<li>sklearn.preprocessing.MinMaxScaler</li>
+<li>sklearn.preprocessing.MaxAbsScaler</li>
+</ul>
+</li>
+</ul>
+<p>不同于使用fit方法，partial_fit 方法不需要清空模型，只需要每次传入mini-batch 数据，每个 batch 的数据的 shape 应保持一致。一般来说，在调用partial_fit时不应修改估计器参数。相比之下，warm_start常用于相同的数据使用不同的参数重复拟合。</p>
+<p>在可迭代训练的模型中，partial_fit 方法通常是执行一次迭代。以 SGDClassifier 为例，增量学习流程如下</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="comment"># Create data streaming</span></span><br><span class="line">minibatch_iterators = get_minibatch(data, minibatch_size) <span class="comment"># return iterator</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># Main loop : iterate on mini-batches of examples</span></span><br><span class="line">cls = SGDClassifier()</span><br><span class="line"><span class="keyword">for</span> i, (X_train, y_train) <span class="keyword">in</span> <span class="built_in">enumerate</span>(minibatch_iterators):</span><br><span class="line">    <span class="comment"># update estimator with examples in the current mini-batch</span></span><br><span class="line">    cls.partial_fit(X_train, y_train)</span><br><span class="line"></span><br><span class="line">clf.score(X_test, y_test)</span><br></pre></td></tr></table></figure>
+<p>Example: <a href="HTML/incremental_learning_demo.html#partial-fit-%E6%96%B9%E6%B3%95">增量学习Demo之partial_fit 方法</a></p>
+<h2 id="warm_start-参数"><a class="markdownIt-Anchor" href="#warm_start-参数"></a> warm_start 参数</h2>
+<p>warm_start 直译为热启动，在模型训练过程中起作用。如果 warm_start=True 就表示模型在重复调用 fit 方法时可以在前一阶段的训练结果上继续训练，而不清除原有模型，可以提升模型的训练速度，且训练结果保持一致。如果 warm_start=False 就表示从头开始训练模型。</p>
+<p>在集成算法中，warm_start 将与 n_estimators交互。如果训练好了一个包含 n_estimators=N 个估计器的集成模型后，想在此基础上训练一个包含 n_estimators=M 个估计器的模型，则可以设置 warm_start=True，新模型在原有的基础上再训练 M-N 个新的估计器。</p>
+<p>Example: <a href="HTML/incremental_learning_demo.html#warm-start-%E5%8F%82%E6%95%B0">增量学习Demo之warm_start 参数</a></p>
+</article><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/">机器学习</a><a class="post-meta__tags" href="/tags/python/">python</a></div><div class="post_share"><div class="social-share" data-image="/img/sklearn-cover.svg" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/js/social-share.min.js" defer></script></div></div><div class="post-reward"><div class="reward-button"><i class="fas fa-qrcode"></i> 打赏</div><div class="reward-main"><ul class="reward-all"><li class="reward-item"><a href="/img/morty3.jpg" target="_blank"><img class="post-qr-code-img" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/img/morty3.jpg" alt="Give me money!"/></a><div class="post-qr-code-desc">Give me money!</div></li></ul></div></div><nav class="pagination-post" id="pagination"><div class="prev-post pull-left"><a href="/posts/b1aa3aed/" title="Python手册(Scientific Computing)--SciPy"><img class="cover" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/img/scipy-cover.svg" onerror="onerror=null;src='/img/404_moon.png'" alt="cover of previous post"><div class="pagination-info"><div class="label">上一篇</div><div class="prev_info">Python手册(Scientific Computing)--SciPy</div></div></a></div><div class="next-post pull-right"><a href="/posts/6c94e349/" title="Python手册(Machine Learning)--statsmodels"><img class="cover" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/img/statsmodels.svg" onerror="onerror=null;src='/img/404_moon.png'" alt="cover of next post"><div class="pagination-info"><div class="label">下一篇</div><div class="next_info">Python手册(Machine Learning)--statsmodels</div></div></a></div></nav><div class="relatedPosts"><div class="headline"><i class="fas fa-thumbs-up fa-fw"></i><span>相关推荐</span></div><div class="relatedPosts-list"><div><a href="/posts/75974533/" title="大数据手册(Spark)--PySpark MLlib"><img class="cover" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/img/apache-spark-mllib.png" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2020-01-09</div><div class="title">大数据手册(Spark)--PySpark MLlib</div></div></a></div><div><a href="/posts/44910830/" title="Python手册(Machine Learning)--LightGBM"><img class="cover" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/img/LightGBM_cover.svg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2024-01-25</div><div class="title">Python手册(Machine Learning)--LightGBM</div></div></a></div><div><a href="/posts/6c94e349/" title="Python手册(Machine Learning)--statsmodels"><img class="cover" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/img/statsmodels.svg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2018-05-10</div><div class="title">Python手册(Machine Learning)--statsmodels</div></div></a></div><div><a href="/posts/c46d5dae/" title="Python手册(Machine Learning)--XGBoost"><img class="cover" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/img/XGBoost-cover.svg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2024-01-25</div><div class="title">Python手册(Machine Learning)--XGBoost</div></div></a></div><div><a href="/posts/5faa8f40/" title="机器学习(II)--数据预处理"><img class="cover" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/img/ML-data-preprocessing.png" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2023-05-03</div><div class="title">机器学习(II)--数据预处理</div></div></a></div><div><a href="/posts/cc734464/" title="机器学习(III)--模型选择与评估"><img class="cover" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/img/ML-model-selection-and-evaluation.png" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2022-11-27</div><div class="title">机器学习(III)--模型选择与评估</div></div></a></div></div></div><hr class="custom-hr"/><div id="post-comment"><div class="comment-head"><div class="comment-headline"><i class="fas fa-comments fa-fw"></i><span> 评论</span></div><div id="comment-switch"><span class="first-comment">Gitalk</span><span class="switch-btn"></span><span class="second-comment">Waline</span></div></div><div class="comment-wrap"><div><div id="gitalk-container"></div></div><div><div id="waline-wrap"></div></div></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="is-center"><div class="avatar-img"><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/img/avatar.jpg" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info__name">Tiny Lei</div><div class="author-info__description">每天进步一点点...</div></div><div class="card-info-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">140</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">105</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">43</div></a></div><div class="card-info-social-icons is-center"><a class="social-icon" href="https://gitee.com/wilenwu" rel="external nofollow noreferrer" target="_blank" title="Gitee"><i class="iconfont icon-gitee"></i></a><a class="social-icon" href="https://github.com/wilenwu" rel="external nofollow noreferrer" target="_blank" title="Github"><i class="iconfont icon-github"></i></a><a class="social-icon" href="https://blog.csdn.net/qq_41518277" rel="external nofollow noreferrer" target="_blank" title="CSDN"><i class="iconfont icon-csdn"></i></a><a class="social-icon" href="/atom.xml" target="_blank" title="RSS"><i class="iconfont icon-rss"></i></a></div></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>公告</span></div><div class="announcement_content">感谢访问本站，若喜欢请收藏^_^</div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#overview"><span class="toc-number">1.</span> <span class="toc-text"> Overview</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%BB%BA%E6%A8%A1%E6%B5%81%E7%A8%8B"><span class="toc-number">1.1.</span> <span class="toc-text"> 建模流程</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%95%B0%E6%8D%AE%E5%87%86%E5%A4%87"><span class="toc-number">1.2.</span> <span class="toc-text"> 数据准备</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%95%B0%E6%8D%AE%E9%9B%86%E6%8B%86%E5%88%86"><span class="toc-number">1.3.</span> <span class="toc-text"> 数据集拆分</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%A8%A1%E5%9E%8B%E6%8C%81%E4%B9%85%E5%8C%96"><span class="toc-number">1.4.</span> <span class="toc-text"> 模型持久化</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E5%B8%B8%E7%94%A8%E7%AE%97%E6%B3%95"><span class="toc-number">2.</span> <span class="toc-text"> 机器学习常用算法</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%9B%9E%E5%BD%92%E5%92%8C%E5%88%86%E7%B1%BB"><span class="toc-number">2.1.</span> <span class="toc-text"> 回归和分类</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%AB%98%E6%96%AF%E6%B7%B7%E5%90%88%E6%A8%A1%E5%9E%8B"><span class="toc-number">2.2.</span> <span class="toc-text"> 高斯混合模型</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%81%9A%E7%B1%BB"><span class="toc-number">2.3.</span> <span class="toc-text"> 聚类</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%9F%A9%E9%98%B5%E5%88%86%E8%A7%A3"><span class="toc-number">2.4.</span> <span class="toc-text"> 矩阵分解</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%B5%81%E5%BD%A2%E5%AD%A6%E4%B9%A0"><span class="toc-number">2.5.</span> <span class="toc-text"> 流形学习</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E6%A8%A1%E5%9E%8B%E9%80%89%E6%8B%A9%E5%92%8C%E8%AF%84%E4%BC%B0"><span class="toc-number">3.</span> <span class="toc-text"> 模型选择和评估</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%AF%84%E5%88%86%E6%8C%87%E6%A0%87"><span class="toc-number">3.1.</span> <span class="toc-text"> 评分指标</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BA%A4%E5%8F%89%E9%AA%8C%E8%AF%81"><span class="toc-number">3.2.</span> <span class="toc-text"> 交叉验证</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#roc-%E6%9B%B2%E7%BA%BF"><span class="toc-number">3.3.</span> <span class="toc-text"> ROC 曲线</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%9B%9E%E5%BD%92%E6%A8%A1%E5%9E%8B%E6%AE%8B%E5%B7%AE%E5%88%86%E5%B8%83"><span class="toc-number">3.4.</span> <span class="toc-text"> 回归模型残差分布</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%AA%8C%E8%AF%81%E6%9B%B2%E7%BA%BF"><span class="toc-number">3.5.</span> <span class="toc-text"> 验证曲线</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%AD%A6%E4%B9%A0%E6%9B%B2%E7%BA%BF"><span class="toc-number">3.6.</span> <span class="toc-text"> 学习曲线</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E8%B6%85%E5%8F%82%E6%95%B0%E8%B0%83%E4%BC%98"><span class="toc-number">4.</span> <span class="toc-text"> 超参数调优</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%BD%91%E6%A0%BC%E6%90%9C%E7%B4%A2"><span class="toc-number">4.1.</span> <span class="toc-text"> 网格搜索</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%9A%8F%E6%9C%BA%E6%90%9C%E7%B4%A2"><span class="toc-number">4.2.</span> <span class="toc-text"> 随机搜索</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%B4%9D%E5%8F%B6%E6%96%AF%E4%BC%98%E5%8C%96"><span class="toc-number">4.3.</span> <span class="toc-text"> 贝叶斯优化</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%BF%9E%E7%BB%AD%E5%87%8F%E5%8D%8A%E6%90%9C%E7%B4%A2"><span class="toc-number">4.4.</span> <span class="toc-text"> 连续减半搜索</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E6%95%B0%E6%8D%AE%E9%A2%84%E5%A4%84%E7%90%86"><span class="toc-number">5.</span> <span class="toc-text"> 数据预处理</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#pipeline"><span class="toc-number">5.1.</span> <span class="toc-text"> Pipeline</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%A0%87%E5%87%86%E5%8C%96"><span class="toc-number">5.2.</span> <span class="toc-text"> 标准化</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%9D%9E%E7%BA%BF%E6%80%A7%E5%8F%98%E6%8D%A2"><span class="toc-number">5.3.</span> <span class="toc-text"> 非线性变换</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%88%86%E7%B1%BB%E7%89%B9%E5%BE%81%E7%BC%96%E7%A0%81"><span class="toc-number">5.4.</span> <span class="toc-text"> 分类特征编码</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%BF%9E%E7%BB%AD%E7%89%B9%E5%BE%81%E7%A6%BB%E6%95%A3%E5%8C%96"><span class="toc-number">5.5.</span> <span class="toc-text"> 连续特征离散化</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%94%9F%E6%88%90%E5%A4%9A%E9%A1%B9%E5%BC%8F%E7%89%B9%E5%BE%81"><span class="toc-number">5.6.</span> <span class="toc-text"> 生成多项式特征</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%BC%BA%E5%A4%B1%E5%80%BC%E6%8F%92%E8%A1%A5"><span class="toc-number">5.7.</span> <span class="toc-text"> 缺失值插补</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%89%B9%E5%BE%81%E9%80%89%E6%8B%A9"><span class="toc-number">5.8.</span> <span class="toc-text"> 特征选择</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%A2%9E%E9%87%8F%E5%AD%A6%E4%B9%A0"><span class="toc-number">6.</span> <span class="toc-text"> 增量学习</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#partial_fit-%E6%96%B9%E6%B3%95"><span class="toc-number">6.1.</span> <span class="toc-text"> partial_fit 方法</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#warm_start-%E5%8F%82%E6%95%B0"><span class="toc-number">6.2.</span> <span class="toc-text"> warm_start 参数</span></a></li></ol></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item"><a class="thumbnail" href="/posts/44910830/" title="Python手册(Machine Learning)--LightGBM"><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/img/LightGBM_cover.svg" onerror="this.onerror=null;this.src='/img/404_moon.png'" alt="Python手册(Machine Learning)--LightGBM"/></a><div class="content"><a class="title" href="/posts/44910830/" title="Python手册(Machine Learning)--LightGBM">Python手册(Machine Learning)--LightGBM</a><time datetime="2024-01-25T14:15:00.000Z" title="发表于 2024-01-25 22:15:00">2024-01-25</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/posts/c46d5dae/" title="Python手册(Machine Learning)--XGBoost"><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/img/XGBoost-cover.svg" onerror="this.onerror=null;this.src='/img/404_moon.png'" alt="Python手册(Machine Learning)--XGBoost"/></a><div class="content"><a class="title" href="/posts/c46d5dae/" title="Python手册(Machine Learning)--XGBoost">Python手册(Machine Learning)--XGBoost</a><time datetime="2024-01-25T14:15:00.000Z" title="发表于 2024-01-25 22:15:00">2024-01-25</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/posts/7ff308e2/" title="大数据手册(Flink)--Flink安装配置"><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/img/Apache-Flink-header.svg" onerror="this.onerror=null;this.src='/img/404_moon.png'" alt="大数据手册(Flink)--Flink安装配置"/></a><div class="content"><a class="title" href="/posts/7ff308e2/" title="大数据手册(Flink)--Flink安装配置">大数据手册(Flink)--Flink安装配置</a><time datetime="2024-01-17T15:30:00.000Z" title="发表于 2024-01-17 23:30:00">2024-01-17</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/posts/3adf88b8/" title="大数据手册(Kafka)--Kafka安装配置"><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/img/apache-kafka-cover.png" onerror="this.onerror=null;this.src='/img/404_moon.png'" alt="大数据手册(Kafka)--Kafka安装配置"/></a><div class="content"><a class="title" href="/posts/3adf88b8/" title="大数据手册(Kafka)--Kafka安装配置">大数据手册(Kafka)--Kafka安装配置</a><time datetime="2024-01-17T15:30:00.000Z" title="发表于 2024-01-17 23:30:00">2024-01-17</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/posts/250f35c4/" title="大数据手册(Hadoop)--Hadoop安装配置"><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/img/apache-hadoop-cover.png" onerror="this.onerror=null;this.src='/img/404_moon.png'" alt="大数据手册(Hadoop)--Hadoop安装配置"/></a><div class="content"><a class="title" href="/posts/250f35c4/" title="大数据手册(Hadoop)--Hadoop安装配置">大数据手册(Hadoop)--Hadoop安装配置</a><time datetime="2024-01-15T14:00:00.000Z" title="发表于 2024-01-15 22:00:00">2024-01-15</time></div></div></div></div></div></div></main><footer id="footer"><div id="footer-wrap"><div class="copyright">&copy;2019 - 2024 By Tiny Lei</div><div class="framework-info"><span>框架 </span><a target="_blank" rel="noopener external nofollow noreferrer" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener external nofollow noreferrer" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside_config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><a id="to_comment" href="#post-comment" title="直达评论"><i class="fas fa-comments"></i></a><button id="go-up" type="button" title="回到顶部"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox/fancybox.umd.min.js"></script><script src="https://cdn.jsdelivr.net/npm/vanilla-lazyload/dist/lazyload.iife.min.js"></script><script>function panguFn () {
   if (typeof pangu === 'object') pangu.autoSpacingPage()
   else {
     getScript('https://cdn.jsdelivr.net/npm/pangu/dist/browser/pangu.min.js')
