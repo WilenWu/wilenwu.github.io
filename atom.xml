@@ -6,7 +6,7 @@
   <link href="https://wilenwu.gitee.io/atom.xml" rel="self"/>
   
   <link href="https://wilenwu.gitee.io/"/>
-  <updated>2024-02-08T16:10:22.092Z</updated>
+  <updated>2024-02-18T15:00:58.731Z</updated>
   <id>https://wilenwu.gitee.io/</id>
   
   <author>
@@ -17,11 +17,209 @@
   <generator uri="https://hexo.io/">Hexo</generator>
   
   <entry>
+    <title>机器学习(V)--无监督学习(四)协方差估计</title>
+    <link href="https://wilenwu.gitee.io/posts/5a518d6f/"/>
+    <id>https://wilenwu.gitee.io/posts/5a518d6f/</id>
+    <published>2024-02-18T14:31:32.921Z</published>
+    <updated>2024-02-18T15:00:58.731Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;h1 id=&quot;协方差估计&quot;&gt;&lt;a class=&quot;markdownIt-Anchor&quot; href=&quot;#协方差估计&quot;&gt;&lt;/a&gt; 协方差估计&lt;/h1&gt;
+&lt;p&gt;对于 &lt;span class=&quot;katex&quot;&gt;&lt;span</summary>
+        
+      
+    
+    
+    
+    <category term="Artificial Intelligence" scheme="https://wilenwu.gitee.io/categories/artificial-intelligence/"/>
+    
+    <category term="Machine Learning" scheme="https://wilenwu.gitee.io/categories/artificial-intelligence/machine-learning/"/>
+    
+    
+    <category term="机器学习" scheme="https://wilenwu.gitee.io/tags/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>机器学习(V)--无监督学习(六)流形学习</title>
+    <link href="https://wilenwu.gitee.io/posts/26cd5aa6/"/>
+    <id>https://wilenwu.gitee.io/posts/26cd5aa6/</id>
+    <published>2024-02-18T14:27:52.873Z</published>
+    <updated>2024-02-18T15:01:10.847Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;h1 id=&quot;流形学习&quot;&gt;&lt;a class=&quot;markdownIt-Anchor&quot; href=&quot;#流形学习&quot;&gt;&lt;/a&gt; 流形学习&lt;/h1&gt;
+&lt;p&gt;Manifold</summary>
+        
+      
+    
+    
+    
+    <category term="Artificial Intelligence" scheme="https://wilenwu.gitee.io/categories/artificial-intelligence/"/>
+    
+    <category term="Machine Learning" scheme="https://wilenwu.gitee.io/categories/artificial-intelligence/machine-learning/"/>
+    
+    
+    <category term="机器学习" scheme="https://wilenwu.gitee.io/tags/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>机器学习(V)--无监督学习(七)关联分析</title>
+    <link href="https://wilenwu.gitee.io/posts/c818004b/"/>
+    <id>https://wilenwu.gitee.io/posts/c818004b/</id>
+    <published>2024-02-18T14:27:14.843Z</published>
+    <updated>2024-02-18T15:01:19.951Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;h1 id=&quot;关联分析&quot;&gt;&lt;a class=&quot;markdownIt-Anchor&quot; href=&quot;#关联分析&quot;&gt;&lt;/a&gt; 关联分析&lt;/h1&gt;
+&lt;p&gt;Association Analysis&lt;/p&gt;
+&lt;p&gt;Apriori</summary>
+        
+      
+    
+    
+    
+    <category term="Artificial Intelligence" scheme="https://wilenwu.gitee.io/categories/artificial-intelligence/"/>
+    
+    <category term="Machine Learning" scheme="https://wilenwu.gitee.io/categories/artificial-intelligence/machine-learning/"/>
+    
+    
+    <category term="机器学习" scheme="https://wilenwu.gitee.io/tags/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>机器学习(V)--无监督学习(三)高斯混合模型</title>
+    <link href="https://wilenwu.gitee.io/posts/4f81b9fa/"/>
+    <id>https://wilenwu.gitee.io/posts/4f81b9fa/</id>
+    <published>2024-02-18T14:20:02.714Z</published>
+    <updated>2024-02-18T15:00:47.325Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;h1 id=&quot;高斯混合模型&quot;&gt;&lt;a class=&quot;markdownIt-Anchor&quot; href=&quot;#高斯混合模型&quot;&gt;&lt;/a&gt; 高斯混合模型&lt;/h1&gt;
+&lt;p&gt;Gaussian</summary>
+        
+      
+    
+    
+    
+    <category term="Artificial Intelligence" scheme="https://wilenwu.gitee.io/categories/artificial-intelligence/"/>
+    
+    <category term="Machine Learning" scheme="https://wilenwu.gitee.io/categories/artificial-intelligence/machine-learning/"/>
+    
+    
+    <category term="机器学习" scheme="https://wilenwu.gitee.io/tags/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>机器学习(V)--无监督学习(二)降维</title>
+    <link href="https://wilenwu.gitee.io/posts/c929642b/"/>
+    <id>https://wilenwu.gitee.io/posts/c929642b/</id>
+    <published>2024-02-18T14:18:59.812Z</published>
+    <updated>2024-02-18T15:00:37.643Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;h1 id=&quot;降维&quot;&gt;&lt;a class=&quot;markdownIt-Anchor&quot; href=&quot;#降维&quot;&gt;&lt;/a&gt; 降维&lt;/h1&gt;
+&lt;p&gt;当数据的维度很高时，很多机器学习问题变得相当困难。这种现象被称为&lt;strong&gt;维度灾难&lt;/strong&gt;（curse of</summary>
+        
+      
+    
+    
+    
+    <category term="Artificial Intelligence" scheme="https://wilenwu.gitee.io/categories/artificial-intelligence/"/>
+    
+    <category term="Machine Learning" scheme="https://wilenwu.gitee.io/categories/artificial-intelligence/machine-learning/"/>
+    
+    
+    <category term="机器学习" scheme="https://wilenwu.gitee.io/tags/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>机器学习(IV)--监督学习(五)最近邻算法</title>
+    <link href="https://wilenwu.gitee.io/posts/da278d94/"/>
+    <id>https://wilenwu.gitee.io/posts/da278d94/</id>
+    <published>2024-02-18T13:36:36.586Z</published>
+    <updated>2024-02-18T14:59:51.474Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;h1 id=&quot;最近邻算法&quot;&gt;&lt;a class=&quot;markdownIt-Anchor&quot; href=&quot;#最近邻算法&quot;&gt;&lt;/a&gt;</summary>
+        
+      
+    
+    
+    
+    <category term="Artificial Intelligence" scheme="https://wilenwu.gitee.io/categories/artificial-intelligence/"/>
+    
+    <category term="Machine Learning" scheme="https://wilenwu.gitee.io/categories/artificial-intelligence/machine-learning/"/>
+    
+    
+    <category term="机器学习" scheme="https://wilenwu.gitee.io/tags/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Python手册(Machine Learning)--超参数优化</title>
+    <link href="https://wilenwu.gitee.io/posts/794d8498/"/>
+    <id>https://wilenwu.gitee.io/posts/794d8498/</id>
+    <published>2024-02-15T03:28:52.000Z</published>
+    <updated>2024-02-18T14:58:08.275Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;p&gt;参考链接：&lt;a href=&quot;https://zhuanlan.zhihu.com/p/643095927?utm_id=0&quot;&gt;https://zhuanlan.zhihu.com/p/643095927?utm_id=0&lt;/a&gt;&lt;/p&gt;
+&lt;h1 id=&quot;贝叶斯优化&quot;&gt;&lt;a</summary>
+        
+      
+    
+    
+    
+    <category term="Python" scheme="https://wilenwu.gitee.io/categories/python/"/>
+    
+    <category term="Machine Learning" scheme="https://wilenwu.gitee.io/categories/python/machine-learning/"/>
+    
+    
+    <category term="机器学习" scheme="https://wilenwu.gitee.io/tags/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/"/>
+    
+    <category term="python" scheme="https://wilenwu.gitee.io/tags/python/"/>
+    
+  </entry>
+  
+  <entry>
     <title>Python手册(Machine Learning)--LightGBM</title>
     <link href="https://wilenwu.gitee.io/posts/44910830/"/>
     <id>https://wilenwu.gitee.io/posts/44910830/</id>
     <published>2024-01-25T14:15:00.000Z</published>
-    <updated>2024-02-08T16:10:22.092Z</updated>
+    <updated>2024-02-16T12:21:15.761Z</updated>
     
     
       
@@ -29,7 +227,7 @@
         
         
     <summary type="html">&lt;h1 id=&quot;overview&quot;&gt;&lt;a class=&quot;markdownIt-Anchor&quot; href=&quot;#overview&quot;&gt;&lt;/a&gt; Overview&lt;/h1&gt;
-&lt;figure class=&quot;highlight python&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td</summary>
+&lt;p&gt;LightGBM（Light Gradient Boosting Machine）是一种高效的</summary>
         
       
     
@@ -51,7 +249,7 @@
     <link href="https://wilenwu.gitee.io/posts/c46d5dae/"/>
     <id>https://wilenwu.gitee.io/posts/c46d5dae/</id>
     <published>2024-01-25T14:15:00.000Z</published>
-    <updated>2024-02-08T16:15:13.490Z</updated>
+    <updated>2024-02-18T14:58:22.397Z</updated>
     
     
       
@@ -59,9 +257,8 @@
         
         
     <summary type="html">&lt;h1 id=&quot;overview&quot;&gt;&lt;a class=&quot;markdownIt-Anchor&quot; href=&quot;#overview&quot;&gt;&lt;/a&gt; Overview&lt;/h1&gt;
-&lt;p&gt;eta = 0.1&lt;br /&gt;
-max_depth = 8&lt;br /&gt;
-num_round =</summary>
+&lt;p&gt;Simple example&lt;/p&gt;
+&lt;h1 id=&quot;参数&quot;&gt;&lt;a</summary>
         
       
     
@@ -297,14 +494,14 @@ num_round =</summary>
   </entry>
   
   <entry>
-    <title>线性代数(上册)</title>
-    <link href="https://wilenwu.gitee.io/posts/40113498/"/>
-    <id>https://wilenwu.gitee.io/posts/40113498/</id>
+    <title>线性代数(下册)</title>
+    <link href="https://wilenwu.gitee.io/posts/f92cc4e9/"/>
+    <id>https://wilenwu.gitee.io/posts/f92cc4e9/</id>
     <published>2023-09-10T15:51:00.000Z</published>
-    <updated>2023-10-04T06:44:28.924Z</updated>
+    <updated>2023-12-15T09:53:48.467Z</updated>
     
     
-    <summary type="html">本文从线性变换出发理解线性代数的本质</summary>
+    <summary type="html">线性空间和内积、特征值与特征向量、二次型与合同、矩阵分解等</summary>
     
     
     
@@ -330,14 +527,14 @@ num_round =</summary>
   </entry>
   
   <entry>
-    <title>线性代数(下册)</title>
-    <link href="https://wilenwu.gitee.io/posts/f92cc4e9/"/>
-    <id>https://wilenwu.gitee.io/posts/f92cc4e9/</id>
+    <title>线性代数(上册)</title>
+    <link href="https://wilenwu.gitee.io/posts/40113498/"/>
+    <id>https://wilenwu.gitee.io/posts/40113498/</id>
     <published>2023-09-10T15:51:00.000Z</published>
-    <updated>2023-12-15T09:53:48.467Z</updated>
+    <updated>2023-10-04T06:44:28.924Z</updated>
     
     
-    <summary type="html">线性空间和内积、特征值与特征向量、二次型与合同、矩阵分解等</summary>
+    <summary type="html">本文从线性变换出发理解线性代数的本质</summary>
     
     
     
@@ -386,46 +583,19 @@ num_round =</summary>
   </entry>
   
   <entry>
-    <title>机器学习(V)--无监督学习</title>
-    <link href="https://wilenwu.gitee.io/posts/43ce4abf/"/>
-    <id>https://wilenwu.gitee.io/posts/43ce4abf/</id>
-    <published>2023-06-07T14:20:00.000Z</published>
-    <updated>2023-10-06T12:34:39.164Z</updated>
+    <title>机器学习(V)--无监督学习(一)聚类</title>
+    <link href="https://wilenwu.gitee.io/posts/8c3d002c/"/>
+    <id>https://wilenwu.gitee.io/posts/8c3d002c/</id>
+    <published>2023-06-07T15:09:54.876Z</published>
+    <updated>2024-02-18T15:00:20.105Z</updated>
     
     
       
       
         
         
-    <summary type="html">&lt;p&gt;&lt;strong&gt;Unsupervised Learning&lt;/strong&gt;：Data only comes with inputs x, but not output labels y. Algorithm has to find structure in the</summary>
-        
-      
-    
-    
-    
-    <category term="Artificial Intelligence" scheme="https://wilenwu.gitee.io/categories/artificial-intelligence/"/>
-    
-    <category term="Machine Learning" scheme="https://wilenwu.gitee.io/categories/artificial-intelligence/machine-learning/"/>
-    
-    
-    <category term="机器学习" scheme="https://wilenwu.gitee.io/tags/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>机器学习(II)--数据预处理</title>
-    <link href="https://wilenwu.gitee.io/posts/5faa8f40/"/>
-    <id>https://wilenwu.gitee.io/posts/5faa8f40/</id>
-    <published>2023-05-03T06:36:00.000Z</published>
-    <updated>2023-12-27T15:24:40.665Z</updated>
-    
-    
-      
-      
-        
-        
-    <summary type="html">&lt;p&gt;有这么一句话在业界广泛流传：数据和特征决定了机器学习的上限，而模型和算法只是逼近这个上限而已。由此可见，特征工程在机器学习中占有相当重要的地位。在实际应用当中，可以说特征工程是机器学习成功的关键。&lt;/p&gt;
-&lt;h1 id=&quot;数据均衡&quot;&gt;&lt;a</summary>
+    <summary type="html">&lt;h1 id=&quot;聚类&quot;&gt;&lt;a class=&quot;markdownIt-Anchor&quot; href=&quot;#聚类&quot;&gt;&lt;/a&gt; 聚类&lt;/h1&gt;
+&lt;p&gt;Clustering:  Group similar data points</summary>
         
       
     
@@ -437,167 +607,6 @@ num_round =</summary>
     
     
     <category term="机器学习" scheme="https://wilenwu.gitee.io/tags/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>机器学习(I)--基础知识</title>
-    <link href="https://wilenwu.gitee.io/posts/8638abf9/"/>
-    <id>https://wilenwu.gitee.io/posts/8638abf9/</id>
-    <published>2023-05-02T06:36:00.000Z</published>
-    <updated>2023-06-28T11:34:44.679Z</updated>
-    
-    
-      
-      
-        
-        
-    <summary type="html">&lt;h1 id=&quot;前言&quot;&gt;&lt;a class=&quot;markdownIt-Anchor&quot; href=&quot;#前言&quot;&gt;&lt;/a&gt; 前言&lt;/h1&gt;
-&lt;p&gt;&lt;strong&gt;机器学习&lt;/strong&gt; (machine learning,</summary>
-        
-      
-    
-    
-    
-    <category term="Artificial Intelligence" scheme="https://wilenwu.gitee.io/categories/artificial-intelligence/"/>
-    
-    <category term="Machine Learning" scheme="https://wilenwu.gitee.io/categories/artificial-intelligence/machine-learning/"/>
-    
-    
-    <category term="机器学习" scheme="https://wilenwu.gitee.io/tags/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>看不懂的数字</title>
-    <link href="https://wilenwu.gitee.io/posts/12a72af8/"/>
-    <id>https://wilenwu.gitee.io/posts/12a72af8/</id>
-    <published>2023-04-22T03:17:17.000Z</published>
-    <updated>2023-04-30T15:00:32.601Z</updated>
-    
-    
-      
-      
-        
-        
-    <summary type="html">&lt;p&gt;之前看了一期李永乐老师的视频，介绍了一些奇怪的数字系统，觉得蛮有意思的，就决定记下来了。&lt;/p&gt;
-&lt;p&gt;&lt;a href=&quot;https://www.bilibili.com/read/cv13839671&quot;&gt;10分钟学会写别人看不懂的数字！你又能跟小伙伴炫耀了！ -</summary>
-        
-      
-    
-    
-    
-    <category term="General" scheme="https://wilenwu.gitee.io/categories/general/"/>
-    
-    
-    <category term="数字" scheme="https://wilenwu.gitee.io/tags/%E6%95%B0%E5%AD%97/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>机器学习(III)--模型选择与评估</title>
-    <link href="https://wilenwu.gitee.io/posts/cc734464/"/>
-    <id>https://wilenwu.gitee.io/posts/cc734464/</id>
-    <published>2022-11-27T13:40:00.000Z</published>
-    <updated>2024-01-29T12:38:18.930Z</updated>
-    
-    
-      
-      
-        
-        
-    <summary type="html">&lt;h1 id=&quot;模型选择&quot;&gt;&lt;a class=&quot;markdownIt-Anchor&quot; href=&quot;#模型选择&quot;&gt;&lt;/a&gt; 模型选择&lt;/h1&gt;
-&lt;h2 id=&quot;经验风险最小化&quot;&gt;&lt;a class=&quot;markdownIt-Anchor&quot; href=&quot;#经验风险最小化&quot;&gt;&lt;/a&gt;</summary>
-        
-      
-    
-    
-    
-    <category term="Artificial Intelligence" scheme="https://wilenwu.gitee.io/categories/artificial-intelligence/"/>
-    
-    <category term="Machine Learning" scheme="https://wilenwu.gitee.io/categories/artificial-intelligence/machine-learning/"/>
-    
-    
-    <category term="机器学习" scheme="https://wilenwu.gitee.io/tags/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/"/>
-    
-    <category term="模型评估" scheme="https://wilenwu.gitee.io/tags/%E6%A8%A1%E5%9E%8B%E8%AF%84%E4%BC%B0/"/>
-    
-    <category term="混淆矩阵" scheme="https://wilenwu.gitee.io/tags/%E6%B7%B7%E6%B7%86%E7%9F%A9%E9%98%B5/"/>
-    
-    <category term="roc曲线" scheme="https://wilenwu.gitee.io/tags/roc%E6%9B%B2%E7%BA%BF/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>机器学习(IV)--监督学习</title>
-    <link href="https://wilenwu.gitee.io/posts/3c1747d9/"/>
-    <id>https://wilenwu.gitee.io/posts/3c1747d9/</id>
-    <published>2022-11-27T13:40:00.000Z</published>
-    <updated>2023-06-29T04:17:03.201Z</updated>
-    
-    
-      
-      
-        
-        
-    <summary type="html">&lt;h1 id=&quot;引言&quot;&gt;&lt;a class=&quot;markdownIt-Anchor&quot; href=&quot;#引言&quot;&gt;&lt;/a&gt;</summary>
-        
-      
-    
-    
-    
-    <category term="Artificial Intelligence" scheme="https://wilenwu.gitee.io/categories/artificial-intelligence/"/>
-    
-    <category term="Machine Learning" scheme="https://wilenwu.gitee.io/categories/artificial-intelligence/machine-learning/"/>
-    
-    
-    <category term="机器学习" scheme="https://wilenwu.gitee.io/tags/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>Progress Bars with Python</title>
-    <link href="https://wilenwu.gitee.io/posts/6fe4228f/"/>
-    <id>https://wilenwu.gitee.io/posts/6fe4228f/</id>
-    <published>2022-08-18T14:16:33.000Z</published>
-    <updated>2024-02-04T16:48:37.636Z</updated>
-    
-    
-    <summary type="html">在Python中实现进度条</summary>
-    
-    
-    
-    <category term="Python" scheme="https://wilenwu.gitee.io/categories/python/"/>
-    
-    <category term="General" scheme="https://wilenwu.gitee.io/categories/python/general/"/>
-    
-    
-    <category term="python" scheme="https://wilenwu.gitee.io/tags/python/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>固有洛伦兹变换的严格推导</title>
-    <link href="https://wilenwu.gitee.io/posts/55b8eadb/"/>
-    <id>https://wilenwu.gitee.io/posts/55b8eadb/</id>
-    <published>2022-07-24T10:41:28.000Z</published>
-    <updated>2023-07-17T04:51:56.669Z</updated>
-    
-    
-    <summary type="html">根据狭义相对论的两条基本原理来严格推导固有洛伦兹变换</summary>
-    
-    
-    
-    <category term="Physics" scheme="https://wilenwu.gitee.io/categories/physics/"/>
-    
-    <category term="附录" scheme="https://wilenwu.gitee.io/categories/physics/%E9%99%84%E5%BD%95/"/>
-    
-    
-    <category term="物理" scheme="https://wilenwu.gitee.io/tags/%E7%89%A9%E7%90%86/"/>
-    
-    <category term="相对论" scheme="https://wilenwu.gitee.io/tags/%E7%9B%B8%E5%AF%B9%E8%AE%BA/"/>
-    
-    <category term="洛伦兹变换" scheme="https://wilenwu.gitee.io/tags/%E6%B4%9B%E4%BC%A6%E5%85%B9%E5%8F%98%E6%8D%A2/"/>
     
   </entry>
   
