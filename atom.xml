@@ -6,7 +6,7 @@
   <link href="https://www.tinylei.tech/atom.xml" rel="self"/>
   
   <link href="https://www.tinylei.tech/"/>
-  <updated>2024-03-16T15:43:39.061Z</updated>
+  <updated>2024-03-16T15:47:17.300Z</updated>
   <id>https://www.tinylei.tech/</id>
   
   <author>
@@ -17,18 +17,74 @@
   <generator uri="https://hexo.io/">Hexo</generator>
   
   <entry>
-    <title>特征工程(I)--探索性数据分析</title>
-    <link href="https://www.tinylei.tech/posts/29bf27e3/"/>
-    <id>https://www.tinylei.tech/posts/29bf27e3/</id>
+    <title>特征工程(IV)--特征选择</title>
+    <link href="https://www.tinylei.tech/posts/61a3ce5f/"/>
+    <id>https://www.tinylei.tech/posts/61a3ce5f/</id>
     <published>2024-03-16T15:40:52.000Z</published>
-    <updated>2024-03-16T15:43:39.061Z</updated>
+    <updated>2024-03-16T15:47:17.300Z</updated>
     
     
       
       
         
         
-    <summary type="html">&lt;center&gt;&lt;font</summary>
+    <summary type="html">&lt;h1 id=&quot;特征选择&quot;&gt;&lt;a class=&quot;markdownIt-Anchor&quot; href=&quot;#特征选择&quot;&gt;&lt;/a&gt; 特征选择&lt;/h1&gt;
+&lt;h2 id=&quot;摘要&quot;&gt;&lt;a class=&quot;markdownIt-Anchor&quot; href=&quot;#摘要&quot;&gt;&lt;/a&gt;</summary>
+        
+      
+    
+    
+    
+    <category term="Python" scheme="https://www.tinylei.tech/categories/python/"/>
+    
+    <category term="Machine Learning" scheme="https://www.tinylei.tech/categories/python/machine-learning/"/>
+    
+    
+    <category term="python" scheme="https://www.tinylei.tech/tags/python/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>特征工程(V)--时序特征工程</title>
+    <link href="https://www.tinylei.tech/posts/c8fe03db/"/>
+    <id>https://www.tinylei.tech/posts/c8fe03db/</id>
+    <published>2024-03-16T15:40:52.000Z</published>
+    <updated>2024-03-16T15:47:00.386Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;h1 id=&quot;时序特征工程&quot;&gt;&lt;a class=&quot;markdownIt-Anchor&quot; href=&quot;#时序特征工程&quot;&gt;&lt;/a&gt; 时序特征工程&lt;/h1&gt;
+&lt;p&gt;本案例并不涉及时序特征（time</summary>
+        
+      
+    
+    
+    
+    <category term="Python" scheme="https://www.tinylei.tech/categories/python/"/>
+    
+    <category term="Machine Learning" scheme="https://www.tinylei.tech/categories/python/machine-learning/"/>
+    
+    
+    <category term="python" scheme="https://www.tinylei.tech/tags/python/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>特征工程(II)--数据预处理</title>
+    <link href="https://www.tinylei.tech/posts/ce19bbb1/"/>
+    <id>https://www.tinylei.tech/posts/ce19bbb1/</id>
+    <published>2024-03-16T15:40:52.000Z</published>
+    <updated>2024-03-16T15:43:48.596Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;h1 id=&quot;数据预处理&quot;&gt;&lt;a class=&quot;markdownIt-Anchor&quot; href=&quot;#数据预处理&quot;&gt;&lt;/a&gt;</summary>
         
       
     
@@ -73,74 +129,18 @@
   </entry>
   
   <entry>
-    <title>特征工程(V)--时序特征工程</title>
-    <link href="https://www.tinylei.tech/posts/c8fe03db/"/>
-    <id>https://www.tinylei.tech/posts/c8fe03db/</id>
+    <title>特征工程(I)--探索性数据分析</title>
+    <link href="https://www.tinylei.tech/posts/29bf27e3/"/>
+    <id>https://www.tinylei.tech/posts/29bf27e3/</id>
     <published>2024-03-16T15:40:52.000Z</published>
-    <updated>2024-03-16T15:47:00.386Z</updated>
+    <updated>2024-03-16T15:43:39.061Z</updated>
     
     
       
       
         
         
-    <summary type="html">&lt;h1 id=&quot;时序特征工程&quot;&gt;&lt;a class=&quot;markdownIt-Anchor&quot; href=&quot;#时序特征工程&quot;&gt;&lt;/a&gt; 时序特征工程&lt;/h1&gt;
-&lt;p&gt;本案例并不涉及时序特征（time</summary>
-        
-      
-    
-    
-    
-    <category term="Python" scheme="https://www.tinylei.tech/categories/python/"/>
-    
-    <category term="Machine Learning" scheme="https://www.tinylei.tech/categories/python/machine-learning/"/>
-    
-    
-    <category term="python" scheme="https://www.tinylei.tech/tags/python/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>特征工程(IV)--特征选择</title>
-    <link href="https://www.tinylei.tech/posts/61a3ce5f/"/>
-    <id>https://www.tinylei.tech/posts/61a3ce5f/</id>
-    <published>2024-03-16T15:40:52.000Z</published>
-    <updated>2024-03-16T15:47:17.300Z</updated>
-    
-    
-      
-      
-        
-        
-    <summary type="html">&lt;h1 id=&quot;特征选择&quot;&gt;&lt;a class=&quot;markdownIt-Anchor&quot; href=&quot;#特征选择&quot;&gt;&lt;/a&gt; 特征选择&lt;/h1&gt;
-&lt;h2 id=&quot;摘要&quot;&gt;&lt;a class=&quot;markdownIt-Anchor&quot; href=&quot;#摘要&quot;&gt;&lt;/a&gt;</summary>
-        
-      
-    
-    
-    
-    <category term="Python" scheme="https://www.tinylei.tech/categories/python/"/>
-    
-    <category term="Machine Learning" scheme="https://www.tinylei.tech/categories/python/machine-learning/"/>
-    
-    
-    <category term="python" scheme="https://www.tinylei.tech/tags/python/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>特征工程(II)--数据预处理</title>
-    <link href="https://www.tinylei.tech/posts/ce19bbb1/"/>
-    <id>https://www.tinylei.tech/posts/ce19bbb1/</id>
-    <published>2024-03-16T15:40:52.000Z</published>
-    <updated>2024-03-16T15:43:48.596Z</updated>
-    
-    
-      
-      
-        
-        
-    <summary type="html">&lt;h1 id=&quot;数据预处理&quot;&gt;&lt;a class=&quot;markdownIt-Anchor&quot; href=&quot;#数据预处理&quot;&gt;&lt;/a&gt;</summary>
+    <summary type="html">&lt;center&gt;&lt;font</summary>
         
       
     
@@ -382,9 +382,9 @@
   </entry>
   
   <entry>
-    <title>Python(Machine Learning)--XGBoost</title>
-    <link href="https://www.tinylei.tech/posts/c46d5dae/"/>
-    <id>https://www.tinylei.tech/posts/c46d5dae/</id>
+    <title>Python(Machine Learning)--LightGBM</title>
+    <link href="https://www.tinylei.tech/posts/44910830/"/>
+    <id>https://www.tinylei.tech/posts/44910830/</id>
     <published>2024-01-25T14:15:00.000Z</published>
     <updated>2024-03-08T10:33:44.892Z</updated>
     
@@ -393,7 +393,8 @@
       
         
         
-    <summary type="html">&lt;p&gt;第113天： Python XGBoost</summary>
+    <summary type="html">&lt;h1 id=&quot;overview&quot;&gt;&lt;a class=&quot;markdownIt-Anchor&quot; href=&quot;#overview&quot;&gt;&lt;/a&gt; Overview&lt;/h1&gt;
+&lt;p&gt;LightGBM（Light Gradient Boosting Machine）是一种高效的</summary>
         
       
     
@@ -411,9 +412,9 @@
   </entry>
   
   <entry>
-    <title>Python(Machine Learning)--LightGBM</title>
-    <link href="https://www.tinylei.tech/posts/44910830/"/>
-    <id>https://www.tinylei.tech/posts/44910830/</id>
+    <title>Python(Machine Learning)--XGBoost</title>
+    <link href="https://www.tinylei.tech/posts/c46d5dae/"/>
+    <id>https://www.tinylei.tech/posts/c46d5dae/</id>
     <published>2024-01-25T14:15:00.000Z</published>
     <updated>2024-03-08T10:33:44.892Z</updated>
     
@@ -422,8 +423,7 @@
       
         
         
-    <summary type="html">&lt;h1 id=&quot;overview&quot;&gt;&lt;a class=&quot;markdownIt-Anchor&quot; href=&quot;#overview&quot;&gt;&lt;/a&gt; Overview&lt;/h1&gt;
-&lt;p&gt;LightGBM（Light Gradient Boosting Machine）是一种高效的</summary>
+    <summary type="html">&lt;p&gt;第113天： Python XGBoost</summary>
         
       
     
