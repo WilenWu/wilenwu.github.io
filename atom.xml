@@ -6,7 +6,7 @@
   <link href="https://wilenwu.gitee.io/atom.xml" rel="self"/>
   
   <link href="https://wilenwu.gitee.io/"/>
-  <updated>2024-02-18T15:00:58.731Z</updated>
+  <updated>2024-03-16T15:43:39.061Z</updated>
   <id>https://wilenwu.gitee.io/</id>
   
   <author>
@@ -15,6 +15,174 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>特征工程(I)--探索性数据分析</title>
+    <link href="https://wilenwu.gitee.io/posts/29bf27e3/"/>
+    <id>https://wilenwu.gitee.io/posts/29bf27e3/</id>
+    <published>2024-03-16T15:40:52.000Z</published>
+    <updated>2024-03-16T15:43:39.061Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;center&gt;&lt;font</summary>
+        
+      
+    
+    
+    
+    <category term="Python" scheme="https://wilenwu.gitee.io/categories/python/"/>
+    
+    <category term="Machine Learning" scheme="https://wilenwu.gitee.io/categories/python/machine-learning/"/>
+    
+    
+    <category term="python" scheme="https://wilenwu.gitee.io/tags/python/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>特征工程(V)--时序特征工程</title>
+    <link href="https://wilenwu.gitee.io/posts/c8fe03db/"/>
+    <id>https://wilenwu.gitee.io/posts/c8fe03db/</id>
+    <published>2024-03-16T15:40:52.000Z</published>
+    <updated>2024-03-16T15:47:00.386Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;h1 id=&quot;时序特征工程&quot;&gt;&lt;a class=&quot;markdownIt-Anchor&quot; href=&quot;#时序特征工程&quot;&gt;&lt;/a&gt; 时序特征工程&lt;/h1&gt;
+&lt;p&gt;本案例并不涉及时序特征（time</summary>
+        
+      
+    
+    
+    
+    <category term="Python" scheme="https://wilenwu.gitee.io/categories/python/"/>
+    
+    <category term="Machine Learning" scheme="https://wilenwu.gitee.io/categories/python/machine-learning/"/>
+    
+    
+    <category term="python" scheme="https://wilenwu.gitee.io/tags/python/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>特征工程(II)--数据预处理</title>
+    <link href="https://wilenwu.gitee.io/posts/ce19bbb1/"/>
+    <id>https://wilenwu.gitee.io/posts/ce19bbb1/</id>
+    <published>2024-03-16T15:40:52.000Z</published>
+    <updated>2024-03-16T15:43:48.596Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;h1 id=&quot;数据预处理&quot;&gt;&lt;a class=&quot;markdownIt-Anchor&quot; href=&quot;#数据预处理&quot;&gt;&lt;/a&gt;</summary>
+        
+      
+    
+    
+    
+    <category term="Python" scheme="https://wilenwu.gitee.io/categories/python/"/>
+    
+    <category term="Machine Learning" scheme="https://wilenwu.gitee.io/categories/python/machine-learning/"/>
+    
+    
+    <category term="python" scheme="https://wilenwu.gitee.io/tags/python/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>特征工程(IV)--特征选择</title>
+    <link href="https://wilenwu.gitee.io/posts/61a3ce5f/"/>
+    <id>https://wilenwu.gitee.io/posts/61a3ce5f/</id>
+    <published>2024-03-16T15:40:52.000Z</published>
+    <updated>2024-03-16T15:47:17.300Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;h1 id=&quot;特征选择&quot;&gt;&lt;a class=&quot;markdownIt-Anchor&quot; href=&quot;#特征选择&quot;&gt;&lt;/a&gt; 特征选择&lt;/h1&gt;
+&lt;h2 id=&quot;摘要&quot;&gt;&lt;a class=&quot;markdownIt-Anchor&quot; href=&quot;#摘要&quot;&gt;&lt;/a&gt;</summary>
+        
+      
+    
+    
+    
+    <category term="Python" scheme="https://wilenwu.gitee.io/categories/python/"/>
+    
+    <category term="Machine Learning" scheme="https://wilenwu.gitee.io/categories/python/machine-learning/"/>
+    
+    
+    <category term="python" scheme="https://wilenwu.gitee.io/tags/python/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>特征工程(III)--特征构造</title>
+    <link href="https://wilenwu.gitee.io/posts/ca507391/"/>
+    <id>https://wilenwu.gitee.io/posts/ca507391/</id>
+    <published>2024-03-16T15:40:52.000Z</published>
+    <updated>2024-03-16T15:46:07.227Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;h1 id=&quot;特征构造&quot;&gt;&lt;a class=&quot;markdownIt-Anchor&quot; href=&quot;#特征构造&quot;&gt;&lt;/a&gt; 特征构造&lt;/h1&gt;
+&lt;p&gt;特征构造是从现有数据创建新特征的过程。目标是构建有用的功能，帮助我们的模型了解数据集中的信息与给定目标之间的关系。&lt;/p&gt;
+&lt;h2</summary>
+        
+      
+    
+    
+    
+    <category term="Python" scheme="https://wilenwu.gitee.io/categories/python/"/>
+    
+    <category term="Machine Learning" scheme="https://wilenwu.gitee.io/categories/python/machine-learning/"/>
+    
+    
+    <category term="python" scheme="https://wilenwu.gitee.io/tags/python/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Machine Learning Tutorial</title>
+    <link href="https://wilenwu.gitee.io/posts/3d0ef432/"/>
+    <id>https://wilenwu.gitee.io/posts/3d0ef432/</id>
+    <published>2024-03-16T15:40:52.000Z</published>
+    <updated>2024-03-16T15:46:44.724Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;h1 id=&quot;step-1-imports-and-configuration&quot;&gt;&lt;a class=&quot;markdownIt-Anchor&quot; href=&quot;#step-1-imports-and-configuration&quot;&gt;&lt;/a&gt; Step 1: Imports and</summary>
+        
+      
+    
+    
+    
+    <category term="Python" scheme="https://wilenwu.gitee.io/categories/python/"/>
+    
+    <category term="Machine Learning" scheme="https://wilenwu.gitee.io/categories/python/machine-learning/"/>
+    
+    
+    <category term="机器学习" scheme="https://wilenwu.gitee.io/tags/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/"/>
+    
+    <category term="python" scheme="https://wilenwu.gitee.io/tags/python/"/>
+    
+  </entry>
   
   <entry>
     <title>机器学习(V)--无监督学习(四)协方差估计</title>
@@ -185,19 +353,18 @@
   </entry>
   
   <entry>
-    <title>Python手册(Machine Learning)--超参数优化</title>
+    <title>Python(Machine Learning)--超参数优化</title>
     <link href="https://wilenwu.gitee.io/posts/794d8498/"/>
     <id>https://wilenwu.gitee.io/posts/794d8498/</id>
     <published>2024-02-15T03:28:52.000Z</published>
-    <updated>2024-02-18T14:58:08.275Z</updated>
+    <updated>2024-03-08T10:33:44.892Z</updated>
     
     
       
       
         
         
-    <summary type="html">&lt;p&gt;参考链接：&lt;a href=&quot;https://zhuanlan.zhihu.com/p/643095927?utm_id=0&quot;&gt;https://zhuanlan.zhihu.com/p/643095927?utm_id=0&lt;/a&gt;&lt;/p&gt;
-&lt;h1 id=&quot;贝叶斯优化&quot;&gt;&lt;a</summary>
+    <summary type="html">&lt;h1 id=&quot;超参数优化&quot;&gt;&lt;a class=&quot;markdownIt-Anchor&quot; href=&quot;#超参数优化&quot;&gt;&lt;/a&gt;</summary>
         
       
     
@@ -215,11 +382,40 @@
   </entry>
   
   <entry>
-    <title>Python手册(Machine Learning)--LightGBM</title>
+    <title>Python(Machine Learning)--XGBoost</title>
+    <link href="https://wilenwu.gitee.io/posts/c46d5dae/"/>
+    <id>https://wilenwu.gitee.io/posts/c46d5dae/</id>
+    <published>2024-01-25T14:15:00.000Z</published>
+    <updated>2024-03-08T10:33:44.892Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;p&gt;第113天： Python XGBoost</summary>
+        
+      
+    
+    
+    
+    <category term="Python" scheme="https://wilenwu.gitee.io/categories/python/"/>
+    
+    <category term="Machine Learning" scheme="https://wilenwu.gitee.io/categories/python/machine-learning/"/>
+    
+    
+    <category term="机器学习" scheme="https://wilenwu.gitee.io/tags/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/"/>
+    
+    <category term="python" scheme="https://wilenwu.gitee.io/tags/python/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Python(Machine Learning)--LightGBM</title>
     <link href="https://wilenwu.gitee.io/posts/44910830/"/>
     <id>https://wilenwu.gitee.io/posts/44910830/</id>
     <published>2024-01-25T14:15:00.000Z</published>
-    <updated>2024-02-16T12:21:15.761Z</updated>
+    <updated>2024-03-08T10:33:44.892Z</updated>
     
     
       
@@ -228,37 +424,6 @@
         
     <summary type="html">&lt;h1 id=&quot;overview&quot;&gt;&lt;a class=&quot;markdownIt-Anchor&quot; href=&quot;#overview&quot;&gt;&lt;/a&gt; Overview&lt;/h1&gt;
 &lt;p&gt;LightGBM（Light Gradient Boosting Machine）是一种高效的</summary>
-        
-      
-    
-    
-    
-    <category term="Python" scheme="https://wilenwu.gitee.io/categories/python/"/>
-    
-    <category term="Machine Learning" scheme="https://wilenwu.gitee.io/categories/python/machine-learning/"/>
-    
-    
-    <category term="机器学习" scheme="https://wilenwu.gitee.io/tags/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/"/>
-    
-    <category term="python" scheme="https://wilenwu.gitee.io/tags/python/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>Python手册(Machine Learning)--XGBoost</title>
-    <link href="https://wilenwu.gitee.io/posts/c46d5dae/"/>
-    <id>https://wilenwu.gitee.io/posts/c46d5dae/</id>
-    <published>2024-01-25T14:15:00.000Z</published>
-    <updated>2024-02-18T14:58:22.397Z</updated>
-    
-    
-      
-      
-        
-        
-    <summary type="html">&lt;h1 id=&quot;overview&quot;&gt;&lt;a class=&quot;markdownIt-Anchor&quot; href=&quot;#overview&quot;&gt;&lt;/a&gt; Overview&lt;/h1&gt;
-&lt;p&gt;Simple example&lt;/p&gt;
-&lt;h1 id=&quot;参数&quot;&gt;&lt;a</summary>
         
       
     
@@ -437,176 +602,6 @@
     <category term="大数据" scheme="https://wilenwu.gitee.io/tags/%E5%A4%A7%E6%95%B0%E6%8D%AE/"/>
     
     <category term="spark" scheme="https://wilenwu.gitee.io/tags/spark/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>Mac终端配置文件</title>
-    <link href="https://wilenwu.gitee.io/posts/2da646b7/"/>
-    <id>https://wilenwu.gitee.io/posts/2da646b7/</id>
-    <published>2024-01-12T13:59:32.000Z</published>
-    <updated>2024-01-16T15:39:07.439Z</updated>
-    
-    
-      
-      
-        
-        
-    <summary type="html">&lt;p&gt;zsh，或 Z Shell，是一个 Unix-Like 系统（如 macOS 或 Linux）下的 shell 命令行解释器。它支持强大的自动补全能力，拥有丰富的插件，具有高可定制性，而且与 bash</summary>
-        
-      
-    
-    
-    
-    <category term="General" scheme="https://wilenwu.gitee.io/categories/general/"/>
-    
-    
-    <category term="terminal" scheme="https://wilenwu.gitee.io/tags/terminal/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>数据仓库和数据湖简介</title>
-    <link href="https://wilenwu.gitee.io/posts/b557dff1/"/>
-    <id>https://wilenwu.gitee.io/posts/b557dff1/</id>
-    <published>2023-12-27T13:22:00.000Z</published>
-    <updated>2023-12-27T15:14:49.494Z</updated>
-    
-    
-      
-      
-        
-        
-    <summary type="html">&lt;h1 id=&quot;数据仓库&quot;&gt;&lt;a class=&quot;markdownIt-Anchor&quot; href=&quot;#数据仓库&quot;&gt;&lt;/a&gt; 数据仓库&lt;/h1&gt;
-&lt;p&gt;数据仓库(Data Warehousing, DW)</summary>
-        
-      
-    
-    
-    
-    <category term="Big Data" scheme="https://wilenwu.gitee.io/categories/big-data/"/>
-    
-    <category term="Hadoop" scheme="https://wilenwu.gitee.io/categories/big-data/hadoop/"/>
-    
-    
-    <category term="大数据" scheme="https://wilenwu.gitee.io/tags/%E5%A4%A7%E6%95%B0%E6%8D%AE/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>线性代数(下册)</title>
-    <link href="https://wilenwu.gitee.io/posts/f92cc4e9/"/>
-    <id>https://wilenwu.gitee.io/posts/f92cc4e9/</id>
-    <published>2023-09-10T15:51:00.000Z</published>
-    <updated>2023-12-15T09:53:48.467Z</updated>
-    
-    
-    <summary type="html">线性空间和内积、特征值与特征向量、二次型与合同、矩阵分解等</summary>
-    
-    
-    
-    <category term="Mathematics" scheme="https://wilenwu.gitee.io/categories/mathematics/"/>
-    
-    <category term="现代数学" scheme="https://wilenwu.gitee.io/categories/mathematics/%E7%8E%B0%E4%BB%A3%E6%95%B0%E5%AD%A6/"/>
-    
-    
-    <category term="数学" scheme="https://wilenwu.gitee.io/tags/%E6%95%B0%E5%AD%A6/"/>
-    
-    <category term="线性代数" scheme="https://wilenwu.gitee.io/tags/%E7%BA%BF%E6%80%A7%E4%BB%A3%E6%95%B0/"/>
-    
-    <category term="矩阵" scheme="https://wilenwu.gitee.io/tags/%E7%9F%A9%E9%98%B5/"/>
-    
-    <category term="特征值" scheme="https://wilenwu.gitee.io/tags/%E7%89%B9%E5%BE%81%E5%80%BC/"/>
-    
-    <category term="特征向量" scheme="https://wilenwu.gitee.io/tags/%E7%89%B9%E5%BE%81%E5%90%91%E9%87%8F/"/>
-    
-    <category term="线性变换" scheme="https://wilenwu.gitee.io/tags/%E7%BA%BF%E6%80%A7%E5%8F%98%E6%8D%A2/"/>
-    
-    <category term="二次型" scheme="https://wilenwu.gitee.io/tags/%E4%BA%8C%E6%AC%A1%E5%9E%8B/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>线性代数(上册)</title>
-    <link href="https://wilenwu.gitee.io/posts/40113498/"/>
-    <id>https://wilenwu.gitee.io/posts/40113498/</id>
-    <published>2023-09-10T15:51:00.000Z</published>
-    <updated>2023-10-04T06:44:28.924Z</updated>
-    
-    
-    <summary type="html">本文从线性变换出发理解线性代数的本质</summary>
-    
-    
-    
-    <category term="Mathematics" scheme="https://wilenwu.gitee.io/categories/mathematics/"/>
-    
-    <category term="现代数学" scheme="https://wilenwu.gitee.io/categories/mathematics/%E7%8E%B0%E4%BB%A3%E6%95%B0%E5%AD%A6/"/>
-    
-    
-    <category term="数学" scheme="https://wilenwu.gitee.io/tags/%E6%95%B0%E5%AD%A6/"/>
-    
-    <category term="线性代数" scheme="https://wilenwu.gitee.io/tags/%E7%BA%BF%E6%80%A7%E4%BB%A3%E6%95%B0/"/>
-    
-    <category term="矩阵" scheme="https://wilenwu.gitee.io/tags/%E7%9F%A9%E9%98%B5/"/>
-    
-    <category term="特征值" scheme="https://wilenwu.gitee.io/tags/%E7%89%B9%E5%BE%81%E5%80%BC/"/>
-    
-    <category term="特征向量" scheme="https://wilenwu.gitee.io/tags/%E7%89%B9%E5%BE%81%E5%90%91%E9%87%8F/"/>
-    
-    <category term="线性变换" scheme="https://wilenwu.gitee.io/tags/%E7%BA%BF%E6%80%A7%E5%8F%98%E6%8D%A2/"/>
-    
-    <category term="二次型" scheme="https://wilenwu.gitee.io/tags/%E4%BA%8C%E6%AC%A1%E5%9E%8B/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>大数据手册(Spark)--Pandas API on Spark</title>
-    <link href="https://wilenwu.gitee.io/posts/f67b0909/"/>
-    <id>https://wilenwu.gitee.io/posts/f67b0909/</id>
-    <published>2023-06-07T15:09:56.599Z</published>
-    <updated>2023-03-20T15:16:43.717Z</updated>
-    
-    
-    
-    
-    <category term="Big Data" scheme="https://wilenwu.gitee.io/categories/big-data/"/>
-    
-    <category term="Spark" scheme="https://wilenwu.gitee.io/categories/big-data/spark/"/>
-    
-    
-    <category term="大数据" scheme="https://wilenwu.gitee.io/tags/%E5%A4%A7%E6%95%B0%E6%8D%AE/"/>
-    
-    <category term="spark" scheme="https://wilenwu.gitee.io/tags/spark/"/>
-    
-    <category term="python" scheme="https://wilenwu.gitee.io/tags/python/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>机器学习(V)--无监督学习(一)聚类</title>
-    <link href="https://wilenwu.gitee.io/posts/8c3d002c/"/>
-    <id>https://wilenwu.gitee.io/posts/8c3d002c/</id>
-    <published>2023-06-07T15:09:54.876Z</published>
-    <updated>2024-02-18T15:00:20.105Z</updated>
-    
-    
-      
-      
-        
-        
-    <summary type="html">&lt;h1 id=&quot;聚类&quot;&gt;&lt;a class=&quot;markdownIt-Anchor&quot; href=&quot;#聚类&quot;&gt;&lt;/a&gt; 聚类&lt;/h1&gt;
-&lt;p&gt;Clustering:  Group similar data points</summary>
-        
-      
-    
-    
-    
-    <category term="Artificial Intelligence" scheme="https://wilenwu.gitee.io/categories/artificial-intelligence/"/>
-    
-    <category term="Machine Learning" scheme="https://wilenwu.gitee.io/categories/artificial-intelligence/machine-learning/"/>
-    
-    
-    <category term="机器学习" scheme="https://wilenwu.gitee.io/tags/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/"/>
     
   </entry>
   

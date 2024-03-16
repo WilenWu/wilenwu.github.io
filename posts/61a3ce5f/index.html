@@ -1,0 +1,560 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0,viewport-fit=cover"><title>特征工程(IV)--特征选择 | 雷小小</title><meta name="author" content="Tiny Lei"><meta name="copyright" content="Tiny Lei"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="特征选择  摘要 我们现在已经有大量的特征可使用，有的特征携带的信息丰富，有的特征携带的信息有重叠，有的特征则属于无关特征，尽管在拟合一个模型之前很难说哪些特征是重要的，但如果所有特征不经筛选地全部作为训练特征，经常会出现维度灾难问题，甚至会降低模型的泛化性能（因为较无益的特征会淹没那些更重要的特征）。因此，我们需要进行特征筛选，排除无效&#x2F;冗余的特征，把有用的特征挑选出来作为模型的训练数据。 特">
+<meta property="og:type" content="article">
+<meta property="og:title" content="特征工程(IV)--特征选择">
+<meta property="og:url" content="https://wilenwu.gitee.io/posts/61a3ce5f/index.html">
+<meta property="og:site_name" content="雷小小">
+<meta property="og:description" content="特征选择  摘要 我们现在已经有大量的特征可使用，有的特征携带的信息丰富，有的特征携带的信息有重叠，有的特征则属于无关特征，尽管在拟合一个模型之前很难说哪些特征是重要的，但如果所有特征不经筛选地全部作为训练特征，经常会出现维度灾难问题，甚至会降低模型的泛化性能（因为较无益的特征会淹没那些更重要的特征）。因此，我们需要进行特征筛选，排除无效&#x2F;冗余的特征，把有用的特征挑选出来作为模型的训练数据。 特">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://wilenwu.gitee.io/img/FeatureEngine.png">
+<meta property="article:published_time" content="2024-03-16T15:40:52.000Z">
+<meta property="article:modified_time" content="2024-03-16T15:47:17.300Z">
+<meta property="article:author" content="Tiny Lei">
+<meta property="article:tag" content="python">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://wilenwu.gitee.io/img/FeatureEngine.png"><link rel="shortcut icon" href="/img/favicon.png"><link rel="canonical" href="https://wilenwu.gitee.io/posts/61a3ce5f/index.html"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//hm.baidu.com"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><meta name="baidu-site-verification" content="code-7rymn5Bitx"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox/fancybox.min.css" media="print" onload="this.media='all'"><script>var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "https://hm.baidu.com/hm.js?654e7415ab55bed7c9c2bc6d665f03c5";
+  var s = document.getElementsByTagName("script")[0]; 
+  s.parentNode.insertBefore(hm, s);
+})();
+</script><script>const GLOBAL_CONFIG = {
+  root: '/',
+  algolia: undefined,
+  localSearch: {"path":"/search.xml","preload":false,"top_n_per_article":1,"unescape":false,"languages":{"hits_empty":"找不到您查询的内容：${query}","hits_stats":"共找到 ${hits} 篇文章"}},
+  translate: undefined,
+  noticeOutdate: undefined,
+  highlight: {"plugin":"highlighjs","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '天',
+  dateSuffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'fancybox',
+  Snackbar: undefined,
+  source: {
+    justifiedGallery: {
+      js: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery/dist/fjGallery.min.js',
+      css: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery/dist/fjGallery.min.css'
+    }
+  },
+  isPhotoFigcaption: true,
+  islazyload: true,
+  isAnchor: false,
+  percent: {
+    toc: true,
+    rightside: false,
+  },
+  autoDarkmode: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: '特征工程(IV)--特征选择',
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: true,
+  postUpdate: '2024-03-16 23:47:17'
+}</script><noscript><style type="text/css">
+  #nav {
+    opacity: 1
+  }
+  .justified-gallery img {
+    opacity: 1
+  }
+
+  #recent-posts time,
+  #post-meta time {
+    display: inline !important
+  }
+</style></noscript><script>(win=>{
+    win.saveToLocal = {
+      set: function setWithExpiry(key, value, ttl) {
+        if (ttl === 0) return
+        const now = new Date()
+        const expiryDay = ttl * 86400000
+        const item = {
+          value: value,
+          expiry: now.getTime() + expiryDay,
+        }
+        localStorage.setItem(key, JSON.stringify(item))
+      },
+
+      get: function getWithExpiry(key) {
+        const itemStr = localStorage.getItem(key)
+
+        if (!itemStr) {
+          return undefined
+        }
+        const item = JSON.parse(itemStr)
+        const now = new Date()
+
+        if (now.getTime() > item.expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return item.value
+      }
+    }
+  
+    win.getScript = url => new Promise((resolve, reject) => {
+      const script = document.createElement('script')
+      script.src = url
+      script.async = true
+      script.onerror = reject
+      script.onload = script.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        script.onload = script.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(script)
+    })
+  
+    win.getCSS = (url,id = false) => new Promise((resolve, reject) => {
+      const link = document.createElement('link')
+      link.rel = 'stylesheet'
+      link.href = url
+      if (id) link.id = id
+      link.onerror = reject
+      link.onload = link.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        link.onload = link.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(link)
+    })
+  
+      win.activateDarkMode = function () {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      win.activateLightMode = function () {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+      const t = saveToLocal.get('theme')
+    
+          if (t === 'dark') activateDarkMode()
+          else if (t === 'light') activateLightMode()
+        
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    
+    const detectApple = () => {
+      if(/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+    })(window)</script><link rel="stylesheet" href="//at.alicdn.com/t/font_2849223_xh1ftc8qym.css"><link rel="stylesheet" href="/css/link-card.css"><!-- hexo injector head_end start --><link rel="stylesheet" href="https://npm.elemecdn.com/hexo-butterfly-tag-plugins-plus@latest/lib/assets/font-awesome-animation.min.css" media="defer" onload="this.media='all'"><link rel="stylesheet" href="https://npm.elemecdn.com/hexo-butterfly-tag-plugins-plus@latest/lib/tag_plugins.css" media="defer" onload="this.media='all'"><script src="https://npm.elemecdn.com/hexo-butterfly-tag-plugins-plus@latest/lib/assets/carousel-touch.js"></script><!-- hexo injector head_end end --><meta name="generator" content="Hexo 6.0.0"><link rel="alternate" href="/atom.xml" title="雷小小" type="application/atom+xml">
+</head><body><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/img/avatar.jpg" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="sidebar-site-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">161</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">105</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">43</div></a></div><hr class="custom-hr"/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/user-guide/"><i class="fa-fw fa fa-compass"></i><span> 用户指南</span></a></div><div class="menus_item"><a class="site-page group hide" href="javascript:void(0);" rel="external nofollow noreferrer"><i class="fa-fw fa fa-book"></i><span> 文档</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></li><li><a class="site-page child" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 归档</span></a></li><li><a class="site-page child" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/gallery/"><i class="fa-fw fa fa-images"></i><span> 图库</span></a></div><div class="menus_item"><a class="site-page" href="/ebook/"><i class="fa-fw fa fa-book-reader"></i><span> 电子书</span></a></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-star"></i><span> 收藏夹</span></a></div><div class="menus_item"><a class="site-page group hide" href="javascript:void(0);" rel="external nofollow noreferrer"><i class="fa-fw fa-solid fa-circle-chevron-down"></i><span> 更多</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/about/"><i class="fa-fw fa fa-user"></i><span> 关于我</span></a></li><li><a class="site-page child" href="/analytics/"><i class="fa-fw fa fa-line-chart"></i><span> 文章统计</span></a></li><li><a class="site-page child" href="/log/"><i class="fa-fw fa fa-history"></i><span> 更新日志</span></a></li></ul></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url('/img/sklearn-top-img.svg')"><nav id="nav"><span id="blog-info"><a href="/" title="雷小小"><img class="site-icon" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/img/favicon.png"/><span class="site-name">雷小小</span></a></span><div id="menus"><div id="search-button"><a class="site-page social-icon search" href="javascript:void(0);" rel="external nofollow noreferrer"><i class="fas fa-search fa-fw"></i><span> 搜索</span></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/user-guide/"><i class="fa-fw fa fa-compass"></i><span> 用户指南</span></a></div><div class="menus_item"><a class="site-page group hide" href="javascript:void(0);" rel="external nofollow noreferrer"><i class="fa-fw fa fa-book"></i><span> 文档</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></li><li><a class="site-page child" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 归档</span></a></li><li><a class="site-page child" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/gallery/"><i class="fa-fw fa fa-images"></i><span> 图库</span></a></div><div class="menus_item"><a class="site-page" href="/ebook/"><i class="fa-fw fa fa-book-reader"></i><span> 电子书</span></a></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-star"></i><span> 收藏夹</span></a></div><div class="menus_item"><a class="site-page group hide" href="javascript:void(0);" rel="external nofollow noreferrer"><i class="fa-fw fa-solid fa-circle-chevron-down"></i><span> 更多</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/about/"><i class="fa-fw fa fa-user"></i><span> 关于我</span></a></li><li><a class="site-page child" href="/analytics/"><i class="fa-fw fa fa-line-chart"></i><span> 文章统计</span></a></li><li><a class="site-page child" href="/log/"><i class="fa-fw fa fa-history"></i><span> 更新日志</span></a></li></ul></div></div><div id="toggle-menu"><a class="site-page" href="javascript:void(0);" rel="external nofollow noreferrer"><i class="fas fa-bars fa-fw"></i></a></div></div></nav><div id="post-info"><h1 class="post-title">特征工程(IV)--特征选择<a class="post-edit-link" href="https://gitee.com/WilenWu/myblog/edit/master/source/_posts/python/Feature-Engineering-with-Python(IV)--Feature-Selection.md" rel="external nofollow noreferrer" title="编辑" target="_blank"><i class="fas fa-pencil-alt"></i></a></h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2024-03-16T15:40:52.000Z" title="发表于 2024-03-16 23:40:52">2024-03-16</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2024-03-16T15:47:17.300Z" title="更新于 2024-03-16 23:47:17">2024-03-16</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/python/">Python</a><i class="fas fa-angle-right post-meta-separator"></i><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/python/machine-learning/">Machine Learning</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-wordcount"><i class="far fa-file-word fa-fw post-meta-icon"></i><span class="post-meta-label">字数总计:</span><span class="word-count">4.8k</span><span class="post-meta-separator">|</span><i class="far fa-clock fa-fw post-meta-icon"></i><span class="post-meta-label">阅读时长:</span><span>18分钟</span></span><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title="特征工程(IV)--特征选择"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">阅读量:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container"><h1 id="特征选择"><a class="markdownIt-Anchor" href="#特征选择"></a> 特征选择</h1>
+<h2 id="摘要"><a class="markdownIt-Anchor" href="#摘要"></a> 摘要</h2>
+<p>我们现在已经有大量的特征可使用，有的特征携带的信息丰富，有的特征携带的信息有重叠，有的特征则属于无关特征，尽管在拟合一个模型之前很难说哪些特征是重要的，但如果所有特征不经筛选地全部作为训练特征，经常会出现维度灾难问题，甚至会降低模型的泛化性能（因为较无益的特征会淹没那些更重要的特征）。因此，我们需要进行特征筛选，排除无效/冗余的特征，把有用的特征挑选出来作为模型的训练数据。</p>
+<p>特征选择方法有很多，一般分为三类：</p>
+<ul>
+<li>过滤法（Filter）比较简单，它按照特征的发散性或者相关性指标对各个特征进行评分，设定评分阈值或者待选择阈值的个数，选择合适特征。</li>
+<li>包装法（Wrapper）根据目标函数，通常是预测效果评分，每次选择部分特征，或者排除部分特征。</li>
+<li>嵌入法（Embedded）则稍微复杂一点，它先使用选择的算法进行训练，得到各个特征的权重，根据权重从大到小来选择特征。</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>sklearn.feature_selection</th>
+<th>所属方法</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>VarianceThreshold</td>
+<td>Filter</td>
+<td>方差选择法</td>
+</tr>
+<tr>
+<td>SelectKBest</td>
+<td>Filter</td>
+<td>常用相关系数、卡方检验、互信息、IV值作为得分计算的方法</td>
+</tr>
+<tr>
+<td>SelectPercentile</td>
+<td>Filter</td>
+<td>根据最高分数的百分位数选择特征</td>
+</tr>
+<tr>
+<td>SelectFpr, SelectFdr, SelectFwe</td>
+<td>Filter</td>
+<td>根据假设检验的p-value选择特征</td>
+</tr>
+<tr>
+<td>RFECV</td>
+<td>Wrapper</td>
+<td>在交叉验证中执行递归式特征消除</td>
+</tr>
+<tr>
+<td>SequentialFeatureSelector</td>
+<td>Wrapper</td>
+<td>前向/向后搜索</td>
+</tr>
+<tr>
+<td>SelectFromModel</td>
+<td>Embedded</td>
+<td>训练基模型，选择权值系数较高的特征</td>
+</tr>
+</tbody>
+</table>
+<h2 id="单变量特征选择"><a class="markdownIt-Anchor" href="#单变量特征选择"></a> 单变量特征选择</h2>
+<p>Relief（Relevant Features）是著名的过滤式特征选择方法。该方法假设特征子集的重要性是由子集中的每个特征所对应的相关统计量分量之和所决定的。所以只需要选择前k个大的相关统计量对应的特征，或者大于某个阈值的相关统计量对应的特征即可。</p>
+<p>常用的指标过滤方法：</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">函数</th>
+<th style="text-align:left">python模块</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">VarianceThreshold</td>
+<td style="text-align:left">sklearn.feature_selection</td>
+<td>方差过滤</td>
+</tr>
+<tr>
+<td style="text-align:left">r_regression</td>
+<td style="text-align:left">sklearn.feature_selection</td>
+<td>回归任务的目标/特征之间的Pearson相关系数。</td>
+</tr>
+<tr>
+<td style="text-align:left">f_regression</td>
+<td style="text-align:left">sklearn.feature_selection</td>
+<td>回归任务的目标/特征之间的t检验F值。</td>
+</tr>
+<tr>
+<td style="text-align:left">mutual_info_regression</td>
+<td style="text-align:left">sklearn.feature_selection</td>
+<td>估计连续目标变量的互信息。</td>
+</tr>
+<tr>
+<td style="text-align:left">chi2</td>
+<td style="text-align:left">sklearn.feature_selection</td>
+<td>分类任务的非负特征的卡方值和P值。</td>
+</tr>
+<tr>
+<td style="text-align:left">f_classif</td>
+<td style="text-align:left">sklearn.feature_selection</td>
+<td>分类任务的目标/特征之间的方差分析F值。</td>
+</tr>
+<tr>
+<td style="text-align:left">mutual_info_classif</td>
+<td style="text-align:left">sklearn.feature_selection</td>
+<td>估计离散目标变量的互信息。</td>
+</tr>
+<tr>
+<td style="text-align:left">df.corr, df.corrwith</td>
+<td style="text-align:left">pandas</td>
+<td>Pearson, Kendall, Spearman相关系数</td>
+</tr>
+<tr>
+<td style="text-align:left">calculate_mi_scores</td>
+<td style="text-align:left">self-define</td>
+<td>互信息</td>
+</tr>
+<tr>
+<td style="text-align:left">calculate_iv_scores</td>
+<td style="text-align:left">self-define</td>
+<td>IV值</td>
+</tr>
+<tr>
+<td style="text-align:left">calculate_gini_scores</td>
+<td style="text-align:left">self-define</td>
+<td>基尼系数</td>
+</tr>
+<tr>
+<td style="text-align:left">variance_inflation_factor</td>
+<td style="text-align:left">statsmodels.stats.outliers_influence</td>
+<td>VIF值</td>
+</tr>
+<tr>
+<td style="text-align:left">df.isna().mean()</td>
+<td style="text-align:left">pandas</td>
+<td>缺失率</td>
+</tr>
+</tbody>
+</table>
+<p>Utilities特征有两个缺失值，且只有一个样本是“NoSeWa”，除此之外全部都是“AllPub”，因此该项特征的方差非常小，我们可以直接将其删去。</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">df = df.drop([<span class="string">&#x27;Utilities&#x27;</span>], axis=<span class="number">1</span>)</span><br></pre></td></tr></table></figure>
+<p>减少特征数量的方法有很多，在这里我们将通过三种方法：</p>
+<ol>
+<li>删除共线变量</li>
+<li>删除缺少许多值的变量</li>
+<li>使用特征重要性只保留“重要”变量</li>
+</ol>
+<p>皮尔森相关系数是一种最简单的，能帮助理解特征和响应变量之间关系的方法，该方法衡量的是变量之间的线性相关性。</p>
+<p><em>了识别高度相关的变量，我们可以计算数据中每个变量与所有其他变量的相关性（这是一个相当昂贵的计算过程）！然后，我们选择相关矩阵的上三角形，并根据阈值从每对高度相关变量中删除一个变量。这在以下代码中实现：</em></p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="comment"># Function to calculate correlations with the target for a dataframe</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># Threshold for removing correlated variables</span></span><br><span class="line">threshold = <span class="number">0.9</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># Absolute value correlation matrix</span></span><br><span class="line">corr_matrix = app.corr().<span class="built_in">abs</span>()</span><br><span class="line"></span><br><span class="line"><span class="comment"># Upper triangle of correlations</span></span><br><span class="line">upper = corr_matrix.where(np.triu(np.ones(corr_matrix.shape), k=<span class="number">1</span>).astype(np.<span class="built_in">bool</span>))</span><br><span class="line"></span><br><span class="line"><span class="comment"># Select columns with correlations above threshold</span></span><br><span class="line">to_drop = [column <span class="keyword">for</span> column <span class="keyword">in</span> upper.columns <span class="keyword">if</span> <span class="built_in">any</span>(upper[column] &gt; threshold)]</span><br><span class="line"></span><br><span class="line"><span class="comment"># Remove the columns</span></span><br><span class="line">app = app.drop(columns = to_drop)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment"># Empty dictionary to hold correlated variables</span></span><br><span class="line">above_threshold_vars = &#123;&#125;</span><br></pre></td></tr></table></figure>
+<p>在这个实现中，我使用0.9的相关系数阈值来删除共线变量。因此，对于相关性大于0.9的每对特征，我们删除其中一对特征。**在1465个总功能中，这删除了583个，**表明我们创建的许多变量是多余的。</p>
+<p>相关系数主要用于评估两个连续变量间的相关性。</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="comment"># Find correlations with the target and sort</span></span><br><span class="line">df.corrwith(target)</span><br><span class="line"><span class="comment"># Display correlations</span></span><br><span class="line"><span class="built_in">print</span>(<span class="string">&#x27;Most Positive Correlations:\n&#x27;</span>, correlations.tail(<span class="number">15</span>))</span><br><span class="line"><span class="built_in">print</span>(<span class="string">&#x27;\nMost Negative Correlations:\n&#x27;</span>, correlations.head(<span class="number">15</span>))</span><br><span class="line"></span><br><span class="line">sklearn.feature_selection <span class="keyword">import</span> SelectKBest, r_regression</span><br><span class="line">SelectKBest(r_regression)</span><br><span class="line"></span><br><span class="line"><span class="comment"># Extract the EXT_SOURCE variables and show correlations</span></span><br><span class="line">ext_data = app_train[[<span class="string">&#x27;TARGET&#x27;</span>, <span class="string">&#x27;EXT_SOURCE_1&#x27;</span>, <span class="string">&#x27;EXT_SOURCE_2&#x27;</span>, <span class="string">&#x27;EXT_SOURCE_3&#x27;</span>, <span class="string">&#x27;DAYS_BIRTH&#x27;</span>]]</span><br><span class="line">ext_data_corrs = ext_data.corr()</span><br><span class="line">ext_data_corrs</span><br></pre></td></tr></table></figure>
+<p>方差分析主要用于分类问题中连续特征的相关性。<br />
+f_classif</p>
+<p>卡方检验是一种用于衡量两个分类变量之间相关性的统计方法。<br />
+如果针对分类问题，f_classif和chi2两个评分函数搭配使用，就能够完成一次完整的特征筛选，其中f_classif用于筛选连续特征，chi2用于筛选离散特征。</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">sklearn.feature_selection <span class="keyword">import</span> chi2</span><br></pre></td></tr></table></figure>
+<p>互信息是从信息熵的角度分析各个特征和目标之间的关系包括线性和非线性关系）。此处可以使用均值*0.1作为阈值进行筛选</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">sklearn.feature_selection <span class="keyword">import</span> SelectKBest, mutual_info_regression</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">make_mi_scores</span>(<span class="params">X, y</span>):</span></span><br><span class="line">    X = X.copy()</span><br><span class="line">    <span class="keyword">for</span> colname <span class="keyword">in</span> X.select_dtypes([<span class="string">&quot;object&quot;</span>, <span class="string">&quot;category&quot;</span>]):</span><br><span class="line">        X[colname], _ = X[colname].factorize()</span><br><span class="line">    <span class="comment"># All discrete features should now have integer dtypes</span></span><br><span class="line">    discrete_features = [pd.api.types.is_integer_dtype(t) <span class="keyword">for</span> t <span class="keyword">in</span> X.dtypes]</span><br><span class="line">    mi_scores = mutual_info_regression(X, y, discrete_features=discrete_features, random_state=<span class="number">0</span>)</span><br><span class="line">    mi_scores = pd.Series(mi_scores, name=<span class="string">&quot;MI Scores&quot;</span>, index=X.columns)</span><br><span class="line">    mi_scores = mi_scores.sort_values(ascending=<span class="literal">False</span>)</span><br><span class="line">    <span class="keyword">return</span> mi_scores</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">plot_mi_scores</span>(<span class="params">scores</span>):</span></span><br><span class="line">    scores = scores.sort_values(ascending=<span class="literal">True</span>)</span><br><span class="line">    width = np.arange(<span class="built_in">len</span>(scores))</span><br><span class="line">    ticks = <span class="built_in">list</span>(scores.index)</span><br><span class="line">    plt.barh(width, scores)</span><br><span class="line">    plt.yticks(width, ticks)</span><br><span class="line">    plt.title(<span class="string">&quot;Mutual Information Scores&quot;</span>)</span><br><span class="line"></span><br><span class="line">X = df_train.copy()</span><br><span class="line">y = X.pop(<span class="string">&quot;SalePrice&quot;</span>)</span><br><span class="line"></span><br><span class="line">mi_scores = make_mi_scores(X, y)</span><br><span class="line">mi_scores</span><br></pre></td></tr></table></figure>
+<p>IV（Information Value）用来评价分箱特征对二分类变量的预测能力。一般认为IV小于0.02的特征为无用特征。</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">calculate_iv_scores</span>(<span class="params">X, y, discrete_features=<span class="literal">None</span>, bins=<span class="number">10</span></span>):</span></span><br><span class="line">	X = pd.DataFrame(X)</span><br><span class="line">    y = pd.Series(y)</span><br><span class="line">    <span class="keyword">assert</span> (y.nunique() != <span class="number">2</span>), <span class="string">&quot;y must be binary&quot;</span></span><br><span class="line">    iv_scores = pd.Series()</span><br><span class="line">    <span class="keyword">if</span> discrete_features <span class="keyword">is</span> <span class="literal">None</span>:</span><br><span class="line">        discrete_features = X.select_dtypes([<span class="string">&quot;object&quot;</span>, <span class="string">&quot;category&quot;</span>]).columns</span><br><span class="line">    <span class="keyword">for</span> colname <span class="keyword">in</span> X.columns:</span><br><span class="line">        <span class="keyword">if</span> colname <span class="keyword">in</span> discrete_features:</span><br><span class="line">            var = X[colname]</span><br><span class="line">        <span class="keyword">else</span>:</span><br><span class="line">            var = pd.qcut(X[colname], bins, duplicates=<span class="string">&quot;drop&quot;</span>)</span><br><span class="line">        grouped = y.groupby(var).agg([(<span class="string">&#x27;Positive&#x27;</span>,<span class="string">&#x27;sum&#x27;</span>),(<span class="string">&#x27;All&#x27;</span>,<span class="string">&#x27;count&#x27;</span>)]) </span><br><span class="line">        grouped[<span class="string">&#x27;Negative&#x27;</span>] = grouped[<span class="string">&#x27;All&#x27;</span>]-grouped[<span class="string">&#x27;Positive&#x27;</span>] </span><br><span class="line">        grouped[<span class="string">&#x27;Positive rate&#x27;</span>] = grouped[<span class="string">&#x27;Positive&#x27;</span>]/grouped[<span class="string">&#x27;Positive&#x27;</span>].<span class="built_in">sum</span>()</span><br><span class="line">        grouped[<span class="string">&#x27;Negative rate&#x27;</span>] = grouped[<span class="string">&#x27;Negative&#x27;</span>]/grouped[<span class="string">&#x27;Negative&#x27;</span>].<span class="built_in">sum</span>()</span><br><span class="line">        grouped[<span class="string">&#x27;woe&#x27;</span>] = np.log(grouped[<span class="string">&#x27;Positive rate&#x27;</span>]/grouped[<span class="string">&#x27;Negative rate&#x27;</span>])</span><br><span class="line">        grouped[<span class="string">&#x27;iv&#x27;</span>] = (grouped[<span class="string">&#x27;Positive rate&#x27;</span>]-grouped[<span class="string">&#x27;Negative rate&#x27;</span>])*grouped[<span class="string">&#x27;woe&#x27;</span>]</span><br><span class="line">        grouped.name = colname </span><br><span class="line">        iv_scores[colname] = grouped[<span class="string">&#x27;iv&#x27;</span>].<span class="built_in">sum</span>()</span><br><span class="line">    <span class="keyword">return</span> iv_scores</span><br></pre></td></tr></table></figure>
+<p>基尼系数用来衡量分类问题中特征对目标变量的影响程度。它的取值范围在0到1之间，值越大表示特征对目标变量的影响越大。常见的基尼系数阈值为0.02，如果基尼系数小于此阈值，则被认为是不重要的特征。</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">from</span> sklearn.metrics <span class="keyword">import</span> roc_auc_score</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">gini_score</span>(<span class="params">df, feature, target</span>):</span></span><br><span class="line">x = df[feature]</span><br><span class="line">y = df[target]</span><br><span class="line">gini = <span class="number">2</span> * roc_auc_score(y, x) - <span class="number">1</span></span><br><span class="line"><span class="keyword">return</span> gini</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">gini</span>(<span class="params">actual, pred</span>):</span></span><br><span class="line">    <span class="keyword">assert</span> (<span class="built_in">len</span>(actual) == <span class="built_in">len</span>(pred))</span><br><span class="line">    <span class="built_in">all</span> = np.asarray(np.c_[actual, pred, np.arange(<span class="built_in">len</span>(actual))], dtype=np.<span class="built_in">float</span>)</span><br><span class="line">    <span class="built_in">all</span> = <span class="built_in">all</span>[np.lexsort((<span class="built_in">all</span>[:, <span class="number">2</span>], -<span class="number">1</span> * <span class="built_in">all</span>[:, <span class="number">1</span>]))]</span><br><span class="line">    totalLosses = <span class="built_in">all</span>[:, <span class="number">0</span>].<span class="built_in">sum</span>()</span><br><span class="line">    giniSum = <span class="built_in">all</span>[:, <span class="number">0</span>].cumsum().<span class="built_in">sum</span>() / totalLosses</span><br><span class="line"></span><br><span class="line">    giniSum -= (<span class="built_in">len</span>(actual) + <span class="number">1</span>) / <span class="number">2.</span></span><br><span class="line">    <span class="keyword">return</span> giniSum / <span class="built_in">len</span>(actual)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">gini_normalized</span>(<span class="params">actual, pred</span>):</span></span><br><span class="line">    <span class="keyword">return</span> gini(actual, pred) / gini(actual, actual)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">gini_predictions = gini(actual, predictions)</span><br><span class="line">ngini= gini_normalized(actual, predictions)</span><br></pre></td></tr></table></figure>
+<p>VIF用于衡量特征之间的共线性程度。通常，VIF小于5被认为不存在多重共线性问题，VIF大于10则存在明显的多重共线性问题。</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">from</span> statsmodels.stats.outliers_influence <span class="keyword">import</span> variance_inflation_factor</span><br><span class="line"><span class="keyword">from</span> statsmodels.tools.tools <span class="keyword">import</span> add_constant</span><br><span class="line"> </span><br><span class="line">df = pd.DataFrame(</span><br><span class="line">    &#123;<span class="string">&#x27;a&#x27;</span>: [<span class="number">1</span>, <span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">4</span>],</span><br><span class="line">     <span class="string">&#x27;b&#x27;</span>: [<span class="number">2</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">2</span>, <span class="number">1</span>],</span><br><span class="line">     <span class="string">&#x27;c&#x27;</span>: [<span class="number">4</span>, <span class="number">6</span>, <span class="number">7</span>, <span class="number">8</span>, <span class="number">9</span>],</span><br><span class="line">     <span class="string">&#x27;d&#x27;</span>: [<span class="number">4</span>, <span class="number">3</span>, <span class="number">4</span>, <span class="number">5</span>, <span class="number">4</span>]&#125;</span><br><span class="line">)</span><br><span class="line"> </span><br><span class="line">X = add_constant(df)</span><br><span class="line"></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>pd.Series([variance_inflation_factor(X.values, i) </span><br><span class="line">               <span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(X.shape[<span class="number">1</span>])], </span><br><span class="line">              index=X.columns)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">vif_feats = calc_vif(df.drop([<span class="string">&#x27;target&#x27;</span>], axis=<span class="number">1</span>))</span><br><span class="line"></span><br><span class="line">high_vif_feats = vif_feats[vif_feats[<span class="string">&#x27;VIF&#x27;</span>] &gt; <span class="number">10</span>][<span class="string">&#x27;feature&#x27;</span>].tolist()</span><br><span class="line"></span><br><span class="line"><span class="built_in">print</span>(<span class="string">&quot;Features with high VIF:&quot;</span>, high_vif_feats)</span><br></pre></td></tr></table></figure>
+<ul>
+<li>消除两两高度相关的特征 # Remove Collinear Variables</li>
+<li>消除多特征间的共线性 Collinear Features</li>
+<li></li>
+</ul>
+<p>删除无效特征</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">drop_uninformative</span>(<span class="params">df, mi_scores</span>):</span></span><br><span class="line">    <span class="keyword">return</span> df.loc[:, mi_scores &gt; <span class="number">0.0</span>]</span><br><span class="line"></span><br><span class="line">X = df_train.copy()</span><br><span class="line">y = X.pop(<span class="string">&quot;SalePrice&quot;</span>) </span><br><span class="line">X = drop_uninformative(X, mi_scores)</span><br><span class="line"></span><br><span class="line">score_dataset(X, y)</span><br></pre></td></tr></table></figure>
+<h2 id="递归特征消除"><a class="markdownIt-Anchor" href="#递归特征消除"></a> 递归特征消除</h2>
+<p>最常用的包装法是递归消除特征法(recursive feature elimination,以下简称RFE)。递归消除特征法使用一个机器学习模型来进行多轮训练，每轮训练后，消除最不重要的特征，再基于新的特征集进行下一轮训练。</p>
+<p>总特征个数<br />
+rfe.n_features_in_<br />
+筛选后特征个数<br />
+rfe.n_features_</p>
+<p>use linear regression as the model</p>
+<p>rank all features, i.e continue the elimination until the last one</p>
+<p>Features sorted by their rank:</p>
+<h2 id="特征重要性"><a class="markdownIt-Anchor" href="#特征重要性"></a> 特征重要性</h2>
+<p>嵌入法也是用模型来选择特征，但是它和RFE的区别是它不是通过不停的筛掉特征来进行训练，而是使用的都是特征全集。</p>
+<ul>
+<li>最常用的是使用带惩罚项（<span class="katex"><span class="katex-mathml"><math><semantics><mrow><msub><mi mathvariant="normal">ℓ</mi><mn>1</mn></msub><mo separator="true">,</mo><msub><mi mathvariant="normal">ℓ</mi><mn>2</mn></msub></mrow><annotation encoding="application/x-tex">\ell_1,\ell_2</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8888799999999999em;vertical-align:-0.19444em;"></span><span class="mord"><span class="mord">ℓ</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.30110799999999993em;"><span style="top:-2.5500000000000003em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">1</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord"><span class="mord">ℓ</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.30110799999999993em;"><span style="top:-2.5500000000000003em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">2</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span></span></span></span> 正则项）的基模型，来选择特征，例如 Lasso，Ridge。</li>
+<li>或者简单的训练基模型，选择权重较高的特征。</li>
+</ul>
+<p>训练随机森林模型，并通过feature_importances_属性获取每个特征的重要性分数。</p>
+<p>删除重要性为0的功能是一个非常安全的选择，因为这些功能实际上从未用于在任何决策树中拆分节点。因此，删除这些功能不会对模型结果产生影响（至少对这个特定模型来说）。</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> lightgbm <span class="keyword">as</span> lgb</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">identify_zero_importance_features</span>(<span class="params">train, train_labels, iterations = <span class="number">2</span></span>):</span></span><br><span class="line">    <span class="string">&quot;&quot;&quot;</span></span><br><span class="line"><span class="string">    Identify zero importance features in a training dataset based on the </span></span><br><span class="line"><span class="string">    feature importances from a gradient boosting model. </span></span><br><span class="line"><span class="string">    </span></span><br><span class="line"><span class="string">    Parameters</span></span><br><span class="line"><span class="string">    --------</span></span><br><span class="line"><span class="string">    train : dataframe</span></span><br><span class="line"><span class="string">        Training features</span></span><br><span class="line"><span class="string">        </span></span><br><span class="line"><span class="string">    train_labels : np.array</span></span><br><span class="line"><span class="string">        Labels for training data</span></span><br><span class="line"><span class="string">        </span></span><br><span class="line"><span class="string">    iterations : integer, default = 2</span></span><br><span class="line"><span class="string">        Number of cross validation splits to use for determining feature importances</span></span><br><span class="line"><span class="string">    &quot;&quot;&quot;</span></span><br><span class="line">    </span><br><span class="line">    <span class="comment"># Initialize an empty array to hold feature importances</span></span><br><span class="line">    feature_importances = np.zeros(train.shape[<span class="number">1</span>])</span><br><span class="line"></span><br><span class="line">    <span class="comment"># Create the model with several hyperparameters</span></span><br><span class="line">    model = lgb.LGBMClassifier(objective=<span class="string">&#x27;binary&#x27;</span>, boosting_type = <span class="string">&#x27;goss&#x27;</span>, </span><br><span class="line">                               n_estimators = <span class="number">10000</span>, class_weight = <span class="string">&#x27;balanced&#x27;</span>)</span><br><span class="line">    </span><br><span class="line">    <span class="comment"># Fit the model multiple times to avoid overfitting</span></span><br><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(iterations):</span><br><span class="line"></span><br><span class="line">        <span class="comment"># Split into training and validation set</span></span><br><span class="line">        train_features, valid_features, train_y, valid_y = train_test_split(train, train_labels, </span><br><span class="line">                                                                            test_size = <span class="number">0.25</span>, </span><br><span class="line">                                                                            random_state = i)</span><br><span class="line"></span><br><span class="line">        <span class="comment"># Train using early stopping</span></span><br><span class="line">        model.fit(train_features, train_y, early_stopping_rounds=<span class="number">100</span>, </span><br><span class="line">                  eval_set = [(valid_features, valid_y)], </span><br><span class="line">                  eval_metric = <span class="string">&#x27;auc&#x27;</span>, verbose = <span class="number">200</span>)</span><br><span class="line"></span><br><span class="line">        <span class="comment"># Record the feature importances</span></span><br><span class="line">        feature_importances += model.feature_importances_ / iterations</span><br><span class="line">    </span><br><span class="line">    feature_importances = pd.DataFrame(&#123;<span class="string">&#x27;feature&#x27;</span>: <span class="built_in">list</span>(train.columns), </span><br><span class="line">                            <span class="string">&#x27;importance&#x27;</span>: feature_importances&#125;).sort_values(<span class="string">&#x27;importance&#x27;</span>, </span><br><span class="line">                                                                            ascending = <span class="literal">False</span>)</span><br><span class="line">    </span><br><span class="line">    <span class="comment"># Find the features with zero importance</span></span><br><span class="line">    zero_features = <span class="built_in">list</span>(feature_importances[feature_importances[<span class="string">&#x27;importance&#x27;</span>] == <span class="number">0.0</span>][<span class="string">&#x27;feature&#x27;</span>])</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">&#x27;\nThere are %d features with 0.0 importance&#x27;</span> % <span class="built_in">len</span>(zero_features))</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">return</span> zero_features, feature_importances</span><br><span class="line">view raw</span><br></pre></td></tr></table></figure>
+<p>剔除特征累积权重小于阈值的特征集</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">clf = Pipeline([</span><br><span class="line">  (<span class="string">&#x27;feature_selection&#x27;</span>, SelectFromModel(LinearSVC(dual=<span class="string">&quot;auto&quot;</span>, penalty=<span class="string">&quot;l1&quot;</span>))),</span><br><span class="line">  (<span class="string">&#x27;classification&#x27;</span>, RandomForestClassifier())</span><br><span class="line">])</span><br><span class="line">clf.fit(X, y)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">select_import_features</span>(<span class="params">scores, thresh=<span class="number">0.05</span></span>):</span></span><br><span class="line">	feature_imp = pd.DataFrame(scores).sort_values(<span class="string">&#x27;score&#x27;</span>, ascending=<span class="literal">True</span>)</span><br><span class="line">	feature_imp[<span class="string">&#x27;score_pct&#x27;</span>] = feature_imp[<span class="string">&#x27;score&#x27;</span>]/feature_imp[<span class="string">&#x27;score&#x27;</span>].<span class="built_in">sum</span>()</span><br><span class="line">	feature_imp[<span class="string">&#x27;cumsum_pct&#x27;</span>] = feature_imp[<span class="string">&#x27;score_pct&#x27;</span>].cumsum()</span><br><span class="line">	top_features = feature_imp.query(<span class="string">f&#x27;cumsum_pct&gt;=<span class="subst">&#123;thresh&#125;</span>&#x27;</span>).sort_values(<span class="string">&#x27;score&#x27;</span>, ascending=<span class="literal">False</span>)</span><br><span class="line">  <span class="keyword">return</span> top_features</span><br><span class="line"></span><br><span class="line"><span class="built_in">print</span>(top_features)</span><br></pre></td></tr></table></figure>
+<p>可以看到，我们构建的一些功能进入了前15名，这应该让我们有信心，我们所有的辛勤工作都是值得的！</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">plot_feature_importances</span>(<span class="params">df</span>):</span></span><br><span class="line">    <span class="string">&quot;&quot;&quot;</span></span><br><span class="line"><span class="string">    Plot importances returned by a model. This can work with any measure of</span></span><br><span class="line"><span class="string">    feature importance provided that higher importance is better. </span></span><br><span class="line"><span class="string">    </span></span><br><span class="line"><span class="string">    Args:</span></span><br><span class="line"><span class="string">        df (dataframe): feature importances. Must have the features in a column</span></span><br><span class="line"><span class="string">        called `features` and the importances in a column called `importance</span></span><br><span class="line"><span class="string">        </span></span><br><span class="line"><span class="string">    Returns:</span></span><br><span class="line"><span class="string">        shows a plot of the 15 most importance features</span></span><br><span class="line"><span class="string">        </span></span><br><span class="line"><span class="string">        df (dataframe): feature importances sorted by importance (highest to lowest) </span></span><br><span class="line"><span class="string">        with a column for normalized importance</span></span><br><span class="line"><span class="string">        &quot;&quot;&quot;</span></span><br><span class="line">    </span><br><span class="line">    <span class="comment"># Sort features according to importance</span></span><br><span class="line">    df = df.sort_values(<span class="string">&#x27;importance&#x27;</span>, ascending = <span class="literal">False</span>).reset_index()</span><br><span class="line">    </span><br><span class="line">    <span class="comment"># Normalize the feature importances to add up to one</span></span><br><span class="line">    df[<span class="string">&#x27;importance_normalized&#x27;</span>] = df[<span class="string">&#x27;importance&#x27;</span>] / df[<span class="string">&#x27;importance&#x27;</span>].<span class="built_in">sum</span>()</span><br><span class="line"></span><br><span class="line">    <span class="comment"># Make a horizontal bar chart of feature importances</span></span><br><span class="line">    plt.figure(figsize = (<span class="number">10</span>, <span class="number">6</span>))</span><br><span class="line">    ax = plt.subplot()</span><br><span class="line">    </span><br><span class="line">    <span class="comment"># Need to reverse the index to plot most important on top</span></span><br><span class="line">    ax.barh(<span class="built_in">list</span>(<span class="built_in">reversed</span>(<span class="built_in">list</span>(df.index[:<span class="number">15</span>]))), </span><br><span class="line">            df[<span class="string">&#x27;importance_normalized&#x27;</span>].head(<span class="number">15</span>), </span><br><span class="line">            align = <span class="string">&#x27;center&#x27;</span>, edgecolor = <span class="string">&#x27;k&#x27;</span>)</span><br><span class="line">    </span><br><span class="line">    <span class="comment"># Set the yticks and labels</span></span><br><span class="line">    ax.set_yticks(<span class="built_in">list</span>(<span class="built_in">reversed</span>(<span class="built_in">list</span>(df.index[:<span class="number">15</span>]))))</span><br><span class="line">    ax.set_yticklabels(df[<span class="string">&#x27;feature&#x27;</span>].head(<span class="number">15</span>))</span><br><span class="line">    </span><br><span class="line">    <span class="comment"># Plot labeling</span></span><br><span class="line">    plt.xlabel(<span class="string">&#x27;Normalized Importance&#x27;</span>); plt.title(<span class="string">&#x27;Feature Importances&#x27;</span>)</span><br><span class="line">    plt.show()</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">return</span> df</span><br></pre></td></tr></table></figure>
+<p>删除0重要功能后，我们有536个功能和另一个选择。如果我们认为我们仍然有太多的功能，我们可以开始删除重要性最小的功能。在这种情况下，我继续选择功能，因为除了gbm之外，我想测试那些在大量功能方面做得不好的模型。</p>
+<p>我们做的最后一个功能选择步骤是只保留95%的重要性所需的功能。根据梯度增强机，342个功能足以覆盖95%的重要性。以下图显示了累积重要性与特征数量。</p>
+<p>我们可以使用许多其他尺寸还原技术，例如<a target="_blank" rel="noopener external nofollow noreferrer" href="http://www.cs.otago.ac.nz/cosc453/student_tutorials/principal_components.pdf?">主成分分析（PCA）。</a>这种方法可以有效地减少维度的数量，但它也将特征转换为低维特征空间，在那里它们没有物理表示，这意味着PCA特征无法解释。此外，PCA假设数据是正常分布的，这可能不是人类生成数据的有效假设。在笔记本中，我展示了如何使用pca，但实际上并没有将其应用于数据。</p>
+<p>然而，我们可以使用pca进行可视化。如果我们用<code>TARGET</code>的值绘制前两个主成分，我们会得到以下图像：</p>
+<p>这两个类别没有完全分开，只有两个主要组成部分，显然，我们需要两个以上的功能来识别将偿还贷款的客户和不偿还贷款的客户。</p>
+<p>在继续之前，我们应该记录我们采取的功能选择步骤，以便我们记住它们以备将来使用：</p>
+<ol>
+<li>删除相关系数大于0.9的共线变量：<em>删除了583个特征</em></li>
+<li>删除缺失值超过75%的列：<em>删除了19个功能</em></li>
+<li>根据GBM删除0.0重要功能：<em>删除308个功能</em></li>
+<li>仅保留95%功能重要性所需的功能：<em>删除了193个功能</em></li>
+</ol>
+<p>稳定性选择（Stability selection）是一种基于二次抽样和选择算法相结合较新的方法，选择算法可以是回归、SVM或其他类似的方法。</p>
+<p>它的主要思想是在不同的数据子集和特征子集上运行特征选择算法，不断的重复，最终汇总特征选择结果。比如可以统计某个特征被认为是重要特征的频率（被选为重要特征的次数除以它所在的子集被测试的次数）。</p>
+<p>理想情况下，重要特征的得分会接近100%。稍微弱一点的特征得分会是非0的数，而最无用的特征得分将会接近于0。</p>
+<p>RandomizedLasso(alpha=0.025)</p>
+<h2 id="降维"><a class="markdownIt-Anchor" href="#降维"></a> 降维</h2>
+<p>常见的降维方法除了基于L1惩罚项的模型以外，另外还有主成分分析法（PCA）和线性判别分析（LDA），线性判别分析本身也是一个分类模型。PCA和LDA有很多的相似点，其本质是要将原始的样本映射到维度更低的样本空间中，但是PCA和LDA的映射目标不一样：PCA是为了让映射后的样本具有最大的发散性；而LDA是为了让映射后的样本有最好的分类性能。所以说PCA是一种无监督的降维方法，而LDA是一种有监督的降维方法。</p>
+<table>
+<thead>
+<tr>
+<th>方法</th>
+<th>函数</th>
+<th>python包</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>主成分分析法</td>
+<td>PCA</td>
+<td>sklearn.decomposition</td>
+</tr>
+<tr>
+<td>线性判别分析法</td>
+<td>LinearDiscriminantAnalysis</td>
+<td>sklearn.discriminant_analysis</td>
+</tr>
+</tbody>
+</table>
+<h1 id="特征工程总结"><a class="markdownIt-Anchor" href="#特征工程总结"></a> 特征工程总结</h1>
+<p>main_pipeline<br />
+feature_creation<br />
+feature_selection</p>
+<ol>
+<li>
+<p>单变量特征选择可以用于理解数据、数据的结构、特点，也可以用于排除不相关特征，但是它不能发现冗余特征。</p>
+</li>
+<li>
+<p>正则化的线性模型可用于特征理解和特征选择。相比起L1正则化，L2正则化的表现更加稳定，L2正则化对于数据的理解来说很合适。由于响应变量和特征之间往往是非线性关系，可以采用basis expansion的方式将特征转换到一个更加合适的空间当中，在此基础上再考虑运用简单的线性模型。</p>
+</li>
+<li>
+<p>随机森林是一种非常流行的特征选择方法，它易于使用。但它有两个主要问题：</p>
+<ul>
+<li>重要的特征有可能得分很低（关联特征问题）</li>
+<li>这种方法对特征变量类别多的特征越有利（偏向问题）</li>
+</ul>
+</li>
+<li>
+<p>特征选择在很多</p>
+<p>机器学习</p>
+<p>和</p>
+<p>数据挖掘</p>
+<p>场景中都是非常有用的。在使用的时候要弄清楚自己的目标是什么，然后找到哪种方法适用于自己的任务。</p>
+<ul>
+<li>当选择最优特征以提升模型性能的时候，可以采用交叉验证的方法来验证某种方法是否比其他方法要好。</li>
+<li>当用特征选择的方法来理解数据的时候要留心，特征选择模型的稳定性非常重要，稳定性差的模型很容易就会导致错误的结论。</li>
+<li>对数据进行二次采样然后在子集上运行特征选择算法能够有所帮助，如果在各个子集上的结果是一致的，那就可以说在这个数据集上得出来的结论是可信的，可以用这种特征选择模型的结果来理解数据。</li>
+</ul>
+</li>
+<li>
+<p>关于训练模型的特征筛选，个人建议的实施流程 :</p>
+<ol>
+<li>数据预处理后，先排除取值变化很小的特征。如果机器资源充足，并且希望尽量保留所有信息，可以把阈值设置得比较高，或者只过滤离散型特征只有一个取值的特征。</li>
+<li>如果数据量过大，计算资源不足（内存不足以使用所有数据进行训练、计算速度过慢），可以使用单特征选择法排除部分特征。这些被排除的特征并不一定完全被排除不再使用，在后续的特征构造时也可以作为原始特征使用。</li>
+<li>如果此时特征量依然非常大，或者是如果特征比较稀疏时，可以使用PCA（主成分分析）和LDA（线性判别）等方法进行特征降维。</li>
+<li>经过样本采样和特征预筛选后，训练样本可以用于训练模型。但是可能由于特征数量比较大而导致训练速度慢，或者想进一步筛选有效特征或排除无效特征（或噪音），我们可以使用正则化线性模型选择法、随机森林选择法或者顶层特征选择法进一步进行特征筛选。</li>
+</ol>
+</li>
+</ol>
+<p><strong>最后，特征筛选是为了理解数据或更好地训练模型，我们应该根据自己的目标来选择适合的方法。为了更好/更容易地训练模型而进行的特征筛选，如果计算资源充足，应尽量避免过度筛选特征，因为特征筛选很容易丢失有用的信息。如果只是为了减少无效特征的影响，为了避免过拟合，可以选择随机森林和XGBoost等集成模型来避免对特征过拟合。</strong></p>
+</article><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/python/">python</a></div><div class="post_share"><div class="social-share" data-image="/img/FeatureEngine.png" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/js/social-share.min.js" defer></script></div></div><div class="post-reward"><div class="reward-button"><i class="fas fa-qrcode"></i> 打赏</div><div class="reward-main"><ul class="reward-all"><li class="reward-item"><a href="/img/morty3.jpg" target="_blank"><img class="post-qr-code-img" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/img/morty3.jpg" alt="Give me money!"/></a><div class="post-qr-code-desc">Give me money!</div></li></ul></div></div><nav class="pagination-post" id="pagination"><div class="prev-post pull-left"><a href="/posts/ca507391/" title="特征工程(III)--特征构造"><img class="cover" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/img/FeatureEngine.png" onerror="onerror=null;src='/img/404_moon.png'" alt="cover of previous post"><div class="pagination-info"><div class="label">上一篇</div><div class="prev_info">特征工程(III)--特征构造</div></div></a></div><div class="next-post pull-right"><a href="/posts/ce19bbb1/" title="特征工程(II)--数据预处理"><img class="cover" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/img/FeatureEngine.png" onerror="onerror=null;src='/img/404_moon.png'" alt="cover of next post"><div class="pagination-info"><div class="label">下一篇</div><div class="next_info">特征工程(II)--数据预处理</div></div></a></div></nav><div class="relatedPosts"><div class="headline"><i class="fas fa-thumbs-up fa-fw"></i><span>相关推荐</span></div><div class="relatedPosts-list"><div><a href="/posts/75974533/" title="大数据手册(Spark)--PySpark MLlib"><img class="cover" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/img/apache-spark-mllib.png" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2020-01-09</div><div class="title">大数据手册(Spark)--PySpark MLlib</div></div></a></div><div><a href="/posts/264c088/" title="大数据手册(Spark)--PySpark Core"><img class="cover" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/img/apache-spark-core.png" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2020-01-03</div><div class="title">大数据手册(Spark)--PySpark Core</div></div></a></div><div><a href="/posts/34eba6aa/" title="大数据手册(Spark)--PySpark Streaming"><img class="cover" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/img/apache-spark-streaming.png" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2020-01-13</div><div class="title">大数据手册(Spark)--PySpark Streaming</div></div></a></div><div><a href="/posts/f67b0909/" title="大数据手册(Spark)--Pandas API on Spark"><img class="cover" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/img/apache-spark-pandas.png" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2023-06-07</div><div class="title">大数据手册(Spark)--Pandas API on Spark</div></div></a></div><div><a href="/posts/bb755aa3/" title="大数据手册(Spark)--PySpark SQL"><img class="cover" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/img/apache-spark-sql.png" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2020-01-03</div><div class="title">大数据手册(Spark)--PySpark SQL</div></div></a></div><div><a href="/posts/29bf27e3/" title="特征工程(I)--探索性数据分析"><img class="cover" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/img/FeatureEngine.png" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2024-03-16</div><div class="title">特征工程(I)--探索性数据分析</div></div></a></div></div></div><hr class="custom-hr"/><div id="post-comment"><div class="comment-head"><div class="comment-headline"><i class="fas fa-comments fa-fw"></i><span> 评论</span></div><div id="comment-switch"><span class="first-comment">Gitalk</span><span class="switch-btn"></span><span class="second-comment">Waline</span></div></div><div class="comment-wrap"><div><div id="gitalk-container"></div></div><div><div id="waline-wrap"></div></div></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="is-center"><div class="avatar-img"><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/img/avatar.jpg" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info__name">Tiny Lei</div><div class="author-info__description">每天进步一点点...</div></div><div class="card-info-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">161</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">105</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">43</div></a></div><div class="card-info-social-icons is-center"><a class="social-icon" href="https://gitee.com/wilenwu" rel="external nofollow noreferrer" target="_blank" title="Gitee"><i class="iconfont icon-gitee"></i></a><a class="social-icon" href="https://github.com/wilenwu" rel="external nofollow noreferrer" target="_blank" title="Github"><i class="iconfont icon-github"></i></a><a class="social-icon" href="https://blog.csdn.net/qq_41518277" rel="external nofollow noreferrer" target="_blank" title="CSDN"><i class="iconfont icon-csdn"></i></a><a class="social-icon" href="/atom.xml" target="_blank" title="RSS"><i class="iconfont icon-rss"></i></a></div></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>公告</span></div><div class="announcement_content">感谢访问本站，若喜欢请收藏^_^</div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E7%89%B9%E5%BE%81%E9%80%89%E6%8B%A9"><span class="toc-number">1.</span> <span class="toc-text"> 特征选择</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%91%98%E8%A6%81"><span class="toc-number">1.1.</span> <span class="toc-text"> 摘要</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%8D%95%E5%8F%98%E9%87%8F%E7%89%B9%E5%BE%81%E9%80%89%E6%8B%A9"><span class="toc-number">1.2.</span> <span class="toc-text"> 单变量特征选择</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%80%92%E5%BD%92%E7%89%B9%E5%BE%81%E6%B6%88%E9%99%A4"><span class="toc-number">1.3.</span> <span class="toc-text"> 递归特征消除</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%89%B9%E5%BE%81%E9%87%8D%E8%A6%81%E6%80%A7"><span class="toc-number">1.4.</span> <span class="toc-text"> 特征重要性</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%99%8D%E7%BB%B4"><span class="toc-number">1.5.</span> <span class="toc-text"> 降维</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E7%89%B9%E5%BE%81%E5%B7%A5%E7%A8%8B%E6%80%BB%E7%BB%93"><span class="toc-number">2.</span> <span class="toc-text"> 特征工程总结</span></a></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item"><a class="thumbnail" href="/posts/29bf27e3/" title="特征工程(I)--探索性数据分析"><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/img/FeatureEngine.png" onerror="this.onerror=null;this.src='/img/404_moon.png'" alt="特征工程(I)--探索性数据分析"/></a><div class="content"><a class="title" href="/posts/29bf27e3/" title="特征工程(I)--探索性数据分析">特征工程(I)--探索性数据分析</a><time datetime="2024-03-16T15:40:52.000Z" title="发表于 2024-03-16 23:40:52">2024-03-16</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/posts/c8fe03db/" title="特征工程(V)--时序特征工程"><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/img/FeatureEngine.png" onerror="this.onerror=null;this.src='/img/404_moon.png'" alt="特征工程(V)--时序特征工程"/></a><div class="content"><a class="title" href="/posts/c8fe03db/" title="特征工程(V)--时序特征工程">特征工程(V)--时序特征工程</a><time datetime="2024-03-16T15:40:52.000Z" title="发表于 2024-03-16 23:40:52">2024-03-16</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/posts/ce19bbb1/" title="特征工程(II)--数据预处理"><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/img/FeatureEngine.png" onerror="this.onerror=null;this.src='/img/404_moon.png'" alt="特征工程(II)--数据预处理"/></a><div class="content"><a class="title" href="/posts/ce19bbb1/" title="特征工程(II)--数据预处理">特征工程(II)--数据预处理</a><time datetime="2024-03-16T15:40:52.000Z" title="发表于 2024-03-16 23:40:52">2024-03-16</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/posts/61a3ce5f/" title="特征工程(IV)--特征选择"><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/img/FeatureEngine.png" onerror="this.onerror=null;this.src='/img/404_moon.png'" alt="特征工程(IV)--特征选择"/></a><div class="content"><a class="title" href="/posts/61a3ce5f/" title="特征工程(IV)--特征选择">特征工程(IV)--特征选择</a><time datetime="2024-03-16T15:40:52.000Z" title="发表于 2024-03-16 23:40:52">2024-03-16</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/posts/ca507391/" title="特征工程(III)--特征构造"><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/img/FeatureEngine.png" onerror="this.onerror=null;this.src='/img/404_moon.png'" alt="特征工程(III)--特征构造"/></a><div class="content"><a class="title" href="/posts/ca507391/" title="特征工程(III)--特征构造">特征工程(III)--特征构造</a><time datetime="2024-03-16T15:40:52.000Z" title="发表于 2024-03-16 23:40:52">2024-03-16</time></div></div></div></div></div></div></main><footer id="footer"><div id="footer-wrap"><div class="copyright">&copy;2019 - 2024 By Tiny Lei</div><div class="framework-info"><span>框架 </span><a target="_blank" rel="noopener external nofollow noreferrer" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener external nofollow noreferrer" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside_config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><a id="to_comment" href="#post-comment" title="直达评论"><i class="fas fa-comments"></i></a><button id="go-up" type="button" title="回到顶部"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox/fancybox.umd.min.js"></script><script src="https://cdn.jsdelivr.net/npm/vanilla-lazyload/dist/lazyload.iife.min.js"></script><script>function panguFn () {
+  if (typeof pangu === 'object') pangu.autoSpacingPage()
+  else {
+    getScript('https://cdn.jsdelivr.net/npm/pangu/dist/browser/pangu.min.js')
+      .then(() => {
+        pangu.autoSpacingPage()
+      })
+  }
+}
+
+function panguInit () {
+  if (false){
+    GLOBAL_CONFIG_SITE.isPost && panguFn()
+  } else {
+    panguFn()
+  }
+}
+
+document.addEventListener('DOMContentLoaded', panguInit)</script><div class="js-pjax"><script>(() => {
+  const $mermaid = document.querySelectorAll('#article-container .mermaid-wrap')
+  if ($mermaid.length === 0) return
+  const runMermaid = () => {
+    window.loadMermaid = true
+    const theme = document.documentElement.getAttribute('data-theme') === 'dark' ? 'dark' : 'forest'
+
+    Array.from($mermaid).forEach((item, index) => {
+      const mermaidSrc = item.firstElementChild
+      const mermaidThemeConfig = '%%{init:{ \'theme\':\'' + theme + '\'}}%%\n'
+      const mermaidID = 'mermaid-' + index
+      const mermaidDefinition = mermaidThemeConfig + mermaidSrc.textContent
+
+      const renderFn = mermaid.render(mermaidID, mermaidDefinition)
+
+      const renderV10 = () => {
+        renderFn.then(({svg}) => {
+          mermaidSrc.insertAdjacentHTML('afterend', svg)
+        })
+      }
+
+      const renderV9 = svg => {
+        mermaidSrc.insertAdjacentHTML('afterend', svg)
+      }
+
+      typeof renderFn === 'string' ? renderV9(renderFn) : renderV10()
+    })
+  }
+
+  const loadMermaid = () => {
+    window.loadMermaid ? runMermaid() : getScript('https://cdn.jsdelivr.net/npm/mermaid/dist/mermaid.min.js').then(runMermaid)
+  }
+
+  btf.addModeChange('mermaid', runMermaid)
+
+  window.pjax ? loadMermaid() : document.addEventListener('DOMContentLoaded', loadMermaid)
+})()</script><script>function loadGitalk () {
+  function initGitalk () {
+    var gitalk = new Gitalk(Object.assign({
+      clientID: '7c65134b48b13f306114',
+      clientSecret: 'f049f68368a11925fdb69e57c64839eac94e13c1'',
+      repo: 'gitalk-comments',
+      owner: 'WilenWu',
+      admin: ['WilenWu'],
+      id: 'aa119dee5f2813c3d98e78cf26451c36',
+      updateCountCallback: commentCount
+    },null))
+
+    gitalk.render('gitalk-container')
+  }
+
+  if (typeof Gitalk === 'function') initGitalk()
+  else {
+    getCSS('https://cdn.jsdelivr.net/npm/gitalk/dist/gitalk.min.css')
+    getScript('https://cdn.jsdelivr.net/npm/gitalk/dist/gitalk.min.js').then(initGitalk)
+  }
+}
+
+function commentCount(n){
+  let isCommentCount = document.querySelector('#post-meta .gitalk-comment-count')
+  if (isCommentCount) {
+    isCommentCount.textContent= n
+  }
+}
+
+if ('Gitalk' === 'Gitalk' || !true) {
+  if (true) btf.loadComment(document.getElementById('gitalk-container'), loadGitalk)
+  else loadGitalk()
+} else {
+  function loadOtherComment () {
+    loadGitalk()
+  }
+}</script><script>function loadWaline () {
+  function initWaline () {
+    const waline = Waline.init(Object.assign({
+      el: '#waline-wrap',
+      serverURL: 'https://waline-comments-9etq63pcv-wilenwu.vercel.app',
+      pageview: false,
+      dark: 'html[data-theme="dark"]',
+      path: window.location.pathname,
+      comment: false,
+    }, {"requiredMeta":["monsterid"]}))
+  }
+
+  if (typeof Waline === 'object') initWaline()
+  else {
+    getCSS('https://cdn.jsdelivr.net/npm/@waline/client/dist/waline.min.css').then(() => {
+      getScript('https://cdn.jsdelivr.net/npm/@waline/client/dist/waline.min.js').then(initWaline)
+    })
+  }
+}
+
+if ('Gitalk' === 'Waline' || !true) {
+  if (true) btf.loadComment(document.getElementById('waline-wrap'),loadWaline)
+  else setTimeout(loadWaline, 0)
+} else {
+  function loadOtherComment () {
+    loadWaline()
+  }
+}</script></div><script src="/js/custom.js"></script><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script><div id="local-search"><div class="search-dialog"><nav class="search-nav"><span class="search-dialog-title">搜索</span><span id="loading-status"></span><button class="search-close-button"><i class="fas fa-times"></i></button></nav><div class="is-center" id="loading-database"><i class="fas fa-spinner fa-pulse"></i><span>  数据库加载中</span></div><div class="search-wrap"><div id="local-search-input"><div class="local-search-box"><input class="local-search-box--input" placeholder="搜索文章" type="text"/></div></div><hr/><div class="no-result" id="local-search-results"></div><div id="local-search-stats-wrap"></div></div></div><div id="search-mask"></div><script src="/js/search/local-search.js"></script></div></div><!-- hexo injector body_end start --><script async src="//at.alicdn.com/t/font_2032782_8d5kxvn09md.js"></script><!-- hexo injector body_end end --></body></html>
