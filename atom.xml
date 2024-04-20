@@ -6,7 +6,7 @@
   <link href="https://www.tinylei.tech/atom.xml" rel="self"/>
   
   <link href="https://www.tinylei.tech/"/>
-  <updated>2024-03-16T15:47:17.300Z</updated>
+  <updated>2024-04-20T15:32:35.021Z</updated>
   <id>https://www.tinylei.tech/</id>
   
   <author>
@@ -17,74 +17,106 @@
   <generator uri="https://hexo.io/">Hexo</generator>
   
   <entry>
+    <title>特征工程(VII)--模型集成</title>
+    <link href="https://www.tinylei.tech/posts/425f9947/"/>
+    <id>https://www.tinylei.tech/posts/425f9947/</id>
+    <published>2024-04-20T10:40:52.000Z</published>
+    <updated>2024-04-20T15:32:35.021Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;h1 id=&quot;ensembles&quot;&gt;&lt;a class=&quot;markdownIt-Anchor&quot; href=&quot;#ensembles&quot;&gt;&lt;/a&gt;</summary>
+        
+      
+    
+    
+    
+    <category term="Python" scheme="https://www.tinylei.tech/categories/python/"/>
+    
+    <category term="Machine Learning" scheme="https://www.tinylei.tech/categories/python/machine-learning/"/>
+    
+    
+    <category term="机器学习" scheme="https://www.tinylei.tech/tags/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/"/>
+    
+    <category term="python" scheme="https://www.tinylei.tech/tags/python/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>特征工程(VI)--机器学习</title>
+    <link href="https://www.tinylei.tech/posts/3d0ef432/"/>
+    <id>https://www.tinylei.tech/posts/3d0ef432/</id>
+    <published>2024-04-20T08:40:52.000Z</published>
+    <updated>2024-04-20T15:31:50.619Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;p&gt;Jupyter Notebook 代码连接：&lt;a href=&quot;/ipynb/machine_learning_demo&quot;&gt;machine_learning_demo&lt;/a&gt;&lt;/p&gt;
+&lt;h1 id=&quot;step-1-imports-and-configuration&quot;&gt;&lt;a</summary>
+        
+      
+    
+    
+    
+    <category term="Python" scheme="https://www.tinylei.tech/categories/python/"/>
+    
+    <category term="Machine Learning" scheme="https://www.tinylei.tech/categories/python/machine-learning/"/>
+    
+    
+    <category term="机器学习" scheme="https://www.tinylei.tech/tags/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/"/>
+    
+    <category term="python" scheme="https://www.tinylei.tech/tags/python/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>特征工程(V)--时间序列特征</title>
+    <link href="https://www.tinylei.tech/posts/76296591/"/>
+    <id>https://www.tinylei.tech/posts/76296591/</id>
+    <published>2024-04-18T15:40:52.000Z</published>
+    <updated>2024-04-20T15:30:27.959Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;p&gt;有这么一句话在业界广泛流传：数据和特征决定了机器学习的上限，而模型和算法只是逼近这个上限而已。由此可见，特征工程在机器学习中占有相当重要的地位。在实际应用当中，可以说特征工程是机器学习成功的关键。&lt;/p&gt;
+&lt;p&gt;特征工程是数据分析中最耗时间和精力的一部分工作，它不像算法和模</summary>
+        
+      
+    
+    
+    
+    <category term="Python" scheme="https://www.tinylei.tech/categories/python/"/>
+    
+    <category term="Machine Learning" scheme="https://www.tinylei.tech/categories/python/machine-learning/"/>
+    
+    
+    <category term="python" scheme="https://www.tinylei.tech/tags/python/"/>
+    
+  </entry>
+  
+  <entry>
     <title>特征工程(IV)--特征选择</title>
     <link href="https://www.tinylei.tech/posts/61a3ce5f/"/>
     <id>https://www.tinylei.tech/posts/61a3ce5f/</id>
-    <published>2024-03-16T15:40:52.000Z</published>
-    <updated>2024-03-16T15:47:17.300Z</updated>
+    <published>2024-04-16T15:40:52.000Z</published>
+    <updated>2024-04-20T15:29:52.828Z</updated>
     
     
       
       
         
         
-    <summary type="html">&lt;h1 id=&quot;特征选择&quot;&gt;&lt;a class=&quot;markdownIt-Anchor&quot; href=&quot;#特征选择&quot;&gt;&lt;/a&gt; 特征选择&lt;/h1&gt;
-&lt;h2 id=&quot;摘要&quot;&gt;&lt;a class=&quot;markdownIt-Anchor&quot; href=&quot;#摘要&quot;&gt;&lt;/a&gt;</summary>
-        
-      
-    
-    
-    
-    <category term="Python" scheme="https://www.tinylei.tech/categories/python/"/>
-    
-    <category term="Machine Learning" scheme="https://www.tinylei.tech/categories/python/machine-learning/"/>
-    
-    
-    <category term="python" scheme="https://www.tinylei.tech/tags/python/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>特征工程(V)--时序特征工程</title>
-    <link href="https://www.tinylei.tech/posts/c8fe03db/"/>
-    <id>https://www.tinylei.tech/posts/c8fe03db/</id>
-    <published>2024-03-16T15:40:52.000Z</published>
-    <updated>2024-03-16T15:47:00.386Z</updated>
-    
-    
-      
-      
-        
-        
-    <summary type="html">&lt;h1 id=&quot;时序特征工程&quot;&gt;&lt;a class=&quot;markdownIt-Anchor&quot; href=&quot;#时序特征工程&quot;&gt;&lt;/a&gt; 时序特征工程&lt;/h1&gt;
-&lt;p&gt;本案例并不涉及时序特征（time</summary>
-        
-      
-    
-    
-    
-    <category term="Python" scheme="https://www.tinylei.tech/categories/python/"/>
-    
-    <category term="Machine Learning" scheme="https://www.tinylei.tech/categories/python/machine-learning/"/>
-    
-    
-    <category term="python" scheme="https://www.tinylei.tech/tags/python/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>特征工程(II)--数据预处理</title>
-    <link href="https://www.tinylei.tech/posts/ce19bbb1/"/>
-    <id>https://www.tinylei.tech/posts/ce19bbb1/</id>
-    <published>2024-03-16T15:40:52.000Z</published>
-    <updated>2024-03-16T15:43:48.596Z</updated>
-    
-    
-      
-      
-        
-        
-    <summary type="html">&lt;h1 id=&quot;数据预处理&quot;&gt;&lt;a class=&quot;markdownIt-Anchor&quot; href=&quot;#数据预处理&quot;&gt;&lt;/a&gt;</summary>
+    <summary type="html">&lt;p&gt;有这么一句话在业界广泛流传：数据和特征决定了机器学习的上限，而模型和算法只是逼近这个上限而已。由此可见，特征工程在机器学习中占有相当重要的地位。在实际应用当中，可以说特征工程是机器学习成功的关键。&lt;/p&gt;
+&lt;p&gt;特征工程是数据分析中最耗时间和精力的一部分工作，它不像算法和模</summary>
         
       
     
@@ -103,17 +135,74 @@
     <title>特征工程(III)--特征构造</title>
     <link href="https://www.tinylei.tech/posts/ca507391/"/>
     <id>https://www.tinylei.tech/posts/ca507391/</id>
+    <published>2024-04-10T15:30:52.000Z</published>
+    <updated>2024-04-20T15:29:00.795Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;p&gt;有这么一句话在业界广泛流传：数据和特征决定了机器学习的上限，而模型和算法只是逼近这个上限而已。由此可见，特征工程在机器学习中占有相当重要的地位。在实际应用当中，可以说特征工程是机器学习成功的关键。&lt;/p&gt;
+&lt;p&gt;特征工程是数据分析中最耗时间和精力的一部分工作，它不像算法和模</summary>
+        
+      
+    
+    
+    
+    <category term="Python" scheme="https://www.tinylei.tech/categories/python/"/>
+    
+    <category term="Machine Learning" scheme="https://www.tinylei.tech/categories/python/machine-learning/"/>
+    
+    
+    <category term="python" scheme="https://www.tinylei.tech/tags/python/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Python(Machine Learning)--XGBoost</title>
+    <link href="https://www.tinylei.tech/posts/c46d5dae/"/>
+    <id>https://www.tinylei.tech/posts/c46d5dae/</id>
+    <published>2024-03-28T14:42:00.000Z</published>
+    <updated>2024-03-28T14:43:39.381Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;h1 id=&quot;quick-start&quot;&gt;&lt;a class=&quot;markdownIt-Anchor&quot; href=&quot;#quick-start&quot;&gt;&lt;/a&gt; Quick Start&lt;/h1&gt;
+&lt;p&gt;XGBoost本质上还是一个GBDT，但是力争把速度和效率发挥到极致，所以叫</summary>
+        
+      
+    
+    
+    
+    <category term="Python" scheme="https://www.tinylei.tech/categories/python/"/>
+    
+    <category term="Machine Learning" scheme="https://www.tinylei.tech/categories/python/machine-learning/"/>
+    
+    
+    <category term="机器学习" scheme="https://www.tinylei.tech/tags/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/"/>
+    
+    <category term="python" scheme="https://www.tinylei.tech/tags/python/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>特征工程(II)--数据预处理</title>
+    <link href="https://www.tinylei.tech/posts/ce19bbb1/"/>
+    <id>https://www.tinylei.tech/posts/ce19bbb1/</id>
     <published>2024-03-16T15:40:52.000Z</published>
-    <updated>2024-03-16T15:46:07.227Z</updated>
+    <updated>2024-04-20T15:27:40.273Z</updated>
     
     
       
       
         
         
-    <summary type="html">&lt;h1 id=&quot;特征构造&quot;&gt;&lt;a class=&quot;markdownIt-Anchor&quot; href=&quot;#特征构造&quot;&gt;&lt;/a&gt; 特征构造&lt;/h1&gt;
-&lt;p&gt;特征构造是从现有数据创建新特征的过程。目标是构建有用的功能，帮助我们的模型了解数据集中的信息与给定目标之间的关系。&lt;/p&gt;
-&lt;h2</summary>
+    <summary type="html">&lt;p&gt;有这么一句话在业界广泛流传：数据和特征决定了机器学习的上限，而模型和算法只是逼近这个上限而已。由此可见，特征工程在机器学习中占有相当重要的地位。在实际应用当中，可以说特征工程是机器学习成功的关键。&lt;/p&gt;
+&lt;p&gt;特征工程是数据分析中最耗时间和精力的一部分工作，它不像算法和模</summary>
         
       
     
@@ -133,41 +222,15 @@
     <link href="https://www.tinylei.tech/posts/29bf27e3/"/>
     <id>https://www.tinylei.tech/posts/29bf27e3/</id>
     <published>2024-03-16T15:40:52.000Z</published>
-    <updated>2024-03-16T15:43:39.061Z</updated>
+    <updated>2024-04-20T15:28:12.729Z</updated>
     
     
       
       
         
         
-    <summary type="html">&lt;center&gt;&lt;font</summary>
-        
-      
-    
-    
-    
-    <category term="Python" scheme="https://www.tinylei.tech/categories/python/"/>
-    
-    <category term="Machine Learning" scheme="https://www.tinylei.tech/categories/python/machine-learning/"/>
-    
-    
-    <category term="python" scheme="https://www.tinylei.tech/tags/python/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>Machine Learning Tutorial</title>
-    <link href="https://www.tinylei.tech/posts/3d0ef432/"/>
-    <id>https://www.tinylei.tech/posts/3d0ef432/</id>
-    <published>2024-03-16T15:40:52.000Z</published>
-    <updated>2024-03-16T15:46:44.724Z</updated>
-    
-    
-      
-      
-        
-        
-    <summary type="html">&lt;h1 id=&quot;step-1-imports-and-configuration&quot;&gt;&lt;a class=&quot;markdownIt-Anchor&quot; href=&quot;#step-1-imports-and-configuration&quot;&gt;&lt;/a&gt; Step 1: Imports and</summary>
+    <summary type="html">&lt;p&gt;有这么一句话在业界广泛流传：数据和特征决定了机器学习的上限，而模型和算法只是逼近这个上限而已。由此可见，特征工程在机器学习中占有相当重要的地位。在实际应用当中，可以说特征工程是机器学习成功的关键。&lt;/p&gt;
+&lt;p&gt;特征工程是数据分析中最耗时间和精力的一部分工作，它不像算法和模</summary>
         
       
     
@@ -177,8 +240,6 @@
     
     <category term="Machine Learning" scheme="https://www.tinylei.tech/categories/python/machine-learning/"/>
     
-    
-    <category term="机器学习" scheme="https://www.tinylei.tech/tags/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/"/>
     
     <category term="python" scheme="https://www.tinylei.tech/tags/python/"/>
     
@@ -357,7 +418,7 @@
     <link href="https://www.tinylei.tech/posts/794d8498/"/>
     <id>https://www.tinylei.tech/posts/794d8498/</id>
     <published>2024-02-15T03:28:52.000Z</published>
-    <updated>2024-03-08T10:33:44.892Z</updated>
+    <updated>2024-04-18T13:15:45.046Z</updated>
     
     
       
@@ -386,44 +447,15 @@
     <link href="https://www.tinylei.tech/posts/44910830/"/>
     <id>https://www.tinylei.tech/posts/44910830/</id>
     <published>2024-01-25T14:15:00.000Z</published>
-    <updated>2024-03-08T10:33:44.892Z</updated>
+    <updated>2024-04-15T11:51:55.858Z</updated>
     
     
       
       
         
         
-    <summary type="html">&lt;h1 id=&quot;overview&quot;&gt;&lt;a class=&quot;markdownIt-Anchor&quot; href=&quot;#overview&quot;&gt;&lt;/a&gt; Overview&lt;/h1&gt;
-&lt;p&gt;LightGBM（Light Gradient Boosting Machine）是一种高效的</summary>
-        
-      
-    
-    
-    
-    <category term="Python" scheme="https://www.tinylei.tech/categories/python/"/>
-    
-    <category term="Machine Learning" scheme="https://www.tinylei.tech/categories/python/machine-learning/"/>
-    
-    
-    <category term="机器学习" scheme="https://www.tinylei.tech/tags/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/"/>
-    
-    <category term="python" scheme="https://www.tinylei.tech/tags/python/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>Python(Machine Learning)--XGBoost</title>
-    <link href="https://www.tinylei.tech/posts/c46d5dae/"/>
-    <id>https://www.tinylei.tech/posts/c46d5dae/</id>
-    <published>2024-01-25T14:15:00.000Z</published>
-    <updated>2024-03-08T10:33:44.892Z</updated>
-    
-    
-      
-      
-        
-        
-    <summary type="html">&lt;p&gt;第113天： Python XGBoost</summary>
+    <summary type="html">&lt;h1 id=&quot;quick-start&quot;&gt;&lt;a class=&quot;markdownIt-Anchor&quot; href=&quot;#quick-start&quot;&gt;&lt;/a&gt; Quick Start&lt;/h1&gt;
+&lt;p&gt;LightGBM（Light Gradient Boosting</summary>
         
       
     
@@ -569,39 +601,6 @@
     <category term="大数据" scheme="https://www.tinylei.tech/tags/%E5%A4%A7%E6%95%B0%E6%8D%AE/"/>
     
     <category term="hive" scheme="https://www.tinylei.tech/tags/hive/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>大数据手册(Spark)--Spark安装配置</title>
-    <link href="https://www.tinylei.tech/posts/d02a6da3/"/>
-    <id>https://www.tinylei.tech/posts/d02a6da3/</id>
-    <published>2024-01-15T14:00:00.000Z</published>
-    <updated>2024-01-29T13:27:25.549Z</updated>
-    
-    
-      
-      
-        
-        
-    <summary type="html">&lt;blockquote&gt;
-&lt;p&gt;本文默认在 zsh 终端安装配置，若使用bash终端，环境变量的配置文件相应变化。&lt;br /&gt;
-若安装包下载缓慢，可复制链接到迅雷下载，亲测极速～&lt;/p&gt;
-&lt;/blockquote&gt;
-&lt;h1 id=&quot;准备工作&quot;&gt;&lt;a</summary>
-        
-      
-    
-    
-    
-    <category term="Big Data" scheme="https://www.tinylei.tech/categories/big-data/"/>
-    
-    <category term="Spark" scheme="https://www.tinylei.tech/categories/big-data/spark/"/>
-    
-    
-    <category term="大数据" scheme="https://www.tinylei.tech/tags/%E5%A4%A7%E6%95%B0%E6%8D%AE/"/>
-    
-    <category term="spark" scheme="https://www.tinylei.tech/tags/spark/"/>
     
   </entry>
   

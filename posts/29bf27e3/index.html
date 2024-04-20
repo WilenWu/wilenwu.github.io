@@ -1,13 +1,13 @@
-<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0,viewport-fit=cover"><title>特征工程(I)--探索性数据分析 | 雷小小</title><meta name="author" content="Tiny Lei"><meta name="copyright" content="Tiny Lei"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="特征工程 有这么一句话在业界广泛流传：数据和特征决定了机器学习的上限，而模型和算法只是逼近这个上限而已。由此可见，特征工程在机器学习中占有相当重要的地位。在实际应用当中，可以说特征工程是机器学习成功的关键。 特征工程是数据分析中最耗时间和精力的一部分工作，它不像算法和模型那样是确定的步骤，更多是工程上的经验和权衡。因此没有统一的方法。这里只是对一些常用的方法做一个总结。 特征工程包含了 Data">
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0,viewport-fit=cover"><title>特征工程(I)--探索性数据分析 | 雷小小</title><meta name="author" content="Tiny Lei"><meta name="copyright" content="Tiny Lei"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="有这么一句话在业界广泛流传：数据和特征决定了机器学习的上限，而模型和算法只是逼近这个上限而已。由此可见，特征工程在机器学习中占有相当重要的地位。在实际应用当中，可以说特征工程是机器学习成功的关键。 特征工程是数据分析中最耗时间和精力的一部分工作，它不像算法和模型那样是确定的步骤，更多是工程上的经验和权衡。因此没有统一的方法。这里只是对一些常用的方法做一个总结。 特征工程包含了 Data PrePr">
 <meta property="og:type" content="article">
 <meta property="og:title" content="特征工程(I)--探索性数据分析">
 <meta property="og:url" content="https://www.tinylei.tech/posts/29bf27e3/index.html">
 <meta property="og:site_name" content="雷小小">
-<meta property="og:description" content="特征工程 有这么一句话在业界广泛流传：数据和特征决定了机器学习的上限，而模型和算法只是逼近这个上限而已。由此可见，特征工程在机器学习中占有相当重要的地位。在实际应用当中，可以说特征工程是机器学习成功的关键。 特征工程是数据分析中最耗时间和精力的一部分工作，它不像算法和模型那样是确定的步骤，更多是工程上的经验和权衡。因此没有统一的方法。这里只是对一些常用的方法做一个总结。 特征工程包含了 Data">
+<meta property="og:description" content="有这么一句话在业界广泛流传：数据和特征决定了机器学习的上限，而模型和算法只是逼近这个上限而已。由此可见，特征工程在机器学习中占有相当重要的地位。在实际应用当中，可以说特征工程是机器学习成功的关键。 特征工程是数据分析中最耗时间和精力的一部分工作，它不像算法和模型那样是确定的步骤，更多是工程上的经验和权衡。因此没有统一的方法。这里只是对一些常用的方法做一个总结。 特征工程包含了 Data PrePr">
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://www.tinylei.tech/img/FeatureEngine.png">
 <meta property="article:published_time" content="2024-03-16T15:40:52.000Z">
-<meta property="article:modified_time" content="2024-03-16T15:43:39.061Z">
+<meta property="article:modified_time" content="2024-04-20T15:28:12.729Z">
 <meta property="article:author" content="Tiny Lei">
 <meta property="article:tag" content="python">
 <meta name="twitter:card" content="summary">
@@ -65,7 +65,7 @@
   isHome: false,
   isHighlightShrink: false,
   isToc: true,
-  postUpdate: '2024-03-16 23:43:39'
+  postUpdate: '2024-04-20 23:28:12'
 }</script><noscript><style type="text/css">
   #nav {
     opacity: 1
@@ -170,52 +170,496 @@
     }
     detectApple()
     })(window)</script><link rel="stylesheet" href="//at.alicdn.com/t/font_2849223_xh1ftc8qym.css"><link rel="stylesheet" href="/css/link-card.css"><!-- hexo injector head_end start --><link rel="stylesheet" href="https://npm.elemecdn.com/hexo-butterfly-tag-plugins-plus@latest/lib/assets/font-awesome-animation.min.css" media="defer" onload="this.media='all'"><link rel="stylesheet" href="https://npm.elemecdn.com/hexo-butterfly-tag-plugins-plus@latest/lib/tag_plugins.css" media="defer" onload="this.media='all'"><script src="https://npm.elemecdn.com/hexo-butterfly-tag-plugins-plus@latest/lib/assets/carousel-touch.js"></script><!-- hexo injector head_end end --><meta name="generator" content="Hexo 6.0.0"><link rel="alternate" href="/atom.xml" title="雷小小" type="application/atom+xml">
-</head><body><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/img/avatar.jpg" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="sidebar-site-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">161</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">105</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">43</div></a></div><hr class="custom-hr"/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/user-guide/"><i class="fa-fw fa fa-compass"></i><span> 用户指南</span></a></div><div class="menus_item"><a class="site-page group hide" href="javascript:void(0);" rel="external nofollow noreferrer"><i class="fa-fw fa fa-book"></i><span> 文档</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></li><li><a class="site-page child" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 归档</span></a></li><li><a class="site-page child" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/gallery/"><i class="fa-fw fa fa-images"></i><span> 图库</span></a></div><div class="menus_item"><a class="site-page" href="/ebook/"><i class="fa-fw fa fa-book-reader"></i><span> 电子书</span></a></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-star"></i><span> 收藏夹</span></a></div><div class="menus_item"><a class="site-page group hide" href="javascript:void(0);" rel="external nofollow noreferrer"><i class="fa-fw fa-solid fa-circle-chevron-down"></i><span> 更多</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/about/"><i class="fa-fw fa fa-user"></i><span> 关于我</span></a></li><li><a class="site-page child" href="/analytics/"><i class="fa-fw fa fa-line-chart"></i><span> 文章统计</span></a></li><li><a class="site-page child" href="/log/"><i class="fa-fw fa fa-history"></i><span> 更新日志</span></a></li></ul></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url('/img/sklearn-top-img.svg')"><nav id="nav"><span id="blog-info"><a href="/" title="雷小小"><img class="site-icon" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/img/favicon.png"/><span class="site-name">雷小小</span></a></span><div id="menus"><div id="search-button"><a class="site-page social-icon search" href="javascript:void(0);" rel="external nofollow noreferrer"><i class="fas fa-search fa-fw"></i><span> 搜索</span></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/user-guide/"><i class="fa-fw fa fa-compass"></i><span> 用户指南</span></a></div><div class="menus_item"><a class="site-page group hide" href="javascript:void(0);" rel="external nofollow noreferrer"><i class="fa-fw fa fa-book"></i><span> 文档</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></li><li><a class="site-page child" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 归档</span></a></li><li><a class="site-page child" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/gallery/"><i class="fa-fw fa fa-images"></i><span> 图库</span></a></div><div class="menus_item"><a class="site-page" href="/ebook/"><i class="fa-fw fa fa-book-reader"></i><span> 电子书</span></a></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-star"></i><span> 收藏夹</span></a></div><div class="menus_item"><a class="site-page group hide" href="javascript:void(0);" rel="external nofollow noreferrer"><i class="fa-fw fa-solid fa-circle-chevron-down"></i><span> 更多</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/about/"><i class="fa-fw fa fa-user"></i><span> 关于我</span></a></li><li><a class="site-page child" href="/analytics/"><i class="fa-fw fa fa-line-chart"></i><span> 文章统计</span></a></li><li><a class="site-page child" href="/log/"><i class="fa-fw fa fa-history"></i><span> 更新日志</span></a></li></ul></div></div><div id="toggle-menu"><a class="site-page" href="javascript:void(0);" rel="external nofollow noreferrer"><i class="fas fa-bars fa-fw"></i></a></div></div></nav><div id="post-info"><h1 class="post-title">特征工程(I)--探索性数据分析<a class="post-edit-link" href="https://gitee.com/WilenWu/myblog/edit/master/source/_posts/python/Feature-Engineering-with-Python(I)--EDA.md" rel="external nofollow noreferrer" title="编辑" target="_blank"><i class="fas fa-pencil-alt"></i></a></h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2024-03-16T15:40:52.000Z" title="发表于 2024-03-16 23:40:52">2024-03-16</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2024-03-16T15:43:39.061Z" title="更新于 2024-03-16 23:43:39">2024-03-16</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/python/">Python</a><i class="fas fa-angle-right post-meta-separator"></i><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/python/machine-learning/">Machine Learning</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-wordcount"><i class="far fa-file-word fa-fw post-meta-icon"></i><span class="post-meta-label">字数总计:</span><span class="word-count">2.7k</span><span class="post-meta-separator">|</span><i class="far fa-clock fa-fw post-meta-icon"></i><span class="post-meta-label">阅读时长:</span><span>12分钟</span></span><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title="特征工程(I)--探索性数据分析"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">阅读量:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container"><center><font size=10><b>特征工程</b></font></center>
-<p>有这么一句话在业界广泛流传：数据和特征决定了机器学习的上限，而模型和算法只是逼近这个上限而已。由此可见，特征工程在机器学习中占有相当重要的地位。在实际应用当中，可以说特征工程是机器学习成功的关键。</p>
+</head><body><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/img/avatar.jpg" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="sidebar-site-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">162</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">105</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">43</div></a></div><hr class="custom-hr"/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/user-guide/"><i class="fa-fw fa fa-compass"></i><span> 用户指南</span></a></div><div class="menus_item"><a class="site-page group hide" href="javascript:void(0);" rel="external nofollow noreferrer"><i class="fa-fw fa fa-book"></i><span> 文档</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></li><li><a class="site-page child" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 归档</span></a></li><li><a class="site-page child" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/gallery/"><i class="fa-fw fa fa-images"></i><span> 图库</span></a></div><div class="menus_item"><a class="site-page" href="/ebook/"><i class="fa-fw fa fa-book-reader"></i><span> 电子书</span></a></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-star"></i><span> 收藏夹</span></a></div><div class="menus_item"><a class="site-page group hide" href="javascript:void(0);" rel="external nofollow noreferrer"><i class="fa-fw fa-solid fa-circle-chevron-down"></i><span> 更多</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/about/"><i class="fa-fw fa fa-user"></i><span> 关于我</span></a></li><li><a class="site-page child" href="/analytics/"><i class="fa-fw fa fa-line-chart"></i><span> 文章统计</span></a></li><li><a class="site-page child" href="/log/"><i class="fa-fw fa fa-history"></i><span> 更新日志</span></a></li></ul></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url('/img/sklearn-top-img.svg')"><nav id="nav"><span id="blog-info"><a href="/" title="雷小小"><img class="site-icon" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/img/favicon.png"/><span class="site-name">雷小小</span></a></span><div id="menus"><div id="search-button"><a class="site-page social-icon search" href="javascript:void(0);" rel="external nofollow noreferrer"><i class="fas fa-search fa-fw"></i><span> 搜索</span></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/user-guide/"><i class="fa-fw fa fa-compass"></i><span> 用户指南</span></a></div><div class="menus_item"><a class="site-page group hide" href="javascript:void(0);" rel="external nofollow noreferrer"><i class="fa-fw fa fa-book"></i><span> 文档</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></li><li><a class="site-page child" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 归档</span></a></li><li><a class="site-page child" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/gallery/"><i class="fa-fw fa fa-images"></i><span> 图库</span></a></div><div class="menus_item"><a class="site-page" href="/ebook/"><i class="fa-fw fa fa-book-reader"></i><span> 电子书</span></a></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-star"></i><span> 收藏夹</span></a></div><div class="menus_item"><a class="site-page group hide" href="javascript:void(0);" rel="external nofollow noreferrer"><i class="fa-fw fa-solid fa-circle-chevron-down"></i><span> 更多</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/about/"><i class="fa-fw fa fa-user"></i><span> 关于我</span></a></li><li><a class="site-page child" href="/analytics/"><i class="fa-fw fa fa-line-chart"></i><span> 文章统计</span></a></li><li><a class="site-page child" href="/log/"><i class="fa-fw fa fa-history"></i><span> 更新日志</span></a></li></ul></div></div><div id="toggle-menu"><a class="site-page" href="javascript:void(0);" rel="external nofollow noreferrer"><i class="fas fa-bars fa-fw"></i></a></div></div></nav><div id="post-info"><h1 class="post-title">特征工程(I)--探索性数据分析<a class="post-edit-link" href="https://gitee.com/WilenWu/myblog/edit/master/source/_posts/python/Feature-Engineering-with-Python(I)--EDA.md" rel="external nofollow noreferrer" title="编辑" target="_blank"><i class="fas fa-pencil-alt"></i></a></h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2024-03-16T15:40:52.000Z" title="发表于 2024-03-16 23:40:52">2024-03-16</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2024-04-20T15:28:12.729Z" title="更新于 2024-04-20 23:28:12">2024-04-20</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/python/">Python</a><i class="fas fa-angle-right post-meta-separator"></i><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/python/machine-learning/">Machine Learning</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-wordcount"><i class="far fa-file-word fa-fw post-meta-icon"></i><span class="post-meta-label">字数总计:</span><span class="word-count">8k</span><span class="post-meta-separator">|</span><i class="far fa-clock fa-fw post-meta-icon"></i><span class="post-meta-label">阅读时长:</span><span>36分钟</span></span><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title="特征工程(I)--探索性数据分析"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">阅读量:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container"><p>有这么一句话在业界广泛流传：数据和特征决定了机器学习的上限，而模型和算法只是逼近这个上限而已。由此可见，特征工程在机器学习中占有相当重要的地位。在实际应用当中，可以说特征工程是机器学习成功的关键。</p>
 <p>特征工程是数据分析中最耗时间和精力的一部分工作，它不像算法和模型那样是确定的步骤，更多是工程上的经验和权衡。因此没有统一的方法。这里只是对一些常用的方法做一个总结。</p>
 <p>特征工程包含了 Data PreProcessing（数据预处理）、Feature Extraction（特征提取）、Feature Selection（特征选择）和 Feature construction（特征构造）等子问题。</p>
+<p>Jupyter Notebook 代码连接：<a href="/ipynb/feature_engineering_demo_p1_EDA">feature_engineering_demo_p1_EDA</a></p>
 <h1 id="数据集描述"><a class="markdownIt-Anchor" href="#数据集描述"></a> 数据集描述</h1>
+<h2 id="项目描述"><a class="markdownIt-Anchor" href="#项目描述"></a> 项目描述</h2>
 <p>本项目使用Kaggle上的 <a target="_blank" rel="noopener external nofollow noreferrer" href="https://www.kaggle.com/competitions/home-credit-default-risk/data">家庭信用违约风险数据集 (Home Credit Default Risk)</a> ，是一个标准的机器学习分类问题。其目标是使用历史贷款的信息，以及客户的社会经济和财务信息，预测客户是否会违约。</p>
-<p>数据集包括了8个不同的数据文件，其中：</p>
-<p>application_{train|test}：包含每个客户社会经济信息和Home Credit贷款申请信息的主要文件。每行代表一个贷款申请，由SK_ID_CURR唯一标识。训练集30.75万数据，测试集4.87万数据。其中训练集中<code>TARGET=1</code>表示未偿还贷款。通过这两个文件，就能对这个任务做基本的数据分析和建模，也是本篇的主要内容。</p>
-<p>数据集的描述性文件：<a href="/ipyna/HomeCredit_columns_description.csv">HomeCredit_columns_description.csv</a></p>
+<p>数据由Home Credit（捷信）提供，Home Credit致力于向无银行账户的人群提供信贷，是中东欧以及亚洲领先的消费金融提供商之一。在中东欧（CEE），俄罗斯，独联体国家（CIS）和亚洲各地服务于消费者。</p>
+<p>Home Credit有三类产品，信用卡，POS（消费贷），现金贷，三类产品的英文分别是：Revolving loan (credit card)，Consumer installment loan (Point of sales loan – POS loan)，Installment cash loan。三类产品逻辑是这样的：</p>
+<ol>
+<li>首先提供POS，入门级产品，类似于消费贷。只能用于消费，金额有限，风险最小，客户提供的信息也最少。</li>
+<li>然后是credit card，在本次竞赛中称为revolving loan。循环授信，主要用于消费。</li>
+<li>最后才是cash loan，用户能得到现金，风险最大。</li>
+</ol>
+<h2 id="数据文件"><a class="markdownIt-Anchor" href="#数据文件"></a> 数据文件</h2>
+<p>数据集包括了8个不同的数据文件，大致可以分为三大类：</p>
+<ul>
+<li>application_{train|test}：包含每个客户社会经济信息和Home Credit贷款申请信息的主要文件。每行代表一个贷款申请，由SK_ID_CURR唯一标识。训练集30.75万数据，测试集4.87万数据。其中训练集中<code>TARGET=1</code>表示未偿还贷款。通过这两个文件，就能对这个任务做基本的数据分析和建模，也是本篇的主要内容。</li>
+</ul>
+<p>用户在征信机构的历史征信记录可以用来作为风险评估的参考，但是征信数据往往不全，因为这些人本身就很少有银行记录。数据集中bureau.csv和 bureau_balance.csv 对应这部分数据。</p>
+<ul>
+<li>bureau：征信机构提供的客户之前在其他金融机构的贷款申请数据。一个用户（SK_ID_CURR）可以有多笔贷款申请数据（SK_ID_BUREAU）。总计171万数据。</li>
+<li>bureau_balance：征信机构统计的之前每笔贷款（SK_ID_BUREAU）的每月（MONTHS_BALANCE）的还款欠款记录。共有2729万条数据。</li>
+</ul>
+<p>数据集中previous_application.csv, POS_CASH_balance.csv，credit_card_balance.csv，installments_payment.csv这部分数据是来自Home Credit产品的历史使用信息。信用卡在欧洲和美国很流行，但在以上这些国家并非如此。所以数据集中信用卡数据偏少。POS只能买东西，现金贷可以得到现金。三类产品都有申请和还款记录。</p>
+<ul>
+<li>previous_application：该表是客户在申请这次贷款之前的申请记录。一个用户（SK_ID_CURR）可以有多笔历史数据（SK_ID_PREV）。共计167万条。</li>
+<li>POS_CASH_balance：以前每月pos流水记录。由SK_ID_PREV和 months_balance唯一标识，共计1000万条数据。</li>
+<li>credit_card_balance：每月信用卡账单表。由MONTHS_BALANCE和SK_ID_PREV唯一标识，合计384万条数据。</li>
+<li>installments_payment：分期付款表。由 SK_ID_PREV, name_instalment_version, name_instalment_number 唯一标识，共计1360万条数据。</li>
+</ul>
+<p>字段描述见附录。</p>
 <h1 id="探索性数据分析"><a class="markdownIt-Anchor" href="#探索性数据分析"></a> 探索性数据分析</h1>
 <p>Exploratory Data Analysis(EDA)</p>
+<p>本篇主要通过application文件，做基本的数据分析和建模，也是本篇的主要内容。</p>
 <h2 id="数据概览"><a class="markdownIt-Anchor" href="#数据概览"></a> 数据概览</h2>
 <p>导入必要的包</p>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> numpy <span class="keyword">as</span> np</span><br><span class="line"><span class="keyword">import</span> pandas <span class="keyword">as</span> pd</span><br><span class="line"><span class="keyword">import</span> matplotlib.pyplot <span class="keyword">as</span> plt</span><br><span class="line"><span class="keyword">import</span> seaborn <span class="keyword">as</span> sns</span><br><span class="line"><span class="keyword">import</span> warnings</span><br><span class="line"></span><br><span class="line"><span class="comment"># Set global configuration.</span></span><br><span class="line">warnings.filterwarnings(<span class="string">&#x27;ignore&#x27;</span>)</span><br><span class="line">sns.set_style(<span class="string">&#x27;seaborn-whitegrid&#x27;</span>)</span><br><span class="line">pd.set_option(<span class="string">&#x27;display.max_columns&#x27;</span>,<span class="literal">None</span>)</span><br><span class="line">pd.set_option(<span class="string">&#x27;display.max_rows&#x27;</span>,<span class="literal">None</span>)</span><br><span class="line">pd.options.display.max_colwidth = <span class="number">100</span></span><br><span class="line"></span><br><span class="line">SEED = <span class="number">42</span></span><br></pre></td></tr></table></figure>
-<p>导入数据</p>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">df = pd.read_csv(<span class="string">&#x27;../datasets/Home-Credit-Default-Risk/application_train.csv&#x27;</span>)</span><br><span class="line"><span class="built_in">print</span>(df.head())</span><br></pre></td></tr></table></figure>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="built_in">print</span>(<span class="string">&#x27;Training data shape: &#123;df.shape&#125;&#x27;</span>, df.shape)</span><br></pre></td></tr></table></figure>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="comment"># `SK_ID_CURR` is the unique id of the row.</span></span><br><span class="line">ID_col = <span class="string">&quot;SK_ID_CURR&quot;</span></span><br><span class="line">df[ID_col].nunique() == df.shape[<span class="number">0</span>]</span><br><span class="line"></span><br><span class="line">features = df.columns.drop([ID_col, target]).to_list() </span><br><span class="line">category_cols = []</span><br><span class="line">numeric_cols = []</span><br></pre></td></tr></table></figure>
-<p>目标变量</p>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="comment"># `TARGET` is the target variable we are trying to predict (0 or 1):</span></span><br><span class="line"><span class="comment"># 1 = Not Repaid </span></span><br><span class="line"><span class="comment"># 0 = Repaid</span></span><br><span class="line">target = <span class="string">&#x27;TARGET&#x27;</span></span><br><span class="line"><span class="built_in">print</span>(df[target].value_counts())</span><br></pre></td></tr></table></figure>
-<p>查看字段类型</p>
-<p>在遇到非常多的数据的时候，我们一般先会按照数据的类型分布下手，看看不同的数据类型Field各有多少.</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> numpy <span class="keyword">as</span> np</span><br><span class="line"><span class="keyword">import</span> pandas <span class="keyword">as</span> pd</span><br><span class="line"><span class="keyword">import</span> matplotlib.pyplot <span class="keyword">as</span> plt</span><br><span class="line"><span class="keyword">import</span> seaborn <span class="keyword">as</span> sns</span><br><span class="line"><span class="keyword">import</span> warnings</span><br><span class="line"></span><br><span class="line"><span class="comment"># Set global configuration.</span></span><br><span class="line">warnings.filterwarnings(<span class="string">&#x27;ignore&#x27;</span>)</span><br><span class="line">sns.set_style(<span class="string">&#x27;whitegrid&#x27;</span>)</span><br><span class="line">pd.set_option(<span class="string">&#x27;display.max_columns&#x27;</span>,<span class="literal">None</span>)</span><br><span class="line">pd.set_option(<span class="string">&#x27;display.max_rows&#x27;</span>,<span class="literal">None</span>)</span><br><span class="line">pd.options.display.max_colwidth = <span class="number">100</span></span><br><span class="line"></span><br><span class="line">SEED = <span class="number">42</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">df = pd.read_csv(<span class="string">&#x27;../datasets/Home-Credit-Default-Risk/application_train.csv&#x27;</span>)</span><br><span class="line"><span class="comment"># print(df.head())</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="built_in">print</span>(<span class="string">&#x27;Training data shape: &#x27;</span>, df.shape)</span><br></pre></td></tr></table></figure>
+<pre><code>Training data shape:  (307511, 122)
+</code></pre>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="comment"># `SK_ID_CURR` is the unique id of the row.</span></span><br><span class="line">id_col = <span class="string">&quot;SK_ID_CURR&quot;</span></span><br><span class="line">target = <span class="string">&quot;TARGET&quot;</span></span><br><span class="line">df[id_col].nunique() == df.shape[<span class="number">0</span>]</span><br></pre></td></tr></table></figure>
+<pre><code>True
+</code></pre>
+<p>在遇到非常多的数据的时候，我们一般先会按照数据的类型分布下手，看看不同的数据类型各有多少</p>
 <figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="comment"># Number of each type of column</span></span><br><span class="line"><span class="built_in">print</span>(df.dtypes.value_counts())</span><br></pre></td></tr></table></figure>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">df.select_dtypes(<span class="string">&quot;int64&quot;</span>).astype(<span class="string">&quot;int32&quot;</span>, inplace=<span class="literal">True</span>)</span><br><span class="line">df.select_dtypes(<span class="string">&quot;float64&quot;</span>).astype(<span class="string">&quot;float32&quot;</span>, inplace=<span class="literal">True</span>)</span><br><span class="line">df.select_dtypes(<span class="string">&quot;object&quot;</span>).astype(<span class="string">&quot;category&quot;</span>, inplace=<span class="literal">True</span>)</span><br></pre></td></tr></table></figure>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">categorical_cols = df.select_dtypes([<span class="string">&quot;object&quot;</span>]).columns.drop([ID_col, target], errors=<span class="string">&#x27;ignore&#x27;</span>).tolist()</span><br><span class="line"><span class="built_in">print</span>(<span class="string">&quot;Categorical features:&quot;</span>, categorical_cols)</span><br><span class="line">numeric_cols = df.select_dtypes(<span class="string">&quot;number&quot;</span>).columns.drop([ID_col, target], errors=<span class="string">&#x27;ignore&#x27;</span>).tolist()</span><br><span class="line"><span class="built_in">print</span>(<span class="string">&quot;Numeric features:&quot;</span>, numeric_cols)</span><br><span class="line">boolean_cols = </span><br></pre></td></tr></table></figure>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="built_in">len</span>(categorical_cols + numeric_cols + [ID_col, target]) == <span class="built_in">len</span>(df.columns)</span><br></pre></td></tr></table></figure>
+<pre><code>float64    65
+int64      41
+object     16
+Name: count, dtype: int64
+</code></pre>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="built_in">print</span>(<span class="string">&quot;\nCategorical features:&quot;</span>)</span><br><span class="line"><span class="built_in">print</span>(df.select_dtypes([<span class="string">&quot;object&quot;</span>]).columns.tolist())</span><br><span class="line"><span class="built_in">print</span>(<span class="string">&quot;\nNumerical features:&quot;</span>)</span><br><span class="line"><span class="built_in">print</span>(df.select_dtypes(<span class="string">&quot;number&quot;</span>).columns.tolist())</span><br></pre></td></tr></table></figure>
+<pre><code>Categorical features:
+['NAME_CONTRACT_TYPE', 'CODE_GENDER', 'FLAG_OWN_CAR', 'FLAG_OWN_REALTY', 'NAME_TYPE_SUITE', 'NAME_INCOME_TYPE', 'NAME_EDUCATION_TYPE', 'NAME_FAMILY_STATUS', 'NAME_HOUSING_TYPE', 'OCCUPATION_TYPE', 'WEEKDAY_APPR_PROCESS_START', 'ORGANIZATION_TYPE', 'FONDKAPREMONT_MODE', 'HOUSETYPE_MODE', 'WALLSMATERIAL_MODE', 'EMERGENCYSTATE_MODE']
+
+Numerical features:
+['SK_ID_CURR', 'TARGET', 'CNT_CHILDREN', 'AMT_INCOME_TOTAL', 'AMT_CREDIT', 'AMT_ANNUITY', 'AMT_GOODS_PRICE', 'REGION_POPULATION_RELATIVE', 'DAYS_BIRTH', 'DAYS_EMPLOYED', 'DAYS_REGISTRATION', 'DAYS_ID_PUBLISH', 'OWN_CAR_AGE', 'FLAG_MOBIL', 'FLAG_EMP_PHONE', 'FLAG_WORK_PHONE', 'FLAG_CONT_MOBILE', 'FLAG_PHONE', 'FLAG_EMAIL', 'CNT_FAM_MEMBERS', 'REGION_RATING_CLIENT', 'REGION_RATING_CLIENT_W_CITY', 'HOUR_APPR_PROCESS_START', 'REG_REGION_NOT_LIVE_REGION', 'REG_REGION_NOT_WORK_REGION', 'LIVE_REGION_NOT_WORK_REGION', 'REG_CITY_NOT_LIVE_CITY', 'REG_CITY_NOT_WORK_CITY', 'LIVE_CITY_NOT_WORK_CITY', 'EXT_SOURCE_1', 'EXT_SOURCE_2', 'EXT_SOURCE_3', 'APARTMENTS_AVG', 'BASEMENTAREA_AVG', 'YEARS_BEGINEXPLUATATION_AVG', 'YEARS_BUILD_AVG', 'COMMONAREA_AVG', 'ELEVATORS_AVG', 'ENTRANCES_AVG', 'FLOORSMAX_AVG', 'FLOORSMIN_AVG', 'LANDAREA_AVG', 'LIVINGAPARTMENTS_AVG', 'LIVINGAREA_AVG', 'NONLIVINGAPARTMENTS_AVG', 'NONLIVINGAREA_AVG', 'APARTMENTS_MODE', 'BASEMENTAREA_MODE', 'YEARS_BEGINEXPLUATATION_MODE', 'YEARS_BUILD_MODE', 'COMMONAREA_MODE', 'ELEVATORS_MODE', 'ENTRANCES_MODE', 'FLOORSMAX_MODE', 'FLOORSMIN_MODE', 'LANDAREA_MODE', 'LIVINGAPARTMENTS_MODE', 'LIVINGAREA_MODE', 'NONLIVINGAPARTMENTS_MODE', 'NONLIVINGAREA_MODE', 'APARTMENTS_MEDI', 'BASEMENTAREA_MEDI', 'YEARS_BEGINEXPLUATATION_MEDI', 'YEARS_BUILD_MEDI', 'COMMONAREA_MEDI', 'ELEVATORS_MEDI', 'ENTRANCES_MEDI', 'FLOORSMAX_MEDI', 'FLOORSMIN_MEDI', 'LANDAREA_MEDI', 'LIVINGAPARTMENTS_MEDI', 'LIVINGAREA_MEDI', 'NONLIVINGAPARTMENTS_MEDI', 'NONLIVINGAREA_MEDI', 'TOTALAREA_MODE', 'OBS_30_CNT_SOCIAL_CIRCLE', 'DEF_30_CNT_SOCIAL_CIRCLE', 'OBS_60_CNT_SOCIAL_CIRCLE', 'DEF_60_CNT_SOCIAL_CIRCLE', 'DAYS_LAST_PHONE_CHANGE', 'FLAG_DOCUMENT_2', 'FLAG_DOCUMENT_3', 'FLAG_DOCUMENT_4', 'FLAG_DOCUMENT_5', 'FLAG_DOCUMENT_6', 'FLAG_DOCUMENT_7', 'FLAG_DOCUMENT_8', 'FLAG_DOCUMENT_9', 'FLAG_DOCUMENT_10', 'FLAG_DOCUMENT_11', 'FLAG_DOCUMENT_12', 'FLAG_DOCUMENT_13', 'FLAG_DOCUMENT_14', 'FLAG_DOCUMENT_15', 'FLAG_DOCUMENT_16', 'FLAG_DOCUMENT_17', 'FLAG_DOCUMENT_18', 'FLAG_DOCUMENT_19', 'FLAG_DOCUMENT_20', 'FLAG_DOCUMENT_21', 'AMT_REQ_CREDIT_BUREAU_HOUR', 'AMT_REQ_CREDIT_BUREAU_DAY', 'AMT_REQ_CREDIT_BUREAU_WEEK', 'AMT_REQ_CREDIT_BUREAU_MON', 'AMT_REQ_CREDIT_BUREAU_QRT', 'AMT_REQ_CREDIT_BUREAU_YEAR']
+</code></pre>
 <p>接下来看下数据集的统计信息</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="built_in">print</span>(df.describe())</span><br></pre></td></tr></table></figure>
+<pre><code>          SK_ID_CURR         TARGET   CNT_CHILDREN  AMT_INCOME_TOTAL  \
+count  307511.000000  307511.000000  307511.000000      3.075110e+05   
+mean   278180.518577       0.080729       0.417052      1.687979e+05   
+std    102790.175348       0.272419       0.722121      2.371231e+05   
+min    100002.000000       0.000000       0.000000      2.565000e+04   
+25%    189145.500000       0.000000       0.000000      1.125000e+05   
+50%    278202.000000       0.000000       0.000000      1.471500e+05   
+75%    367142.500000       0.000000       1.000000      2.025000e+05   
+max    456255.000000       1.000000      19.000000      1.170000e+08   
+
+         AMT_CREDIT    AMT_ANNUITY  AMT_GOODS_PRICE  \
+count  3.075110e+05  307499.000000     3.072330e+05   
+mean   5.990260e+05   27108.573909     5.383962e+05   
+std    4.024908e+05   14493.737315     3.694465e+05   
+min    4.500000e+04    1615.500000     4.050000e+04   
+25%    2.700000e+05   16524.000000     2.385000e+05   
+50%    5.135310e+05   24903.000000     4.500000e+05   
+75%    8.086500e+05   34596.000000     6.795000e+05   
+max    4.050000e+06  258025.500000     4.050000e+06   
+
+       REGION_POPULATION_RELATIVE     DAYS_BIRTH  DAYS_EMPLOYED  \
+count               307511.000000  307511.000000  307511.000000   
+mean                     0.020868  -16036.995067   63815.045904   
+std                      0.013831    4363.988632  141275.766519   
+min                      0.000290  -25229.000000  -17912.000000   
+25%                      0.010006  -19682.000000   -2760.000000   
+50%                      0.018850  -15750.000000   -1213.000000   
+75%                      0.028663  -12413.000000    -289.000000   
+max                      0.072508   -7489.000000  365243.000000   
+
+       DAYS_REGISTRATION  DAYS_ID_PUBLISH    OWN_CAR_AGE     FLAG_MOBIL  \
+count      307511.000000    307511.000000  104582.000000  307511.000000   
+mean        -4986.120328     -2994.202373      12.061091       0.999997   
+std          3522.886321      1509.450419      11.944812       0.001803   
+min        -24672.000000     -7197.000000       0.000000       0.000000   
+25%         -7479.500000     -4299.000000       5.000000       1.000000   
+50%         -4504.000000     -3254.000000       9.000000       1.000000   
+75%         -2010.000000     -1720.000000      15.000000       1.000000   
+max             0.000000         0.000000      91.000000       1.000000   
+
+       FLAG_EMP_PHONE  FLAG_WORK_PHONE  FLAG_CONT_MOBILE     FLAG_PHONE  \
+count   307511.000000    307511.000000     307511.000000  307511.000000   
+mean         0.819889         0.199368          0.998133       0.281066   
+std          0.384280         0.399526          0.043164       0.449521   
+min          0.000000         0.000000          0.000000       0.000000   
+25%          1.000000         0.000000          1.000000       0.000000   
+50%          1.000000         0.000000          1.000000       0.000000   
+75%          1.000000         0.000000          1.000000       1.000000   
+max          1.000000         1.000000          1.000000       1.000000   
+
+          FLAG_EMAIL  CNT_FAM_MEMBERS  REGION_RATING_CLIENT  \
+count  307511.000000    307509.000000         307511.000000   
+mean        0.056720         2.152665              2.052463   
+std         0.231307         0.910682              0.509034   
+min         0.000000         1.000000              1.000000   
+25%         0.000000         2.000000              2.000000   
+50%         0.000000         2.000000              2.000000   
+75%         0.000000         3.000000              2.000000   
+max         1.000000        20.000000              3.000000   
+
+       REGION_RATING_CLIENT_W_CITY  HOUR_APPR_PROCESS_START  \
+count                307511.000000            307511.000000   
+mean                      2.031521                12.063419   
+std                       0.502737                 3.265832   
+min                       1.000000                 0.000000   
+25%                       2.000000                10.000000   
+50%                       2.000000                12.000000   
+75%                       2.000000                14.000000   
+max                       3.000000                23.000000   
+
+       REG_REGION_NOT_LIVE_REGION  REG_REGION_NOT_WORK_REGION  \
+count               307511.000000               307511.000000   
+mean                     0.015144                    0.050769   
+std                      0.122126                    0.219526   
+min                      0.000000                    0.000000   
+25%                      0.000000                    0.000000   
+50%                      0.000000                    0.000000   
+75%                      0.000000                    0.000000   
+max                      1.000000                    1.000000   
+
+       LIVE_REGION_NOT_WORK_REGION  REG_CITY_NOT_LIVE_CITY  \
+count                307511.000000           307511.000000   
+mean                      0.040659                0.078173   
+std                       0.197499                0.268444   
+min                       0.000000                0.000000   
+25%                       0.000000                0.000000   
+50%                       0.000000                0.000000   
+75%                       0.000000                0.000000   
+max                       1.000000                1.000000   
+
+       REG_CITY_NOT_WORK_CITY  LIVE_CITY_NOT_WORK_CITY   EXT_SOURCE_1  \
+count           307511.000000            307511.000000  134133.000000   
+mean                 0.230454                 0.179555       0.502130   
+std                  0.421124                 0.383817       0.211062   
+min                  0.000000                 0.000000       0.014568   
+25%                  0.000000                 0.000000       0.334007   
+50%                  0.000000                 0.000000       0.505998   
+75%                  0.000000                 0.000000       0.675053   
+max                  1.000000                 1.000000       0.962693   
+
+       EXT_SOURCE_2   EXT_SOURCE_3  APARTMENTS_AVG  BASEMENTAREA_AVG  \
+count  3.068510e+05  246546.000000    151450.00000     127568.000000   
+mean   5.143927e-01       0.510853         0.11744          0.088442   
+std    1.910602e-01       0.194844         0.10824          0.082438   
+min    8.173617e-08       0.000527         0.00000          0.000000   
+25%    3.924574e-01       0.370650         0.05770          0.044200   
+50%    5.659614e-01       0.535276         0.08760          0.076300   
+75%    6.636171e-01       0.669057         0.14850          0.112200   
+max    8.549997e-01       0.896010         1.00000          1.000000   
+
+       YEARS_BEGINEXPLUATATION_AVG  YEARS_BUILD_AVG  COMMONAREA_AVG  \
+count                157504.000000    103023.000000    92646.000000   
+mean                      0.977735         0.752471        0.044621   
+std                       0.059223         0.113280        0.076036   
+min                       0.000000         0.000000        0.000000   
+25%                       0.976700         0.687200        0.007800   
+50%                       0.981600         0.755200        0.021100   
+75%                       0.986600         0.823200        0.051500   
+max                       1.000000         1.000000        1.000000   
+
+       ELEVATORS_AVG  ENTRANCES_AVG  FLOORSMAX_AVG  FLOORSMIN_AVG  \
+count  143620.000000  152683.000000  154491.000000   98869.000000   
+mean        0.078942       0.149725       0.226282       0.231894   
+std         0.134576       0.100049       0.144641       0.161380   
+min         0.000000       0.000000       0.000000       0.000000   
+25%         0.000000       0.069000       0.166700       0.083300   
+50%         0.000000       0.137900       0.166700       0.208300   
+75%         0.120000       0.206900       0.333300       0.375000   
+max         1.000000       1.000000       1.000000       1.000000   
+
+        LANDAREA_AVG  LIVINGAPARTMENTS_AVG  LIVINGAREA_AVG  \
+count  124921.000000          97312.000000   153161.000000   
+mean        0.066333              0.100775        0.107399   
+std         0.081184              0.092576        0.110565   
+min         0.000000              0.000000        0.000000   
+25%         0.018700              0.050400        0.045300   
+50%         0.048100              0.075600        0.074500   
+75%         0.085600              0.121000        0.129900   
+max         1.000000              1.000000        1.000000   
+
+       NONLIVINGAPARTMENTS_AVG  NONLIVINGAREA_AVG  APARTMENTS_MODE  \
+count             93997.000000      137829.000000    151450.000000   
+mean                  0.008809           0.028358         0.114231   
+std                   0.047732           0.069523         0.107936   
+min                   0.000000           0.000000         0.000000   
+25%                   0.000000           0.000000         0.052500   
+50%                   0.000000           0.003600         0.084000   
+75%                   0.003900           0.027700         0.143900   
+max                   1.000000           1.000000         1.000000   
+
+       BASEMENTAREA_MODE  YEARS_BEGINEXPLUATATION_MODE  YEARS_BUILD_MODE  \
+count      127568.000000                 157504.000000     103023.000000   
+mean            0.087543                      0.977065          0.759637   
+std             0.084307                      0.064575          0.110111   
+min             0.000000                      0.000000          0.000000   
+25%             0.040700                      0.976700          0.699400   
+50%             0.074600                      0.981600          0.764800   
+75%             0.112400                      0.986600          0.823600   
+max             1.000000                      1.000000          1.000000   
+
+       COMMONAREA_MODE  ELEVATORS_MODE  ENTRANCES_MODE  FLOORSMAX_MODE  \
+count     92646.000000   143620.000000   152683.000000   154491.000000   
+mean          0.042553        0.074490        0.145193        0.222315   
+std           0.074445        0.132256        0.100977        0.143709   
+min           0.000000        0.000000        0.000000        0.000000   
+25%           0.007200        0.000000        0.069000        0.166700   
+50%           0.019000        0.000000        0.137900        0.166700   
+75%           0.049000        0.120800        0.206900        0.333300   
+max           1.000000        1.000000        1.000000        1.000000   
+
+       FLOORSMIN_MODE  LANDAREA_MODE  LIVINGAPARTMENTS_MODE  LIVINGAREA_MODE  \
+count    98869.000000  124921.000000           97312.000000    153161.000000   
+mean         0.228058       0.064958               0.105645         0.105975   
+std          0.161160       0.081750               0.097880         0.111845   
+min          0.000000       0.000000               0.000000         0.000000   
+25%          0.083300       0.016600               0.054200         0.042700   
+50%          0.208300       0.045800               0.077100         0.073100   
+75%          0.375000       0.084100               0.131300         0.125200   
+max          1.000000       1.000000               1.000000         1.000000   
+
+       NONLIVINGAPARTMENTS_MODE  NONLIVINGAREA_MODE  APARTMENTS_MEDI  \
+count              93997.000000       137829.000000    151450.000000   
+mean                   0.008076            0.027022         0.117850   
+std                    0.046276            0.070254         0.109076   
+min                    0.000000            0.000000         0.000000   
+25%                    0.000000            0.000000         0.058300   
+50%                    0.000000            0.001100         0.086400   
+75%                    0.003900            0.023100         0.148900   
+max                    1.000000            1.000000         1.000000   
+
+       BASEMENTAREA_MEDI  YEARS_BEGINEXPLUATATION_MEDI  YEARS_BUILD_MEDI  \
+count      127568.000000                 157504.000000     103023.000000   
+mean            0.087955                      0.977752          0.755746   
+std             0.082179                      0.059897          0.112066   
+min             0.000000                      0.000000          0.000000   
+25%             0.043700                      0.976700          0.691400   
+50%             0.075800                      0.981600          0.758500   
+75%             0.111600                      0.986600          0.825600   
+max             1.000000                      1.000000          1.000000   
+
+       COMMONAREA_MEDI  ELEVATORS_MEDI  ENTRANCES_MEDI  FLOORSMAX_MEDI  \
+count     92646.000000   143620.000000   152683.000000   154491.000000   
+mean          0.044595        0.078078        0.149213        0.225897   
+std           0.076144        0.134467        0.100368        0.145067   
+min           0.000000        0.000000        0.000000        0.000000   
+25%           0.007900        0.000000        0.069000        0.166700   
+50%           0.020800        0.000000        0.137900        0.166700   
+75%           0.051300        0.120000        0.206900        0.333300   
+max           1.000000        1.000000        1.000000        1.000000   
+
+       FLOORSMIN_MEDI  LANDAREA_MEDI  LIVINGAPARTMENTS_MEDI  LIVINGAREA_MEDI  \
+count    98869.000000  124921.000000           97312.000000    153161.000000   
+mean         0.231625       0.067169               0.101954         0.108607   
+std          0.161934       0.082167               0.093642         0.112260   
+min          0.000000       0.000000               0.000000         0.000000   
+25%          0.083300       0.018700               0.051300         0.045700   
+50%          0.208300       0.048700               0.076100         0.074900   
+75%          0.375000       0.086800               0.123100         0.130300   
+max          1.000000       1.000000               1.000000         1.000000   
+
+       NONLIVINGAPARTMENTS_MEDI  NONLIVINGAREA_MEDI  TOTALAREA_MODE  \
+count              93997.000000       137829.000000   159080.000000   
+mean                   0.008651            0.028236        0.102547   
+std                    0.047415            0.070166        0.107462   
+min                    0.000000            0.000000        0.000000   
+25%                    0.000000            0.000000        0.041200   
+50%                    0.000000            0.003100        0.068800   
+75%                    0.003900            0.026600        0.127600   
+max                    1.000000            1.000000        1.000000   
+
+       OBS_30_CNT_SOCIAL_CIRCLE  DEF_30_CNT_SOCIAL_CIRCLE  \
+count             306490.000000             306490.000000   
+mean                   1.422245                  0.143421   
+std                    2.400989                  0.446698   
+min                    0.000000                  0.000000   
+25%                    0.000000                  0.000000   
+50%                    0.000000                  0.000000   
+75%                    2.000000                  0.000000   
+max                  348.000000                 34.000000   
+
+       OBS_60_CNT_SOCIAL_CIRCLE  DEF_60_CNT_SOCIAL_CIRCLE  \
+count             306490.000000             306490.000000   
+mean                   1.405292                  0.100049   
+std                    2.379803                  0.362291   
+min                    0.000000                  0.000000   
+25%                    0.000000                  0.000000   
+50%                    0.000000                  0.000000   
+75%                    2.000000                  0.000000   
+max                  344.000000                 24.000000   
+
+       DAYS_LAST_PHONE_CHANGE  FLAG_DOCUMENT_2  FLAG_DOCUMENT_3  \
+count           307510.000000    307511.000000    307511.000000   
+mean              -962.858788         0.000042         0.710023   
+std                826.808487         0.006502         0.453752   
+min              -4292.000000         0.000000         0.000000   
+25%              -1570.000000         0.000000         0.000000   
+50%               -757.000000         0.000000         1.000000   
+75%               -274.000000         0.000000         1.000000   
+max                  0.000000         1.000000         1.000000   
+
+       FLAG_DOCUMENT_4  FLAG_DOCUMENT_5  FLAG_DOCUMENT_6  FLAG_DOCUMENT_7  \
+count    307511.000000    307511.000000    307511.000000    307511.000000   
+mean          0.000081         0.015115         0.088055         0.000192   
+std           0.009016         0.122010         0.283376         0.013850   
+min           0.000000         0.000000         0.000000         0.000000   
+25%           0.000000         0.000000         0.000000         0.000000   
+50%           0.000000         0.000000         0.000000         0.000000   
+75%           0.000000         0.000000         0.000000         0.000000   
+max           1.000000         1.000000         1.000000         1.000000   
+
+       FLAG_DOCUMENT_8  FLAG_DOCUMENT_9  FLAG_DOCUMENT_10  FLAG_DOCUMENT_11  \
+count    307511.000000    307511.000000     307511.000000     307511.000000   
+mean          0.081376         0.003896          0.000023          0.003912   
+std           0.273412         0.062295          0.004771          0.062424   
+min           0.000000         0.000000          0.000000          0.000000   
+25%           0.000000         0.000000          0.000000          0.000000   
+50%           0.000000         0.000000          0.000000          0.000000   
+75%           0.000000         0.000000          0.000000          0.000000   
+max           1.000000         1.000000          1.000000          1.000000   
+
+       FLAG_DOCUMENT_12  FLAG_DOCUMENT_13  FLAG_DOCUMENT_14  FLAG_DOCUMENT_15  \
+count     307511.000000     307511.000000     307511.000000      307511.00000   
+mean           0.000007          0.003525          0.002936           0.00121   
+std            0.002550          0.059268          0.054110           0.03476   
+min            0.000000          0.000000          0.000000           0.00000   
+25%            0.000000          0.000000          0.000000           0.00000   
+50%            0.000000          0.000000          0.000000           0.00000   
+75%            0.000000          0.000000          0.000000           0.00000   
+max            1.000000          1.000000          1.000000           1.00000   
+
+       FLAG_DOCUMENT_16  FLAG_DOCUMENT_17  FLAG_DOCUMENT_18  FLAG_DOCUMENT_19  \
+count     307511.000000     307511.000000     307511.000000     307511.000000   
+mean           0.009928          0.000267          0.008130          0.000595   
+std            0.099144          0.016327          0.089798          0.024387   
+min            0.000000          0.000000          0.000000          0.000000   
+25%            0.000000          0.000000          0.000000          0.000000   
+50%            0.000000          0.000000          0.000000          0.000000   
+75%            0.000000          0.000000          0.000000          0.000000   
+max            1.000000          1.000000          1.000000          1.000000   
+
+       FLAG_DOCUMENT_20  FLAG_DOCUMENT_21  AMT_REQ_CREDIT_BUREAU_HOUR  \
+count     307511.000000     307511.000000               265992.000000   
+mean           0.000507          0.000335                    0.006402   
+std            0.022518          0.018299                    0.083849   
+min            0.000000          0.000000                    0.000000   
+25%            0.000000          0.000000                    0.000000   
+50%            0.000000          0.000000                    0.000000   
+75%            0.000000          0.000000                    0.000000   
+max            1.000000          1.000000                    4.000000   
+
+       AMT_REQ_CREDIT_BUREAU_DAY  AMT_REQ_CREDIT_BUREAU_WEEK  \
+count              265992.000000               265992.000000   
+mean                    0.007000                    0.034362   
+std                     0.110757                    0.204685   
+min                     0.000000                    0.000000   
+25%                     0.000000                    0.000000   
+50%                     0.000000                    0.000000   
+75%                     0.000000                    0.000000   
+max                     9.000000                    8.000000   
+
+       AMT_REQ_CREDIT_BUREAU_MON  AMT_REQ_CREDIT_BUREAU_QRT  \
+count              265992.000000              265992.000000   
+mean                    0.267395                   0.265474   
+std                     0.916002                   0.794056   
+min                     0.000000                   0.000000   
+25%                     0.000000                   0.000000   
+50%                     0.000000                   0.000000   
+75%                     0.000000                   0.000000   
+max                    27.000000                 261.000000   
+
+       AMT_REQ_CREDIT_BUREAU_YEAR  
+count               265992.000000  
+mean                     1.899974  
+std                      1.869295  
+min                      0.000000  
+25%                      0.000000  
+50%                      1.000000  
+75%                      3.000000  
+max                     25.000000  
+</code></pre>
 <h2 id="数据相关性"><a class="markdownIt-Anchor" href="#数据相关性"></a> 数据相关性</h2>
 <p>data Correlation</p>
-<p>用相关性矩阵热图表现特征与目标值之间以及两两特征之间的相关程度，对特征的处理有指导意义。</p>
-<p>查看相关系数矩阵</p>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="comment">#Correlation map to see how features are correlated with SalePrice</span></span><br><span class="line">corrmat = train.corr()</span><br><span class="line">plt.subplots(figsize=(<span class="number">12</span>,<span class="number">9</span>))</span><br><span class="line">sns.heatmap(corrmat, vmax=<span class="number">0.9</span>, square=<span class="literal">True</span>)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">corrplot</span>(<span class="params">df, method=<span class="string">&quot;pearson&quot;</span>, annot=<span class="literal">True</span>, **kwargs</span>):</span></span><br><span class="line">    sns.clustermap(</span><br><span class="line">        df.corr(method, numeric_only=<span class="literal">True</span>),</span><br><span class="line">        vmin=-<span class="number">1.0</span>,</span><br><span class="line">        vmax=<span class="number">1.0</span>,</span><br><span class="line">        cmap=<span class="string">&quot;icefire&quot;</span>,</span><br><span class="line">        method=<span class="string">&quot;complete&quot;</span>,</span><br><span class="line">        annot=annot,</span><br><span class="line">        **kwargs,</span><br><span class="line">    )</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">corrplot(df_train, annot=<span class="literal">None</span>)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment"># Training set high correlations</span></span><br><span class="line">df_corr = df.corr().<span class="built_in">abs</span>().unstack().sort_values(kind=<span class="string">&quot;quicksort&quot;</span>, ascending=<span class="literal">False</span>).reset_index()</span><br><span class="line">df_corr.rename(columns=&#123;<span class="string">&quot;level_0&quot;</span>: <span class="string">&quot;Feature 1&quot;</span>, <span class="string">&quot;level_1&quot;</span>: <span class="string">&quot;Feature 2&quot;</span>, <span class="number">0</span>: <span class="string">&#x27;Correlation Coefficient&#x27;</span>&#125;, inplace=<span class="literal">True</span>)</span><br><span class="line"><span class="comment"># higher than 0.1</span></span><br><span class="line">df_corr[<span class="string">&#x27;Correlation Coefficient&#x27;</span>] &gt; <span class="number">0.1</span></span><br></pre></td></tr></table></figure>
+<p>查看两两特征之间的相关程度，对特征的处理有指导意义。</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="comment"># The correlation matrix</span></span><br><span class="line">corrmat = df.corr(numeric_only=<span class="literal">True</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># Upper triangle of correlations</span></span><br><span class="line">upper = corrmat.where(np.triu(np.ones(corrmat.shape), k=<span class="number">1</span>).astype(<span class="string">&#x27;bool&#x27;</span>))</span><br><span class="line"></span><br><span class="line"><span class="comment"># Absolute value correlation</span></span><br><span class="line">correlations = upper.unstack().dropna().sort_index()</span><br><span class="line"></span><br><span class="line">correlations.<span class="built_in">abs</span>().sort_values(ascending=<span class="literal">False</span>).head(<span class="number">20</span>)</span><br></pre></td></tr></table></figure>
+<pre><code>FLAG_EMP_PHONE                DAYS_EMPLOYED                  0.999755
+YEARS_BUILD_MEDI              YEARS_BUILD_AVG                0.998495
+OBS_60_CNT_SOCIAL_CIRCLE      OBS_30_CNT_SOCIAL_CIRCLE       0.998490
+FLOORSMIN_MEDI                FLOORSMIN_AVG                  0.997241
+FLOORSMAX_MEDI                FLOORSMAX_AVG                  0.997034
+ENTRANCES_MEDI                ENTRANCES_AVG                  0.996886
+ELEVATORS_MEDI                ELEVATORS_AVG                  0.996099
+COMMONAREA_MEDI               COMMONAREA_AVG                 0.995978
+LIVINGAREA_MEDI               LIVINGAREA_AVG                 0.995596
+APARTMENTS_MEDI               APARTMENTS_AVG                 0.995081
+BASEMENTAREA_MEDI             BASEMENTAREA_AVG               0.994317
+LIVINGAPARTMENTS_MEDI         LIVINGAPARTMENTS_AVG           0.993825
+YEARS_BEGINEXPLUATATION_MEDI  YEARS_BEGINEXPLUATATION_AVG    0.993825
+LANDAREA_MEDI                 LANDAREA_AVG                   0.991610
+NONLIVINGAPARTMENTS_MEDI      NONLIVINGAPARTMENTS_AVG        0.990768
+NONLIVINGAREA_MEDI            NONLIVINGAREA_AVG              0.990444
+YEARS_BUILD_MEDI              YEARS_BUILD_MODE               0.989463
+YEARS_BUILD_MODE              YEARS_BUILD_AVG                0.989444
+FLOORSMIN_MEDI                FLOORSMIN_MODE                 0.988406
+FLOORSMAX_MEDI                FLOORSMAX_MODE                 0.988237
+dtype: float64
+</code></pre>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">fig, axs = plt.subplots(figsize=(<span class="number">10</span>, <span class="number">10</span>))</span><br><span class="line">sns.heatmap(corrmat, vmax=<span class="number">0.9</span>, square=<span class="literal">True</span>)</span><br><span class="line">axs.set_title(<span class="string">&#x27;Correlations&#x27;</span>, size=<span class="number">15</span>)</span><br><span class="line">plt.show()</span><br></pre></td></tr></table></figure>
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/img/feature_engineering_with_python/EDA_output_16_0.png" alt="" /></p>
 <p>目标变量相关性</p>
-<ul>
-<li>Continuous Features</li>
-</ul>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="comment"># Correlation map to see how features are correlated with SalePrice</span></span><br><span class="line">corrmat = train.corr(numeric_only=<span class="literal">True</span>)</span><br><span class="line">fig, axs = plt.subplots(figsize=(<span class="number">20</span>, <span class="number">20</span>))</span><br><span class="line">sns.heatmap(corrmat, vmax=<span class="number">0.9</span>, square=<span class="literal">True</span>)</span><br><span class="line">axs.set_title(<span class="string">&#x27;Correlations&#x27;</span>, size=<span class="number">15</span>)</span><br><span class="line">plt.show()</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">cont_features = [<span class="string">&#x27;Age&#x27;</span>, <span class="string">&#x27;Fare&#x27;</span>]</span><br><span class="line">surv = df_train[<span class="string">&#x27;Survived&#x27;</span>] == <span class="number">1</span></span><br><span class="line"></span><br><span class="line">fig, axs = plt.subplots(ncols=<span class="number">2</span>, nrows=<span class="number">2</span>, figsize=(<span class="number">20</span>, <span class="number">20</span>))</span><br><span class="line">plt.subplots_adjust(right=<span class="number">1.5</span>)</span><br><span class="line"></span><br><span class="line"><span class="keyword">for</span> i, feature <span class="keyword">in</span> <span class="built_in">enumerate</span>(cont_features):    </span><br><span class="line">    <span class="comment"># Distribution of survival in feature</span></span><br><span class="line">    sns.distplot(df_train[~surv][feature], label=<span class="string">&#x27;Not Survived&#x27;</span>, hist=<span class="literal">True</span>, color=<span class="string">&#x27;#e74c3c&#x27;</span>, ax=axs[<span class="number">0</span>][i])</span><br><span class="line">    sns.distplot(df_train[surv][feature], label=<span class="string">&#x27;Survived&#x27;</span>, hist=<span class="literal">True</span>, color=<span class="string">&#x27;#2ecc71&#x27;</span>, ax=axs[<span class="number">0</span>][i])</span><br><span class="line">    </span><br><span class="line">    <span class="comment"># Distribution of feature in dataset</span></span><br><span class="line">    sns.distplot(df_train[feature], label=<span class="string">&#x27;Training Set&#x27;</span>, hist=<span class="literal">False</span>, color=<span class="string">&#x27;#e74c3c&#x27;</span>, ax=axs[<span class="number">1</span>][i])</span><br><span class="line">    sns.distplot(df_test[feature], label=<span class="string">&#x27;Test Set&#x27;</span>, hist=<span class="literal">False</span>, color=<span class="string">&#x27;#2ecc71&#x27;</span>, ax=axs[<span class="number">1</span>][i])</span><br><span class="line">    </span><br><span class="line">    axs[<span class="number">0</span>][i].set_xlabel(<span class="string">&#x27;&#x27;</span>)</span><br><span class="line">    axs[<span class="number">1</span>][i].set_xlabel(<span class="string">&#x27;&#x27;</span>)</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">for</span> j <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">2</span>):        </span><br><span class="line">        axs[i][j].tick_params(axis=<span class="string">&#x27;x&#x27;</span>, labelsize=<span class="number">20</span>)</span><br><span class="line">        axs[i][j].tick_params(axis=<span class="string">&#x27;y&#x27;</span>, labelsize=<span class="number">20</span>)</span><br><span class="line">    </span><br><span class="line">    axs[<span class="number">0</span>][i].legend(loc=<span class="string">&#x27;upper right&#x27;</span>, prop=&#123;<span class="string">&#x27;size&#x27;</span>: <span class="number">20</span>&#125;)</span><br><span class="line">    axs[<span class="number">1</span>][i].legend(loc=<span class="string">&#x27;upper right&#x27;</span>, prop=&#123;<span class="string">&#x27;size&#x27;</span>: <span class="number">20</span>&#125;)</span><br><span class="line">    axs[<span class="number">0</span>][i].set_title(<span class="string">&#x27;Distribution of Survival in &#123;&#125;&#x27;</span>.<span class="built_in">format</span>(feature), size=<span class="number">20</span>, y=<span class="number">1.05</span>)</span><br><span class="line"></span><br><span class="line">axs[<span class="number">1</span>][<span class="number">0</span>].set_title(<span class="string">&#x27;Distribution of &#123;&#125; Feature&#x27;</span>.<span class="built_in">format</span>(<span class="string">&#x27;Age&#x27;</span>), size=<span class="number">20</span>, y=<span class="number">1.05</span>)</span><br><span class="line">axs[<span class="number">1</span>][<span class="number">1</span>].set_title(<span class="string">&#x27;Distribution of &#123;&#125; Feature&#x27;</span>.<span class="built_in">format</span>(<span class="string">&#x27;Fare&#x27;</span>), size=<span class="number">20</span>, y=<span class="number">1.05</span>)</span><br><span class="line">        </span><br><span class="line">plt.show()</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">plt.figure(figsize = (<span class="number">10</span>, <span class="number">12</span>))</span><br><span class="line"></span><br><span class="line"><span class="comment"># iterate through the sources</span></span><br><span class="line"><span class="keyword">for</span> i, source <span class="keyword">in</span> <span class="built_in">enumerate</span>([<span class="string">&#x27;EXT_SOURCE_1&#x27;</span>, <span class="string">&#x27;EXT_SOURCE_2&#x27;</span>, <span class="string">&#x27;EXT_SOURCE_3&#x27;</span>]):</span><br><span class="line">    </span><br><span class="line">    <span class="comment"># create a new subplot for each source</span></span><br><span class="line">    plt.subplot(<span class="number">3</span>, <span class="number">1</span>, i + <span class="number">1</span>)</span><br><span class="line">    <span class="comment"># plot repaid loans</span></span><br><span class="line">    sns.kdeplot(app_train.loc[app_train[<span class="string">&#x27;TARGET&#x27;</span>] == <span class="number">0</span>, source], label = <span class="string">&#x27;target == 0&#x27;</span>)</span><br><span class="line">    <span class="comment"># plot loans that were not repaid</span></span><br><span class="line">    sns.kdeplot(app_train.loc[app_train[<span class="string">&#x27;TARGET&#x27;</span>] == <span class="number">1</span>, source], label = <span class="string">&#x27;target == 1&#x27;</span>)</span><br><span class="line">    </span><br><span class="line">    <span class="comment"># Label the plots</span></span><br><span class="line">    plt.title(<span class="string">&#x27;Distribution of %s by Target Value&#x27;</span> % source)</span><br><span class="line">    plt.xlabel(<span class="string">&#x27;%s&#x27;</span> % source); plt.ylabel(<span class="string">&#x27;Density&#x27;</span>);</span><br><span class="line">    </span><br><span class="line">plt.tight_layout(h_pad = <span class="number">2.5</span>)</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-<ul>
-<li>Categorical Features</li>
-</ul>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">cat_features = [<span class="string">&#x27;Embarked&#x27;</span>, <span class="string">&#x27;Parch&#x27;</span>, <span class="string">&#x27;Pclass&#x27;</span>, <span class="string">&#x27;Sex&#x27;</span>, <span class="string">&#x27;SibSp&#x27;</span>, <span class="string">&#x27;Deck&#x27;</span>]</span><br><span class="line"></span><br><span class="line">fig, axs = plt.subplots(ncols=<span class="number">2</span>, nrows=<span class="number">3</span>, figsize=(<span class="number">20</span>, <span class="number">20</span>))</span><br><span class="line">plt.subplots_adjust(right=<span class="number">1.5</span>, top=<span class="number">1.25</span>)</span><br><span class="line"></span><br><span class="line"><span class="keyword">for</span> i, feature <span class="keyword">in</span> <span class="built_in">enumerate</span>(cat_features, <span class="number">1</span>):    </span><br><span class="line">    plt.subplot(<span class="number">2</span>, <span class="number">3</span>, i)</span><br><span class="line">    sns.countplot(x=feature, hue=<span class="string">&#x27;Survived&#x27;</span>, data=df_train)</span><br><span class="line">    </span><br><span class="line">    plt.xlabel(<span class="string">&#x27;&#123;&#125;&#x27;</span>.<span class="built_in">format</span>(feature), size=<span class="number">20</span>, labelpad=<span class="number">15</span>)</span><br><span class="line">    plt.ylabel(<span class="string">&#x27;Passenger Count&#x27;</span>, size=<span class="number">20</span>, labelpad=<span class="number">15</span>)    </span><br><span class="line">    plt.tick_params(axis=<span class="string">&#x27;x&#x27;</span>, labelsize=<span class="number">20</span>)</span><br><span class="line">    plt.tick_params(axis=<span class="string">&#x27;y&#x27;</span>, labelsize=<span class="number">20</span>)</span><br><span class="line">    </span><br><span class="line">    plt.legend([<span class="string">&#x27;Not Survived&#x27;</span>, <span class="string">&#x27;Survived&#x27;</span>], loc=<span class="string">&#x27;upper center&#x27;</span>, prop=&#123;<span class="string">&#x27;size&#x27;</span>: <span class="number">18</span>&#125;)</span><br><span class="line">    plt.title(<span class="string">&#x27;Count of Survival in &#123;&#125; Feature&#x27;</span>.<span class="built_in">format</span>(feature), size=<span class="number">20</span>, y=<span class="number">1.05</span>)</span><br><span class="line"></span><br><span class="line">plt.show()</span><br></pre></td></tr></table></figure>
-<p>一些分类特征和目标变量有很大的相关性，可以one-hot编码，也可以组合成新的有序分类变量。</p>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="comment"># Plots the disribution of a variable colored by value of the target</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">kde_target</span>(<span class="params">var_name, df</span>):</span></span><br><span class="line">    </span><br><span class="line">    <span class="comment"># Calculate the correlation coefficient between the new variable and the target</span></span><br><span class="line">    corr = df[<span class="string">&#x27;TARGET&#x27;</span>].corr(df[var_name])</span><br><span class="line">    </span><br><span class="line">    <span class="comment"># Calculate medians for repaid vs not repaid</span></span><br><span class="line">    avg_repaid = df.ix[df[<span class="string">&#x27;TARGET&#x27;</span>] == <span class="number">0</span>, var_name].median()</span><br><span class="line">    avg_not_repaid = df.ix[df[<span class="string">&#x27;TARGET&#x27;</span>] == <span class="number">1</span>, var_name].median()</span><br><span class="line">    </span><br><span class="line">    plt.figure(figsize = (<span class="number">12</span>, <span class="number">6</span>))</span><br><span class="line">    </span><br><span class="line">    <span class="comment"># Plot the distribution for target == 0 and target == 1</span></span><br><span class="line">    sns.kdeplot(df.ix[df[<span class="string">&#x27;TARGET&#x27;</span>] == <span class="number">0</span>, var_name], label = <span class="string">&#x27;TARGET == 0&#x27;</span>)</span><br><span class="line">    sns.kdeplot(df.ix[df[<span class="string">&#x27;TARGET&#x27;</span>] == <span class="number">1</span>, var_name], label = <span class="string">&#x27;TARGET == 1&#x27;</span>)</span><br><span class="line">    </span><br><span class="line">    <span class="comment"># label the plot</span></span><br><span class="line">    plt.xlabel(var_name); plt.ylabel(<span class="string">&#x27;Density&#x27;</span>); plt.title(<span class="string">&#x27;%s Distribution&#x27;</span> % var_name)</span><br><span class="line">    plt.legend();</span><br><span class="line">    </span><br><span class="line">    <span class="comment"># print out the correlation</span></span><br><span class="line">    <span class="built_in">print</span>(<span class="string">&#x27;The correlation between %s and the TARGET is %0.4f&#x27;</span> % (var_name, corr))</span><br><span class="line">    <span class="comment"># Print out average values</span></span><br><span class="line">    <span class="built_in">print</span>(<span class="string">&#x27;Median value for loan that was not repaid = %0.4f&#x27;</span> % avg_not_repaid)</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">&#x27;Median value for loan that was repaid =     %0.4f&#x27;</span> % avg_repaid)</span><br><span class="line">    </span><br></pre></td></tr></table></figure>
+<p><strong>Continuous Features</strong></p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="comment"># Find correlations with the target and sort</span></span><br><span class="line"><span class="built_in">print</span>(<span class="string">&#x27;Most Positive Correlations:\n&#x27;</span>, correlations[<span class="string">&quot;TARGET&quot;</span>].tail(<span class="number">15</span>))</span><br><span class="line"><span class="built_in">print</span>(<span class="string">&#x27;\nMost Negative Correlations:\n&#x27;</span>, correlations[<span class="string">&quot;TARGET&quot;</span>].head(<span class="number">15</span>))</span><br></pre></td></tr></table></figure>
+<pre><code>Most Positive Correlations:
+ SK_ID_CURR   -0.002108
+dtype: float64
+
+Most Negative Correlations:
+ SK_ID_CURR   -0.002108
+dtype: float64
+</code></pre>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="comment"># Extract the EXT_SOURCE variables and show correlations</span></span><br><span class="line">cont_features = [<span class="string">&#x27;EXT_SOURCE_1&#x27;</span>, <span class="string">&#x27;EXT_SOURCE_2&#x27;</span>, <span class="string">&#x27;EXT_SOURCE_3&#x27;</span>]</span><br><span class="line"></span><br><span class="line">fig = plt.figure(figsize=(<span class="number">5</span>, <span class="number">8</span>))</span><br><span class="line">plt.subplots_adjust(right=<span class="number">1.5</span>)</span><br><span class="line"></span><br><span class="line"><span class="keyword">for</span> i, source <span class="keyword">in</span> <span class="built_in">enumerate</span>(cont_features):</span><br><span class="line">    </span><br><span class="line">    <span class="comment"># Distribution of feature in dataset</span></span><br><span class="line">    ax = fig.add_subplot(<span class="number">3</span>, <span class="number">1</span>, i + <span class="number">1</span>)</span><br><span class="line">    sns.kdeplot(x=source, data=df, </span><br><span class="line">                hue=target, </span><br><span class="line">                common_norm=<span class="literal">False</span>,</span><br><span class="line">                fill=<span class="literal">True</span>, </span><br><span class="line">                ax=ax)</span><br><span class="line">    </span><br><span class="line">    <span class="comment"># Label the plots</span></span><br><span class="line">    plt.title(<span class="string">f&#x27;Distribution of <span class="subst">&#123;source&#125;</span> by Target Value&#x27;</span>)</span><br><span class="line">    plt.xlabel(<span class="string">f&#x27;<span class="subst">&#123;source&#125;</span>&#x27;</span>)</span><br><span class="line">    plt.ylabel(<span class="string">&#x27;Density&#x27;</span>)</span><br><span class="line">    </span><br><span class="line">plt.tight_layout(h_pad = <span class="number">2.5</span>)</span><br></pre></td></tr></table></figure>
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/img/feature_engineering_with_python/EDA_output_19_0.png" alt="" /></p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="comment"># Extract the EXT_SOURCE variables and show correlations</span></span><br><span class="line">cont_features = [<span class="string">&#x27;EXT_SOURCE_1&#x27;</span>, <span class="string">&#x27;EXT_SOURCE_2&#x27;</span>, <span class="string">&#x27;EXT_SOURCE_3&#x27;</span>]</span><br><span class="line"></span><br><span class="line"><span class="keyword">for</span> source <span class="keyword">in</span> cont_features:</span><br><span class="line">    <span class="comment"># Calculate the correlation coefficient between the variable and the target</span></span><br><span class="line">    corr = df[target].corr(df[source])</span><br><span class="line">    </span><br><span class="line">    <span class="comment"># Calculate medians for repaid vs not repaid</span></span><br><span class="line">    avg_repaid = df.loc[df[target] == <span class="number">0</span>, source].median()</span><br><span class="line">    avg_not_repaid = df.loc[df[target] == <span class="number">1</span>, source].median()</span><br><span class="line">      </span><br><span class="line">    <span class="comment"># print out the correlation</span></span><br><span class="line">    <span class="built_in">print</span>(<span class="string">&#x27;\nThe correlation between %s and the TARGET is %0.4f&#x27;</span> % (source, corr))</span><br><span class="line">    <span class="comment"># Print out average values</span></span><br><span class="line">    <span class="built_in">print</span>(<span class="string">&#x27;Median value for loan that was not repaid = %0.4f&#x27;</span> % avg_not_repaid)</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">&#x27;Median value for loan that was repaid =     %0.4f&#x27;</span> % avg_repaid)</span><br></pre></td></tr></table></figure>
+<pre><code>The correlation between EXT_SOURCE_1 and the TARGET is -0.1553
+Median value for loan that was not repaid = 0.3617
+Median value for loan that was repaid =     0.5175
+
+The correlation between EXT_SOURCE_2 and the TARGET is -0.1605
+Median value for loan that was not repaid = 0.4404
+Median value for loan that was repaid =     0.5739
+
+The correlation between EXT_SOURCE_3 and the TARGET is -0.1789
+Median value for loan that was not repaid = 0.3791
+Median value for loan that was repaid =     0.5460
+</code></pre>
+<p><strong>Categorical Features</strong></p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">cat_features = df.select_dtypes([<span class="string">&quot;object&quot;</span>]).columns</span><br><span class="line"></span><br><span class="line">fig = plt.figure(figsize=(<span class="number">16</span>, <span class="number">16</span>))</span><br><span class="line"><span class="keyword">for</span> i, feature <span class="keyword">in</span> <span class="built_in">enumerate</span>(cat_features):    </span><br><span class="line">    ax = fig.add_subplot(<span class="number">4</span>, <span class="number">4</span>, i+<span class="number">1</span>)</span><br><span class="line">    sns.countplot(x=feature, data=df, </span><br><span class="line">                hue=df[target].<span class="built_in">map</span>(<span class="keyword">lambda</span> x:<span class="built_in">str</span>(x)), </span><br><span class="line">                fill=<span class="literal">True</span>, </span><br><span class="line">                ax=ax)</span><br><span class="line">    </span><br><span class="line">    ax.set_xlabel(feature)</span><br><span class="line">    ax.set_ylabel(<span class="string">&#x27;App Count&#x27;</span>)    </span><br><span class="line">    ax.legend(loc=<span class="string">&#x27;upper center&#x27;</span>)</span><br><span class="line"></span><br><span class="line">plt.show()</span><br></pre></td></tr></table></figure>
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/img/feature_engineering_with_python/EDA_output_22_0.png" alt="" /></p>
 <h2 id="目标变量分布"><a class="markdownIt-Anchor" href="#目标变量分布"></a> 目标变量分布</h2>
+<p>对于分类问题的目标变量，在sklearn中需要编码为数值型</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">sklearn.preprocessing</th>
+<th style="text-align:left">预处理</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">LabelEncoder</td>
+<td style="text-align:left">目标变量序数编码</td>
+</tr>
+<tr>
+<td style="text-align:left">LabelBinarizer</td>
+<td style="text-align:left">二分类目标数值化</td>
+</tr>
+<tr>
+<td style="text-align:left">MultiLabelBinarizer</td>
+<td style="text-align:left">多标签目标数值化</td>
+</tr>
+</tbody>
+</table>
 <p>检查目标变量分布</p>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="built_in">print</span>(<span class="string">f&quot;percentage of default : <span class="subst">&#123;df[target].mean():<span class="number">.2</span>%&#125;</span>&quot;</span>)</span><br><span class="line"><span class="built_in">print</span>(df[target].value_counts())</span><br></pre></td></tr></table></figure>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="comment"># `TARGET` is the target variable we are trying to predict (0 or 1):</span></span><br><span class="line"><span class="comment"># 1 = Not Repaid </span></span><br><span class="line"><span class="comment"># 0 = Repaid</span></span><br><span class="line">target = <span class="string">&#x27;TARGET&#x27;</span></span><br><span class="line"></span><br><span class="line"><span class="built_in">print</span>(<span class="string">f&quot;percentage of default : <span class="subst">&#123;df[target].mean():<span class="number">.2</span>%&#125;</span>&quot;</span>)</span><br><span class="line"><span class="built_in">print</span>(df[target].value_counts())</span><br></pre></td></tr></table></figure>
+<pre><code>percentage of default : 8.07%
+TARGET
+0    282686
+1     24825
+Name: count, dtype: int64
+</code></pre>
 <p>现实中，样本（类别）样本不平衡（class-imbalance）是一种常见的现象，一般地，做分类算法训练时，如果样本类别比例（Imbalance Ratio）（多数类vs少数类）严重不平衡时，分类算法将开始做出有利于多数类的预测。一般有以下几种方法：权重法、采样法、数据增强、损失函数、集成方法、评估指标。</p>
 <table>
 <thead>
@@ -254,51 +698,1145 @@
 </tbody>
 </table>
 <p>我们可以用<a target="_blank" rel="noopener external nofollow noreferrer" href="https://imbalanced-learn.org/stable/">imbalance-learn</a>这个Python库实现诸如重采样和模型集成等大多数方法。</p>
-<p>对于分类问题的目标变量，在sklearn中设置了不同的编码函数</p>
+<p>对于回归任务，假设预测目标为客户的贷款额度<code>AMT_CREDIT</code></p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">df[<span class="string">&#x27;AMT_CREDIT&#x27;</span>].describe()</span><br></pre></td></tr></table></figure>
+<pre><code>count    3.075110e+05
+mean     5.990260e+05
+std      4.024908e+05
+min      4.500000e+04
+25%      2.700000e+05
+50%      5.135310e+05
+75%      8.086500e+05
+max      4.050000e+06
+Name: AMT_CREDIT, dtype: float64
+</code></pre>
+<p>我们画出AMT_CREDIT的分布图和QQ图。</p>
+<blockquote>
+<p>Quantile-Quantile图是一种常用的统计图形，用来比较两个数据集之间的分布。它是由标准正态分布的分位数为横坐标，样本值为纵坐标的散点图。如果QQ图上的点在一条直线附近，则说明数据近似于正态分布，且该直线的斜率为标准差，截距为均值。</p>
+</blockquote>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> matplotlib.pyplot <span class="keyword">as</span> plt</span><br><span class="line"><span class="keyword">import</span> seaborn <span class="keyword">as</span> sns</span><br><span class="line"><span class="keyword">from</span> scipy.stats <span class="keyword">import</span> probplot, norm</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">norm_comparison_plot</span>(<span class="params">series</span>):</span></span><br><span class="line">    series = pd.Series(series)</span><br><span class="line">    mu, sigma = norm.fit(series)</span><br><span class="line">    kurt, skew = series.kurt(), series.skew()</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">f&quot;Kurtosis: <span class="subst">&#123;kurt:<span class="number">.2</span>f&#125;</span>&quot;</span>, <span class="string">f&quot;Skewness: <span class="subst">&#123;skew:<span class="number">.2</span>f&#125;</span>&quot;</span>, sep=<span class="string">&#x27;\t&#x27;</span>)</span><br><span class="line">    </span><br><span class="line">    fig = plt.figure(figsize=(<span class="number">10</span>, <span class="number">4</span>))</span><br><span class="line">    <span class="comment"># Now plot the distribution</span></span><br><span class="line">    ax1 = fig.add_subplot(<span class="number">121</span>)</span><br><span class="line">    ax1.set_title(<span class="string">&#x27;Distribution&#x27;</span>)</span><br><span class="line">    ax1.set_ylabel(<span class="string">&#x27;Frequency&#x27;</span>)</span><br><span class="line">    sns.distplot(series, fit=norm, ax=ax1)</span><br><span class="line">    ax1.legend([<span class="string">&#x27;dist&#x27;</span>,<span class="string">&#x27;kde&#x27;</span>,<span class="string">&#x27;norm&#x27;</span>],<span class="string">f&#x27;Normal dist. ($\mu=$ <span class="subst">&#123;mu:<span class="number">.2</span>f&#125;</span> and $\sigma=$ <span class="subst">&#123;sigma:<span class="number">.2</span>f&#125;</span> )&#x27;</span>, loc=<span class="string">&#x27;best&#x27;</span>)</span><br><span class="line">    <span class="comment"># Get also the QQ-plot</span></span><br><span class="line">    ax2 = fig.add_subplot(<span class="number">122</span>)</span><br><span class="line">    probplot(series, plot=plt)</span><br></pre></td></tr></table></figure>
+<p>可以看到 AMT_CREDIT 的分布呈偏态，许多回归算法都有正态分布假设，因此我们尝试对数变换，让数据接近正态分布。</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">norm_comparison_plot(np.log1p(df[<span class="string">&#x27;AMT_CREDIT&#x27;</span>]))</span><br><span class="line">plt.show()</span><br></pre></td></tr></table></figure>
+<pre><code>Kurtosis: -0.29	Skewness: -0.34
+</code></pre>
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/img/feature_engineering_with_python/EDA_output_31_1.png" alt="" /></p>
+<p>可以看到经过对数变换后，基本符合正态分布了。</p>
+<p>sklearn.compose 中的 TransformedTargetRegressor 是专门为回归任务设置的目标变换。对于简单的变换，TransformedTargetRegressor在拟合回归模型之前变换目标变量，预测时则通过逆变换映射回原始值。</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">from</span> sklearn.linear_model <span class="keyword">import</span> LinearRegression</span><br><span class="line"><span class="keyword">from</span> sklearn.compose <span class="keyword">import</span> TransformedTargetRegressor</span><br><span class="line"><span class="keyword">from</span> sklearn.preprocessing <span class="keyword">import</span> FunctionTransformer</span><br><span class="line"></span><br><span class="line">reg = TransformedTargetRegressor(regressor=LinearRegression(), </span><br><span class="line">      transformer=FunctionTransformer(np.log1p))</span><br></pre></td></tr></table></figure>
+<h1 id="附录数据集字段描述"><a class="markdownIt-Anchor" href="#附录数据集字段描述"></a> 附录：数据集字段描述</h1>
 <table>
 <thead>
 <tr>
-<th>sklearn.preprocessing</th>
-<th>预处理</th>
+<th style="text-align:left">Table</th>
+<th style="text-align:left">Row</th>
+<th style="text-align:left">中文描述</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td>LabelEncoder</td>
-<td>目标变量序数编码</td>
+<td style="text-align:left">application</td>
+<td style="text-align:left">SK_ID_CURR</td>
+<td style="text-align:left">此次申请的ID</td>
 </tr>
 <tr>
-<td>LabelBinarizer</td>
-<td>二分类目标数值化</td>
+<td style="text-align:left">application</td>
+<td style="text-align:left">TARGET</td>
+<td style="text-align:left">申请人本次申请的还款风险：1-风险较高；0-风险较低</td>
 </tr>
 <tr>
-<td>MultiLabelBinarizer</td>
-<td>多标签目标数值化</td>
+<td style="text-align:left">application</td>
+<td style="text-align:left">NAME_CONTRACT_TYPE</td>
+<td style="text-align:left">贷款类型：cash(现金)还是revolving(周转金，一次申请，多次循环提取)</td>
+</tr>
+<tr>
+<td style="text-align:left">application</td>
+<td style="text-align:left">CODE_GENDER</td>
+<td style="text-align:left">申请人性别</td>
+</tr>
+<tr>
+<td style="text-align:left">application</td>
+<td style="text-align:left">FLAG_OWN_CAR</td>
+<td style="text-align:left">申请人是否有车</td>
+</tr>
+<tr>
+<td style="text-align:left">application</td>
+<td style="text-align:left">FLAG_OWN_REALTY</td>
+<td style="text-align:left">申请人是否有房</td>
+</tr>
+<tr>
+<td style="text-align:left">application</td>
+<td style="text-align:left">CNT_CHILDREN</td>
+<td style="text-align:left">申请人子女个数</td>
+</tr>
+<tr>
+<td style="text-align:left">application</td>
+<td style="text-align:left">AMT_INCOME_TOTAL</td>
+<td style="text-align:left">申请人收入状况</td>
+</tr>
+<tr>
+<td style="text-align:left">application</td>
+<td style="text-align:left">AMT_CREDIT</td>
+<td style="text-align:left">此次申请的贷款金额</td>
+</tr>
+<tr>
+<td style="text-align:left">application</td>
+<td style="text-align:left">AMT_ANNUITY</td>
+<td style="text-align:left">贷款年金</td>
+</tr>
+<tr>
+<td style="text-align:left">application</td>
+<td style="text-align:left">AMT_GOODS_PRICE</td>
+<td style="text-align:left">如果是消费贷款，改字段表示商品的实际价格</td>
+</tr>
+<tr>
+<td style="text-align:left">application</td>
+<td style="text-align:left">NAME_TYPE_SUITE</td>
+<td style="text-align:left">申请人此次申请的陪同人员</td>
+</tr>
+<tr>
+<td style="text-align:left">application</td>
+<td style="text-align:left">NAME_INCOME_TYPE</td>
+<td style="text-align:left">申请人收入类型</td>
+</tr>
+<tr>
+<td style="text-align:left">application</td>
+<td style="text-align:left">NAME_EDUCATION_TYPE</td>
+<td style="text-align:left">申请人受教育程度</td>
+</tr>
+<tr>
+<td style="text-align:left">application</td>
+<td style="text-align:left">NAME_FAMILY_STATUS</td>
+<td style="text-align:left">申请人婚姻状况</td>
+</tr>
+<tr>
+<td style="text-align:left">application</td>
+<td style="text-align:left">NAME_HOUSING_TYPE</td>
+<td style="text-align:left">申请人居住状况（租房，已购房，和父母一起住等）</td>
+</tr>
+<tr>
+<td style="text-align:left">application</td>
+<td style="text-align:left">REGION_POPULATION_RELATIVE</td>
+<td style="text-align:left">申请人居住地人口密度，已标准化</td>
+</tr>
+<tr>
+<td style="text-align:left">application</td>
+<td style="text-align:left">DAYS_BIRTH</td>
+<td style="text-align:left">申请人出生日（距离申请当日的天数，负值）</td>
+</tr>
+<tr>
+<td style="text-align:left">application</td>
+<td style="text-align:left">DAYS_EMPLOYED</td>
+<td style="text-align:left">申请人当前工作的工作年限（距离申请当日的天数，负值）</td>
+</tr>
+<tr>
+<td style="text-align:left">application</td>
+<td style="text-align:left">DAYS_REGISTRATION</td>
+<td style="text-align:left">申请人最近一次修改注册信息的时间（距离申请当日的天数，负值）</td>
+</tr>
+<tr>
+<td style="text-align:left">application</td>
+<td style="text-align:left">DAYS_ID_PUBLISH</td>
+<td style="text-align:left">申请人最近一次修改申请贷款的身份证明文件的时间（距离申请当日的天数，负值）</td>
+</tr>
+<tr>
+<td style="text-align:left">application</td>
+<td style="text-align:left">OWN_CAR_AGE</td>
+<td style="text-align:left">申请人车龄</td>
+</tr>
+<tr>
+<td style="text-align:left">application</td>
+<td style="text-align:left">FLAG_MOBIL</td>
+<td style="text-align:left">申请人是否提供个人电话（1-yes，0-no）</td>
+</tr>
+<tr>
+<td style="text-align:left">application</td>
+<td style="text-align:left">FLAG_EMP_PHONE</td>
+<td style="text-align:left">申请人是否提供家庭电话（1-yes，0-no）</td>
+</tr>
+<tr>
+<td style="text-align:left">application</td>
+<td style="text-align:left">FLAG_WORK_PHONE</td>
+<td style="text-align:left">申请人是否提供工作电话（1-yes，0-no）</td>
+</tr>
+<tr>
+<td style="text-align:left">application</td>
+<td style="text-align:left">FLAG_CONT_MOBILE</td>
+<td style="text-align:left">申请人个人电话是否能拨通（1-yes，0-no）</td>
+</tr>
+<tr>
+<td style="text-align:left">application</td>
+<td style="text-align:left">FLAG_PHONE</td>
+<td style="text-align:left">是否提供家庭电话</td>
+</tr>
+<tr>
+<td style="text-align:left">application</td>
+<td style="text-align:left">FLAG_EMAIL</td>
+<td style="text-align:left">申请人是否提供电子邮箱（1-yes，0-no）</td>
+</tr>
+<tr>
+<td style="text-align:left">application</td>
+<td style="text-align:left">OCCUPATION_TYPE</td>
+<td style="text-align:left">申请人职务</td>
+</tr>
+<tr>
+<td style="text-align:left">application</td>
+<td style="text-align:left">CNT_FAM_MEMBERS</td>
+<td style="text-align:left">家庭成员数量</td>
+</tr>
+<tr>
+<td style="text-align:left">application</td>
+<td style="text-align:left">REGION_RATING_CLIENT</td>
+<td style="text-align:left">本公司对申请人居住区域的评分等级（1,2,3）</td>
+</tr>
+<tr>
+<td style="text-align:left">application</td>
+<td style="text-align:left">REGION_RATING_CLIENT_W_CITY</td>
+<td style="text-align:left">在考虑所在城市的情况下，本公司对申请人居住区域的评分等级（1,2,3）</td>
+</tr>
+<tr>
+<td style="text-align:left">application</td>
+<td style="text-align:left">WEEKDAY_APPR_PROCESS_START</td>
+<td style="text-align:left">申请人发起申请日是星期几</td>
+</tr>
+<tr>
+<td style="text-align:left">application</td>
+<td style="text-align:left">HOUR_APPR_PROCESS_START</td>
+<td style="text-align:left">申请人发起申请的hour</td>
+</tr>
+<tr>
+<td style="text-align:left">application</td>
+<td style="text-align:left">REG_REGION_NOT_LIVE_REGION</td>
+<td style="text-align:left">申请人提供的的永久地址和联系地址是否匹配（1-不匹配，2-匹配，区域级别的）</td>
+</tr>
+<tr>
+<td style="text-align:left">application</td>
+<td style="text-align:left">REG_REGION_NOT_WORK_REGION</td>
+<td style="text-align:left">申请人提供的的永久地址和工作地址是否匹配（1-不匹配，2-匹配，区域级别的）</td>
+</tr>
+<tr>
+<td style="text-align:left">application</td>
+<td style="text-align:left">LIVE_REGION_NOT_WORK_REGION</td>
+<td style="text-align:left">申请人提供的的联系地址和工作地址是否匹配（1-不匹配，2-匹配，区域级别的）</td>
+</tr>
+<tr>
+<td style="text-align:left">application</td>
+<td style="text-align:left">REG_CITY_NOT_LIVE_CITY</td>
+<td style="text-align:left">申请人提供的的永久地址和联系地址是否匹配（1-不匹配，2-匹配，城市级别的）</td>
+</tr>
+<tr>
+<td style="text-align:left">application</td>
+<td style="text-align:left">REG_CITY_NOT_WORK_CITY</td>
+<td style="text-align:left">申请人提供的的永久地址和工作地址是否匹配（1-不匹配，2-匹配，城市级别的）</td>
+</tr>
+<tr>
+<td style="text-align:left">application</td>
+<td style="text-align:left">LIVE_CITY_NOT_WORK_CITY</td>
+<td style="text-align:left">申请人提供的的联系地址和工作地址是否匹配（1-不匹配，2-匹配，城市级别的）</td>
+</tr>
+<tr>
+<td style="text-align:left">application</td>
+<td style="text-align:left">ORGANIZATION_TYPE</td>
+<td style="text-align:left">申请人工作所属组织类型</td>
+</tr>
+<tr>
+<td style="text-align:left">application</td>
+<td style="text-align:left">EXT_SOURCE_1</td>
+<td style="text-align:left">外部数据源1的标准化评分</td>
+</tr>
+<tr>
+<td style="text-align:left">application</td>
+<td style="text-align:left">EXT_SOURCE_2</td>
+<td style="text-align:left">外部数据源2的标准化评分</td>
+</tr>
+<tr>
+<td style="text-align:left">application</td>
+<td style="text-align:left">EXT_SOURCE_3</td>
+<td style="text-align:left">外部数据源3的标准化评分</td>
+</tr>
+<tr>
+<td style="text-align:left">application</td>
+<td style="text-align:left">APARTMENTS_AVG</td>
+<td style="text-align:left">申请人居住环境各项指标的标准化评分</td>
+</tr>
+<tr>
+<td style="text-align:left">application</td>
+<td style="text-align:left">BASEMENTAREA_AVG</td>
+<td style="text-align:left">居住信息</td>
+</tr>
+<tr>
+<td style="text-align:left">application</td>
+<td style="text-align:left">YEARS_BEGINEXPLUATATION_AVG</td>
+<td style="text-align:left">居住信息</td>
+</tr>
+<tr>
+<td style="text-align:left">application</td>
+<td style="text-align:left">YEARS_BUILD_AVG</td>
+<td style="text-align:left">居住信息</td>
+</tr>
+<tr>
+<td style="text-align:left">application</td>
+<td style="text-align:left">COMMONAREA_AVG</td>
+<td style="text-align:left">居住信息</td>
+</tr>
+<tr>
+<td style="text-align:left">application</td>
+<td style="text-align:left">ELEVATORS_AVG</td>
+<td style="text-align:left">居住信息</td>
+</tr>
+<tr>
+<td style="text-align:left">application</td>
+<td style="text-align:left">ENTRANCES_AVG</td>
+<td style="text-align:left">居住信息</td>
+</tr>
+<tr>
+<td style="text-align:left">application</td>
+<td style="text-align:left">FLOORSMAX_AVG</td>
+<td style="text-align:left">居住信息</td>
+</tr>
+<tr>
+<td style="text-align:left">application</td>
+<td style="text-align:left">FLOORSMIN_AVG</td>
+<td style="text-align:left">居住信息</td>
+</tr>
+<tr>
+<td style="text-align:left">application</td>
+<td style="text-align:left">LANDAREA_AVG</td>
+<td style="text-align:left">居住信息</td>
+</tr>
+<tr>
+<td style="text-align:left">application</td>
+<td style="text-align:left">LIVINGAPARTMENTS_AVG</td>
+<td style="text-align:left">居住信息</td>
+</tr>
+<tr>
+<td style="text-align:left">application</td>
+<td style="text-align:left">LIVINGAREA_AVG</td>
+<td style="text-align:left">居住信息</td>
+</tr>
+<tr>
+<td style="text-align:left">application</td>
+<td style="text-align:left">NONLIVINGAPARTMENTS_AVG</td>
+<td style="text-align:left">居住信息</td>
+</tr>
+<tr>
+<td style="text-align:left">application</td>
+<td style="text-align:left">NONLIVINGAREA_AVG</td>
+<td style="text-align:left">居住信息</td>
+</tr>
+<tr>
+<td style="text-align:left">application</td>
+<td style="text-align:left">APARTMENTS_MODE</td>
+<td style="text-align:left">居住信息</td>
+</tr>
+<tr>
+<td style="text-align:left">application</td>
+<td style="text-align:left">BASEMENTAREA_MODE</td>
+<td style="text-align:left">居住信息</td>
+</tr>
+<tr>
+<td style="text-align:left">application</td>
+<td style="text-align:left">YEARS_BEGINEXPLUATATION_MODE</td>
+<td style="text-align:left">居住信息</td>
+</tr>
+<tr>
+<td style="text-align:left">application</td>
+<td style="text-align:left">YEARS_BUILD_MODE</td>
+<td style="text-align:left">居住信息</td>
+</tr>
+<tr>
+<td style="text-align:left">application</td>
+<td style="text-align:left">COMMONAREA_MODE</td>
+<td style="text-align:left">居住信息</td>
+</tr>
+<tr>
+<td style="text-align:left">application</td>
+<td style="text-align:left">ELEVATORS_MODE</td>
+<td style="text-align:left">居住信息</td>
+</tr>
+<tr>
+<td style="text-align:left">application</td>
+<td style="text-align:left">ENTRANCES_MODE</td>
+<td style="text-align:left">居住信息</td>
+</tr>
+<tr>
+<td style="text-align:left">application</td>
+<td style="text-align:left">FLOORSMAX_MODE</td>
+<td style="text-align:left">居住信息</td>
+</tr>
+<tr>
+<td style="text-align:left">application</td>
+<td style="text-align:left">FLOORSMIN_MODE</td>
+<td style="text-align:left">居住信息</td>
+</tr>
+<tr>
+<td style="text-align:left">application</td>
+<td style="text-align:left">LANDAREA_MODE</td>
+<td style="text-align:left">居住信息</td>
+</tr>
+<tr>
+<td style="text-align:left">application</td>
+<td style="text-align:left">LIVINGAPARTMENTS_MODE</td>
+<td style="text-align:left">居住信息</td>
+</tr>
+<tr>
+<td style="text-align:left">application</td>
+<td style="text-align:left">LIVINGAREA_MODE</td>
+<td style="text-align:left">居住信息</td>
+</tr>
+<tr>
+<td style="text-align:left">application</td>
+<td style="text-align:left">NONLIVINGAPARTMENTS_MODE</td>
+<td style="text-align:left">居住信息</td>
+</tr>
+<tr>
+<td style="text-align:left">application</td>
+<td style="text-align:left">NONLIVINGAREA_MODE</td>
+<td style="text-align:left">居住信息</td>
+</tr>
+<tr>
+<td style="text-align:left">application</td>
+<td style="text-align:left">APARTMENTS_MEDI</td>
+<td style="text-align:left">居住信息</td>
+</tr>
+<tr>
+<td style="text-align:left">application</td>
+<td style="text-align:left">BASEMENTAREA_MEDI</td>
+<td style="text-align:left">居住信息</td>
+</tr>
+<tr>
+<td style="text-align:left">application</td>
+<td style="text-align:left">YEARS_BEGINEXPLUATATION_MEDI</td>
+<td style="text-align:left">居住信息</td>
+</tr>
+<tr>
+<td style="text-align:left">application</td>
+<td style="text-align:left">YEARS_BUILD_MEDI</td>
+<td style="text-align:left">居住信息</td>
+</tr>
+<tr>
+<td style="text-align:left">application</td>
+<td style="text-align:left">COMMONAREA_MEDI</td>
+<td style="text-align:left">居住信息</td>
+</tr>
+<tr>
+<td style="text-align:left">application</td>
+<td style="text-align:left">ELEVATORS_MEDI</td>
+<td style="text-align:left">居住信息</td>
+</tr>
+<tr>
+<td style="text-align:left">application</td>
+<td style="text-align:left">ENTRANCES_MEDI</td>
+<td style="text-align:left">居住信息</td>
+</tr>
+<tr>
+<td style="text-align:left">application</td>
+<td style="text-align:left">FLOORSMAX_MEDI</td>
+<td style="text-align:left">居住信息</td>
+</tr>
+<tr>
+<td style="text-align:left">application</td>
+<td style="text-align:left">FLOORSMIN_MEDI</td>
+<td style="text-align:left">居住信息</td>
+</tr>
+<tr>
+<td style="text-align:left">application</td>
+<td style="text-align:left">LANDAREA_MEDI</td>
+<td style="text-align:left">居住信息</td>
+</tr>
+<tr>
+<td style="text-align:left">application</td>
+<td style="text-align:left">LIVINGAPARTMENTS_MEDI</td>
+<td style="text-align:left">居住信息</td>
+</tr>
+<tr>
+<td style="text-align:left">application</td>
+<td style="text-align:left">LIVINGAREA_MEDI</td>
+<td style="text-align:left">居住信息</td>
+</tr>
+<tr>
+<td style="text-align:left">application</td>
+<td style="text-align:left">NONLIVINGAPARTMENTS_MEDI</td>
+<td style="text-align:left">居住信息</td>
+</tr>
+<tr>
+<td style="text-align:left">application</td>
+<td style="text-align:left">NONLIVINGAREA_MEDI</td>
+<td style="text-align:left">居住信息</td>
+</tr>
+<tr>
+<td style="text-align:left">application</td>
+<td style="text-align:left">FONDKAPREMONT_MODE</td>
+<td style="text-align:left">居住信息</td>
+</tr>
+<tr>
+<td style="text-align:left">application</td>
+<td style="text-align:left">HOUSETYPE_MODE</td>
+<td style="text-align:left">居住信息</td>
+</tr>
+<tr>
+<td style="text-align:left">application</td>
+<td style="text-align:left">TOTALAREA_MODE</td>
+<td style="text-align:left">居住信息</td>
+</tr>
+<tr>
+<td style="text-align:left">application</td>
+<td style="text-align:left">WALLSMATERIAL_MODE</td>
+<td style="text-align:left">居住信息</td>
+</tr>
+<tr>
+<td style="text-align:left">application</td>
+<td style="text-align:left">EMERGENCYSTATE_MODE</td>
+<td style="text-align:left">居住信息</td>
+</tr>
+<tr>
+<td style="text-align:left">application</td>
+<td style="text-align:left">OBS_30_CNT_SOCIAL_CIRCLE</td>
+<td style="text-align:left">客户的社会关系中有30天逾期</td>
+</tr>
+<tr>
+<td style="text-align:left">application</td>
+<td style="text-align:left">DEF_30_CNT_SOCIAL_CIRCLE</td>
+<td style="text-align:left">客户的社会关系中有30天逾期</td>
+</tr>
+<tr>
+<td style="text-align:left">application</td>
+<td style="text-align:left">OBS_60_CNT_SOCIAL_CIRCLE</td>
+<td style="text-align:left">客户的社会关系中有60天逾期</td>
+</tr>
+<tr>
+<td style="text-align:left">application</td>
+<td style="text-align:left">DEF_60_CNT_SOCIAL_CIRCLE</td>
+<td style="text-align:left">客户的社会关系中有60天逾期</td>
+</tr>
+<tr>
+<td style="text-align:left">application</td>
+<td style="text-align:left">DAYS_LAST_PHONE_CHANGE</td>
+<td style="text-align:left">申请人最近一次修改手机号码的时间（距离申请当日的天数，负值）</td>
+</tr>
+<tr>
+<td style="text-align:left">application</td>
+<td style="text-align:left">FLAG_DOCUMENT_2</td>
+<td style="text-align:left">申请人是否额外提供了2号文件</td>
+</tr>
+<tr>
+<td style="text-align:left">application</td>
+<td style="text-align:left">FLAG_DOCUMENT_3</td>
+<td style="text-align:left">申请人是否额外提供了3号文件</td>
+</tr>
+<tr>
+<td style="text-align:left">application</td>
+<td style="text-align:left">FLAG_DOCUMENT_4</td>
+<td style="text-align:left">申请人是否额外提供了4号文件</td>
+</tr>
+<tr>
+<td style="text-align:left">application</td>
+<td style="text-align:left">FLAG_DOCUMENT_5</td>
+<td style="text-align:left">申请人是否额外提供了5号文件</td>
+</tr>
+<tr>
+<td style="text-align:left">application</td>
+<td style="text-align:left">FLAG_DOCUMENT_6</td>
+<td style="text-align:left">申请人是否额外提供了6号文件</td>
+</tr>
+<tr>
+<td style="text-align:left">application</td>
+<td style="text-align:left">FLAG_DOCUMENT_7</td>
+<td style="text-align:left">申请人是否额外提供了7号文件</td>
+</tr>
+<tr>
+<td style="text-align:left">application</td>
+<td style="text-align:left">FLAG_DOCUMENT_8</td>
+<td style="text-align:left">申请人是否额外提供了8号文件</td>
+</tr>
+<tr>
+<td style="text-align:left">application</td>
+<td style="text-align:left">FLAG_DOCUMENT_9</td>
+<td style="text-align:left">申请人是否额外提供了9号文件</td>
+</tr>
+<tr>
+<td style="text-align:left">application</td>
+<td style="text-align:left">FLAG_DOCUMENT_10</td>
+<td style="text-align:left">申请人是否额外提供了10号文件</td>
+</tr>
+<tr>
+<td style="text-align:left">application</td>
+<td style="text-align:left">FLAG_DOCUMENT_11</td>
+<td style="text-align:left">申请人是否额外提供了11号文件</td>
+</tr>
+<tr>
+<td style="text-align:left">application</td>
+<td style="text-align:left">FLAG_DOCUMENT_12</td>
+<td style="text-align:left">申请人是否额外提供了12号文件</td>
+</tr>
+<tr>
+<td style="text-align:left">application</td>
+<td style="text-align:left">FLAG_DOCUMENT_13</td>
+<td style="text-align:left">申请人是否额外提供了13号文件</td>
+</tr>
+<tr>
+<td style="text-align:left">application</td>
+<td style="text-align:left">FLAG_DOCUMENT_14</td>
+<td style="text-align:left">申请人是否额外提供了14号文件</td>
+</tr>
+<tr>
+<td style="text-align:left">application</td>
+<td style="text-align:left">FLAG_DOCUMENT_15</td>
+<td style="text-align:left">申请人是否额外提供了15号文件</td>
+</tr>
+<tr>
+<td style="text-align:left">application</td>
+<td style="text-align:left">FLAG_DOCUMENT_16</td>
+<td style="text-align:left">申请人是否额外提供了16号文件</td>
+</tr>
+<tr>
+<td style="text-align:left">application</td>
+<td style="text-align:left">FLAG_DOCUMENT_17</td>
+<td style="text-align:left">申请人是否额外提供了17号文件</td>
+</tr>
+<tr>
+<td style="text-align:left">application</td>
+<td style="text-align:left">FLAG_DOCUMENT_18</td>
+<td style="text-align:left">申请人是否额外提供了18号文件</td>
+</tr>
+<tr>
+<td style="text-align:left">application</td>
+<td style="text-align:left">FLAG_DOCUMENT_19</td>
+<td style="text-align:left">申请人是否额外提供了19号文件</td>
+</tr>
+<tr>
+<td style="text-align:left">application</td>
+<td style="text-align:left">FLAG_DOCUMENT_20</td>
+<td style="text-align:left">申请人是否额外提供了20号文件</td>
+</tr>
+<tr>
+<td style="text-align:left">application</td>
+<td style="text-align:left">FLAG_DOCUMENT_21</td>
+<td style="text-align:left">申请人是否额外提供了21号文件</td>
+</tr>
+<tr>
+<td style="text-align:left">application</td>
+<td style="text-align:left">AMT_REQ_CREDIT_BUREAU_HOUR</td>
+<td style="text-align:left">申请人发起申请前1个小时以内，被查询征信的次数</td>
+</tr>
+<tr>
+<td style="text-align:left">application</td>
+<td style="text-align:left">AMT_REQ_CREDIT_BUREAU_DAY</td>
+<td style="text-align:left">申请人发起申请前一天以内，被查询征信的次数</td>
+</tr>
+<tr>
+<td style="text-align:left">application</td>
+<td style="text-align:left">AMT_REQ_CREDIT_BUREAU_WEEK</td>
+<td style="text-align:left">申请人发起申请前一周以内，被查询征信的次数</td>
+</tr>
+<tr>
+<td style="text-align:left">application</td>
+<td style="text-align:left">AMT_REQ_CREDIT_BUREAU_MON</td>
+<td style="text-align:left">申请人发起申请前一月以内，被查询征信的次数</td>
+</tr>
+<tr>
+<td style="text-align:left">application</td>
+<td style="text-align:left">AMT_REQ_CREDIT_BUREAU_QRT</td>
+<td style="text-align:left">申请人发起申请前一个季度以内，被查询征信的次数</td>
+</tr>
+<tr>
+<td style="text-align:left">application</td>
+<td style="text-align:left">AMT_REQ_CREDIT_BUREAU_YEAR</td>
+<td style="text-align:left">申请人发起申请前一年以内，被查询征信的次数</td>
+</tr>
+<tr>
+<td style="text-align:left">bureau</td>
+<td style="text-align:left">SK_ID_CURR</td>
+<td style="text-align:left">此次申请的ID</td>
+</tr>
+<tr>
+<td style="text-align:left">bureau</td>
+<td style="text-align:left">SK_BUREAU_ID</td>
+<td style="text-align:left">SK_BUREAU_ID</td>
+</tr>
+<tr>
+<td style="text-align:left">bureau</td>
+<td style="text-align:left">CREDIT_ACTIVE</td>
+<td style="text-align:left">信用卡状态</td>
+</tr>
+<tr>
+<td style="text-align:left">bureau</td>
+<td style="text-align:left">CREDIT_CURRENCY</td>
+<td style="text-align:left">信用货币类型，currency1-4，共四个特征</td>
+</tr>
+<tr>
+<td style="text-align:left">bureau</td>
+<td style="text-align:left">DAYS_CREDIT</td>
+<td style="text-align:left">客户在申请日前多少天申请的征信机构信用</td>
+</tr>
+<tr>
+<td style="text-align:left">bureau</td>
+<td style="text-align:left">CREDIT_DAY_OVERDUE</td>
+<td style="text-align:left">申请贷款时客户的逾期天数</td>
+</tr>
+<tr>
+<td style="text-align:left">bureau</td>
+<td style="text-align:left">DAYS_CREDIT_ENDDATE</td>
+<td style="text-align:left">客户的在征信机构还有多少天的信用时间</td>
+</tr>
+<tr>
+<td style="text-align:left">bureau</td>
+<td style="text-align:left">DAYS_ENDDATE_FACT</td>
+<td style="text-align:left">客户在征信机构关闭了多久的信用</td>
+</tr>
+<tr>
+<td style="text-align:left">bureau</td>
+<td style="text-align:left">AMT_CREDIT_MAX_OVERDUE</td>
+<td style="text-align:left">客户到目前为止的最大逾期额度</td>
+</tr>
+<tr>
+<td style="text-align:left">bureau</td>
+<td style="text-align:left">CNT_CREDIT_PROLONG</td>
+<td style="text-align:left">在征信机构有几次延期</td>
+</tr>
+<tr>
+<td style="text-align:left">bureau</td>
+<td style="text-align:left">AMT_CREDIT_SUM</td>
+<td style="text-align:left">客户当前在信用机构的信用额度</td>
+</tr>
+<tr>
+<td style="text-align:left">bureau</td>
+<td style="text-align:left">AMT_CREDIT_SUM_DEBT</td>
+<td style="text-align:left">客户在信用机构的当前债务</td>
+</tr>
+<tr>
+<td style="text-align:left">bureau</td>
+<td style="text-align:left">AMT_CREDIT_SUM_LIMIT</td>
+<td style="text-align:left">信用卡的信用限额</td>
+</tr>
+<tr>
+<td style="text-align:left">bureau</td>
+<td style="text-align:left">AMT_CREDIT_SUM_OVERDUE</td>
+<td style="text-align:left">客户在信用机构的违约之和</td>
+</tr>
+<tr>
+<td style="text-align:left">bureau</td>
+<td style="text-align:left">CREDIT_TYPE</td>
+<td style="text-align:left">信用机构的信用类型，车贷、房贷、信用卡、经营贷等</td>
+</tr>
+<tr>
+<td style="text-align:left">bureau</td>
+<td style="text-align:left">DAYS_CREDIT_UPDATE</td>
+<td style="text-align:left">信用机构的最近一次信息更新是多少天前</td>
+</tr>
+<tr>
+<td style="text-align:left">bureau</td>
+<td style="text-align:left">AMT_ANNUITY</td>
+<td style="text-align:left">每年要还的贷款额度</td>
+</tr>
+<tr>
+<td style="text-align:left">bureau_balance</td>
+<td style="text-align:left">SK_BUREAU_ID</td>
+<td style="text-align:left">SK_BUREAU_ID</td>
+</tr>
+<tr>
+<td style="text-align:left">bureau_balance</td>
+<td style="text-align:left">MONTHS_BALANCE</td>
+<td style="text-align:left">距今的月份</td>
+</tr>
+<tr>
+<td style="text-align:left">bureau_balance</td>
+<td style="text-align:left">STATUS</td>
+<td style="text-align:left">C代表closed、X是未知、0是无逾期、1是逾期在1-30天、2是逾期31-60天、3是逾期61-90天、4是逾期91-120天、5是逾期120天以上。</td>
+</tr>
+<tr>
+<td style="text-align:left">POS_CASH_balance</td>
+<td style="text-align:left">SK_ID_PREV</td>
+<td style="text-align:left">SK_ID_PREV</td>
+</tr>
+<tr>
+<td style="text-align:left">POS_CASH_balance</td>
+<td style="text-align:left">SK_ID_CURR</td>
+<td style="text-align:left">SK_ID_CURR</td>
+</tr>
+<tr>
+<td style="text-align:left">POS_CASH_balance</td>
+<td style="text-align:left">MONTHS_BALANCE</td>
+<td style="text-align:left">距今的月份</td>
+</tr>
+<tr>
+<td style="text-align:left">POS_CASH_balance</td>
+<td style="text-align:left">CNT_INSTALMENT</td>
+<td style="text-align:left">贷款期数</td>
+</tr>
+<tr>
+<td style="text-align:left">POS_CASH_balance</td>
+<td style="text-align:left">CNT_INSTALMENT_FUTURE</td>
+<td style="text-align:left">贷款剩余期数</td>
+</tr>
+<tr>
+<td style="text-align:left">POS_CASH_balance</td>
+<td style="text-align:left">NAME_CONTRACT_STATUS</td>
+<td style="text-align:left">合同状态，Active、Signed、Complete</td>
+</tr>
+<tr>
+<td style="text-align:left">POS_CASH_balance</td>
+<td style="text-align:left">SK_DPD</td>
+<td style="text-align:left">当月逾期了多少天</td>
+</tr>
+<tr>
+<td style="text-align:left">POS_CASH_balance</td>
+<td style="text-align:left">SK_DPD_DEF</td>
+<td style="text-align:left">忽略金额比较低的贷款，逾期了多少天</td>
+</tr>
+<tr>
+<td style="text-align:left">credit_card_balance</td>
+<td style="text-align:left">SK_ID_PREV</td>
+<td style="text-align:left">SK_ID_PREV</td>
+</tr>
+<tr>
+<td style="text-align:left">credit_card_balance</td>
+<td style="text-align:left">SK_ID_CURR</td>
+<td style="text-align:left">SK_ID_CURR</td>
+</tr>
+<tr>
+<td style="text-align:left">credit_card_balance</td>
+<td style="text-align:left">MONTHS_BALANCE</td>
+<td style="text-align:left">距今的月份</td>
+</tr>
+<tr>
+<td style="text-align:left">credit_card_balance</td>
+<td style="text-align:left">AMT_BALANCE</td>
+<td style="text-align:left">Balance during the month of previous credit</td>
+</tr>
+<tr>
+<td style="text-align:left">credit_card_balance</td>
+<td style="text-align:left">AMT_CREDIT_LIMIT_ACTUAL</td>
+<td style="text-align:left">Credit card limit during the month of the previous credit</td>
+</tr>
+<tr>
+<td style="text-align:left">credit_card_balance</td>
+<td style="text-align:left">AMT_DRAWINGS_ATM_CURRENT</td>
+<td style="text-align:left">Amount drawing at ATM during the month of the previous credit</td>
+</tr>
+<tr>
+<td style="text-align:left">credit_card_balance</td>
+<td style="text-align:left">AMT_DRAWINGS_CURRENT</td>
+<td style="text-align:left">Amount drawing during the month of the previous credit</td>
+</tr>
+<tr>
+<td style="text-align:left">credit_card_balance</td>
+<td style="text-align:left">AMT_DRAWINGS_OTHER_CURRENT</td>
+<td style="text-align:left">Amount of other drawings during the month of the previous credit</td>
+</tr>
+<tr>
+<td style="text-align:left">credit_card_balance</td>
+<td style="text-align:left">AMT_DRAWINGS_POS_CURRENT</td>
+<td style="text-align:left">Amount drawing or buying goods during the month of the previous credit</td>
+</tr>
+<tr>
+<td style="text-align:left">credit_card_balance</td>
+<td style="text-align:left">AMT_INST_MIN_REGULARITY</td>
+<td style="text-align:left">Minimal installment for this month of the previous credit</td>
+</tr>
+<tr>
+<td style="text-align:left">credit_card_balance</td>
+<td style="text-align:left">AMT_PAYMENT_CURRENT</td>
+<td style="text-align:left">How much did the client pay during the month on the previous credit</td>
+</tr>
+<tr>
+<td style="text-align:left">credit_card_balance</td>
+<td style="text-align:left">AMT_PAYMENT_TOTAL_CURRENT</td>
+<td style="text-align:left">How much did the client pay during the month in total on the previous credit</td>
+</tr>
+<tr>
+<td style="text-align:left">credit_card_balance</td>
+<td style="text-align:left">AMT_RECEIVABLE_PRINCIPAL</td>
+<td style="text-align:left">Amount receivable for principal on the previous credit</td>
+</tr>
+<tr>
+<td style="text-align:left">credit_card_balance</td>
+<td style="text-align:left">AMT_RECIVABLE</td>
+<td style="text-align:left">Amount receivable on the previous credit</td>
+</tr>
+<tr>
+<td style="text-align:left">credit_card_balance</td>
+<td style="text-align:left">AMT_TOTAL_RECEIVABLE</td>
+<td style="text-align:left">Total amount receivable on the previous credit</td>
+</tr>
+<tr>
+<td style="text-align:left">credit_card_balance</td>
+<td style="text-align:left">CNT_DRAWINGS_ATM_CURRENT</td>
+<td style="text-align:left">Number of drawings at ATM during this month on the previous credit</td>
+</tr>
+<tr>
+<td style="text-align:left">credit_card_balance</td>
+<td style="text-align:left">CNT_DRAWINGS_CURRENT</td>
+<td style="text-align:left">Number of drawings during this month on the previous credit</td>
+</tr>
+<tr>
+<td style="text-align:left">credit_card_balance</td>
+<td style="text-align:left">CNT_DRAWINGS_OTHER_CURRENT</td>
+<td style="text-align:left">Number of other drawings during this month on the previous credit</td>
+</tr>
+<tr>
+<td style="text-align:left">credit_card_balance</td>
+<td style="text-align:left">CNT_DRAWINGS_POS_CURRENT</td>
+<td style="text-align:left">Number of drawings for goods during this month on the previous credit</td>
+</tr>
+<tr>
+<td style="text-align:left">credit_card_balance</td>
+<td style="text-align:left">CNT_INSTALMENT_MATURE_CUM</td>
+<td style="text-align:left">Number of paid installments on the previous credit</td>
+</tr>
+<tr>
+<td style="text-align:left">credit_card_balance</td>
+<td style="text-align:left">NAME_CONTRACT_STATUS</td>
+<td style="text-align:left">合同状态，Active、Signed、Complete</td>
+</tr>
+<tr>
+<td style="text-align:left">credit_card_balance</td>
+<td style="text-align:left">SK_DPD</td>
+<td style="text-align:left">当月逾期了多少天</td>
+</tr>
+<tr>
+<td style="text-align:left">credit_card_balance</td>
+<td style="text-align:left">SK_DPD_DEF</td>
+<td style="text-align:left">忽略金额比较低的贷款，逾期了多少天</td>
+</tr>
+<tr>
+<td style="text-align:left">previous_application</td>
+<td style="text-align:left">SK_ID_PREV</td>
+<td style="text-align:left">SK_ID_PREV</td>
+</tr>
+<tr>
+<td style="text-align:left">previous_application</td>
+<td style="text-align:left">SK_ID_CURR</td>
+<td style="text-align:left">SK_ID_CURR</td>
+</tr>
+<tr>
+<td style="text-align:left">previous_application</td>
+<td style="text-align:left">NAME_CONTRACT_TYPE</td>
+<td style="text-align:left">合同类型是现金还是循环贷</td>
+</tr>
+<tr>
+<td style="text-align:left">previous_application</td>
+<td style="text-align:left">AMT_ANNUITY</td>
+<td style="text-align:left">每年要还的贷款额度</td>
+</tr>
+<tr>
+<td style="text-align:left">previous_application</td>
+<td style="text-align:left">AMT_APPLICATION</td>
+<td style="text-align:left">之前的贷款申请了多少钱数值</td>
+</tr>
+<tr>
+<td style="text-align:left">previous_application</td>
+<td style="text-align:left">AMT_CREDIT</td>
+<td style="text-align:left">客户的贷款信贷额度</td>
+</tr>
+<tr>
+<td style="text-align:left">previous_application</td>
+<td style="text-align:left">AMT_DOWN_PAYMENT</td>
+<td style="text-align:left">之前贷款的首付款</td>
+</tr>
+<tr>
+<td style="text-align:left">previous_application</td>
+<td style="text-align:left">AMT_GOODS_PRICE</td>
+<td style="text-align:left">对于消费贷来说，这个字段是要买的商品价格，从数据看每个贷款都对应某个商品，难道业务全部是消费贷吗</td>
+</tr>
+<tr>
+<td style="text-align:left">previous_application</td>
+<td style="text-align:left">WEEKDAY_APPR_PROCESS_START</td>
+<td style="text-align:left">周几申请的贷款，一般工作日多</td>
+</tr>
+<tr>
+<td style="text-align:left">previous_application</td>
+<td style="text-align:left">HOUR_APPR_PROCESS_START</td>
+<td style="text-align:left">几点申请的贷款</td>
+</tr>
+<tr>
+<td style="text-align:left">previous_application</td>
+<td style="text-align:left">FLAG_LAST_APPL_PER_CONTRACT</td>
+<td style="text-align:left">有时一个合同会被错误的提交多次申请，这个字段用来标志是不是一个贷款的最后一次申请</td>
+</tr>
+<tr>
+<td style="text-align:left">previous_application</td>
+<td style="text-align:left">NFLAG_LAST_APPL_IN_DAY</td>
+<td style="text-align:left">是不是当天的最后一次申请</td>
+</tr>
+<tr>
+<td style="text-align:left">previous_application</td>
+<td style="text-align:left">NFLAG_MICRO_CASH</td>
+<td style="text-align:left">是不是小微金融贷</td>
+</tr>
+<tr>
+<td style="text-align:left">previous_application</td>
+<td style="text-align:left">RATE_DOWN_PAYMENT</td>
+<td style="text-align:left">归一化的贷款首付比例</td>
+</tr>
+<tr>
+<td style="text-align:left">previous_application</td>
+<td style="text-align:left">RATE_INTEREST_PRIMARY</td>
+<td style="text-align:left">主要贷款利息的归一化值</td>
+</tr>
+<tr>
+<td style="text-align:left">previous_application</td>
+<td style="text-align:left">RATE_INTEREST_PRIVILEGED</td>
+<td style="text-align:left">优惠贷款利息的归一化值</td>
+</tr>
+<tr>
+<td style="text-align:left">previous_application</td>
+<td style="text-align:left">NAME_CASH_LOAN_PURPOSE</td>
+<td style="text-align:left">贷款用途</td>
+</tr>
+<tr>
+<td style="text-align:left">previous_application</td>
+<td style="text-align:left">NAME_CONTRACT_STATUS</td>
+<td style="text-align:left">合同状态，Active、Signed、Complete</td>
+</tr>
+<tr>
+<td style="text-align:left">previous_application</td>
+<td style="text-align:left">DAYS_DECISION</td>
+<td style="text-align:left">相对于当前贷款，上一次申请的决定是什么时候做的</td>
+</tr>
+<tr>
+<td style="text-align:left">previous_application</td>
+<td style="text-align:left">NAME_PAYMENT_TYPE</td>
+<td style="text-align:left">客户选择上一次贷款的付款方式，现金、电子支付、XNA</td>
+</tr>
+<tr>
+<td style="text-align:left">previous_application</td>
+<td style="text-align:left">CODE_REJECT_REASON</td>
+<td style="text-align:left">被拒原因，XAP、HC、LIMIT</td>
+</tr>
+<tr>
+<td style="text-align:left">previous_application</td>
+<td style="text-align:left">NAME_TYPE_SUITE</td>
+<td style="text-align:left">办理贷款的时候是谁跟着一起来的：孩子、家人、配偶、自己、…</td>
+</tr>
+<tr>
+<td style="text-align:left">previous_application</td>
+<td style="text-align:left">NAME_CLIENT_TYPE</td>
+<td style="text-align:left">客户是新客还是老客</td>
+</tr>
+<tr>
+<td style="text-align:left">previous_application</td>
+<td style="text-align:left">NAME_GOODS_CATEGORY</td>
+<td style="text-align:left">贷款是为了买什么类型的东西</td>
+</tr>
+<tr>
+<td style="text-align:left">previous_application</td>
+<td style="text-align:left">NAME_PORTFOLIO</td>
+<td style="text-align:left">pos、cash、cards、xna</td>
+</tr>
+<tr>
+<td style="text-align:left">previous_application</td>
+<td style="text-align:left">NAME_PRODUCT_TYPE</td>
+<td style="text-align:left">x-sell、walk-in、xna</td>
+</tr>
+<tr>
+<td style="text-align:left">previous_application</td>
+<td style="text-align:left">CHANNEL_TYPE</td>
+<td style="text-align:left">获客渠道，country wide、contact center、stone、AP+（cash loan）</td>
+</tr>
+<tr>
+<td style="text-align:left">previous_application</td>
+<td style="text-align:left">SELLERPLACE_AREA</td>
+<td style="text-align:left">销售区域的面积</td>
+</tr>
+<tr>
+<td style="text-align:left">previous_application</td>
+<td style="text-align:left">NAME_SELLER_INDUSTRY</td>
+<td style="text-align:left">卖家（应该是客户要买商品的卖家）的行业，消费电子、衣服、工业等</td>
+</tr>
+<tr>
+<td style="text-align:left">previous_application</td>
+<td style="text-align:left">CNT_PAYMENT</td>
+<td style="text-align:left">之前贷款分为多少期还款</td>
+</tr>
+<tr>
+<td style="text-align:left">previous_application</td>
+<td style="text-align:left">NAME_YIELD_GROUP</td>
+<td style="text-align:left">贷款利息，small、medium、high</td>
+</tr>
+<tr>
+<td style="text-align:left">previous_application</td>
+<td style="text-align:left">PRODUCT_COMBINATION</td>
+<td style="text-align:left">产品组合、 PRODUCT_COMBINATION、Cash X-Sell: low、Cash、POS household with interest</td>
+</tr>
+<tr>
+<td style="text-align:left">previous_application</td>
+<td style="text-align:left">DAYS_FIRST_DRAWING</td>
+<td style="text-align:left">相对于当前申请日期，上一次贷款的首次发放时间</td>
+</tr>
+<tr>
+<td style="text-align:left">previous_application</td>
+<td style="text-align:left">DAYS_FIRST_DUE</td>
+<td style="text-align:left">相对于当前申请日期，上一次贷款的首次逾期时间</td>
+</tr>
+<tr>
+<td style="text-align:left">previous_application</td>
+<td style="text-align:left">DAYS_LAST_DUE_1ST_VERSION</td>
+<td style="text-align:left">第一次逾期</td>
+</tr>
+<tr>
+<td style="text-align:left">previous_application</td>
+<td style="text-align:left">DAYS_LAST_DUE</td>
+<td style="text-align:left">最近一次逾期</td>
+</tr>
+<tr>
+<td style="text-align:left">previous_application</td>
+<td style="text-align:left">DAYS_TERMINATION</td>
+<td style="text-align:left">到期日期</td>
+</tr>
+<tr>
+<td style="text-align:left">previous_application</td>
+<td style="text-align:left">NFLAG_INSURED_ON_APPROVAL</td>
+<td style="text-align:left">之前的申请有没有要求保险</td>
+</tr>
+<tr>
+<td style="text-align:left">installments_payments</td>
+<td style="text-align:left">SK_ID_PREV</td>
+<td style="text-align:left">SK_ID_PREV</td>
+</tr>
+<tr>
+<td style="text-align:left">installments_payments</td>
+<td style="text-align:left">SK_ID_CURR</td>
+<td style="text-align:left">SK_ID_CURR</td>
+</tr>
+<tr>
+<td style="text-align:left">installments_payments</td>
+<td style="text-align:left">NUM_INSTALMENT_VERSION</td>
+<td style="text-align:left">分期付款</td>
+</tr>
+<tr>
+<td style="text-align:left">installments_payments</td>
+<td style="text-align:left">NUM_INSTALMENT_NUMBER</td>
+<td style="text-align:left">分期付款期数</td>
+</tr>
+<tr>
+<td style="text-align:left">installments_payments</td>
+<td style="text-align:left">DAYS_INSTALMENT</td>
+<td style="text-align:left">相对于当前申请日期，之前的贷款应该在什么时间支付</td>
+</tr>
+<tr>
+<td style="text-align:left">installments_payments</td>
+<td style="text-align:left">DAYS_ENTRY_PAYMENT</td>
+<td style="text-align:left">相对于当前申请日期，之前贷款的实际支付时间</td>
+</tr>
+<tr>
+<td style="text-align:left">installments_payments</td>
+<td style="text-align:left">AMT_INSTALMENT</td>
+<td style="text-align:left">贷款分期的约定付款金额</td>
+</tr>
+<tr>
+<td style="text-align:left">installments_payments</td>
+<td style="text-align:left">AMT_PAYMENT</td>
+<td style="text-align:left">分期的实际付款金额</td>
 </tr>
 </tbody>
 </table>
-<p>假设预测客户的贷款额度AMT_CREDIT</p>
-<p>对于回归任务，</p>
-<p>本项目使用Kaggle房价预测数据集：<a target="_blank" rel="noopener external nofollow noreferrer" href="https://www.kaggle.com/competitions/house-prices-advanced-regression-techniques/data">House Prices: Advanced Regression Techniques</a> 。训练集和测试集合中的每条记录包含79项特征，用于描述市区住宅的属性</p>
-<p>查看目标变量分布</p>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">df[<span class="string">&#x27;SalePrice&#x27;</span>].describe()</span><br></pre></td></tr></table></figure>
-<p>我们画出SalePrice的分布图和QQ图。</p>
-<blockquote>
-<p>Quantile-Quantile图是一种常用的统计图形，用来比较两个数据集之间的分布。它是由标准正态分布的分位数为横坐标，样本值为纵坐标的散点图。如果QQ图上的点在一条直线附近，则说明数据近似于正态分布，且该直线的斜率为标准差，截距为均值。</p>
-</blockquote>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> matplotlib.pyplot <span class="keyword">as</span> plt</span><br><span class="line"><span class="keyword">import</span> seaborn <span class="keyword">as</span> sns</span><br><span class="line"><span class="keyword">from</span> seaborn_qqplot <span class="keyword">import</span> pplot</span><br><span class="line"><span class="keyword">from</span> scipy <span class="keyword">import</span> stats <span class="keyword">import</span> probplot, norm</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">norm_comparison_plot</span>(<span class="params">series</span>):</span></span><br><span class="line">	mu, sigma = stats.norm.fit(series)</span><br><span class="line">	kurt, skew = series.kurt(), series.skew()</span><br><span class="line">	<span class="built_in">print</span>(<span class="string">f&quot;Kurtosis: <span class="subst">&#123;kurt:<span class="number">.2</span>f&#125;</span>&quot;</span>, <span class="string">f&quot;Skewness: <span class="subst">&#123;skew:<span class="number">.2</span>f&#125;</span>&quot;</span>, sep=<span class="string">&#x27;\t&#x27;</span>)</span><br><span class="line">	</span><br><span class="line">	fig = plt.figure()</span><br><span class="line">	<span class="comment">#Now plot the distribution</span></span><br><span class="line">	ax1 = fig.add_subplot(<span class="number">121</span>)</span><br><span class="line">	ax1.set_title(<span class="string">&#x27;SalePrice distribution&#x27;</span>)</span><br><span class="line">	ax1.set_ylabel(<span class="string">&#x27;Frequency&#x27;</span>)</span><br><span class="line">	sns.distplot(series, fit=stats.norm, ax=ax1)</span><br><span class="line">	ax1.legend(<span class="string">f&#x27;Normal dist. ($\mu=$ <span class="subst">&#123;mu:<span class="number">.2</span>f&#125;</span> and $\sigma=$ <span class="subst">&#123;sigma:<span class="number">.2</span>f&#125;</span> )&#x27;</span>, loc=<span class="string">&#x27;best&#x27;</span>)</span><br><span class="line">	<span class="comment">#Get also the QQ-plot</span></span><br><span class="line">	ax2 = fig.add_subplot(<span class="number">122</span>)</span><br><span class="line">	stats.probplot(series, plot=plt)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">norm_comparison_plot(df[<span class="string">&#x27;SalePrice&#x27;</span>])</span><br><span class="line">plt.show()</span><br></pre></td></tr></table></figure>
-<p>可以看到 SalePrice 的分布呈偏态，许多回归算法都有正态分布假设，因此我们尝试对数变换，让数据接近正态分布。</p>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">norm_comparison_plot(np.log1p(df[<span class="string">&#x27;SalePrice&#x27;</span>]))</span><br><span class="line">plt.show()</span><br></pre></td></tr></table></figure>
-<p>可以看到经过对数变换后，基本符合正态分布了。</p>
-<p>sklearn.compose 中的 TransformedTargetRegressor 是专门为回归任务设置的目标变换。对于简单的变换，TransformedTargetRegressor在拟合回归模型之前变换目标变量，预测时则通过逆变换映射回原始值。</p>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">reg = TransformedTargetRegressor(regressor=LinearRegression(), </span><br><span class="line">	transformer=FunctionTransformer(np.log1p))</span><br></pre></td></tr></table></figure>
-<p>参考文献：<br />
-<a target="_blank" rel="noopener external nofollow noreferrer" href="https://zhuanlan.zhihu.com/p/104288764">Home Credit Default Risk - 1 之基础篇</a><br />
+<p>参考文献：</p>
+<p><a target="_blank" rel="noopener external nofollow noreferrer" href="https://zhuanlan.zhihu.com/p/104288764">Home Credit Default Risk - 1 之基础篇</a><br />
 <a target="_blank" rel="noopener external nofollow noreferrer" href="https://zhuanlan.zhihu.com/p/104370111">Home Credit Default Risk 之FeatureTools篇</a><br />
 <a target="_blank" rel="noopener external nofollow noreferrer" href="https://www.kaggle.com/code/ryanholbrook/feature-engineering-for-house-prices">Feature Engineering for House Prices</a><br />
 <a target="_blank" rel="noopener external nofollow noreferrer" href="https://blog.csdn.net/s09094031/article/details/90924284">Credit Fraud信用卡欺诈数据集，如何处理非平衡数据</a><br />
 <a target="_blank" rel="noopener external nofollow noreferrer" href="https://blog.csdn.net/s09094031/article/details/90347191">Predict Future Sales 预测未来销量, Kaggle 比赛，LB 0.89896 排名6%</a><br />
-<a target="_blank" rel="noopener external nofollow noreferrer" href="https://feature-engine.trainindata.com/en/latest/">feature-engine</a>将特征工程中常用的方法进行了封装<br />
+<a target="_blank" rel="noopener external nofollow noreferrer" href="https://feature-engine.trainindata.com/en/latest/">feature-engine</a> 将特征工程中常用的方法进行了封装<br />
 <a target="_blank" rel="noopener external nofollow noreferrer" href="https://blog.csdn.net/coco2d_x2014/category_8742518.html">分享关于人工智能的内容</a></p>
 <p><a target="_blank" rel="noopener external nofollow noreferrer" href="https://cloud.tencent.com/developer/article/1469820">特征工程系列：特征筛选的原理与实现（上）</a> 7.23<br />
 <a target="_blank" rel="noopener external nofollow noreferrer" href="https://cloud.tencent.com/developer/article/1469822">特征工程系列：特征筛选的原理与实现（下）</a> 7.23<br />
@@ -312,7 +1850,7 @@
 <a target="_blank" rel="noopener external nofollow noreferrer" href="https://cloud.tencent.com/developer/article/1536537">特征工程系列：时间特征构造以及时间序列特征构造</a> 11.11<br />
 <a target="_blank" rel="noopener external nofollow noreferrer" href="https://cloud.tencent.com/developer/article/1551874">特征工程系列：自动化特征构造</a> 12.10<br />
 <a target="_blank" rel="noopener external nofollow noreferrer" href="https://cloud.tencent.com/developer/article/1551871">特征工程系列：空间特征构造以及文本特征构造</a> 12.10</p>
-</article><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/python/">python</a></div><div class="post_share"><div class="social-share" data-image="/img/FeatureEngine.png" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/js/social-share.min.js" defer></script></div></div><div class="post-reward"><div class="reward-button"><i class="fas fa-qrcode"></i> 打赏</div><div class="reward-main"><ul class="reward-all"><li class="reward-item"><a href="/img/morty3.jpg" target="_blank"><img class="post-qr-code-img" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/img/morty3.jpg" alt="Give me money!"/></a><div class="post-qr-code-desc">Give me money!</div></li></ul></div></div><nav class="pagination-post" id="pagination"><div class="prev-post pull-left"><a href="/posts/3d0ef432/" title="Machine Learning Tutorial"><img class="cover" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/img/FeatureEngine.png" onerror="onerror=null;src='/img/404_moon.png'" alt="cover of previous post"><div class="pagination-info"><div class="label">上一篇</div><div class="prev_info">Machine Learning Tutorial</div></div></a></div><div class="next-post pull-right"><a href="/posts/ca507391/" title="特征工程(III)--特征构造"><img class="cover" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/img/FeatureEngine.png" onerror="onerror=null;src='/img/404_moon.png'" alt="cover of next post"><div class="pagination-info"><div class="label">下一篇</div><div class="next_info">特征工程(III)--特征构造</div></div></a></div></nav><div class="relatedPosts"><div class="headline"><i class="fas fa-thumbs-up fa-fw"></i><span>相关推荐</span></div><div class="relatedPosts-list"><div><a href="/posts/264c088/" title="大数据手册(Spark)--PySpark Core"><img class="cover" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/img/apache-spark-core.png" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2020-01-03</div><div class="title">大数据手册(Spark)--PySpark Core</div></div></a></div><div><a href="/posts/75974533/" title="大数据手册(Spark)--PySpark MLlib"><img class="cover" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/img/apache-spark-mllib.png" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2020-01-09</div><div class="title">大数据手册(Spark)--PySpark MLlib</div></div></a></div><div><a href="/posts/f67b0909/" title="大数据手册(Spark)--Pandas API on Spark"><img class="cover" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/img/apache-spark-pandas.png" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2023-06-07</div><div class="title">大数据手册(Spark)--Pandas API on Spark</div></div></a></div><div><a href="/posts/34eba6aa/" title="大数据手册(Spark)--PySpark Streaming"><img class="cover" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/img/apache-spark-streaming.png" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2020-01-13</div><div class="title">大数据手册(Spark)--PySpark Streaming</div></div></a></div><div><a href="/posts/bb755aa3/" title="大数据手册(Spark)--PySpark SQL"><img class="cover" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/img/apache-spark-sql.png" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2020-01-03</div><div class="title">大数据手册(Spark)--PySpark SQL</div></div></a></div><div><a href="/posts/61a3ce5f/" title="特征工程(IV)--特征选择"><img class="cover" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/img/FeatureEngine.png" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2024-03-16</div><div class="title">特征工程(IV)--特征选择</div></div></a></div></div></div><hr class="custom-hr"/><div id="post-comment"><div class="comment-head"><div class="comment-headline"><i class="fas fa-comments fa-fw"></i><span> 评论</span></div><div id="comment-switch"><span class="first-comment">Gitalk</span><span class="switch-btn"></span><span class="second-comment">Waline</span></div></div><div class="comment-wrap"><div><div id="gitalk-container"></div></div><div><div id="waline-wrap"></div></div></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="is-center"><div class="avatar-img"><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/img/avatar.jpg" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info__name">Tiny Lei</div><div class="author-info__description">每天进步一点点...</div></div><div class="card-info-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">161</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">105</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">43</div></a></div><div class="card-info-social-icons is-center"><a class="social-icon" href="https://gitee.com/wilenwu" rel="external nofollow noreferrer" target="_blank" title="Gitee"><i class="iconfont icon-gitee"></i></a><a class="social-icon" href="https://github.com/wilenwu" rel="external nofollow noreferrer" target="_blank" title="Github"><i class="iconfont icon-github"></i></a><a class="social-icon" href="https://blog.csdn.net/qq_41518277" rel="external nofollow noreferrer" target="_blank" title="CSDN"><i class="iconfont icon-csdn"></i></a><a class="social-icon" href="/atom.xml" target="_blank" title="RSS"><i class="iconfont icon-rss"></i></a></div></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>公告</span></div><div class="announcement_content">感谢访问本站，若喜欢请收藏^_^</div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E6%95%B0%E6%8D%AE%E9%9B%86%E6%8F%8F%E8%BF%B0"><span class="toc-number">1.</span> <span class="toc-text"> 数据集描述</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E6%8E%A2%E7%B4%A2%E6%80%A7%E6%95%B0%E6%8D%AE%E5%88%86%E6%9E%90"><span class="toc-number">2.</span> <span class="toc-text"> 探索性数据分析</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%95%B0%E6%8D%AE%E6%A6%82%E8%A7%88"><span class="toc-number">2.1.</span> <span class="toc-text"> 数据概览</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%95%B0%E6%8D%AE%E7%9B%B8%E5%85%B3%E6%80%A7"><span class="toc-number">2.2.</span> <span class="toc-text"> 数据相关性</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%9B%AE%E6%A0%87%E5%8F%98%E9%87%8F%E5%88%86%E5%B8%83"><span class="toc-number">2.3.</span> <span class="toc-text"> 目标变量分布</span></a></li></ol></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item"><a class="thumbnail" href="/posts/61a3ce5f/" title="特征工程(IV)--特征选择"><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/img/FeatureEngine.png" onerror="this.onerror=null;this.src='/img/404_moon.png'" alt="特征工程(IV)--特征选择"/></a><div class="content"><a class="title" href="/posts/61a3ce5f/" title="特征工程(IV)--特征选择">特征工程(IV)--特征选择</a><time datetime="2024-03-16T15:40:52.000Z" title="发表于 2024-03-16 23:40:52">2024-03-16</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/posts/c8fe03db/" title="特征工程(V)--时序特征工程"><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/img/FeatureEngine.png" onerror="this.onerror=null;this.src='/img/404_moon.png'" alt="特征工程(V)--时序特征工程"/></a><div class="content"><a class="title" href="/posts/c8fe03db/" title="特征工程(V)--时序特征工程">特征工程(V)--时序特征工程</a><time datetime="2024-03-16T15:40:52.000Z" title="发表于 2024-03-16 23:40:52">2024-03-16</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/posts/ce19bbb1/" title="特征工程(II)--数据预处理"><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/img/FeatureEngine.png" onerror="this.onerror=null;this.src='/img/404_moon.png'" alt="特征工程(II)--数据预处理"/></a><div class="content"><a class="title" href="/posts/ce19bbb1/" title="特征工程(II)--数据预处理">特征工程(II)--数据预处理</a><time datetime="2024-03-16T15:40:52.000Z" title="发表于 2024-03-16 23:40:52">2024-03-16</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/posts/ca507391/" title="特征工程(III)--特征构造"><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/img/FeatureEngine.png" onerror="this.onerror=null;this.src='/img/404_moon.png'" alt="特征工程(III)--特征构造"/></a><div class="content"><a class="title" href="/posts/ca507391/" title="特征工程(III)--特征构造">特征工程(III)--特征构造</a><time datetime="2024-03-16T15:40:52.000Z" title="发表于 2024-03-16 23:40:52">2024-03-16</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/posts/29bf27e3/" title="特征工程(I)--探索性数据分析"><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/img/FeatureEngine.png" onerror="this.onerror=null;this.src='/img/404_moon.png'" alt="特征工程(I)--探索性数据分析"/></a><div class="content"><a class="title" href="/posts/29bf27e3/" title="特征工程(I)--探索性数据分析">特征工程(I)--探索性数据分析</a><time datetime="2024-03-16T15:40:52.000Z" title="发表于 2024-03-16 23:40:52">2024-03-16</time></div></div></div></div></div></div></main><footer id="footer"><div id="footer-wrap"><div class="copyright">&copy;2019 - 2024 By Tiny Lei</div><div class="framework-info"><span>框架 </span><a target="_blank" rel="noopener external nofollow noreferrer" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener external nofollow noreferrer" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside_config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><a id="to_comment" href="#post-comment" title="直达评论"><i class="fas fa-comments"></i></a><button id="go-up" type="button" title="回到顶部"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox/fancybox.umd.min.js"></script><script src="https://cdn.jsdelivr.net/npm/vanilla-lazyload/dist/lazyload.iife.min.js"></script><script>function panguFn () {
+</article><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/python/">python</a></div><div class="post_share"><div class="social-share" data-image="/img/FeatureEngine.png" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/js/social-share.min.js" defer></script></div></div><div class="post-reward"><div class="reward-button"><i class="fas fa-qrcode"></i> 打赏</div><div class="reward-main"><ul class="reward-all"><li class="reward-item"><a href="/img/morty3.jpg" target="_blank"><img class="post-qr-code-img" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/img/morty3.jpg" alt="Give me money!"/></a><div class="post-qr-code-desc">Give me money!</div></li></ul></div></div><nav class="pagination-post" id="pagination"><div class="prev-post pull-left"><a href="/posts/5a518d6f/" title="机器学习(V)--无监督学习(四)协方差估计"><img class="cover" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/img/ML-unsupervised-learning.png" onerror="onerror=null;src='/img/404_moon.png'" alt="cover of previous post"><div class="pagination-info"><div class="label">上一篇</div><div class="prev_info">机器学习(V)--无监督学习(四)协方差估计</div></div></a></div><div class="next-post pull-right"><a href="/posts/ce19bbb1/" title="特征工程(II)--数据预处理"><img class="cover" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/img/FeatureEngine.png" onerror="onerror=null;src='/img/404_moon.png'" alt="cover of next post"><div class="pagination-info"><div class="label">下一篇</div><div class="next_info">特征工程(II)--数据预处理</div></div></a></div></nav><div class="relatedPosts"><div class="headline"><i class="fas fa-thumbs-up fa-fw"></i><span>相关推荐</span></div><div class="relatedPosts-list"><div><a href="/posts/ce19bbb1/" title="特征工程(II)--数据预处理"><img class="cover" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/img/FeatureEngine.png" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2024-03-16</div><div class="title">特征工程(II)--数据预处理</div></div></a></div><div><a href="/posts/ca507391/" title="特征工程(III)--特征构造"><img class="cover" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/img/FeatureEngine.png" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2024-04-10</div><div class="title">特征工程(III)--特征构造</div></div></a></div><div><a href="/posts/61a3ce5f/" title="特征工程(IV)--特征选择"><img class="cover" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/img/FeatureEngine.png" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2024-04-16</div><div class="title">特征工程(IV)--特征选择</div></div></a></div><div><a href="/posts/76296591/" title="特征工程(V)--时间序列特征"><img class="cover" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/img/FeatureEngine.png" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2024-04-18</div><div class="title">特征工程(V)--时间序列特征</div></div></a></div><div><a href="/posts/3d0ef432/" title="特征工程(VI)--机器学习"><img class="cover" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/img/FeatureEngine.png" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2024-04-20</div><div class="title">特征工程(VI)--机器学习</div></div></a></div><div><a href="/posts/31520356/" title="Python(Data Analysis)--pandas(Time Series)"><img class="cover" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/img/pandas-cover.png" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2018-05-12</div><div class="title">Python(Data Analysis)--pandas(Time Series)</div></div></a></div></div></div><hr class="custom-hr"/><div id="post-comment"><div class="comment-head"><div class="comment-headline"><i class="fas fa-comments fa-fw"></i><span> 评论</span></div><div id="comment-switch"><span class="first-comment">Gitalk</span><span class="switch-btn"></span><span class="second-comment">Waline</span></div></div><div class="comment-wrap"><div><div id="gitalk-container"></div></div><div><div id="waline-wrap"></div></div></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="is-center"><div class="avatar-img"><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/img/avatar.jpg" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info__name">Tiny Lei</div><div class="author-info__description">每天进步一点点...</div></div><div class="card-info-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">162</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">105</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">43</div></a></div><div class="card-info-social-icons is-center"><a class="social-icon" href="https://gitee.com/wilenwu" rel="external nofollow noreferrer" target="_blank" title="Gitee"><i class="iconfont icon-gitee"></i></a><a class="social-icon" href="https://github.com/wilenwu" rel="external nofollow noreferrer" target="_blank" title="Github"><i class="iconfont icon-github"></i></a><a class="social-icon" href="https://blog.csdn.net/qq_41518277" rel="external nofollow noreferrer" target="_blank" title="CSDN"><i class="iconfont icon-csdn"></i></a><a class="social-icon" href="/atom.xml" target="_blank" title="RSS"><i class="iconfont icon-rss"></i></a></div></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>公告</span></div><div class="announcement_content">感谢访问本站，若喜欢请收藏^_^</div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E6%95%B0%E6%8D%AE%E9%9B%86%E6%8F%8F%E8%BF%B0"><span class="toc-number">1.</span> <span class="toc-text"> 数据集描述</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%A1%B9%E7%9B%AE%E6%8F%8F%E8%BF%B0"><span class="toc-number">1.1.</span> <span class="toc-text"> 项目描述</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%95%B0%E6%8D%AE%E6%96%87%E4%BB%B6"><span class="toc-number">1.2.</span> <span class="toc-text"> 数据文件</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E6%8E%A2%E7%B4%A2%E6%80%A7%E6%95%B0%E6%8D%AE%E5%88%86%E6%9E%90"><span class="toc-number">2.</span> <span class="toc-text"> 探索性数据分析</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%95%B0%E6%8D%AE%E6%A6%82%E8%A7%88"><span class="toc-number">2.1.</span> <span class="toc-text"> 数据概览</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%95%B0%E6%8D%AE%E7%9B%B8%E5%85%B3%E6%80%A7"><span class="toc-number">2.2.</span> <span class="toc-text"> 数据相关性</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%9B%AE%E6%A0%87%E5%8F%98%E9%87%8F%E5%88%86%E5%B8%83"><span class="toc-number">2.3.</span> <span class="toc-text"> 目标变量分布</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E9%99%84%E5%BD%95%E6%95%B0%E6%8D%AE%E9%9B%86%E5%AD%97%E6%AE%B5%E6%8F%8F%E8%BF%B0"><span class="toc-number">3.</span> <span class="toc-text"> 附录：数据集字段描述</span></a></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item"><a class="thumbnail" href="/posts/425f9947/" title="特征工程(VII)--模型集成"><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/img/FeatureEngine.png" onerror="this.onerror=null;this.src='/img/404_moon.png'" alt="特征工程(VII)--模型集成"/></a><div class="content"><a class="title" href="/posts/425f9947/" title="特征工程(VII)--模型集成">特征工程(VII)--模型集成</a><time datetime="2024-04-20T10:40:52.000Z" title="发表于 2024-04-20 18:40:52">2024-04-20</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/posts/3d0ef432/" title="特征工程(VI)--机器学习"><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/img/FeatureEngine.png" onerror="this.onerror=null;this.src='/img/404_moon.png'" alt="特征工程(VI)--机器学习"/></a><div class="content"><a class="title" href="/posts/3d0ef432/" title="特征工程(VI)--机器学习">特征工程(VI)--机器学习</a><time datetime="2024-04-20T08:40:52.000Z" title="发表于 2024-04-20 16:40:52">2024-04-20</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/posts/76296591/" title="特征工程(V)--时间序列特征"><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/img/FeatureEngine.png" onerror="this.onerror=null;this.src='/img/404_moon.png'" alt="特征工程(V)--时间序列特征"/></a><div class="content"><a class="title" href="/posts/76296591/" title="特征工程(V)--时间序列特征">特征工程(V)--时间序列特征</a><time datetime="2024-04-18T15:40:52.000Z" title="发表于 2024-04-18 23:40:52">2024-04-18</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/posts/61a3ce5f/" title="特征工程(IV)--特征选择"><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/img/FeatureEngine.png" onerror="this.onerror=null;this.src='/img/404_moon.png'" alt="特征工程(IV)--特征选择"/></a><div class="content"><a class="title" href="/posts/61a3ce5f/" title="特征工程(IV)--特征选择">特征工程(IV)--特征选择</a><time datetime="2024-04-16T15:40:52.000Z" title="发表于 2024-04-16 23:40:52">2024-04-16</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/posts/ca507391/" title="特征工程(III)--特征构造"><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/img/FeatureEngine.png" onerror="this.onerror=null;this.src='/img/404_moon.png'" alt="特征工程(III)--特征构造"/></a><div class="content"><a class="title" href="/posts/ca507391/" title="特征工程(III)--特征构造">特征工程(III)--特征构造</a><time datetime="2024-04-10T15:30:52.000Z" title="发表于 2024-04-10 23:30:52">2024-04-10</time></div></div></div></div></div></div></main><footer id="footer"><div id="footer-wrap"><div class="copyright">&copy;2019 - 2024 By Tiny Lei</div><div class="framework-info"><span>框架 </span><a target="_blank" rel="noopener external nofollow noreferrer" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener external nofollow noreferrer" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside_config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><a id="to_comment" href="#post-comment" title="直达评论"><i class="fas fa-comments"></i></a><button id="go-up" type="button" title="回到顶部"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox/fancybox.umd.min.js"></script><script src="https://cdn.jsdelivr.net/npm/vanilla-lazyload/dist/lazyload.iife.min.js"></script><script>function panguFn () {
   if (typeof pangu === 'object') pangu.autoSpacingPage()
   else {
     getScript('https://cdn.jsdelivr.net/npm/pangu/dist/browser/pangu.min.js')
