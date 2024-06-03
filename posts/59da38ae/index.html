@@ -1,0 +1,1496 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0,viewport-fit=cover"><title>PySpark 特征工程(I)--数据预处理 | 雷小小</title><meta name="author" content="Tiny Lei"><meta name="copyright" content="Tiny Lei"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="有这么一句话在业界广泛流传：数据和特征决定了机器学习的上限，而模型和算法只是逼近这个上限而已。由此可见，特征工程在机器学习中占有相当重要的地位。在实际应用当中，可以说特征工程是机器学习成功的关键。 特征工程是数据分析中最耗时间和精力的一部分工作，它不像算法和模型那样是确定的步骤，更多是工程上的经验和权衡。因此没有统一的方法。这里只是对一些常用的方法做一个总结。 特征工程包含了 Data PrePr">
+<meta property="og:type" content="article">
+<meta property="og:title" content="PySpark 特征工程(I)--数据预处理">
+<meta property="og:url" content="https://www.tinylei.tech/posts/59da38ae/index.html">
+<meta property="og:site_name" content="雷小小">
+<meta property="og:description" content="有这么一句话在业界广泛流传：数据和特征决定了机器学习的上限，而模型和算法只是逼近这个上限而已。由此可见，特征工程在机器学习中占有相当重要的地位。在实际应用当中，可以说特征工程是机器学习成功的关键。 特征工程是数据分析中最耗时间和精力的一部分工作，它不像算法和模型那样是确定的步骤，更多是工程上的经验和权衡。因此没有统一的方法。这里只是对一些常用的方法做一个总结。 特征工程包含了 Data PrePr">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://www.tinylei.tech/img/apache-spark-mllib.png">
+<meta property="article:published_time" content="2024-05-28T13:16:02.000Z">
+<meta property="article:modified_time" content="2024-06-03T16:03:34.203Z">
+<meta property="article:author" content="Tiny Lei">
+<meta property="article:tag" content="python">
+<meta property="article:tag" content="spark">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://www.tinylei.tech/img/apache-spark-mllib.png"><link rel="shortcut icon" href="/img/favicon.png"><link rel="canonical" href="https://www.tinylei.tech/posts/59da38ae/index.html"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//hm.baidu.com"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><meta name="baidu-site-verification" content="code-7rymn5Bitx"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox/fancybox.min.css" media="print" onload="this.media='all'"><script>var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "https://hm.baidu.com/hm.js?654e7415ab55bed7c9c2bc6d665f03c5";
+  var s = document.getElementsByTagName("script")[0]; 
+  s.parentNode.insertBefore(hm, s);
+})();
+</script><script>const GLOBAL_CONFIG = {
+  root: '/',
+  algolia: undefined,
+  localSearch: {"path":"/search.xml","preload":false,"top_n_per_article":1,"unescape":false,"languages":{"hits_empty":"找不到您查询的内容：${query}","hits_stats":"共找到 ${hits} 篇文章"}},
+  translate: undefined,
+  noticeOutdate: undefined,
+  highlight: {"plugin":"highlighjs","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '天',
+  dateSuffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'fancybox',
+  Snackbar: undefined,
+  source: {
+    justifiedGallery: {
+      js: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery/dist/fjGallery.min.js',
+      css: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery/dist/fjGallery.min.css'
+    }
+  },
+  isPhotoFigcaption: true,
+  islazyload: true,
+  isAnchor: false,
+  percent: {
+    toc: true,
+    rightside: false,
+  },
+  autoDarkmode: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: 'PySpark 特征工程(I)--数据预处理',
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: true,
+  postUpdate: '2024-06-04 00:03:34'
+}</script><noscript><style type="text/css">
+  #nav {
+    opacity: 1
+  }
+  .justified-gallery img {
+    opacity: 1
+  }
+
+  #recent-posts time,
+  #post-meta time {
+    display: inline !important
+  }
+</style></noscript><script>(win=>{
+    win.saveToLocal = {
+      set: function setWithExpiry(key, value, ttl) {
+        if (ttl === 0) return
+        const now = new Date()
+        const expiryDay = ttl * 86400000
+        const item = {
+          value: value,
+          expiry: now.getTime() + expiryDay,
+        }
+        localStorage.setItem(key, JSON.stringify(item))
+      },
+
+      get: function getWithExpiry(key) {
+        const itemStr = localStorage.getItem(key)
+
+        if (!itemStr) {
+          return undefined
+        }
+        const item = JSON.parse(itemStr)
+        const now = new Date()
+
+        if (now.getTime() > item.expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return item.value
+      }
+    }
+  
+    win.getScript = url => new Promise((resolve, reject) => {
+      const script = document.createElement('script')
+      script.src = url
+      script.async = true
+      script.onerror = reject
+      script.onload = script.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        script.onload = script.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(script)
+    })
+  
+    win.getCSS = (url,id = false) => new Promise((resolve, reject) => {
+      const link = document.createElement('link')
+      link.rel = 'stylesheet'
+      link.href = url
+      if (id) link.id = id
+      link.onerror = reject
+      link.onload = link.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        link.onload = link.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(link)
+    })
+  
+      win.activateDarkMode = function () {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      win.activateLightMode = function () {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+      const t = saveToLocal.get('theme')
+    
+          if (t === 'dark') activateDarkMode()
+          else if (t === 'light') activateLightMode()
+        
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    
+    const detectApple = () => {
+      if(/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+    })(window)</script><link rel="stylesheet" href="//at.alicdn.com/t/font_2849223_xh1ftc8qym.css"><link rel="stylesheet" href="/css/link-card.css"><!-- hexo injector head_end start --><link rel="stylesheet" href="https://npm.elemecdn.com/hexo-butterfly-tag-plugins-plus@latest/lib/assets/font-awesome-animation.min.css" media="defer" onload="this.media='all'"><link rel="stylesheet" href="https://npm.elemecdn.com/hexo-butterfly-tag-plugins-plus@latest/lib/tag_plugins.css" media="defer" onload="this.media='all'"><script src="https://npm.elemecdn.com/hexo-butterfly-tag-plugins-plus@latest/lib/assets/carousel-touch.js"></script><!-- hexo injector head_end end --><meta name="generator" content="Hexo 6.0.0"><link rel="alternate" href="/atom.xml" title="雷小小" type="application/atom+xml">
+</head><body><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/img/avatar.jpg" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="sidebar-site-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">165</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">105</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">43</div></a></div><hr class="custom-hr"/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/user-guide/"><i class="fa-fw fa fa-compass"></i><span> 用户指南</span></a></div><div class="menus_item"><a class="site-page group hide" href="javascript:void(0);" rel="external nofollow noreferrer"><i class="fa-fw fa fa-book"></i><span> 文档</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></li><li><a class="site-page child" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 归档</span></a></li><li><a class="site-page child" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/gallery/"><i class="fa-fw fa fa-images"></i><span> 图库</span></a></div><div class="menus_item"><a class="site-page" href="/ebook/"><i class="fa-fw fa fa-book-reader"></i><span> 电子书</span></a></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-star"></i><span> 收藏夹</span></a></div><div class="menus_item"><a class="site-page group hide" href="javascript:void(0);" rel="external nofollow noreferrer"><i class="fa-fw fa-solid fa-circle-chevron-down"></i><span> 更多</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/about/"><i class="fa-fw fa fa-user"></i><span> 关于我</span></a></li><li><a class="site-page child" href="/analytics/"><i class="fa-fw fa fa-line-chart"></i><span> 文章统计</span></a></li><li><a class="site-page child" href="/log/"><i class="fa-fw fa fa-history"></i><span> 更新日志</span></a></li></ul></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url('/img/apache-spark-top-img.svg')"><nav id="nav"><span id="blog-info"><a href="/" title="雷小小"><img class="site-icon" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/img/favicon.png"/><span class="site-name">雷小小</span></a></span><div id="menus"><div id="search-button"><a class="site-page social-icon search" href="javascript:void(0);" rel="external nofollow noreferrer"><i class="fas fa-search fa-fw"></i><span> 搜索</span></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/user-guide/"><i class="fa-fw fa fa-compass"></i><span> 用户指南</span></a></div><div class="menus_item"><a class="site-page group hide" href="javascript:void(0);" rel="external nofollow noreferrer"><i class="fa-fw fa fa-book"></i><span> 文档</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></li><li><a class="site-page child" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 归档</span></a></li><li><a class="site-page child" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/gallery/"><i class="fa-fw fa fa-images"></i><span> 图库</span></a></div><div class="menus_item"><a class="site-page" href="/ebook/"><i class="fa-fw fa fa-book-reader"></i><span> 电子书</span></a></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-star"></i><span> 收藏夹</span></a></div><div class="menus_item"><a class="site-page group hide" href="javascript:void(0);" rel="external nofollow noreferrer"><i class="fa-fw fa-solid fa-circle-chevron-down"></i><span> 更多</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/about/"><i class="fa-fw fa fa-user"></i><span> 关于我</span></a></li><li><a class="site-page child" href="/analytics/"><i class="fa-fw fa fa-line-chart"></i><span> 文章统计</span></a></li><li><a class="site-page child" href="/log/"><i class="fa-fw fa fa-history"></i><span> 更新日志</span></a></li></ul></div></div><div id="toggle-menu"><a class="site-page" href="javascript:void(0);" rel="external nofollow noreferrer"><i class="fas fa-bars fa-fw"></i></a></div></div></nav><div id="post-info"><h1 class="post-title">PySpark 特征工程(I)--数据预处理<a class="post-edit-link" href="https://gitee.com/WilenWu/myblog/edit/master/source/_posts/bigdata/Feature-Engineering-on-Spark(I)-Data-PreProccessing.md" rel="external nofollow noreferrer" title="编辑" target="_blank"><i class="fas fa-pencil-alt"></i></a></h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2024-05-28T13:16:02.000Z" title="发表于 2024-05-28 21:16:02">2024-05-28</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2024-06-03T16:03:34.203Z" title="更新于 2024-06-04 00:03:34">2024-06-04</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/big-data/">Big Data</a><i class="fas fa-angle-right post-meta-separator"></i><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/big-data/spark/">Spark</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-wordcount"><i class="far fa-file-word fa-fw post-meta-icon"></i><span class="post-meta-label">字数总计:</span><span class="word-count">9.8k</span><span class="post-meta-separator">|</span><i class="far fa-clock fa-fw post-meta-icon"></i><span class="post-meta-label">阅读时长:</span><span>50分钟</span></span><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title="PySpark 特征工程(I)--数据预处理"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">阅读量:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container"><p>有这么一句话在业界广泛流传：数据和特征决定了机器学习的上限，而模型和算法只是逼近这个上限而已。由此可见，特征工程在机器学习中占有相当重要的地位。在实际应用当中，可以说特征工程是机器学习成功的关键。</p>
+<p>特征工程是数据分析中最耗时间和精力的一部分工作，它不像算法和模型那样是确定的步骤，更多是工程上的经验和权衡。因此没有统一的方法。这里只是对一些常用的方法做一个总结。</p>
+<p>特征工程包含了 Data PreProcessing（数据预处理）、Feature Extraction（特征提取）、Feature Selection（特征选择）和 Feature construction（特征构造）等子问题。</p>
+<p>Jupyter Notebook 代码连接：<a href="/ipynb/feature_engineering_on_spark_p1_preproccessing">feature_engineering_on_spark_p1_preproccessing</a></p>
+<h1 id="数据预处理"><a class="markdownIt-Anchor" href="#数据预处理"></a> 数据预处理</h1>
+<p>数据预处理是特征工程的最重要的起始步骤，需要把特征预处理成机器学习模型所能接受的形式。</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">from</span> pyspark.conf <span class="keyword">import</span> SparkConf</span><br><span class="line"><span class="keyword">from</span> pyspark.sql <span class="keyword">import</span> SparkSession</span><br><span class="line"><span class="keyword">from</span> pyspark.ml <span class="keyword">import</span> Pipeline</span><br><span class="line"><span class="keyword">from</span> pyspark.ml <span class="keyword">import</span> Estimator, Transformer</span><br><span class="line"><span class="keyword">from</span> pyspark.ml.feature <span class="keyword">import</span> StringIndexer, VectorAssembler, OneHotEncoder</span><br><span class="line"><span class="keyword">import</span> pyspark.sql.functions <span class="keyword">as</span> fn</span><br><span class="line"><span class="keyword">import</span> pyspark.ml.feature <span class="keyword">as</span> ft</span><br><span class="line"><span class="keyword">from</span> pyspark.ml.evaluation <span class="keyword">import</span> BinaryClassificationEvaluator, MulticlassClassificationEvaluator</span><br><span class="line"><span class="keyword">from</span> pyspark.ml.linalg <span class="keyword">import</span> Vectors</span><br><span class="line"><span class="keyword">from</span> pyspark.sql <span class="keyword">import</span> Row</span><br><span class="line"><span class="keyword">from</span> pyspark.sql <span class="keyword">import</span> Observation</span><br><span class="line"><span class="keyword">from</span> pyspark.sql <span class="keyword">import</span> Window</span><br><span class="line"><span class="keyword">from</span> pyspark.ml.tuning <span class="keyword">import</span> CrossValidator, ParamGridBuilder, TrainValidationSplit</span><br><span class="line"><span class="keyword">from</span> xgboost.spark <span class="keyword">import</span> SparkXGBClassifier</span><br><span class="line"><span class="keyword">import</span> xgboost <span class="keyword">as</span> xgb</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> os</span><br><span class="line"><span class="keyword">import</span> pandas <span class="keyword">as</span> pd</span><br><span class="line"><span class="keyword">import</span> numpy <span class="keyword">as</span> np</span><br><span class="line"><span class="keyword">import</span> matplotlib.pyplot <span class="keyword">as</span> plt</span><br><span class="line"><span class="keyword">import</span> seaborn <span class="keyword">as</span> sns</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> time</span><br><span class="line"><span class="keyword">import</span> warnings</span><br><span class="line"></span><br><span class="line"><span class="comment"># Setting configuration.</span></span><br><span class="line">warnings.filterwarnings(<span class="string">&#x27;ignore&#x27;</span>)</span><br><span class="line">SEED = <span class="number">42</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># Use 0.11.4-spark3.3 version for Spark3.3 and 1.0.2 version for Spark3.4</span></span><br><span class="line">spark = SparkSession.builder \</span><br><span class="line">            .master(<span class="string">&quot;local[*]&quot;</span>) \</span><br><span class="line">            .appName(<span class="string">&quot;XGBoost with PySpark&quot;</span>) \</span><br><span class="line">            .config(<span class="string">&quot;spark.driver.memory&quot;</span>, <span class="string">&quot;10g&quot;</span>) \</span><br><span class="line">            .config(<span class="string">&quot;spark.driver.cores&quot;</span>, <span class="string">&quot;2&quot;</span>) \</span><br><span class="line">            .config(<span class="string">&quot;spark.executor.memory&quot;</span>, <span class="string">&quot;10g&quot;</span>) \</span><br><span class="line">            .config(<span class="string">&quot;spark.executor.cores&quot;</span>, <span class="string">&quot;2&quot;</span>) \</span><br><span class="line">            .enableHiveSupport() \</span><br><span class="line">            .getOrCreate()</span><br><span class="line">sc = spark.sparkContext</span><br><span class="line">sc.setLogLevel(<span class="string">&#x27;ERROR&#x27;</span>)</span><br></pre></td></tr></table></figure>
+<pre><code>24/06/01 11:20:13 WARN Utils: Your hostname, MacBook-Air resolves to a loopback address: 127.0.0.1; using 192.168.1.5 instead (on interface en0)
+24/06/01 11:20:13 WARN Utils: Set SPARK_LOCAL_IP if you need to bind to another address
+Setting default log level to &quot;WARN&quot;.
+To adjust logging level use sc.setLogLevel(newLevel). For SparkR, use setLogLevel(newLevel).
+24/06/01 11:20:13 WARN NativeCodeLoader: Unable to load native-hadoop library for your platform... using builtin-java classes where applicable
+</code></pre>
+<h2 id="探索性数据分析"><a class="markdownIt-Anchor" href="#探索性数据分析"></a> 探索性数据分析</h2>
+<p>本项目使用 Kaggle 上的 家庭信用违约风险数据集 (Home Credit Default Risk) ，是一个标准的机器学习分类问题。其目标是使用历史贷款的信息，以及客户的社会经济和财务信息，预测客户是否会违约。</p>
+<p>本篇主要通过 application 文件，做基本的数据分析和建模，也是本篇的主要内容。</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">df = spark.sql(<span class="string">&quot;select * from home_credit_default_risk.application_train&quot;</span>)</span><br></pre></td></tr></table></figure>
+<pre><code>Loading class `com.mysql.jdbc.Driver'. This is deprecated. The new driver class is `com.mysql.cj.jdbc.Driver'. The driver is automatically registered via the SPI and manual loading of the driver class is generally unnecessary.
+</code></pre>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">df.limit(<span class="number">5</span>).toPandas()                                                                 </span><br></pre></td></tr></table></figure>
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+<pre><code>.dataframe tbody tr th &#123;
+    vertical-align: top;
+&#125;
+
+.dataframe thead th &#123;
+    text-align: right;
+&#125;
+</code></pre>
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>SK_ID_CURR</th>
+      <th>TARGET</th>
+      <th>NAME_CONTRACT_TYPE</th>
+      <th>CODE_GENDER</th>
+      <th>FLAG_OWN_CAR</th>
+      <th>FLAG_OWN_REALTY</th>
+      <th>CNT_CHILDREN</th>
+      <th>AMT_INCOME_TOTAL</th>
+      <th>AMT_CREDIT</th>
+      <th>AMT_ANNUITY</th>
+      <th>...</th>
+      <th>FLAG_DOCUMENT_18</th>
+      <th>FLAG_DOCUMENT_19</th>
+      <th>FLAG_DOCUMENT_20</th>
+      <th>FLAG_DOCUMENT_21</th>
+      <th>AMT_REQ_CREDIT_BUREAU_HOUR</th>
+      <th>AMT_REQ_CREDIT_BUREAU_DAY</th>
+      <th>AMT_REQ_CREDIT_BUREAU_WEEK</th>
+      <th>AMT_REQ_CREDIT_BUREAU_MON</th>
+      <th>AMT_REQ_CREDIT_BUREAU_QRT</th>
+      <th>AMT_REQ_CREDIT_BUREAU_YEAR</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>191480</td>
+      <td>0</td>
+      <td>Cash loans</td>
+      <td>M</td>
+      <td>Y</td>
+      <td>N</td>
+      <td>0</td>
+      <td>157500.0</td>
+      <td>342000.0</td>
+      <td>17590.5</td>
+      <td>...</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>1.0</td>
+      <td>0.0</td>
+      <td>7.0</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>191502</td>
+      <td>0</td>
+      <td>Cash loans</td>
+      <td>F</td>
+      <td>N</td>
+      <td>Y</td>
+      <td>0</td>
+      <td>108000.0</td>
+      <td>324000.0</td>
+      <td>20704.5</td>
+      <td>...</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>191673</td>
+      <td>0</td>
+      <td>Cash loans</td>
+      <td>F</td>
+      <td>Y</td>
+      <td>Y</td>
+      <td>0</td>
+      <td>135000.0</td>
+      <td>1323000.0</td>
+      <td>36513.0</td>
+      <td>...</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>1.0</td>
+      <td>0.0</td>
+      <td>2.0</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>191877</td>
+      <td>0</td>
+      <td>Cash loans</td>
+      <td>F</td>
+      <td>N</td>
+      <td>Y</td>
+      <td>2</td>
+      <td>45000.0</td>
+      <td>47970.0</td>
+      <td>5296.5</td>
+      <td>...</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>4.0</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>192108</td>
+      <td>0</td>
+      <td>Cash loans</td>
+      <td>F</td>
+      <td>N</td>
+      <td>Y</td>
+      <td>0</td>
+      <td>315000.0</td>
+      <td>263686.5</td>
+      <td>13522.5</td>
+      <td>...</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>5.0</td>
+      <td>2.0</td>
+      <td>3.0</td>
+    </tr>
+  </tbody>
+</table>
+<p>5 rows × 122 columns</p>
+</div>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="built_in">print</span>(<span class="string">f&quot;dataset shape: (<span class="subst">&#123;df.count()&#125;</span>, <span class="subst">&#123;<span class="built_in">len</span>(df.columns)&#125;</span>)&quot;</span>)</span><br></pre></td></tr></table></figure>
+<pre><code>dataset shape: (307511, 122)
+</code></pre>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="comment"># df.printSchema()</span></span><br></pre></td></tr></table></figure>
+<p>在遇到非常多的数据的时候，我们一般先会按照数据的类型分布下手，看看不同的数据类型各有多少</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="comment"># Number of each type of column</span></span><br><span class="line">dtypes = <span class="built_in">dict</span>(df.dtypes)</span><br><span class="line">pd.Series(dtypes).value_counts()</span><br></pre></td></tr></table></figure>
+<pre><code>double    65
+int       41
+string    16
+Name: count, dtype: int64
+</code></pre>
+<p>接下来看下数据集的统计信息</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">df.summary().toPandas()</span><br></pre></td></tr></table></figure>
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+<pre><code>.dataframe tbody tr th &#123;
+    vertical-align: top;
+&#125;
+
+.dataframe thead th &#123;
+    text-align: right;
+&#125;
+</code></pre>
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>summary</th>
+      <th>SK_ID_CURR</th>
+      <th>TARGET</th>
+      <th>NAME_CONTRACT_TYPE</th>
+      <th>CODE_GENDER</th>
+      <th>FLAG_OWN_CAR</th>
+      <th>FLAG_OWN_REALTY</th>
+      <th>CNT_CHILDREN</th>
+      <th>AMT_INCOME_TOTAL</th>
+      <th>AMT_CREDIT</th>
+      <th>...</th>
+      <th>FLAG_DOCUMENT_18</th>
+      <th>FLAG_DOCUMENT_19</th>
+      <th>FLAG_DOCUMENT_20</th>
+      <th>FLAG_DOCUMENT_21</th>
+      <th>AMT_REQ_CREDIT_BUREAU_HOUR</th>
+      <th>AMT_REQ_CREDIT_BUREAU_DAY</th>
+      <th>AMT_REQ_CREDIT_BUREAU_WEEK</th>
+      <th>AMT_REQ_CREDIT_BUREAU_MON</th>
+      <th>AMT_REQ_CREDIT_BUREAU_QRT</th>
+      <th>AMT_REQ_CREDIT_BUREAU_YEAR</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>count</td>
+      <td>307511</td>
+      <td>307511</td>
+      <td>307511</td>
+      <td>307511</td>
+      <td>307511</td>
+      <td>307511</td>
+      <td>307511</td>
+      <td>307511</td>
+      <td>307511</td>
+      <td>...</td>
+      <td>307511</td>
+      <td>307511</td>
+      <td>307511</td>
+      <td>307511</td>
+      <td>265992</td>
+      <td>265992</td>
+      <td>265992</td>
+      <td>265992</td>
+      <td>265992</td>
+      <td>265992</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>mean</td>
+      <td>278180.51857657125</td>
+      <td>0.08072881945686496</td>
+      <td>None</td>
+      <td>None</td>
+      <td>None</td>
+      <td>None</td>
+      <td>0.4170517477423572</td>
+      <td>168797.91929698447</td>
+      <td>599025.9997057016</td>
+      <td>...</td>
+      <td>0.008129790479039774</td>
+      <td>5.951006630657115E-4</td>
+      <td>5.072989258920819E-4</td>
+      <td>3.349473677364387E-4</td>
+      <td>0.006402448193930645</td>
+      <td>0.0070002105326475985</td>
+      <td>0.0343619356973142</td>
+      <td>0.26739526000781977</td>
+      <td>0.26547414959848414</td>
+      <td>1.899974435321363</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>stddev</td>
+      <td>102790.17534842461</td>
+      <td>0.2724186456483938</td>
+      <td>None</td>
+      <td>None</td>
+      <td>None</td>
+      <td>None</td>
+      <td>0.722121384437625</td>
+      <td>237123.14627885612</td>
+      <td>402490.776995855</td>
+      <td>...</td>
+      <td>0.0897982361093956</td>
+      <td>0.024387465065862264</td>
+      <td>0.022517620268446132</td>
+      <td>0.01829853182243764</td>
+      <td>0.08384912844747726</td>
+      <td>0.11075740632435459</td>
+      <td>0.20468487581282443</td>
+      <td>0.9160023961526171</td>
+      <td>0.7940556483207575</td>
+      <td>1.8692949981815559</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>min</td>
+      <td>100002</td>
+      <td>0</td>
+      <td>Cash loans</td>
+      <td>F</td>
+      <td>N</td>
+      <td>N</td>
+      <td>0</td>
+      <td>25650.0</td>
+      <td>45000.0</td>
+      <td>...</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>25%</td>
+      <td>189124</td>
+      <td>0</td>
+      <td>None</td>
+      <td>None</td>
+      <td>None</td>
+      <td>None</td>
+      <td>0</td>
+      <td>112500.0</td>
+      <td>270000.0</td>
+      <td>...</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+    </tr>
+    <tr>
+      <th>5</th>
+      <td>50%</td>
+      <td>278173</td>
+      <td>0</td>
+      <td>None</td>
+      <td>None</td>
+      <td>None</td>
+      <td>None</td>
+      <td>0</td>
+      <td>146250.0</td>
+      <td>513531.0</td>
+      <td>...</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>1.0</td>
+    </tr>
+    <tr>
+      <th>6</th>
+      <td>75%</td>
+      <td>367118</td>
+      <td>0</td>
+      <td>None</td>
+      <td>None</td>
+      <td>None</td>
+      <td>None</td>
+      <td>1</td>
+      <td>202500.0</td>
+      <td>808650.0</td>
+      <td>...</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>3.0</td>
+    </tr>
+    <tr>
+      <th>7</th>
+      <td>max</td>
+      <td>456255</td>
+      <td>1</td>
+      <td>Revolving loans</td>
+      <td>XNA</td>
+      <td>Y</td>
+      <td>Y</td>
+      <td>19</td>
+      <td>1.17E8</td>
+      <td>4050000.0</td>
+      <td>...</td>
+      <td>1</td>
+      <td>1</td>
+      <td>1</td>
+      <td>1</td>
+      <td>4.0</td>
+      <td>9.0</td>
+      <td>8.0</td>
+      <td>27.0</td>
+      <td>261.0</td>
+      <td>25.0</td>
+    </tr>
+  </tbody>
+</table>
+<p>8 rows × 123 columns</p>
+</div>
+<p>查看目标变量分布</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="comment"># `TARGET` is the target variable we are trying to predict (0 or 1):</span></span><br><span class="line"><span class="comment"># 1 = Not Repaid </span></span><br><span class="line"><span class="comment"># 0 = Repaid</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># Check if the data is unbalanced</span></span><br><span class="line">row = df.select(fn.mean(<span class="string">&#x27;TARGET&#x27;</span>).alias(<span class="string">&#x27;rate&#x27;</span>)).first()</span><br><span class="line"><span class="built_in">print</span>(<span class="string">f&quot;percentage of default : <span class="subst">&#123;row[<span class="string">&#x27;rate&#x27;</span>]:<span class="number">.2</span>%&#125;</span>&quot;</span>)</span><br><span class="line">df.groupBy(<span class="string">&quot;TARGET&quot;</span>).count().show() </span><br></pre></td></tr></table></figure>
+<pre><code>percentage of default : 8.07%                                
+
++------+------+
+|TARGET| count|
++------+------+
+|     1| 24825|
+|     0|282686|
++------+------+
+</code></pre>
+<h2 id="数据清洗"><a class="markdownIt-Anchor" href="#数据清洗"></a> 数据清洗</h2>
+<p>数据清洗 (Data cleaning) 是对数据进行重新审查和校验的过程，目的在于删除重复信息、纠正存在的错误，并提供数据一致性。</p>
+<h3 id="数据去重"><a class="markdownIt-Anchor" href="#数据去重"></a> 数据去重</h3>
+<p>首先，根据某个 / 多个特征值构成的样本 ID 去重</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="comment"># `SK_ID_CURR` is the unique id of the row.</span></span><br><span class="line">df.dropDuplicates(subset=[<span class="string">&quot;SK_ID_CURR&quot;</span>]).count() == df.count()</span><br></pre></td></tr></table></figure>
+<pre><code>True
+</code></pre>
+<h3 id="数据类型转换"><a class="markdownIt-Anchor" href="#数据类型转换"></a> 数据类型转换</h3>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">dtypes = df.drop(<span class="string">&quot;SK_ID_CURR&quot;</span>, <span class="string">&quot;TARGET&quot;</span>).dtypes</span><br><span class="line"></span><br><span class="line">categorical_cols = [k <span class="keyword">for</span> k, v <span class="keyword">in</span> dtypes <span class="keyword">if</span> v == <span class="string">&#x27;string&#x27;</span>]</span><br><span class="line">numerical_cols = [k <span class="keyword">for</span> k, v <span class="keyword">in</span> dtypes <span class="keyword">if</span> v != <span class="string">&#x27;string&#x27;</span>]</span><br></pre></td></tr></table></figure>
+<p>有时，有些数值型特征标识的只是不同类别，其数值的大小并没有实际意义，因此我们将其转化为类别特征。<br />
+本项目并无此类特征，以 hours_appr_process_start 为示例：</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="comment"># df = df.withColumn(&#x27;HOUR_APPR_PROCESS_START&#x27;, df[&#x27;HOUR_APPR_PROCESS_START&#x27;].astype(str))</span></span><br></pre></td></tr></table></figure>
+<h3 id="错误数据清洗"><a class="markdownIt-Anchor" href="#错误数据清洗"></a> 错误数据清洗</h3>
+<p>接下来，我们根据业务常识，或者使用但不限于箱型图（Box-plot）发现数据中不合理的特征值进行清洗。<br />
+数据探索时，我们注意到，DAYS_BIRTH列（年龄）中的数字是负数，由于它们是相对于当前贷款申请计算的，所以我们将其转化成正数后查看分布</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">df.select(df[<span class="string">&#x27;DAYS_BIRTH&#x27;</span>] / -<span class="number">365</span>).summary().show()</span><br></pre></td></tr></table></figure>
+<pre><code>+-------+-------------------+
+|summary|(DAYS_BIRTH / -365)|
++-------+-------------------+
+|  count|             307511|
+|   mean|  43.93697278587162|
+| stddev| 11.956133237768654|
+|    min| 20.517808219178082|
+|    25%|  34.00547945205479|
+|    50%|  43.14794520547945|
+|    75%| 53.917808219178085|
+|    max|  69.12054794520547|
++-------+-------------------+
+</code></pre>
+<p>那些年龄看起来合理，没有异常值。<br />
+接下来，我们对其他的 DAYS 特征作同样的分析</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">for</span> feature <span class="keyword">in</span> [<span class="string">&#x27;DAYS_BIRTH&#x27;</span>, <span class="string">&#x27;DAYS_EMPLOYED&#x27;</span>, <span class="string">&#x27;DAYS_REGISTRATION&#x27;</span>, <span class="string">&#x27;DAYS_ID_PUBLISH&#x27;</span>]:</span><br><span class="line">        <span class="built_in">print</span>(<span class="string">f&#x27;<span class="subst">&#123;feature&#125;</span> info: &#x27;</span>)</span><br><span class="line">        df.select(df[feature] / -<span class="number">365</span>).summary().show()                    </span><br></pre></td></tr></table></figure>
+<pre><code>DAYS_BIRTH info:   
++-------+-------------------+
+|summary|(DAYS_BIRTH / -365)|
++-------+-------------------+
+|  count|             307511|
+|   mean|  43.93697278587162|
+| stddev| 11.956133237768654|
+|    min| 20.517808219178082|
+|    25%|  34.00547945205479|
+|    50%|  43.14794520547945|
+|    75%| 53.917808219178085|
+|    max|  69.12054794520547|
++-------+-------------------+
+
+DAYS_EMPLOYED info: 
++-------+----------------------+
+|summary|(DAYS_EMPLOYED / -365)|
++-------+----------------------+
+|  count|                307511|
+|   mean|   -174.83574220287002|
+| stddev|    387.05689457185537|
+|    min|   -1000.6657534246575|
+|    25%|    0.7917808219178082|
+|    50%|    3.3232876712328765|
+|    75%|     7.558904109589041|
+|    max|     49.07397260273972|
++-------+----------------------+
+
+DAYS_REGISTRATION info: 
++-------+--------------------------+
+|summary|(DAYS_REGISTRATION / -365)|
++-------+--------------------------+
+|  count|                    307511|
+|   mean|        13.660603637091562|
+| stddev|         9.651743345104306|
+|    min|                      -0.0|
+|    25%|         5.504109589041096|
+|    50%|        12.336986301369864|
+|    75%|        20.487671232876714|
+|    max|         67.59452054794521|
++-------+--------------------------+
+
+DAYS_ID_PUBLISH info: 
++-------+------------------------+
+|summary|(DAYS_ID_PUBLISH / -365)|
++-------+------------------------+
+|  count|                  307511|
+|   mean|        8.20329417328335|
+| stddev|       4.135480600008283|
+|    min|                    -0.0|
+|    25%|      4.7095890410958905|
+|    50%|       8.915068493150685|
+|    75%|      11.775342465753425|
+|    max|       19.71780821917808|
++-------+------------------------+                                                    
+</code></pre>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">buckets = df.select((df[<span class="string">&#x27;DAYS_EMPLOYED&#x27;</span>] / -<span class="number">365</span>).alias(<span class="string">&#x27;DAYS_EMPLOYED&#x27;</span>))</span><br><span class="line"></span><br><span class="line">bucketizer = ft.QuantileDiscretizer(numBuckets=<span class="number">10</span>, inputCol=<span class="string">&#x27;DAYS_EMPLOYED&#x27;</span>, outputCol=<span class="string">&#x27;buckets&#x27;</span>).fit(buckets)</span><br><span class="line">buckets = bucketizer.transform(buckets)</span><br><span class="line"></span><br><span class="line">buckets.groupBy(<span class="string">&#x27;buckets&#x27;</span>).count().sort(<span class="string">&#x27;buckets&#x27;</span>).show()</span><br><span class="line">bucketizer.getSplits()</span><br></pre></td></tr></table></figure>
+<pre><code>+-------+-----+
+|buckets|count|
++-------+-----+
+|    1.0|61425|
+|    2.0|30699|
+|    3.0|30733|
+|    4.0|30685|
+|    5.0|30741|
+|    6.0|30716|
+|    7.0|30750|
+|    8.0|30726|
+|    9.0|31036|
++-------+-----+
+
+
+[-inf,
+ -1000.6657534246575,
+ 0.39452054794520547,
+ 1.252054794520548,
+ 2.2465753424657535,
+ 3.317808219178082,
+ 4.635616438356164,
+ 6.457534246575342,
+ 8.827397260273973,
+ 13.2986301369863,
+ inf]
+</code></pre>
+<p>有超过60000个用户的DAYS_EMPLOYED在1000年上，可以猜测这只是缺失值标记。</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="comment"># Replace the anomalous values with nan</span></span><br><span class="line">df_emp = df.select(fn.when(df[<span class="string">&#x27;DAYS_EMPLOYED&#x27;</span>]&gt;=<span class="number">365243</span>, <span class="literal">None</span>).otherwise(df[<span class="string">&#x27;DAYS_EMPLOYED&#x27;</span>]).alias(<span class="string">&#x27;DAYS_EMPLOYED&#x27;</span>))</span><br><span class="line"></span><br><span class="line">df_emp.sample(<span class="number">0.1</span>).toPandas().plot.hist(title = <span class="string">&#x27;Days Employment Histogram&#x27;</span>)</span><br><span class="line">plt.xlabel(<span class="string">&#x27;Days Employment&#x27;</span>)</span><br></pre></td></tr></table></figure>
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/img/feature_engineering_on_spark/preproccessing_output_25_2.png" alt="" /></p>
+<p>可以看到，数据分布基本正常了。</p>
+<h3 id="布尔特征清洗"><a class="markdownIt-Anchor" href="#布尔特征清洗"></a> 布尔特征清洗</h3>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">for</span> col <span class="keyword">in</span> categorical_cols:</span><br><span class="line">    unique_count = df.select(col).dropna().distinct().count()</span><br><span class="line">    <span class="keyword">if</span> unique_count == <span class="number">2</span>:</span><br><span class="line">        df.groupBy(col).count().show()                          </span><br></pre></td></tr></table></figure>
+<pre><code>+------------------+------+
+|NAME_CONTRACT_TYPE| count|
++------------------+------+
+|   Revolving loans| 29279|
+|        Cash loans|278232|
++------------------+------+
++------------+------+
+|FLAG_OWN_CAR| count|
++------------+------+
+|           Y|104587|
+|           N|202924|
++------------+------+
++---------------+------+
+|FLAG_OWN_REALTY| count|
++---------------+------+
+|              Y|213312|
+|              N| 94199|
++---------------+------+
++-------------------+------+
+|EMERGENCYSTATE_MODE| count|
++-------------------+------+
+|               NULL|145755|
+|                 No|159428|
+|                Yes|  2328|
++-------------------+------+                                                                              
+</code></pre>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">cols_to_transform = [<span class="string">&#x27;FLAG_OWN_CAR&#x27;</span>, <span class="string">&#x27;FLAG_OWN_REALTY&#x27;</span>, <span class="string">&#x27;EMERGENCYSTATE_MODE&#x27;</span>]</span><br><span class="line">df.replace(</span><br><span class="line">    [<span class="string">&#x27;Y&#x27;</span>, <span class="string">&#x27;N&#x27;</span>, <span class="string">&#x27;Yes&#x27;</span>, <span class="string">&#x27;No&#x27;</span>], [<span class="string">&#x27;1&#x27;</span>, <span class="string">&#x27;0&#x27;</span>, <span class="string">&#x27;1&#x27;</span>, <span class="string">&#x27;0&#x27;</span>], </span><br><span class="line">    subset=cols_to_transform</span><br><span class="line">).select(cols_to_transform).show(<span class="number">5</span>)</span><br></pre></td></tr></table></figure>
+<pre><code>+------------+---------------+-------------------+
+|FLAG_OWN_CAR|FLAG_OWN_REALTY|EMERGENCYSTATE_MODE|
++------------+---------------+-------------------+
+|           1|              0|                  0|
+|           0|              1|                  0|
+|           1|              1|               NULL|
+|           0|              1|               NULL|
+|           0|              1|                  0|
++------------+---------------+-------------------+
+only showing top 5 rows
+</code></pre>
+<h3 id="函数封装"><a class="markdownIt-Anchor" href="#函数封装"></a> 函数封装</h3>
+<p>最后，使用函数封装以上步骤：</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">dtypes = df.drop(<span class="string">&quot;SK_ID_CURR&quot;</span>, <span class="string">&quot;TARGET&quot;</span>).dtypes</span><br><span class="line">categorical_cols = [k <span class="keyword">for</span> k, v <span class="keyword">in</span> dtypes <span class="keyword">if</span> v == <span class="string">&#x27;string&#x27;</span>]</span><br><span class="line">numerical_cols = [k <span class="keyword">for</span> k, v <span class="keyword">in</span> dtypes <span class="keyword">if</span> v != <span class="string">&#x27;string&#x27;</span>]</span><br><span class="line"></span><br><span class="line"><span class="comment"># Data cleaning</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">clean</span>(<span class="params">df</span>):</span></span><br><span class="line">    <span class="comment"># remove duplicates.</span></span><br><span class="line">    df = df.dropDuplicates(subset=[<span class="string">&quot;SK_ID_CURR&quot;</span>])</span><br><span class="line">    </span><br><span class="line">    <span class="comment"># transform</span></span><br><span class="line">    cols_to_transform = [<span class="string">&#x27;FLAG_OWN_CAR&#x27;</span>, <span class="string">&#x27;FLAG_OWN_REALTY&#x27;</span>, <span class="string">&#x27;EMERGENCYSTATE_MODE&#x27;</span>]</span><br><span class="line">    df = df.replace(</span><br><span class="line">        [<span class="string">&#x27;Y&#x27;</span>, <span class="string">&#x27;N&#x27;</span>, <span class="string">&#x27;Yes&#x27;</span>, <span class="string">&#x27;No&#x27;</span>], [<span class="string">&#x27;1&#x27;</span>, <span class="string">&#x27;0&#x27;</span>, <span class="string">&#x27;1&#x27;</span>, <span class="string">&#x27;0&#x27;</span>], </span><br><span class="line">        subset=cols_to_transform</span><br><span class="line">    )</span><br><span class="line">    df = df.withColumns(&#123;c: df[c].cast(<span class="string">&#x27;int&#x27;</span>) <span class="keyword">for</span> c <span class="keyword">in</span> cols_to_transform&#125;)</span><br><span class="line">    </span><br><span class="line">    <span class="comment"># Replace the anomalous values with nan</span></span><br><span class="line">    df = df.withColumn(<span class="string">&#x27;DAYS_EMPLOYED&#x27;</span>, </span><br><span class="line">        fn.when(df[<span class="string">&#x27;DAYS_EMPLOYED&#x27;</span>]&gt;=<span class="number">365243</span>, <span class="literal">None</span>).otherwise(df[<span class="string">&#x27;DAYS_EMPLOYED&#x27;</span>])</span><br><span class="line">    )</span><br><span class="line">    </span><br><span class="line">    df = df.replace(<span class="string">&#x27;XNA&#x27;</span>, <span class="literal">None</span>)</span><br><span class="line">    df = df.withColumnRenamed(<span class="string">&quot;TARGET&quot;</span>, <span class="string">&quot;label&quot;</span>)</span><br><span class="line">    <span class="keyword">return</span> df</span><br><span class="line"></span><br><span class="line">df = clean(df)</span><br></pre></td></tr></table></figure>
+<h2 id="特征重编码"><a class="markdownIt-Anchor" href="#特征重编码"></a> 特征重编码</h2>
+<p>有很多机器学习算法只能接受数值型特征的输入，不能处理离散值特征，比如线性回归，逻辑回归等线性模型，那么我们需要将离散特征重编码成数值变量。</p>
+<p>现在我们来看看每个分类特征的类别数：</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">df.select([fn.countDistinct(col).alias(col) <span class="keyword">for</span> col <span class="keyword">in</span> categorical_cols]).show(<span class="number">1</span>, vertical=<span class="literal">True</span>)</span><br></pre></td></tr></table></figure>
+<pre><code>-RECORD 0-------------------------
+ NAME_CONTRACT_TYPE         | 2   
+ CODE_GENDER                | 2   
+ FLAG_OWN_CAR               | 2   
+ FLAG_OWN_REALTY            | 2   
+ NAME_TYPE_SUITE            | 7   
+ NAME_INCOME_TYPE           | 8   
+ NAME_EDUCATION_TYPE        | 5   
+ NAME_FAMILY_STATUS         | 6   
+ NAME_HOUSING_TYPE          | 6   
+ OCCUPATION_TYPE            | 18  
+ WEEKDAY_APPR_PROCESS_START | 7   
+ ORGANIZATION_TYPE          | 57  
+ FONDKAPREMONT_MODE         | 4   
+ HOUSETYPE_MODE             | 3   
+ WALLSMATERIAL_MODE         | 7   
+ EMERGENCYSTATE_MODE        | 2                         
+</code></pre>
+<ol>
+<li>变量 NAME_EDUCATION_TYPE 表征着潜在的排序关系，可以使用顺序编码。</li>
+<li>变量 OCCUPATION_TYPE （职业类型）和 ORGANIZATION_TYPE 类别数较多，准备使用平均数编码。</li>
+<li>剩余的无序分类特征使用one-hot编码。</li>
+</ol>
+<h3 id="顺序编码"><a class="markdownIt-Anchor" href="#顺序编码"></a> 顺序编码</h3>
+<p><strong>有序分类特征</strong>实际上表征着潜在的排序关系，我们将这些特征的类别映射成有大小的数字，因此可以用顺序编码。</p>
+<p>让我们从分类特征中手动提取有序级别：</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="comment"># The ordinal (ordered) categorical features</span></span><br><span class="line"><span class="comment"># Pandas calls the categories &quot;levels&quot;</span></span><br><span class="line"></span><br><span class="line">ordered_levels = &#123;</span><br><span class="line">    <span class="string">&quot;NAME_EDUCATION_TYPE&quot;</span>: [<span class="string">&quot;Lower secondary&quot;</span>, </span><br><span class="line">                            <span class="string">&quot;Secondary / secondary special&quot;</span>, </span><br><span class="line">                            <span class="string">&quot;Incomplete higher&quot;</span>, </span><br><span class="line">                            <span class="string">&quot;Higher education&quot;</span>]</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>spark中的StringIndexer是按特征值出现的频率编码，我们需要自定义一个编码函数。</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">ordinal_encode</span>(<span class="params">df, levels</span>):</span></span><br><span class="line">    <span class="keyword">for</span> var, to_replace <span class="keyword">in</span> levels.items():</span><br><span class="line">        mapping = &#123;v: <span class="built_in">str</span>(i) <span class="keyword">for</span> i,v <span class="keyword">in</span> <span class="built_in">enumerate</span>(to_replace)&#125;</span><br><span class="line">        df = df.replace(mapping, subset=[var])</span><br><span class="line">        df = df.withColumn(var, df[var].cast(<span class="string">&#x27;int&#x27;</span>))</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">f&#x27;<span class="subst">&#123;<span class="built_in">len</span>(levels):d&#125;</span> columns were ordinal encoded&#x27;</span>)</span><br><span class="line">    <span class="keyword">return</span> df</span><br></pre></td></tr></table></figure>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">ordinal_encode(df, ordered_levels).groupBy(*ordered_levels.keys()).count().show()</span><br></pre></td></tr></table></figure>
+<pre><code>1 columns were ordinal encoded
++-------------------+------+
+|NAME_EDUCATION_TYPE| count|
++-------------------+------+
+|               NULL|   164|
+|                  1|218391|
+|                  3| 74863|
+|                  2| 10277|
+|                  0|  3816|
++-------------------+------+                                                        
+</code></pre>
+<h3 id="平均数编码"><a class="markdownIt-Anchor" href="#平均数编码"></a> 平均数编码</h3>
+<p>一般情况下，针对分类特征，我们只需要OneHotEncoder或OrdinalEncoder进行编码，这类简单的预处理能够满足大多数数据挖掘算法的需求。如果某一个分类特征的可能值非常多（高基数 high cardinality），那么再使用one-hot编码往往会出现维度爆炸。平均数编码（mean encoding）是一种高效的编码方式，在实际应用中，能极大提升模型的性能。</p>
+<p>变量 OCCUPATION_TYPE （职业类型）和 ORGANIZATION_TYPE类别数较多，准备使用平均数编码。</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">MeanEncoder</span>(<span class="params">Estimator, Transformer</span>):</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__init__</span>(<span class="params">self, smoothing=<span class="number">0.0</span>, inputCols=<span class="literal">None</span>, labelCol=<span class="string">&quot;label&quot;</span></span>):</span></span><br><span class="line">        <span class="string">&quot;&quot;&quot;</span></span><br><span class="line"><span class="string">        The MeanEncoder() replaces categories by the mean value of the target for each</span></span><br><span class="line"><span class="string">        category.</span></span><br><span class="line"><span class="string">        </span></span><br><span class="line"><span class="string">        math:</span></span><br><span class="line"><span class="string">            mapping = (w_i) posterior + (1-w_i) prior</span></span><br><span class="line"><span class="string">        where</span></span><br><span class="line"><span class="string">            w_i = n_i t / (s + n_i t)</span></span><br><span class="line"><span class="string">        </span></span><br><span class="line"><span class="string">        In the previous equation, t is the target variance in the entire dataset, s is the</span></span><br><span class="line"><span class="string">        target variance within the category and n is the number of observations for the</span></span><br><span class="line"><span class="string">        category.</span></span><br><span class="line"><span class="string">        </span></span><br><span class="line"><span class="string">        Parameters</span></span><br><span class="line"><span class="string">        ----------</span></span><br><span class="line"><span class="string">        smoothing: int, float, &#x27;auto&#x27;, default=0.0</span></span><br><span class="line"><span class="string">        &quot;&quot;&quot;</span></span><br><span class="line">        <span class="built_in">super</span>().__init__()</span><br><span class="line">        self.smoothing = smoothing</span><br><span class="line">        self.inputCols = inputCols</span><br><span class="line">        self.labelCol = labelCol</span><br><span class="line">    </span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">_fit</span>(<span class="params">self, df</span>):</span></span><br><span class="line">        <span class="string">&quot;&quot;&quot;</span></span><br><span class="line"><span class="string">        Learn the mean value of the target for each category of the variable.</span></span><br><span class="line"><span class="string">        &quot;&quot;&quot;</span></span><br><span class="line"></span><br><span class="line">        self.encoder_dict = &#123;&#125;</span><br><span class="line">        inputCols = self.inputCols</span><br><span class="line">        labelCol = self.labelCol</span><br><span class="line">        y_prior = df.select(fn.mean(labelCol).alias(<span class="string">&quot;mean&quot;</span>)).first()[<span class="string">&quot;mean&quot;</span>]</span><br><span class="line">        </span><br><span class="line">        <span class="keyword">for</span> var <span class="keyword">in</span> inputCols:</span><br><span class="line">            <span class="keyword">if</span> self.smoothing == <span class="string">&quot;auto&quot;</span>:</span><br><span class="line">                y_var = df.cov(labelCol, labelCol)</span><br><span class="line">                damping = fn.variance(labelCol) / y_var</span><br><span class="line">            <span class="keyword">else</span>:</span><br><span class="line">                damping = fn.lit(self.smoothing)</span><br><span class="line">            </span><br><span class="line">            groups = df.groupBy(var).agg(</span><br><span class="line">                fn.mean(labelCol).alias(<span class="string">&quot;posterior&quot;</span>),</span><br><span class="line">                fn.count(<span class="string">&quot;*&quot;</span>).alias(<span class="string">&quot;counts&quot;</span>),</span><br><span class="line">                damping.alias(<span class="string">&quot;damping&quot;</span>) </span><br><span class="line">            ).toPandas().dropna()</span><br><span class="line">            </span><br><span class="line">            groups[<span class="string">&quot;lambda&quot;</span>] = groups[<span class="string">&quot;counts&quot;</span>] / (groups[<span class="string">&quot;counts&quot;</span>] + groups[<span class="string">&quot;damping&quot;</span>])</span><br><span class="line">            groups[<span class="string">&quot;code&quot;</span>] = (</span><br><span class="line">                groups[<span class="string">&quot;lambda&quot;</span>] * groups[<span class="string">&quot;posterior&quot;</span>] + </span><br><span class="line">                    (<span class="number">1.0</span> - groups[<span class="string">&quot;lambda&quot;</span>]) * y_prior</span><br><span class="line">            )</span><br><span class="line">            </span><br><span class="line">            self.encoder_dict[var] = <span class="built_in">dict</span>(<span class="built_in">zip</span>(groups[var], groups[<span class="string">&quot;code&quot;</span>]))</span><br><span class="line">        <span class="keyword">return</span> self</span><br><span class="line">    </span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">_transform</span>(<span class="params">self, df</span>):</span></span><br><span class="line">        <span class="keyword">for</span> var <span class="keyword">in</span> self.encoder_dict:</span><br><span class="line">            mapping = &#123;k: <span class="built_in">str</span>(v) <span class="keyword">for</span> k,v <span class="keyword">in</span> self.encoder_dict[var].items()&#125;</span><br><span class="line">            df = df.replace(mapping, subset=[var])</span><br><span class="line">            df = df.withColumn(var, df[var].cast(<span class="string">&#x27;float&#x27;</span>))</span><br><span class="line"></span><br><span class="line">        <span class="built_in">print</span>(<span class="string">f&#x27;<span class="subst">&#123;<span class="built_in">len</span>(self.encoder_dict):d&#125;</span> columns were mean encoded&#x27;</span>)</span><br><span class="line">        <span class="keyword">return</span> df</span><br></pre></td></tr></table></figure>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="comment"># replace categories by the mean value of the target for each category.</span></span><br><span class="line">inputCols = [<span class="string">&#x27;OCCUPATION_TYPE&#x27;</span>, <span class="string">&#x27;ORGANIZATION_TYPE&#x27;</span>]</span><br><span class="line">mean_encoder = MeanEncoder(</span><br><span class="line">    inputCols=inputCols, </span><br><span class="line">    labelCol=<span class="string">&#x27;label&#x27;</span>,</span><br><span class="line">    smoothing=<span class="string">&#x27;auto&#x27;</span></span><br><span class="line">)</span><br><span class="line">mean_encoder.fit(df).transform(df).select(inputCols).show(<span class="number">5</span>)  </span><br></pre></td></tr></table></figure>
+<pre><code>2 columns were mean encoded
++---------------+-----------------+
+|OCCUPATION_TYPE|ORGANIZATION_TYPE|
++---------------+-----------------+
+|    0.062140968|       0.09299603|
+|     0.09631742|       0.09449421|
+|    0.113258936|       0.10173836|
+|           NULL|             NULL|
+|           NULL|             NULL|
++---------------+-----------------+
+only showing top 5 rows
+</code></pre>
+<h3 id="哑变量编码"><a class="markdownIt-Anchor" href="#哑变量编码"></a> 哑变量编码</h3>
+<p><strong>无序分类特征</strong>对于树集成模型（tree-ensemble like XGBoost）是可用的，但对于线性模型（like Lasso or Ridge）则必须使用one-hot重编码。接下来我们把上节索引化的无序分类特征进行编码。</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="comment"># The nominative (unordered) categorical features</span></span><br><span class="line">encoded_cols = [<span class="string">&#x27;NAME_EDUCATION_TYPE&#x27;</span>, <span class="string">&#x27;OCCUPATION_TYPE&#x27;</span>, <span class="string">&#x27;ORGANIZATION_TYPE&#x27;</span>]</span><br><span class="line">nominal_categories = [col <span class="keyword">for</span> col <span class="keyword">in</span> categorical_cols <span class="keyword">if</span> col <span class="keyword">not</span> <span class="keyword">in</span> encoded_cols]</span><br><span class="line"></span><br><span class="line">indexedCols = [<span class="string">f&quot;indexed_<span class="subst">&#123;col&#125;</span>&quot;</span> <span class="keyword">for</span> col <span class="keyword">in</span> nominal_categories]</span><br><span class="line">vectorCols = [<span class="string">f&quot;encoded_<span class="subst">&#123;col&#125;</span>&quot;</span> <span class="keyword">for</span> col <span class="keyword">in</span> nominal_categories]</span><br><span class="line"></span><br><span class="line">onehot_encoder = Pipeline(stages=[</span><br><span class="line">    StringIndexer(</span><br><span class="line">        inputCols=nominal_categories, </span><br><span class="line">        outputCols=indexedCols,</span><br><span class="line">        handleInvalid=<span class="string">&#x27;keep&#x27;</span></span><br><span class="line">    ),</span><br><span class="line">    OneHotEncoder(</span><br><span class="line">        inputCols=indexedCols,</span><br><span class="line">        outputCols=vectorCols</span><br><span class="line">    )</span><br><span class="line">])</span><br><span class="line">onehot_encoder.fit(df).transform(df).select(vectorCols).limit(<span class="number">5</span>).toPandas()</span><br></pre></td></tr></table></figure>
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+<pre><code>.dataframe tbody tr th &#123;
+    vertical-align: top;
+&#125;
+
+.dataframe thead th &#123;
+    text-align: right;
+&#125;
+</code></pre>
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>encoded_NAME_CONTRACT_TYPE</th>
+      <th>encoded_CODE_GENDER</th>
+      <th>encoded_FLAG_OWN_CAR</th>
+      <th>encoded_FLAG_OWN_REALTY</th>
+      <th>encoded_NAME_TYPE_SUITE</th>
+      <th>encoded_NAME_INCOME_TYPE</th>
+      <th>encoded_NAME_FAMILY_STATUS</th>
+      <th>encoded_NAME_HOUSING_TYPE</th>
+      <th>encoded_WEEKDAY_APPR_PROCESS_START</th>
+      <th>encoded_FONDKAPREMONT_MODE</th>
+      <th>encoded_HOUSETYPE_MODE</th>
+      <th>encoded_WALLSMATERIAL_MODE</th>
+      <th>encoded_EMERGENCYSTATE_MODE</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>(0.0, 1.0)</td>
+      <td>(0.0, 1.0)</td>
+      <td>(0.0, 1.0)</td>
+      <td>(1.0, 0.0)</td>
+      <td>(1.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0)</td>
+      <td>(1.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0)</td>
+      <td>(1.0, 0.0, 0.0, 0.0, 0.0, 0.0)</td>
+      <td>(1.0, 0.0, 0.0, 0.0, 0.0, 0.0)</td>
+      <td>(1.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0)</td>
+      <td>(0.0, 0.0, 0.0, 1.0)</td>
+      <td>(1.0, 0.0, 0.0)</td>
+      <td>(0.0, 1.0, 0.0, 0.0, 0.0, 0.0, 0.0)</td>
+      <td>(1.0, 0.0)</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>(1.0, 0.0)</td>
+      <td>(1.0, 0.0)</td>
+      <td>(1.0, 0.0)</td>
+      <td>(1.0, 0.0)</td>
+      <td>(1.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0)</td>
+      <td>(1.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0)</td>
+      <td>(0.0, 0.0, 0.0, 1.0, 0.0, 0.0)</td>
+      <td>(1.0, 0.0, 0.0, 0.0, 0.0, 0.0)</td>
+      <td>(0.0, 0.0, 0.0, 1.0, 0.0, 0.0, 0.0)</td>
+      <td>(1.0, 0.0, 0.0, 0.0)</td>
+      <td>(1.0, 0.0, 0.0)</td>
+      <td>(0.0, 0.0, 1.0, 0.0, 0.0, 0.0, 0.0)</td>
+      <td>(1.0, 0.0)</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>(1.0, 0.0)</td>
+      <td>(0.0, 1.0)</td>
+      <td>(0.0, 1.0)</td>
+      <td>(1.0, 0.0)</td>
+      <td>(0.0, 1.0, 0.0, 0.0, 0.0, 0.0, 0.0)</td>
+      <td>(1.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0)</td>
+      <td>(0.0, 0.0, 1.0, 0.0, 0.0, 0.0)</td>
+      <td>(1.0, 0.0, 0.0, 0.0, 0.0, 0.0)</td>
+      <td>(0.0, 0.0, 1.0, 0.0, 0.0, 0.0, 0.0)</td>
+      <td>(0.0, 0.0, 0.0, 0.0)</td>
+      <td>(1.0, 0.0, 0.0)</td>
+      <td>(1.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0)</td>
+      <td>(1.0, 0.0)</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>(1.0, 0.0)</td>
+      <td>(1.0, 0.0)</td>
+      <td>(1.0, 0.0)</td>
+      <td>(0.0, 1.0)</td>
+      <td>(1.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0)</td>
+      <td>(0.0, 0.0, 1.0, 0.0, 0.0, 0.0, 0.0, 0.0)</td>
+      <td>(1.0, 0.0, 0.0, 0.0, 0.0, 0.0)</td>
+      <td>(1.0, 0.0, 0.0, 0.0, 0.0, 0.0)</td>
+      <td>(0.0, 0.0, 0.0, 1.0, 0.0, 0.0, 0.0)</td>
+      <td>(0.0, 0.0, 0.0, 0.0)</td>
+      <td>(0.0, 0.0, 0.0)</td>
+      <td>(0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0)</td>
+      <td>(0.0, 0.0)</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>(1.0, 0.0)</td>
+      <td>(1.0, 0.0)</td>
+      <td>(1.0, 0.0)</td>
+      <td>(1.0, 0.0)</td>
+      <td>(0.0, 1.0, 0.0, 0.0, 0.0, 0.0, 0.0)</td>
+      <td>(0.0, 0.0, 1.0, 0.0, 0.0, 0.0, 0.0, 0.0)</td>
+      <td>(0.0, 0.0, 0.0, 1.0, 0.0, 0.0)</td>
+      <td>(1.0, 0.0, 0.0, 0.0, 0.0, 0.0)</td>
+      <td>(0.0, 0.0, 1.0, 0.0, 0.0, 0.0, 0.0)</td>
+      <td>(0.0, 0.0, 0.0, 0.0)</td>
+      <td>(0.0, 0.0, 0.0)</td>
+      <td>(0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0)</td>
+      <td>(0.0, 0.0)</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+<h3 id="连续特征分箱"><a class="markdownIt-Anchor" href="#连续特征分箱"></a> 连续特征分箱</h3>
+<p>Binning Continuous Features</p>
+<p>在实际的模型训练过程中，我们也经常对连续特征进行离散化处理，这样能消除特征量纲的影响，同时还能极大减少异常值的影响，增加特征的稳定性。</p>
+<p>分箱主要分为等频分箱、等宽分箱和聚类分箱三种。等频分箱会一定程度受到异常值的影响，而等宽分箱又容易完全忽略异常值信息，从而一定程度上导致信息损失，若要更好的兼顾变量的原始分布，则可以考虑聚类分箱。所谓聚类分箱，指的是先对某连续变量进行聚类（往往是 k-Means 聚类），然后使用样本所属类别。</p>
+<p>以年龄对还款的影响为例</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="comment"># Find the correlation of the positive days since birth and target</span></span><br><span class="line">df.select((df[<span class="string">&#x27;DAYS_BIRTH&#x27;</span>] / -<span class="number">365</span>).alias(<span class="string">&#x27;age&#x27;</span>), <span class="string">&#x27;label&#x27;</span>).corr(<span class="string">&#x27;age&#x27;</span>, <span class="string">&quot;label&quot;</span>)</span><br></pre></td></tr></table></figure>
+<pre><code>-0.07823930830982699
+</code></pre>
+<p>可见，客户年龄与目标意义呈负相关关系，即随着客户年龄的增长，他们往往会更经常地按时偿还贷款。我们接下来将制作一个核心密度估计图（KDE），直观地观察年龄对目标的影响。</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">sample = df.sample(<span class="number">0.1</span>).select((df[<span class="string">&#x27;DAYS_BIRTH&#x27;</span>]/fn.lit(-<span class="number">365</span>)).alias(<span class="string">&quot;age&quot;</span>), <span class="string">&quot;label&quot;</span>).toPandas()</span><br><span class="line"></span><br><span class="line">plt.figure(figsize = (<span class="number">5</span>, <span class="number">3</span>))</span><br><span class="line">sns.kdeplot(data=sample, x=<span class="string">&quot;age&quot;</span>, hue=<span class="string">&quot;label&quot;</span>, common_norm=<span class="literal">False</span>)</span><br><span class="line">plt.xlabel(<span class="string">&#x27;Age (years)&#x27;</span>)</span><br><span class="line">plt.ylabel(<span class="string">&#x27;Density&#x27;</span>)</span><br><span class="line">plt.title(<span class="string">&#x27;Distribution of Ages&#x27;</span>)</span><br></pre></td></tr></table></figure>
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/img/feature_engineering_on_spark/preproccessing_output_48_2.png" alt="" /></p>
+<p>如果我们把年龄分箱：</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="comment"># Bin the age data</span></span><br><span class="line">age_binned = pd.cut(sample[<span class="string">&#x27;age&#x27;</span>], bins = np.linspace(<span class="number">20</span>, <span class="number">70</span>, num = <span class="number">11</span>))</span><br><span class="line">age_groups  = sample[<span class="string">&#x27;label&#x27;</span>].groupby(age_binned).mean()</span><br><span class="line"></span><br><span class="line">plt.figure(figsize = (<span class="number">8</span>, <span class="number">3</span>))</span><br><span class="line"><span class="comment"># Graph the age bins and the average of the target as a bar plot</span></span><br><span class="line">sns.barplot(x=age_groups.index, y=age_groups*<span class="number">100</span>)</span><br><span class="line"><span class="comment"># Plot labeling</span></span><br><span class="line">plt.xticks(rotation = <span class="number">30</span>)</span><br><span class="line">plt.xlabel(<span class="string">&#x27;Age Group (years)&#x27;</span>)</span><br><span class="line">plt.ylabel(<span class="string">&#x27;Failure to Repay (%)&#x27;</span>)</span><br><span class="line">plt.title(<span class="string">&#x27;Failure to Repay by Age Group&#x27;</span>)</span><br></pre></td></tr></table></figure>
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/img/feature_engineering_on_spark/preproccessing_output_50_1.png" alt="" /></p>
+<p>有一个明显的趋势：年轻的申请人更有可能不偿还贷款！ 年龄最小的三个年龄组的失败率在10％以上，最老的年龄组为5％。<br />
+pyspark.ml.feature 模块中的 Bucketizer 可以实现等宽分箱，QuantileDiscretizer可以实现等频分箱。</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">bucketizer = ft.QuantileDiscretizer(</span><br><span class="line">    numBuckets=<span class="number">10</span>,</span><br><span class="line">    handleInvalid=<span class="string">&#x27;keep&#x27;</span>,</span><br><span class="line">    inputCols=[<span class="string">&#x27;DAYS_BIRTH&#x27;</span>, <span class="string">&#x27;DAYS_EMPLOYED&#x27;</span>], </span><br><span class="line">    outputCols=[<span class="string">&quot;buckets1&quot;</span>, <span class="string">&quot;buckets2&quot;</span>]</span><br><span class="line">).fit(df)</span><br><span class="line"></span><br><span class="line">splits = bucketizer.getSplitsArray() <span class="comment"># bin_edges</span></span><br><span class="line"><span class="keyword">for</span> c, s <span class="keyword">in</span> <span class="built_in">zip</span>([<span class="string">&#x27;DAYS_BIRTH&#x27;</span>, <span class="string">&#x27;DAYS_EMPLOYED&#x27;</span>], splits):</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">f&quot;<span class="subst">&#123;c&#125;</span>&#x27;s bin_edges:&quot;</span>)</span><br><span class="line">    <span class="built_in">print</span>(s)</span><br></pre></td></tr></table></figure>
+<pre><code>DAYS_BIRTH's bin_edges:
+[-inf, -22185.0, -20480.0, -18892.0, -17228.0, -15759.0, -14425.0, -13153.0, -11706.0, -10296.0, inf]
+DAYS_EMPLOYED's bin_edges:
+[-inf, -5338.0, -3679.0, -2795.0, -2164.0, -1650.0, -1253.0, -922.0, -619.0, -336.0, inf] 
+</code></pre>
+<h3 id="函数封装-2"><a class="markdownIt-Anchor" href="#函数封装-2"></a> 函数封装</h3>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">dtypes = df.drop(<span class="string">&quot;SK_ID_CURR&quot;</span>, <span class="string">&quot;TARGET&quot;</span>).dtypes</span><br><span class="line">categorical_cols = [k <span class="keyword">for</span> k, v <span class="keyword">in</span> dtypes <span class="keyword">if</span> v == <span class="string">&#x27;string&#x27;</span>]</span><br><span class="line">numerical_cols = [k <span class="keyword">for</span> k, v <span class="keyword">in</span> dtypes <span class="keyword">if</span> v != <span class="string">&#x27;string&#x27;</span>]   </span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">encode</span>(<span class="params">df</span>):</span></span><br><span class="line">    <span class="comment"># The ordinal (ordered) categorical features</span></span><br><span class="line">    <span class="comment"># Pandas calls the categories &quot;levels&quot;</span></span><br><span class="line">    ordered_levels = &#123;</span><br><span class="line">        <span class="string">&quot;NAME_EDUCATION_TYPE&quot;</span>: [<span class="string">&quot;Lower secondary&quot;</span>, </span><br><span class="line">                                <span class="string">&quot;Secondary / secondary special&quot;</span>, </span><br><span class="line">                                <span class="string">&quot;Incomplete higher&quot;</span>, </span><br><span class="line">                                <span class="string">&quot;Higher education&quot;</span>]</span><br><span class="line">    &#125;</span><br><span class="line">    df = ordinal_encode(df, ordered_levels)</span><br><span class="line">    </span><br><span class="line">    <span class="comment"># replace categories by the mean value of the target for each category.</span></span><br><span class="line">    mean_encoder = MeanEncoder(</span><br><span class="line">        inputCols=[<span class="string">&#x27;OCCUPATION_TYPE&#x27;</span>, <span class="string">&#x27;ORGANIZATION_TYPE&#x27;</span>], </span><br><span class="line">        labelCol=<span class="string">&#x27;label&#x27;</span>,</span><br><span class="line">        smoothing=<span class="string">&#x27;auto&#x27;</span></span><br><span class="line">    )</span><br><span class="line">    df = mean_encoder.fit(df).transform(df)</span><br><span class="line">    </span><br><span class="line">    <span class="comment"># The nominative (unordered) categorical features</span></span><br><span class="line">    nominal_categories = [col <span class="keyword">for</span> col <span class="keyword">in</span> categorical_cols <span class="keyword">if</span> col <span class="keyword">not</span> <span class="keyword">in</span> ordered_levels]</span><br><span class="line">    features_onehot = [col <span class="keyword">for</span> col <span class="keyword">in</span> nominal_categories <span class="keyword">if</span> col <span class="keyword">not</span> <span class="keyword">in</span> [<span class="string">&#x27;OCCUPATION_TYPE&#x27;</span>, <span class="string">&#x27;ORGANIZATION_TYPE&#x27;</span>]]</span><br><span class="line"></span><br><span class="line">    indexedCols = [<span class="string">f&quot;indexed_<span class="subst">&#123;col&#125;</span>&quot;</span> <span class="keyword">for</span> col <span class="keyword">in</span> features_onehot]</span><br><span class="line">    encodedCols = [<span class="string">f&quot;encoded_<span class="subst">&#123;col&#125;</span>&quot;</span> <span class="keyword">for</span> col <span class="keyword">in</span> features_onehot]</span><br><span class="line"></span><br><span class="line">    onehot_encoder = Pipeline(stages=[</span><br><span class="line">        StringIndexer(</span><br><span class="line">            inputCols=features_onehot, </span><br><span class="line">            outputCols=indexedCols,</span><br><span class="line">            handleInvalid=<span class="string">&#x27;keep&#x27;</span></span><br><span class="line">        ),</span><br><span class="line">        OneHotEncoder(</span><br><span class="line">            inputCols=indexedCols,</span><br><span class="line">            outputCols=encodedCols</span><br><span class="line">        )</span><br><span class="line">    ])</span><br><span class="line">    </span><br><span class="line">    df = onehot_encoder.fit(df).transform(df).drop(*features_onehot + indexedCols)</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">f&#x27;<span class="subst">&#123;<span class="built_in">len</span>(features_onehot):d&#125;</span> columns were one-hot encoded&#x27;</span>)</span><br><span class="line">    </span><br><span class="line">    colsMap = <span class="built_in">dict</span>(<span class="built_in">zip</span>(encodedCols, features_onehot))</span><br><span class="line">    df = df.withColumnsRenamed(colsMap)</span><br><span class="line">    <span class="keyword">return</span> df</span><br></pre></td></tr></table></figure>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="comment"># Encode categorical features</span></span><br><span class="line">df_encoded = encode(df)</span><br><span class="line">df_encoded.select(categorical_cols).limit(<span class="number">5</span>).toPandas()</span><br></pre></td></tr></table></figure>
+<pre><code>1 columns were ordinal encoded
+2 columns were mean encoded
+10 columns were one-hot encoded
+</code></pre>
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+<pre><code>.dataframe tbody tr th &#123;
+    vertical-align: top;
+&#125;
+
+.dataframe thead th &#123;
+    text-align: right;
+&#125;
+</code></pre>
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>NAME_CONTRACT_TYPE</th>
+      <th>CODE_GENDER</th>
+      <th>NAME_TYPE_SUITE</th>
+      <th>NAME_INCOME_TYPE</th>
+      <th>NAME_EDUCATION_TYPE</th>
+      <th>NAME_FAMILY_STATUS</th>
+      <th>NAME_HOUSING_TYPE</th>
+      <th>OCCUPATION_TYPE</th>
+      <th>WEEKDAY_APPR_PROCESS_START</th>
+      <th>ORGANIZATION_TYPE</th>
+      <th>FONDKAPREMONT_MODE</th>
+      <th>HOUSETYPE_MODE</th>
+      <th>WALLSMATERIAL_MODE</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>(0.0, 1.0)</td>
+      <td>(0.0, 1.0)</td>
+      <td>(1.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0)</td>
+      <td>(1.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0)</td>
+      <td>3</td>
+      <td>(1.0, 0.0, 0.0, 0.0, 0.0, 0.0)</td>
+      <td>(1.0, 0.0, 0.0, 0.0, 0.0, 0.0)</td>
+      <td>0.062141</td>
+      <td>(1.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0)</td>
+      <td>0.092996</td>
+      <td>(0.0, 0.0, 0.0, 1.0)</td>
+      <td>(1.0, 0.0, 0.0)</td>
+      <td>(0.0, 1.0, 0.0, 0.0, 0.0, 0.0, 0.0)</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>(1.0, 0.0)</td>
+      <td>(1.0, 0.0)</td>
+      <td>(1.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0)</td>
+      <td>(1.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0)</td>
+      <td>2</td>
+      <td>(0.0, 0.0, 0.0, 1.0, 0.0, 0.0)</td>
+      <td>(1.0, 0.0, 0.0, 0.0, 0.0, 0.0)</td>
+      <td>0.096317</td>
+      <td>(0.0, 0.0, 0.0, 1.0, 0.0, 0.0, 0.0)</td>
+      <td>0.094494</td>
+      <td>(1.0, 0.0, 0.0, 0.0)</td>
+      <td>(1.0, 0.0, 0.0)</td>
+      <td>(0.0, 0.0, 1.0, 0.0, 0.0, 0.0, 0.0)</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>(1.0, 0.0)</td>
+      <td>(0.0, 1.0)</td>
+      <td>(0.0, 1.0, 0.0, 0.0, 0.0, 0.0, 0.0)</td>
+      <td>(1.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0)</td>
+      <td>1</td>
+      <td>(0.0, 0.0, 1.0, 0.0, 0.0, 0.0)</td>
+      <td>(1.0, 0.0, 0.0, 0.0, 0.0, 0.0)</td>
+      <td>0.113259</td>
+      <td>(0.0, 0.0, 1.0, 0.0, 0.0, 0.0, 0.0)</td>
+      <td>0.101738</td>
+      <td>(0.0, 0.0, 0.0, 0.0)</td>
+      <td>(1.0, 0.0, 0.0)</td>
+      <td>(1.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0)</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>(1.0, 0.0)</td>
+      <td>(1.0, 0.0)</td>
+      <td>(1.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0)</td>
+      <td>(0.0, 0.0, 1.0, 0.0, 0.0, 0.0, 0.0, 0.0)</td>
+      <td>1</td>
+      <td>(1.0, 0.0, 0.0, 0.0, 0.0, 0.0)</td>
+      <td>(1.0, 0.0, 0.0, 0.0, 0.0, 0.0)</td>
+      <td>NaN</td>
+      <td>(0.0, 0.0, 0.0, 1.0, 0.0, 0.0, 0.0)</td>
+      <td>NaN</td>
+      <td>(0.0, 0.0, 0.0, 0.0)</td>
+      <td>(0.0, 0.0, 0.0)</td>
+      <td>(0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0)</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>(1.0, 0.0)</td>
+      <td>(1.0, 0.0)</td>
+      <td>(0.0, 1.0, 0.0, 0.0, 0.0, 0.0, 0.0)</td>
+      <td>(0.0, 0.0, 1.0, 0.0, 0.0, 0.0, 0.0, 0.0)</td>
+      <td>1</td>
+      <td>(0.0, 0.0, 0.0, 1.0, 0.0, 0.0)</td>
+      <td>(1.0, 0.0, 0.0, 0.0, 0.0, 0.0)</td>
+      <td>NaN</td>
+      <td>(0.0, 0.0, 1.0, 0.0, 0.0, 0.0, 0.0)</td>
+      <td>NaN</td>
+      <td>(0.0, 0.0, 0.0, 0.0)</td>
+      <td>(0.0, 0.0, 0.0)</td>
+      <td>(0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0)</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">pd.Series(<span class="built_in">dict</span>(df_encoded.dtypes)).value_counts()</span><br></pre></td></tr></table></figure>
+<pre><code>double    65
+int       45
+vector    10
+float      2
+Name: count, dtype: int64
+</code></pre>
+<h2 id="缺失值处理"><a class="markdownIt-Anchor" href="#缺失值处理"></a> 缺失值处理</h2>
+<p>特征有缺失值是非常常见的，大部分机器学习模型在拟合前需要处理缺失值（Handle Missing Values）。</p>
+<h3 id="缺失值统计"><a class="markdownIt-Anchor" href="#缺失值统计"></a> 缺失值统计</h3>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="comment"># Function to calculate missing values by column</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">display_missing</span>(<span class="params">df, threshold=<span class="literal">None</span>, verbose=<span class="number">1</span></span>):</span></span><br><span class="line">    n = df.count()</span><br><span class="line">    exprs = [fn.<span class="built_in">sum</span>(df[col].isNull().cast(<span class="string">&#x27;int&#x27;</span>)).alias(col) <span class="keyword">for</span> col <span class="keyword">in</span> df.columns]</span><br><span class="line">    missing_number = df.select(*exprs).first().asDict()</span><br><span class="line">    missing_df = pd.DataFrame(&#123;</span><br><span class="line">        <span class="string">&quot;missing_number&quot;</span>: missing_number.values(),  <span class="comment"># Total missing values</span></span><br><span class="line">        <span class="string">&quot;missing_rate&quot;</span>: [value / n <span class="keyword">for</span> value <span class="keyword">in</span> missing_number.values()]   <span class="comment"># Proportion of missing values</span></span><br><span class="line">        &#125;, index=missing_number.keys())</span><br><span class="line">    missing_df = missing_df.query(<span class="string">&quot;missing_rate&gt;0&quot;</span>).sort_values(<span class="string">&quot;missing_rate&quot;</span>, ascending=<span class="literal">False</span>)</span><br><span class="line">    threshold = <span class="number">0.25</span> <span class="keyword">if</span> threshold <span class="keyword">is</span> <span class="literal">None</span> <span class="keyword">else</span> threshold</span><br><span class="line">    high_missing = missing_df.query(<span class="string">f&quot;missing_rate&gt;<span class="subst">&#123;threshold&#125;</span>&quot;</span>)</span><br><span class="line">    <span class="comment"># Print some summary information</span></span><br><span class="line">    <span class="keyword">if</span> verbose:</span><br><span class="line">        <span class="built_in">print</span>(<span class="string">f&quot;Your selected dataframe has <span class="subst">&#123;missing_df.shape[<span class="number">0</span>]&#125;</span> out of <span class="subst">&#123;<span class="built_in">len</span>(df.columns)&#125;</span> columns that have missing values.&quot;</span>)</span><br><span class="line">    <span class="comment"># Return the dataframe with missing information</span></span><br><span class="line">    <span class="keyword">if</span> threshold <span class="keyword">is</span> <span class="literal">None</span>:</span><br><span class="line">        <span class="keyword">return</span> missing_df</span><br><span class="line">    <span class="keyword">else</span>:</span><br><span class="line">        <span class="keyword">if</span> verbose:</span><br><span class="line">            <span class="built_in">print</span>(<span class="string">f&quot;There are <span class="subst">&#123;high_missing.shape[<span class="number">0</span>]&#125;</span> columns with more than <span class="subst">&#123;threshold:<span class="number">.1</span>%&#125;</span> missing values.&quot;</span>)</span><br><span class="line">        <span class="keyword">return</span> high_missing</span><br></pre></td></tr></table></figure>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="comment"># Missing values statistics</span></span><br><span class="line"><span class="built_in">print</span>(display_missing(df_encoded).head(<span class="number">10</span>))</span><br></pre></td></tr></table></figure>
+<pre><code>Your selected dataframe has 66 out of 122 columns that have missing values.
+There are 47 columns with more than 25.0% missing values.
+                          missing_number  missing_rate
+COMMONAREA_MEDI                   214865      0.698723
+COMMONAREA_MODE                   214865      0.698723
+COMMONAREA_AVG                    214865      0.698723
+NONLIVINGAPARTMENTS_MODE          213514      0.694330
+NONLIVINGAPARTMENTS_MEDI          213514      0.694330
+NONLIVINGAPARTMENTS_AVG           213514      0.694330
+LIVINGAPARTMENTS_MODE             210199      0.683550
+LIVINGAPARTMENTS_MEDI             210199      0.683550
+LIVINGAPARTMENTS_AVG              210199      0.683550
+FLOORSMIN_MODE                    208642      0.678486                                       
+</code></pre>
+<h3 id="缺失值删除"><a class="markdownIt-Anchor" href="#缺失值删除"></a> 缺失值删除</h3>
+<p>如果某个特征的缺失值超过阈值（例如80%），那么该特征对模型的贡献就会降低，通常就可以考虑删除该特征。</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="comment"># Remove variables with high missing rate</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">drop_missing_data</span>(<span class="params">df, threshold=<span class="number">0.8</span></span>):</span></span><br><span class="line">    <span class="comment"># Remove variables with missing more than threshold(default 20%)</span></span><br><span class="line">    thresh = <span class="built_in">int</span>(df.count() * (<span class="number">1</span> - threshold))</span><br><span class="line">    exprs = [fn.<span class="built_in">sum</span>(df[col].isNull().cast(<span class="string">&#x27;int&#x27;</span>)).alias(col) <span class="keyword">for</span> col <span class="keyword">in</span> df.columns]</span><br><span class="line">    missing_number = df.select(*exprs).first().asDict()</span><br><span class="line">    cols_to_drop = [k <span class="keyword">for</span> k,v <span class="keyword">in</span> missing_number.items() <span class="keyword">if</span> v &gt; thresh]</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">f&quot;Removed <span class="subst">&#123;<span class="built_in">len</span>(cols_to_drop)&#125;</span> variables with missing more than <span class="subst">&#123;<span class="number">1</span> - threshold:<span class="number">.1</span>%&#125;</span>&quot;</span>)</span><br><span class="line">    <span class="keyword">return</span> df.drop(*cols_to_drop)</span><br></pre></td></tr></table></figure>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">_ = drop_missing_data(df_encoded, threshold=<span class="number">0.2</span>)</span><br></pre></td></tr></table></figure>
+<pre><code>Removed 0 variables with missing more than 80.0%
+</code></pre>
+<h3 id="缺失值标记"><a class="markdownIt-Anchor" href="#缺失值标记"></a> 缺失值标记</h3>
+<p>有时，对于每个含有缺失值的列，我们额外添加一列来表示该列中缺失值的位置，在某些应用中，能取得不错的效果。<br />
+继续分析之前清洗过的 DAYS_EMPLOYED 异常，我们对缺失数据进行标记，看看他们是否影响客户违约。</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">df_encoded.groupBy(df_encoded[<span class="string">&#x27;DAYS_EMPLOYED&#x27;</span>].isNull()).mean(<span class="string">&#x27;label&#x27;</span>).show()</span><br></pre></td></tr></table></figure>
+<pre><code>+-----------------------+-------------------+
+|(DAYS_EMPLOYED IS NULL)|         avg(label)|
++-----------------------+-------------------+
+|                   true|0.05399646043269404|
+|                  false| 0.0865997453765215|
++-----------------------+-------------------+
+</code></pre>
+<p>发现缺失值的逾期率 5.4% 低于正常值的逾期率 8.66%，与Target的相关性很强，因此新增一列DAYS_EMPLOYED_MISSING 标记。这种处理对线性方法比较有效，而基于树的方法可以自动识别。</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="comment"># Adds a binary variable to flag missing observations.</span></span><br><span class="line"><span class="keyword">from</span> pyspark.ml.stat <span class="keyword">import</span> Correlation, ChiSquareTest</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">flag_missing</span>(<span class="params">df, inputCols=<span class="literal">None</span>, labelCol=<span class="string">&#x27;label&#x27;</span>, alpha=<span class="number">0.05</span></span>):</span></span><br><span class="line">    <span class="string">&quot;&quot;&quot;</span></span><br><span class="line"><span class="string">    Adds a binary variable to flag missing observations(one indicator per variable). </span></span><br><span class="line"><span class="string">    The added variables (missing indicators) are named with the original variable name plus &#x27;_missing&#x27;.</span></span><br><span class="line"><span class="string">    </span></span><br><span class="line"><span class="string">    Parameters:</span></span><br><span class="line"><span class="string">    ----------</span></span><br><span class="line"><span class="string">    alpha: float, default=0.05</span></span><br><span class="line"><span class="string">        Features with correlation more than alpha are selected.</span></span><br><span class="line"><span class="string">    &quot;&quot;&quot;</span></span><br><span class="line">    <span class="keyword">if</span> inputCols <span class="keyword">is</span> <span class="literal">None</span>:</span><br><span class="line">        inputCols = df.drop(labelCol).columns</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">for</span> var <span class="keyword">in</span> inputCols:</span><br><span class="line">        df = df.withColumn(var + <span class="string">&quot;_missing&quot;</span>, df[var].isNull().cast(<span class="string">&#x27;int&#x27;</span>))</span><br><span class="line">    </span><br><span class="line">    indicators = [var + <span class="string">&quot;_missing&quot;</span> <span class="keyword">for</span> var <span class="keyword">in</span> inputCols]</span><br><span class="line">    <span class="comment"># The correlations</span></span><br><span class="line">    corr = df.select([fn.corr(labelCol, c2).alias(c2) <span class="keyword">for</span> c2 <span class="keyword">in</span> indicators])</span><br><span class="line">    corr = corr.fillna(<span class="number">0</span>).first().asDict()</span><br><span class="line">    <span class="comment"># find variables for which indicator should be added.</span></span><br><span class="line">    selected_cols = [var <span class="keyword">for</span> var, r <span class="keyword">in</span> corr.items() <span class="keyword">if</span> <span class="built_in">abs</span>(r) &gt; alpha]</span><br><span class="line">    drop_cols = [var <span class="keyword">for</span> var <span class="keyword">in</span> indicators <span class="keyword">if</span> var <span class="keyword">not</span> <span class="keyword">in</span> selected_cols]</span><br><span class="line">    df = df.drop(*drop_cols)</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">f&quot;Added <span class="subst">&#123;<span class="built_in">len</span>(selected_cols)&#125;</span> missing indicators&quot;</span>)</span><br><span class="line">    <span class="keyword">return</span> df</span><br></pre></td></tr></table></figure>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="built_in">print</span>(<span class="string">&#x27;The number of features:&#x27;</span>, <span class="built_in">len</span>(flag_missing(df_encoded).columns))</span><br></pre></td></tr></table></figure>
+<pre><code>Added 0 missing indicators
+The number of features: 122
+</code></pre>
+<h3 id="人工插补"><a class="markdownIt-Anchor" href="#人工插补"></a> 人工插补</h3>
+<p>根据业务知识来进行人工填充。</p>
+<p>若变量是类别型，且不同值较少，可在编码时转换成哑变量。例如，编码前的性别变量 code_gender</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">pipeline = Pipeline(stages=[</span><br><span class="line">    StringIndexer(</span><br><span class="line">        inputCol=<span class="string">&quot;CODE_GENDER&quot;</span>, </span><br><span class="line">        outputCol=<span class="string">&quot;indexedCol&quot;</span>,</span><br><span class="line">        handleInvalid=<span class="string">&quot;keep&quot;</span></span><br><span class="line">    ),</span><br><span class="line">    OneHotEncoder(</span><br><span class="line">        inputCol=<span class="string">&quot;indexedCol&quot;</span>, </span><br><span class="line">        outputCol=<span class="string">&quot;encodedCol&quot;</span>, </span><br><span class="line">        handleInvalid=<span class="string">&quot;keep&quot;</span>,</span><br><span class="line">        dropLast=<span class="literal">False</span></span><br><span class="line">    )</span><br><span class="line">])</span><br><span class="line"></span><br><span class="line">pipeline.fit(df).transform(df).select(<span class="string">&quot;CODE_GENDER&quot;</span>, <span class="string">&quot;encodedCol&quot;</span>).show(<span class="number">5</span>)                            </span><br></pre></td></tr></table></figure>
+<pre><code>+-----------+-------------+
+|CODE_GENDER|   encodedCol|
++-----------+-------------+
+|          M|(4,[1],[1.0])|
+|          F|(4,[0],[1.0])|
+|          M|(4,[1],[1.0])|
+|          F|(4,[0],[1.0])|
+|          F|(4,[0],[1.0])|
++-----------+-------------+
+only showing top 5 rows
+</code></pre>
+<p>分类特征在索引化时已经处理了缺失值，因此不需要再特殊处理。<br />
+若变量是布尔型，视情况可统一填充为零</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">nunique = df_encoded.select([fn.countDistinct(var).alias(var) <span class="keyword">for</span> var <span class="keyword">in</span> df_encoded.columns]).first().asDict() </span><br><span class="line">binary = df_encoded.select([fn.collect_set(var).alias(var) <span class="keyword">for</span> var,n <span class="keyword">in</span> nunique.items() <span class="keyword">if</span> n == <span class="number">2</span>])</span><br><span class="line"><span class="built_in">print</span>([k <span class="keyword">for</span> k, v <span class="keyword">in</span> binary.first().asDict().items() <span class="keyword">if</span> <span class="built_in">set</span>(v) == &#123;<span class="number">0</span>, <span class="number">1</span>&#125;])</span><br></pre></td></tr></table></figure>
+<pre><code>['label', 'FLAG_OWN_CAR', 'FLAG_OWN_REALTY', 'FLAG_MOBIL', 'FLAG_EMP_PHONE', 'FLAG_WORK_PHONE', 'FLAG_CONT_MOBILE', 'FLAG_PHONE', 'FLAG_EMAIL', 'REG_REGION_NOT_LIVE_REGION', 'REG_REGION_NOT_WORK_REGION', 'LIVE_REGION_NOT_WORK_REGION', 'REG_CITY_NOT_LIVE_CITY', 'REG_CITY_NOT_WORK_CITY', 'LIVE_CITY_NOT_WORK_CITY', 'EMERGENCYSTATE_MODE', 'FLAG_DOCUMENT_2', 'FLAG_DOCUMENT_3', 'FLAG_DOCUMENT_4', 'FLAG_DOCUMENT_5', 'FLAG_DOCUMENT_6', 'FLAG_DOCUMENT_7', 'FLAG_DOCUMENT_8', 'FLAG_DOCUMENT_9', 'FLAG_DOCUMENT_10', 'FLAG_DOCUMENT_11', 'FLAG_DOCUMENT_12', 'FLAG_DOCUMENT_13', 'FLAG_DOCUMENT_14', 'FLAG_DOCUMENT_15', 'FLAG_DOCUMENT_16', 'FLAG_DOCUMENT_17', 'FLAG_DOCUMENT_18', 'FLAG_DOCUMENT_19', 'FLAG_DOCUMENT_20', 'FLAG_DOCUMENT_21']
+</code></pre>
+<p>如果我们仔细观察一下字段描述，会发现很多缺失值都有迹可循，比如客户的社会关系中有30天/60天逾期及申请贷款前1小时/天/周/月/季度/年查询了多少次征信的都可填充为数字0。</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">impute_manually</span>(<span class="params">df</span>):</span></span><br><span class="line">    <span class="string">&quot;&quot;&quot;</span></span><br><span class="line"><span class="string">    Replaces missing values by an arbitrary value</span></span><br><span class="line"><span class="string">    &quot;&quot;&quot;</span></span><br><span class="line">    <span class="comment"># boolean</span></span><br><span class="line">    boolean_features = [<span class="string">&#x27;FLAG_OWN_CAR&#x27;</span>, <span class="string">&#x27;FLAG_OWN_REALTY&#x27;</span>, <span class="string">&#x27;FLAG_MOBIL&#x27;</span>, <span class="string">&#x27;FLAG_EMP_PHONE&#x27;</span>, </span><br><span class="line">                        <span class="string">&#x27;FLAG_WORK_PHONE&#x27;</span>, <span class="string">&#x27;FLAG_CONT_MOBILE&#x27;</span>, <span class="string">&#x27;FLAG_PHONE&#x27;</span>, <span class="string">&#x27;FLAG_EMAIL&#x27;</span>, </span><br><span class="line">                        <span class="string">&#x27;REG_REGION_NOT_LIVE_REGION&#x27;</span>, <span class="string">&#x27;REG_REGION_NOT_WORK_REGION&#x27;</span>, <span class="string">&#x27;LIVE_REGION_NOT_WORK_REGION&#x27;</span>,</span><br><span class="line">                        <span class="string">&#x27;REG_CITY_NOT_LIVE_CITY&#x27;</span>, <span class="string">&#x27;REG_CITY_NOT_WORK_CITY&#x27;</span>, <span class="string">&#x27;LIVE_CITY_NOT_WORK_CITY&#x27;</span>, </span><br><span class="line">                        <span class="string">&#x27;EMERGENCYSTATE_MODE&#x27;</span>, <span class="string">&#x27;FLAG_DOCUMENT_2&#x27;</span>, <span class="string">&#x27;FLAG_DOCUMENT_3&#x27;</span>, <span class="string">&#x27;FLAG_DOCUMENT_4&#x27;</span>, </span><br><span class="line">                        <span class="string">&#x27;FLAG_DOCUMENT_5&#x27;</span>, <span class="string">&#x27;FLAG_DOCUMENT_6&#x27;</span>, <span class="string">&#x27;FLAG_DOCUMENT_7&#x27;</span>, <span class="string">&#x27;FLAG_DOCUMENT_8&#x27;</span>, <span class="string">&#x27;FLAG_DOCUMENT_9&#x27;</span>, </span><br><span class="line">                        <span class="string">&#x27;FLAG_DOCUMENT_10&#x27;</span>, <span class="string">&#x27;FLAG_DOCUMENT_11&#x27;</span>, <span class="string">&#x27;FLAG_DOCUMENT_12&#x27;</span>, <span class="string">&#x27;FLAG_DOCUMENT_13&#x27;</span>, </span><br><span class="line">                        <span class="string">&#x27;FLAG_DOCUMENT_14&#x27;</span>, <span class="string">&#x27;FLAG_DOCUMENT_15&#x27;</span>, <span class="string">&#x27;FLAG_DOCUMENT_16&#x27;</span>, <span class="string">&#x27;FLAG_DOCUMENT_17&#x27;</span>, </span><br><span class="line">                        <span class="string">&#x27;FLAG_DOCUMENT_18&#x27;</span>, <span class="string">&#x27;FLAG_DOCUMENT_19&#x27;</span>, <span class="string">&#x27;FLAG_DOCUMENT_20&#x27;</span>, <span class="string">&#x27;FLAG_DOCUMENT_21&#x27;</span>]</span><br><span class="line">    df = df.na.fill(<span class="number">0</span>, subset=boolean_features)</span><br><span class="line">    <span class="comment"># fill 0</span></span><br><span class="line">    features_fill_zero = [</span><br><span class="line">        <span class="string">&quot;OBS_30_CNT_SOCIAL_CIRCLE&quot;</span>,  </span><br><span class="line">        <span class="string">&quot;DEF_30_CNT_SOCIAL_CIRCLE&quot;</span>,</span><br><span class="line">        <span class="string">&quot;OBS_60_CNT_SOCIAL_CIRCLE&quot;</span>,</span><br><span class="line">        <span class="string">&quot;DEF_60_CNT_SOCIAL_CIRCLE&quot;</span>,</span><br><span class="line">        <span class="string">&quot;AMT_REQ_CREDIT_BUREAU_HOUR&quot;</span>,</span><br><span class="line">        <span class="string">&quot;AMT_REQ_CREDIT_BUREAU_DAY&quot;</span>,</span><br><span class="line">        <span class="string">&quot;AMT_REQ_CREDIT_BUREAU_WEEK&quot;</span>,</span><br><span class="line">        <span class="string">&quot;AMT_REQ_CREDIT_BUREAU_MON&quot;</span>,</span><br><span class="line">        <span class="string">&quot;AMT_REQ_CREDIT_BUREAU_QRT&quot;</span>,</span><br><span class="line">        <span class="string">&quot;AMT_REQ_CREDIT_BUREAU_YEAR&quot;</span></span><br><span class="line">    ]</span><br><span class="line">    df = df.na.fill(<span class="number">0</span>, subset=features_fill_zero)</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">return</span> df</span><br></pre></td></tr></table></figure>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">_ = display_missing(impute_manually(df_encoded))</span><br></pre></td></tr></table></figure>
+<pre><code>Your selected dataframe has 55 out of 122 columns that have missing values.
+There are 46 columns with more than 25.0% missing values.
+</code></pre>
+<h3 id="条件平均值填充法"><a class="markdownIt-Anchor" href="#条件平均值填充法"></a> 条件平均值填充法</h3>
+<p>通过之前的相关分析，我们知道AMT_ANNUITY这个特征与AMT_CREDIT和AMT_INCOME_TOTAL有比较大的关系，所以这里用这两个特征分组后的中位数进行插补，称为条件平均值填充法（Conditional Mean Completer）。</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="built_in">print</span>(<span class="string">&#x27;AMT_CREDIT :&#x27;</span>, df.corr(<span class="string">&#x27;AMT_CREDIT&#x27;</span>, <span class="string">&#x27;AMT_ANNUITY&#x27;</span>))</span><br><span class="line"><span class="built_in">print</span>(<span class="string">&#x27;AMT_INCOME_TOTAL :&#x27;</span>, df.corr(<span class="string">&#x27;AMT_CREDIT&#x27;</span>, <span class="string">&#x27;AMT_ANNUITY&#x27;</span>))  </span><br></pre></td></tr></table></figure>
+<pre><code>AMT_CREDIT : 0.7700800319525184
+AMT_INCOME_TOTAL : 0.7700800319525184
+</code></pre>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="comment"># conditional statistic completer</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">ConditionalMeanCompleter</span>:</span></span><br><span class="line">    <span class="keyword">pass</span></span><br></pre></td></tr></table></figure>
+<h3 id="简单插补"><a class="markdownIt-Anchor" href="#简单插补"></a> 简单插补</h3>
+<p><code>Imputer</code> 支持平均值、中位数或众数插补缺失值，目前不支持分类特征。</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="comment"># Univariate imputer for completing missing values with simple strategies.</span></span><br><span class="line"></span><br><span class="line">dtypes = df_encoded.drop(<span class="string">&quot;SK_ID_CURR&quot;</span>, <span class="string">&quot;TARGET&quot;</span>).dtypes</span><br><span class="line">numerical_cols = [k <span class="keyword">for</span> k, v <span class="keyword">in</span> dtypes <span class="keyword">if</span> v <span class="keyword">not</span> <span class="keyword">in</span> (<span class="string">&#x27;string&#x27;</span>, <span class="string">&#x27;vector&#x27;</span>)]</span><br><span class="line">imputed_cols = [<span class="string">f&quot;imputed_<span class="subst">&#123;col&#125;</span>&quot;</span> <span class="keyword">for</span> col <span class="keyword">in</span> numerical_cols]</span><br><span class="line">imputer = ft.Imputer(</span><br><span class="line">    inputCols=numerical_cols,</span><br><span class="line">    outputCols=imputed_cols,</span><br><span class="line">    strategy=<span class="string">&quot;median&quot;</span></span><br><span class="line">)</span><br></pre></td></tr></table></figure>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">_ = display_missing(imputer.fit(df_encoded).transform(df_encoded).select(imputed_cols))</span><br></pre></td></tr></table></figure>
+<pre><code>Your selected dataframe has 0 out of 111 columns that have missing values.
+There are 0 columns with more than 25.0% missing values.
+</code></pre>
+<h3 id="函数封装-3"><a class="markdownIt-Anchor" href="#函数封装-3"></a> 函数封装</h3>
+<p>最后，总结下我们的缺失处理策略：</p>
+<ul>
+<li>删除缺失率高于80%特征</li>
+<li>添加缺失标记</li>
+<li>有业务含义的进行人工插补</li>
+<li>最后简单统计插补</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="comment"># Function for missing value imputation</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">handle_missing</span>(<span class="params">df</span>):</span></span><br><span class="line">    <span class="comment"># Remove variables with high missing rate</span></span><br><span class="line">    df = drop_missing_data(df, threshold=<span class="number">0.2</span>)</span><br><span class="line">    <span class="comment"># find variables for which indicator should be added.</span></span><br><span class="line">    df = flag_missing(df)</span><br><span class="line"></span><br><span class="line">    <span class="comment"># Replaces missing values by an arbitrary value</span></span><br><span class="line">    df = impute_manually(df)</span><br><span class="line"></span><br><span class="line">    <span class="comment"># Univariate imputer for completing missing values with simple strategies.</span></span><br><span class="line">    dtypes = df.drop(<span class="string">&quot;SK_ID_CURR&quot;</span>, <span class="string">&quot;TARGET&quot;</span>).dtypes</span><br><span class="line">    numerical_cols = [k <span class="keyword">for</span> k, v <span class="keyword">in</span> dtypes <span class="keyword">if</span> v <span class="keyword">not</span> <span class="keyword">in</span> (<span class="string">&#x27;string&#x27;</span>, <span class="string">&#x27;vector&#x27;</span>)]</span><br><span class="line">    imputed_cols = [<span class="string">f&quot;imputed_<span class="subst">&#123;col&#125;</span>&quot;</span> <span class="keyword">for</span> col <span class="keyword">in</span> numerical_cols]</span><br><span class="line">    imputer = ft.Imputer(</span><br><span class="line">        inputCols=numerical_cols,</span><br><span class="line">        outputCols=imputed_cols,</span><br><span class="line">        strategy=<span class="string">&quot;median&quot;</span></span><br><span class="line">    )</span><br><span class="line">    df = imputer.fit(df).transform(df)</span><br><span class="line">    colsMap = <span class="built_in">dict</span>(<span class="built_in">zip</span>(imputed_cols, numerical_cols))</span><br><span class="line">    df = df.drop(*numerical_cols).withColumnsRenamed(colsMap)</span><br><span class="line">    <span class="keyword">return</span> df</span><br></pre></td></tr></table></figure>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">df_imputed = handle_missing(df_encoded)</span><br></pre></td></tr></table></figure>
+<pre><code>Removed 0 variables with missing more than 80.0%
+Added 0 missing indicators                  
+</code></pre>
+<p>确认缺失值是否已全部处理完毕：</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">_ = display_missing(df_imputed)</span><br></pre></td></tr></table></figure>
+<pre><code>Your selected dataframe has 0 out of 122 columns that have missing values.
+There are 0 columns with more than 25.0% missing values.
+</code></pre>
+<h2 id="异常值检测"><a class="markdownIt-Anchor" href="#异常值检测"></a> 异常值检测</h2>
+<p>我们在实际项目中拿到的数据往往有不少异常数据，这些异常数据很可能让我们模型有很大的偏差。异常检测的方法有很多，例如3倍标准差、箱线法的单变量标记，或者聚类、iForest和LocalOutlierFactor等无监督学习方法。</p>
+<ul>
+<li><strong>箱线图检测</strong>根据四分位点判断是否异常。四分位数具有鲁棒性，不受异常值的干扰。通常认为小于 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><msub><mi>Q</mi><mn>1</mn></msub><mo>−</mo><mn>1.5</mn><mo>∗</mo><mi>I</mi><mi>Q</mi><mi>R</mi></mrow><annotation encoding="application/x-tex">Q_1-1.5*IQR</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8777699999999999em;vertical-align:-0.19444em;"></span><span class="mord"><span class="mord mathdefault">Q</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.30110799999999993em;"><span style="top:-2.5500000000000003em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">1</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">−</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:0.64444em;vertical-align:0em;"></span><span class="mord">1</span><span class="mord">.</span><span class="mord">5</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">∗</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:0.8777699999999999em;vertical-align:-0.19444em;"></span><span class="mord mathdefault" style="margin-right:0.07847em;">I</span><span class="mord mathdefault">Q</span><span class="mord mathdefault" style="margin-right:0.00773em;">R</span></span></span></span> 或大于 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><msub><mi>Q</mi><mn>3</mn></msub><mo>+</mo><mn>1.5</mn><mo>∗</mo><mi>I</mi><mi>Q</mi><mi>R</mi></mrow><annotation encoding="application/x-tex">Q_3+1.5*IQR</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8777699999999999em;vertical-align:-0.19444em;"></span><span class="mord"><span class="mord mathdefault">Q</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.30110799999999993em;"><span style="top:-2.5500000000000003em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">3</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:0.64444em;vertical-align:0em;"></span><span class="mord">1</span><span class="mord">.</span><span class="mord">5</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">∗</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:0.8777699999999999em;vertical-align:-0.19444em;"></span><span class="mord mathdefault" style="margin-right:0.07847em;">I</span><span class="mord mathdefault">Q</span><span class="mord mathdefault" style="margin-right:0.00773em;">R</span></span></span></span> 的点为离群点。</li>
+<li><strong>3倍标准差原则</strong>：假设数据满足正态分布，通常定义偏离均值的 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mn>3</mn><mi>σ</mi></mrow><annotation encoding="application/x-tex">3\sigma</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.64444em;vertical-align:0em;"></span><span class="mord">3</span><span class="mord mathdefault" style="margin-right:0.03588em;">σ</span></span></span></span> 之外内的点为离群点，<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi mathvariant="double-struck">P</mi><mo stretchy="false">(</mo><mi mathvariant="normal">∣</mi><mi>X</mi><mo>−</mo><mi>μ</mi><mi mathvariant="normal">∣</mi><mo>&lt;</mo><mn>3</mn><mi>σ</mi><mo stretchy="false">)</mo><mo>=</mo><mn>99.73</mn><mi mathvariant="normal">%</mi></mrow><annotation encoding="application/x-tex">\mathbb P(|X-\mu|&lt;3\sigma)=99.73\%</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathbb">P</span><span class="mopen">(</span><span class="mord">∣</span><span class="mord mathdefault" style="margin-right:0.07847em;">X</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">−</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathdefault">μ</span><span class="mord">∣</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">&lt;</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord">3</span><span class="mord mathdefault" style="margin-right:0.03588em;">σ</span><span class="mclose">)</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.80556em;vertical-align:-0.05556em;"></span><span class="mord">9</span><span class="mord">9</span><span class="mord">.</span><span class="mord">7</span><span class="mord">3</span><span class="mord">%</span></span></span></span>​。如果数据不服从正态分布，也可以用远离平均值的多少倍标准差来描述。</li>
+</ul>
+<p>筛选出来的异常样本需要根据实际含义处理：</p>
+<ul>
+<li>根据异常点的数量和影响，考虑是否将该条记录删除。</li>
+<li>对数据做 log-scale 变换后消除异常值。</li>
+<li>通过数据分箱来平滑异常值。</li>
+<li>使用均值/中位数/众数来修正替代异常点，简单高效。</li>
+<li>标记异常值或新增异常值得分列。</li>
+<li>树模型对离群点的鲁棒性较高，可以选择忽略异常值。</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">OutlierCapper</span>(<span class="params">Estimator, Transformer</span>):</span></span><br><span class="line">    <span class="string">&quot;&quot;&quot;</span></span><br><span class="line"><span class="string">    Caps maximum and/or minimum values of a variable at automatically</span></span><br><span class="line"><span class="string">    determined values.</span></span><br><span class="line"><span class="string">    Works only with numerical variables. A list of variables can be indicated. </span></span><br><span class="line"><span class="string">    </span></span><br><span class="line"><span class="string">    Parameters</span></span><br><span class="line"><span class="string">    ----------</span></span><br><span class="line"><span class="string">    method: str, &#x27;gaussian&#x27; or &#x27;iqr&#x27;, default=&#x27;iqr&#x27;</span></span><br><span class="line"><span class="string">        If method=&#x27;gaussian&#x27;: </span></span><br><span class="line"><span class="string">            - upper limit: mean + 3 * std</span></span><br><span class="line"><span class="string">            - lower limit: mean - 3 * std</span></span><br><span class="line"><span class="string">        If method=&#x27;iqr&#x27;: </span></span><br><span class="line"><span class="string">            - upper limit: 75th quantile + 3 * IQR</span></span><br><span class="line"><span class="string">            - lower limit: 25th quantile - 3 * IQR</span></span><br><span class="line"><span class="string">            where IQR is the inter-quartile range: 75th quantile - 25th quantile.</span></span><br><span class="line"><span class="string">    fold: int, default=3   </span></span><br><span class="line"><span class="string">        You can select how far out to cap the maximum or minimum values.</span></span><br><span class="line"><span class="string">    &quot;&quot;&quot;</span></span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__init__</span>(<span class="params">self, inputCols, method=<span class="string">&#x27;iqr&#x27;</span>, fold=<span class="number">3</span></span>):</span></span><br><span class="line">        <span class="built_in">super</span>().__init__()</span><br><span class="line">        self.method = method</span><br><span class="line">        self.fold = fold</span><br><span class="line">        self.inputCols = inputCols</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">_fit</span>(<span class="params">self, df</span>):</span></span><br><span class="line">        <span class="string">&quot;&quot;&quot;</span></span><br><span class="line"><span class="string">        Learn the values that should be used to replace outliers.</span></span><br><span class="line"><span class="string">        &quot;&quot;&quot;</span></span><br><span class="line"></span><br><span class="line">        <span class="keyword">if</span> self.method == <span class="string">&quot;gaussian&quot;</span>:</span><br><span class="line">            mean = df.select([fn.mean(var).alias(var) <span class="keyword">for</span> var <span class="keyword">in</span> self.inputCols])</span><br><span class="line">            mean = pd.Series(mean.first().asDict())</span><br><span class="line">            bias= [mean, mean]</span><br><span class="line">            scale = df.select([fn.std(var).alias(var) <span class="keyword">for</span> var <span class="keyword">in</span> self.inputCols])</span><br><span class="line">            scale = pd.Series(scale.first().asDict())</span><br><span class="line">        <span class="keyword">elif</span> self.method == <span class="string">&quot;iqr&quot;</span>:</span><br><span class="line">            Q1 = df.select([fn.percentile(var, <span class="number">0.25</span>).alias(var) <span class="keyword">for</span> var <span class="keyword">in</span> self.inputCols])</span><br><span class="line">            Q1 = pd.Series(Q1.first().asDict())</span><br><span class="line">            Q3 = df.select([fn.percentile(var, <span class="number">0.75</span>).alias(var) <span class="keyword">for</span> var <span class="keyword">in</span> self.inputCols])</span><br><span class="line">            Q3 = pd.Series(Q3.first().asDict())</span><br><span class="line">            bias = [Q1, Q3]</span><br><span class="line">            scale = Q3 - Q1         </span><br><span class="line">        </span><br><span class="line">        <span class="comment"># estimate the end values</span></span><br><span class="line">        <span class="keyword">if</span> (scale == <span class="number">0</span>).<span class="built_in">any</span>():</span><br><span class="line">            <span class="keyword">raise</span> ValueError(</span><br><span class="line">                <span class="string">f&quot;Input columns <span class="subst">&#123;scale[scale == <span class="number">0</span>].index.tolist()!r&#125;</span>&quot;</span></span><br><span class="line">                <span class="string">f&quot; have low variation for method <span class="subst">&#123;self.method!r&#125;</span>.&quot;</span></span><br><span class="line">                <span class="string">f&quot; Try other capping methods or drop these columns.&quot;</span></span><br><span class="line">            )</span><br><span class="line">        <span class="keyword">else</span>:</span><br><span class="line">            self.upper_limit = bias[<span class="number">1</span>] + self.fold * scale</span><br><span class="line">            self.lower_limit = bias[<span class="number">0</span>] - self.fold * scale  </span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span> self </span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">_transform</span>(<span class="params">self, df</span>):</span></span><br><span class="line">        <span class="string">&quot;&quot;&quot;</span></span><br><span class="line"><span class="string">        Cap the variable values.</span></span><br><span class="line"><span class="string">        &quot;&quot;&quot;</span></span><br><span class="line">        maximum = df.select([fn.<span class="built_in">max</span>(var).alias(var) <span class="keyword">for</span> var <span class="keyword">in</span> self.inputCols])</span><br><span class="line">        maximum = pd.Series(maximum.first().asDict())</span><br><span class="line">        minimum = df.select([fn.<span class="built_in">min</span>(var).alias(var) <span class="keyword">for</span> var <span class="keyword">in</span> self.inputCols])</span><br><span class="line">        minimum = pd.Series(minimum.first().asDict())</span><br><span class="line">        outiers = (maximum.gt(self.upper_limit) | </span><br><span class="line">                   minimum.lt(self.lower_limit))</span><br><span class="line">        n = outiers.<span class="built_in">sum</span>()</span><br><span class="line">        <span class="built_in">print</span>(<span class="string">f&quot;Your selected dataframe has <span class="subst">&#123;n&#125;</span> out of <span class="subst">&#123;<span class="built_in">len</span>(self.inputCols)&#125;</span> columns that have outliers.&quot;</span>)</span><br><span class="line">        </span><br><span class="line">        <span class="comment"># replace outliers</span></span><br><span class="line">        <span class="keyword">for</span> var <span class="keyword">in</span> self.inputCols:</span><br><span class="line">            upper_limit = self.upper_limit[var]</span><br><span class="line">            lower_limit = self.lower_limit[var]</span><br><span class="line">            df = df.withColumn(var, </span><br><span class="line">                fn.when(df[var] &gt; upper_limit, upper_limit)</span><br><span class="line">                  .when(df[var] &lt; lower_limit, lower_limit)</span><br><span class="line">                  .otherwise(df[var])</span><br><span class="line">            )</span><br><span class="line">        <span class="keyword">return</span> df</span><br></pre></td></tr></table></figure>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">outlier_capper = OutlierCapper(method=<span class="string">&quot;gaussian&quot;</span>, inputCols=numerical_cols).fit(df_imputed)</span><br><span class="line">df_capped = outlier_capper.transform(df_imputed)</span><br></pre></td></tr></table></figure>
+<pre><code>Your selected dataframe has 96 out of 111 columns that have outliers.
+</code></pre>
+<h2 id="标准化归一化"><a class="markdownIt-Anchor" href="#标准化归一化"></a> 标准化/归一化</h2>
+<p>数据标准化和归一化可以提高一些算法的准确度，也能加速梯度下降收敛速度。也有不少模型不需要做标准化和归一化，主要是基于概率分布的模型，比如决策树大家族的CART，随机森林等。</p>
+<ul>
+<li><strong>z-score标准化</strong>是最常见的特征预处理方式，基本所有的线性模型在拟合的时候都会做标准化。前提是假设特征服从正态分布，标准化后，其转换成均值为0标准差为1的标准正态分布。</li>
+<li><strong>max-min标准化</strong>也称为离差标准化，预处理后使特征值映射到[0,1]之间。这种方法的问题就是如果测试集或者预测数据里的特征有小于min，或者大于max的数据，会导致max和min发生变化，需要重新计算。所以实际算法中， 除非你对特征的取值区间有需求，否则max-min标准化没有 z-score标准化好用。</li>
+<li><strong>L1/L2范数标准化</strong>：如果我们只是为了统一量纲，那么通过L2范数整体标准化。</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>pyspark.ml.feature</th>
+<th>标准化</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>StandardScaler(withMean, withStd, …)</td>
+<td>是一个<code>Estimator</code>。z-scoe标准化</td>
+</tr>
+<tr>
+<td>Normalizer(p, inputCol, outputCol)</td>
+<td>是一个<code>Transformer</code>。该方法使用p范数将数据缩放为单位范数（默认为L2）</td>
+</tr>
+<tr>
+<td>MaxAbsScaler(inputCol, outputCol)</td>
+<td>是一个<code>Estimator</code>。将数据标准化到<code>[-1, 1]</code>范围内</td>
+</tr>
+<tr>
+<td>MinMaxScaler(min, max, inputCol, outputCol)</td>
+<td>是一个<code>Estimator</code>。将数据标准化到<code>[0, 1]</code>范围内</td>
+</tr>
+<tr>
+<td>RobustScaler(lower, upper, …)</td>
+<td>是一个<code>Estimator</code>。根据分位数缩放数据</td>
+</tr>
+</tbody>
+</table>
+<p>由于数据集中依然存在一定的离群点，我们可以用RobustScaler对数据进行标准化处理。</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">from</span> pyspark.ml.feature <span class="keyword">import</span> RobustScaler</span><br><span class="line"></span><br><span class="line">scaler = RobustScaler(inputCol=<span class="string">&quot;features&quot;</span>, outputCol=<span class="string">&quot;scaled&quot;</span>)</span><br><span class="line">assembler = VectorAssembler(</span><br><span class="line">    inputCols=[<span class="string">&#x27;DAYS_EMPLOYED&#x27;</span>, <span class="string">&#x27;AMT_CREDIT&#x27;</span>],</span><br><span class="line">    outputCol=<span class="string">&quot;features&quot;</span></span><br><span class="line">)</span><br><span class="line">pipelineModel = Pipeline(stages=[assembler, scaler]).fit(df_imputed)</span><br><span class="line">pipelineModel.transform(df_imputed).select(<span class="string">&#x27;scaled&#x27;</span>).show(<span class="number">5</span>)</span><br></pre></td></tr></table></figure>
+<pre><code>+--------------------+
+|              scaled|
++--------------------+
+|[-0.9644030668127...|
+|[-0.5991237677984...|
+|[-0.6056955093099...|
+|[-0.9036144578313...|
+|[-0.9036144578313...|
++--------------------+
+only showing top 5 rows
+</code></pre>
+<h2 id="正态变换"><a class="markdownIt-Anchor" href="#正态变换"></a> 正态变换</h2>
+<h3 id="偏度"><a class="markdownIt-Anchor" href="#偏度"></a> 偏度</h3>
+<p>在许多回归算法中，尤其是线性模型，常常假设数值型特征服从正态分布。我们先来计算一下各个数值特征的偏度：</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="comment"># Check the skew of all numerical features</span></span><br><span class="line">skewness = df_imputed.select([fn.skewness(var).alias(var) <span class="keyword">for</span> var <span class="keyword">in</span> numerical_cols])</span><br><span class="line">skewness = pd.Series(skewness.first().asDict()).sort_values()</span><br><span class="line"><span class="built_in">print</span>(skewness.head(<span class="number">10</span>))</span><br><span class="line"><span class="built_in">print</span>(skewness.tail(<span class="number">10</span>))</span><br></pre></td></tr></table></figure>
+<pre><code>FLAG_MOBIL                     -554.534039
+FLAG_CONT_MOBILE                -23.081060
+YEARS_BEGINEXPLUATATION_MEDI    -21.825280
+YEARS_BEGINEXPLUATATION_AVG     -21.744660
+YEARS_BEGINEXPLUATATION_MODE    -20.686068
+DAYS_EMPLOYED                    -2.295700
+YEARS_BUILD_MODE                 -1.889130
+YEARS_BUILD_MEDI                 -1.747004
+YEARS_BUILD_AVG                  -1.744856
+FLAG_EMP_PHONE                   -1.664878
+dtype: float64
+FLAG_DOCUMENT_20              44.364680
+FLAG_DOCUMENT_21              54.612673
+FLAG_DOCUMENT_17              61.213842
+FLAG_DOCUMENT_7               72.173756
+FLAG_DOCUMENT_4              110.893823
+AMT_REQ_CREDIT_BUREAU_QRT    141.400225
+FLAG_DOCUMENT_2              153.791067
+FLAG_DOCUMENT_10             209.588031
+AMT_INCOME_TOTAL             391.557744
+FLAG_DOCUMENT_12             392.112866
+dtype: float64
+</code></pre>
+<p>可以看到这些特征的偏度较高，因此我们尝试变换，让数据接近正态分布。</p>
+<h3 id="qq图"><a class="markdownIt-Anchor" href="#qq图"></a> QQ图</h3>
+<p>以AMT_CREDIT特征为例，我们画出分布图和QQ图。</p>
+<blockquote>
+<p>Quantile-Quantile图是一种常用的统计图形，用来比较两个数据集之间的分布。它是由标准正态分布的分位数为横坐标，样本值为纵坐标的散点图。如果QQ图上的点在一条直线附近，则说明数据近似于正态分布，且该直线的斜率为标准差，截距为均值。</p>
+</blockquote>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> matplotlib.pyplot <span class="keyword">as</span> plt</span><br><span class="line"><span class="keyword">import</span> seaborn <span class="keyword">as</span> sns</span><br><span class="line"><span class="keyword">from</span> scipy.stats <span class="keyword">import</span> probplot, norm</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">norm_comparison_plot</span>(<span class="params">series</span>):</span></span><br><span class="line">    series = pd.Series(series)</span><br><span class="line">    mu, sigma = norm.fit(series)</span><br><span class="line">    kurt, skew = series.kurt(), series.skew()</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">f&quot;Kurtosis: <span class="subst">&#123;kurt:<span class="number">.2</span>f&#125;</span>&quot;</span>, <span class="string">f&quot;Skewness: <span class="subst">&#123;skew:<span class="number">.2</span>f&#125;</span>&quot;</span>, sep=<span class="string">&#x27;\t&#x27;</span>)</span><br><span class="line">    </span><br><span class="line">    fig = plt.figure(figsize=(<span class="number">10</span>, <span class="number">4</span>))</span><br><span class="line">    <span class="comment"># Now plot the distribution</span></span><br><span class="line">    ax1 = fig.add_subplot(<span class="number">121</span>)</span><br><span class="line">    ax1.set_title(<span class="string">&#x27;Distribution&#x27;</span>)</span><br><span class="line">    ax1.set_ylabel(<span class="string">&#x27;Frequency&#x27;</span>)</span><br><span class="line">    sns.distplot(series, fit=norm, ax=ax1)</span><br><span class="line">    ax1.legend([<span class="string">&#x27;dist&#x27;</span>,<span class="string">&#x27;kde&#x27;</span>,<span class="string">&#x27;norm&#x27;</span>],<span class="string">f&#x27;Normal dist. ($\mu=$ <span class="subst">&#123;mu:<span class="number">.2</span>f&#125;</span> and $\sigma=$ <span class="subst">&#123;sigma:<span class="number">.2</span>f&#125;</span> )&#x27;</span>, loc=<span class="string">&#x27;best&#x27;</span>)</span><br><span class="line">    <span class="comment"># Get also the QQ-plot</span></span><br><span class="line">    ax2 = fig.add_subplot(<span class="number">122</span>)</span><br><span class="line">    probplot(series, plot=plt)</span><br></pre></td></tr></table></figure>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">sample = df_imputed.select(<span class="string">&#x27;AMT_CREDIT&#x27;</span>).sample(<span class="number">0.1</span>).toPandas()</span><br><span class="line">norm_comparison_plot(sample[<span class="string">&#x27;AMT_CREDIT&#x27;</span>])</span><br><span class="line">plt.show()                                                                                 </span><br></pre></td></tr></table></figure>
+<pre><code>Kurtosis: 2.06	Skewness: 1.26
+</code></pre>
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/img/feature_engineering_on_spark/preproccessing_output_95_2.png" alt="" /></p>
+<h3 id="非线性变换"><a class="markdownIt-Anchor" href="#非线性变换"></a> 非线性变换</h3>
+<p>最常用的是log变换。对于含有负数的特征，可以先min-max缩放到[0,1]之间后再做变换。</p>
+<p>这里我们对AMT_INCOME_TOTAL特征做log变换</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="comment"># log-transformation of skewed features.</span></span><br><span class="line">sample_transformed = df_imputed.select(fn.ln(<span class="string">&#x27;AMT_CREDIT&#x27;</span>)).sample(<span class="number">0.1</span>).toPandas()</span><br><span class="line">norm_comparison_plot(sample_transformed.iloc[:, <span class="number">0</span>])</span><br><span class="line">plt.show()        </span><br></pre></td></tr></table></figure>
+<pre><code>Kurtosis: -0.27	Skewness: -0.33
+</code></pre>
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/img/feature_engineering_on_spark/preproccessing_output_97_2.png" alt="" /></p>
+<p>可以看到经过log变换后，基本符合正态分布了。</p>
+<h2 id="baseline"><a class="markdownIt-Anchor" href="#baseline"></a> Baseline</h2>
+<p>至此，数据预处理已经基本完毕</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">df_prepared = df_imputed</span><br><span class="line"><span class="built_in">print</span>(<span class="string">f&#x27;dataset shape: <span class="subst">&#123;df_prepared.count(), <span class="built_in">len</span>(df_prepared.columns)&#125;</span>&#x27;</span>)</span><br><span class="line"><span class="built_in">print</span>(pd.Series(<span class="built_in">dict</span>(df_prepared.dtypes)).value_counts())</span><br></pre></td></tr></table></figure>
+<pre><code>dataset shape: (307511, 122)
+double    65
+int       45
+vector    10
+float      2
+Name: count, dtype: int64
+</code></pre>
+<p>规范特征名</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">new_colnames = &#123;c: c.replace(<span class="string">&#x27;/&#x27;</span>,<span class="string">&#x27;or&#x27;</span>).replace(<span class="string">&#x27; &#x27;</span>,<span class="string">&#x27;_&#x27;</span>).replace(<span class="string">&#x27;,&#x27;</span>,<span class="string">&#x27;_or&#x27;</span>) <span class="keyword">for</span> c <span class="keyword">in</span> df_prepared.columns&#125;</span><br><span class="line">df_prepared = df_prepared.withColumnsRenamed(new_colnames)</span><br></pre></td></tr></table></figure>
+<h3 id="交叉验证"><a class="markdownIt-Anchor" href="#交叉验证"></a> 交叉验证</h3>
+<p>我们可以选择模型开始训练了。我们准备选择XGBoost模型训练结果作为baseline。</p>
+<p>spark内置的交叉验证CrossValidator主要用于超参数调优，我们重新定义一个交叉验证函数。</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">cross_val_score</span>(<span class="params">df, estimator, evaluator, features, numFolds=<span class="number">3</span>, seed=SEED</span>):</span></span><br><span class="line">    df = df.withColumn(<span class="string">&#x27;fold&#x27;</span>, (fn.rand(seed) * numFolds).cast(<span class="string">&#x27;int&#x27;</span>))</span><br><span class="line">    eval_result = []</span><br><span class="line">    <span class="comment"># Initialize an empty dataframe to hold feature importances</span></span><br><span class="line">    feature_importances = pd.DataFrame(index=features)</span><br><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(numFolds):</span><br><span class="line">        train = df.<span class="built_in">filter</span>(df[<span class="string">&#x27;fold&#x27;</span>] == i)</span><br><span class="line">        valid = df.<span class="built_in">filter</span>(df[<span class="string">&#x27;fold&#x27;</span>] != i)</span><br><span class="line">        model = estimator.fit(train)</span><br><span class="line">        train_pred = model.transform(train)</span><br><span class="line">        valid_pred = model.transform(valid)</span><br><span class="line">        train_score = evaluator.evaluate(train_pred)</span><br><span class="line">        valid_score = evaluator.evaluate(valid_pred)</span><br><span class="line">        metric = evaluator.getMetricName()</span><br><span class="line">        <span class="built_in">print</span>(<span class="string">f&quot;[<span class="subst">&#123;i&#125;</span>] train&#x27;s <span class="subst">&#123;metric&#125;</span>: <span class="subst">&#123;train_score&#125;</span>,  valid&#x27;s <span class="subst">&#123;metric&#125;</span>: <span class="subst">&#123;valid_score&#125;</span>&quot;</span>)</span><br><span class="line">        eval_result.append(valid_score)</span><br><span class="line">        </span><br><span class="line">        fscore = model.get_feature_importances()</span><br><span class="line">        fscore = &#123;name:fscore.get(<span class="string">f&#x27;f<span class="subst">&#123;k&#125;</span>&#x27;</span>, <span class="number">0</span>) <span class="keyword">for</span> k,name <span class="keyword">in</span> <span class="built_in">enumerate</span>(features)&#125;</span><br><span class="line">        feature_importances[<span class="string">f&#x27;cv_<span class="subst">&#123;i&#125;</span>&#x27;</span>] = fscore</span><br><span class="line">    feature_importances[<span class="string">&#x27;fscore&#x27;</span>] = feature_importances.mean(axis=<span class="number">1</span>)</span><br><span class="line">    <span class="keyword">return</span> eval_result, feature_importances.sort_values(<span class="string">&#x27;fscore&#x27;</span>, ascending=<span class="literal">False</span>)</span><br></pre></td></tr></table></figure>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">score_dataset</span>(<span class="params">df, inputCols=<span class="literal">None</span>, featuresCol=<span class="literal">None</span>, labelCol=<span class="string">&#x27;label&#x27;</span>, nfold=<span class="number">3</span></span>):</span></span><br><span class="line">    <span class="keyword">assert</span> inputCols <span class="keyword">is</span> <span class="keyword">not</span> <span class="literal">None</span> <span class="keyword">or</span> featuresCol <span class="keyword">is</span> <span class="keyword">not</span> <span class="literal">None</span></span><br><span class="line">    <span class="keyword">if</span> featuresCol <span class="keyword">is</span> <span class="literal">None</span>:</span><br><span class="line">        <span class="comment"># Assemble the feature columns into a single vector column</span></span><br><span class="line">        featuresCol = <span class="string">&quot;features&quot;</span></span><br><span class="line">        assembler = VectorAssembler(</span><br><span class="line">            inputCols=inputCols,</span><br><span class="line">            outputCol=featuresCol</span><br><span class="line">        )</span><br><span class="line">        df = assembler.transform(df)</span><br><span class="line">    <span class="comment"># Create an Estimator.</span></span><br><span class="line">    classifier = SparkXGBClassifier(</span><br><span class="line">        features_col=featuresCol, </span><br><span class="line">        label_col=labelCol,</span><br><span class="line">        eval_metric=<span class="string">&#x27;auc&#x27;</span>,</span><br><span class="line">        scale_pos_weight=<span class="number">11</span>,</span><br><span class="line">        learning_rate=<span class="number">0.015</span>,</span><br><span class="line">        max_depth=<span class="number">8</span>,</span><br><span class="line">        subsample=<span class="number">1.0</span>,</span><br><span class="line">        colsample_bytree=<span class="number">0.35</span>,</span><br><span class="line">        reg_alpha=<span class="number">65</span>,</span><br><span class="line">        reg_lambda=<span class="number">15</span>,</span><br><span class="line">        n_estimators=<span class="number">1200</span>,</span><br><span class="line">        verbosity=<span class="number">0</span></span><br><span class="line">    ) </span><br><span class="line">    evaluator = BinaryClassificationEvaluator(labelCol=labelCol, metricName=<span class="string">&#x27;areaUnderROC&#x27;</span>)</span><br><span class="line">    <span class="comment"># Training with 3-fold CV:</span></span><br><span class="line">    scores, feature_importances = cross_val_score(</span><br><span class="line">        df=df,</span><br><span class="line">        estimator=classifier, </span><br><span class="line">        evaluator=evaluator,</span><br><span class="line">        features=inputCols,</span><br><span class="line">        numFolds=nfold</span><br><span class="line">    )</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">f&quot;cv_agg&#x27;s valid auc: <span class="subst">&#123;np.mean(scores):<span class="number">.4</span>f&#125;</span> +/- <span class="subst">&#123;np.std(scores):<span class="number">.5</span>f&#125;</span>&quot;</span>)</span><br><span class="line">    <span class="keyword">return</span> feature_importances</span><br></pre></td></tr></table></figure>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">features = df_prepared.drop(<span class="string">&#x27;SK_ID_CURR&#x27;</span>, <span class="string">&#x27;label&#x27;</span>).columns</span><br><span class="line">feature_importances = score_dataset(df_prepared, inputCols=features)</span><br></pre></td></tr></table></figure>
+<pre><code>[0] train's areaUnderROC: 0.8817445932752518,  valid's areaUnderROC: 0.7567778599507636
+[1] train's areaUnderROC: 0.8858137153416724,  valid's areaUnderROC: 0.754088602137405
+[2] train's areaUnderROC: 0.8830645318540977,  valid's areaUnderROC: 0.755218312522418
+cv_agg's valid auc: 0.7554 +/- 0.00110
+</code></pre>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">df_prepared.write.bucketBy(<span class="number">100</span>, <span class="string">&quot;SK_ID_CURR&quot;</span>).mode(<span class="string">&quot;overwrite&quot;</span>).saveAsTable(<span class="string">&quot;home_credit_default_risk.prepared_data&quot;</span>)   </span><br></pre></td></tr></table></figure>
+<h3 id="特征重要性"><a class="markdownIt-Anchor" href="#特征重要性"></a> 特征重要性</h3>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">feature_importances[<span class="string">&#x27;fscore&#x27;</span>].head(<span class="number">15</span>)</span><br></pre></td></tr></table></figure>
+<pre><code>NONLIVINGAPARTMENTS_MEDI        4420.333333
+NONLIVINGAREA_MEDI              4300.666667
+YEARS_BEGINEXPLUATATION_MODE    4240.000000
+COMMONAREA_MODE                 4098.666667
+ELEVATORS_MODE                  4023.666667
+NONLIVINGAPARTMENTS_AVG         3947.000000
+LIVINGAREA_AVG                  3862.666667
+YEARS_BUILD_MODE                3781.000000
+NONLIVINGAREA_AVG               3455.333333
+LIVINGAREA_MEDI                 3313.666667
+BASEMENTAREA_MODE               3160.666667
+LIVINGAPARTMENTS_AVG            2819.333333
+LIVINGAPARTMENTS_MEDI           2635.000000
+YEARS_BUILD_MEDI                2312.666667
+ENTRANCES_MODE                  1947.666667
+Name: fscore, dtype: float64
+</code></pre>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">spark.stop()</span><br></pre></td></tr></table></figure>
+</article><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/python/">python</a><a class="post-meta__tags" href="/tags/spark/">spark</a></div><div class="post_share"><div class="social-share" data-image="/img/apache-spark-mllib.png" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/js/social-share.min.js" defer></script></div></div><div class="post-reward"><div class="reward-button"><i class="fas fa-qrcode"></i> 打赏</div><div class="reward-main"><ul class="reward-all"><li class="reward-item"><a href="/img/morty3.jpg" target="_blank"><img class="post-qr-code-img" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/img/morty3.jpg" alt="Give me money!"/></a><div class="post-qr-code-desc">Give me money!</div></li></ul></div></div><nav class="pagination-post" id="pagination"><div class="prev-post pull-left"><a href="/posts/90489eb7/" title="PySpark机器学习Demo"><img class="cover" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/img/apache-spark-mllib.png" onerror="onerror=null;src='/img/404_moon.png'" alt="cover of previous post"><div class="pagination-info"><div class="label">上一篇</div><div class="prev_info">PySpark机器学习Demo</div></div></a></div><div class="next-post pull-right"><a href="/posts/a1358f89/" title="PySpark 特征工程(II)--特征构造"><img class="cover" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/img/apache-spark-mllib.png" onerror="onerror=null;src='/img/404_moon.png'" alt="cover of next post"><div class="pagination-info"><div class="label">下一篇</div><div class="next_info">PySpark 特征工程(II)--特征构造</div></div></a></div></nav><div class="relatedPosts"><div class="headline"><i class="fas fa-thumbs-up fa-fw"></i><span>相关推荐</span></div><div class="relatedPosts-list"><div><a href="/posts/d099726d/" title="PySpark 特征工程(III)--特征选择"><img class="cover" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/img/apache-spark-mllib.png" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2024-06-03</div><div class="title">PySpark 特征工程(III)--特征选择</div></div></a></div><div><a href="/posts/a1358f89/" title="PySpark 特征工程(II)--特征构造"><img class="cover" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/img/apache-spark-mllib.png" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2024-06-03</div><div class="title">PySpark 特征工程(II)--特征构造</div></div></a></div><div><a href="/posts/90489eb7/" title="PySpark机器学习Demo"><img class="cover" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/img/apache-spark-mllib.png" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2024-05-17</div><div class="title">PySpark机器学习Demo</div></div></a></div><div><a href="/posts/264c088/" title="大数据手册(Spark)--Spark Core and RDDs"><img class="cover" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/img/apache-spark-core.png" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2020-01-03</div><div class="title">大数据手册(Spark)--Spark Core and RDDs</div></div></a></div><div><a href="/posts/75974533/" title="大数据手册(Spark)--PySpark MLlib"><img class="cover" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/img/apache-spark-mllib.png" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2024-05-01</div><div class="title">大数据手册(Spark)--PySpark MLlib</div></div></a></div><div><a href="/posts/bb755aa3/" title="大数据手册(Spark)--Spark SQL and DataFrames"><img class="cover" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/img/apache-spark-sql.png" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2020-01-03</div><div class="title">大数据手册(Spark)--Spark SQL and DataFrames</div></div></a></div></div></div><hr class="custom-hr"/><div id="post-comment"><div class="comment-head"><div class="comment-headline"><i class="fas fa-comments fa-fw"></i><span> 评论</span></div><div id="comment-switch"><span class="first-comment">Gitalk</span><span class="switch-btn"></span><span class="second-comment">Waline</span></div></div><div class="comment-wrap"><div><div id="gitalk-container"></div></div><div><div id="waline-wrap"></div></div></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="is-center"><div class="avatar-img"><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/img/avatar.jpg" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info__name">Tiny Lei</div><div class="author-info__description">每天进步一点点...</div></div><div class="card-info-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">165</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">105</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">43</div></a></div><div class="card-info-social-icons is-center"><a class="social-icon" href="https://gitee.com/wilenwu" rel="external nofollow noreferrer" target="_blank" title="Gitee"><i class="iconfont icon-gitee"></i></a><a class="social-icon" href="https://github.com/wilenwu" rel="external nofollow noreferrer" target="_blank" title="Github"><i class="iconfont icon-github"></i></a><a class="social-icon" href="https://blog.csdn.net/qq_41518277" rel="external nofollow noreferrer" target="_blank" title="CSDN"><i class="iconfont icon-csdn"></i></a><a class="social-icon" href="/atom.xml" target="_blank" title="RSS"><i class="iconfont icon-rss"></i></a></div></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>公告</span></div><div class="announcement_content">感谢访问本站，若喜欢请收藏^_^</div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E6%95%B0%E6%8D%AE%E9%A2%84%E5%A4%84%E7%90%86"><span class="toc-number">1.</span> <span class="toc-text"> 数据预处理</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%8E%A2%E7%B4%A2%E6%80%A7%E6%95%B0%E6%8D%AE%E5%88%86%E6%9E%90"><span class="toc-number">1.1.</span> <span class="toc-text"> 探索性数据分析</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%95%B0%E6%8D%AE%E6%B8%85%E6%B4%97"><span class="toc-number">1.2.</span> <span class="toc-text"> 数据清洗</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%95%B0%E6%8D%AE%E5%8E%BB%E9%87%8D"><span class="toc-number">1.2.1.</span> <span class="toc-text"> 数据去重</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B%E8%BD%AC%E6%8D%A2"><span class="toc-number">1.2.2.</span> <span class="toc-text"> 数据类型转换</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%94%99%E8%AF%AF%E6%95%B0%E6%8D%AE%E6%B8%85%E6%B4%97"><span class="toc-number">1.2.3.</span> <span class="toc-text"> 错误数据清洗</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%B8%83%E5%B0%94%E7%89%B9%E5%BE%81%E6%B8%85%E6%B4%97"><span class="toc-number">1.2.4.</span> <span class="toc-text"> 布尔特征清洗</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%87%BD%E6%95%B0%E5%B0%81%E8%A3%85"><span class="toc-number">1.2.5.</span> <span class="toc-text"> 函数封装</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%89%B9%E5%BE%81%E9%87%8D%E7%BC%96%E7%A0%81"><span class="toc-number">1.3.</span> <span class="toc-text"> 特征重编码</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%A1%BA%E5%BA%8F%E7%BC%96%E7%A0%81"><span class="toc-number">1.3.1.</span> <span class="toc-text"> 顺序编码</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%B9%B3%E5%9D%87%E6%95%B0%E7%BC%96%E7%A0%81"><span class="toc-number">1.3.2.</span> <span class="toc-text"> 平均数编码</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%93%91%E5%8F%98%E9%87%8F%E7%BC%96%E7%A0%81"><span class="toc-number">1.3.3.</span> <span class="toc-text"> 哑变量编码</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%BF%9E%E7%BB%AD%E7%89%B9%E5%BE%81%E5%88%86%E7%AE%B1"><span class="toc-number">1.3.4.</span> <span class="toc-text"> 连续特征分箱</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%87%BD%E6%95%B0%E5%B0%81%E8%A3%85-2"><span class="toc-number">1.3.5.</span> <span class="toc-text"> 函数封装</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%BC%BA%E5%A4%B1%E5%80%BC%E5%A4%84%E7%90%86"><span class="toc-number">1.4.</span> <span class="toc-text"> 缺失值处理</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%BC%BA%E5%A4%B1%E5%80%BC%E7%BB%9F%E8%AE%A1"><span class="toc-number">1.4.1.</span> <span class="toc-text"> 缺失值统计</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%BC%BA%E5%A4%B1%E5%80%BC%E5%88%A0%E9%99%A4"><span class="toc-number">1.4.2.</span> <span class="toc-text"> 缺失值删除</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%BC%BA%E5%A4%B1%E5%80%BC%E6%A0%87%E8%AE%B0"><span class="toc-number">1.4.3.</span> <span class="toc-text"> 缺失值标记</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BA%BA%E5%B7%A5%E6%8F%92%E8%A1%A5"><span class="toc-number">1.4.4.</span> <span class="toc-text"> 人工插补</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%9D%A1%E4%BB%B6%E5%B9%B3%E5%9D%87%E5%80%BC%E5%A1%AB%E5%85%85%E6%B3%95"><span class="toc-number">1.4.5.</span> <span class="toc-text"> 条件平均值填充法</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%AE%80%E5%8D%95%E6%8F%92%E8%A1%A5"><span class="toc-number">1.4.6.</span> <span class="toc-text"> 简单插补</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%87%BD%E6%95%B0%E5%B0%81%E8%A3%85-3"><span class="toc-number">1.4.7.</span> <span class="toc-text"> 函数封装</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%BC%82%E5%B8%B8%E5%80%BC%E6%A3%80%E6%B5%8B"><span class="toc-number">1.5.</span> <span class="toc-text"> 异常值检测</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%A0%87%E5%87%86%E5%8C%96%E5%BD%92%E4%B8%80%E5%8C%96"><span class="toc-number">1.6.</span> <span class="toc-text"> 标准化&#x2F;归一化</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%AD%A3%E6%80%81%E5%8F%98%E6%8D%A2"><span class="toc-number">1.7.</span> <span class="toc-text"> 正态变换</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%81%8F%E5%BA%A6"><span class="toc-number">1.7.1.</span> <span class="toc-text"> 偏度</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#qq%E5%9B%BE"><span class="toc-number">1.7.2.</span> <span class="toc-text"> QQ图</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%9D%9E%E7%BA%BF%E6%80%A7%E5%8F%98%E6%8D%A2"><span class="toc-number">1.7.3.</span> <span class="toc-text"> 非线性变换</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#baseline"><span class="toc-number">1.8.</span> <span class="toc-text"> Baseline</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BA%A4%E5%8F%89%E9%AA%8C%E8%AF%81"><span class="toc-number">1.8.1.</span> <span class="toc-text"> 交叉验证</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%89%B9%E5%BE%81%E9%87%8D%E8%A6%81%E6%80%A7"><span class="toc-number">1.8.2.</span> <span class="toc-text"> 特征重要性</span></a></li></ol></li></ol></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item"><a class="thumbnail" href="/posts/d099726d/" title="PySpark 特征工程(III)--特征选择"><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/img/apache-spark-mllib.png" onerror="this.onerror=null;this.src='/img/404_moon.png'" alt="PySpark 特征工程(III)--特征选择"/></a><div class="content"><a class="title" href="/posts/d099726d/" title="PySpark 特征工程(III)--特征选择">PySpark 特征工程(III)--特征选择</a><time datetime="2024-06-03T15:40:02.000Z" title="发表于 2024-06-03 23:40:02">2024-06-03</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/posts/a1358f89/" title="PySpark 特征工程(II)--特征构造"><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/img/apache-spark-mllib.png" onerror="this.onerror=null;this.src='/img/404_moon.png'" alt="PySpark 特征工程(II)--特征构造"/></a><div class="content"><a class="title" href="/posts/a1358f89/" title="PySpark 特征工程(II)--特征构造">PySpark 特征工程(II)--特征构造</a><time datetime="2024-06-03T13:45:02.000Z" title="发表于 2024-06-03 21:45:02">2024-06-03</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/posts/59da38ae/" title="PySpark 特征工程(I)--数据预处理"><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/img/apache-spark-mllib.png" onerror="this.onerror=null;this.src='/img/404_moon.png'" alt="PySpark 特征工程(I)--数据预处理"/></a><div class="content"><a class="title" href="/posts/59da38ae/" title="PySpark 特征工程(I)--数据预处理">PySpark 特征工程(I)--数据预处理</a><time datetime="2024-05-28T13:16:02.000Z" title="发表于 2024-05-28 21:16:02">2024-05-28</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/posts/90489eb7/" title="PySpark机器学习Demo"><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/img/apache-spark-mllib.png" onerror="this.onerror=null;this.src='/img/404_moon.png'" alt="PySpark机器学习Demo"/></a><div class="content"><a class="title" href="/posts/90489eb7/" title="PySpark机器学习Demo">PySpark机器学习Demo</a><time datetime="2024-05-17T13:50:00.000Z" title="发表于 2024-05-17 21:50:00">2024-05-17</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/posts/75974533/" title="大数据手册(Spark)--PySpark MLlib"><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/img/apache-spark-mllib.png" onerror="this.onerror=null;this.src='/img/404_moon.png'" alt="大数据手册(Spark)--PySpark MLlib"/></a><div class="content"><a class="title" href="/posts/75974533/" title="大数据手册(Spark)--PySpark MLlib">大数据手册(Spark)--PySpark MLlib</a><time datetime="2024-05-01T14:08:34.000Z" title="发表于 2024-05-01 22:08:34">2024-05-01</time></div></div></div></div></div></div></main><footer id="footer"><div id="footer-wrap"><div class="copyright">&copy;2019 - 2024 By Tiny Lei</div><div class="framework-info"><span>框架 </span><a target="_blank" rel="noopener external nofollow noreferrer" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener external nofollow noreferrer" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside_config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><a id="to_comment" href="#post-comment" title="直达评论"><i class="fas fa-comments"></i></a><button id="go-up" type="button" title="回到顶部"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox/fancybox.umd.min.js"></script><script src="https://cdn.jsdelivr.net/npm/vanilla-lazyload/dist/lazyload.iife.min.js"></script><script>function panguFn () {
+  if (typeof pangu === 'object') pangu.autoSpacingPage()
+  else {
+    getScript('https://cdn.jsdelivr.net/npm/pangu/dist/browser/pangu.min.js')
+      .then(() => {
+        pangu.autoSpacingPage()
+      })
+  }
+}
+
+function panguInit () {
+  if (false){
+    GLOBAL_CONFIG_SITE.isPost && panguFn()
+  } else {
+    panguFn()
+  }
+}
+
+document.addEventListener('DOMContentLoaded', panguInit)</script><div class="js-pjax"><script>(() => {
+  const $mermaid = document.querySelectorAll('#article-container .mermaid-wrap')
+  if ($mermaid.length === 0) return
+  const runMermaid = () => {
+    window.loadMermaid = true
+    const theme = document.documentElement.getAttribute('data-theme') === 'dark' ? 'dark' : 'forest'
+
+    Array.from($mermaid).forEach((item, index) => {
+      const mermaidSrc = item.firstElementChild
+      const mermaidThemeConfig = '%%{init:{ \'theme\':\'' + theme + '\'}}%%\n'
+      const mermaidID = 'mermaid-' + index
+      const mermaidDefinition = mermaidThemeConfig + mermaidSrc.textContent
+
+      const renderFn = mermaid.render(mermaidID, mermaidDefinition)
+
+      const renderV10 = () => {
+        renderFn.then(({svg}) => {
+          mermaidSrc.insertAdjacentHTML('afterend', svg)
+        })
+      }
+
+      const renderV9 = svg => {
+        mermaidSrc.insertAdjacentHTML('afterend', svg)
+      }
+
+      typeof renderFn === 'string' ? renderV9(renderFn) : renderV10()
+    })
+  }
+
+  const loadMermaid = () => {
+    window.loadMermaid ? runMermaid() : getScript('https://cdn.jsdelivr.net/npm/mermaid/dist/mermaid.min.js').then(runMermaid)
+  }
+
+  btf.addModeChange('mermaid', runMermaid)
+
+  window.pjax ? loadMermaid() : document.addEventListener('DOMContentLoaded', loadMermaid)
+})()</script><script>function loadGitalk () {
+  function initGitalk () {
+    var gitalk = new Gitalk(Object.assign({
+      clientID: '7c65134b48b13f306114',
+      clientSecret: 'f049f68368a11925fdb69e57c64839eac94e13c1'',
+      repo: 'gitalk-comments',
+      owner: 'WilenWu',
+      admin: ['WilenWu'],
+      id: '929a5fd998393e79b0be465590383a58',
+      updateCountCallback: commentCount
+    },null))
+
+    gitalk.render('gitalk-container')
+  }
+
+  if (typeof Gitalk === 'function') initGitalk()
+  else {
+    getCSS('https://cdn.jsdelivr.net/npm/gitalk/dist/gitalk.min.css')
+    getScript('https://cdn.jsdelivr.net/npm/gitalk/dist/gitalk.min.js').then(initGitalk)
+  }
+}
+
+function commentCount(n){
+  let isCommentCount = document.querySelector('#post-meta .gitalk-comment-count')
+  if (isCommentCount) {
+    isCommentCount.textContent= n
+  }
+}
+
+if ('Gitalk' === 'Gitalk' || !true) {
+  if (true) btf.loadComment(document.getElementById('gitalk-container'), loadGitalk)
+  else loadGitalk()
+} else {
+  function loadOtherComment () {
+    loadGitalk()
+  }
+}</script><script>function loadWaline () {
+  function initWaline () {
+    const waline = Waline.init(Object.assign({
+      el: '#waline-wrap',
+      serverURL: 'https://waline-comments-9etq63pcv-wilenwu.vercel.app',
+      pageview: false,
+      dark: 'html[data-theme="dark"]',
+      path: window.location.pathname,
+      comment: false,
+    }, {"requiredMeta":["monsterid"]}))
+  }
+
+  if (typeof Waline === 'object') initWaline()
+  else {
+    getCSS('https://cdn.jsdelivr.net/npm/@waline/client/dist/waline.min.css').then(() => {
+      getScript('https://cdn.jsdelivr.net/npm/@waline/client/dist/waline.min.js').then(initWaline)
+    })
+  }
+}
+
+if ('Gitalk' === 'Waline' || !true) {
+  if (true) btf.loadComment(document.getElementById('waline-wrap'),loadWaline)
+  else setTimeout(loadWaline, 0)
+} else {
+  function loadOtherComment () {
+    loadWaline()
+  }
+}</script></div><script src="/js/custom.js"></script><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script><div id="local-search"><div class="search-dialog"><nav class="search-nav"><span class="search-dialog-title">搜索</span><span id="loading-status"></span><button class="search-close-button"><i class="fas fa-times"></i></button></nav><div class="is-center" id="loading-database"><i class="fas fa-spinner fa-pulse"></i><span>  数据库加载中</span></div><div class="search-wrap"><div id="local-search-input"><div class="local-search-box"><input class="local-search-box--input" placeholder="搜索文章" type="text"/></div></div><hr/><div class="no-result" id="local-search-results"></div><div id="local-search-stats-wrap"></div></div></div><div id="search-mask"></div><script src="/js/search/local-search.js"></script></div></div><!-- hexo injector body_end start --><script async src="//at.alicdn.com/t/font_2032782_8d5kxvn09md.js"></script><!-- hexo injector body_end end --></body></html>

@@ -1,0 +1,593 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0,viewport-fit=cover"><title>PySpark 特征工程(II)--特征构造 | 雷小小</title><meta name="author" content="Tiny Lei"><meta name="copyright" content="Tiny Lei"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="有这么一句话在业界广泛流传：数据和特征决定了机器学习的上限，而模型和算法只是逼近这个上限而已。由此可见，特征工程在机器学习中占有相当重要的地位。在实际应用当中，可以说特征工程是机器学习成功的关键。 特征工程是数据分析中最耗时间和精力的一部分工作，它不像算法和模型那样是确定的步骤，更多是工程上的经验和权衡。因此没有统一的方法。这里只是对一些常用的方法做一个总结。 特征工程包含了 Data PrePr">
+<meta property="og:type" content="article">
+<meta property="og:title" content="PySpark 特征工程(II)--特征构造">
+<meta property="og:url" content="https://www.tinylei.tech/posts/a1358f89/index.html">
+<meta property="og:site_name" content="雷小小">
+<meta property="og:description" content="有这么一句话在业界广泛流传：数据和特征决定了机器学习的上限，而模型和算法只是逼近这个上限而已。由此可见，特征工程在机器学习中占有相当重要的地位。在实际应用当中，可以说特征工程是机器学习成功的关键。 特征工程是数据分析中最耗时间和精力的一部分工作，它不像算法和模型那样是确定的步骤，更多是工程上的经验和权衡。因此没有统一的方法。这里只是对一些常用的方法做一个总结。 特征工程包含了 Data PrePr">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://www.tinylei.tech/img/apache-spark-mllib.png">
+<meta property="article:published_time" content="2024-06-03T13:45:02.000Z">
+<meta property="article:modified_time" content="2024-06-03T16:03:50.371Z">
+<meta property="article:author" content="Tiny Lei">
+<meta property="article:tag" content="python">
+<meta property="article:tag" content="spark">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://www.tinylei.tech/img/apache-spark-mllib.png"><link rel="shortcut icon" href="/img/favicon.png"><link rel="canonical" href="https://www.tinylei.tech/posts/a1358f89/index.html"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//hm.baidu.com"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><meta name="baidu-site-verification" content="code-7rymn5Bitx"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox/fancybox.min.css" media="print" onload="this.media='all'"><script>var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "https://hm.baidu.com/hm.js?654e7415ab55bed7c9c2bc6d665f03c5";
+  var s = document.getElementsByTagName("script")[0]; 
+  s.parentNode.insertBefore(hm, s);
+})();
+</script><script>const GLOBAL_CONFIG = {
+  root: '/',
+  algolia: undefined,
+  localSearch: {"path":"/search.xml","preload":false,"top_n_per_article":1,"unescape":false,"languages":{"hits_empty":"找不到您查询的内容：${query}","hits_stats":"共找到 ${hits} 篇文章"}},
+  translate: undefined,
+  noticeOutdate: undefined,
+  highlight: {"plugin":"highlighjs","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '天',
+  dateSuffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'fancybox',
+  Snackbar: undefined,
+  source: {
+    justifiedGallery: {
+      js: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery/dist/fjGallery.min.js',
+      css: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery/dist/fjGallery.min.css'
+    }
+  },
+  isPhotoFigcaption: true,
+  islazyload: true,
+  isAnchor: false,
+  percent: {
+    toc: true,
+    rightside: false,
+  },
+  autoDarkmode: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: 'PySpark 特征工程(II)--特征构造',
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: true,
+  postUpdate: '2024-06-04 00:03:50'
+}</script><noscript><style type="text/css">
+  #nav {
+    opacity: 1
+  }
+  .justified-gallery img {
+    opacity: 1
+  }
+
+  #recent-posts time,
+  #post-meta time {
+    display: inline !important
+  }
+</style></noscript><script>(win=>{
+    win.saveToLocal = {
+      set: function setWithExpiry(key, value, ttl) {
+        if (ttl === 0) return
+        const now = new Date()
+        const expiryDay = ttl * 86400000
+        const item = {
+          value: value,
+          expiry: now.getTime() + expiryDay,
+        }
+        localStorage.setItem(key, JSON.stringify(item))
+      },
+
+      get: function getWithExpiry(key) {
+        const itemStr = localStorage.getItem(key)
+
+        if (!itemStr) {
+          return undefined
+        }
+        const item = JSON.parse(itemStr)
+        const now = new Date()
+
+        if (now.getTime() > item.expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return item.value
+      }
+    }
+  
+    win.getScript = url => new Promise((resolve, reject) => {
+      const script = document.createElement('script')
+      script.src = url
+      script.async = true
+      script.onerror = reject
+      script.onload = script.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        script.onload = script.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(script)
+    })
+  
+    win.getCSS = (url,id = false) => new Promise((resolve, reject) => {
+      const link = document.createElement('link')
+      link.rel = 'stylesheet'
+      link.href = url
+      if (id) link.id = id
+      link.onerror = reject
+      link.onload = link.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        link.onload = link.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(link)
+    })
+  
+      win.activateDarkMode = function () {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      win.activateLightMode = function () {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+      const t = saveToLocal.get('theme')
+    
+          if (t === 'dark') activateDarkMode()
+          else if (t === 'light') activateLightMode()
+        
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    
+    const detectApple = () => {
+      if(/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+    })(window)</script><link rel="stylesheet" href="//at.alicdn.com/t/font_2849223_xh1ftc8qym.css"><link rel="stylesheet" href="/css/link-card.css"><!-- hexo injector head_end start --><link rel="stylesheet" href="https://npm.elemecdn.com/hexo-butterfly-tag-plugins-plus@latest/lib/assets/font-awesome-animation.min.css" media="defer" onload="this.media='all'"><link rel="stylesheet" href="https://npm.elemecdn.com/hexo-butterfly-tag-plugins-plus@latest/lib/tag_plugins.css" media="defer" onload="this.media='all'"><script src="https://npm.elemecdn.com/hexo-butterfly-tag-plugins-plus@latest/lib/assets/carousel-touch.js"></script><!-- hexo injector head_end end --><meta name="generator" content="Hexo 6.0.0"><link rel="alternate" href="/atom.xml" title="雷小小" type="application/atom+xml">
+</head><body><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/img/avatar.jpg" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="sidebar-site-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">165</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">105</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">43</div></a></div><hr class="custom-hr"/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/user-guide/"><i class="fa-fw fa fa-compass"></i><span> 用户指南</span></a></div><div class="menus_item"><a class="site-page group hide" href="javascript:void(0);" rel="external nofollow noreferrer"><i class="fa-fw fa fa-book"></i><span> 文档</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></li><li><a class="site-page child" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 归档</span></a></li><li><a class="site-page child" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/gallery/"><i class="fa-fw fa fa-images"></i><span> 图库</span></a></div><div class="menus_item"><a class="site-page" href="/ebook/"><i class="fa-fw fa fa-book-reader"></i><span> 电子书</span></a></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-star"></i><span> 收藏夹</span></a></div><div class="menus_item"><a class="site-page group hide" href="javascript:void(0);" rel="external nofollow noreferrer"><i class="fa-fw fa-solid fa-circle-chevron-down"></i><span> 更多</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/about/"><i class="fa-fw fa fa-user"></i><span> 关于我</span></a></li><li><a class="site-page child" href="/analytics/"><i class="fa-fw fa fa-line-chart"></i><span> 文章统计</span></a></li><li><a class="site-page child" href="/log/"><i class="fa-fw fa fa-history"></i><span> 更新日志</span></a></li></ul></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url('/img/apache-spark-top-img.svg')"><nav id="nav"><span id="blog-info"><a href="/" title="雷小小"><img class="site-icon" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/img/favicon.png"/><span class="site-name">雷小小</span></a></span><div id="menus"><div id="search-button"><a class="site-page social-icon search" href="javascript:void(0);" rel="external nofollow noreferrer"><i class="fas fa-search fa-fw"></i><span> 搜索</span></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/user-guide/"><i class="fa-fw fa fa-compass"></i><span> 用户指南</span></a></div><div class="menus_item"><a class="site-page group hide" href="javascript:void(0);" rel="external nofollow noreferrer"><i class="fa-fw fa fa-book"></i><span> 文档</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></li><li><a class="site-page child" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 归档</span></a></li><li><a class="site-page child" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/gallery/"><i class="fa-fw fa fa-images"></i><span> 图库</span></a></div><div class="menus_item"><a class="site-page" href="/ebook/"><i class="fa-fw fa fa-book-reader"></i><span> 电子书</span></a></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-star"></i><span> 收藏夹</span></a></div><div class="menus_item"><a class="site-page group hide" href="javascript:void(0);" rel="external nofollow noreferrer"><i class="fa-fw fa-solid fa-circle-chevron-down"></i><span> 更多</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/about/"><i class="fa-fw fa fa-user"></i><span> 关于我</span></a></li><li><a class="site-page child" href="/analytics/"><i class="fa-fw fa fa-line-chart"></i><span> 文章统计</span></a></li><li><a class="site-page child" href="/log/"><i class="fa-fw fa fa-history"></i><span> 更新日志</span></a></li></ul></div></div><div id="toggle-menu"><a class="site-page" href="javascript:void(0);" rel="external nofollow noreferrer"><i class="fas fa-bars fa-fw"></i></a></div></div></nav><div id="post-info"><h1 class="post-title">PySpark 特征工程(II)--特征构造<a class="post-edit-link" href="https://gitee.com/WilenWu/myblog/edit/master/source/_posts/bigdata/Feature-Engineering-on-Spark(II)-Feature-Construction.md" rel="external nofollow noreferrer" title="编辑" target="_blank"><i class="fas fa-pencil-alt"></i></a></h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2024-06-03T13:45:02.000Z" title="发表于 2024-06-03 21:45:02">2024-06-03</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2024-06-03T16:03:50.371Z" title="更新于 2024-06-04 00:03:50">2024-06-04</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/big-data/">Big Data</a><i class="fas fa-angle-right post-meta-separator"></i><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/big-data/spark/">Spark</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-wordcount"><i class="far fa-file-word fa-fw post-meta-icon"></i><span class="post-meta-label">字数总计:</span><span class="word-count">4.7k</span><span class="post-meta-separator">|</span><i class="far fa-clock fa-fw post-meta-icon"></i><span class="post-meta-label">阅读时长:</span><span>24分钟</span></span><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title="PySpark 特征工程(II)--特征构造"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">阅读量:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container"><p>有这么一句话在业界广泛流传：数据和特征决定了机器学习的上限，而模型和算法只是逼近这个上限而已。由此可见，特征工程在机器学习中占有相当重要的地位。在实际应用当中，可以说特征工程是机器学习成功的关键。</p>
+<p>特征工程是数据分析中最耗时间和精力的一部分工作，它不像算法和模型那样是确定的步骤，更多是工程上的经验和权衡。因此没有统一的方法。这里只是对一些常用的方法做一个总结。</p>
+<p>特征工程包含了 Data PreProcessing（数据预处理）、Feature Extraction（特征提取）、Feature Selection（特征选择）和 Feature construction（特征构造）等子问题。</p>
+<p>Jupyter Notebook 代码连接：<a href="/ipynb/feature_engineering_on_spark_p2_feature_construction">feature_engineering_on_spark_p2_feature_construction</a></p>
+<h1 id="特征构造"><a class="markdownIt-Anchor" href="#特征构造"></a> 特征构造</h1>
+<p>特征构造是从现有数据创建新特征的过程。目标是构建有用的功能，帮助我们的模型了解数据集中的信息与给定目标之间的关系。</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">from</span> pyspark.conf <span class="keyword">import</span> SparkConf</span><br><span class="line"><span class="keyword">from</span> pyspark.sql <span class="keyword">import</span> SparkSession</span><br><span class="line"><span class="keyword">from</span> pyspark.ml <span class="keyword">import</span> Pipeline</span><br><span class="line"><span class="keyword">from</span> pyspark.ml <span class="keyword">import</span> Estimator, Transformer</span><br><span class="line"><span class="keyword">from</span> pyspark.ml.feature <span class="keyword">import</span> StringIndexer, VectorAssembler, OneHotEncoder</span><br><span class="line"><span class="keyword">import</span> pyspark.sql.functions <span class="keyword">as</span> fn</span><br><span class="line"><span class="keyword">import</span> pyspark.ml.feature <span class="keyword">as</span> ft</span><br><span class="line"><span class="keyword">from</span> pyspark.ml.evaluation <span class="keyword">import</span> BinaryClassificationEvaluator, MulticlassClassificationEvaluator</span><br><span class="line"><span class="keyword">from</span> pyspark.ml.linalg <span class="keyword">import</span> Vectors</span><br><span class="line"><span class="keyword">from</span> pyspark.sql <span class="keyword">import</span> Row</span><br><span class="line"><span class="keyword">from</span> pyspark.sql <span class="keyword">import</span> Observation</span><br><span class="line"><span class="keyword">from</span> pyspark.sql <span class="keyword">import</span> Window</span><br><span class="line"><span class="keyword">from</span> pyspark.ml.tuning <span class="keyword">import</span> CrossValidator, ParamGridBuilder, TrainValidationSplit</span><br><span class="line"><span class="keyword">from</span> xgboost.spark <span class="keyword">import</span> SparkXGBClassifier</span><br><span class="line"><span class="keyword">import</span> xgboost <span class="keyword">as</span> xgb</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> os</span><br><span class="line"><span class="keyword">import</span> pandas <span class="keyword">as</span> pd</span><br><span class="line"><span class="keyword">import</span> numpy <span class="keyword">as</span> np</span><br><span class="line"><span class="keyword">import</span> matplotlib.pyplot <span class="keyword">as</span> plt</span><br><span class="line"><span class="keyword">import</span> seaborn <span class="keyword">as</span> sns</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> time</span><br><span class="line"><span class="keyword">import</span> warnings</span><br><span class="line"><span class="keyword">import</span> gc</span><br><span class="line"></span><br><span class="line"><span class="comment"># Setting configuration.</span></span><br><span class="line">warnings.filterwarnings(<span class="string">&#x27;ignore&#x27;</span>)</span><br><span class="line">SEED = <span class="number">42</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># Use 0.11.4-spark3.3 version for Spark3.3 and 1.0.2 version for Spark3.4</span></span><br><span class="line">spark = SparkSession.builder \</span><br><span class="line">            .master(<span class="string">&quot;local[*]&quot;</span>) \</span><br><span class="line">            .appName(<span class="string">&quot;XGBoost with PySpark&quot;</span>) \</span><br><span class="line">            .config(<span class="string">&quot;spark.driver.memory&quot;</span>, <span class="string">&quot;10g&quot;</span>) \</span><br><span class="line">            .config(<span class="string">&quot;spark.driver.cores&quot;</span>, <span class="string">&quot;2&quot;</span>) \</span><br><span class="line">            .config(<span class="string">&quot;spark.executor.memory&quot;</span>, <span class="string">&quot;10g&quot;</span>) \</span><br><span class="line">            .config(<span class="string">&quot;spark.executor.cores&quot;</span>, <span class="string">&quot;2&quot;</span>) \</span><br><span class="line">            .enableHiveSupport() \</span><br><span class="line">            .getOrCreate()</span><br><span class="line">sc = spark.sparkContext</span><br><span class="line">sc.setLogLevel(<span class="string">&#x27;ERROR&#x27;</span>)</span><br></pre></td></tr></table></figure>
+<pre><code>24/06/03 20:13:12 WARN Utils: Your hostname, MacBook-Air resolves to a loopback address: 127.0.0.1; using 192.168.1.5 instead (on interface en0)
+24/06/03 20:13:12 WARN Utils: Set SPARK_LOCAL_IP if you need to bind to another address
+Setting default log level to &quot;WARN&quot;.
+To adjust logging level use sc.setLogLevel(newLevel). For SparkR, use setLogLevel(newLevel).
+24/06/03 20:13:13 WARN NativeCodeLoader: Unable to load native-hadoop library for your platform... using builtin-java classes where applicable
+</code></pre>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">df = spark.sql(<span class="string">&quot;select * from home_credit_default_risk.prepared_data&quot;</span>)</span><br></pre></td></tr></table></figure>
+<pre><code>Loading class `com.mysql.jdbc.Driver'. This is deprecated. The new driver class is `com.mysql.cj.jdbc.Driver'. The driver is automatically registered via the SPI and manual loading of the driver class is generally unnecessary.
+</code></pre>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="comment"># Number of each type of column</span></span><br><span class="line">dtypes = <span class="built_in">dict</span>(df.dtypes)</span><br><span class="line">pd.Series(dtypes).value_counts()</span><br></pre></td></tr></table></figure>
+<pre><code>double    65
+int       45
+vector    10
+float      2
+Name: count, dtype: int64
+</code></pre>
+<p>为了检测新特征集的性能，我们先定义数据集评估函数。</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">timer</span>(<span class="params">func</span>):</span></span><br><span class="line">    <span class="keyword">import</span> time</span><br><span class="line">    <span class="keyword">import</span> functools</span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">strfdelta</span>(<span class="params">tdelta, fmt</span>):</span></span><br><span class="line">        hours, remainder = <span class="built_in">divmod</span>(tdelta, <span class="number">3600</span>)</span><br><span class="line">        minutes, seconds = <span class="built_in">divmod</span>(remainder, <span class="number">60</span>)</span><br><span class="line">        <span class="keyword">return</span> fmt.<span class="built_in">format</span>(hours, minutes, seconds)</span><br><span class="line"><span class="meta">    @functools.wraps(<span class="params">func</span>)</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">wrapper</span>(<span class="params">*args, **kwargs</span>):</span></span><br><span class="line">        click = time.time()</span><br><span class="line">        <span class="built_in">print</span>(<span class="string">&quot;Starting time\t&quot;</span>, time.strftime(<span class="string">&quot;%H:%M:%S&quot;</span>, time.localtime()))</span><br><span class="line">        result = func(*args, **kwargs)</span><br><span class="line">        delta = strfdelta(time.time() - click, <span class="string">&quot;&#123;:.0f&#125; hours &#123;:.0f&#125; minutes &#123;:.0f&#125; seconds&quot;</span>)</span><br><span class="line">        <span class="built_in">print</span>(<span class="string">f&quot;<span class="subst">&#123;func.__name__&#125;</span> cost <span class="subst">&#123;delta&#125;</span>&quot;</span>)</span><br><span class="line">        <span class="keyword">return</span> result</span><br><span class="line">    <span class="keyword">return</span> wrapper</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">cross_val_score</span>(<span class="params">df, estimator, evaluator, features, numFolds=<span class="number">3</span>, seed=SEED</span>):</span></span><br><span class="line">    df = df.withColumn(<span class="string">&#x27;fold&#x27;</span>, (fn.rand(seed) * numFolds).cast(<span class="string">&#x27;int&#x27;</span>))</span><br><span class="line">    eval_result = []</span><br><span class="line">    <span class="comment"># Initialize an empty dataframe to hold feature importances</span></span><br><span class="line">    feature_importances = pd.DataFrame(index=features)</span><br><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(numFolds):</span><br><span class="line">        train = df.<span class="built_in">filter</span>(df[<span class="string">&#x27;fold&#x27;</span>] == i)</span><br><span class="line">        valid = df.<span class="built_in">filter</span>(df[<span class="string">&#x27;fold&#x27;</span>] != i)</span><br><span class="line">        model = estimator.fit(train)</span><br><span class="line">        train_pred = model.transform(train)</span><br><span class="line">        valid_pred = model.transform(valid)</span><br><span class="line">        train_score = evaluator.evaluate(train_pred)</span><br><span class="line">        valid_score = evaluator.evaluate(valid_pred)</span><br><span class="line">        metric = evaluator.getMetricName()</span><br><span class="line">        <span class="built_in">print</span>(<span class="string">f&quot;[<span class="subst">&#123;i&#125;</span>] train&#x27;s <span class="subst">&#123;metric&#125;</span>: <span class="subst">&#123;train_score&#125;</span>,  valid&#x27;s <span class="subst">&#123;metric&#125;</span>: <span class="subst">&#123;valid_score&#125;</span>&quot;</span>)</span><br><span class="line">        eval_result.append(valid_score)</span><br><span class="line">        </span><br><span class="line">        fscore = model.get_feature_importances()</span><br><span class="line">        fscore = &#123;name:fscore.get(<span class="string">f&#x27;f<span class="subst">&#123;k&#125;</span>&#x27;</span>, <span class="number">0</span>) <span class="keyword">for</span> k,name <span class="keyword">in</span> <span class="built_in">enumerate</span>(features)&#125;</span><br><span class="line">        feature_importances[<span class="string">f&#x27;cv_<span class="subst">&#123;i&#125;</span>&#x27;</span>] = fscore</span><br><span class="line">    feature_importances[<span class="string">&#x27;fscore&#x27;</span>] = feature_importances.mean(axis=<span class="number">1</span>)</span><br><span class="line">    <span class="keyword">return</span> eval_result, feature_importances.sort_values(<span class="string">&#x27;fscore&#x27;</span>, ascending=<span class="literal">False</span>)</span><br><span class="line"></span><br><span class="line"><span class="meta">@timer</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">score_dataset</span>(<span class="params">df, inputCols=<span class="literal">None</span>, featuresCol=<span class="literal">None</span>, labelCol=<span class="string">&#x27;label&#x27;</span>, nfold=<span class="number">3</span></span>):</span></span><br><span class="line">    <span class="keyword">assert</span> inputCols <span class="keyword">is</span> <span class="keyword">not</span> <span class="literal">None</span> <span class="keyword">or</span> featuresCol <span class="keyword">is</span> <span class="keyword">not</span> <span class="literal">None</span></span><br><span class="line">    <span class="keyword">if</span> featuresCol <span class="keyword">is</span> <span class="literal">None</span>:</span><br><span class="line">        <span class="comment"># Assemble the feature columns into a single vector column</span></span><br><span class="line">        featuresCol = <span class="string">&quot;features&quot;</span></span><br><span class="line">        assembler = VectorAssembler(</span><br><span class="line">            inputCols=inputCols,</span><br><span class="line">            outputCol=featuresCol</span><br><span class="line">        )</span><br><span class="line">        df = assembler.transform(df)</span><br><span class="line">    <span class="comment"># Create an Estimator.</span></span><br><span class="line">    classifier = SparkXGBClassifier(</span><br><span class="line">        features_col=featuresCol, </span><br><span class="line">        label_col=labelCol,</span><br><span class="line">        eval_metric=<span class="string">&#x27;auc&#x27;</span>,</span><br><span class="line">        scale_pos_weight=<span class="number">11</span>,</span><br><span class="line">        learning_rate=<span class="number">0.015</span>,</span><br><span class="line">        max_depth=<span class="number">8</span>,</span><br><span class="line">        subsample=<span class="number">1.0</span>,</span><br><span class="line">        colsample_bytree=<span class="number">0.35</span>,</span><br><span class="line">        reg_alpha=<span class="number">65</span>,</span><br><span class="line">        reg_lambda=<span class="number">15</span>,</span><br><span class="line">        n_estimators=<span class="number">500</span>,</span><br><span class="line">        verbosity=<span class="number">0</span></span><br><span class="line">    ) </span><br><span class="line">    evaluator = BinaryClassificationEvaluator(labelCol=labelCol, metricName=<span class="string">&#x27;areaUnderROC&#x27;</span>)</span><br><span class="line">    <span class="comment"># Training with 3-fold CV:</span></span><br><span class="line">    scores, feature_importances = cross_val_score(</span><br><span class="line">        df=df,</span><br><span class="line">        estimator=classifier, </span><br><span class="line">        evaluator=evaluator,</span><br><span class="line">        features=inputCols,</span><br><span class="line">        numFolds=nfold</span><br><span class="line">    )</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">f&quot;cv_agg&#x27;s valid auc: <span class="subst">&#123;np.mean(scores):<span class="number">.4</span>f&#125;</span> +/- <span class="subst">&#123;np.std(scores):<span class="number">.5</span>f&#125;</span>&quot;</span>)</span><br><span class="line">    <span class="keyword">return</span> feature_importances</span><br></pre></td></tr></table></figure>
+<h2 id="简单数学变换"><a class="markdownIt-Anchor" href="#简单数学变换"></a> 简单数学变换</h2>
+<p>我们可以根据业务含义，创建具有一些明显实际含义的补充特征，例如：</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">math_features = df</span><br><span class="line"></span><br><span class="line"><span class="comment"># 贷款金额相对于收入的比率</span></span><br><span class="line">math_features = math_features.withColumn(<span class="string">&#x27;CREDIT_INCOME_PERCENT&#x27;</span>, df[<span class="string">&#x27;AMT_CREDIT&#x27;</span>] / df[<span class="string">&#x27;AMT_INCOME_TOTAL&#x27;</span>])</span><br><span class="line"></span><br><span class="line"><span class="comment"># 贷款年金占总收入比率</span></span><br><span class="line">math_features = math_features.withColumn(<span class="string">&#x27;ANNUITY_INCOME_PERCENT&#x27;</span>, df[<span class="string">&#x27;AMT_ANNUITY&#x27;</span>] / df[<span class="string">&#x27;AMT_INCOME_TOTAL&#x27;</span>])</span><br><span class="line"></span><br><span class="line"><span class="comment"># 以月为单位的付款期限</span></span><br><span class="line">math_features = math_features.withColumn(<span class="string">&#x27;CREDIT_TERM&#x27;</span>, df[<span class="string">&#x27;AMT_ANNUITY&#x27;</span>] / df[<span class="string">&#x27;AMT_CREDIT&#x27;</span>]) </span><br><span class="line"></span><br><span class="line"><span class="comment">#工作时间占年龄的比率</span></span><br><span class="line">math_features = math_features.withColumn(<span class="string">&#x27;DAYS_EMPLOYED_PERCENT&#x27;</span>, df[<span class="string">&#x27;DAYS_EMPLOYED&#x27;</span>] / df[<span class="string">&#x27;DAYS_BIRTH&#x27;</span>]) </span><br><span class="line"></span><br><span class="line"><span class="comment"># 该用户家庭的人均收入</span></span><br><span class="line">math_features = math_features.withColumn(<span class="string">&#x27;INCOME_PER_PERSON&#x27;</span>, df[<span class="string">&#x27;AMT_INCOME_TOTAL&#x27;</span>] / df[<span class="string">&#x27;CNT_FAM_MEMBERS&#x27;</span>]) </span><br></pre></td></tr></table></figure>
+<p>我们可以在图形中直观地探索这些新变量：</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">new_cols = [<span class="string">&#x27;CREDIT_INCOME_PERCENT&#x27;</span>, <span class="string">&#x27;ANNUITY_INCOME_PERCENT&#x27;</span>, <span class="string">&#x27;CREDIT_TERM&#x27;</span>, <span class="string">&#x27;DAYS_EMPLOYED_PERCENT&#x27;</span>]</span><br><span class="line">math_features = math_features.select(*new_cols, <span class="string">&#x27;label&#x27;</span>).sample(<span class="number">0.1</span>).toPandas()</span><br><span class="line"></span><br><span class="line">plt.figure(figsize = (<span class="number">10</span>, <span class="number">6</span>))</span><br><span class="line"><span class="comment"># iterate through the new features</span></span><br><span class="line"><span class="keyword">for</span> i, feature <span class="keyword">in</span> <span class="built_in">enumerate</span>(new_cols):</span><br><span class="line">    <span class="comment"># create a new subplot for each feature</span></span><br><span class="line">    plt.subplot(<span class="number">2</span>, <span class="number">2</span>, i + <span class="number">1</span>)</span><br><span class="line">    sns.kdeplot(data=math_features, x=feature, hue=<span class="string">&#x27;label&#x27;</span>, common_norm=<span class="literal">False</span>)   </span><br></pre></td></tr></table></figure>
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/img/feature_engineering_on_spark/construction_output_12_1.png" alt="" /></p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">del</span> math_features</span><br><span class="line">gc.collect()</span><br></pre></td></tr></table></figure>
+<p>当然，我们不可能手动计算出所有有实际含义的数学特征。我们编写一个函数找到尽可能多的特征组合进行加减乘除运算。另外，还有对单变量的对数、指数、倒数、平方根、三角函数等运算。</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">from</span> itertools <span class="keyword">import</span> product, permutations, combinations</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">mathFeatureCreator</span>(<span class="params">Estimator, Transformer</span>):</span></span><br><span class="line">    <span class="string">&quot;&quot;&quot;</span></span><br><span class="line"><span class="string">    Apply math operators to create new features.</span></span><br><span class="line"><span class="string">    Parameters</span></span><br><span class="line"><span class="string">    ----------</span></span><br><span class="line"><span class="string">    inputCols: List[string]</span></span><br><span class="line"><span class="string">        The list of input variables.</span></span><br><span class="line"><span class="string">    operators: List[string]</span></span><br><span class="line"><span class="string">        List of Transform Feature functions to apply.</span></span><br><span class="line"><span class="string">        - binary: &#x27;add&#x27;, &#x27;subtract&#x27;, &#x27;multiply&#x27;, &#x27;divide&#x27;</span></span><br><span class="line"><span class="string">        - unary: &#x27;sin&#x27;, &#x27;cos&#x27;, &#x27;tan&#x27;, &#x27;sqrt&#x27;, &#x27;ln&#x27;   </span></span><br><span class="line"><span class="string">    &quot;&quot;&quot;</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__init__</span>(<span class="params">self, inputCols, operators</span>):</span>    </span><br><span class="line">        self.inputCols = inputCols</span><br><span class="line">        self.operators = operators    </span><br><span class="line">    </span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">_fit</span>(<span class="params">self, df</span>):</span></span><br><span class="line">        <span class="keyword">return</span> self</span><br><span class="line">    </span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">_transform</span>(<span class="params">self, df</span>):</span></span><br><span class="line">        funcs = &#123;</span><br><span class="line">            <span class="string">&#x27;add&#x27;</span>: (fn.try_add, <span class="string">&#x27;+&#x27;</span>),</span><br><span class="line">            <span class="string">&#x27;subtract&#x27;</span>: (fn.try_subtract, <span class="string">&#x27;-&#x27;</span>),</span><br><span class="line">            <span class="string">&#x27;multiply&#x27;</span>: (fn.try_multiply, <span class="string">&#x27;*&#x27;</span>),</span><br><span class="line">            <span class="string">&#x27;divide&#x27;</span>: (fn.try_divide, <span class="string">&#x27;/&#x27;</span>),</span><br><span class="line">            <span class="string">&#x27;sin&#x27;</span>: fn.sin,</span><br><span class="line">            <span class="string">&#x27;cos&#x27;</span>: fn.cos, </span><br><span class="line">            <span class="string">&#x27;tan&#x27;</span>: fn.tan, </span><br><span class="line">            <span class="string">&#x27;sqrt&#x27;</span>: fn.sqrt, </span><br><span class="line">            <span class="string">&#x27;ln&#x27;</span>: fn.ln</span><br><span class="line">        &#125;</span><br><span class="line">        </span><br><span class="line">        commutation = [o <span class="keyword">for</span> o <span class="keyword">in</span> self.operators <span class="keyword">if</span> o <span class="keyword">in</span> [<span class="string">&#x27;add&#x27;</span>, <span class="string">&#x27;subtract&#x27;</span>, <span class="string">&#x27;multiply&#x27;</span>]]</span><br><span class="line">        binary = [o <span class="keyword">for</span> o <span class="keyword">in</span> self.operators <span class="keyword">if</span> o <span class="keyword">in</span> [<span class="string">&#x27;divide&#x27;</span>]]</span><br><span class="line">        unary = [o <span class="keyword">for</span> o <span class="keyword">in</span> self.operators <span class="keyword">if</span> o <span class="keyword">in</span> [<span class="string">&#x27;sin&#x27;</span>, <span class="string">&#x27;cos&#x27;</span>, <span class="string">&#x27;tan&#x27;</span>, <span class="string">&#x27;sqrt&#x27;</span>, <span class="string">&#x27;ln&#x27;</span>]]</span><br><span class="line">        </span><br><span class="line">        comb = <span class="built_in">list</span>(combinations(self.inputCols, <span class="number">2</span>))</span><br><span class="line">        perm = <span class="built_in">list</span>(permutations(self.inputCols, <span class="number">2</span>))</span><br><span class="line">        </span><br><span class="line">        feature_number = (<span class="built_in">len</span>(<span class="built_in">list</span>(comb)) * <span class="built_in">len</span>(commutation) + </span><br><span class="line">              <span class="built_in">len</span>(<span class="built_in">list</span>(perm)) * <span class="built_in">len</span>(binary) + </span><br><span class="line">              <span class="built_in">len</span>(unary) * <span class="built_in">len</span>(self.inputCols))</span><br><span class="line">        <span class="built_in">print</span>(<span class="string">f&quot;Built <span class="subst">&#123;feature_number&#125;</span> features.&quot;</span>)</span><br><span class="line">        </span><br><span class="line">        df_new = df.select(<span class="string">&quot;SK_ID_CURR&quot;</span>, *self.inputCols)</span><br><span class="line">        <span class="keyword">for</span> operator, (left, right) <span class="keyword">in</span> product(commutation, comb):</span><br><span class="line">            func = funcs[operator][<span class="number">0</span>]</span><br><span class="line">            colname = left + funcs[operator][<span class="number">1</span>] + right</span><br><span class="line">            df_new = df_new.withColumn(colname, func(left, right))</span><br><span class="line">        </span><br><span class="line">        <span class="keyword">for</span> operator, (left, right) <span class="keyword">in</span> product(binary, perm):</span><br><span class="line">            func = funcs[operator][<span class="number">0</span>]</span><br><span class="line">            colname = left + funcs[operator][<span class="number">1</span>] + right</span><br><span class="line">            df_new = df_new.withColumn(colname, func(left, right))</span><br><span class="line">        </span><br><span class="line">        <span class="keyword">for</span> operator, col <span class="keyword">in</span> product(unary, self.inputCols):</span><br><span class="line">            func = funcs[operator]</span><br><span class="line">            colname = <span class="string">f&quot;<span class="subst">&#123;operator&#125;</span>(<span class="subst">&#123;col&#125;</span>)&quot;</span></span><br><span class="line">            df_new = df_new.withColumn(colname, func(col))</span><br><span class="line">        </span><br><span class="line">        <span class="keyword">return</span> df_new.drop(*self.inputCols)</span><br></pre></td></tr></table></figure>
+<p>注意：对于二元运算虽然简单，但会出现阶乘式维度爆炸。因此，我们挑选出少数型特征进行简单运算。</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">features_to_trans = [</span><br><span class="line">    <span class="string">&#x27;AMT_CREDIT&#x27;</span>, <span class="string">&#x27;AMT_ANNUITY&#x27;</span>, <span class="string">&#x27;DAYS_BIRTH&#x27;</span>, <span class="string">&#x27;AMT_GOODS_PRICE&#x27;</span>, </span><br><span class="line">    <span class="string">&#x27;DAYS_ID_PUBLISH&#x27;</span>, <span class="string">&#x27;DAYS_EMPLOYED&#x27;</span>, <span class="string">&#x27;DAYS_LAST_PHONE_CHANGE&#x27;</span>,</span><br><span class="line">    <span class="string">&#x27;DAYS_REGISTRATION&#x27;</span>, <span class="string">&#x27;AMT_INCOME_TOTAL&#x27;</span>, <span class="string">&#x27;REGION_POPULATION_RELATIVE&#x27;</span>, </span><br><span class="line">    <span class="string">&#x27;ORGANIZATION_TYPE&#x27;</span>, <span class="string">&#x27;OWN_CAR_AGE&#x27;</span>, <span class="string">&#x27;OCCUPATION_TYPE&#x27;</span>, </span><br><span class="line">    <span class="string">&#x27;HOUR_APPR_PROCESS_START&#x27;</span>, <span class="string">&#x27;NAME_EDUCATION_TYPE&#x27;</span>, <span class="string">&#x27;NONLIVINGAPARTMENTS_MEDI&#x27;</span>,</span><br><span class="line">    <span class="string">&#x27;EXT_SOURCE_1&#x27;</span>, <span class="string">&#x27;EXT_SOURCE_2&#x27;</span>, <span class="string">&#x27;EXT_SOURCE_3&#x27;</span></span><br><span class="line">]</span><br></pre></td></tr></table></figure>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">nunique = df.select([fn.countDistinct(col).alias(col) <span class="keyword">for</span> col <span class="keyword">in</span> features_to_trans]).first()</span><br><span class="line"></span><br><span class="line">discrete_to_trans = [f <span class="keyword">for</span> f <span class="keyword">in</span> features_to_trans <span class="keyword">if</span> nunique[f] &lt; <span class="number">50</span>]</span><br><span class="line">continuous_to_trans = [f <span class="keyword">for</span> f <span class="keyword">in</span> features_to_trans <span class="keyword">if</span> nunique[f] &gt;= <span class="number">50</span>]</span><br><span class="line"></span><br><span class="line"><span class="built_in">print</span>(<span class="string">&quot;Selected discrete features:&quot;</span>, discrete_to_trans, sep=<span class="string">&#x27;\n&#x27;</span>)</span><br><span class="line"><span class="built_in">print</span>(<span class="string">&quot;Selected continuous features:&quot;</span>, continuous_to_trans, sep=<span class="string">&#x27;\n&#x27;</span>)</span><br></pre></td></tr></table></figure>
+<pre><code>Selected discrete features:
+['OCCUPATION_TYPE', 'HOUR_APPR_PROCESS_START', 'NAME_EDUCATION_TYPE']
+Selected continuous features:
+['AMT_CREDIT', 'AMT_ANNUITY', 'DAYS_BIRTH', 'AMT_GOODS_PRICE', 'DAYS_ID_PUBLISH', 'DAYS_EMPLOYED', 'DAYS_LAST_PHONE_CHANGE', 'DAYS_REGISTRATION', 'AMT_INCOME_TOTAL', 'REGION_POPULATION_RELATIVE', 'ORGANIZATION_TYPE', 'OWN_CAR_AGE', 'NONLIVINGAPARTMENTS_MEDI', 'EXT_SOURCE_1', 'EXT_SOURCE_2', 'EXT_SOURCE_3']            
+</code></pre>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">math_feature_creator = mathFeatureCreator(</span><br><span class="line">    inputCols=continuous_to_trans, </span><br><span class="line">    operators=[<span class="string">&#x27;divide&#x27;</span>, <span class="string">&#x27;sqrt&#x27;</span>, <span class="string">&#x27;ln&#x27;</span>]</span><br><span class="line">)</span><br><span class="line">math_features = math_feature_creator.transform(df)</span><br></pre></td></tr></table></figure>
+<pre><code>Built 272 features.
+</code></pre>
+<h2 id="分组统计特征衍生"><a class="markdownIt-Anchor" href="#分组统计特征衍生"></a> 分组统计特征衍生</h2>
+<p>分组统计特征衍生，顾名思义，就是分类特征和连续特征间的分组交互统计，这样可以得到更多有意义的特征，例如：</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="comment"># Group AMT_INCOME_TOTAL by NAME_INCOME_TYPE and calculate mean, max, min of loans</span></span><br><span class="line">df.groupBy(<span class="string">&#x27;OCCUPATION_TYPE&#x27;</span>).agg(</span><br><span class="line">    fn.mean(<span class="string">&#x27;AMT_INCOME_TOTAL&#x27;</span>).alias(<span class="string">&#x27;mean&#x27;</span>), </span><br><span class="line">    fn.<span class="built_in">max</span>(<span class="string">&#x27;AMT_INCOME_TOTAL&#x27;</span>).alias(<span class="string">&#x27;max&#x27;</span>), </span><br><span class="line">    fn.<span class="built_in">min</span>(<span class="string">&#x27;AMT_INCOME_TOTAL&#x27;</span>).alias(<span class="string">&#x27;min&#x27;</span>)</span><br><span class="line">).show(<span class="number">5</span>)</span><br></pre></td></tr></table></figure>
+<pre><code>+---------------+------------------+---------+-------+
+|OCCUPATION_TYPE|              mean|      max|    min|
++---------------+------------------+---------+-------+
+|     0.07856473|195003.99467376832| 675000.0|67500.0|
+|     0.06396721|188916.28241563056| 699750.0|30600.0|
+|     0.06599255|182334.81278280544|3150000.0|36000.0|
+|     0.10578712|166357.48252518754|   1.17E8|27000.0|
+|    0.061600607|182842.04568321616|1890000.0|27000.0|
++---------------+------------------+---------+-------+
+only showing top 5 rows
+</code></pre>
+<p>常用的统计量</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:left"></th>
+<th style="text-align:left"></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">var/std</td>
+<td style="text-align:left">方差、标准差</td>
+</tr>
+<tr>
+<td style="text-align:left">mean/median</td>
+<td style="text-align:left">均值、中位数</td>
+</tr>
+<tr>
+<td style="text-align:left">max/min</td>
+<td style="text-align:left">最大值、最小值</td>
+</tr>
+<tr>
+<td style="text-align:left">skew</td>
+<td style="text-align:left">偏度</td>
+</tr>
+<tr>
+<td style="text-align:left">mode</td>
+<td style="text-align:left">众数</td>
+</tr>
+<tr>
+<td style="text-align:left">nunique</td>
+<td style="text-align:left">类别数</td>
+</tr>
+<tr>
+<td style="text-align:left">frequency</td>
+<td style="text-align:left">频数</td>
+</tr>
+<tr>
+<td style="text-align:left">count</td>
+<td style="text-align:left">个数</td>
+</tr>
+<tr>
+<td style="text-align:left">quantile</td>
+<td style="text-align:left">分位数</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>注意：分组特征必须是离散特征，且最好是一些取值较多的离散变量，这样可以避免新特征出现大量重复取值。分组使用连续值特征时一般需要先进行离散化。</p>
+</blockquote>
+<p>接下来我们自定义一个transformer用来处理数值类型和分类型的分组变量衍生。</p>
+<p>定义计时器和进度条</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">progress</span>(<span class="params">percent=<span class="number">0</span>, width=<span class="number">50</span>, desc=<span class="string">&quot;Processing&quot;</span></span>):</span></span><br><span class="line">    <span class="keyword">import</span> math</span><br><span class="line">    tags = math.ceil(width * percent) * <span class="string">&quot;#&quot;</span></span><br><span class="line">    <span class="built_in">print</span>(<span class="string">f&quot;\r<span class="subst">&#123;desc&#125;</span>: [<span class="subst">&#123;tags:-&lt;&#123;width&#125;</span>&#125;]<span class="subst">&#123;percent:<span class="number">.1</span>%&#125;</span>&quot;</span>, end=<span class="string">&quot;&quot;</span>, flush=<span class="literal">True</span>)</span><br></pre></td></tr></table></figure>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">AggFeatures</span>(<span class="params">Estimator, Transformer</span>):</span></span><br><span class="line">    <span class="string">&quot;&quot;&quot;</span></span><br><span class="line"><span class="string">    Transformer to aggregate features in a dataframe. This can</span></span><br><span class="line"><span class="string">    be used to create features for each instance of the grouping variable.</span></span><br><span class="line"><span class="string">    </span></span><br><span class="line"><span class="string">    Parameters</span></span><br><span class="line"><span class="string">    ----------</span></span><br><span class="line"><span class="string">    inputCols: List[string]</span></span><br><span class="line"><span class="string">        The list of input variables. At least one of `variables`, </span></span><br><span class="line"><span class="string">    groupBy: List[string]</span></span><br><span class="line"><span class="string">        The variables to group by. </span></span><br><span class="line"><span class="string">    funcs: List[string]</span></span><br><span class="line"><span class="string">        List of Aggregation Feature types to apply. </span></span><br><span class="line"><span class="string">        - Numeric: [&#x27;mean&#x27;, &#x27;median&#x27;, &#x27;max&#x27;, &#x27;min&#x27;, &#x27;skew&#x27;, &#x27;std&#x27;, &#x27;kurt&#x27;]</span></span><br><span class="line"><span class="string">        - Category: [&#x27;mode&#x27;, &#x27;num_unique&#x27;]</span></span><br><span class="line"><span class="string">    numBins: int, default=10</span></span><br><span class="line"><span class="string">        The number of bins to produce.</span></span><br><span class="line"><span class="string">    &quot;&quot;&quot;</span></span><br><span class="line">    </span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__init__</span>(<span class="params">self, inputCols, funcs, groupByDiscrete=<span class="literal">None</span>, groupByContinuous=<span class="literal">None</span>, numBins=<span class="number">10</span></span>):</span>  </span><br><span class="line">        self.inputCols = inputCols</span><br><span class="line">        self.funcs = funcs</span><br><span class="line">        self.groupByDiscrete = groupByDiscrete</span><br><span class="line">        self.groupByContinuous = groupByContinuous</span><br><span class="line">        self.numBins= numBins</span><br><span class="line">    </span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">_fit</span>(<span class="params">self, df</span>):</span> </span><br><span class="line">        <span class="keyword">return</span> self </span><br><span class="line"></span><br><span class="line"><span class="meta">    @timer</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">_transform</span>(<span class="params">self, df</span>):</span></span><br><span class="line">        groupBy = []</span><br><span class="line">        <span class="keyword">if</span> self.groupByContinuous <span class="keyword">is</span> <span class="keyword">not</span> <span class="literal">None</span>:</span><br><span class="line">            outputCols = [<span class="string">f&quot;<span class="subst">&#123;col&#125;</span>_binned&quot;</span> <span class="keyword">for</span> col <span class="keyword">in</span> self.groupByContinuous]</span><br><span class="line">            bucketizer = ft.QuantileDiscretizer(</span><br><span class="line">                numBuckets=self.numBins,</span><br><span class="line">                handleInvalid=<span class="string">&#x27;keep&#x27;</span>,</span><br><span class="line">                inputCols=self.groupByContinuous, </span><br><span class="line">                outputCols=outputCols</span><br><span class="line">            ).fit(df)</span><br><span class="line">            df = bucketizer.transform(df)</span><br><span class="line">            groupBy.extend(outputCols)</span><br><span class="line">        <span class="keyword">if</span> self.groupByDiscrete <span class="keyword">is</span> <span class="keyword">not</span> <span class="literal">None</span>:</span><br><span class="line">            groupBy.extend(self.groupByDiscrete)</span><br><span class="line">        <span class="keyword">if</span> <span class="built_in">len</span>(groupBy) == <span class="number">0</span>:</span><br><span class="line">            <span class="keyword">raise</span> ValueError(<span class="string">&quot;groupBy is None.&quot;</span>)</span><br><span class="line">         </span><br><span class="line">        <span class="comment"># Group by the specified variable and calculate the statistics</span></span><br><span class="line">        mapping = &#123;</span><br><span class="line">            <span class="string">&#x27;mean&#x27;</span>: fn.mean, </span><br><span class="line">            <span class="string">&#x27;median&#x27;</span>: fn.median,</span><br><span class="line">            <span class="string">&#x27;max&#x27;</span>: fn.<span class="built_in">max</span>,</span><br><span class="line">            <span class="string">&#x27;min&#x27;</span>: fn.<span class="built_in">min</span>,</span><br><span class="line">            <span class="string">&#x27;skew&#x27;</span>: fn.skewness,</span><br><span class="line">            <span class="string">&#x27;kurt&#x27;</span>: fn.kurtosis,</span><br><span class="line">            <span class="string">&#x27;std&#x27;</span>: fn.std,</span><br><span class="line">            <span class="string">&#x27;mode&#x27;</span>: fn.mode, </span><br><span class="line">            <span class="string">&#x27;num_unique&#x27;</span>: fn.countDistinct</span><br><span class="line">        &#125;</span><br><span class="line">        new_cols = []</span><br><span class="line">        i = <span class="number">0</span></span><br><span class="line">        <span class="keyword">for</span> by <span class="keyword">in</span> groupBy:</span><br><span class="line">            <span class="comment"># Skip the grouping variable</span></span><br><span class="line">            other_vars = [var <span class="keyword">for</span> var <span class="keyword">in</span> self.inputCols <span class="keyword">if</span> by <span class="keyword">not</span> <span class="keyword">in</span> [var, <span class="string">f&quot;<span class="subst">&#123;var&#125;</span>_binned&quot;</span>]]</span><br><span class="line">            <span class="keyword">for</span> f <span class="keyword">in</span> self.funcs:</span><br><span class="line">                colnames = &#123;col: <span class="string">f&quot;<span class="subst">&#123;f&#125;</span>(<span class="subst">&#123;col&#125;</span>)_by(<span class="subst">&#123;by&#125;</span>)&quot;</span> <span class="keyword">for</span> col <span class="keyword">in</span> other_vars&#125;</span><br><span class="line">                new_cols.extend(colnames.values())</span><br><span class="line">                </span><br><span class="line">                f = mapping[f]</span><br><span class="line">                grouped = df.groupBy(by).agg(*[f(df[var]).alias(name) <span class="keyword">for</span> var, name <span class="keyword">in</span> colnames.items()])</span><br><span class="line">                df = df.join(grouped.dropna(), on=by, how=<span class="string">&#x27;left&#x27;</span>)</span><br><span class="line">                </span><br><span class="line">                i += <span class="number">1</span></span><br><span class="line">                progress(i / <span class="built_in">len</span>(groupBy) / <span class="built_in">len</span>(self.funcs))</span><br><span class="line">        <span class="built_in">print</span>(<span class="string">f&quot;Created <span class="subst">&#123;<span class="built_in">len</span>(new_cols)&#125;</span> new features.&quot;</span>)     </span><br><span class="line">        <span class="keyword">return</span> df.select(<span class="string">&quot;SK_ID_CURR&quot;</span>, *new_cols)</span><br></pre></td></tr></table></figure>
+<p>数值型特征直接计算统计量，至于分类特征，计算众数、类别数。</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">agg_continuous_transformer = AggFeatures(</span><br><span class="line">    inputCols=continuous_to_trans,</span><br><span class="line">    funcs=[<span class="string">&#x27;mean&#x27;</span>],</span><br><span class="line">    groupByDiscrete=discrete_to_trans, </span><br><span class="line">    groupByContinuous=continuous_to_trans</span><br><span class="line">)</span><br><span class="line">agg_discrete_transformer = AggFeatures(</span><br><span class="line">    inputCols=discrete_to_trans,</span><br><span class="line">    funcs=[<span class="string">&#x27;mode&#x27;</span>],</span><br><span class="line">    groupByDiscrete=discrete_to_trans, </span><br><span class="line">    groupByContinuous=continuous_to_trans</span><br><span class="line">)</span><br><span class="line">agg_transformer = Pipeline(stages=[agg_continuous_transformer, agg_discrete_transformer])</span><br><span class="line"><span class="comment"># agg_features = agg_transformer.fit(df).transform(df)</span></span><br><span class="line"><span class="comment"># print(agg_features.columns)</span></span><br></pre></td></tr></table></figure>
+<h2 id="特征交互"><a class="markdownIt-Anchor" href="#特征交互"></a> 特征交互</h2>
+<p>通过将单独的特征求笛卡尔乘积的方式来组合2个或更多个特征，从而构造出组合特征。最终获得的预测能力可能远远超过任一特征单独的预测能力。笛卡尔乘积组合特征方法一般应用于离散特征之间。</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="meta">@timer</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">feature_interaction</span>(<span class="params">df, left, right</span>):</span></span><br><span class="line">    <span class="string">&quot;&quot;&quot;</span></span><br><span class="line"><span class="string">    Parameters</span></span><br><span class="line"><span class="string">    ----------</span></span><br><span class="line"><span class="string">    df: pyspark dataframe.</span></span><br><span class="line"><span class="string">    left, right: The list of interact variables. default=None</span></span><br><span class="line"><span class="string">    &quot;&quot;&quot;</span></span><br><span class="line">    <span class="built_in">print</span>(<span class="string">f&quot;Built <span class="subst">&#123;<span class="built_in">len</span>(left) * <span class="built_in">len</span>(right)&#125;</span> features.&quot;</span>)</span><br><span class="line">    <span class="comment"># Make a new dataframe to hold interaction features</span></span><br><span class="line">    inputCols = <span class="built_in">set</span>(left + right)</span><br><span class="line">    df_new = df.select(<span class="string">&quot;SK_ID_CURR&quot;</span>, *inputCols)</span><br><span class="line">    i = <span class="number">0</span></span><br><span class="line">    <span class="keyword">for</span> rvar <span class="keyword">in</span> right:</span><br><span class="line">        df_new = df_new.withColumns(&#123;<span class="string">f&quot;<span class="subst">&#123;lvar&#125;</span>&amp;<span class="subst">&#123;rvar&#125;</span>&quot;</span>: fn.concat_ws(<span class="string">&#x27;&amp;&#x27;</span>, df[lvar], df[rvar]) <span class="keyword">for</span> lvar <span class="keyword">in</span> left <span class="keyword">if</span> lvar !=rvar&#125;)</span><br><span class="line">        i += <span class="number">1</span></span><br><span class="line">        progress(i / <span class="built_in">len</span>(right))</span><br><span class="line">    <span class="keyword">return</span> df_new.drop(*inputCols)</span><br><span class="line"></span><br><span class="line">feature_interaction(df.limit(<span class="number">5</span>), discrete_to_trans, discrete_to_trans).toPandas()</span><br></pre></td></tr></table></figure>
+<pre><code>Starting time	 20:13:41
+Built 9 features.
+Processing: [##################################################]100.0%feature_interaction cost 0 hours 0 minutes 0 seconds
+</code></pre>
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+<pre><code>.dataframe tbody tr th &#123;
+    vertical-align: top;
+&#125;
+
+.dataframe thead th &#123;
+    text-align: right;
+&#125;
+</code></pre>
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>SK_ID_CURR</th>
+      <th>HOUR_APPR_PROCESS_START&amp;OCCUPATION_TYPE</th>
+      <th>NAME_EDUCATION_TYPE&amp;OCCUPATION_TYPE</th>
+      <th>OCCUPATION_TYPE&amp;HOUR_APPR_PROCESS_START</th>
+      <th>NAME_EDUCATION_TYPE&amp;HOUR_APPR_PROCESS_START</th>
+      <th>OCCUPATION_TYPE&amp;NAME_EDUCATION_TYPE</th>
+      <th>HOUR_APPR_PROCESS_START&amp;NAME_EDUCATION_TYPE</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>100180</td>
+      <td>15&amp;0.048305318</td>
+      <td>3&amp;0.048305318</td>
+      <td>0.048305318&amp;15</td>
+      <td>3&amp;15</td>
+      <td>0.048305318&amp;3</td>
+      <td>15&amp;3</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>100201</td>
+      <td>10&amp;0.06304005</td>
+      <td>3&amp;0.06304005</td>
+      <td>0.06304005&amp;10</td>
+      <td>3&amp;10</td>
+      <td>0.06304005&amp;3</td>
+      <td>10&amp;3</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>100243</td>
+      <td>13&amp;0.10578712</td>
+      <td>3&amp;0.10578712</td>
+      <td>0.10578712&amp;13</td>
+      <td>3&amp;13</td>
+      <td>0.10578712&amp;3</td>
+      <td>13&amp;3</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>100435</td>
+      <td>10&amp;0.09631742</td>
+      <td>1&amp;0.09631742</td>
+      <td>0.09631742&amp;10</td>
+      <td>1&amp;10</td>
+      <td>0.09631742&amp;1</td>
+      <td>10&amp;1</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>100441</td>
+      <td>16&amp;0.09631742</td>
+      <td>1&amp;0.09631742</td>
+      <td>0.09631742&amp;16</td>
+      <td>1&amp;16</td>
+      <td>0.09631742&amp;1</td>
+      <td>16&amp;1</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+<h2 id="多项式特征"><a class="markdownIt-Anchor" href="#多项式特征"></a> 多项式特征</h2>
+<p>多项式特征是 sklearn 中特征构造的最简单方法。当我们创建多项式特征时，尽量避免使用过高的度数，因为特征的数量随着度数指数级地变化，并且可能过拟合。</p>
+<p>现在我们使用3度多项式来查看结果：</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">from</span> pyspark.ml.feature <span class="keyword">import</span> PolynomialExpansion</span><br><span class="line"></span><br><span class="line"><span class="comment"># Make a new dataframe for polynomial features</span></span><br><span class="line">assembler = VectorAssembler(</span><br><span class="line">    inputCols=[<span class="string">&#x27;EXT_SOURCE_1&#x27;</span>, <span class="string">&#x27;EXT_SOURCE_2&#x27;</span>, <span class="string">&#x27;EXT_SOURCE_3&#x27;</span>, <span class="string">&#x27;DAYS_BIRTH&#x27;</span>],</span><br><span class="line">    outputCol=<span class="string">&quot;ext_features&quot;</span></span><br><span class="line">)</span><br><span class="line">poly_df = assembler.transform(df)</span><br><span class="line"></span><br><span class="line"><span class="comment"># Create the polynomial object with specified degree</span></span><br><span class="line">poly_transformer = PolynomialExpansion(</span><br><span class="line">    degree=<span class="number">3</span>,</span><br><span class="line">    inputCol=<span class="string">&#x27;ext_features&#x27;</span>,</span><br><span class="line">    outputCol=<span class="string">&#x27;poly_expanded&#x27;</span></span><br><span class="line">)</span><br><span class="line"></span><br><span class="line"><span class="comment"># Train and transform the polynomial features</span></span><br><span class="line">poly_transformer.transform(poly_df).select(<span class="string">&#x27;poly_expanded&#x27;</span>).show(<span class="number">5</span>)</span><br></pre></td></tr></table></figure>
+<pre><code>+--------------------+
+|       poly_expanded|
++--------------------+
+|[0.72908990917097...|
+|[0.76491718757837...|
+|[0.50549856415141...|
+|[0.50549856415141...|
+|[0.50549856415141...|
++--------------------+
+only showing top 5 rows
+</code></pre>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">del</span> poly_df</span><br><span class="line">gc.collect()</span><br></pre></td></tr></table></figure>
+<pre><code>13801
+</code></pre>
+<h2 id="聚类分析"><a class="markdownIt-Anchor" href="#聚类分析"></a> 聚类分析</h2>
+<p>聚类算法在特征构造中的应用有不少，例如：利用聚类算法对文本聚类，使用聚类类标结果作为输入特征；利用聚类算法对单个数值特征进行聚类，相当于分箱；利用聚类算法对R、F、M数据进行聚类，类似RFM模型，然后再使用代表衡量客户价值的聚类类标结果作为输入特征。</p>
+<p>当一个或多个特征具有多峰分布（有两个或两个以上清晰的峰值）时，可以使用聚类算法为每个峰值分类，并输出聚类类标结果。</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">age_simi = df.select((df[<span class="string">&#x27;DAYS_BIRTH&#x27;</span>]/-<span class="number">365</span>).alias(<span class="string">&#x27;age&#x27;</span>))</span><br><span class="line">plt.figure(figsize=(<span class="number">5</span>,<span class="number">4</span>))</span><br><span class="line">sns.histplot(x=age_simi.sample(<span class="number">0.1</span>).toPandas()[<span class="string">&#x27;age&#x27;</span>], bins=<span class="number">30</span>)</span><br></pre></td></tr></table></figure>
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/img/feature_engineering_on_spark/construction_output_33_1.png" alt="" /></p>
+<p>可以看到有两个峰值：40和55</p>
+<p>一般聚类类标结果为一个数值，但实际上这个数值并没有大小之分，所以一般需要进行one-hot编码，或者创建新特征来度量样本和每个类中心的相似性（距离）。相似性度量通常使用径向基函数(RBF)来计算。</p>
+<p>径向基函数（Radial Basis Function，简称RBF）是一种在机器学习和统计建模中常用的函数类型。它们以距离某个中心点的距离作为输入，并输出一个数值，通常表示为距离的“衰减函数”。最常用的RBF是高斯RBF，其输出值随着输入值远离固定点而呈指数衰减。接下来，我们先定义高斯RBF函数 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>k</mi><mo stretchy="false">(</mo><mi>x</mi><mo separator="true">,</mo><mi>y</mi><mo stretchy="false">)</mo><mo>=</mo><mi>exp</mi><mo>⁡</mo><mo stretchy="false">(</mo><mo>−</mo><mi>γ</mi><mi mathvariant="normal">∥</mi><mi>x</mi><mo>−</mo><mi>y</mi><msup><mi mathvariant="normal">∥</mi><mn>2</mn></msup><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">k(x,y)=\exp(-\gamma\|x-y\|^2)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathdefault" style="margin-right:0.03148em;">k</span><span class="mopen">(</span><span class="mord mathdefault">x</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord mathdefault" style="margin-right:0.03588em;">y</span><span class="mclose">)</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mop">exp</span><span class="mopen">(</span><span class="mord">−</span><span class="mord mathdefault" style="margin-right:0.05556em;">γ</span><span class="mord">∥</span><span class="mord mathdefault">x</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">−</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:1.064108em;vertical-align:-0.25em;"></span><span class="mord mathdefault" style="margin-right:0.03588em;">y</span><span class="mord"><span class="mord">∥</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.8141079999999999em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">2</span></span></span></span></span></span></span></span><span class="mclose">)</span></span></span></span>，超参数 gamma 确定当x远离y时相似性度量衰减的速度。</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">from</span> pyspark.ml.linalg <span class="keyword">import</span> Vector</span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">rbf_kernel</span>(<span class="params">row, vector1, vectors2, outputCols, gamma=<span class="number">1.0</span></span>):</span></span><br><span class="line">    <span class="keyword">if</span> <span class="built_in">isinstance</span>(vector1, <span class="built_in">str</span>):</span><br><span class="line">        v1 = row[vector1]</span><br><span class="line">    <span class="keyword">else</span>:</span><br><span class="line">        v1 = Vectors.dense([row[i] <span class="keyword">for</span> i <span class="keyword">in</span> vector1])</span><br><span class="line">    </span><br><span class="line">    row = row.asDict()</span><br><span class="line">    <span class="keyword">for</span> i, v2 <span class="keyword">in</span> <span class="built_in">enumerate</span>(vectors2):</span><br><span class="line">        v2 = Vectors.dense(v2)</span><br><span class="line">        squared_distance = v1.squared_distance(v2)</span><br><span class="line">        rbf = np.exp(-gamma * squared_distance)</span><br><span class="line">        row[outputCols[i]] = <span class="built_in">float</span>(rbf)</span><br><span class="line">    <span class="keyword">return</span> Row(**row)</span><br></pre></td></tr></table></figure>
+<p>下图显示了年龄的两个径向基函数：</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">age_simi = age_simi.rdd.<span class="built_in">map</span>(<span class="keyword">lambda</span> x: rbf_kernel(x, [<span class="string">&#x27;age&#x27;</span>], [[<span class="number">40</span>], [<span class="number">55</span>]], [<span class="string">&#x27;simi_40&#x27;</span>, <span class="string">&#x27;simi_55&#x27;</span>], gamma=<span class="number">0.01</span>)).toDF()</span><br><span class="line"></span><br><span class="line">age_simi_pdf = age_simi.sample(<span class="number">0.1</span>).toPandas()</span><br><span class="line">fig = plt.figure(figsize=(<span class="number">5</span>,<span class="number">4</span>))</span><br><span class="line">ax1 = fig.add_subplot(<span class="number">111</span>)</span><br><span class="line">sns.histplot(data=age_simi_pdf, x=<span class="string">&#x27;age&#x27;</span>, bins=<span class="number">30</span>, ax=ax1)</span><br><span class="line"></span><br><span class="line">ax2 = ax1.twinx()</span><br><span class="line">sns.lineplot(data=age_simi_pdf, x=<span class="string">&#x27;age&#x27;</span>, y=<span class="string">&#x27;simi_40&#x27;</span>, ci=<span class="literal">None</span>, ax=ax2, color=<span class="string">&#x27;green&#x27;</span>)</span><br><span class="line">sns.lineplot(data=age_simi_pdf, x=<span class="string">&#x27;age&#x27;</span>, y=<span class="string">&#x27;simi_55&#x27;</span>, ci=<span class="literal">None</span>, ax=ax2, color=<span class="string">&#x27;orange&#x27;</span>)</span><br></pre></td></tr></table></figure>
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/img/feature_engineering_on_spark/construction_output_37_2.png" alt="" /></p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">del</span> age_simi, age_simi_pdf</span><br><span class="line">gc.collect()</span><br></pre></td></tr></table></figure>
+<pre><code>151
+</code></pre>
+<p>如果这个特定的特征与目标变量有很好的相关性，那么这个新特征将有很好的机会发挥作用。</p>
+<p>接下来，我们自定义一个函数使用<code>rbf_kernel()</code> 来衡量每个样本与每个聚类中心的相似程度：</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">from</span> pyspark.ml.clustering <span class="keyword">import</span> KMeans</span><br><span class="line"><span class="keyword">from</span> pyspark.ml.feature <span class="keyword">import</span> RobustScaler</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">ClusterSimilarity</span>(<span class="params">df, inputCols, outputCols, n_clusters=<span class="number">5</span>, gamma=<span class="number">1.0</span>, seed=<span class="literal">None</span></span>):</span></span><br><span class="line">    <span class="comment"># Assemble the feature columns into a single vector column</span></span><br><span class="line">    assembler = VectorAssembler(</span><br><span class="line">        inputCols=inputCols, </span><br><span class="line">        outputCol=<span class="string">&quot;features&quot;</span></span><br><span class="line">    )</span><br><span class="line">    <span class="comment"># Standardize</span></span><br><span class="line">    scaler = RobustScaler(inputCol=<span class="string">&quot;features&quot;</span>, outputCol=<span class="string">&quot;scaled&quot;</span>)</span><br><span class="line">    <span class="comment"># Trains a k-means model.</span></span><br><span class="line">    kmeans = KMeans(featuresCol=<span class="string">&quot;scaled&quot;</span>, k=n_clusters, seed=seed)</span><br><span class="line">    pipeline = Pipeline(stages=[assembler, scaler, kmeans]).fit(df)</span><br><span class="line">    kmeans = pipeline.stages[<span class="number">2</span>]</span><br><span class="line">    <span class="comment"># Coordinates of cluster centers.</span></span><br><span class="line">    clusterCenters = [<span class="built_in">list</span>(i) <span class="keyword">for</span> i <span class="keyword">in</span> kmeans.clusterCenters()]</span><br><span class="line">     </span><br><span class="line">    df = pipeline.transform(df).select(<span class="string">&quot;SK_ID_CURR&quot;</span>, <span class="string">&quot;scaled&quot;</span>)</span><br><span class="line">    df = df.rdd.<span class="built_in">map</span>(<span class="keyword">lambda</span> x: rbf_kernel(x, <span class="string">&quot;scaled&quot;</span>, clusterCenters, outputCols, gamma=gamma)).toDF()</span><br><span class="line">    <span class="keyword">return</span> df.drop(<span class="string">&quot;scaled&quot;</span>)</span><br></pre></td></tr></table></figure>
+<p>现在让我们使用这个转换器：</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">cluster_features = ClusterSimilarity(</span><br><span class="line">    df=df,</span><br><span class="line">    inputCols=df.drop(<span class="string">&quot;SK_ID_CURR&quot;</span>,<span class="string">&#x27;label&#x27;</span>).columns, </span><br><span class="line">    outputCols=[<span class="string">f&quot;centroid_<span class="subst">&#123;i&#125;</span>&quot;</span> <span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">5</span>)], </span><br><span class="line">    n_clusters=<span class="number">5</span>, </span><br><span class="line">    gamma=<span class="number">1.0</span>, </span><br><span class="line">    seed=SEED</span><br><span class="line">)</span><br><span class="line"></span><br><span class="line">cluster_features.show(<span class="number">5</span>)                   </span><br></pre></td></tr></table></figure>
+<pre><code>+----------+--------------------+----------+----------+----------+----------+
+|SK_ID_CURR|          centroid_0|centroid_1|centroid_2|centroid_3|centroid_4|
++----------+--------------------+----------+----------+----------+----------+
+|    100180|3.712547879890347...|       0.0|       0.0|       0.0|       0.0|
+|    100201|3.217366500721083...|       0.0|       0.0|       0.0|       0.0|
+|    100243|1.598249005834992...|       0.0|       0.0|       0.0|       0.0|
+|    100435|3.543010683726346...|       0.0|       0.0|       0.0|       0.0|
+|    100441|1.021260362527048...|       0.0|       0.0|       0.0|       0.0|
++----------+--------------------+----------+----------+----------+----------+
+only showing top 5 rows
+</code></pre>
+<h2 id="主成分分析"><a class="markdownIt-Anchor" href="#主成分分析"></a> 主成分分析</h2>
+<p>由于我们新增的这些特征都是和原始特征高度相关，可以使用PCA的主成分作为新的特征来消除相关性。</p>
+<p>由于主成分分析主要用于降维，我们将在后续特征选择部分详细介绍。</p>
+<h2 id="总结"><a class="markdownIt-Anchor" href="#总结"></a> 总结</h2>
+<p>合并之前创造的特征</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="comment"># Combine datasets</span></span><br><span class="line">df_created = (df.join(math_features, on=<span class="string">&#x27;SK_ID_CURR&#x27;</span>) </span><br><span class="line">                <span class="comment"># .join(agg_features, on=&#x27;SK_ID_CURR&#x27;)</span></span><br><span class="line">                .join(cluster_features, on=<span class="string">&#x27;SK_ID_CURR&#x27;</span>)</span><br><span class="line">             )</span><br></pre></td></tr></table></figure>
+<p>缺失值处理</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="comment"># Remove variables with high missing rate</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">drop_missing_data</span>(<span class="params">df, threshold=<span class="number">0.8</span></span>):</span></span><br><span class="line">    <span class="comment"># Remove variables with missing more than threshold(default 20%)</span></span><br><span class="line">    thresh = <span class="built_in">int</span>(df.count() * (<span class="number">1</span> - threshold))</span><br><span class="line">    exprs = [fn.<span class="built_in">sum</span>(df[col].isNull().cast(<span class="string">&#x27;int&#x27;</span>)).alias(col) <span class="keyword">for</span> col <span class="keyword">in</span> df.columns]</span><br><span class="line">    missing_number = df.select(*exprs).first().asDict()</span><br><span class="line">    cols_to_drop = [k <span class="keyword">for</span> k,v <span class="keyword">in</span> missing_number.items() <span class="keyword">if</span> v &gt; thresh]</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">f&quot;Removed <span class="subst">&#123;<span class="built_in">len</span>(cols_to_drop)&#125;</span> variables with missing more than <span class="subst">&#123;<span class="number">1</span> - threshold:<span class="number">.1</span>%&#125;</span>&quot;</span>)</span><br><span class="line">    <span class="keyword">return</span> df.drop(*cols_to_drop)</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">handle_missing</span>(<span class="params">df</span>):</span></span><br><span class="line">    <span class="comment"># Remove variables with high missing rate</span></span><br><span class="line">    df = drop_missing_data(df, threshold=<span class="number">0.8</span>)</span><br><span class="line">    </span><br><span class="line">    <span class="comment"># Univariate imputer for completing missing values with simple strategies.</span></span><br><span class="line">    dtypes = df.drop(<span class="string">&quot;SK_ID_CURR&quot;</span>, <span class="string">&quot;label&quot;</span>).dtypes</span><br><span class="line">    numerical_cols = [k <span class="keyword">for</span> k, v <span class="keyword">in</span> dtypes <span class="keyword">if</span> v <span class="keyword">not</span> <span class="keyword">in</span> (<span class="string">&#x27;string&#x27;</span>, <span class="string">&#x27;vector&#x27;</span>)]</span><br><span class="line">    imputed_cols = [<span class="string">f&quot;imputed_<span class="subst">&#123;col&#125;</span>&quot;</span> <span class="keyword">for</span> col <span class="keyword">in</span> numerical_cols]</span><br><span class="line">    imputer = ft.Imputer(</span><br><span class="line">        inputCols=numerical_cols,</span><br><span class="line">        outputCols=imputed_cols,</span><br><span class="line">        strategy=<span class="string">&quot;median&quot;</span></span><br><span class="line">    )</span><br><span class="line">    df = imputer.fit(df).transform(df)</span><br><span class="line">    colsMap = <span class="built_in">dict</span>(<span class="built_in">zip</span>(imputed_cols, numerical_cols))</span><br><span class="line">    df = df.drop(*numerical_cols).withColumnsRenamed(colsMap)</span><br><span class="line">    <span class="keyword">return</span> df</span><br></pre></td></tr></table></figure>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">df_created = handle_missing(df_created.replace(np.nan, <span class="literal">None</span>))</span><br><span class="line">missing_num = df_created.select([df_created[var].isNull().cast(<span class="string">&#x27;int&#x27;</span>) <span class="keyword">for</span> var <span class="keyword">in</span> df_created.columns])</span><br><span class="line">missing_num = pd.Series(missing_num.first().asDict())</span><br><span class="line"><span class="built_in">print</span>(<span class="string">f&quot;The dataframe has <span class="subst">&#123;missing_num.<span class="built_in">sum</span>()&#125;</span> columns that have missing values.&quot;</span>)</span><br></pre></td></tr></table></figure>
+<pre><code>Removed 26 variables with missing more than 20.0%
+The dataframe has 0 columns that have missing values.
+</code></pre>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="built_in">print</span>(<span class="string">f&quot;dataset shape: (<span class="subst">&#123;df_created.count()&#125;</span>, <span class="subst">&#123;<span class="built_in">len</span>(df_created.columns)&#125;</span>)&quot;</span>)          </span><br></pre></td></tr></table></figure>
+<pre><code>dataset shape: (307511, 373)
+</code></pre>
+<p>我们继续使用XGBoost模型评估创造的新特征</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">features = df_created.drop(<span class="string">&#x27;SK_ID_CURR&#x27;</span>, <span class="string">&#x27;label&#x27;</span>).columns</span><br><span class="line">feature_importances = score_dataset(df_created, inputCols=features, nfold=<span class="number">2</span>)</span><br></pre></td></tr></table></figure>
+<pre><code>Starting time	 20:18:16
+[0] train's areaUnderROC: 0.8589685970790397,  valid's areaUnderROC: 0.7649915434701238
+[1] train's areaUnderROC: 0.8599883799618516,  valid's areaUnderROC: 0.7598499769233037
+cv_agg's valid auc: 0.7624 +/- 0.00257
+score_dataset cost 0 hours 12 minutes 29 seconds
+</code></pre>
+<p>特征重要性</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">feature_importances[<span class="string">&#x27;fscore&#x27;</span>].head(<span class="number">20</span>)</span><br></pre></td></tr></table></figure>
+<pre><code>DAYS_ID_PUBLISH/AMT_CREDIT            981.0
+AMT_GOODS_PRICE/AMT_CREDIT            980.0
+DAYS_ID_PUBLISH/DAYS_BIRTH            680.5
+YEARS_BEGINEXPLUATATION_MODE          581.0
+DAYS_EMPLOYED/EXT_SOURCE_1            555.0
+NONLIVINGAPARTMENTS_MEDI              542.0
+DAYS_LAST_PHONE_CHANGE/AMT_ANNUITY    530.0
+DAYS_LAST_PHONE_CHANGE/AMT_CREDIT     528.0
+NONLIVINGAREA_MEDI                    509.0
+DAYS_EMPLOYED/EXT_SOURCE_3            489.5
+AMT_GOODS_PRICE/DAYS_BIRTH            464.5
+DAYS_EMPLOYED/ORGANIZATION_TYPE       460.0
+LIVINGAREA_MEDI                       454.0
+EXT_SOURCE_1/EXT_SOURCE_2             410.0
+EXT_SOURCE_1/OWN_CAR_AGE              405.0
+EXT_SOURCE_1/ORGANIZATION_TYPE        392.0
+DAYS_EMPLOYED/OWN_CAR_AGE             381.5
+sqrt(AMT_GOODS_PRICE)                 380.5
+OWN_CAR_AGE/EXT_SOURCE_2              378.0
+NONLIVINGAREA_MODE                    377.0
+Name: fscore, dtype: float64
+</code></pre>
+<p>保存数据集</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">df_created.write.bucketBy(<span class="number">100</span>, <span class="string">&quot;SK_ID_CURR&quot;</span>).mode(<span class="string">&quot;overwrite&quot;</span>).saveAsTable(<span class="string">&quot;home_credit_default_risk.created_data&quot;</span>)</span><br></pre></td></tr></table></figure>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">spark.stop()</span><br></pre></td></tr></table></figure>
+</article><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/python/">python</a><a class="post-meta__tags" href="/tags/spark/">spark</a></div><div class="post_share"><div class="social-share" data-image="/img/apache-spark-mllib.png" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/js/social-share.min.js" defer></script></div></div><div class="post-reward"><div class="reward-button"><i class="fas fa-qrcode"></i> 打赏</div><div class="reward-main"><ul class="reward-all"><li class="reward-item"><a href="/img/morty3.jpg" target="_blank"><img class="post-qr-code-img" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/img/morty3.jpg" alt="Give me money!"/></a><div class="post-qr-code-desc">Give me money!</div></li></ul></div></div><nav class="pagination-post" id="pagination"><div class="prev-post pull-left"><a href="/posts/59da38ae/" title="PySpark 特征工程(I)--数据预处理"><img class="cover" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/img/apache-spark-mllib.png" onerror="onerror=null;src='/img/404_moon.png'" alt="cover of previous post"><div class="pagination-info"><div class="label">上一篇</div><div class="prev_info">PySpark 特征工程(I)--数据预处理</div></div></a></div><div class="next-post pull-right"><a href="/posts/d099726d/" title="PySpark 特征工程(III)--特征选择"><img class="cover" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/img/apache-spark-mllib.png" onerror="onerror=null;src='/img/404_moon.png'" alt="cover of next post"><div class="pagination-info"><div class="label">下一篇</div><div class="next_info">PySpark 特征工程(III)--特征选择</div></div></a></div></nav><div class="relatedPosts"><div class="headline"><i class="fas fa-thumbs-up fa-fw"></i><span>相关推荐</span></div><div class="relatedPosts-list"><div><a href="/posts/59da38ae/" title="PySpark 特征工程(I)--数据预处理"><img class="cover" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/img/apache-spark-mllib.png" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2024-05-28</div><div class="title">PySpark 特征工程(I)--数据预处理</div></div></a></div><div><a href="/posts/d099726d/" title="PySpark 特征工程(III)--特征选择"><img class="cover" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/img/apache-spark-mllib.png" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2024-06-03</div><div class="title">PySpark 特征工程(III)--特征选择</div></div></a></div><div><a href="/posts/90489eb7/" title="PySpark机器学习Demo"><img class="cover" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/img/apache-spark-mllib.png" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2024-05-17</div><div class="title">PySpark机器学习Demo</div></div></a></div><div><a href="/posts/264c088/" title="大数据手册(Spark)--Spark Core and RDDs"><img class="cover" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/img/apache-spark-core.png" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2020-01-03</div><div class="title">大数据手册(Spark)--Spark Core and RDDs</div></div></a></div><div><a href="/posts/75974533/" title="大数据手册(Spark)--PySpark MLlib"><img class="cover" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/img/apache-spark-mllib.png" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2024-05-01</div><div class="title">大数据手册(Spark)--PySpark MLlib</div></div></a></div><div><a href="/posts/bb755aa3/" title="大数据手册(Spark)--Spark SQL and DataFrames"><img class="cover" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/img/apache-spark-sql.png" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2020-01-03</div><div class="title">大数据手册(Spark)--Spark SQL and DataFrames</div></div></a></div></div></div><hr class="custom-hr"/><div id="post-comment"><div class="comment-head"><div class="comment-headline"><i class="fas fa-comments fa-fw"></i><span> 评论</span></div><div id="comment-switch"><span class="first-comment">Gitalk</span><span class="switch-btn"></span><span class="second-comment">Waline</span></div></div><div class="comment-wrap"><div><div id="gitalk-container"></div></div><div><div id="waline-wrap"></div></div></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="is-center"><div class="avatar-img"><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/img/avatar.jpg" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info__name">Tiny Lei</div><div class="author-info__description">每天进步一点点...</div></div><div class="card-info-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">165</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">105</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">43</div></a></div><div class="card-info-social-icons is-center"><a class="social-icon" href="https://gitee.com/wilenwu" rel="external nofollow noreferrer" target="_blank" title="Gitee"><i class="iconfont icon-gitee"></i></a><a class="social-icon" href="https://github.com/wilenwu" rel="external nofollow noreferrer" target="_blank" title="Github"><i class="iconfont icon-github"></i></a><a class="social-icon" href="https://blog.csdn.net/qq_41518277" rel="external nofollow noreferrer" target="_blank" title="CSDN"><i class="iconfont icon-csdn"></i></a><a class="social-icon" href="/atom.xml" target="_blank" title="RSS"><i class="iconfont icon-rss"></i></a></div></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>公告</span></div><div class="announcement_content">感谢访问本站，若喜欢请收藏^_^</div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E7%89%B9%E5%BE%81%E6%9E%84%E9%80%A0"><span class="toc-number">1.</span> <span class="toc-text"> 特征构造</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%AE%80%E5%8D%95%E6%95%B0%E5%AD%A6%E5%8F%98%E6%8D%A2"><span class="toc-number">1.1.</span> <span class="toc-text"> 简单数学变换</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%88%86%E7%BB%84%E7%BB%9F%E8%AE%A1%E7%89%B9%E5%BE%81%E8%A1%8D%E7%94%9F"><span class="toc-number">1.2.</span> <span class="toc-text"> 分组统计特征衍生</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%89%B9%E5%BE%81%E4%BA%A4%E4%BA%92"><span class="toc-number">1.3.</span> <span class="toc-text"> 特征交互</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%A4%9A%E9%A1%B9%E5%BC%8F%E7%89%B9%E5%BE%81"><span class="toc-number">1.4.</span> <span class="toc-text"> 多项式特征</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%81%9A%E7%B1%BB%E5%88%86%E6%9E%90"><span class="toc-number">1.5.</span> <span class="toc-text"> 聚类分析</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%B8%BB%E6%88%90%E5%88%86%E5%88%86%E6%9E%90"><span class="toc-number">1.6.</span> <span class="toc-text"> 主成分分析</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%80%BB%E7%BB%93"><span class="toc-number">1.7.</span> <span class="toc-text"> 总结</span></a></li></ol></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item"><a class="thumbnail" href="/posts/d099726d/" title="PySpark 特征工程(III)--特征选择"><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/img/apache-spark-mllib.png" onerror="this.onerror=null;this.src='/img/404_moon.png'" alt="PySpark 特征工程(III)--特征选择"/></a><div class="content"><a class="title" href="/posts/d099726d/" title="PySpark 特征工程(III)--特征选择">PySpark 特征工程(III)--特征选择</a><time datetime="2024-06-03T15:40:02.000Z" title="发表于 2024-06-03 23:40:02">2024-06-03</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/posts/a1358f89/" title="PySpark 特征工程(II)--特征构造"><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/img/apache-spark-mllib.png" onerror="this.onerror=null;this.src='/img/404_moon.png'" alt="PySpark 特征工程(II)--特征构造"/></a><div class="content"><a class="title" href="/posts/a1358f89/" title="PySpark 特征工程(II)--特征构造">PySpark 特征工程(II)--特征构造</a><time datetime="2024-06-03T13:45:02.000Z" title="发表于 2024-06-03 21:45:02">2024-06-03</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/posts/59da38ae/" title="PySpark 特征工程(I)--数据预处理"><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/img/apache-spark-mllib.png" onerror="this.onerror=null;this.src='/img/404_moon.png'" alt="PySpark 特征工程(I)--数据预处理"/></a><div class="content"><a class="title" href="/posts/59da38ae/" title="PySpark 特征工程(I)--数据预处理">PySpark 特征工程(I)--数据预处理</a><time datetime="2024-05-28T13:16:02.000Z" title="发表于 2024-05-28 21:16:02">2024-05-28</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/posts/90489eb7/" title="PySpark机器学习Demo"><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/img/apache-spark-mllib.png" onerror="this.onerror=null;this.src='/img/404_moon.png'" alt="PySpark机器学习Demo"/></a><div class="content"><a class="title" href="/posts/90489eb7/" title="PySpark机器学习Demo">PySpark机器学习Demo</a><time datetime="2024-05-17T13:50:00.000Z" title="发表于 2024-05-17 21:50:00">2024-05-17</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/posts/75974533/" title="大数据手册(Spark)--PySpark MLlib"><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/img/apache-spark-mllib.png" onerror="this.onerror=null;this.src='/img/404_moon.png'" alt="大数据手册(Spark)--PySpark MLlib"/></a><div class="content"><a class="title" href="/posts/75974533/" title="大数据手册(Spark)--PySpark MLlib">大数据手册(Spark)--PySpark MLlib</a><time datetime="2024-05-01T14:08:34.000Z" title="发表于 2024-05-01 22:08:34">2024-05-01</time></div></div></div></div></div></div></main><footer id="footer"><div id="footer-wrap"><div class="copyright">&copy;2019 - 2024 By Tiny Lei</div><div class="framework-info"><span>框架 </span><a target="_blank" rel="noopener external nofollow noreferrer" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener external nofollow noreferrer" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside_config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><a id="to_comment" href="#post-comment" title="直达评论"><i class="fas fa-comments"></i></a><button id="go-up" type="button" title="回到顶部"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox/fancybox.umd.min.js"></script><script src="https://cdn.jsdelivr.net/npm/vanilla-lazyload/dist/lazyload.iife.min.js"></script><script>function panguFn () {
+  if (typeof pangu === 'object') pangu.autoSpacingPage()
+  else {
+    getScript('https://cdn.jsdelivr.net/npm/pangu/dist/browser/pangu.min.js')
+      .then(() => {
+        pangu.autoSpacingPage()
+      })
+  }
+}
+
+function panguInit () {
+  if (false){
+    GLOBAL_CONFIG_SITE.isPost && panguFn()
+  } else {
+    panguFn()
+  }
+}
+
+document.addEventListener('DOMContentLoaded', panguInit)</script><div class="js-pjax"><script>(() => {
+  const $mermaid = document.querySelectorAll('#article-container .mermaid-wrap')
+  if ($mermaid.length === 0) return
+  const runMermaid = () => {
+    window.loadMermaid = true
+    const theme = document.documentElement.getAttribute('data-theme') === 'dark' ? 'dark' : 'forest'
+
+    Array.from($mermaid).forEach((item, index) => {
+      const mermaidSrc = item.firstElementChild
+      const mermaidThemeConfig = '%%{init:{ \'theme\':\'' + theme + '\'}}%%\n'
+      const mermaidID = 'mermaid-' + index
+      const mermaidDefinition = mermaidThemeConfig + mermaidSrc.textContent
+
+      const renderFn = mermaid.render(mermaidID, mermaidDefinition)
+
+      const renderV10 = () => {
+        renderFn.then(({svg}) => {
+          mermaidSrc.insertAdjacentHTML('afterend', svg)
+        })
+      }
+
+      const renderV9 = svg => {
+        mermaidSrc.insertAdjacentHTML('afterend', svg)
+      }
+
+      typeof renderFn === 'string' ? renderV9(renderFn) : renderV10()
+    })
+  }
+
+  const loadMermaid = () => {
+    window.loadMermaid ? runMermaid() : getScript('https://cdn.jsdelivr.net/npm/mermaid/dist/mermaid.min.js').then(runMermaid)
+  }
+
+  btf.addModeChange('mermaid', runMermaid)
+
+  window.pjax ? loadMermaid() : document.addEventListener('DOMContentLoaded', loadMermaid)
+})()</script><script>function loadGitalk () {
+  function initGitalk () {
+    var gitalk = new Gitalk(Object.assign({
+      clientID: '7c65134b48b13f306114',
+      clientSecret: 'f049f68368a11925fdb69e57c64839eac94e13c1'',
+      repo: 'gitalk-comments',
+      owner: 'WilenWu',
+      admin: ['WilenWu'],
+      id: 'a1e0073f9a2f44b113ae731c71e0d194',
+      updateCountCallback: commentCount
+    },null))
+
+    gitalk.render('gitalk-container')
+  }
+
+  if (typeof Gitalk === 'function') initGitalk()
+  else {
+    getCSS('https://cdn.jsdelivr.net/npm/gitalk/dist/gitalk.min.css')
+    getScript('https://cdn.jsdelivr.net/npm/gitalk/dist/gitalk.min.js').then(initGitalk)
+  }
+}
+
+function commentCount(n){
+  let isCommentCount = document.querySelector('#post-meta .gitalk-comment-count')
+  if (isCommentCount) {
+    isCommentCount.textContent= n
+  }
+}
+
+if ('Gitalk' === 'Gitalk' || !true) {
+  if (true) btf.loadComment(document.getElementById('gitalk-container'), loadGitalk)
+  else loadGitalk()
+} else {
+  function loadOtherComment () {
+    loadGitalk()
+  }
+}</script><script>function loadWaline () {
+  function initWaline () {
+    const waline = Waline.init(Object.assign({
+      el: '#waline-wrap',
+      serverURL: 'https://waline-comments-9etq63pcv-wilenwu.vercel.app',
+      pageview: false,
+      dark: 'html[data-theme="dark"]',
+      path: window.location.pathname,
+      comment: false,
+    }, {"requiredMeta":["monsterid"]}))
+  }
+
+  if (typeof Waline === 'object') initWaline()
+  else {
+    getCSS('https://cdn.jsdelivr.net/npm/@waline/client/dist/waline.min.css').then(() => {
+      getScript('https://cdn.jsdelivr.net/npm/@waline/client/dist/waline.min.js').then(initWaline)
+    })
+  }
+}
+
+if ('Gitalk' === 'Waline' || !true) {
+  if (true) btf.loadComment(document.getElementById('waline-wrap'),loadWaline)
+  else setTimeout(loadWaline, 0)
+} else {
+  function loadOtherComment () {
+    loadWaline()
+  }
+}</script></div><script src="/js/custom.js"></script><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script><div id="local-search"><div class="search-dialog"><nav class="search-nav"><span class="search-dialog-title">搜索</span><span id="loading-status"></span><button class="search-close-button"><i class="fas fa-times"></i></button></nav><div class="is-center" id="loading-database"><i class="fas fa-spinner fa-pulse"></i><span>  数据库加载中</span></div><div class="search-wrap"><div id="local-search-input"><div class="local-search-box"><input class="local-search-box--input" placeholder="搜索文章" type="text"/></div></div><hr/><div class="no-result" id="local-search-results"></div><div id="local-search-stats-wrap"></div></div></div><div id="search-mask"></div><script src="/js/search/local-search.js"></script></div></div><!-- hexo injector body_end start --><script async src="//at.alicdn.com/t/font_2032782_8d5kxvn09md.js"></script><!-- hexo injector body_end end --></body></html>

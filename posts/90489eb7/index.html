@@ -1,0 +1,429 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0,viewport-fit=cover"><title>PySpark机器学习Demo | 雷小小</title><meta name="author" content="Tiny Lei"><meta name="copyright" content="Tiny Lei"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="spark 机器学习库">
+<meta property="og:type" content="article">
+<meta property="og:title" content="PySpark机器学习Demo">
+<meta property="og:url" content="https://www.tinylei.tech/posts/90489eb7/index.html">
+<meta property="og:site_name" content="雷小小">
+<meta property="og:description" content="spark 机器学习库">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://www.tinylei.tech/img/apache-spark-mllib.png">
+<meta property="article:published_time" content="2024-05-17T13:50:00.000Z">
+<meta property="article:modified_time" content="2024-05-18T02:29:34.740Z">
+<meta property="article:author" content="Tiny Lei">
+<meta property="article:tag" content="机器学习">
+<meta property="article:tag" content="python">
+<meta property="article:tag" content="spark">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://www.tinylei.tech/img/apache-spark-mllib.png"><link rel="shortcut icon" href="/img/favicon.png"><link rel="canonical" href="https://www.tinylei.tech/posts/90489eb7/index.html"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//hm.baidu.com"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><meta name="baidu-site-verification" content="code-7rymn5Bitx"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox/fancybox.min.css" media="print" onload="this.media='all'"><script>var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "https://hm.baidu.com/hm.js?654e7415ab55bed7c9c2bc6d665f03c5";
+  var s = document.getElementsByTagName("script")[0]; 
+  s.parentNode.insertBefore(hm, s);
+})();
+</script><script>const GLOBAL_CONFIG = {
+  root: '/',
+  algolia: undefined,
+  localSearch: {"path":"/search.xml","preload":false,"top_n_per_article":1,"unescape":false,"languages":{"hits_empty":"找不到您查询的内容：${query}","hits_stats":"共找到 ${hits} 篇文章"}},
+  translate: undefined,
+  noticeOutdate: undefined,
+  highlight: {"plugin":"highlighjs","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '天',
+  dateSuffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'fancybox',
+  Snackbar: undefined,
+  source: {
+    justifiedGallery: {
+      js: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery/dist/fjGallery.min.js',
+      css: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery/dist/fjGallery.min.css'
+    }
+  },
+  isPhotoFigcaption: true,
+  islazyload: true,
+  isAnchor: false,
+  percent: {
+    toc: true,
+    rightside: false,
+  },
+  autoDarkmode: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: 'PySpark机器学习Demo',
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: true,
+  postUpdate: '2024-05-18 10:29:34'
+}</script><noscript><style type="text/css">
+  #nav {
+    opacity: 1
+  }
+  .justified-gallery img {
+    opacity: 1
+  }
+
+  #recent-posts time,
+  #post-meta time {
+    display: inline !important
+  }
+</style></noscript><script>(win=>{
+    win.saveToLocal = {
+      set: function setWithExpiry(key, value, ttl) {
+        if (ttl === 0) return
+        const now = new Date()
+        const expiryDay = ttl * 86400000
+        const item = {
+          value: value,
+          expiry: now.getTime() + expiryDay,
+        }
+        localStorage.setItem(key, JSON.stringify(item))
+      },
+
+      get: function getWithExpiry(key) {
+        const itemStr = localStorage.getItem(key)
+
+        if (!itemStr) {
+          return undefined
+        }
+        const item = JSON.parse(itemStr)
+        const now = new Date()
+
+        if (now.getTime() > item.expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return item.value
+      }
+    }
+  
+    win.getScript = url => new Promise((resolve, reject) => {
+      const script = document.createElement('script')
+      script.src = url
+      script.async = true
+      script.onerror = reject
+      script.onload = script.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        script.onload = script.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(script)
+    })
+  
+    win.getCSS = (url,id = false) => new Promise((resolve, reject) => {
+      const link = document.createElement('link')
+      link.rel = 'stylesheet'
+      link.href = url
+      if (id) link.id = id
+      link.onerror = reject
+      link.onload = link.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        link.onload = link.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(link)
+    })
+  
+      win.activateDarkMode = function () {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      win.activateLightMode = function () {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+      const t = saveToLocal.get('theme')
+    
+          if (t === 'dark') activateDarkMode()
+          else if (t === 'light') activateLightMode()
+        
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    
+    const detectApple = () => {
+      if(/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+    })(window)</script><link rel="stylesheet" href="//at.alicdn.com/t/font_2849223_xh1ftc8qym.css"><link rel="stylesheet" href="/css/link-card.css"><!-- hexo injector head_end start --><link rel="stylesheet" href="https://npm.elemecdn.com/hexo-butterfly-tag-plugins-plus@latest/lib/assets/font-awesome-animation.min.css" media="defer" onload="this.media='all'"><link rel="stylesheet" href="https://npm.elemecdn.com/hexo-butterfly-tag-plugins-plus@latest/lib/tag_plugins.css" media="defer" onload="this.media='all'"><script src="https://npm.elemecdn.com/hexo-butterfly-tag-plugins-plus@latest/lib/assets/carousel-touch.js"></script><!-- hexo injector head_end end --><meta name="generator" content="Hexo 6.0.0"><link rel="alternate" href="/atom.xml" title="雷小小" type="application/atom+xml">
+</head><body><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/img/avatar.jpg" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="sidebar-site-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">165</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">105</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">43</div></a></div><hr class="custom-hr"/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/user-guide/"><i class="fa-fw fa fa-compass"></i><span> 用户指南</span></a></div><div class="menus_item"><a class="site-page group hide" href="javascript:void(0);" rel="external nofollow noreferrer"><i class="fa-fw fa fa-book"></i><span> 文档</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></li><li><a class="site-page child" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 归档</span></a></li><li><a class="site-page child" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/gallery/"><i class="fa-fw fa fa-images"></i><span> 图库</span></a></div><div class="menus_item"><a class="site-page" href="/ebook/"><i class="fa-fw fa fa-book-reader"></i><span> 电子书</span></a></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-star"></i><span> 收藏夹</span></a></div><div class="menus_item"><a class="site-page group hide" href="javascript:void(0);" rel="external nofollow noreferrer"><i class="fa-fw fa-solid fa-circle-chevron-down"></i><span> 更多</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/about/"><i class="fa-fw fa fa-user"></i><span> 关于我</span></a></li><li><a class="site-page child" href="/analytics/"><i class="fa-fw fa fa-line-chart"></i><span> 文章统计</span></a></li><li><a class="site-page child" href="/log/"><i class="fa-fw fa fa-history"></i><span> 更新日志</span></a></li></ul></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url('/img/apache-spark-top-img.svg')"><nav id="nav"><span id="blog-info"><a href="/" title="雷小小"><img class="site-icon" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/img/favicon.png"/><span class="site-name">雷小小</span></a></span><div id="menus"><div id="search-button"><a class="site-page social-icon search" href="javascript:void(0);" rel="external nofollow noreferrer"><i class="fas fa-search fa-fw"></i><span> 搜索</span></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/user-guide/"><i class="fa-fw fa fa-compass"></i><span> 用户指南</span></a></div><div class="menus_item"><a class="site-page group hide" href="javascript:void(0);" rel="external nofollow noreferrer"><i class="fa-fw fa fa-book"></i><span> 文档</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></li><li><a class="site-page child" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 归档</span></a></li><li><a class="site-page child" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/gallery/"><i class="fa-fw fa fa-images"></i><span> 图库</span></a></div><div class="menus_item"><a class="site-page" href="/ebook/"><i class="fa-fw fa fa-book-reader"></i><span> 电子书</span></a></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-star"></i><span> 收藏夹</span></a></div><div class="menus_item"><a class="site-page group hide" href="javascript:void(0);" rel="external nofollow noreferrer"><i class="fa-fw fa-solid fa-circle-chevron-down"></i><span> 更多</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/about/"><i class="fa-fw fa fa-user"></i><span> 关于我</span></a></li><li><a class="site-page child" href="/analytics/"><i class="fa-fw fa fa-line-chart"></i><span> 文章统计</span></a></li><li><a class="site-page child" href="/log/"><i class="fa-fw fa fa-history"></i><span> 更新日志</span></a></li></ul></div></div><div id="toggle-menu"><a class="site-page" href="javascript:void(0);" rel="external nofollow noreferrer"><i class="fas fa-bars fa-fw"></i></a></div></div></nav><div id="post-info"><h1 class="post-title">PySpark机器学习Demo<a class="post-edit-link" href="https://gitee.com/WilenWu/myblog/edit/master/source/_posts/bigdata/PySpark-ML-Dem.md" rel="external nofollow noreferrer" title="编辑" target="_blank"><i class="fas fa-pencil-alt"></i></a></h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2024-05-17T13:50:00.000Z" title="发表于 2024-05-17 21:50:00">2024-05-17</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2024-05-18T02:29:34.740Z" title="更新于 2024-05-18 10:29:34">2024-05-18</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/big-data/">Big Data</a><i class="fas fa-angle-right post-meta-separator"></i><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/big-data/spark/">Spark</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-wordcount"><i class="far fa-file-word fa-fw post-meta-icon"></i><span class="post-meta-label">字数总计:</span><span class="word-count">2.3k</span><span class="post-meta-separator">|</span><i class="far fa-clock fa-fw post-meta-icon"></i><span class="post-meta-label">阅读时长:</span><span>13分钟</span></span><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title="PySpark机器学习Demo"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">阅读量:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container"><p>Jupyter Notebook 代码连接：<a href="/ipynb/machine_learning_on_spark_demo">machine_learning_on_spark_demo</a></p>
+<h1 id="step-1-import-required-libraries-and-initialize-sparksession"><a class="markdownIt-Anchor" href="#step-1-import-required-libraries-and-initialize-sparksession"></a> Step 1: Import required libraries and initialize SparkSession</h1>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">from</span> pyspark.conf <span class="keyword">import</span> SparkConf</span><br><span class="line"><span class="keyword">from</span> pyspark.sql <span class="keyword">import</span> SparkSession</span><br><span class="line"><span class="keyword">from</span> pyspark.ml <span class="keyword">import</span> Pipeline</span><br><span class="line"><span class="keyword">from</span> pyspark.ml.feature <span class="keyword">import</span> StringIndexer, VectorAssembler, OneHotEncoder</span><br><span class="line"><span class="keyword">import</span> pyspark.sql.functions <span class="keyword">as</span> fn</span><br><span class="line"><span class="keyword">from</span> pyspark.ml.evaluation <span class="keyword">import</span> BinaryClassificationEvaluator, MulticlassClassificationEvaluator</span><br><span class="line"><span class="keyword">from</span> pyspark.ml.linalg <span class="keyword">import</span> Vectors</span><br><span class="line"><span class="keyword">from</span> pyspark.sql <span class="keyword">import</span> Row</span><br><span class="line"><span class="keyword">from</span> pyspark.ml.tuning <span class="keyword">import</span> CrossValidator, ParamGridBuilder, TrainValidationSplit</span><br><span class="line"><span class="keyword">from</span> xgboost.spark <span class="keyword">import</span> SparkXGBClassifier</span><br><span class="line"><span class="keyword">import</span> xgboost <span class="keyword">as</span> xgb</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> pandas <span class="keyword">as</span> pd</span><br><span class="line"><span class="keyword">import</span> numpy <span class="keyword">as</span> np</span><br><span class="line"><span class="keyword">import</span> matplotlib.pyplot <span class="keyword">as</span> plt</span><br><span class="line"><span class="keyword">import</span> seaborn <span class="keyword">as</span> sns</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> time</span><br><span class="line"><span class="keyword">import</span> warnings</span><br><span class="line"></span><br><span class="line"><span class="comment"># Setting configuration.</span></span><br><span class="line">warnings.filterwarnings(<span class="string">&#x27;ignore&#x27;</span>)</span><br><span class="line">SEED = <span class="number">42</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># Use 0.11.4-spark3.3 version for Spark3.3 and 1.0.2 version for Spark3.4</span></span><br><span class="line">spark = SparkSession.builder \</span><br><span class="line">            .master(<span class="string">&quot;local[*]&quot;</span>) \</span><br><span class="line">            .appName(<span class="string">&quot;XGBoost with PySpark&quot;</span>) \</span><br><span class="line">            .config(<span class="string">&quot;spark.driver.memory&quot;</span>, <span class="string">&quot;10g&quot;</span>) \</span><br><span class="line">            .config(<span class="string">&quot;spark.driver.cores&quot;</span>, <span class="string">&quot;2&quot;</span>) \</span><br><span class="line">            .config(<span class="string">&quot;spark.executor.memory&quot;</span>, <span class="string">&quot;10g&quot;</span>) \</span><br><span class="line">            .config(<span class="string">&quot;spark.executor.cores&quot;</span>, <span class="string">&quot;2&quot;</span>) \</span><br><span class="line">            .enableHiveSupport() \</span><br><span class="line">            .getOrCreate()</span><br><span class="line">sc = spark.sparkContext</span><br><span class="line">sc.setLogLevel(<span class="string">&#x27;ERROR&#x27;</span>)</span><br></pre></td></tr></table></figure>
+<pre><code>24/05/17 21:38:51 WARN SparkSession: Using an existing Spark session; only runtime SQL configurations will take effect.
+</code></pre>
+<h1 id="step-2-load-the-dataset"><a class="markdownIt-Anchor" href="#step-2-load-the-dataset"></a> Step 2: Load the dataset</h1>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">path = <span class="string">&#x27;/Users/***/Documents/Project/datasets/Home-Credit-Default-Risk/prepared_data.csv&#x27;</span></span><br><span class="line">data = spark.read.<span class="built_in">format</span>(<span class="string">&quot;csv&quot;</span>).options(inferSchema=<span class="string">&quot;true&quot;</span>, header=<span class="literal">True</span>).load(<span class="string">f&quot;file:///<span class="subst">&#123;path&#125;</span>&quot;</span>)</span><br></pre></td></tr></table></figure>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">columns, dtypes = <span class="built_in">zip</span>(*data.dtypes)</span><br><span class="line">pd.Series(dtypes).value_counts()</span><br></pre></td></tr></table></figure>
+<pre><code>double    147
+int        12
+Name: count, dtype: int64
+</code></pre>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="built_in">print</span>(<span class="string">f&quot;dataset shape: (data.count(), len(columns))&quot;</span>)</span><br></pre></td></tr></table></figure>
+<pre><code>dataset shape: (data.count(), len(columns))
+</code></pre>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">data = data.withColumnRenamed(<span class="string">&quot;TARGET&quot;</span>, <span class="string">&quot;label&quot;</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># Check if the data is unbalanced</span></span><br><span class="line">data.groupBy(<span class="string">&quot;label&quot;</span>).count().show()</span><br></pre></td></tr></table></figure>
+<pre><code>+-----+------+
+|label| count|
++-----+------+
+|    1| 24825|
+|    0|282686|
++-----+------+
+</code></pre>
+<h1 id="step-3-data-preprocessing"><a class="markdownIt-Anchor" href="#step-3-data-preprocessing"></a> Step 3: Data preprocessing</h1>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="comment"># Convert the categorical labels in the target column to numerical values (optional)</span></span><br><span class="line">indexer = StringIndexer(</span><br><span class="line">    inputCol=<span class="string">&quot;TARGET&quot;</span>, </span><br><span class="line">    outputCol=<span class="string">&quot;label&quot;</span></span><br><span class="line">)</span><br></pre></td></tr></table></figure>
+<p>StringIndexer 索引的范围从 0 开始，索引构建的顺序为字符标签的频率，优先编码频率较大的标签，所以出现频率最高的标签为 0。</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="comment"># Assemble the feature columns into a single vector column</span></span><br><span class="line">feature_names = data.drop(<span class="string">&quot;SK_ID_CURR&quot;</span>, <span class="string">&quot;label&quot;</span>).columns</span><br><span class="line">assembler = VectorAssembler(</span><br><span class="line">    inputCols=feature_names,</span><br><span class="line">    outputCol=<span class="string">&quot;features&quot;</span></span><br><span class="line">)</span><br></pre></td></tr></table></figure>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="comment"># Split the data into train and test.</span></span><br><span class="line">train, test = data.randomSplit([<span class="number">0.75</span>, <span class="number">0.25</span>], seed=SEED)</span><br></pre></td></tr></table></figure>
+<h1 id="step-4-hyperparameter-tuning-building-a-model-optional"><a class="markdownIt-Anchor" href="#step-4-hyperparameter-tuning-building-a-model-optional"></a> Step 4: Hyperparameter Tuning &amp; Building a model (optional)</h1>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="comment"># Create an Estimator.</span></span><br><span class="line">classifier = SparkXGBClassifier(</span><br><span class="line">    label_col=<span class="string">&quot;label&quot;</span>, </span><br><span class="line">    features_col=<span class="string">&quot;features&quot;</span>,</span><br><span class="line">    eval_metric=<span class="string">&#x27;auc&#x27;</span>,</span><br><span class="line">    scale_pos_weight=<span class="number">11</span>,</span><br><span class="line">    verbosity=<span class="number">0</span></span><br><span class="line">)</span><br><span class="line"></span><br><span class="line"><span class="comment"># Assemble all the steps into a pipeline.</span></span><br><span class="line">pipeline = Pipeline(stages=[assembler, classifier])</span><br></pre></td></tr></table></figure>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="comment"># We use a ParamGridBuilder to construct a grid of parameters to search over.</span></span><br><span class="line"><span class="comment"># CrossValidator will try all combinations of values and determine best model using</span></span><br><span class="line"><span class="comment"># the evaluator.</span></span><br><span class="line">paramGrid = ParamGridBuilder() \</span><br><span class="line">    .addGrid(classifier.learning_rate, [<span class="number">0.01</span>]) \</span><br><span class="line">    .addGrid(classifier.max_depth, [<span class="number">4</span>, <span class="number">6</span>, <span class="number">8</span>]) \</span><br><span class="line">    .addGrid(classifier.subsample, [<span class="number">1.0</span>]) \</span><br><span class="line">    .addGrid(classifier.colsample_bytree, [<span class="number">0.33</span>, <span class="number">0.66</span>]) \</span><br><span class="line">    .addGrid(classifier.reg_alpha, [<span class="number">0.5</span>, <span class="number">5.0</span>, <span class="number">50</span>]) \</span><br><span class="line">    .addGrid(classifier.reg_lambda, [<span class="number">15</span>]) \</span><br><span class="line">    .addGrid(classifier.n_estimators, [<span class="number">500</span>, <span class="number">1000</span>, <span class="number">1500</span>]) \</span><br><span class="line">    .build()</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">evaluator = BinaryClassificationEvaluator(labelCol=<span class="string">&quot;label&quot;</span>, metricName=<span class="string">&#x27;areaUnderROC&#x27;</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># A CrossValidator requires an Estimator, a set of Estimator ParamMaps, and an Evaluator.</span></span><br><span class="line">crossval = CrossValidator(</span><br><span class="line">    estimator=pipeline, </span><br><span class="line">    estimatorParamMaps=paramGrid,</span><br><span class="line">    evaluator=evaluator,</span><br><span class="line">    numFolds=<span class="number">3</span>,</span><br><span class="line">    parallelism=<span class="number">4</span></span><br><span class="line">)</span><br></pre></td></tr></table></figure>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="comment"># Run cross-validation, and choose the best set of parameters.</span></span><br><span class="line">cvModel = crossval.fit(train)</span><br></pre></td></tr></table></figure>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">bestModel = cvModel.bestModel</span><br><span class="line">xgbModel = bestModel.stages[<span class="number">1</span>]</span><br></pre></td></tr></table></figure>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="built_in">print</span>(<span class="string">&quot;Best value: &quot;</span>, <span class="built_in">max</span>(cvModel.avgMetrics))</span><br><span class="line"><span class="built_in">print</span>(<span class="string">&quot;Best params: &quot;</span>)</span><br><span class="line">params = [<span class="string">&#x27;learning_rate&#x27;</span>, <span class="string">&#x27;max_depth&#x27;</span>, <span class="string">&#x27;subsample&#x27;</span>, <span class="string">&#x27;colsample_bytree&#x27;</span>, <span class="string">&#x27;reg_alpha&#x27;</span>, <span class="string">&#x27;reg_lambda&#x27;</span>, <span class="string">&#x27;n_estimators&#x27;</span>]</span><br><span class="line">params = &#123;key: xgbModel.getOrDefault(key) <span class="keyword">for</span> key <span class="keyword">in</span> params&#125;</span><br><span class="line"><span class="keyword">for</span> key, value <span class="keyword">in</span> params.items():</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">f&quot;    <span class="subst">&#123;key&#125;</span>: <span class="subst">&#123;value&#125;</span>&quot;</span>)</span><br></pre></td></tr></table></figure>
+<h1 id="step-5-training"><a class="markdownIt-Anchor" href="#step-5-training"></a> Step 5: Training</h1>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="comment"># Create an Estimator.</span></span><br><span class="line">classifier = SparkXGBClassifier(</span><br><span class="line">    features_col=<span class="string">&#x27;features&#x27;</span>, </span><br><span class="line">    label_col=<span class="string">&#x27;label&#x27;</span>,</span><br><span class="line">    eval_metric=<span class="string">&#x27;auc&#x27;</span>,</span><br><span class="line">    scale_pos_weight=<span class="number">11</span>,</span><br><span class="line">    learning_rate=<span class="number">0.015</span>,</span><br><span class="line">    max_depth=<span class="number">8</span>,</span><br><span class="line">    subsample=<span class="number">1.0</span>,</span><br><span class="line">    colsample_bytree=<span class="number">0.35</span>,</span><br><span class="line">    reg_alpha=<span class="number">65</span>,</span><br><span class="line">    reg_lambda=<span class="number">15</span>,</span><br><span class="line">    n_estimators=<span class="number">1200</span>,</span><br><span class="line">    verbosity=<span class="number">0</span></span><br><span class="line">)</span><br><span class="line"></span><br><span class="line"><span class="comment"># Assemble all the steps into a pipeline.</span></span><br><span class="line">pipeline = Pipeline(stages=[assembler, classifier])</span><br><span class="line"></span><br><span class="line"><span class="comment"># Fit the pipeline to training dataset.</span></span><br><span class="line">model = pipeline.fit(train)</span><br><span class="line">xgbModel = model.stages[<span class="number">1</span>]</span><br></pre></td></tr></table></figure>
+<pre><code>Java HotSpot(TM) 64-Bit Server VM warning: CodeCache is full. Compiler has been disabled.
+Java HotSpot(TM) 64-Bit Server VM warning: Try increasing the code cache size using -XX:ReservedCodeCacheSize=
+[Stage 5:=======&gt;                                                   (1 + 7) / 8]
+
+CodeCache: size=131072Kb used=31129Kb max_used=32163Kb free=99942Kb
+ bounds [0x0000000102608000, 0x00000001045c8000, 0x000000010a608000]
+ total_blobs=10963 nmethods=9953 adapters=920
+ compilation: disabled (not enough contiguous free space left)
+
+
+2024-05-17 21:38:59,947 INFO XGBoost-PySpark: _fit Running xgboost-2.0.3 on 1 workers with
+	booster params: &#123;'objective': 'binary:logistic', 'colsample_bytree': 0.35, 'device': 'cpu', 'learning_rate': 0.015, 'max_depth': 8, 'reg_alpha': 65, 'reg_lambda': 15, 'scale_pos_weight': 11, 'subsample': 1.0, 'verbosity': 0, 'eval_metric': 'auc', 'nthread': 1&#125;
+	train_call_kwargs_params: &#123;'verbose_eval': True, 'num_boost_round': 1200&#125;
+	dmatrix_kwargs: &#123;'nthread': 1, 'missing': nan&#125;
+[21:39:06] task 0 got new rank 0                                    (0 + 1) / 1]
+2024-05-17 21:40:20,857 INFO XGBoost-PySpark: _fit Finished xgboost training!   
+</code></pre>
+<h1 id="step-6-evaluate-the-model-performance"><a class="markdownIt-Anchor" href="#step-6-evaluate-the-model-performance"></a> Step 6: Evaluate the model performance</h1>
+<p>这是一个二分类问题，先定义一个提取正样本得分的函数</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">extractProbability</span>(<span class="params">row</span>):</span></span><br><span class="line">    d = row.asDict()</span><br><span class="line">    d[<span class="string">&#x27;probability&#x27;</span>] = <span class="built_in">float</span>(d[<span class="string">&#x27;probability&#x27;</span>][<span class="number">1</span>])</span><br><span class="line">    d[<span class="string">&#x27;label&#x27;</span>] =  <span class="built_in">float</span>(d.get(<span class="string">&#x27;label&#x27;</span>, <span class="number">0.0</span>))</span><br><span class="line">    <span class="keyword">return</span> Row(**d)</span><br></pre></td></tr></table></figure>
+<p>由于PySpark 中并没有在评估模块中直接提供ROC曲线的提取方式，因此我们还要定义一个类去提取：</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">from</span> pyspark.mllib.evaluation <span class="keyword">import</span> BinaryClassificationMetrics</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">CurveMetrics</span>(<span class="params">BinaryClassificationMetrics</span>):</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__init__</span>(<span class="params">self, *args</span>):</span></span><br><span class="line">        <span class="built_in">super</span>(CurveMetrics, self).__init__(*args)</span><br><span class="line">    </span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">_to_list</span>(<span class="params">self, rdd</span>):</span></span><br><span class="line">        points = []</span><br><span class="line">        <span class="keyword">for</span> row <span class="keyword">in</span> rdd.collect():</span><br><span class="line">            points += [(<span class="built_in">float</span>(row._1()), <span class="built_in">float</span>(row._2()))]</span><br><span class="line">        <span class="keyword">return</span> points</span><br><span class="line">    </span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">get_curve</span>(<span class="params">self, method</span>):</span></span><br><span class="line">        rdd = <span class="built_in">getattr</span>(self._java_model, method)().toJavaRDD()</span><br><span class="line">        points = self._to_list(rdd)</span><br><span class="line">        <span class="keyword">return</span> <span class="built_in">zip</span>(*points)  <span class="comment"># return tuple(fpr, tpr)</span></span><br></pre></td></tr></table></figure>
+<p>模型得分</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">binary_classification_report</span>(<span class="params">model, data</span>):</span></span><br><span class="line">    predictions = model.transform(data).select(<span class="string">&#x27;rawPrediction&#x27;</span>, <span class="string">&#x27;probability&#x27;</span>, <span class="string">&#x27;label&#x27;</span>)</span><br><span class="line">    <span class="keyword">from</span> pyspark.storagelevel <span class="keyword">import</span> StorageLevel</span><br><span class="line">    predictions.persist(StorageLevel.MEMORY_AND_DISK)</span><br><span class="line">    evaluator = BinaryClassificationEvaluator()</span><br><span class="line">    auc = evaluator.setMetricName(<span class="string">&#x27;areaUnderROC&#x27;</span>).evaluate(predictions)</span><br><span class="line">    prob = predictions.select(<span class="string">&#x27;label&#x27;</span>, <span class="string">&#x27;probability&#x27;</span>).rdd.<span class="built_in">map</span>(extractProbability)</span><br><span class="line">    fpr, tpr = CurveMetrics(prob).get_curve(<span class="string">&#x27;roc&#x27;</span>)</span><br><span class="line">    tn = predictions.<span class="built_in">filter</span>(<span class="string">&quot;label == 0 and prediction == 0&quot;</span>).count()</span><br><span class="line">    fp = predictions.<span class="built_in">filter</span>(<span class="string">&quot;label == 0 and prediction == 1&quot;</span>).count()</span><br><span class="line">    fn = predictions.<span class="built_in">filter</span>(<span class="string">&quot;label == 1 and prediction == 0&quot;</span>).count()</span><br><span class="line">    tp = predictions.<span class="built_in">filter</span>(<span class="string">&quot;label == 1 and prediction == 1&quot;</span>).count()</span><br><span class="line">    predictions.unpersist()</span><br><span class="line">    <span class="keyword">return</span> &#123;</span><br><span class="line">        <span class="string">&#x27;fpr&#x27;</span>: fpr,</span><br><span class="line">        <span class="string">&#x27;tpr&#x27;</span>: tpr, </span><br><span class="line">        <span class="string">&#x27;ks&#x27;</span>: np.<span class="built_in">max</span>(np.array(tpr) - np.array(fpr)),</span><br><span class="line">        <span class="string">&#x27;auc&#x27;</span>: auc,</span><br><span class="line">        <span class="string">&#x27;confusionMatrix&#x27;</span>: np.array([[tn, fp], [fn, tp]]),</span><br><span class="line">        <span class="string">&#x27;accuracy&#x27;</span>: (tp + tn) / (tn + fp + fn + tp),</span><br><span class="line">        <span class="string">&#x27;precision&#x27;</span>: tp / (fp + tp),</span><br><span class="line">        <span class="string">&#x27;recall&#x27;</span>: tp / (fn + tp)</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line"><span class="comment"># the model performance</span></span><br><span class="line">train_report = binary_classification_report(model, train)</span><br><span class="line">test_report = binary_classification_report(model, test)</span><br><span class="line"><span class="keyword">for</span> label, stats <span class="keyword">in</span> [(<span class="string">&#x27;train data&#x27;</span>, train_report), (<span class="string">&#x27;test data&#x27;</span>, test_report)]:</span><br><span class="line">    <span class="built_in">print</span>(label, end=<span class="string">&quot;:\n  &quot;</span>)</span><br><span class="line">    <span class="built_in">print</span>(</span><br><span class="line">        <span class="string">f&quot;auc: <span class="subst">&#123;stats[<span class="string">&#x27;auc&#x27;</span>]:<span class="number">.5</span>f&#125;</span>&quot;</span>, </span><br><span class="line">        <span class="string">f&quot;accuracy: <span class="subst">&#123;stats[<span class="string">&#x27;accuracy&#x27;</span>]:<span class="number">.5</span>f&#125;</span>&quot;</span>, </span><br><span class="line">        <span class="string">f&quot;recall: <span class="subst">&#123;stats[<span class="string">&#x27;recall&#x27;</span>]:<span class="number">.5</span>f&#125;</span>&quot;</span>, </span><br><span class="line">        sep = <span class="string">&#x27;\n  &#x27;</span></span><br><span class="line">    )</span><br></pre></td></tr></table></figure>
+<pre><code>train data:
+  auc: 0.85391
+  accuracy: 0.77220
+  recall: 0.77017
+test data:
+  auc: 0.76201
+  accuracy: 0.75205
+  recall: 0.62115
+</code></pre>
+<p>ROC 曲线</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="comment"># Plot ROC curve</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">plot_roc_curve</span>(<span class="params">fprs, tprs, aucs, labels</span>):</span></span><br><span class="line">    plt.figure()</span><br><span class="line">    plt.title(<span class="string">&#x27;Receiver Operating Characteristic&#x27;</span>)</span><br><span class="line">    plt.xlabel(<span class="string">&#x27;False Positive Rate&#x27;</span>)</span><br><span class="line">    plt.ylabel(<span class="string">&#x27;True Positive Rate&#x27;</span>)</span><br><span class="line">    plt.plot([<span class="number">0</span>, <span class="number">1</span>], [<span class="number">0</span>, <span class="number">1</span>],<span class="string">&#x27;r--&#x27;</span>)</span><br><span class="line">    plt.xlim([<span class="number">0</span>, <span class="number">1</span>])</span><br><span class="line">    plt.ylim([<span class="number">0</span>, <span class="number">1</span>])</span><br><span class="line">    <span class="comment"># Plotting ROC and computing AUC scores</span></span><br><span class="line">    <span class="keyword">for</span> fpr, tpr, auc, label <span class="keyword">in</span> <span class="built_in">zip</span>(fprs, tprs, aucs, labels):</span><br><span class="line">    	plt.plot(fpr, tpr, label = <span class="string">f&quot;<span class="subst">&#123;label&#125;</span> ROC(auc=<span class="subst">&#123;auc:<span class="number">.4</span>f&#125;</span>)&quot;</span>)</span><br><span class="line">    plt.legend(loc = <span class="string">&#x27;lower right&#x27;</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># plot_roc_curve(</span></span><br><span class="line"><span class="comment">#     fprs = (train_report[&#x27;fpr&#x27;], test_report[&#x27;fpr&#x27;]),</span></span><br><span class="line"><span class="comment">#     tprs = (train_report[&#x27;tpr&#x27;], test_report[&#x27;tpr&#x27;]),</span></span><br><span class="line"><span class="comment">#     aucs = (train_report[&#x27;auc&#x27;], test_report[&#x27;auc&#x27;]),</span></span><br><span class="line"><span class="comment">#     labels = (&#x27;train&#x27;, &#x27;valid&#x27;)</span></span><br><span class="line"><span class="comment"># )</span></span><br></pre></td></tr></table></figure>
+<h1 id="step-7-show-feature-importance"><a class="markdownIt-Anchor" href="#step-7-show-feature-importance"></a> Step 7: Show feature importance</h1>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">feature_imp = xgbModel.get_feature_importances()</span><br><span class="line">indices = [<span class="built_in">int</span>(name[<span class="number">1</span>:]) <span class="keyword">for</span> name <span class="keyword">in</span> feature_imp.keys()]</span><br><span class="line"></span><br><span class="line">feature_imp = pd.Series(</span><br><span class="line">    feature_imp.values(),</span><br><span class="line">    index=np.array(feature_names)[indices]</span><br><span class="line">).sort_values(ascending=<span class="literal">False</span>)</span><br><span class="line"></span><br><span class="line"><span class="built_in">print</span>(feature_imp.head(<span class="number">20</span>))</span><br></pre></td></tr></table></figure>
+<pre><code>DAYS_BIRTH                      5783.0
+AMT_ANNUITY                     5666.0
+DAYS_REGISTRATION               5428.0
+DAYS_ID_PUBLISH                 5412.0
+EXT_SOURCE_2                    5188.0
+EXT_SOURCE_3                    5103.0
+AMT_CREDIT                      4899.0
+DAYS_LAST_PHONE_CHANGE          4783.0
+DAYS_EMPLOYED                   4678.0
+anomaly_score                   4576.0
+EXT_SOURCE_1                    4532.0
+AMT_GOODS_PRICE                 4360.0
+REGION_POPULATION_RELATIVE      3965.0
+AMT_INCOME_TOTAL                3944.0
+ORGANIZATION_TYPE               3164.0
+OWN_CAR_AGE                     2975.0
+HOUR_APPR_PROCESS_START         2768.0
+OCCUPATION_TYPE                 2461.0
+AMT_REQ_CREDIT_BUREAU_YEAR      1831.0
+YEARS_BEGINEXPLUATATION_MODE    1658.0
+dtype: float64
+</code></pre>
+<h1 id="step-8-visualize-the-model"><a class="markdownIt-Anchor" href="#step-8-visualize-the-model"></a> Step 8: Visualize the model</h1>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">bst = xgbModel.get_booster()</span><br><span class="line"><span class="comment"># xgb.plot_tree(bst, num_trees=1000)</span></span><br></pre></td></tr></table></figure>
+<h1 id="step-9-save-and-load-the-model"><a class="markdownIt-Anchor" href="#step-9-save-and-load-the-model"></a> Step 9: Save and load the model</h1>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="comment"># Save model</span></span><br><span class="line"><span class="comment"># model.save(&quot;xgbModel&quot;)</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="comment"># Load the model</span></span><br><span class="line"><span class="comment"># from pyspark.ml.classification import SparkXGBClassifierModel</span></span><br><span class="line"><span class="comment"># loaded_model = SparkXGBClassifierModel.load(&quot;xgbModel&quot;)</span></span><br></pre></td></tr></table></figure>
+<h1 id="step-10-predict"><a class="markdownIt-Anchor" href="#step-10-predict"></a> Step 10: Predict</h1>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="comment"># Make predictions on test data. </span></span><br><span class="line">predictions = model.transform(test)</span><br><span class="line">selected = predictions.rdd.<span class="built_in">map</span>(extractProbability).toDF().select(<span class="string">&quot;SK_ID_CURR&quot;</span>, <span class="string">&quot;probability&quot;</span>, <span class="string">&quot;prediction&quot;</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># Select example rows to display.</span></span><br><span class="line">selected.show(<span class="number">5</span>)</span><br></pre></td></tr></table></figure>
+<pre><code>2024-05-17 21:41:02,957 INFO XGBoost-PySpark: predict_udf Do the inference on the CPUs
+INFO:XGBoost-PySpark:Do the inference on the CPUs                   (0 + 1) / 1]
+
+
++----------+-------------------+----------+
+|SK_ID_CURR|        probability|prediction|
++----------+-------------------+----------+
+|    100004|0.18962906301021576|       0.0|
+|    100009|0.08838339149951935|       0.0|
+|    100011| 0.4154616594314575|       0.0|
+|    100012| 0.1840885430574417|       0.0|
+|    100017|0.23958267271518707|       0.0|
++----------+-------------------+----------+
+only showing top 5 rows
+</code></pre>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="comment"># save predictions</span></span><br><span class="line"><span class="comment"># selected.write.mode(&#x27;overwrite&#x27;).saveAsTable(&#x27;predictions&#x27;)</span></span><br></pre></td></tr></table></figure>
+<h1 id="step-11-clean-up"><a class="markdownIt-Anchor" href="#step-11-clean-up"></a> Step 11: Clean up</h1>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">spark.stop()</span><br></pre></td></tr></table></figure>
+<h1 id="appendices-roc-curve"><a class="markdownIt-Anchor" href="#appendices-roc-curve"></a> Appendices: ROC curve</h1>
+<p>PySpark 中并没有在评估模块中直接提供ROC曲线的提取方式，我们可以从以下三个渠道获得：</p>
+<ul>
+<li>MLlib (DataFrame-based)中的部分分类模型，可以通过summary属性/方法获得</li>
+<li>Spark 在Scala API中提供了提取ROC曲线的方式，因此我们需要从Scala模块中借用</li>
+<li>自定义ROC提取函数</li>
+</ul>
+<p>支持summary属性/方法的模型如下：</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="comment"># Returns the ROC curve, which is a Dataframe having two fields (FPR, TPR) </span></span><br><span class="line"><span class="comment"># with (0.0, 0.0) prepended and (1.0, 1.0) appended to it.</span></span><br><span class="line"></span><br><span class="line">roc_df = LinearSVCModel.summary().roc</span><br><span class="line">roc_df = LogisticRegressionModel.summary.roc</span><br><span class="line">roc_df = RandomForestClassificationModel.summary.roc</span><br><span class="line">roc_df = MultilayerPerceptronClassificationModel.summary().roc</span><br><span class="line">roc_df = FMClassificationModel.summary().roc</span><br></pre></td></tr></table></figure>
+<p>scala中的提取代码如下：</p>
+<figure class="highlight scala"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> org.apache.spark.mllib.evaluation.<span class="type">BinaryClassificationMetrics</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// Instantiate metrics object</span></span><br><span class="line"><span class="keyword">val</span> metrics = <span class="keyword">new</span> <span class="type">BinaryClassificationMetrics</span>(predictionAndLabels)</span><br><span class="line"></span><br><span class="line"><span class="comment">// Precision-Recall Curve</span></span><br><span class="line"><span class="keyword">val</span> <span class="type">PRC</span> = metrics.pr</span><br><span class="line"></span><br><span class="line"><span class="comment">// AUPRC</span></span><br><span class="line"><span class="keyword">val</span> auPRC = metrics.areaUnderPR</span><br><span class="line">println(<span class="string">s&quot;Area under precision-recall curve = <span class="subst">$auPRC</span>&quot;</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment">// ROC Curve</span></span><br><span class="line"><span class="keyword">val</span> roc = metrics.roc</span><br><span class="line"></span><br><span class="line"><span class="comment">// AUROC</span></span><br><span class="line"><span class="keyword">val</span> auROC = metrics.areaUnderROC</span><br><span class="line">println(<span class="string">s&quot;Area under ROC = <span class="subst">$auROC</span>&quot;</span>)</span><br></pre></td></tr></table></figure>
+<p>在 PySpark 中定义一个子类借用scala接口：</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">from</span> pyspark.mllib.evaluation <span class="keyword">import</span> BinaryClassificationMetrics</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">CurveMetrics</span>(<span class="params">BinaryClassificationMetrics</span>):</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__init__</span>(<span class="params">self, *args</span>):</span></span><br><span class="line">        <span class="built_in">super</span>(CurveMetrics, self).__init__(*args)</span><br><span class="line">    </span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">_to_list</span>(<span class="params">self, rdd</span>):</span></span><br><span class="line">        points = []</span><br><span class="line">        <span class="comment"># Note this collect could be inefficient for large datasets</span></span><br><span class="line">        <span class="comment"># considering there may be one probability per datapoint (at most)</span></span><br><span class="line">        <span class="comment"># The Scala version takes a numBins parameter,</span></span><br><span class="line">        <span class="comment"># but it doesn&#x27;t seem possible to pass this from Python to Java</span></span><br><span class="line">        <span class="keyword">for</span> row <span class="keyword">in</span> rdd.collect():</span><br><span class="line">            <span class="comment"># Results are returned as type scala.Tuple2,</span></span><br><span class="line">            <span class="comment"># which doesn&#x27;t appear to have a py4j mapping</span></span><br><span class="line">            points += [(<span class="built_in">float</span>(row._1()), <span class="built_in">float</span>(row._2()))]</span><br><span class="line">        <span class="keyword">return</span> points</span><br><span class="line">    </span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">get_curve</span>(<span class="params">self, method</span>):</span></span><br><span class="line">        rdd = <span class="built_in">getattr</span>(self._java_model, method)().toJavaRDD()</span><br><span class="line">        points = self._to_list(rdd)</span><br><span class="line">        <span class="keyword">return</span> <span class="built_in">zip</span>(*points)  <span class="comment"># return tuple(fpr, tpr)</span></span><br></pre></td></tr></table></figure>
+<p>定义子类后具体使用如下：</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">from</span> pyspark.sql <span class="keyword">import</span> Row</span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">extractProbability</span>(<span class="params">row, labelCol=<span class="string">&#x27;label&#x27;</span>, probabilityCol=<span class="string">&#x27;probability&#x27;</span></span>):</span></span><br><span class="line">    <span class="keyword">return</span> Row(label = <span class="built_in">float</span>(row[labelCol]), probability = <span class="built_in">float</span>(row[<span class="string">&#x27;probability&#x27;</span>][<span class="number">1</span>]))</span><br><span class="line"></span><br><span class="line">pred_df = predictions.rdd.<span class="built_in">map</span>(extractProbability)</span><br><span class="line">fpr, tpr = CurveMetrics(pred_df).get_curve(<span class="string">&#x27;roc&#x27;</span>)</span><br></pre></td></tr></table></figure>
+<p>参考sklearn自定义函数提取ROC：</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">from</span> pyspark.sql <span class="keyword">import</span> Window, functions <span class="keyword">as</span> fn</span><br><span class="line"><span class="keyword">from</span> pyspark.sql <span class="keyword">import</span> feature <span class="keyword">as</span> ft</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">roc_curve_on_spark</span>(<span class="params">predictions, labelCol=<span class="string">&#x27;label&#x27;</span>, probabilityCol=<span class="string">&#x27;probability&#x27;</span></span>):</span></span><br><span class="line">    <span class="string">&quot;&quot;&quot;</span></span><br><span class="line"><span class="string">    Returns the receiver operating characteristic (ROC) curve,</span></span><br><span class="line"><span class="string">        which is a Dataframe having two fields (FPR, TPR) with</span></span><br><span class="line"><span class="string">        (0.0, 0.0) prepended and (1.0, 1.0) appended to it.</span></span><br><span class="line"><span class="string">    &quot;&quot;&quot;</span></span><br><span class="line">    </span><br><span class="line">    roc = predictions.select(labelCol, probabilityCol)</span><br><span class="line">    </span><br><span class="line">    <span class="comment"># window functions</span></span><br><span class="line">    window = Window.orderBy(fn.desc(probabilityCol))</span><br><span class="line">    </span><br><span class="line">    <span class="comment"># accumulate the true positives with decreasing threshold</span></span><br><span class="line">    roc = roc.withColumn(<span class="string">&#x27;tps&#x27;</span>, fn.<span class="built_in">sum</span>(roc[labelCol]).over(window))</span><br><span class="line">    <span class="comment"># accumulate the false positives with decreasing threshold</span></span><br><span class="line">    roc = roc.withColumn(<span class="string">&#x27;fps&#x27;</span>, fn.<span class="built_in">sum</span>(fn.lit(<span class="number">1</span>) - roc[labelCol]).over(window))</span><br><span class="line"></span><br><span class="line">    <span class="comment"># The total number of negative samples</span></span><br><span class="line">    numPositive = roc.tail(<span class="number">1</span>)[<span class="number">0</span>][<span class="string">&#x27;tps&#x27;</span>]</span><br><span class="line">    numNegative = roc.tail(<span class="number">1</span>)[<span class="number">0</span>][<span class="string">&#x27;fps&#x27;</span>]</span><br><span class="line"></span><br><span class="line">    roc = roc.withColumn(<span class="string">&#x27;tpr&#x27;</span>, roc[<span class="string">&#x27;tps&#x27;</span>] / fn.lit(numPositive))</span><br><span class="line">    roc = roc.withColumn(<span class="string">&#x27;fpr&#x27;</span>, roc[<span class="string">&#x27;fps&#x27;</span>] / fn.lit(numNegative))</span><br><span class="line">    </span><br><span class="line">    roc = roc.dropDuplicates(subset=[probabilityCol]).select(<span class="string">&#x27;fpr&#x27;</span>, <span class="string">&#x27;tpr&#x27;</span>)</span><br><span class="line"></span><br><span class="line">    <span class="comment"># Add an extra threshold position</span></span><br><span class="line">    <span class="comment"># to make sure that the curve starts at (0, 0)</span></span><br><span class="line">    start_row = spark.createDataFrame([(<span class="number">0.0</span>, <span class="number">0.0</span>)], schema=roc.schema)</span><br><span class="line">    roc = start_row.unionAll(roc)</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">return</span> roc</span><br></pre></td></tr></table></figure>
+</article><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/">机器学习</a><a class="post-meta__tags" href="/tags/python/">python</a><a class="post-meta__tags" href="/tags/spark/">spark</a></div><div class="post_share"><div class="social-share" data-image="/img/apache-spark-mllib.png" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/js/social-share.min.js" defer></script></div></div><div class="post-reward"><div class="reward-button"><i class="fas fa-qrcode"></i> 打赏</div><div class="reward-main"><ul class="reward-all"><li class="reward-item"><a href="/img/morty3.jpg" target="_blank"><img class="post-qr-code-img" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/img/morty3.jpg" alt="Give me money!"/></a><div class="post-qr-code-desc">Give me money!</div></li></ul></div></div><nav class="pagination-post" id="pagination"><div class="prev-post pull-left"><a href="/posts/75974533/" title="大数据手册(Spark)--PySpark MLlib"><img class="cover" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/img/apache-spark-mllib.png" onerror="onerror=null;src='/img/404_moon.png'" alt="cover of previous post"><div class="pagination-info"><div class="label">上一篇</div><div class="prev_info">大数据手册(Spark)--PySpark MLlib</div></div></a></div><div class="next-post pull-right"><a href="/posts/59da38ae/" title="PySpark 特征工程(I)--数据预处理"><img class="cover" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/img/apache-spark-mllib.png" onerror="onerror=null;src='/img/404_moon.png'" alt="cover of next post"><div class="pagination-info"><div class="label">下一篇</div><div class="next_info">PySpark 特征工程(I)--数据预处理</div></div></a></div></nav><div class="relatedPosts"><div class="headline"><i class="fas fa-thumbs-up fa-fw"></i><span>相关推荐</span></div><div class="relatedPosts-list"><div><a href="/posts/75974533/" title="大数据手册(Spark)--PySpark MLlib"><img class="cover" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/img/apache-spark-mllib.png" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2024-05-01</div><div class="title">大数据手册(Spark)--PySpark MLlib</div></div></a></div><div><a href="/posts/3d0ef432/" title="特征工程(VI)--机器学习"><img class="cover" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/img/FeatureEngine.png" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2024-04-20</div><div class="title">特征工程(VI)--机器学习</div></div></a></div><div><a href="/posts/425f9947/" title="特征工程(VII)--模型集成"><img class="cover" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/img/FeatureEngine.png" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2024-04-20</div><div class="title">特征工程(VII)--模型集成</div></div></a></div><div><a href="/posts/794d8498/" title="Python(Machine Learning)--超参数优化"><img class="cover" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/img/Hyperparameter-Optimization.png" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2024-02-15</div><div class="title">Python(Machine Learning)--超参数优化</div></div></a></div><div><a href="/posts/861261b5/" title="Python(Machine Learning)--sklearn"><img class="cover" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/img/sklearn-cover.svg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2018-05-10</div><div class="title">Python(Machine Learning)--sklearn</div></div></a></div><div><a href="/posts/6c94e349/" title="Python(Machine Learning)--statsmodels"><img class="cover" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/img/statsmodels.svg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2018-05-10</div><div class="title">Python(Machine Learning)--statsmodels</div></div></a></div></div></div><hr class="custom-hr"/><div id="post-comment"><div class="comment-head"><div class="comment-headline"><i class="fas fa-comments fa-fw"></i><span> 评论</span></div><div id="comment-switch"><span class="first-comment">Gitalk</span><span class="switch-btn"></span><span class="second-comment">Waline</span></div></div><div class="comment-wrap"><div><div id="gitalk-container"></div></div><div><div id="waline-wrap"></div></div></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="is-center"><div class="avatar-img"><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/img/avatar.jpg" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info__name">Tiny Lei</div><div class="author-info__description">每天进步一点点...</div></div><div class="card-info-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">165</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">105</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">43</div></a></div><div class="card-info-social-icons is-center"><a class="social-icon" href="https://gitee.com/wilenwu" rel="external nofollow noreferrer" target="_blank" title="Gitee"><i class="iconfont icon-gitee"></i></a><a class="social-icon" href="https://github.com/wilenwu" rel="external nofollow noreferrer" target="_blank" title="Github"><i class="iconfont icon-github"></i></a><a class="social-icon" href="https://blog.csdn.net/qq_41518277" rel="external nofollow noreferrer" target="_blank" title="CSDN"><i class="iconfont icon-csdn"></i></a><a class="social-icon" href="/atom.xml" target="_blank" title="RSS"><i class="iconfont icon-rss"></i></a></div></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>公告</span></div><div class="announcement_content">感谢访问本站，若喜欢请收藏^_^</div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#step-1-import-required-libraries-and-initialize-sparksession"><span class="toc-number">1.</span> <span class="toc-text"> Step 1: Import required libraries and initialize SparkSession</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#step-2-load-the-dataset"><span class="toc-number">2.</span> <span class="toc-text"> Step 2: Load the dataset</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#step-3-data-preprocessing"><span class="toc-number">3.</span> <span class="toc-text"> Step 3: Data preprocessing</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#step-4-hyperparameter-tuning-building-a-model-optional"><span class="toc-number">4.</span> <span class="toc-text"> Step 4: Hyperparameter Tuning &amp; Building a model (optional)</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#step-5-training"><span class="toc-number">5.</span> <span class="toc-text"> Step 5: Training</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#step-6-evaluate-the-model-performance"><span class="toc-number">6.</span> <span class="toc-text"> Step 6: Evaluate the model performance</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#step-7-show-feature-importance"><span class="toc-number">7.</span> <span class="toc-text"> Step 7: Show feature importance</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#step-8-visualize-the-model"><span class="toc-number">8.</span> <span class="toc-text"> Step 8: Visualize the model</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#step-9-save-and-load-the-model"><span class="toc-number">9.</span> <span class="toc-text"> Step 9: Save and load the model</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#step-10-predict"><span class="toc-number">10.</span> <span class="toc-text"> Step 10: Predict</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#step-11-clean-up"><span class="toc-number">11.</span> <span class="toc-text"> Step 11: Clean up</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#appendices-roc-curve"><span class="toc-number">12.</span> <span class="toc-text"> Appendices: ROC curve</span></a></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item"><a class="thumbnail" href="/posts/d099726d/" title="PySpark 特征工程(III)--特征选择"><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/img/apache-spark-mllib.png" onerror="this.onerror=null;this.src='/img/404_moon.png'" alt="PySpark 特征工程(III)--特征选择"/></a><div class="content"><a class="title" href="/posts/d099726d/" title="PySpark 特征工程(III)--特征选择">PySpark 特征工程(III)--特征选择</a><time datetime="2024-06-03T15:40:02.000Z" title="发表于 2024-06-03 23:40:02">2024-06-03</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/posts/a1358f89/" title="PySpark 特征工程(II)--特征构造"><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/img/apache-spark-mllib.png" onerror="this.onerror=null;this.src='/img/404_moon.png'" alt="PySpark 特征工程(II)--特征构造"/></a><div class="content"><a class="title" href="/posts/a1358f89/" title="PySpark 特征工程(II)--特征构造">PySpark 特征工程(II)--特征构造</a><time datetime="2024-06-03T13:45:02.000Z" title="发表于 2024-06-03 21:45:02">2024-06-03</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/posts/59da38ae/" title="PySpark 特征工程(I)--数据预处理"><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/img/apache-spark-mllib.png" onerror="this.onerror=null;this.src='/img/404_moon.png'" alt="PySpark 特征工程(I)--数据预处理"/></a><div class="content"><a class="title" href="/posts/59da38ae/" title="PySpark 特征工程(I)--数据预处理">PySpark 特征工程(I)--数据预处理</a><time datetime="2024-05-28T13:16:02.000Z" title="发表于 2024-05-28 21:16:02">2024-05-28</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/posts/90489eb7/" title="PySpark机器学习Demo"><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/img/apache-spark-mllib.png" onerror="this.onerror=null;this.src='/img/404_moon.png'" alt="PySpark机器学习Demo"/></a><div class="content"><a class="title" href="/posts/90489eb7/" title="PySpark机器学习Demo">PySpark机器学习Demo</a><time datetime="2024-05-17T13:50:00.000Z" title="发表于 2024-05-17 21:50:00">2024-05-17</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/posts/75974533/" title="大数据手册(Spark)--PySpark MLlib"><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/img/apache-spark-mllib.png" onerror="this.onerror=null;this.src='/img/404_moon.png'" alt="大数据手册(Spark)--PySpark MLlib"/></a><div class="content"><a class="title" href="/posts/75974533/" title="大数据手册(Spark)--PySpark MLlib">大数据手册(Spark)--PySpark MLlib</a><time datetime="2024-05-01T14:08:34.000Z" title="发表于 2024-05-01 22:08:34">2024-05-01</time></div></div></div></div></div></div></main><footer id="footer"><div id="footer-wrap"><div class="copyright">&copy;2019 - 2024 By Tiny Lei</div><div class="framework-info"><span>框架 </span><a target="_blank" rel="noopener external nofollow noreferrer" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener external nofollow noreferrer" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside_config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><a id="to_comment" href="#post-comment" title="直达评论"><i class="fas fa-comments"></i></a><button id="go-up" type="button" title="回到顶部"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox/fancybox.umd.min.js"></script><script src="https://cdn.jsdelivr.net/npm/vanilla-lazyload/dist/lazyload.iife.min.js"></script><script>function panguFn () {
+  if (typeof pangu === 'object') pangu.autoSpacingPage()
+  else {
+    getScript('https://cdn.jsdelivr.net/npm/pangu/dist/browser/pangu.min.js')
+      .then(() => {
+        pangu.autoSpacingPage()
+      })
+  }
+}
+
+function panguInit () {
+  if (false){
+    GLOBAL_CONFIG_SITE.isPost && panguFn()
+  } else {
+    panguFn()
+  }
+}
+
+document.addEventListener('DOMContentLoaded', panguInit)</script><div class="js-pjax"><script>(() => {
+  const $mermaid = document.querySelectorAll('#article-container .mermaid-wrap')
+  if ($mermaid.length === 0) return
+  const runMermaid = () => {
+    window.loadMermaid = true
+    const theme = document.documentElement.getAttribute('data-theme') === 'dark' ? 'dark' : 'forest'
+
+    Array.from($mermaid).forEach((item, index) => {
+      const mermaidSrc = item.firstElementChild
+      const mermaidThemeConfig = '%%{init:{ \'theme\':\'' + theme + '\'}}%%\n'
+      const mermaidID = 'mermaid-' + index
+      const mermaidDefinition = mermaidThemeConfig + mermaidSrc.textContent
+
+      const renderFn = mermaid.render(mermaidID, mermaidDefinition)
+
+      const renderV10 = () => {
+        renderFn.then(({svg}) => {
+          mermaidSrc.insertAdjacentHTML('afterend', svg)
+        })
+      }
+
+      const renderV9 = svg => {
+        mermaidSrc.insertAdjacentHTML('afterend', svg)
+      }
+
+      typeof renderFn === 'string' ? renderV9(renderFn) : renderV10()
+    })
+  }
+
+  const loadMermaid = () => {
+    window.loadMermaid ? runMermaid() : getScript('https://cdn.jsdelivr.net/npm/mermaid/dist/mermaid.min.js').then(runMermaid)
+  }
+
+  btf.addModeChange('mermaid', runMermaid)
+
+  window.pjax ? loadMermaid() : document.addEventListener('DOMContentLoaded', loadMermaid)
+})()</script><script>function loadGitalk () {
+  function initGitalk () {
+    var gitalk = new Gitalk(Object.assign({
+      clientID: '7c65134b48b13f306114',
+      clientSecret: 'f049f68368a11925fdb69e57c64839eac94e13c1'',
+      repo: 'gitalk-comments',
+      owner: 'WilenWu',
+      admin: ['WilenWu'],
+      id: '0e4d1e51a3c282323e7ed2d0331b4883',
+      updateCountCallback: commentCount
+    },null))
+
+    gitalk.render('gitalk-container')
+  }
+
+  if (typeof Gitalk === 'function') initGitalk()
+  else {
+    getCSS('https://cdn.jsdelivr.net/npm/gitalk/dist/gitalk.min.css')
+    getScript('https://cdn.jsdelivr.net/npm/gitalk/dist/gitalk.min.js').then(initGitalk)
+  }
+}
+
+function commentCount(n){
+  let isCommentCount = document.querySelector('#post-meta .gitalk-comment-count')
+  if (isCommentCount) {
+    isCommentCount.textContent= n
+  }
+}
+
+if ('Gitalk' === 'Gitalk' || !true) {
+  if (true) btf.loadComment(document.getElementById('gitalk-container'), loadGitalk)
+  else loadGitalk()
+} else {
+  function loadOtherComment () {
+    loadGitalk()
+  }
+}</script><script>function loadWaline () {
+  function initWaline () {
+    const waline = Waline.init(Object.assign({
+      el: '#waline-wrap',
+      serverURL: 'https://waline-comments-9etq63pcv-wilenwu.vercel.app',
+      pageview: false,
+      dark: 'html[data-theme="dark"]',
+      path: window.location.pathname,
+      comment: false,
+    }, {"requiredMeta":["monsterid"]}))
+  }
+
+  if (typeof Waline === 'object') initWaline()
+  else {
+    getCSS('https://cdn.jsdelivr.net/npm/@waline/client/dist/waline.min.css').then(() => {
+      getScript('https://cdn.jsdelivr.net/npm/@waline/client/dist/waline.min.js').then(initWaline)
+    })
+  }
+}
+
+if ('Gitalk' === 'Waline' || !true) {
+  if (true) btf.loadComment(document.getElementById('waline-wrap'),loadWaline)
+  else setTimeout(loadWaline, 0)
+} else {
+  function loadOtherComment () {
+    loadWaline()
+  }
+}</script></div><script src="/js/custom.js"></script><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script><div id="local-search"><div class="search-dialog"><nav class="search-nav"><span class="search-dialog-title">搜索</span><span id="loading-status"></span><button class="search-close-button"><i class="fas fa-times"></i></button></nav><div class="is-center" id="loading-database"><i class="fas fa-spinner fa-pulse"></i><span>  数据库加载中</span></div><div class="search-wrap"><div id="local-search-input"><div class="local-search-box"><input class="local-search-box--input" placeholder="搜索文章" type="text"/></div></div><hr/><div class="no-result" id="local-search-results"></div><div id="local-search-stats-wrap"></div></div></div><div id="search-mask"></div><script src="/js/search/local-search.js"></script></div></div><!-- hexo injector body_end start --><script async src="//at.alicdn.com/t/font_2032782_8d5kxvn09md.js"></script><!-- hexo injector body_end end --></body></html>
