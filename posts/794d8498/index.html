@@ -1,18 +1,18 @@
 <!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0,viewport-fit=cover"><title>Python(Machine Learning)--超参数优化 | 雷小小</title><meta name="author" content="Tiny Lei"><meta name="copyright" content="Tiny Lei"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="超参数优化 超参数是用于控制学习过程的不同参数值，对机器学习模型的性能有显著影响。例如，随机森林算法中的估计器数量、最大深度和分裂标准等。超参数优化是找到超参数值的正确组合，以便在合理的时间内实现数据最大性能的过程。这个过程在机器学习算法的预测准确性中起着至关重要的作用。因此，超参数优化被认为是构建机器学习模型中最棘手的部分。 目前来说sklearn支持两种类型的超参数优化：  GridSear">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Python(Machine Learning)--超参数优化">
-<meta property="og:url" content="https://www.tinylei.tech/posts/794d8498/index.html">
+<meta property="og:url" content="https://wilenwu.gitee.io/posts/794d8498/index.html">
 <meta property="og:site_name" content="雷小小">
 <meta property="og:description" content="超参数优化 超参数是用于控制学习过程的不同参数值，对机器学习模型的性能有显著影响。例如，随机森林算法中的估计器数量、最大深度和分裂标准等。超参数优化是找到超参数值的正确组合，以便在合理的时间内实现数据最大性能的过程。这个过程在机器学习算法的预测准确性中起着至关重要的作用。因此，超参数优化被认为是构建机器学习模型中最棘手的部分。 目前来说sklearn支持两种类型的超参数优化：  GridSear">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="https://www.tinylei.tech/img/Hyperparameter-Optimization.png">
+<meta property="og:image" content="https://wilenwu.gitee.io/img/Hyperparameter-Optimization.png">
 <meta property="article:published_time" content="2024-02-15T03:28:52.000Z">
 <meta property="article:modified_time" content="2024-04-18T13:15:45.046Z">
 <meta property="article:author" content="Tiny Lei">
 <meta property="article:tag" content="机器学习">
 <meta property="article:tag" content="python">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="https://www.tinylei.tech/img/Hyperparameter-Optimization.png"><link rel="shortcut icon" href="/img/favicon.png"><link rel="canonical" href="https://www.tinylei.tech/posts/794d8498/index.html"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//hm.baidu.com"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><meta name="baidu-site-verification" content="code-7rymn5Bitx"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox/fancybox.min.css" media="print" onload="this.media='all'"><script>var _hmt = _hmt || [];
+<meta name="twitter:image" content="https://wilenwu.gitee.io/img/Hyperparameter-Optimization.png"><link rel="shortcut icon" href="/img/favicon.png"><link rel="canonical" href="https://wilenwu.gitee.io/posts/794d8498/index.html"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//hm.baidu.com"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><meta name="baidu-site-verification" content="code-7rymn5Bitx"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox/fancybox.min.css" media="print" onload="this.media='all'"><script>var _hmt = _hmt || [];
 (function() {
   var hm = document.createElement("script");
   hm.src = "https://hm.baidu.com/hm.js?654e7415ab55bed7c9c2bc6d665f03c5";
