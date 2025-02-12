@@ -1,0 +1,590 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0,viewport-fit=cover"><title>Python(Machine Learning)--CatBoost | 雷小小</title><meta name="author" content="Tiny Lei"><meta name="copyright" content="Tiny Lei"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="Quick Start Catboost 是旨在高效处理类别特征的梯度提升算法，内置多种正则化手段，减少梯度偏差和预测偏移，提高模型的准确性和泛化能力，采用对称决策树，在每个层级使用相同的特征和分割点，提升训练和预测效率。 Jupyter Notebook Demo https:&#x2F;&#x2F;catboost.ai&#x2F;docs&#x2F;en&#x2F;concepts&#x2F;python-usages-examples  Step">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Python(Machine Learning)--CatBoost">
+<meta property="og:url" content="https://www.tinylei.tech/posts/null/index.html">
+<meta property="og:site_name" content="雷小小">
+<meta property="og:description" content="Quick Start Catboost 是旨在高效处理类别特征的梯度提升算法，内置多种正则化手段，减少梯度偏差和预测偏移，提高模型的准确性和泛化能力，采用对称决策树，在每个层级使用相同的特征和分割点，提升训练和预测效率。 Jupyter Notebook Demo https:&#x2F;&#x2F;catboost.ai&#x2F;docs&#x2F;en&#x2F;concepts&#x2F;python-usages-examples  Step">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://www.tinylei.tech/img/openbook.jpg">
+<meta property="article:published_time" content="2025-02-12T16:23:00.000Z">
+<meta property="article:modified_time" content="2025-02-12T16:28:03.829Z">
+<meta property="article:author" content="Tiny Lei">
+<meta property="article:tag" content="python">
+<meta property="article:tag" content="机器学习">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://www.tinylei.tech/img/openbook.jpg"><link rel="shortcut icon" href="/img/favicon.png"><link rel="canonical" href="https://www.tinylei.tech/posts/null/index.html"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//hm.baidu.com"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><meta name="baidu-site-verification" content="code-7rymn5Bitx"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox/fancybox.min.css" media="print" onload="this.media='all'"><script>var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "https://hm.baidu.com/hm.js?654e7415ab55bed7c9c2bc6d665f03c5";
+  var s = document.getElementsByTagName("script")[0]; 
+  s.parentNode.insertBefore(hm, s);
+})();
+</script><script>const GLOBAL_CONFIG = {
+  root: '/',
+  algolia: undefined,
+  localSearch: {"path":"/search.xml","preload":false,"top_n_per_article":1,"unescape":false,"languages":{"hits_empty":"找不到您查询的内容：${query}","hits_stats":"共找到 ${hits} 篇文章"}},
+  translate: undefined,
+  noticeOutdate: undefined,
+  highlight: {"plugin":"highlighjs","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '天',
+  dateSuffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'fancybox',
+  Snackbar: undefined,
+  source: {
+    justifiedGallery: {
+      js: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery/dist/fjGallery.min.js',
+      css: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery/dist/fjGallery.min.css'
+    }
+  },
+  isPhotoFigcaption: true,
+  islazyload: true,
+  isAnchor: false,
+  percent: {
+    toc: true,
+    rightside: false,
+  },
+  autoDarkmode: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: 'Python(Machine Learning)--CatBoost',
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: true,
+  postUpdate: '2025-02-13 00:28:03'
+}</script><noscript><style type="text/css">
+  #nav {
+    opacity: 1
+  }
+  .justified-gallery img {
+    opacity: 1
+  }
+
+  #recent-posts time,
+  #post-meta time {
+    display: inline !important
+  }
+</style></noscript><script>(win=>{
+    win.saveToLocal = {
+      set: function setWithExpiry(key, value, ttl) {
+        if (ttl === 0) return
+        const now = new Date()
+        const expiryDay = ttl * 86400000
+        const item = {
+          value: value,
+          expiry: now.getTime() + expiryDay,
+        }
+        localStorage.setItem(key, JSON.stringify(item))
+      },
+
+      get: function getWithExpiry(key) {
+        const itemStr = localStorage.getItem(key)
+
+        if (!itemStr) {
+          return undefined
+        }
+        const item = JSON.parse(itemStr)
+        const now = new Date()
+
+        if (now.getTime() > item.expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return item.value
+      }
+    }
+  
+    win.getScript = url => new Promise((resolve, reject) => {
+      const script = document.createElement('script')
+      script.src = url
+      script.async = true
+      script.onerror = reject
+      script.onload = script.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        script.onload = script.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(script)
+    })
+  
+    win.getCSS = (url,id = false) => new Promise((resolve, reject) => {
+      const link = document.createElement('link')
+      link.rel = 'stylesheet'
+      link.href = url
+      if (id) link.id = id
+      link.onerror = reject
+      link.onload = link.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        link.onload = link.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(link)
+    })
+  
+      win.activateDarkMode = function () {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      win.activateLightMode = function () {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+      const t = saveToLocal.get('theme')
+    
+          if (t === 'dark') activateDarkMode()
+          else if (t === 'light') activateLightMode()
+        
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    
+    const detectApple = () => {
+      if(/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+    })(window)</script><link rel="stylesheet" href="//at.alicdn.com/t/font_2849223_xh1ftc8qym.css"><link rel="stylesheet" href="/css/link-card.css"><!-- hexo injector head_end start --><link rel="stylesheet" href="https://npm.elemecdn.com/hexo-butterfly-tag-plugins-plus@latest/lib/assets/font-awesome-animation.min.css" media="defer" onload="this.media='all'"><link rel="stylesheet" href="https://npm.elemecdn.com/hexo-butterfly-tag-plugins-plus@latest/lib/tag_plugins.css" media="defer" onload="this.media='all'"><script src="https://npm.elemecdn.com/hexo-butterfly-tag-plugins-plus@latest/lib/assets/carousel-touch.js"></script><!-- hexo injector head_end end --><meta name="generator" content="Hexo 6.0.0"><link rel="alternate" href="/atom.xml" title="雷小小" type="application/atom+xml">
+</head><body><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/img/avatar.jpg" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="sidebar-site-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">176</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">108</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">43</div></a></div><hr class="custom-hr"/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/user-guide/"><i class="fa-fw fa fa-compass"></i><span> 用户指南</span></a></div><div class="menus_item"><a class="site-page group hide" href="javascript:void(0);" rel="external nofollow noreferrer"><i class="fa-fw fa fa-book"></i><span> 文档</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></li><li><a class="site-page child" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 归档</span></a></li><li><a class="site-page child" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/gallery/"><i class="fa-fw fa fa-images"></i><span> 图库</span></a></div><div class="menus_item"><a class="site-page" href="/ebook/"><i class="fa-fw fa fa-book-reader"></i><span> 电子书</span></a></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-star"></i><span> 收藏夹</span></a></div><div class="menus_item"><a class="site-page group hide" href="javascript:void(0);" rel="external nofollow noreferrer"><i class="fa-fw fa-solid fa-circle-chevron-down"></i><span> 更多</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/about/"><i class="fa-fw fa fa-user"></i><span> 关于我</span></a></li><li><a class="site-page child" href="/analytics/"><i class="fa-fw fa fa-line-chart"></i><span> 文章统计</span></a></li><li><a class="site-page child" href="/log/"><i class="fa-fw fa fa-history"></i><span> 更新日志</span></a></li></ul></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url('/img/openbook.jpg')"><nav id="nav"><span id="blog-info"><a href="/" title="雷小小"><img class="site-icon" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/img/favicon.png"/><span class="site-name">雷小小</span></a></span><div id="menus"><div id="search-button"><a class="site-page social-icon search" href="javascript:void(0);" rel="external nofollow noreferrer"><i class="fas fa-search fa-fw"></i><span> 搜索</span></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/user-guide/"><i class="fa-fw fa fa-compass"></i><span> 用户指南</span></a></div><div class="menus_item"><a class="site-page group hide" href="javascript:void(0);" rel="external nofollow noreferrer"><i class="fa-fw fa fa-book"></i><span> 文档</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></li><li><a class="site-page child" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 归档</span></a></li><li><a class="site-page child" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/gallery/"><i class="fa-fw fa fa-images"></i><span> 图库</span></a></div><div class="menus_item"><a class="site-page" href="/ebook/"><i class="fa-fw fa fa-book-reader"></i><span> 电子书</span></a></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-star"></i><span> 收藏夹</span></a></div><div class="menus_item"><a class="site-page group hide" href="javascript:void(0);" rel="external nofollow noreferrer"><i class="fa-fw fa-solid fa-circle-chevron-down"></i><span> 更多</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/about/"><i class="fa-fw fa fa-user"></i><span> 关于我</span></a></li><li><a class="site-page child" href="/analytics/"><i class="fa-fw fa fa-line-chart"></i><span> 文章统计</span></a></li><li><a class="site-page child" href="/log/"><i class="fa-fw fa fa-history"></i><span> 更新日志</span></a></li></ul></div></div><div id="toggle-menu"><a class="site-page" href="javascript:void(0);" rel="external nofollow noreferrer"><i class="fas fa-bars fa-fw"></i></a></div></div></nav><div id="post-info"><h1 class="post-title">Python(Machine Learning)--CatBoost<a class="post-edit-link" href="https://gitee.com/WilenWu/myblog/edit/master/source/_posts/python/Python(Machine-Learning)--CatBoost.md" rel="external nofollow noreferrer" title="编辑" target="_blank"><i class="fas fa-pencil-alt"></i></a></h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2025-02-12T16:23:00.000Z" title="发表于 2025-02-13 00:23:00">2025-02-13</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2025-02-12T16:28:03.829Z" title="更新于 2025-02-13 00:28:03">2025-02-13</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/python/">Python</a><i class="fas fa-angle-right post-meta-separator"></i><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/python/machine-learning/">Machine Learning</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-wordcount"><i class="far fa-file-word fa-fw post-meta-icon"></i><span class="post-meta-label">字数总计:</span><span class="word-count">3.7k</span><span class="post-meta-separator">|</span><i class="far fa-clock fa-fw post-meta-icon"></i><span class="post-meta-label">阅读时长:</span><span>14分钟</span></span><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title="Python(Machine Learning)--CatBoost"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">阅读量:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container"><h1 id="quick-start"><a class="markdownIt-Anchor" href="#quick-start"></a> Quick Start</h1>
+<p>Catboost 是旨在高效处理类别特征的梯度提升算法，内置多种正则化手段，减少梯度偏差和预测偏移，提高模型的准确性和泛化能力，采用对称决策树，在每个层级使用相同的特征和分割点，提升训练和预测效率。</p>
+<p><a href="/ipynb/classification_demo.html#catboost">Jupyter Notebook Demo</a></p>
+<p><a target="_blank" rel="noopener external nofollow noreferrer" href="https://catboost.ai/docs/en/concepts/python-usages-examples">https://catboost.ai/docs/en/concepts/python-usages-examples</a></p>
+<h2 id="step-1-load-the-dataset"><a class="markdownIt-Anchor" href="#step-1-load-the-dataset"></a> Step 1:  Load the dataset</h2>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">from</span> catboost <span class="keyword">import</span> CatBoostClassifier, Pool</span><br><span class="line"></span><br><span class="line">train_data = Pool(</span><br><span class="line">    [</span><br><span class="line">        [[<span class="number">0.1</span>, <span class="number">0.12</span>, <span class="number">0.33</span>], [<span class="number">1.0</span>, <span class="number">0.7</span>], <span class="number">2</span>, <span class="string">&quot;male&quot;</span>],</span><br><span class="line">        [[<span class="number">0.0</span>, <span class="number">0.8</span>, <span class="number">0.2</span>], [<span class="number">1.1</span>, <span class="number">0.2</span>], <span class="number">1</span>, <span class="string">&quot;female&quot;</span>],</span><br><span class="line">        [[<span class="number">0.2</span>, <span class="number">0.31</span>, <span class="number">0.1</span>], [<span class="number">0.3</span>, <span class="number">0.11</span>], <span class="number">2</span>, <span class="string">&quot;female&quot;</span>],</span><br><span class="line">        [[<span class="number">0.01</span>, <span class="number">0.2</span>, <span class="number">0.9</span>], [<span class="number">0.62</span>, <span class="number">0.12</span>], <span class="number">1</span>, <span class="string">&quot;male&quot;</span>]</span><br><span class="line">    ],</span><br><span class="line">    label = [<span class="number">1</span>, <span class="number">0</span>, <span class="number">0</span>, <span class="number">1</span>],</span><br><span class="line">    cat_features=[<span class="number">3</span>],</span><br><span class="line">    embedding_features=[<span class="number">0</span>, <span class="number">1</span>]</span><br><span class="line">)</span><br><span class="line"></span><br><span class="line">eval_data = Pool(</span><br><span class="line">    [</span><br><span class="line">        [[<span class="number">0.2</span>, <span class="number">0.1</span>, <span class="number">0.3</span>], [<span class="number">1.2</span>, <span class="number">0.3</span>], <span class="number">1</span>, <span class="string">&quot;female&quot;</span>],</span><br><span class="line">        [[<span class="number">0.33</span>, <span class="number">0.22</span>, <span class="number">0.4</span>], [<span class="number">0.98</span>, <span class="number">0.5</span>], <span class="number">2</span>, <span class="string">&quot;female&quot;</span>],</span><br><span class="line">        [[<span class="number">0.78</span>, <span class="number">0.29</span>, <span class="number">0.67</span>], [<span class="number">0.76</span>, <span class="number">0.34</span>], <span class="number">2</span>, <span class="string">&quot;male&quot;</span>],</span><br><span class="line">    ],</span><br><span class="line">    label = [<span class="number">0</span>, <span class="number">1</span>, <span class="number">1</span>],</span><br><span class="line">    cat_features=[<span class="number">3</span>],</span><br><span class="line">    embedding_features=[<span class="number">0</span>, <span class="number">1</span>]</span><br><span class="line">)</span><br></pre></td></tr></table></figure>
+<p>catboost 可以通过 <code>cat_feature</code> 参数直接支持分类特征，而不需要重编码。</p>
+<h2 id="step-2-setting-parameters-training"><a class="markdownIt-Anchor" href="#step-2-setting-parameters-training"></a> Step 2: Setting Parameters &amp; Training</h2>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="comment"># Initialize CatBoostClassifier</span></span><br><span class="line">model = CatBoostClassifier(iterations=<span class="number">10</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># train the model</span></span><br><span class="line">model.fit(train_data, eval_set=eval_data)</span><br></pre></td></tr></table></figure>
+<h2 id="step-3-save-and-load-model"><a class="markdownIt-Anchor" href="#step-3-save-and-load-model"></a> Step 3: Save and load model</h2>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="comment"># Save model</span></span><br><span class="line">model.save_model(<span class="string">&#x27;catboost_model.cbm&#x27;</span>) <span class="comment"># CatBoost binary format</span></span><br><span class="line"><span class="comment"># load model</span></span><br><span class="line">loaded_model = CatBoostClassifier()</span><br><span class="line">loaded_model.load_model(<span class="string">&#x27;catboost_model.cbm&#x27;</span>)</span><br></pre></td></tr></table></figure>
+<p>Catboost 支持多种模型格式，例如保存为生产上最常用的PMML格式</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">model.save_model(<span class="string">&#x27;catboost_model.pmml&#x27;</span>, <span class="built_in">format</span>=<span class="string">&quot;pmml&quot;</span>)</span><br></pre></td></tr></table></figure>
+<h2 id="step-4-predict"><a class="markdownIt-Anchor" href="#step-4-predict"></a> Step 4:  Predict</h2>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="comment"># Get predicted classes</span></span><br><span class="line">preds_class = model.predict(eval_data)</span><br><span class="line"><span class="comment"># Get predicted probabilities for each class</span></span><br><span class="line">preds_proba = model.predict_proba(eval_data)</span><br><span class="line"><span class="comment"># Get predicted RawFormulaVal</span></span><br><span class="line">preds_raw = model.predict(eval_data, prediction_type=<span class="string">&#x27;RawFormulaVal&#x27;</span>)</span><br></pre></td></tr></table></figure>
+<h2 id="step-5-evaluating"><a class="markdownIt-Anchor" href="#step-5-evaluating"></a> Step 5:  Evaluating</h2>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">evals_result = model.get_evals_result()</span><br><span class="line">train_logloss = evals_result[<span class="string">&#x27;learn&#x27;</span>][<span class="string">&#x27;Logloss&#x27;</span>][-<span class="number">1</span>]</span><br><span class="line">test_logloss = evals_result[<span class="string">&#x27;validation&#x27;</span>][<span class="string">&#x27;Logloss&#x27;</span>][-<span class="number">1</span>]</span><br></pre></td></tr></table></figure>
+<h1 id="参数"><a class="markdownIt-Anchor" href="#参数"></a> 参数</h1>
+<p>与 xgboost 和 lightgbm 不同，catboost 默认使用 sklearn API 训练模型。通过这个接口，跟sklearn中其他模型一样，使用fit方法进行训练，并利用predict进行结果输出。</p>
+<p>在catboost的sklearn API中，我们可以看到下面三个类：</p>
+<table>
+<thead>
+<tr>
+<th>module</th>
+<th>comment</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>catboost.CatBoost</code></td>
+<td>可实现分类和回归</td>
+</tr>
+<tr>
+<td><code>catboost.CatBoostClassifier</code></td>
+<td>实现catboost分类</td>
+</tr>
+<tr>
+<td><code>catboost.CatBoostRegressor</code></td>
+<td>实现catboost回归</td>
+</tr>
+</tbody>
+</table>
+<p><code>CatBoost</code>类只有一个字典参数 <code>params</code> ，通过配置 <code>loss_function</code> 可实现分类和回归。另外两个类的参数需要像sklearn一样配置在训练模型的参数列表中。</p>
+<h2 id="pool"><a class="markdownIt-Anchor" href="#pool"></a> Pool</h2>
+<p>catboost支持numpy、pandas等经典数据结构，也可以使用自定义的数据结构Pool，这一数据结构能够保catboost算法运行更快，</p>
+<table>
+<thead>
+<tr>
+<th>数据结构</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>catboost.Pool</code></td>
+<td>数据结构</td>
+</tr>
+<tr>
+<td><code>catboost.FeaturesData</code></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">catboost.Pool(</span><br><span class="line">        data,</span><br><span class="line">        label=<span class="literal">None</span>,</span><br><span class="line">        cat_features=<span class="literal">None</span>,</span><br><span class="line">        text_features=<span class="literal">None</span>,</span><br><span class="line">        embedding_features=<span class="literal">None</span>,</span><br><span class="line">        embedding_features_data=<span class="literal">None</span>,</span><br><span class="line">        column_description=<span class="literal">None</span>,</span><br><span class="line">        pairs=<span class="literal">None</span>,</span><br><span class="line">        graph=<span class="literal">None</span>,</span><br><span class="line">        delimiter=<span class="string">&#x27;\t&#x27;</span>,</span><br><span class="line">        has_header=<span class="literal">False</span>,</span><br><span class="line">        ignore_csv_quoting=<span class="literal">False</span>,</span><br><span class="line">        weight=<span class="literal">None</span>,</span><br><span class="line">        group_id=<span class="literal">None</span>,</span><br><span class="line">        group_weight=<span class="literal">None</span>,</span><br><span class="line">        subgroup_id=<span class="literal">None</span>,</span><br><span class="line">        pairs_weight=<span class="literal">None</span>,</span><br><span class="line">        baseline=<span class="literal">None</span>,</span><br><span class="line">        timestamp=<span class="literal">None</span>,</span><br><span class="line">        feature_names=<span class="literal">None</span>,</span><br><span class="line">        feature_tags=<span class="literal">None</span>,</span><br><span class="line">        thread_count=-<span class="number">1</span>,</span><br><span class="line">        log_cout=sys.stdout,</span><br><span class="line">        log_cerr=sys.stderr,</span><br><span class="line">        data_can_be_none=<span class="literal">False</span></span><br><span class="line">)</span><br></pre></td></tr></table></figure>
+<p>常用参数：</p>
+<ul>
+<li><code>data</code> 数据类型为 <code>list, numpy, pandas</code> 等</li>
+<li><code>label</code> 目标变量</li>
+<li><code>feature_names</code> 特征名列表</li>
+<li><code>cat_features</code> 分类列索引或分类列名</li>
+<li><code>embedding_features</code> embedding 特征的列索引或列名</li>
+<li><code>column_description</code> 包含列描述的文件路径</li>
+<li><code>weight</code> 样本权重</li>
+<li><code>baseline</code> 初始值</li>
+<li><code>log_cout, log_cerr</code> 日志记录</li>
+</ul>
+<h2 id="一般参数"><a class="markdownIt-Anchor" href="#一般参数"></a> 一般参数</h2>
+<ul>
+<li><code>boosting_type</code>：指定算法类型。
+<ul>
+<li>Ordered — 通常在小型数据集效果更好，但可能比 Plain 方案慢。</li>
+<li>Plain — 经典的梯度提升方案</li>
+</ul>
+</li>
+<li><code>boost_from_average</code> 是否启用初始值</li>
+<li><code>classes_count</code> 多分类的类别数。default=None</li>
+<li><code>thread_count</code>  并行的线程数。default = -1</li>
+<li><code>task_type</code> 用于训练的设备。default = <code>cpu</code>, options: <code>cpu</code>, <code>gpu</code></li>
+<li><code>devices</code> 用于训练的 GPU 设备的 ID（索引从 0 开始）。default=NULL （所有的设备都被用）。格式：一个设备<code>devices='3'</code>，多个设备 <code>devices='0:1:3</code> ，一系列设备 <code>devices='0-3'</code></li>
+<li><code>random_state</code>：随机种子。别名 <code>random_seed</code></li>
+<li><code>logging_level</code> 打印日志级别。default=Verbose
+<ul>
+<li>Silent — 不输出。</li>
+<li>Verbose — 打印指标、训练经过的时间和剩余训练时间</li>
+<li>Info  — 输出其他信息和树的数量。</li>
+<li>Debug  — 输出调试信息。</li>
+</ul>
+</li>
+<li><code>verbose</code> 打印日志配置。不能与logging_level 一起使用。default=1。别名 <code>verbose_eval</code></li>
+<li><code>metric_period</code> 计算objective和metric的频率，使用此参数可加快训练速度。default=1。</li>
+</ul>
+<h2 id="样本处理参数"><a class="markdownIt-Anchor" href="#样本处理参数"></a> 样本处理参数</h2>
+<ul>
+<li><code>scale_pos_weight</code> 正样本的权重，典型值：<code>sum(negative instances)/sum(positive instances)</code> 。default=1</li>
+<li><code>class_weights</code> 类权重，适用于二元分类和多分类问题。 default=None</li>
+<li><code>auto_class_weights</code> 自动计算类权重。支持 <code>None, Balanced, SqrtBalanced</code> ，default=None</li>
+<li><code>class_names</code> 类名称。字符串格式 <code>smartphone,touchphone,tablet</code></li>
+<li><code>nan_mode</code> 处理缺失值的方法 。default=Min
+<ul>
+<li>Forbidden — 不支持缺失值</li>
+<li>Min — 缺失值将作为特征的最小值处理</li>
+<li>Max — 缺失值将作为特征的最大值处理</li>
+</ul>
+</li>
+</ul>
+<h2 id="特征处理参数"><a class="markdownIt-Anchor" href="#特征处理参数"></a> 特征处理参数</h2>
+<ul>
+<li><code>one_hot_max_size</code> 类别数量小于阈值的特征选择one-hot编码。</li>
+<li><code>monotone_constraints</code> 指定数值特征单调约束。default=None</li>
+<li><code>feature_weights</code> 特征权重。default=1</li>
+<li><code>simple_ctr</code> 分类特征的量化方法</li>
+<li><code>combinations_ctr</code> 分类特征组合方法（特征衍生）</li>
+<li><code>max_ctr_complexity</code> 允许组合的最大特征数（特征衍生）。</li>
+<li><code>ctr_leaf_count_limit</code> 具有分类特征的叶的最大数量</li>
+<li><code>target_border</code> 用于将目标变量转换为 0 和 1 的阈值。default=None</li>
+<li><code>border_count</code> 数值特征的分割数</li>
+<li><code>feature_border_type</code> 数值特征的量化模式。default=GreedyLogSum。options: Median, Uniform, UniformAndQuantiles, MaxLogSum, MinEntropy, GreedyLogSum</li>
+</ul>
+<h2 id="决策树生成"><a class="markdownIt-Anchor" href="#决策树生成"></a> 决策树生成</h2>
+<ul>
+<li><code>depth</code> 一棵树的最大深度。default=6。别名 <code>max_depth</code></li>
+<li><code>max_leaves</code> 要添加的最大节点数，只能与 Lossguide 增长策略一起使用。default=31。别名 <code>num_leaves</code></li>
+<li><code>min_data_in_leaf</code> 每个节点所需的最小实例数量。default=1。别名 <code>min_child_samples</code></li>
+<li><code>grow_policy</code> 控制将新节点添加到树中的方式。default=<code>SymmetricTree</code>
+<ul>
+<li>SymmetricTree —逐级构建树，在每次迭代中，所有叶子都使用相同的条件进行拆分，生成对称树。</li>
+<li>Depthwise — 逐级构建树，在每次迭代中，每片叶子都按最优损失进行拆分。</li>
+<li>Lossguide — 逐个叶子构建树，每片叶子都按最优损失进行拆分。</li>
+</ul>
+</li>
+</ul>
+<h2 id="迭代过程"><a class="markdownIt-Anchor" href="#迭代过程"></a> 迭代过程</h2>
+<ul>
+<li><code>iterations</code> 可以构建的树的最大数量，default=1000。别名 ``num_boost_round, n_estimators, num_trees`</li>
+<li><code>best_model_min_trees</code> 树的最小棵树，应与<code>use_best_model</code>一起使用。default=None</li>
+<li><code>use_best_model</code>：保存到最优的迭代次数。default= True</li>
+<li><code>learning_rate</code>  学习率，范围 [0,1]。default=0.03，如果未设置参数 <code>leaf_estimation_iterations, l2_leaf_reg</code> 则会根据迭代次数自动调整学习率。别名 <code>eta</code></li>
+<li><code>l2_leaf_reg</code> L2正则化系数。default=3.0，别名 <code>reg_lambda</code></li>
+<li><code>bootstrap_type</code> 权重采样方法，支持 Bayesian, Bernoulli, MVS, Poisson (supported for GPU only), No。默认值依赖于  <code>objective</code>, <code>task_type</code>, <code>bagging_temperature</code> and <code>sampling_unit</code>。</li>
+<li><code>random_strength</code> 选择树结构时用于评分分割的随机性系数。default=1</li>
+<li><code>bagging_temperature</code> 使用  Bayesian Bootstrap 的参数，在分类和回归模式下使用。取值范围 <code>(0, inf]</code>。default=1</li>
+<li><code>subsample</code> 训练集的采样比率。在 Bernoulli, MVS, Poisson 采样方法下使用。默认值取决于数据集大小和 Bootstrap 类型。</li>
+<li><code>sampling_frequency</code> 采样频率。default=<code>PerTreeLevel</code>
+<ul>
+<li><code>PerTree</code>： 在构造每个新树之前</li>
+<li><code>PerTreeLevel</code>：在选择树的每个新拆分之前</li>
+</ul>
+</li>
+<li><code>sampling_unit</code> 抽样方案。default=<code>Object</code>
+<ul>
+<li><code>Object</code>：The weight <span class="katex"><span class="katex-mathml"><math><semantics><mrow><msub><mi>w</mi><mi>i</mi></msub></mrow><annotation encoding="application/x-tex">w_i</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.58056em;vertical-align:-0.15em;"></span><span class="mord"><span class="mord mathdefault" style="margin-right:0.02691em;">w</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.31166399999999994em;"><span style="top:-2.5500000000000003em;margin-left:-0.02691em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathdefault mtight">i</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span></span></span></span>​ of the i-th object <span class="katex"><span class="katex-mathml"><math><semantics><mrow><msub><mi>o</mi><mi>i</mi></msub></mrow><annotation encoding="application/x-tex">o_i</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.58056em;vertical-align:-0.15em;"></span><span class="mord"><span class="mord mathdefault">o</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.31166399999999994em;"><span style="top:-2.5500000000000003em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathdefault mtight">i</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span></span></span></span> is used for sampling the corresponding object.</li>
+<li><code>Group</code> ：The weight <span class="katex"><span class="katex-mathml"><math><semantics><mrow><msub><mi>w</mi><mi>j</mi></msub></mrow><annotation encoding="application/x-tex">w_j</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.716668em;vertical-align:-0.286108em;"></span><span class="mord"><span class="mord mathdefault" style="margin-right:0.02691em;">w</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.311664em;"><span style="top:-2.5500000000000003em;margin-left:-0.02691em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathdefault mtight" style="margin-right:0.05724em;">j</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.286108em;"><span></span></span></span></span></span></span></span></span></span> of the group <span class="katex"><span class="katex-mathml"><math><semantics><mrow><msub><mi>g</mi><mi>j</mi></msub></mrow><annotation encoding="application/x-tex">g_j</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.716668em;vertical-align:-0.286108em;"></span><span class="mord"><span class="mord mathdefault" style="margin-right:0.03588em;">g</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.311664em;"><span style="top:-2.5500000000000003em;margin-left:-0.03588em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathdefault mtight" style="margin-right:0.05724em;">j</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.286108em;"><span></span></span></span></span></span></span></span></span></span> is used for sampling each object <span class="katex"><span class="katex-mathml"><math><semantics><mrow><msub><mi>o</mi><mrow><mi>i</mi><mi>j</mi></mrow></msub></mrow><annotation encoding="application/x-tex">o_{ij}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.716668em;vertical-align:-0.286108em;"></span><span class="mord"><span class="mord mathdefault">o</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.311664em;"><span style="top:-2.5500000000000003em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathdefault mtight">i</span><span class="mord mathdefault mtight" style="margin-right:0.05724em;">j</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.286108em;"><span></span></span></span></span></span></span></span></span></span> from the group <span class="katex"><span class="katex-mathml"><math><semantics><mrow><msub><mi>g</mi><mi>j</mi></msub></mrow><annotation encoding="application/x-tex">g_j</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.716668em;vertical-align:-0.286108em;"></span><span class="mord"><span class="mord mathdefault" style="margin-right:0.03588em;">g</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.311664em;"><span style="top:-2.5500000000000003em;margin-left:-0.03588em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathdefault mtight" style="margin-right:0.05724em;">j</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.286108em;"><span></span></span></span></span></span></span></span></span></span>​.</li>
+</ul>
+</li>
+<li><code>rsm</code> 每次分裂选择时抽样，default=1。别名 <code>colsample_bylevel</code></li>
+<li><code>mvs_reg</code> 影响分母的权重，可用于平衡重要性抽样和伯努利抽样</li>
+<li><code>model_shrink_rate</code> 每次迭代时的收缩系数</li>
+<li><code>model_shrink_mode</code>收缩系数的计算模式 <code>Constant, Decreasing</code> 。default=Constant</li>
+</ul>
+<h2 id="模型训练"><a class="markdownIt-Anchor" href="#模型训练"></a> 模型训练</h2>
+<ul>
+<li><a target="_blank" rel="noopener external nofollow noreferrer" href="https://catboost.ai/docs/en/references/training-parameters/common#loss_function"><code>loss_function</code> </a>选择需要优化的损失函数，也决定了机器学习的类别。自定义损失函数也可以设置为此参数的值。
+<ul>
+<li>CatBoostClassifier 类的默认值：若目标变量只有两个类别或设置了<code>target_border</code>参数，则损失函数为 Logloss；若目标变量有多个类别且<code>border_count</code> 参数为None，则损失函数为 MultiClass</li>
+<li>CatBoost 和 CatBoostRegressor 的默认值是 RMSE。</li>
+</ul>
+</li>
+<li><code>eval_metric</code> 用于过拟合检测和选择最佳模型的指标</li>
+<li><code>custom_metric</code> 训练期间输出的指标，不参与优化。default=None</li>
+<li><code>train_dir</code> 用于存储训练期间生成的文件的目录。default=catboost_info</li>
+<li><code>allow_writing_files</code> 允许在训练期间写入分析和快照文件。fault=True</li>
+<li><code>save_snapshot</code> 启用模型快照。default=None</li>
+<li><code>snapshot_interval</code> 快照保存周期。default=600s</li>
+<li><code>snapshot_file</code>快照保存路径。default=experiment.cbsnapshot</li>
+<li><code>roc_file</code> 在交叉验证模式下 ROC 文件输出路径。default=None</li>
+</ul>
+<h2 id="自定义损失函数"><a class="markdownIt-Anchor" href="#自定义损失函数"></a> 自定义损失函数</h2>
+<p>catboost 通过参数loss_function和eval_metric来自定义损失函数和评估函数。</p>
+<p>自定义损失函数是一个含有calc_ders_range方法的类，接受预测变量approxes，目标变量targets和样本权重weights作为输入，返回损失函数的一阶(grad)和二阶(hess)导数。</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">RmseObjective</span>(<span class="params"><span class="built_in">object</span></span>):</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">calc_ders_range</span>(<span class="params">self, approxes, targets, weights=<span class="literal">None</span></span>):</span></span><br><span class="line">        <span class="keyword">assert</span> <span class="built_in">len</span>(approxes) == <span class="built_in">len</span>(targets)</span><br><span class="line">        <span class="keyword">if</span> weights <span class="keyword">is</span> <span class="keyword">not</span> <span class="literal">None</span>:</span><br><span class="line">            <span class="keyword">assert</span> <span class="built_in">len</span>(weights) == <span class="built_in">len</span>(approxes)</span><br><span class="line"></span><br><span class="line">        result = []</span><br><span class="line">        <span class="keyword">for</span> index <span class="keyword">in</span> <span class="built_in">range</span>(<span class="built_in">len</span>(targets)):</span><br><span class="line">            der1 = targets[index] - approxes[index]</span><br><span class="line">            der2 = -<span class="number">1</span></span><br><span class="line"></span><br><span class="line">            <span class="keyword">if</span> weights <span class="keyword">is</span> <span class="keyword">not</span> <span class="literal">None</span>:</span><br><span class="line">                der1 *= weights[index]</span><br><span class="line">                der2 *= weights[index]</span><br><span class="line"></span><br><span class="line">            result.append((der1, der2))</span><br><span class="line">        <span class="keyword">return</span> result</span><br><span class="line"></span><br><span class="line">model = CatBoostClassifier(loss_function=MultiClassObjective())</span><br></pre></td></tr></table></figure>
+<p>评估函数是一个含有is_max_optimal，evaluate，get_final_error方法的类，接受预测变量approxes，目标变量targets和样本权重weights作为输入</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">RmseMetric</span>(<span class="params"><span class="built_in">object</span></span>):</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">get_final_error</span>(<span class="params">self, error, weight</span>):</span></span><br><span class="line">        <span class="comment"># Returns final value of metric based on error and weight</span></span><br><span class="line">        <span class="keyword">return</span> np.sqrt(error / (weight + <span class="number">1e-38</span>))</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">is_max_optimal</span>(<span class="params">self</span>):</span></span><br><span class="line">        <span class="comment"># Returns whether great values of metric are better</span></span><br><span class="line">        <span class="keyword">return</span> <span class="literal">False</span></span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">evaluate</span>(<span class="params">self, approxes, target, weight</span>):</span></span><br><span class="line">        <span class="comment"># Returns pair (error, weights sum)</span></span><br><span class="line">        <span class="keyword">assert</span> <span class="built_in">len</span>(approxes) == <span class="number">1</span></span><br><span class="line">        <span class="keyword">assert</span> <span class="built_in">len</span>(target) == <span class="built_in">len</span>(approxes[<span class="number">0</span>])</span><br><span class="line"></span><br><span class="line">        approx = approxes[<span class="number">0</span>]</span><br><span class="line"></span><br><span class="line">        error_sum = <span class="number">0.0</span></span><br><span class="line">        weight_sum = <span class="number">0.0</span></span><br><span class="line"></span><br><span class="line">        <span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="built_in">len</span>(approx)):</span><br><span class="line">            w = <span class="number">1.0</span> <span class="keyword">if</span> weight <span class="keyword">is</span> <span class="literal">None</span> <span class="keyword">else</span> weight[i]</span><br><span class="line">            weight_sum += w</span><br><span class="line">            error_sum += w * ((approx[i] - target[i])**<span class="number">2</span>)</span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span> error_sum, weight_sum</span><br><span class="line"></span><br><span class="line">model = CatBoostRegressor(eval_metric=RmseMetric())</span><br></pre></td></tr></table></figure>
+<h2 id="回调参数"><a class="markdownIt-Anchor" href="#回调参数"></a> 回调参数</h2>
+<p>catboost 主要在过拟合检测中用到内置回调参数</p>
+<ul>
+<li><code>early_stopping_rounds</code> 将过拟合检测器类型设置为 Iter，当验证集上的精度若干轮不下降，提前停止训练。 default=False</li>
+<li><code>od_type</code> 要使用的过拟合检测器的类型 ，default=IncToDec。option: <code>IncToDec, Iter</code></li>
+<li><code>od_pval</code> IncToDec  检测器的阈值，当达到指定值时，训练将停止。建议 <code>[1e-10, 1e-2]</code>  。default=0 （不启用）。</li>
+<li><code>od_wait</code> 在具有最佳指标值的迭代后继续训练的迭代次数。  default=20。</li>
+</ul>
+<p>CatBoost 的 early_stopping_rounds 实现主要位于 C++ 核心代码中，Python 接口通过调用底层 C++ 实现来完成功能。</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="comment"># Built-in early stopping based on overfitting detection.</span></span><br><span class="line">model.fit(</span><br><span class="line">    train_pool,</span><br><span class="line">    early_stopping_rounds=<span class="number">50</span>,  <span class="comment"># Stops if no improvement in 50 iterations</span></span><br><span class="line">    eval_metric=<span class="string">&#x27;Logloss&#x27;</span></span><br><span class="line">)</span><br></pre></td></tr></table></figure>
+<p>另外在 <code>CatBoostClassifier</code> 和 <code>CatBoostRegressor</code> 构造函数中使用 <code>callback</code> ，在 <code>CatBoost</code> 的 <code>params</code> 参数中配置 <code>callback</code>，还可以在 fit 方法中使用 <code>callback</code>参数，可实现自定义回调。</p>
+<p>然而，CatBoost 的 callback 系统设计较为基础，文档和示例不足，在设计和公开程度上远不如其他梯度提升框架（如 catboost、LightGBM）。这主要源于其架构设计、开发优先级以及用户需求的平衡。CatBoost 的回调系统设计可能受到性能优化的影响。例如，底层 C++ 核心代码对训练流程的封装较深，暴露过多接口可能引入性能开销或兼容性问题。</p>
+<p>CatBoost 的回调接口目前仅支持 after_iteration 这一触发点，在每个训练轮次结束时被调用，接收一个<code>info</code>对象，它包含了历史指标信息：</p>
+<table>
+<thead>
+<tr>
+<th>字段名</th>
+<th>数据类型</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>iteration</code></td>
+<td><code>int</code></td>
+<td>当前迭代次数（从 1 开始）</td>
+</tr>
+<tr>
+<td><code>metrics</code></td>
+<td><code>dict</code></td>
+<td>包含训练和验证指标的历史记录，键为 <code>'learn'</code> 或 <code>'validation'</code></td>
+</tr>
+</tbody>
+</table>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">from</span> catboost <span class="keyword">import</span> CatBoostClassifier, Pool</span><br><span class="line"><span class="keyword">import</span> numpy <span class="keyword">as</span> np</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">EarlyStoppingCallback</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__init__</span>(<span class="params">self, metric_name=<span class="string">&#x27;Logloss&#x27;</span>, patience=<span class="number">5</span>, min_delta=<span class="number">0.001</span></span>):</span></span><br><span class="line">        self.metric_name = metric_name</span><br><span class="line">        self.patience = patience</span><br><span class="line">        self.min_delta = min_delta</span><br><span class="line">        self.best_score = <span class="literal">None</span></span><br><span class="line">        self.counter = <span class="number">0</span></span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">after_iteration</span>(<span class="params">self, info</span>):</span></span><br><span class="line">        <span class="comment"># Get current validation metric</span></span><br><span class="line">        current_score = info.metrics[<span class="string">&#x27;validation&#x27;</span>][-<span class="number">1</span>]</span><br><span class="line"></span><br><span class="line">        <span class="comment"># Initialize best score</span></span><br><span class="line">        <span class="keyword">if</span> self.best_score <span class="keyword">is</span> <span class="literal">None</span>:</span><br><span class="line">            self.best_score = current_score</span><br><span class="line">            <span class="keyword">return</span> <span class="literal">True</span>  <span class="comment"># Continue training</span></span><br><span class="line"></span><br><span class="line">        <span class="comment"># Check for improvement</span></span><br><span class="line">        <span class="keyword">if</span> current_score &lt; self.best_score - self.min_delta:</span><br><span class="line">            self.best_score = current_score</span><br><span class="line">            self.counter = <span class="number">0</span></span><br><span class="line">        <span class="keyword">else</span>:</span><br><span class="line">            self.counter += <span class="number">1</span></span><br><span class="line"></span><br><span class="line">        <span class="comment"># Stop training if no improvement for &#x27;patience&#x27; iterations</span></span><br><span class="line">        <span class="keyword">if</span> self.counter &gt;= self.patience:</span><br><span class="line">            <span class="built_in">print</span>(<span class="string">f&quot;Early stopping at iteration <span class="subst">&#123;info.iteration&#125;</span>. Best <span class="subst">&#123;self.metric_name&#125;</span>: <span class="subst">&#123;self.best_score:<span class="number">.4</span>f&#125;</span>&quot;</span>)</span><br><span class="line">            <span class="keyword">return</span> <span class="literal">False</span>  <span class="comment"># Stop training</span></span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span> <span class="literal">True</span>  <span class="comment"># Continue training </span></span><br><span class="line"></span><br><span class="line">model.fit(</span><br><span class="line">    eval_metric=[<span class="string">&#x27;Logloss&#x27;</span>, <span class="string">&#x27;AUC&#x27;</span>],</span><br><span class="line">    callbacks=[EarlyStoppingCallback(metric_name=<span class="string">&#x27;AUC&#x27;</span>)]</span><br><span class="line">) </span><br></pre></td></tr></table></figure>
+<h2 id="fit-参数"><a class="markdownIt-Anchor" href="#fit-参数"></a> fit 参数</h2>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">fit(X, y=<span class="literal">None</span>, </span><br><span class="line">    cat_features=<span class="literal">None</span>, </span><br><span class="line">    text_features=<span class="literal">None</span>, </span><br><span class="line">    embedding_features=<span class="literal">None</span>, </span><br><span class="line">    graph=<span class="literal">None</span>, </span><br><span class="line">    sample_weight=<span class="literal">None</span>, </span><br><span class="line">    baseline=<span class="literal">None</span>, </span><br><span class="line">    use_best_model=<span class="literal">None</span>, </span><br><span class="line">    eval_set=<span class="literal">None</span>, </span><br><span class="line">    verbose=<span class="literal">None</span>, </span><br><span class="line">    verbose_eval=<span class="literal">None</span>, </span><br><span class="line">    metric_period=<span class="literal">None</span>, </span><br><span class="line">    silent=<span class="literal">None</span>, </span><br><span class="line">    logging_level=<span class="literal">None</span>, </span><br><span class="line">    plot=<span class="literal">False</span>, </span><br><span class="line">    plot_file=<span class="literal">None</span>, </span><br><span class="line">    column_description=<span class="literal">None</span>, </span><br><span class="line">    early_stopping_rounds=<span class="literal">None</span>, </span><br><span class="line">    save_snapshot=<span class="literal">None</span>, </span><br><span class="line">    snapshot_file=<span class="literal">None</span>, </span><br><span class="line">    snapshot_interval=<span class="literal">None</span>, </span><br><span class="line">    init_model=<span class="literal">None</span>, </span><br><span class="line">    callbacks=<span class="literal">None</span>, </span><br><span class="line">    log_cout=<span class="literal">None</span>, </span><br><span class="line">    log_cerr=<span class="literal">None</span>)</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>某些参数与模型类构造函数中指定的参数重复。在这些情况下，fit 方法指定的值优先。</p>
+</blockquote>
+<p>常用参数：</p>
+<ul>
+<li><code>X</code> 数据类型为 <code>Pool, list, numpy, pandas</code> 等</li>
+<li><code>y</code> 如果 <code>X</code> 配置的类型为 <code>Pool</code> 则不需要使用此参数</li>
+<li><code>cat_features</code> 分类列索引或分类列名</li>
+<li><code>embedding_features</code> embedding 特征的列索引或列名</li>
+<li><code>sample_weight</code> 样本权重</li>
+<li><code>baseline</code> 初始值</li>
+<li><code>eval_set</code> 验证数据集</li>
+<li><code>plot, plot_file</code> 可视化训练过程</li>
+<li><code>early_stopping_rounds</code> 将过拟合检测器类型设置为 Iter，并设置早停迭代数</li>
+<li><code>init_model</code> 继续训练</li>
+<li><code>log_cout, log_cerr</code> 日志记录</li>
+</ul>
+<h2 id="predict-参数"><a class="markdownIt-Anchor" href="#predict-参数"></a> predict 参数</h2>
+<blockquote>
+<p>仅当具有特征值的参数包含模型中使用的所有特征时，模型预测结果才会正确。通常，这些功能的顺序必须与训练期间提供的相应列的顺序匹配。但是，如果在训练期间和应用模型时都提供了特征名称，则可以按名称而不是列顺序匹配它们，如 <code>Pool, Pandas, etc</code>。</p>
+</blockquote>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">predict(data,</span><br><span class="line">    prediction_type=<span class="literal">None</span>,</span><br><span class="line">    ntree_start=<span class="number">0</span>,</span><br><span class="line">    ntree_end=<span class="number">0</span>,</span><br><span class="line">    thread_count=-<span class="number">1</span>,</span><br><span class="line">    verbose=<span class="literal">None</span>,</span><br><span class="line">    task_type=<span class="string">&quot;CPU&quot;</span>)</span><br></pre></td></tr></table></figure>
+<p><code>prediction_type</code> 参数支持以下返回类型：</p>
+<ul>
+<li>Probability：二分类概率值</li>
+<li>Class：类标签</li>
+<li>RawFormulaVal：原始计算值</li>
+<li>Exponent：指数</li>
+<li>LogProbability：对数概率</li>
+</ul>
+<h1 id="训练-api"><a class="markdownIt-Anchor" href="#训练-api"></a> 训练 API</h1>
+<p>由于catboost的参数列表过长、参数类型过多，直接将所有参数混写在训练模型的类中会显得代码冗长且混乱，因此我们往往会使用字典单独呈现参数。准备好参数列表后，我们也可以使用catboost中自带的方法<code>xgb.train</code>或<code>xgb.cv</code>进行训练。</p>
+<table>
+<thead>
+<tr>
+<th>module</th>
+<th>comment</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>catboost.train</code></td>
+<td>指定参数训练</td>
+</tr>
+<tr>
+<td><code>catboost.cv</code></td>
+<td>交叉验证训练</td>
+</tr>
+</tbody>
+</table>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">catboost.cv(pool=<span class="literal">None</span>, dtrain=<span class="literal">None</span>, </span><br><span class="line">    params=<span class="literal">None</span>, </span><br><span class="line">    iterations=<span class="number">1000</span>, </span><br><span class="line">    num_boost_round=<span class="literal">None</span>,</span><br><span class="line">    fold_count=<span class="number">3</span>, </span><br><span class="line">    nfold=<span class="literal">None</span>, </span><br><span class="line">    <span class="built_in">type</span>=<span class="string">&#x27;Classical&#x27;</span>, </span><br><span class="line">    folds=<span class="literal">None</span>,</span><br><span class="line">    inverted=<span class="literal">False</span>, </span><br><span class="line">    partition_random_seed=<span class="number">0</span>, </span><br><span class="line">    seed=<span class="literal">None</span>,</span><br><span class="line">    shuffle=<span class="literal">True</span>, </span><br><span class="line">    stratified=<span class="literal">None</span>, </span><br><span class="line">    logging_level=<span class="literal">None</span>, </span><br><span class="line">    metric_period=<span class="literal">None</span>,</span><br><span class="line">    verbose=<span class="literal">None</span>, </span><br><span class="line">    verbose_eval=<span class="literal">None</span>, </span><br><span class="line">    plot=<span class="literal">False</span>, </span><br><span class="line">    plot_file=<span class="literal">None</span>, </span><br><span class="line">    early_stopping_rounds=<span class="literal">None</span>,</span><br><span class="line">    save_snapshot=<span class="literal">None</span>, </span><br><span class="line">    snapshot_file=<span class="literal">None</span>, </span><br><span class="line">    snapshot_interval=<span class="literal">None</span>, </span><br><span class="line">    metric_update_interval=<span class="number">0.5</span>,</span><br><span class="line">    as_pandas=<span class="literal">True</span>, </span><br><span class="line">    return_models=<span class="literal">False</span>, </span><br><span class="line">    log_cout=<span class="literal">None</span>, </span><br><span class="line">    log_cerr=<span class="literal">None</span>)</span><br></pre></td></tr></table></figure>
+<p>主要参数：</p>
+<ul>
+<li><code>params</code> - 参数字典</li>
+<li><code>pool</code> 别名 <code>dtrain</code> 用于训练的数据集</li>
+<li><code>num_boost_round</code> 迭代次数</li>
+<li><code>early_stopping_rounds</code> 将过拟合检测器类型设置为 Iter，在指定的迭代次数后停止训练。</li>
+<li><code>logging_level,</code></li>
+<li><code>fold_count</code> 别名 <code>nfold</code> 交叉验证数</li>
+<li><code>type</code> 拆分方法 <code>Classical, Inverted, TimeSeries</code>，默认 Classical</li>
+<li><code>folds</code> 自定义的拆分索引</li>
+<li><code>shuffle</code> 拆分前随机排序</li>
+<li><code>stratified</code> 是否分层抽样，分类问题默认为 True</li>
+<li><code>as_pandas</code> 将返回值的类型设置为 pandas</li>
+<li><code>return_models</code> 是否返回交叉验证模型列表</li>
+<li><code>evals</code> 别名 <code>eval_set</code>  在 <code>train</code> 中用于验证数据集</li>
+</ul>
+<h1 id="可视化"><a class="markdownIt-Anchor" href="#可视化"></a> 可视化</h1>
+<p>Catboost 提供了可视化插件，在培训过程中和之后都可以访问此信息。必须安装<code>ipywidgets</code>软件包，才能在Jupyter Notebook中绘制图表。</p>
+<figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">pip install ipywidgets</span><br></pre></td></tr></table></figure>
+<p>启用插件</p>
+<figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">jupyter nbextension <span class="built_in">enable</span> --py widgetsnbextension</span><br></pre></td></tr></table></figure>
+<p>通过将模型 fit 方法或 train、cv 函数的plot参数设置为True，即可在训练时绘制图表。</p>
+<p>也可以使用类<code>catboost.MetricVisualizer(train_dirs, subdirs=False)</code>为给定目录中具有日志的所有训练、指标评估和交叉验证运行绘制指标。</p>
+<h1 id="实用程序"><a class="markdownIt-Anchor" href="#实用程序"></a> 实用程序</h1>
+<ul>
+<li>
+<p><code>sum_models(models, weights=None, ctr_merge_policy='IntersectingCountersAverage')</code> 将两个或多个经过训练的 CatBoost 模型的树和计数器混合到一个新模型中。可以为每个输入模型单独加权叶值。</p>
+</li>
+<li>
+<p><code>to_classifier(model)</code> 将 CatBoost 类型的模型转换为 CatBoostClassifier 类型的模型。</p>
+</li>
+<li>
+<p><code>to_regressor(model)</code> 将 CatBoost 类型的模型转换为 CatBoostRegressor 类型的模型。</p>
+</li>
+</ul>
+</article><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/python/">python</a><a class="post-meta__tags" href="/tags/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/">机器学习</a></div><div class="post_share"><div class="social-share" data-image="/img/openbook.jpg" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/js/social-share.min.js" defer></script></div></div><div class="post-reward"><div class="reward-button"><i class="fas fa-qrcode"></i> 打赏</div><div class="reward-main"><ul class="reward-all"><li class="reward-item"><a href="/img/morty3.jpg" target="_blank"><img class="post-qr-code-img" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/img/morty3.jpg" alt="Give me money!"/></a><div class="post-qr-code-desc">Give me money!</div></li></ul></div></div><nav class="pagination-post" id="pagination"><div class="prev-post pull-full"><a href="/posts/db6e5578/" title="Java简单使用"><img class="cover" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/img/java_cover.png" onerror="onerror=null;src='/img/404_moon.png'" alt="cover of previous post"><div class="pagination-info"><div class="label">上一篇</div><div class="prev_info">Java简单使用</div></div></a></div></nav><div class="relatedPosts"><div class="headline"><i class="fas fa-thumbs-up fa-fw"></i><span>相关推荐</span></div><div class="relatedPosts-list"><div><a href="/posts/90489eb7/" title="PySpark机器学习Demo"><img class="cover" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/img/spark-install.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2024-05-17</div><div class="title">PySpark机器学习Demo</div></div></a></div><div><a href="/posts/75974533/" title="大数据手册(Spark)--PySpark MLlib"><img class="cover" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/img/apache-spark-mllib.png" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2024-05-01</div><div class="title">大数据手册(Spark)--PySpark MLlib</div></div></a></div><div><a href="/posts/425f9947/" title="特征工程(VII)--模型集成"><img class="cover" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/img/FeatureEngine.png" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2024-04-20</div><div class="title">特征工程(VII)--模型集成</div></div></a></div><div><a href="/posts/794d8498/" title="Python(Machine Learning)--超参数优化"><img class="cover" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/img/Hyperparameter-Optimization.png" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2024-02-15</div><div class="title">Python(Machine Learning)--超参数优化</div></div></a></div><div><a href="/posts/44910830/" title="Python(Machine Learning)--LightGBM"><img class="cover" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/img/LightGBM_cover.svg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2024-01-25</div><div class="title">Python(Machine Learning)--LightGBM</div></div></a></div><div><a href="/posts/c46d5dae/" title="Python(Machine Learning)--XGBoost"><img class="cover" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/img/XGBoost-cover.svg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2024-03-28</div><div class="title">Python(Machine Learning)--XGBoost</div></div></a></div></div></div><hr class="custom-hr"/><div id="post-comment"><div class="comment-head"><div class="comment-headline"><i class="fas fa-comments fa-fw"></i><span> 评论</span></div></div><div class="comment-wrap"><div><div id="giscus-wrap"></div></div></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="is-center"><div class="avatar-img"><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/img/avatar.jpg" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info__name">Tiny Lei</div><div class="author-info__description">每天进步一点点...</div></div><div class="card-info-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">176</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">108</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">43</div></a></div><div class="card-info-social-icons is-center"><a class="social-icon" href="https://gitee.com/wilenwu" rel="external nofollow noreferrer" target="_blank" title="Gitee"><i class="iconfont icon-gitee"></i></a><a class="social-icon" href="https://github.com/wilenwu" rel="external nofollow noreferrer" target="_blank" title="Github"><i class="iconfont icon-github"></i></a><a class="social-icon" href="https://blog.csdn.net/qq_41518277" rel="external nofollow noreferrer" target="_blank" title="CSDN"><i class="iconfont icon-csdn"></i></a><a class="social-icon" href="/atom.xml" target="_blank" title="RSS"><i class="iconfont icon-rss"></i></a></div></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>公告</span></div><div class="announcement_content">感谢访问本站，若喜欢请收藏^_^</div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#quick-start"><span class="toc-number">1.</span> <span class="toc-text"> Quick Start</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#step-1-load-the-dataset"><span class="toc-number">1.1.</span> <span class="toc-text"> Step 1:  Load the dataset</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#step-2-setting-parameters-training"><span class="toc-number">1.2.</span> <span class="toc-text"> Step 2: Setting Parameters &amp; Training</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#step-3-save-and-load-model"><span class="toc-number">1.3.</span> <span class="toc-text"> Step 3: Save and load model</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#step-4-predict"><span class="toc-number">1.4.</span> <span class="toc-text"> Step 4:  Predict</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#step-5-evaluating"><span class="toc-number">1.5.</span> <span class="toc-text"> Step 5:  Evaluating</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%8F%82%E6%95%B0"><span class="toc-number">2.</span> <span class="toc-text"> 参数</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#pool"><span class="toc-number">2.1.</span> <span class="toc-text"> Pool</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%B8%80%E8%88%AC%E5%8F%82%E6%95%B0"><span class="toc-number">2.2.</span> <span class="toc-text"> 一般参数</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%A0%B7%E6%9C%AC%E5%A4%84%E7%90%86%E5%8F%82%E6%95%B0"><span class="toc-number">2.3.</span> <span class="toc-text"> 样本处理参数</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%89%B9%E5%BE%81%E5%A4%84%E7%90%86%E5%8F%82%E6%95%B0"><span class="toc-number">2.4.</span> <span class="toc-text"> 特征处理参数</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%86%B3%E7%AD%96%E6%A0%91%E7%94%9F%E6%88%90"><span class="toc-number">2.5.</span> <span class="toc-text"> 决策树生成</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%BF%AD%E4%BB%A3%E8%BF%87%E7%A8%8B"><span class="toc-number">2.6.</span> <span class="toc-text"> 迭代过程</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%A8%A1%E5%9E%8B%E8%AE%AD%E7%BB%83"><span class="toc-number">2.7.</span> <span class="toc-text"> 模型训练</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%87%AA%E5%AE%9A%E4%B9%89%E6%8D%9F%E5%A4%B1%E5%87%BD%E6%95%B0"><span class="toc-number">2.8.</span> <span class="toc-text"> 自定义损失函数</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%9B%9E%E8%B0%83%E5%8F%82%E6%95%B0"><span class="toc-number">2.9.</span> <span class="toc-text"> 回调参数</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#fit-%E5%8F%82%E6%95%B0"><span class="toc-number">2.10.</span> <span class="toc-text"> fit 参数</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#predict-%E5%8F%82%E6%95%B0"><span class="toc-number">2.11.</span> <span class="toc-text"> predict 参数</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E8%AE%AD%E7%BB%83-api"><span class="toc-number">3.</span> <span class="toc-text"> 训练 API</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%8F%AF%E8%A7%86%E5%8C%96"><span class="toc-number">4.</span> <span class="toc-text"> 可视化</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%AE%9E%E7%94%A8%E7%A8%8B%E5%BA%8F"><span class="toc-number">5.</span> <span class="toc-text"> 实用程序</span></a></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item"><a class="thumbnail" href="/posts/null/" title="Python(Machine Learning)--CatBoost"><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/img/openbook.jpg" onerror="this.onerror=null;this.src='/img/404_moon.png'" alt="Python(Machine Learning)--CatBoost"/></a><div class="content"><a class="title" href="/posts/null/" title="Python(Machine Learning)--CatBoost">Python(Machine Learning)--CatBoost</a><time datetime="2025-02-12T16:23:00.000Z" title="发表于 2025-02-13 00:23:00">2025-02-13</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/posts/db6e5578/" title="Java简单使用"><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/img/java_cover.png" onerror="this.onerror=null;this.src='/img/404_moon.png'" alt="Java简单使用"/></a><div class="content"><a class="title" href="/posts/db6e5578/" title="Java简单使用">Java简单使用</a><time datetime="2024-09-17T14:55:05.000Z" title="发表于 2024-09-17 22:55:05">2024-09-17</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/posts/a14a3278/" title="机器学习(VII)--强化学习(七)Actor-Critic"><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/img/reinforcement_learning_cover.png" onerror="this.onerror=null;this.src='/img/404_moon.png'" alt="机器学习(VII)--强化学习(七)Actor-Critic"/></a><div class="content"><a class="title" href="/posts/a14a3278/" title="机器学习(VII)--强化学习(七)Actor-Critic">机器学习(VII)--强化学习(七)Actor-Critic</a><time datetime="2024-08-29T09:24:00.000Z" title="发表于 2024-08-29 17:24:00">2024-08-29</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/posts/3644c10c/" title="机器学习(VII)--强化学习(六)策略梯度方法"><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/img/reinforcement_learning_cover.png" onerror="this.onerror=null;this.src='/img/404_moon.png'" alt="机器学习(VII)--强化学习(六)策略梯度方法"/></a><div class="content"><a class="title" href="/posts/3644c10c/" title="机器学习(VII)--强化学习(六)策略梯度方法">机器学习(VII)--强化学习(六)策略梯度方法</a><time datetime="2024-08-29T09:23:00.000Z" title="发表于 2024-08-29 17:23:00">2024-08-29</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/posts/2bd55622/" title="机器学习(VII)--强化学习(五)值函数近似"><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/img/reinforcement_learning_cover.png" onerror="this.onerror=null;this.src='/img/404_moon.png'" alt="机器学习(VII)--强化学习(五)值函数近似"/></a><div class="content"><a class="title" href="/posts/2bd55622/" title="机器学习(VII)--强化学习(五)值函数近似">机器学习(VII)--强化学习(五)值函数近似</a><time datetime="2024-08-29T09:22:00.000Z" title="发表于 2024-08-29 17:22:00">2024-08-29</time></div></div></div></div></div></div></main><footer id="footer"><div id="footer-wrap"><div class="copyright">&copy;2019 - 2025 By Tiny Lei</div><div class="framework-info"><span>框架 </span><a target="_blank" rel="noopener external nofollow noreferrer" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener external nofollow noreferrer" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside_config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><a id="to_comment" href="#post-comment" title="直达评论"><i class="fas fa-comments"></i></a><button id="go-up" type="button" title="回到顶部"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox/fancybox.umd.min.js"></script><script src="https://cdn.jsdelivr.net/npm/vanilla-lazyload/dist/lazyload.iife.min.js"></script><script>function panguFn () {
+  if (typeof pangu === 'object') pangu.autoSpacingPage()
+  else {
+    getScript('https://cdn.jsdelivr.net/npm/pangu/dist/browser/pangu.min.js')
+      .then(() => {
+        pangu.autoSpacingPage()
+      })
+  }
+}
+
+function panguInit () {
+  if (false){
+    GLOBAL_CONFIG_SITE.isPost && panguFn()
+  } else {
+    panguFn()
+  }
+}
+
+document.addEventListener('DOMContentLoaded', panguInit)</script><div class="js-pjax"><script>(() => {
+  const $mermaid = document.querySelectorAll('#article-container .mermaid-wrap')
+  if ($mermaid.length === 0) return
+  const runMermaid = () => {
+    window.loadMermaid = true
+    const theme = document.documentElement.getAttribute('data-theme') === 'dark' ? 'dark' : 'forest'
+
+    Array.from($mermaid).forEach((item, index) => {
+      const mermaidSrc = item.firstElementChild
+      const mermaidThemeConfig = '%%{init:{ \'theme\':\'' + theme + '\'}}%%\n'
+      const mermaidID = 'mermaid-' + index
+      const mermaidDefinition = mermaidThemeConfig + mermaidSrc.textContent
+
+      const renderFn = mermaid.render(mermaidID, mermaidDefinition)
+
+      const renderV10 = () => {
+        renderFn.then(({svg}) => {
+          mermaidSrc.insertAdjacentHTML('afterend', svg)
+        })
+      }
+
+      const renderV9 = svg => {
+        mermaidSrc.insertAdjacentHTML('afterend', svg)
+      }
+
+      typeof renderFn === 'string' ? renderV9(renderFn) : renderV10()
+    })
+  }
+
+  const loadMermaid = () => {
+    window.loadMermaid ? runMermaid() : getScript('https://cdn.jsdelivr.net/npm/mermaid/dist/mermaid.min.js').then(runMermaid)
+  }
+
+  btf.addModeChange('mermaid', runMermaid)
+
+  window.pjax ? loadMermaid() : document.addEventListener('DOMContentLoaded', loadMermaid)
+})()</script><script>function getGiscusTheme (theme) {
+  return theme === 'dark' ? 'dark' : 'light'
+}
+
+function loadGiscus () {
+  const config = Object.assign({
+    src: 'https://giscus.app/client.js',
+    'data-repo': 'WilenWu/giscus-comments',
+    'data-repo-id': 'R_kgDONXyMwg',
+    'data-category-id': 'DIC_kwDONXyMws4Ckzx5',
+    'data-mapping': 'pathname',
+    'data-theme': getGiscusTheme(document.documentElement.getAttribute('data-theme')),
+    'data-reactions-enabled': '1',
+    crossorigin: 'anonymous',
+    async: true
+  },null)
+
+  let ele = document.createElement('script')
+  for (let key in config) {
+    ele.setAttribute(key, config[key])
+  }
+  document.getElementById('giscus-wrap').insertAdjacentElement('afterbegin',ele)
+}
+
+function changeGiscusTheme (theme) {
+  function sendMessage(message) {
+    const iframe = document.querySelector('iframe.giscus-frame')
+    if (!iframe) return
+    iframe.contentWindow.postMessage({ giscus: message }, 'https://giscus.app')
+  }
+
+  sendMessage({
+    setConfig: {
+      theme: getGiscusTheme(theme)
+    }
+  });
+}
+
+btf.addModeChange('giscus', changeGiscusTheme)
+
+if ('Giscus' === 'Giscus' || !false) {
+  if (false) btf.loadComment(document.getElementById('giscus-wrap'), loadGiscus)
+  else loadGiscus()
+} else {
+  function loadOtherComment () {
+    loadGiscus()
+  }
+}</script></div><script src="/js/custom.js"></script><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script><div id="local-search"><div class="search-dialog"><nav class="search-nav"><span class="search-dialog-title">搜索</span><span id="loading-status"></span><button class="search-close-button"><i class="fas fa-times"></i></button></nav><div class="is-center" id="loading-database"><i class="fas fa-spinner fa-pulse"></i><span>  数据库加载中</span></div><div class="search-wrap"><div id="local-search-input"><div class="local-search-box"><input class="local-search-box--input" placeholder="搜索文章" type="text"/></div></div><hr/><div class="no-result" id="local-search-results"></div><div id="local-search-stats-wrap"></div></div></div><div id="search-mask"></div><script src="/js/search/local-search.js"></script></div></div><!-- hexo injector body_end start --><script async src="//at.alicdn.com/t/font_2032782_8d5kxvn09md.js"></script><!-- hexo injector body_end end --></body></html>
