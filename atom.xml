@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <feed xmlns="http://www.w3.org/2005/Atom">
   <title>雷小小</title>
-  <icon>https://wilenwu.github.io/icon.png</icon>
+  <icon>https://www.tinylei.tech/icon.png</icon>
   <subtitle>寄蜉蝣于天地，渺沧海之一粟</subtitle>
-  <link href="https://wilenwu.github.io/atom.xml" rel="self"/>
+  <link href="https://www.tinylei.tech/atom.xml" rel="self"/>
   
-  <link href="https://wilenwu.github.io/"/>
-  <updated>2025-08-27T12:29:11.633Z</updated>
-  <id>https://wilenwu.github.io/</id>
+  <link href="https://www.tinylei.tech/"/>
+  <updated>2025-09-02T15:30:58.801Z</updated>
+  <id>https://www.tinylei.tech/</id>
   
   <author>
     <name>Tiny Lei</name>
@@ -17,11 +17,41 @@
   <generator uri="https://hexo.io/">Hexo</generator>
   
   <entry>
+    <title>深度学习(III)--循环神经网络(RNN)</title>
+    <link href="https://www.tinylei.tech/posts/97cab0/"/>
+    <id>https://www.tinylei.tech/posts/97cab0/</id>
+    <published>2025-09-02T12:00:05.000Z</published>
+    <updated>2025-09-02T15:30:58.801Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;h1 id=&quot;循环神经网络&quot;&gt;&lt;a class=&quot;markdownIt-Anchor&quot; href=&quot;#循环神经网络&quot;&gt;&lt;/a&gt; 循环神经网络&lt;/h1&gt;
+&lt;h2 id=&quot;序列模型&quot;&gt;&lt;a class=&quot;markdownIt-Anchor&quot; href=&quot;#序列模型&quot;&gt;&lt;/a&gt;</summary>
+        
+      
+    
+    
+    
+    <category term="Artificial Intelligence" scheme="https://www.tinylei.tech/categories/artificial-intelligence/"/>
+    
+    <category term="Deep Learning" scheme="https://www.tinylei.tech/categories/artificial-intelligence/deep-learning/"/>
+    
+    
+    <category term="机器学习" scheme="https://www.tinylei.tech/tags/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/"/>
+    
+    <category term="深度学习" scheme="https://www.tinylei.tech/tags/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/"/>
+    
+  </entry>
+  
+  <entry>
     <title>深度学习(II)--卷积神经网络(CNN)</title>
-    <link href="https://wilenwu.github.io/posts/c1ead285/"/>
-    <id>https://wilenwu.github.io/posts/c1ead285/</id>
+    <link href="https://www.tinylei.tech/posts/c1ead285/"/>
+    <id>https://www.tinylei.tech/posts/c1ead285/</id>
     <published>2025-08-25T15:32:00.000Z</published>
-    <updated>2025-08-27T12:29:11.633Z</updated>
+    <updated>2025-08-29T13:10:27.131Z</updated>
     
     
       
@@ -34,23 +64,23 @@
     
     
     
-    <category term="Artificial Intelligence" scheme="https://wilenwu.github.io/categories/artificial-intelligence/"/>
+    <category term="Artificial Intelligence" scheme="https://www.tinylei.tech/categories/artificial-intelligence/"/>
     
-    <category term="Deep Learning" scheme="https://wilenwu.github.io/categories/artificial-intelligence/deep-learning/"/>
+    <category term="Deep Learning" scheme="https://www.tinylei.tech/categories/artificial-intelligence/deep-learning/"/>
     
     
-    <category term="机器学习" scheme="https://wilenwu.github.io/tags/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/"/>
+    <category term="机器学习" scheme="https://www.tinylei.tech/tags/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/"/>
     
-    <category term="深度学习" scheme="https://wilenwu.github.io/tags/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/"/>
+    <category term="深度学习" scheme="https://www.tinylei.tech/tags/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/"/>
     
   </entry>
   
   <entry>
     <title>深度学习(I)--前馈神经网络(FNN)</title>
-    <link href="https://wilenwu.github.io/posts/c64a04c1/"/>
-    <id>https://wilenwu.github.io/posts/c64a04c1/</id>
+    <link href="https://www.tinylei.tech/posts/c64a04c1/"/>
+    <id>https://www.tinylei.tech/posts/c64a04c1/</id>
     <published>2025-08-19T14:06:00.000Z</published>
-    <updated>2025-08-28T12:45:39.866Z</updated>
+    <updated>2025-09-02T15:28:06.758Z</updated>
     
     
       
@@ -64,21 +94,21 @@
     
     
     
-    <category term="Artificial Intelligence" scheme="https://wilenwu.github.io/categories/artificial-intelligence/"/>
+    <category term="Artificial Intelligence" scheme="https://www.tinylei.tech/categories/artificial-intelligence/"/>
     
-    <category term="Deep Learning" scheme="https://wilenwu.github.io/categories/artificial-intelligence/deep-learning/"/>
+    <category term="Deep Learning" scheme="https://www.tinylei.tech/categories/artificial-intelligence/deep-learning/"/>
     
     
-    <category term="机器学习" scheme="https://wilenwu.github.io/tags/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/"/>
+    <category term="机器学习" scheme="https://www.tinylei.tech/tags/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/"/>
     
-    <category term="深度学习" scheme="https://wilenwu.github.io/tags/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/"/>
+    <category term="深度学习" scheme="https://www.tinylei.tech/tags/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/"/>
     
   </entry>
   
   <entry>
     <title>Python(Scientific Computing)--Cython</title>
-    <link href="https://wilenwu.github.io/posts/619a34fc/"/>
-    <id>https://wilenwu.github.io/posts/619a34fc/</id>
+    <link href="https://www.tinylei.tech/posts/619a34fc/"/>
+    <id>https://www.tinylei.tech/posts/619a34fc/</id>
     <published>2025-03-26T08:05:01.000Z</published>
     <updated>2025-03-28T15:07:50.541Z</updated>
     
@@ -87,21 +117,21 @@
     
     
     
-    <category term="Python" scheme="https://wilenwu.github.io/categories/python/"/>
+    <category term="Python" scheme="https://www.tinylei.tech/categories/python/"/>
     
-    <category term="Scientific Computing" scheme="https://wilenwu.github.io/categories/python/scientific-computing/"/>
+    <category term="Scientific Computing" scheme="https://www.tinylei.tech/categories/python/scientific-computing/"/>
     
     
-    <category term="python" scheme="https://wilenwu.github.io/tags/python/"/>
+    <category term="python" scheme="https://www.tinylei.tech/tags/python/"/>
     
-    <category term="科学计算" scheme="https://wilenwu.github.io/tags/%E7%A7%91%E5%AD%A6%E8%AE%A1%E7%AE%97/"/>
+    <category term="科学计算" scheme="https://www.tinylei.tech/tags/%E7%A7%91%E5%AD%A6%E8%AE%A1%E7%AE%97/"/>
     
   </entry>
   
   <entry>
     <title>C++ 标准库</title>
-    <link href="https://wilenwu.github.io/posts/e88bb280/"/>
-    <id>https://wilenwu.github.io/posts/e88bb280/</id>
+    <link href="https://www.tinylei.tech/posts/e88bb280/"/>
+    <id>https://www.tinylei.tech/posts/e88bb280/</id>
     <published>2025-03-04T04:04:01.000Z</published>
     <updated>2025-03-05T14:49:53.134Z</updated>
     
@@ -117,19 +147,19 @@
     
     
     
-    <category term="C++" scheme="https://wilenwu.github.io/categories/c/"/>
+    <category term="C++" scheme="https://www.tinylei.tech/categories/c/"/>
     
-    <category term="Basics" scheme="https://wilenwu.github.io/categories/c/basics/"/>
+    <category term="Basics" scheme="https://www.tinylei.tech/categories/c/basics/"/>
     
     
-    <category term="c++" scheme="https://wilenwu.github.io/tags/c/"/>
+    <category term="c++" scheme="https://www.tinylei.tech/tags/c/"/>
     
   </entry>
   
   <entry>
     <title>C++ 快速入门</title>
-    <link href="https://wilenwu.github.io/posts/3f4b6fbd/"/>
-    <id>https://wilenwu.github.io/posts/3f4b6fbd/</id>
+    <link href="https://www.tinylei.tech/posts/3f4b6fbd/"/>
+    <id>https://www.tinylei.tech/posts/3f4b6fbd/</id>
     <published>2025-03-03T14:16:01.000Z</published>
     <updated>2025-03-19T14:56:58.588Z</updated>
     
@@ -145,19 +175,19 @@
     
     
     
-    <category term="C++" scheme="https://wilenwu.github.io/categories/c/"/>
+    <category term="C++" scheme="https://www.tinylei.tech/categories/c/"/>
     
-    <category term="Basics" scheme="https://wilenwu.github.io/categories/c/basics/"/>
+    <category term="Basics" scheme="https://www.tinylei.tech/categories/c/basics/"/>
     
     
-    <category term="c++" scheme="https://wilenwu.github.io/tags/c/"/>
+    <category term="c++" scheme="https://www.tinylei.tech/tags/c/"/>
     
   </entry>
   
   <entry>
     <title>Python(Machine Learning)--CatBoost</title>
-    <link href="https://wilenwu.github.io/posts/dc8936d5/"/>
-    <id>https://wilenwu.github.io/posts/dc8936d5/</id>
+    <link href="https://www.tinylei.tech/posts/dc8936d5/"/>
+    <id>https://www.tinylei.tech/posts/dc8936d5/</id>
     <published>2025-02-12T16:23:00.000Z</published>
     <updated>2025-02-16T06:06:56.982Z</updated>
     
@@ -173,21 +203,21 @@
     
     
     
-    <category term="Python" scheme="https://wilenwu.github.io/categories/python/"/>
+    <category term="Python" scheme="https://www.tinylei.tech/categories/python/"/>
     
-    <category term="Machine Learning" scheme="https://wilenwu.github.io/categories/python/machine-learning/"/>
+    <category term="Machine Learning" scheme="https://www.tinylei.tech/categories/python/machine-learning/"/>
     
     
-    <category term="机器学习" scheme="https://wilenwu.github.io/tags/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/"/>
+    <category term="机器学习" scheme="https://www.tinylei.tech/tags/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/"/>
     
-    <category term="python" scheme="https://wilenwu.github.io/tags/python/"/>
+    <category term="python" scheme="https://www.tinylei.tech/tags/python/"/>
     
   </entry>
   
   <entry>
     <title>Java简单使用</title>
-    <link href="https://wilenwu.github.io/posts/db6e5578/"/>
-    <id>https://wilenwu.github.io/posts/db6e5578/</id>
+    <link href="https://www.tinylei.tech/posts/db6e5578/"/>
+    <id>https://www.tinylei.tech/posts/db6e5578/</id>
     <published>2024-09-17T14:55:05.000Z</published>
     <updated>2025-02-25T14:59:29.327Z</updated>
     
@@ -203,19 +233,19 @@
     
     
     
-    <category term="Java" scheme="https://wilenwu.github.io/categories/java/"/>
+    <category term="Java" scheme="https://www.tinylei.tech/categories/java/"/>
     
-    <category term="Basics" scheme="https://wilenwu.github.io/categories/java/basics/"/>
+    <category term="Basics" scheme="https://www.tinylei.tech/categories/java/basics/"/>
     
     
-    <category term="java" scheme="https://wilenwu.github.io/tags/java/"/>
+    <category term="java" scheme="https://www.tinylei.tech/tags/java/"/>
     
   </entry>
   
   <entry>
     <title>机器学习(VII)--强化学习(七)Actor-Critic</title>
-    <link href="https://wilenwu.github.io/posts/a14a3278/"/>
-    <id>https://wilenwu.github.io/posts/a14a3278/</id>
+    <link href="https://www.tinylei.tech/posts/a14a3278/"/>
+    <id>https://www.tinylei.tech/posts/a14a3278/</id>
     <published>2024-08-29T09:24:00.000Z</published>
     <updated>2024-09-06T12:58:41.940Z</updated>
     
@@ -231,19 +261,19 @@
     
     
     
-    <category term="Artificial Intelligence" scheme="https://wilenwu.github.io/categories/artificial-intelligence/"/>
+    <category term="Artificial Intelligence" scheme="https://www.tinylei.tech/categories/artificial-intelligence/"/>
     
-    <category term="Machine Learning" scheme="https://wilenwu.github.io/categories/artificial-intelligence/machine-learning/"/>
+    <category term="Machine Learning" scheme="https://www.tinylei.tech/categories/artificial-intelligence/machine-learning/"/>
     
     
-    <category term="机器学习" scheme="https://wilenwu.github.io/tags/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/"/>
+    <category term="机器学习" scheme="https://www.tinylei.tech/tags/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/"/>
     
   </entry>
   
   <entry>
     <title>机器学习(VII)--强化学习(六)策略梯度方法</title>
-    <link href="https://wilenwu.github.io/posts/3644c10c/"/>
-    <id>https://wilenwu.github.io/posts/3644c10c/</id>
+    <link href="https://www.tinylei.tech/posts/3644c10c/"/>
+    <id>https://www.tinylei.tech/posts/3644c10c/</id>
     <published>2024-08-29T09:23:00.000Z</published>
     <updated>2024-09-06T12:58:26.870Z</updated>
     
@@ -259,19 +289,19 @@
     
     
     
-    <category term="Artificial Intelligence" scheme="https://wilenwu.github.io/categories/artificial-intelligence/"/>
+    <category term="Artificial Intelligence" scheme="https://www.tinylei.tech/categories/artificial-intelligence/"/>
     
-    <category term="Machine Learning" scheme="https://wilenwu.github.io/categories/artificial-intelligence/machine-learning/"/>
+    <category term="Machine Learning" scheme="https://www.tinylei.tech/categories/artificial-intelligence/machine-learning/"/>
     
     
-    <category term="机器学习" scheme="https://wilenwu.github.io/tags/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/"/>
+    <category term="机器学习" scheme="https://www.tinylei.tech/tags/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/"/>
     
   </entry>
   
   <entry>
     <title>机器学习(VII)--强化学习(五)值函数近似</title>
-    <link href="https://wilenwu.github.io/posts/2bd55622/"/>
-    <id>https://wilenwu.github.io/posts/2bd55622/</id>
+    <link href="https://www.tinylei.tech/posts/2bd55622/"/>
+    <id>https://www.tinylei.tech/posts/2bd55622/</id>
     <published>2024-08-29T09:22:00.000Z</published>
     <updated>2024-09-06T12:58:12.261Z</updated>
     
@@ -286,19 +316,19 @@
     
     
     
-    <category term="Artificial Intelligence" scheme="https://wilenwu.github.io/categories/artificial-intelligence/"/>
+    <category term="Artificial Intelligence" scheme="https://www.tinylei.tech/categories/artificial-intelligence/"/>
     
-    <category term="Machine Learning" scheme="https://wilenwu.github.io/categories/artificial-intelligence/machine-learning/"/>
+    <category term="Machine Learning" scheme="https://www.tinylei.tech/categories/artificial-intelligence/machine-learning/"/>
     
     
-    <category term="机器学习" scheme="https://wilenwu.github.io/tags/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/"/>
+    <category term="机器学习" scheme="https://www.tinylei.tech/tags/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/"/>
     
   </entry>
   
   <entry>
     <title>机器学习(VII)--强化学习(四)时序差分方法</title>
-    <link href="https://wilenwu.github.io/posts/363ac257/"/>
-    <id>https://wilenwu.github.io/posts/363ac257/</id>
+    <link href="https://www.tinylei.tech/posts/363ac257/"/>
+    <id>https://www.tinylei.tech/posts/363ac257/</id>
     <published>2024-08-29T09:21:00.000Z</published>
     <updated>2024-09-06T12:57:55.505Z</updated>
     
@@ -314,19 +344,19 @@
     
     
     
-    <category term="Artificial Intelligence" scheme="https://wilenwu.github.io/categories/artificial-intelligence/"/>
+    <category term="Artificial Intelligence" scheme="https://www.tinylei.tech/categories/artificial-intelligence/"/>
     
-    <category term="Machine Learning" scheme="https://wilenwu.github.io/categories/artificial-intelligence/machine-learning/"/>
+    <category term="Machine Learning" scheme="https://www.tinylei.tech/categories/artificial-intelligence/machine-learning/"/>
     
     
-    <category term="机器学习" scheme="https://wilenwu.github.io/tags/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/"/>
+    <category term="机器学习" scheme="https://www.tinylei.tech/tags/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/"/>
     
   </entry>
   
   <entry>
     <title>机器学习(VII)--强化学习(三)蒙特卡洛方法</title>
-    <link href="https://wilenwu.github.io/posts/5d47a626/"/>
-    <id>https://wilenwu.github.io/posts/5d47a626/</id>
+    <link href="https://www.tinylei.tech/posts/5d47a626/"/>
+    <id>https://www.tinylei.tech/posts/5d47a626/</id>
     <published>2024-08-29T09:20:00.000Z</published>
     <updated>2024-09-06T12:57:43.828Z</updated>
     
@@ -341,19 +371,19 @@
     
     
     
-    <category term="Artificial Intelligence" scheme="https://wilenwu.github.io/categories/artificial-intelligence/"/>
+    <category term="Artificial Intelligence" scheme="https://www.tinylei.tech/categories/artificial-intelligence/"/>
     
-    <category term="Machine Learning" scheme="https://wilenwu.github.io/categories/artificial-intelligence/machine-learning/"/>
+    <category term="Machine Learning" scheme="https://www.tinylei.tech/categories/artificial-intelligence/machine-learning/"/>
     
     
-    <category term="机器学习" scheme="https://wilenwu.github.io/tags/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/"/>
+    <category term="机器学习" scheme="https://www.tinylei.tech/tags/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/"/>
     
   </entry>
   
   <entry>
     <title>机器学习(VII)--强化学习(二)动态规划</title>
-    <link href="https://wilenwu.github.io/posts/6e55c5aa/"/>
-    <id>https://wilenwu.github.io/posts/6e55c5aa/</id>
+    <link href="https://www.tinylei.tech/posts/6e55c5aa/"/>
+    <id>https://www.tinylei.tech/posts/6e55c5aa/</id>
     <published>2024-08-29T09:19:00.000Z</published>
     <updated>2024-09-06T12:57:23.580Z</updated>
     
@@ -368,19 +398,19 @@
     
     
     
-    <category term="Artificial Intelligence" scheme="https://wilenwu.github.io/categories/artificial-intelligence/"/>
+    <category term="Artificial Intelligence" scheme="https://www.tinylei.tech/categories/artificial-intelligence/"/>
     
-    <category term="Machine Learning" scheme="https://wilenwu.github.io/categories/artificial-intelligence/machine-learning/"/>
+    <category term="Machine Learning" scheme="https://www.tinylei.tech/categories/artificial-intelligence/machine-learning/"/>
     
     
-    <category term="机器学习" scheme="https://wilenwu.github.io/tags/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/"/>
+    <category term="机器学习" scheme="https://www.tinylei.tech/tags/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/"/>
     
   </entry>
   
   <entry>
     <title>机器学习(VII)--强化学习(一)马尔可夫决策过程</title>
-    <link href="https://wilenwu.github.io/posts/a36576b2/"/>
-    <id>https://wilenwu.github.io/posts/a36576b2/</id>
+    <link href="https://www.tinylei.tech/posts/a36576b2/"/>
+    <id>https://www.tinylei.tech/posts/a36576b2/</id>
     <published>2024-08-29T09:18:30.000Z</published>
     <updated>2024-09-05T14:00:03.008Z</updated>
     
@@ -396,19 +426,19 @@
     
     
     
-    <category term="Artificial Intelligence" scheme="https://wilenwu.github.io/categories/artificial-intelligence/"/>
+    <category term="Artificial Intelligence" scheme="https://www.tinylei.tech/categories/artificial-intelligence/"/>
     
-    <category term="Machine Learning" scheme="https://wilenwu.github.io/categories/artificial-intelligence/machine-learning/"/>
+    <category term="Machine Learning" scheme="https://www.tinylei.tech/categories/artificial-intelligence/machine-learning/"/>
     
     
-    <category term="机器学习" scheme="https://wilenwu.github.io/tags/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/"/>
+    <category term="机器学习" scheme="https://www.tinylei.tech/tags/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/"/>
     
   </entry>
   
   <entry>
     <title>机器学习(VI)--半监督学习</title>
-    <link href="https://wilenwu.github.io/posts/e05c1b59/"/>
-    <id>https://wilenwu.github.io/posts/e05c1b59/</id>
+    <link href="https://www.tinylei.tech/posts/e05c1b59/"/>
+    <id>https://www.tinylei.tech/posts/e05c1b59/</id>
     <published>2024-08-04T03:29:00.000Z</published>
     <updated>2024-08-04T05:22:06.066Z</updated>
     
@@ -424,19 +454,19 @@
     
     
     
-    <category term="Artificial Intelligence" scheme="https://wilenwu.github.io/categories/artificial-intelligence/"/>
+    <category term="Artificial Intelligence" scheme="https://www.tinylei.tech/categories/artificial-intelligence/"/>
     
-    <category term="Machine Learning" scheme="https://wilenwu.github.io/categories/artificial-intelligence/machine-learning/"/>
+    <category term="Machine Learning" scheme="https://www.tinylei.tech/categories/artificial-intelligence/machine-learning/"/>
     
     
-    <category term="机器学习" scheme="https://wilenwu.github.io/tags/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/"/>
+    <category term="机器学习" scheme="https://www.tinylei.tech/tags/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/"/>
     
   </entry>
   
   <entry>
     <title>机器学习(VIII)--概率图模型(二)条件随机场</title>
-    <link href="https://wilenwu.github.io/posts/1ebcf865/"/>
-    <id>https://wilenwu.github.io/posts/1ebcf865/</id>
+    <link href="https://www.tinylei.tech/posts/1ebcf865/"/>
+    <id>https://www.tinylei.tech/posts/1ebcf865/</id>
     <published>2024-07-31T06:08:45.000Z</published>
     <updated>2024-08-04T03:20:00.327Z</updated>
     
@@ -452,19 +482,19 @@
     
     
     
-    <category term="Artificial Intelligence" scheme="https://wilenwu.github.io/categories/artificial-intelligence/"/>
+    <category term="Artificial Intelligence" scheme="https://www.tinylei.tech/categories/artificial-intelligence/"/>
     
-    <category term="Machine Learning" scheme="https://wilenwu.github.io/categories/artificial-intelligence/machine-learning/"/>
+    <category term="Machine Learning" scheme="https://www.tinylei.tech/categories/artificial-intelligence/machine-learning/"/>
     
     
-    <category term="机器学习" scheme="https://wilenwu.github.io/tags/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/"/>
+    <category term="机器学习" scheme="https://www.tinylei.tech/tags/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/"/>
     
   </entry>
   
   <entry>
     <title>机器学习(VIII)--概率图模型(一)隐马尔可夫模型</title>
-    <link href="https://wilenwu.github.io/posts/69c08fe2/"/>
-    <id>https://wilenwu.github.io/posts/69c08fe2/</id>
+    <link href="https://www.tinylei.tech/posts/69c08fe2/"/>
+    <id>https://www.tinylei.tech/posts/69c08fe2/</id>
     <published>2024-07-29T06:30:00.000Z</published>
     <updated>2024-08-04T03:19:46.288Z</updated>
     
@@ -480,19 +510,19 @@
     
     
     
-    <category term="Artificial Intelligence" scheme="https://wilenwu.github.io/categories/artificial-intelligence/"/>
+    <category term="Artificial Intelligence" scheme="https://www.tinylei.tech/categories/artificial-intelligence/"/>
     
-    <category term="Machine Learning" scheme="https://wilenwu.github.io/categories/artificial-intelligence/machine-learning/"/>
+    <category term="Machine Learning" scheme="https://www.tinylei.tech/categories/artificial-intelligence/machine-learning/"/>
     
     
-    <category term="机器学习" scheme="https://wilenwu.github.io/tags/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/"/>
+    <category term="机器学习" scheme="https://www.tinylei.tech/tags/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/"/>
     
   </entry>
   
   <entry>
     <title>机器学习(V)--无监督学习(三)EM算法</title>
-    <link href="https://wilenwu.github.io/posts/4f81b9fa/"/>
-    <id>https://wilenwu.github.io/posts/4f81b9fa/</id>
+    <link href="https://www.tinylei.tech/posts/4f81b9fa/"/>
+    <id>https://www.tinylei.tech/posts/4f81b9fa/</id>
     <published>2024-07-09T12:47:30.000Z</published>
     <updated>2024-07-10T11:46:11.155Z</updated>
     
@@ -508,21 +538,21 @@
     
     
     
-    <category term="Artificial Intelligence" scheme="https://wilenwu.github.io/categories/artificial-intelligence/"/>
+    <category term="Artificial Intelligence" scheme="https://www.tinylei.tech/categories/artificial-intelligence/"/>
     
-    <category term="Machine Learning" scheme="https://wilenwu.github.io/categories/artificial-intelligence/machine-learning/"/>
+    <category term="Machine Learning" scheme="https://www.tinylei.tech/categories/artificial-intelligence/machine-learning/"/>
     
     
-    <category term="机器学习" scheme="https://wilenwu.github.io/tags/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/"/>
+    <category term="机器学习" scheme="https://www.tinylei.tech/tags/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/"/>
     
-    <category term="无监督学习" scheme="https://wilenwu.github.io/tags/%E6%97%A0%E7%9B%91%E7%9D%A3%E5%AD%A6%E4%B9%A0/"/>
+    <category term="无监督学习" scheme="https://www.tinylei.tech/tags/%E6%97%A0%E7%9B%91%E7%9D%A3%E5%AD%A6%E4%B9%A0/"/>
     
   </entry>
   
   <entry>
     <title>机器学习(IV)--监督学习(二)线性和二次判别分析</title>
-    <link href="https://wilenwu.github.io/posts/d5456183/"/>
-    <id>https://wilenwu.github.io/posts/d5456183/</id>
+    <link href="https://www.tinylei.tech/posts/d5456183/"/>
+    <id>https://www.tinylei.tech/posts/d5456183/</id>
     <published>2024-06-24T11:20:00.000Z</published>
     <updated>2024-07-10T11:46:02.093Z</updated>
     
@@ -538,42 +568,12 @@
     
     
     
-    <category term="Artificial Intelligence" scheme="https://wilenwu.github.io/categories/artificial-intelligence/"/>
+    <category term="Artificial Intelligence" scheme="https://www.tinylei.tech/categories/artificial-intelligence/"/>
     
-    <category term="Machine Learning" scheme="https://wilenwu.github.io/categories/artificial-intelligence/machine-learning/"/>
-    
-    
-    <category term="机器学习" scheme="https://wilenwu.github.io/tags/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>机器学习(V)--无监督学习(二)流形学习</title>
-    <link href="https://wilenwu.github.io/posts/26cd5aa6/"/>
-    <id>https://wilenwu.github.io/posts/26cd5aa6/</id>
-    <published>2024-06-21T14:05:00.000Z</published>
-    <updated>2024-07-10T11:47:00.699Z</updated>
+    <category term="Machine Learning" scheme="https://www.tinylei.tech/categories/artificial-intelligence/machine-learning/"/>
     
     
-      
-      
-        
-        
-    <summary type="html">&lt;h1 id=&quot;流形学习&quot;&gt;&lt;a class=&quot;markdownIt-Anchor&quot; href=&quot;#流形学习&quot;&gt;&lt;/a&gt; 流形学习&lt;/h1&gt;
-&lt;p&gt;&lt;a href=&quot;https://b23.tv/ukhJd0S&quot;&gt;【降维技巧 | 导论与流形学习 |</summary>
-        
-      
-    
-    
-    
-    <category term="Artificial Intelligence" scheme="https://wilenwu.github.io/categories/artificial-intelligence/"/>
-    
-    <category term="Machine Learning" scheme="https://wilenwu.github.io/categories/artificial-intelligence/machine-learning/"/>
-    
-    
-    <category term="机器学习" scheme="https://wilenwu.github.io/tags/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/"/>
-    
-    <category term="降维" scheme="https://wilenwu.github.io/tags/%E9%99%8D%E7%BB%B4/"/>
+    <category term="机器学习" scheme="https://www.tinylei.tech/tags/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/"/>
     
   </entry>
   
