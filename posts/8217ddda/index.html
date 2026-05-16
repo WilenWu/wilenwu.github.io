@@ -1,0 +1,569 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0,viewport-fit=cover"><title>R(HTML Widgets)--shiny | 雷小小</title><meta name="author" content="Tiny Lei"><meta name="copyright" content="Tiny Lei"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="使用R语言开发交互式web应用程序的工具">
+<meta property="og:type" content="article">
+<meta property="og:title" content="R(HTML Widgets)--shiny">
+<meta property="og:url" content="https://www.tinylei.tech/posts/8217ddda/index.html">
+<meta property="og:site_name" content="雷小小">
+<meta property="og:description" content="使用R语言开发交互式web应用程序的工具">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://www.tinylei.tech/img/shiny-cover.png">
+<meta property="article:published_time" content="2018-05-23T15:44:24.000Z">
+<meta property="article:modified_time" content="2024-03-08T10:34:00.033Z">
+<meta property="article:author" content="Tiny Lei">
+<meta property="article:tag" content="R">
+<meta property="article:tag" content="可视化">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://www.tinylei.tech/img/shiny-cover.png"><script type="application/ld+json">{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "R(HTML Widgets)--shiny",
+  "url": "https://www.tinylei.tech/posts/8217ddda/",
+  "image": "https://www.tinylei.tech/img/shiny-cover.png",
+  "datePublished": "2018-05-23T15:44:24.000Z",
+  "dateModified": "2024-03-08T10:34:00.033Z",
+  "author": [
+    {
+      "@type": "Person",
+      "name": "Tiny Lei",
+      "url": "https://www.tinylei.tech"
+    }
+  ]
+}</script><link rel="shortcut icon" href="/img/favicon.png"><link rel="canonical" href="https://www.tinylei.tech/posts/8217ddda/index.html"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//hm.baidu.com"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><meta name="baidu-site-verification" content="code-7rymn5Bitx"/><link rel="stylesheet" href="/css/index.css?v=5.5.3"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@7.1.0/css/all.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui@6.1.7/dist/fancybox/fancybox.min.css" media="print" onload="this.media='all'"><script>
+    (() => {
+      
+    const saveToLocal = {
+      set: (key, value, ttl) => {
+        if (!ttl) return
+        const expiry = Date.now() + ttl * 86400000
+        localStorage.setItem(key, JSON.stringify({ value, expiry }))
+      },
+      get: key => {
+        const itemStr = localStorage.getItem(key)
+        if (!itemStr) return undefined
+        const { value, expiry } = JSON.parse(itemStr)
+        if (Date.now() > expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return value
+      }
+    }
+
+    window.btf = {
+      saveToLocal,
+      getScript: (url, attr = {}) => new Promise((resolve, reject) => {
+        const script = document.createElement('script')
+        script.src = url
+        script.async = true
+        Object.entries(attr).forEach(([key, val]) => script.setAttribute(key, val))
+        script.onload = script.onreadystatechange = () => {
+          if (!script.readyState || /loaded|complete/.test(script.readyState)) resolve()
+        }
+        script.onerror = reject
+        document.head.appendChild(script)
+      }),
+      getCSS: (url, id) => new Promise((resolve, reject) => {
+        const link = document.createElement('link')
+        link.rel = 'stylesheet'
+        link.href = url
+        if (id) link.id = id
+        link.onload = link.onreadystatechange = () => {
+          if (!link.readyState || /loaded|complete/.test(link.readyState)) resolve()
+        }
+        link.onerror = reject
+        document.head.appendChild(link)
+      }),
+      addGlobalFn: (key, fn, name = false, parent = window) => {
+        if (!false && key.startsWith('pjax')) return
+        const globalFn = parent.globalFn || {}
+        globalFn[key] = globalFn[key] || {}
+        globalFn[key][name || Object.keys(globalFn[key]).length] = fn
+        parent.globalFn = globalFn
+      }
+    }
+  
+      
+      const activateDarkMode = () => {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      const activateLightMode = () => {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+
+      btf.activateDarkMode = activateDarkMode
+      btf.activateLightMode = activateLightMode
+
+      const theme = saveToLocal.get('theme')
+    
+          const mediaQueryDark = window.matchMedia('(prefers-color-scheme: dark)')
+          const mediaQueryLight = window.matchMedia('(prefers-color-scheme: light)')
+
+          if (theme === undefined) {
+            if (mediaQueryLight.matches) activateLightMode()
+            else if (mediaQueryDark.matches) activateDarkMode()
+            else {
+              const hour = new Date().getHours()
+              const isNight = hour <= 6 || hour >= 18
+              isNight ? activateDarkMode() : activateLightMode()
+            }
+            mediaQueryDark.addEventListener('change', () => {
+              if (saveToLocal.get('theme') === undefined) {
+                e.matches ? activateDarkMode() : activateLightMode()
+              }
+            })
+          } else {
+            theme === 'light' ? activateLightMode() : activateDarkMode()
+          }
+        
+      
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        document.documentElement.classList.toggle('hide-aside', asideStatus === 'hide')
+      }
+    
+      
+    const detectApple = () => {
+      if (/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)) {
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+  
+    })()
+  </script><script>var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "https://hm.baidu.com/hm.js?654e7415ab55bed7c9c2bc6d665f03c5";
+  var s = document.getElementsByTagName("script")[0];
+  s.parentNode.insertBefore(hm, s);
+})();
+btf.addGlobalFn('pjaxComplete', () => {
+  _hmt.push(['_trackPageview',window.location.pathname])
+}, 'baidu_analytics')
+</script><script>const GLOBAL_CONFIG = {
+  root: '/',
+  algolia: undefined,
+  localSearch: {"path":"/search.json","preload":false,"top_n_per_article":1,"unescape":false,"pagination":{"enable":false,"hitsPerPage":8},"languages":{"hits_empty":"未找到符合您查询的内容：${query}","hits_stats":"共找到 ${hits} 篇文章"}},
+  translate: undefined,
+  highlight: {"plugin":"highlight.js","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":200,"highlightFullpage":false,"highlightMacStyle":false},
+  copy: {
+    success: '复制成功',
+    error: '复制失败',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '天',
+  dateSuffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'fancybox',
+  Snackbar: undefined,
+  infinitegrid: {
+    js: 'https://cdn.jsdelivr.net/npm/@egjs/infinitegrid@4.12.0/dist/infinitegrid.min.js',
+    buttonText: '加载更多'
+  },
+  isPhotoFigcaption: true,
+  islazyloadPlugin: true,
+  isAnchor: false,
+  percent: {
+    toc: false,
+    rightside: false,
+  },
+  autoDarkmode: true
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: 'R(HTML Widgets)--shiny',
+  isHighlightShrink: false,
+  isToc: true,
+  pageType: 'post'
+}</script><link rel="stylesheet" href="//at.alicdn.com/t/font_2849223_xh1ftc8qym.css"><meta name="generator" content="Hexo 8.1.1"></head><body><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img text-center"><img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/img/avatar.jpg" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="site-data text-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">187</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">116</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">48</div></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/user-guide/"><i class="fa-fw fa fa-compass"></i><span> 用户指南</span></a></div><div class="menus_item"><span class="site-page group hide"><i class="fa-fw fa fa-book"></i><span> 页面</span><i class="fas fa-chevron-down"></i></span><ul class="menus_item_child"><li><a class="site-page child" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></li><li><a class="site-page child" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 归档</span></a></li><li><a class="site-page child" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/gallery/"><i class="fa-fw fa fa-images"></i><span> 图库</span></a></div><div class="menus_item"><a class="site-page" href="/ebook/"><i class="fa-fw fa fa-book-reader"></i><span> 电子书</span></a></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-star"></i><span> 收藏夹</span></a></div><div class="menus_item"><span class="site-page group hide"><i class="fa-fw fa-solid fa-circle-chevron-down"></i><span> 更多</span><i class="fas fa-chevron-down"></i></span><ul class="menus_item_child"><li><a class="site-page child" href="/about/"><i class="fa-fw fa fa-user"></i><span> 关于我</span></a></li><li><a class="site-page child" href="/log/"><i class="fa-fw fa fa-history"></i><span> 更新日志</span></a></li></ul></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url(/img/shiny-cover.png);"><nav id="nav"><span id="blog-info"><a class="nav-site-title" href="/"><img class="site-icon" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/img/favicon.png" alt="Logo"><span class="site-name">雷小小</span></a><a class="nav-page-title" href="/"><span class="site-name">R(HTML Widgets)--shiny</span><span class="site-name"><i class="fa-solid fa-circle-arrow-left"></i><span>  返回首页</span></span></a></span><div id="menus"><div id="search-button"><span class="site-page social-icon search"><i class="fas fa-search fa-fw"></i><span> 搜索</span></span></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/user-guide/"><i class="fa-fw fa fa-compass"></i><span> 用户指南</span></a></div><div class="menus_item"><span class="site-page group hide"><i class="fa-fw fa fa-book"></i><span> 页面</span><i class="fas fa-chevron-down"></i></span><ul class="menus_item_child"><li><a class="site-page child" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></li><li><a class="site-page child" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 归档</span></a></li><li><a class="site-page child" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/gallery/"><i class="fa-fw fa fa-images"></i><span> 图库</span></a></div><div class="menus_item"><a class="site-page" href="/ebook/"><i class="fa-fw fa fa-book-reader"></i><span> 电子书</span></a></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-star"></i><span> 收藏夹</span></a></div><div class="menus_item"><span class="site-page group hide"><i class="fa-fw fa-solid fa-circle-chevron-down"></i><span> 更多</span><i class="fas fa-chevron-down"></i></span><ul class="menus_item_child"><li><a class="site-page child" href="/about/"><i class="fa-fw fa fa-user"></i><span> 关于我</span></a></li><li><a class="site-page child" href="/log/"><i class="fa-fw fa fa-history"></i><span> 更新日志</span></a></li></ul></div></div><div id="toggle-menu"><span class="site-page"><i class="fas fa-bars fa-fw"></i></span></div></div></nav><div id="post-info"><h1 class="post-title">R(HTML Widgets)--shiny</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2018-05-23T15:44:24.000Z" title="发表于 2018-05-23 23:44:24">2018-05-23</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2024-03-08T10:34:00.033Z" title="更新于 2024-03-08 18:34:00">2024-03-08</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/r/">R</a><i class="fas fa-angle-right post-meta-separator"></i><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/r/html-widgets/">HTML Widgets</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-wordcount"><i class="far fa-file-word fa-fw post-meta-icon"></i><span class="post-meta-label">总字数:</span><span class="word-count">851</span><span class="post-meta-separator">|</span><i class="far fa-clock fa-fw post-meta-icon"></i><span class="post-meta-label">阅读时长:</span><span>4分钟</span></span><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title=""><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">浏览量:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="container post-content" id="article-container"><p>Shiny是来自RStudio的软件包，它使得用R构建交互式Web应用程序变得非常简单。</p>
+<span id="more"></span>
+<h1 id="Build-an-App">Build an App</h1>
+<p>A <strong>Shiny app</strong> is a web page (<strong>UI</strong>) connected to a<br>
+computer running a live R session (<strong>Server</strong>)</p>
+<figure class="highlight r"><table><tr><td class="code"><pre><span class="line">library<span class="punctuation">(</span>shiny<span class="punctuation">)</span></span><br><span class="line">ui <span class="operator">&lt;-</span> fluidPage<span class="punctuation">(</span></span><br><span class="line"> numericInput<span class="punctuation">(</span>inputId <span class="operator">=</span> <span class="string">&quot;n&quot;</span><span class="punctuation">,</span>  </span><br><span class="line"> <span class="string">&quot;Sample size&quot;</span><span class="punctuation">,</span> value <span class="operator">=</span> <span class="number">25</span><span class="punctuation">)</span><span class="punctuation">,</span>  </span><br><span class="line"> plotOutput<span class="punctuation">(</span>outputId <span class="operator">=</span> <span class="string">&quot;hist&quot;</span><span class="punctuation">)</span> </span><br><span class="line"> <span class="punctuation">)</span></span><br><span class="line">server <span class="operator">&lt;-</span> <span class="keyword">function</span><span class="punctuation">(</span>input<span class="punctuation">,</span> output<span class="punctuation">)</span> <span class="punctuation">&#123;</span></span><br><span class="line"> output<span class="operator">$</span>hist <span class="operator">&lt;-</span> renderPlot<span class="punctuation">(</span><span class="punctuation">&#123;</span>   </span><br><span class="line"> hist<span class="punctuation">(</span>rnorm<span class="punctuation">(</span>input<span class="operator">$</span>n<span class="punctuation">)</span><span class="punctuation">)</span> <span class="punctuation">&#125;</span><span class="punctuation">)</span>    </span><br><span class="line"> <span class="punctuation">&#125;</span></span><br><span class="line">shinyApp<span class="punctuation">(</span>ui <span class="operator">=</span> ui<span class="punctuation">,</span> server <span class="operator">=</span> server<span class="punctuation">)</span></span><br></pre></td></tr></table></figure>
+<ol>
+<li><strong>Define UI ----(支持HTML标签语法)</strong></li>
+</ol>
+<ul>
+<li><code>ui &lt;- fluidPage()</code>定义HTML用户界面</li>
+<li>添加input到ui ，用<code>&lt;type&gt;Input</code>系列函数</li>
+<li>添加output到ui，用<code>&lt;type&gt;Output</code>系列函数</li>
+</ul>
+<ol start="2">
+<li><strong>Define server logic</strong></li>
+</ol>
+<ul>
+<li><code>server &lt;- function(input, output){}</code>定义R对象和UI组件的连接方式</li>
+<li>用<code>input$&lt;inputId&gt;</code>或<code>output$&lt;outputId&gt; </code>提供数据给UI组件</li>
+<li><code>render&lt;type&gt;</code>赋值给<code>output$&lt;id&gt;</code>输出给UI output 组件</li>
+</ul>
+<ol start="3">
+<li><strong>Run the app</strong></li>
+</ol>
+<ul>
+<li>combines ui and server</li>
+<li>Run <code>shinyApp(ui = ui, server = server)</code></li>
+</ul>
+<ol start="4">
+<li>
+<p><strong>Save</strong><br>
+保存成一个<strong>app.R</strong> 或者拆分成 <strong>ui.R</strong> 和<strong>serve.R</strong>（shinyApp不需要保存）</p>
+</li>
+<li>
+<p><strong>Share your APP</strong></p>
+</li>
+</ol>
+<ul>
+<li>注册免费或者专业账户 <a target="_blank" rel="noopener external nofollow noreferrer" href="http://shinyapps.io">http://shinyapps.io</a></li>
+<li>在RStudio IDE点击<strong>Publish</strong> 按钮或者运行代码：<br>
+<code>rsconnect::deployApp(&quot;&lt;path to directory&gt;&quot;)</code></li>
+</ul>
+<h1 id="Inputs">Inputs</h1>
+<p>使用<code>input$&lt;inputId&gt;</code>获取input当前value</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">input</th>
+<th style="text-align:left">说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">actionButton(inputId, label, icon,…)</td>
+<td style="text-align:left">按钮</td>
+</tr>
+<tr>
+<td style="text-align:left">submitButton(text, icon)</td>
+<td style="text-align:left">提交按钮</td>
+</tr>
+<tr>
+<td style="text-align:left">radioButtons(inputId, label,choices, selected, inline)</td>
+<td style="text-align:left">单选按钮</td>
+</tr>
+<tr>
+<td style="text-align:left">checkboxGroupInput(inputId, label,choices, selected, inline)</td>
+<td style="text-align:left">复选框组合</td>
+</tr>
+<tr>
+<td style="text-align:left">checkboxInput(inputId, label,value)</td>
+<td style="text-align:left">单个复选框</td>
+</tr>
+<tr>
+<td style="text-align:left">dateInput(inputId, label, value, min,max, format, <br>startview, weekstart,language)</td>
+<td style="text-align:left">日期单选</td>
+</tr>
+<tr>
+<td style="text-align:left">dateRangeInput(inputId, label,start, end, min, max, format,<br>startview, weekstart, language,separator)</td>
+<td style="text-align:left">日期复选</td>
+</tr>
+<tr>
+<td style="text-align:left">numericInput(inputId, label, value,min, max, step)</td>
+<td style="text-align:left">数字输入文本框</td>
+</tr>
+<tr>
+<td style="text-align:left">passwordInput(inputId, label,value)</td>
+<td style="text-align:left">密码输入文本框</td>
+</tr>
+<tr>
+<td style="text-align:left">textInput(inputId, label, value)</td>
+<td style="text-align:left">文本输入框</td>
+</tr>
+<tr>
+<td style="text-align:left">selectInput(inputId, label, choices,selected, multiple, <br>selectize, width,size)</td>
+<td style="text-align:left">(also selectizeInput())下拉列表</td>
+</tr>
+<tr>
+<td style="text-align:left">sliderInput(inputId, label, min, max,value, step, <br>round, format, locale,ticks, animate, width, sep, pre,post)</td>
+<td style="text-align:left">滚动条</td>
+</tr>
+<tr>
+<td style="text-align:left">actionLink(inputId, label, icon, …)</td>
+<td style="text-align:left">链接</td>
+</tr>
+<tr>
+<td style="text-align:left">fileInput(inputId, label, multiple,accept)</td>
+<td style="text-align:left">文件选择</td>
+</tr>
+</tbody>
+</table>
+<h1 id="Outputs">Outputs</h1>
+<p><code> render&lt;type&gt;()</code> and <code>&lt;type&gt;Output()</code> functions work together to add R output to the UI</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:left"><code> render&lt;type&gt;()</code></th>
+<th style="text-align:left"><code>&lt;type&gt;Output()</code></th>
+<th style="text-align:left">说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">DT::renderDataTable(expr, options,callback, escape, env, quoted)</td>
+<td style="text-align:left">dataTableOutput(outputId, icon, …)</td>
+<td style="text-align:left">dataTable</td>
+</tr>
+<tr>
+<td style="text-align:left">renderImage(expr, env, quoted,deleteFile)</td>
+<td style="text-align:left">imageOutput(outputId, width, height,<br>click, dblclick, hover, hoverDelay, inline,<br>hoverDelayType, brush, clickId, hoverId)</td>
+<td style="text-align:left">图片</td>
+</tr>
+<tr>
+<td style="text-align:left">renderPlot(expr, width, height, res, …,env, quoted, func)</td>
+<td style="text-align:left">plotOutput(outputId, width, height, click,<br>dblclick, hover, hoverDelay, inline,<br>hoverDelayType, brush, clickId, hoverId)</td>
+<td style="text-align:left">作图</td>
+</tr>
+<tr>
+<td style="text-align:left">renderPrint(expr, env, quoted, func,width)</td>
+<td style="text-align:left">verbatimTextOutput(outputId)</td>
+<td style="text-align:left">打印</td>
+</tr>
+<tr>
+<td style="text-align:left">renderTable(expr,…, env, quoted, func)</td>
+<td style="text-align:left">tableOutput(outputId)</td>
+<td style="text-align:left">表格输出</td>
+</tr>
+<tr>
+<td style="text-align:left">renderText(expr, env, quoted, func)</td>
+<td style="text-align:left">textOutput(outputId, container, inline)</td>
+<td style="text-align:left">文本标签输出</td>
+</tr>
+<tr>
+<td style="text-align:left">renderUI(expr, env, quoted, func)</td>
+<td style="text-align:left">uiOutput(outputId, inline, container, …)<br>htmlOutput(outputId, inline, container, …)</td>
+<td style="text-align:left"></td>
+</tr>
+</tbody>
+</table>
+<h1 id="Layouts-布局">Layouts(布局)</h1>
+<p>合并多个元素为单一元素</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">panel</th>
+<th style="text-align:left">说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">absolutePanel()</td>
+<td style="text-align:left"></td>
+</tr>
+<tr>
+<td style="text-align:left">conditionalPanel()</td>
+<td style="text-align:left"></td>
+</tr>
+<tr>
+<td style="text-align:left">fixedPanel()</td>
+<td style="text-align:left"></td>
+</tr>
+<tr>
+<td style="text-align:left">headerPanel()</td>
+<td style="text-align:left"></td>
+</tr>
+<tr>
+<td style="text-align:left">inputPanel()</td>
+<td style="text-align:left">输入面板</td>
+</tr>
+<tr>
+<td style="text-align:left">mainPanel()</td>
+<td style="text-align:left">主面板</td>
+</tr>
+<tr>
+<td style="text-align:left">navlistPanel()</td>
+<td style="text-align:left"></td>
+</tr>
+<tr>
+<td style="text-align:left">sidebarPanel()</td>
+<td style="text-align:left">工具栏面板</td>
+</tr>
+<tr>
+<td style="text-align:left">tabPanel()</td>
+<td style="text-align:left"></td>
+</tr>
+<tr>
+<td style="text-align:left">tabsetPanel()</td>
+<td style="text-align:left"></td>
+</tr>
+<tr>
+<td style="text-align:left">titlePanel()</td>
+<td style="text-align:left">标题面板</td>
+</tr>
+<tr>
+<td style="text-align:left">wellPanel()</td>
+<td style="text-align:left"></td>
+</tr>
+</tbody>
+</table>
+<figure class="highlight r"><table><tr><td class="code"><pre><span class="line">wellPanel<span class="punctuation">(</span></span><br><span class="line">  dateInput<span class="punctuation">(</span><span class="string">&quot;a&quot;</span><span class="punctuation">,</span> <span class="string">&quot;&quot;</span><span class="punctuation">)</span><span class="punctuation">,</span></span><br><span class="line">  submitButton<span class="punctuation">(</span><span class="punctuation">)</span></span><br><span class="line"><span class="punctuation">)</span></span><br></pre></td></tr></table></figure>
+<p><strong>UI布局</strong></p>
+<figure class="highlight r"><table><tr><td class="code"><pre><span class="line"><span class="comment"># fluidRow()</span></span><br><span class="line">ui <span class="operator">&lt;-</span> fluidPage<span class="punctuation">(</span></span><br><span class="line"> fluidRow<span class="punctuation">(</span>column<span class="punctuation">(</span>width <span class="operator">=</span> <span class="number">4</span><span class="punctuation">)</span><span class="punctuation">,</span>column<span class="punctuation">(</span>width <span class="operator">=</span> <span class="number">2</span><span class="punctuation">,</span> offset <span class="operator">=</span> <span class="number">3</span><span class="punctuation">)</span><span class="punctuation">)</span><span class="punctuation">,</span></span><br><span class="line"> fluidRow<span class="punctuation">(</span>column<span class="punctuation">(</span>width <span class="operator">=</span> <span class="number">12</span><span class="punctuation">)</span><span class="punctuation">)</span></span><br><span class="line"><span class="punctuation">)</span></span><br></pre></td></tr></table></figure>
+<p><img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://warehouse-1310574346.cos.ap-shanghai.myqcloud.com/images/r-shiny/shiny_fluid.png" alt=""></p>
+<figure class="highlight r"><table><tr><td class="code"><pre><span class="line"><span class="comment"># flowLayout</span></span><br><span class="line">ui <span class="operator">&lt;-</span> fluidPage<span class="punctuation">(</span></span><br><span class="line"> flowLayout<span class="punctuation">(</span> <span class="comment"># object 1,</span></span><br><span class="line"> <span class="comment"># object 2, # object 3 )</span></span><br><span class="line"><span class="punctuation">)</span></span><br></pre></td></tr></table></figure>
+<p><img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://warehouse-1310574346.cos.ap-shanghai.myqcloud.com/images/r-shiny/shiny_flow.png" alt=""></p>
+<figure class="highlight r"><table><tr><td class="code"><pre><span class="line"><span class="comment"># sidebarLayout</span></span><br><span class="line">ui <span class="operator">&lt;-</span> fluidPage<span class="punctuation">(</span></span><br><span class="line"> sidebarLayout<span class="punctuation">(</span></span><br><span class="line"> sidebarPanel<span class="punctuation">(</span><span class="punctuation">)</span><span class="punctuation">,</span>  <span class="comment"># 侧边栏</span></span><br><span class="line"> mainPanel<span class="punctuation">(</span><span class="punctuation">)</span>      <span class="comment"># 主面板</span></span><br><span class="line"> <span class="punctuation">)</span></span><br><span class="line"><span class="punctuation">)</span></span><br></pre></td></tr></table></figure>
+<p><img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://warehouse-1310574346.cos.ap-shanghai.myqcloud.com/images/r-shiny/shiny_panel.png" alt=""></p>
+<figure class="highlight r"><table><tr><td class="code"><pre><span class="line"><span class="comment"># splitLayout</span></span><br><span class="line">ui <span class="operator">&lt;-</span> fluidPage<span class="punctuation">(</span></span><br><span class="line"> splitLayout<span class="punctuation">(</span> <span class="comment"># object 1,</span></span><br><span class="line"> <span class="comment"># object 2</span></span><br><span class="line"> <span class="punctuation">)</span></span><br><span class="line"><span class="punctuation">)</span></span><br></pre></td></tr></table></figure>
+<p><img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://warehouse-1310574346.cos.ap-shanghai.myqcloud.com/images/r-shiny/shiny_split.png" alt=""></p>
+<figure class="highlight r"><table><tr><td class="code"><pre><span class="line"><span class="comment"># verticalLayout</span></span><br><span class="line">ui <span class="operator">&lt;-</span> fluidPage<span class="punctuation">(</span></span><br><span class="line"> verticalLayout<span class="punctuation">(</span> <span class="comment"># object 1,</span></span><br><span class="line"> <span class="comment"># object 2,</span></span><br><span class="line"> <span class="comment"># object 3</span></span><br><span class="line"> <span class="punctuation">)</span></span><br><span class="line"><span class="punctuation">)</span></span><br></pre></td></tr></table></figure>
+<p><img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://warehouse-1310574346.cos.ap-shanghai.myqcloud.com/images/r-shiny/shiny_vertical.png" alt=""></p>
+<figure class="highlight r"><table><tr><td class="code"><pre><span class="line"><span class="comment"># tabPanel</span></span><br><span class="line">ui <span class="operator">&lt;-</span> fluidPage<span class="punctuation">(</span> tabsetPanel<span class="punctuation">(</span></span><br><span class="line"> tabPanel<span class="punctuation">(</span><span class="string">&quot;tab 1&quot;</span><span class="punctuation">,</span> <span class="string">&quot;contents&quot;</span><span class="punctuation">)</span><span class="punctuation">,</span></span><br><span class="line"> tabPanel<span class="punctuation">(</span><span class="string">&quot;tab 2&quot;</span><span class="punctuation">,</span> <span class="string">&quot;contents&quot;</span><span class="punctuation">)</span><span class="punctuation">,</span></span><br><span class="line"> tabPanel<span class="punctuation">(</span><span class="string">&quot;tab 3&quot;</span><span class="punctuation">,</span> <span class="string">&quot;contents&quot;</span><span class="punctuation">)</span><span class="punctuation">)</span><span class="punctuation">)</span></span><br><span class="line">ui <span class="operator">&lt;-</span> fluidPage<span class="punctuation">(</span> navlistPanel<span class="punctuation">(</span></span><br><span class="line"> tabPanel<span class="punctuation">(</span><span class="string">&quot;tab 1&quot;</span><span class="punctuation">,</span> <span class="string">&quot;contents&quot;</span><span class="punctuation">)</span><span class="punctuation">,</span></span><br><span class="line"> tabPanel<span class="punctuation">(</span><span class="string">&quot;tab 2&quot;</span><span class="punctuation">,</span> <span class="string">&quot;contents&quot;</span><span class="punctuation">)</span><span class="punctuation">,</span></span><br><span class="line"> tabPanel<span class="punctuation">(</span><span class="string">&quot;tab 3&quot;</span><span class="punctuation">,</span> <span class="string">&quot;contents&quot;</span><span class="punctuation">)</span><span class="punctuation">)</span><span class="punctuation">)</span></span><br><span class="line">ui <span class="operator">&lt;-</span> navbarPage<span class="punctuation">(</span>title <span class="operator">=</span> <span class="string">&quot;Page&quot;</span><span class="punctuation">,</span></span><br><span class="line"> tabPanel<span class="punctuation">(</span><span class="string">&quot;tab 1&quot;</span><span class="punctuation">,</span> <span class="string">&quot;contents&quot;</span><span class="punctuation">)</span><span class="punctuation">,</span></span><br><span class="line"> tabPanel<span class="punctuation">(</span><span class="string">&quot;tab 2&quot;</span><span class="punctuation">,</span> <span class="string">&quot;contents&quot;</span><span class="punctuation">)</span><span class="punctuation">,</span></span><br><span class="line"> tabPanel<span class="punctuation">(</span><span class="string">&quot;tab 3&quot;</span><span class="punctuation">,</span> <span class="string">&quot;contents&quot;</span><span class="punctuation">)</span><span class="punctuation">)</span></span><br></pre></td></tr></table></figure>
+<p><img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://warehouse-1310574346.cos.ap-shanghai.myqcloud.com/images/r-shiny/shiny_tabs.png" alt=""></p>
+<h1 id="Reactivity-反应">Reactivity(反应)</h1>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">Reactivity</th>
+<th style="text-align:left">说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left"><code>input$&lt;inputId&gt;</code> functions<br>reactiveValues(…)</td>
+<td style="text-align:left">input接收的值被储存在<code>input$&lt;inputId&gt;</code>中</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>render&lt;type&gt;()</code> functions<br><code>output$&lt;outputId&gt;</code></td>
+<td style="text-align:left">将结果保存到<code>output$&lt;outputId&gt;</code></td>
+</tr>
+<tr>
+<td style="text-align:left">isolate(expr)</td>
+<td style="text-align:left">抑制反应</td>
+</tr>
+<tr>
+<td style="text-align:left">observeEvent(eventExpr, handlerExpr,…)</td>
+<td style="text-align:left">触发主观代码</td>
+</tr>
+<tr>
+<td style="text-align:left">reactive(x, env, quoted,label, domain)</td>
+<td style="text-align:left">模块化反应机制</td>
+</tr>
+<tr>
+<td style="text-align:left">eventReactive(eventExpr,valueExpr,…)</td>
+<td style="text-align:left">延迟反应</td>
+</tr>
+</tbody>
+</table>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta"><i class="fas fa-circle-user fa-fw"></i>文章作者: </span><span class="post-copyright-info"><a href="https://www.tinylei.tech">Tiny Lei</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta"><i class="fas fa-square-arrow-up-right fa-fw"></i>文章链接: </span><span class="post-copyright-info"><a href="https://www.tinylei.tech/posts/8217ddda/">https://www.tinylei.tech/posts/8217ddda/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta"><i class="fas fa-circle-exclamation fa-fw"></i>版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="external nofollow noreferrer" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来源 <a href="https://www.tinylei.tech" target="_blank">雷小小</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/r/">R</a><a class="post-meta__tags" href="/tags/%E5%8F%AF%E8%A7%86%E5%8C%96/">可视化</a></div><div class="post-share"><div class="social-share" data-image="/img/shiny-cover.png" data-sites="wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.6/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.6/sharejs/dist/js/social-share.min.js" defer></script></div></div><div class="post-reward"><div class="reward-button"><i class="fas fa-qrcode"></i>赞助</div><div class="reward-main"><ul class="reward-all"><li class="reward-item"><a href="/img/morty3.jpg" target="_blank"><img class="post-qr-code-img" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/img/morty3.jpg" alt="Give me money!"/></a><div class="post-qr-code-desc">Give me money!</div></li></ul></div></div><nav class="pagination-post" id="pagination"><a class="pagination-related" href="/posts/f347fe66/" title="Python(Visualise)--matplotlib"><img class="cover" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/img/matplotlib-top.jpeg" onerror="onerror=null;src='/img/404.jpg'" alt="cover of previous post"><div class="info"><div class="info-1"><div class="info-item-1">上一篇</div><div class="info-item-2">Python(Visualise)--matplotlib</div></div><div class="info-2"><div class="info-item-1">Matplotlib is a comprehensive library for creating static, animated, and interactive visualizations in Python</div></div></div></a><a class="pagination-related" href="/posts/62196d29/" title="Python(IDE)--常用的Python IDE"><img class="cover" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/img/jupyterlab-logo.png" onerror="onerror=null;src='/img/404.jpg'" alt="cover of next post"><div class="info text-right"><div class="info-1"><div class="info-item-1">下一篇</div><div class="info-item-2">Python(IDE)--常用的Python IDE</div></div><div class="info-2"><div class="info-item-1">集成开发环境（IDE，Integrated Development Environment ）是用于提供程序开发环境的应用程序，一般包括代码编辑器、编译器、调试器和图形用户界面等工具。  常用 ...</div></div></div></a></nav><div class="relatedPosts"><div class="headline"><i class="fas fa-thumbs-up fa-fw"></i><span>相关推荐</span></div><div class="relatedPosts-list"><a class="pagination-related" href="/posts/cb53c844/" title="R(NLP)--jiebaR"><img class="cover" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/img/NLP.jpg" alt="cover"><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2018-05-04</div><div class="info-item-2">R(NLP)--jiebaR</div></div><div class="info-2"><div class="info-item-1">R语言词云和中文词典包</div></div></div></a><a class="pagination-related" href="/posts/8f6de5fc/" title="R(Visualise)--ggplot2"><img class="cover" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/img/ggplot2-cover.png" alt="cover"><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2018-05-03</div><div class="info-item-2">R(Visualise)--ggplot2</div></div><div class="info-2"><div class="info-item-1">强大的绘图系统，并实现了许多扩展(Hadley)</div></div></div></a><a class="pagination-related" href="/posts/74875eb3/" title="R(Visualise)--RColorBrewer and extrafont"><img class="cover" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/img/palette.png" alt="cover"><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2018-05-03</div><div class="info-item-2">R(Visualise)--RColorBrewer and extrafont</div></div><div class="info-2"><div class="info-item-1">调色板和字体配置</div></div></div></a><a class="pagination-related" href="/posts/8a9afcfe/" title="R(HTML Widgets)--leaflet"><img class="cover" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/img/leaflet-cover.png" alt="cover"><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2018-05-04</div><div class="info-item-2">R(HTML Widgets)--leaflet</div></div><div class="info-2"><div class="info-item-1">最流行的JavaScript库交互式地图之一，动态交互地图。</div></div></div></a><a class="pagination-related" href="/posts/856dfd2b/" title="R(Visualise)--ggmap and baidumap"><img class="cover" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/img/baidu-map-cover.png" alt="cover"><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2018-05-03</div><div class="info-item-2">R(Visualise)--ggmap and baidumap</div></div><div class="info-2"><div class="info-item-1">使用ggplot2在R中绘制静态地图</div></div></div></a><a class="pagination-related" href="/posts/3c7fb28e/" title="R(HTML Widgets)--REmap"><img class="cover" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/img/echarts-cover.png" alt="cover"><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2018-06-01</div><div class="info-item-2">R(HTML Widgets)--REmap</div></div><div class="info-2"><div class="info-item-1">基于Echarts的简易动态交互地图</div></div></div></a></div></div><hr class="custom-hr"/><div id="post-comment"><div class="comment-head"><div class="comment-headline"><i class="fas fa-comments fa-fw"></i><span> 评论</span></div></div><div class="comment-wrap"><div><div id="gitalk-container"></div></div></div></div></div><div class="aside-content" id="aside-content"><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span><span class="toc-percentage"></span></div><div class="toc-content is-expand"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#Build-an-App"><span class="toc-number">1.</span> <span class="toc-text">Build an App</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Inputs"><span class="toc-number">2.</span> <span class="toc-text">Inputs</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Outputs"><span class="toc-number">3.</span> <span class="toc-text">Outputs</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Layouts-%E5%B8%83%E5%B1%80"><span class="toc-number">4.</span> <span class="toc-text">Layouts(布局)</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Reactivity-%E5%8F%8D%E5%BA%94"><span class="toc-number">5.</span> <span class="toc-text">Reactivity(反应)</span></a></li></ol></div></div></div></div></main><footer id="footer"><div class="footer-other"><div class="footer-copyright"><span class="copyright">&copy;&nbsp;2019 - 2026 By Tiny Lei</span><span class="framework-info"><span>框架 </span><a target="_blank" rel="noopener external nofollow noreferrer" href="https://hexo.io">Hexo 8.1.1</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener external nofollow noreferrer" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly 5.5.3</a></span></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="日间和夜间模式切换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside-config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><a id="to_comment" href="#post-comment" title="前往评论"><i class="fas fa-comments"></i></a><button id="go-up" type="button" title="回到顶部"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js?v=5.5.3"></script><script src="/js/main.js?v=5.5.3"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui@6.1.7/dist/fancybox/fancybox.umd.min.js"></script><script src="https://cdn.jsdelivr.net/npm/vanilla-lazyload@19.1.3/dist/lazyload.iife.min.js"></script><div class="js-pjax"><script>(() => {
+  const runMermaid = ele => {
+    window.loadMermaid = true
+    const theme = document.documentElement.getAttribute('data-theme') === 'dark' ? 'dark' : 'default'
+
+    ele.forEach((item, index) => {
+      const mermaidSrc = item.firstElementChild
+      const config = mermaidSrc.dataset.config ? JSON.parse(mermaidSrc.dataset.config) : {}
+      if (!config.theme) {
+        config.theme = theme
+      }
+      const mermaidThemeConfig = `%%{init: ${JSON.stringify(config)}}%%\n`
+      const mermaidID = `mermaid-${index}`
+      const mermaidDefinition = mermaidThemeConfig + mermaidSrc.textContent
+
+      const renderFn = mermaid.render(mermaidID, mermaidDefinition)
+      const renderMermaid = svg => {
+        mermaidSrc.insertAdjacentHTML('afterend', svg)
+      }
+
+      // mermaid v9 and v10 compatibility
+      typeof renderFn === 'string' ? renderMermaid(renderFn) : renderFn.then(({ svg }) => renderMermaid(svg))
+    })
+  }
+
+  const codeToMermaid = () => {
+    const codeMermaidEle = document.querySelectorAll('pre > code.mermaid')
+    if (codeMermaidEle.length === 0) return
+
+    codeMermaidEle.forEach(ele => {
+      const preEle = document.createElement('pre')
+      preEle.className = 'mermaid-src'
+      preEle.hidden = true
+      preEle.textContent = ele.textContent
+      const newEle = document.createElement('div')
+      newEle.className = 'mermaid-wrap'
+      newEle.appendChild(preEle)
+      ele.parentNode.replaceWith(newEle)
+    })
+  }
+
+  const loadMermaid = () => {
+    if (true) codeToMermaid()
+    const $mermaid = document.querySelectorAll('#article-container .mermaid-wrap')
+    if ($mermaid.length === 0) return
+
+    const runMermaidFn = () => runMermaid($mermaid)
+    btf.addGlobalFn('themeChange', runMermaidFn, 'mermaid')
+    window.loadMermaid ? runMermaidFn() : btf.getScript('https://cdn.jsdelivr.net/npm/mermaid@11.12.2/dist/mermaid.min.js').then(runMermaidFn)
+  }
+
+  btf.addGlobalFn('encrypt', loadMermaid, 'mermaid')
+  window.pjax ? loadMermaid() : document.addEventListener('DOMContentLoaded', loadMermaid)
+})()</script><script>(() => {
+  const isShuoshuo = GLOBAL_CONFIG_SITE.pageType === 'shuoshuo'
+  const option = null
+
+  const commentCount = n => {
+    const isCommentCount = document.querySelector('#post-meta .gitalk-comment-count')
+    if (isCommentCount) {
+      isCommentCount.textContent= n
+    }
+  }
+
+  const initGitalk = (el, path) => {
+    if (isShuoshuo) {
+      window.shuoshuoComment.destroyGitalk = () => {
+        if (el.children.length) {
+          el.innerHTML = ''
+          el.classList.add('no-comment')
+        }
+      }
+    }
+
+    const gitalk = new Gitalk({
+      clientID: '7c65134b48b13f306114',
+      clientSecret: 'f049f68368a11925fdb69e57c64839eac94e13c1',
+      repo: 'gitalk-comments',
+      owner: 'WilenWu',
+      admin: ['WilenWu'],
+      updateCountCallback: commentCount,
+      ...option,
+      id: isShuoshuo ? path : (option && option.id) || '16a6db680d08ca20c4dbfdf7ab4b33d5'
+    })
+
+    gitalk.render('gitalk-container')
+  }
+
+  const loadGitalk = async(el, path) => {
+    if (typeof Gitalk === 'function') initGitalk(el, path)
+    else {
+      await btf.getCSS('https://cdn.jsdelivr.net/npm/gitalk@1.8.0/dist/gitalk.min.css')
+      await btf.getScript('https://cdn.jsdelivr.net/npm/gitalk@1.8.0/dist/gitalk.min.js')
+      initGitalk(el, path)
+    }
+  }
+
+  if (isShuoshuo) {
+    'Gitalk' === 'Gitalk'
+      ? window.shuoshuoComment = { loadComment: loadGitalk }
+      : window.loadOtherComment = loadGitalk
+    return
+  }
+
+  if ('Gitalk' === 'Gitalk' || !false) {
+    if (false) btf.loadComment(document.getElementById('gitalk-container'), loadGitalk)
+    else loadGitalk()
+  } else {
+    window.loadOtherComment = loadGitalk
+  }
+})()</script></div><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script><div id="local-search"><div class="search-dialog"><nav class="search-nav"><span class="search-dialog-title">搜索</span><i class="fas fa-spinner fa-pulse" id="loading-status" hidden="hidden"></i><button class="search-close-button"><i class="fas fa-times"></i></button></nav><div class="text-center" id="loading-database"><i class="fas fa-spinner fa-pulse"></i><span>  数据加载中</span></div><div class="local-search-input"><input placeholder="搜索文章" type="text"/></div><hr/><div id="local-search-results"></div><div class="ais-Pagination" id="local-search-pagination" style="display:none;"><ul class="ais-Pagination-list"></ul></div><div id="local-search-stats"></div></div><div id="search-mask"></div><script src="/js/search/local-search.js?v=5.5.3"></script></div></div></body></html>

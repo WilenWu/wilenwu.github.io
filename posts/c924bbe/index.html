@@ -1,0 +1,442 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0,viewport-fit=cover"><title>Python(Standard Library)--Python 代码调试工具 | 雷小小</title><meta name="author" content="Tiny Lei"><meta name="copyright" content="Tiny Lei"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="assert, pdb, ipdb">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Python(Standard Library)--Python 代码调试工具">
+<meta property="og:url" content="https://www.tinylei.tech/posts/c924bbe/index.html">
+<meta property="og:site_name" content="雷小小">
+<meta property="og:description" content="assert, pdb, ipdb">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://www.tinylei.tech/img/python-debug.jpg">
+<meta property="article:published_time" content="2021-11-13T14:23:11.000Z">
+<meta property="article:modified_time" content="2024-03-08T10:33:44.871Z">
+<meta property="article:author" content="Tiny Lei">
+<meta property="article:tag" content="Python">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://www.tinylei.tech/img/python-debug.jpg"><script type="application/ld+json">{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "Python(Standard Library)--Python 代码调试工具",
+  "url": "https://www.tinylei.tech/posts/c924bbe/",
+  "image": "https://www.tinylei.tech/img/python-debug.jpg",
+  "datePublished": "2021-11-13T14:23:11.000Z",
+  "dateModified": "2024-03-08T10:33:44.871Z",
+  "author": [
+    {
+      "@type": "Person",
+      "name": "Tiny Lei",
+      "url": "https://www.tinylei.tech"
+    }
+  ]
+}</script><link rel="shortcut icon" href="/img/favicon.png"><link rel="canonical" href="https://www.tinylei.tech/posts/c924bbe/index.html"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//hm.baidu.com"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><meta name="baidu-site-verification" content="code-7rymn5Bitx"/><link rel="stylesheet" href="/css/index.css?v=5.5.3"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@7.1.0/css/all.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui@6.1.7/dist/fancybox/fancybox.min.css" media="print" onload="this.media='all'"><script>
+    (() => {
+      
+    const saveToLocal = {
+      set: (key, value, ttl) => {
+        if (!ttl) return
+        const expiry = Date.now() + ttl * 86400000
+        localStorage.setItem(key, JSON.stringify({ value, expiry }))
+      },
+      get: key => {
+        const itemStr = localStorage.getItem(key)
+        if (!itemStr) return undefined
+        const { value, expiry } = JSON.parse(itemStr)
+        if (Date.now() > expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return value
+      }
+    }
+
+    window.btf = {
+      saveToLocal,
+      getScript: (url, attr = {}) => new Promise((resolve, reject) => {
+        const script = document.createElement('script')
+        script.src = url
+        script.async = true
+        Object.entries(attr).forEach(([key, val]) => script.setAttribute(key, val))
+        script.onload = script.onreadystatechange = () => {
+          if (!script.readyState || /loaded|complete/.test(script.readyState)) resolve()
+        }
+        script.onerror = reject
+        document.head.appendChild(script)
+      }),
+      getCSS: (url, id) => new Promise((resolve, reject) => {
+        const link = document.createElement('link')
+        link.rel = 'stylesheet'
+        link.href = url
+        if (id) link.id = id
+        link.onload = link.onreadystatechange = () => {
+          if (!link.readyState || /loaded|complete/.test(link.readyState)) resolve()
+        }
+        link.onerror = reject
+        document.head.appendChild(link)
+      }),
+      addGlobalFn: (key, fn, name = false, parent = window) => {
+        if (!false && key.startsWith('pjax')) return
+        const globalFn = parent.globalFn || {}
+        globalFn[key] = globalFn[key] || {}
+        globalFn[key][name || Object.keys(globalFn[key]).length] = fn
+        parent.globalFn = globalFn
+      }
+    }
+  
+      
+      const activateDarkMode = () => {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      const activateLightMode = () => {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+
+      btf.activateDarkMode = activateDarkMode
+      btf.activateLightMode = activateLightMode
+
+      const theme = saveToLocal.get('theme')
+    
+          const mediaQueryDark = window.matchMedia('(prefers-color-scheme: dark)')
+          const mediaQueryLight = window.matchMedia('(prefers-color-scheme: light)')
+
+          if (theme === undefined) {
+            if (mediaQueryLight.matches) activateLightMode()
+            else if (mediaQueryDark.matches) activateDarkMode()
+            else {
+              const hour = new Date().getHours()
+              const isNight = hour <= 6 || hour >= 18
+              isNight ? activateDarkMode() : activateLightMode()
+            }
+            mediaQueryDark.addEventListener('change', () => {
+              if (saveToLocal.get('theme') === undefined) {
+                e.matches ? activateDarkMode() : activateLightMode()
+              }
+            })
+          } else {
+            theme === 'light' ? activateLightMode() : activateDarkMode()
+          }
+        
+      
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        document.documentElement.classList.toggle('hide-aside', asideStatus === 'hide')
+      }
+    
+      
+    const detectApple = () => {
+      if (/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)) {
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+  
+    })()
+  </script><script>var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "https://hm.baidu.com/hm.js?654e7415ab55bed7c9c2bc6d665f03c5";
+  var s = document.getElementsByTagName("script")[0];
+  s.parentNode.insertBefore(hm, s);
+})();
+btf.addGlobalFn('pjaxComplete', () => {
+  _hmt.push(['_trackPageview',window.location.pathname])
+}, 'baidu_analytics')
+</script><script>const GLOBAL_CONFIG = {
+  root: '/',
+  algolia: undefined,
+  localSearch: {"path":"/search.json","preload":false,"top_n_per_article":1,"unescape":false,"pagination":{"enable":false,"hitsPerPage":8},"languages":{"hits_empty":"未找到符合您查询的内容：${query}","hits_stats":"共找到 ${hits} 篇文章"}},
+  translate: undefined,
+  highlight: {"plugin":"highlight.js","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":200,"highlightFullpage":false,"highlightMacStyle":false},
+  copy: {
+    success: '复制成功',
+    error: '复制失败',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '天',
+  dateSuffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'fancybox',
+  Snackbar: undefined,
+  infinitegrid: {
+    js: 'https://cdn.jsdelivr.net/npm/@egjs/infinitegrid@4.12.0/dist/infinitegrid.min.js',
+    buttonText: '加载更多'
+  },
+  isPhotoFigcaption: true,
+  islazyloadPlugin: true,
+  isAnchor: false,
+  percent: {
+    toc: false,
+    rightside: false,
+  },
+  autoDarkmode: true
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: 'Python(Standard Library)--Python 代码调试工具',
+  isHighlightShrink: false,
+  isToc: true,
+  pageType: 'post'
+}</script><link rel="stylesheet" href="//at.alicdn.com/t/font_2849223_xh1ftc8qym.css"><meta name="generator" content="Hexo 8.1.1"></head><body><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img text-center"><img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/img/avatar.jpg" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="site-data text-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">187</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">116</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">48</div></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/user-guide/"><i class="fa-fw fa fa-compass"></i><span> 用户指南</span></a></div><div class="menus_item"><span class="site-page group hide"><i class="fa-fw fa fa-book"></i><span> 页面</span><i class="fas fa-chevron-down"></i></span><ul class="menus_item_child"><li><a class="site-page child" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></li><li><a class="site-page child" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 归档</span></a></li><li><a class="site-page child" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/gallery/"><i class="fa-fw fa fa-images"></i><span> 图库</span></a></div><div class="menus_item"><a class="site-page" href="/ebook/"><i class="fa-fw fa fa-book-reader"></i><span> 电子书</span></a></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-star"></i><span> 收藏夹</span></a></div><div class="menus_item"><span class="site-page group hide"><i class="fa-fw fa-solid fa-circle-chevron-down"></i><span> 更多</span><i class="fas fa-chevron-down"></i></span><ul class="menus_item_child"><li><a class="site-page child" href="/about/"><i class="fa-fw fa fa-user"></i><span> 关于我</span></a></li><li><a class="site-page child" href="/log/"><i class="fa-fw fa fa-history"></i><span> 更新日志</span></a></li></ul></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url(/img/python-top-img.svg);"><nav id="nav"><span id="blog-info"><a class="nav-site-title" href="/"><img class="site-icon" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/img/favicon.png" alt="Logo"><span class="site-name">雷小小</span></a><a class="nav-page-title" href="/"><span class="site-name">Python(Standard Library)--Python 代码调试工具</span><span class="site-name"><i class="fa-solid fa-circle-arrow-left"></i><span>  返回首页</span></span></a></span><div id="menus"><div id="search-button"><span class="site-page social-icon search"><i class="fas fa-search fa-fw"></i><span> 搜索</span></span></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/user-guide/"><i class="fa-fw fa fa-compass"></i><span> 用户指南</span></a></div><div class="menus_item"><span class="site-page group hide"><i class="fa-fw fa fa-book"></i><span> 页面</span><i class="fas fa-chevron-down"></i></span><ul class="menus_item_child"><li><a class="site-page child" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></li><li><a class="site-page child" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 归档</span></a></li><li><a class="site-page child" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/gallery/"><i class="fa-fw fa fa-images"></i><span> 图库</span></a></div><div class="menus_item"><a class="site-page" href="/ebook/"><i class="fa-fw fa fa-book-reader"></i><span> 电子书</span></a></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-star"></i><span> 收藏夹</span></a></div><div class="menus_item"><span class="site-page group hide"><i class="fa-fw fa-solid fa-circle-chevron-down"></i><span> 更多</span><i class="fas fa-chevron-down"></i></span><ul class="menus_item_child"><li><a class="site-page child" href="/about/"><i class="fa-fw fa fa-user"></i><span> 关于我</span></a></li><li><a class="site-page child" href="/log/"><i class="fa-fw fa fa-history"></i><span> 更新日志</span></a></li></ul></div></div><div id="toggle-menu"><span class="site-page"><i class="fas fa-bars fa-fw"></i></span></div></div></nav><div id="post-info"><h1 class="post-title">Python(Standard Library)--Python 代码调试工具</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2021-11-13T14:23:11.000Z" title="发表于 2021-11-13 22:23:11">2021-11-13</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2024-03-08T10:33:44.871Z" title="更新于 2024-03-08 18:33:44">2024-03-08</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/python/">Python</a><i class="fas fa-angle-right post-meta-separator"></i><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/python/standard-library/">Standard Library</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-wordcount"><i class="far fa-file-word fa-fw post-meta-icon"></i><span class="post-meta-label">总字数:</span><span class="word-count">1.7k</span><span class="post-meta-separator">|</span><i class="far fa-clock fa-fw post-meta-icon"></i><span class="post-meta-label">阅读时长:</span><span>7分钟</span></span><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title=""><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">浏览量:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="container post-content" id="article-container"><h1 id="assert">assert</h1>
+<p>Python assert（断言）用于判断一个表达式，在表达式条件为 false 的时候触发异常。断言可以在条件不满足程序运行的情况下直接返回错误，而不必等待程序运行后出现崩溃的情况。</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">assert</span> expression [, arguments]  <span class="comment"># 参数可选</span></span><br></pre></td></tr></table></figure>
+<p>等价于：</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">if</span> <span class="keyword">not</span> expression:</span><br><span class="line">    <span class="keyword">raise</span> AssertionError(arguments)   <span class="comment"># 参数可选</span></span><br></pre></td></tr></table></figure>
+<p>以下实例判断当前系统是否为 Linux，如果不满足条件则直接触发异常，不必执行接下来的代码：</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="keyword">import</span> sys</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="keyword">assert</span> (<span class="string">&#x27;linux&#x27;</span> <span class="keyword">in</span> sys.platform), <span class="string">&quot;该代码只能在 Linux 下执行&quot;</span></span><br><span class="line">Traceback (most recent call last):</span><br><span class="line">  File <span class="string">&quot;&lt;stdin&gt;&quot;</span>, line <span class="number">1</span>, <span class="keyword">in</span> &lt;module&gt;</span><br><span class="line">AssertionError: 该代码只能在 Linux 下执行</span><br><span class="line"></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="comment"># ... do something ...</span></span><br></pre></td></tr></table></figure>
+<h1 id="pdb">pdb</h1>
+<p><a target="_blank" rel="noopener external nofollow noreferrer" href="https://docs.python.org/zh-cn/3/library/pdb.html#module-pdb"><code>pdb</code></a> (<strong>P</strong>ython <strong>D</strong>e<strong>B</strong>ugger) 模块定义了一个交互式源代码调试器，用于 Python 程序。它支持在源码行间设置（有条件的）断点和单步执行，检视堆栈帧，列出源码列表，以及在任何堆栈帧的上下文中运行任意 Python 代码。它还支持事后调试，可以在程序控制下调用。</p>
+<p>以猜骰子游戏为例，源码如下：</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="comment"># dicegame.py</span></span><br><span class="line"><span class="keyword">import</span> random</span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">GameRunner</span>(<span class="params">guess_num</span>):</span><br><span class="line">  rand_num = random.randint(<span class="number">1</span>, <span class="number">6</span>) </span><br><span class="line">  win = rand_num == <span class="built_in">int</span>(guess_num)</span><br><span class="line">  <span class="keyword">if</span> win:</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">&quot;Congratulations !&quot;</span>)</span><br><span class="line">  <span class="keyword">else</span>:</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">&quot;Sorry that&#x27;s wrong&quot;</span>)</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">f&quot;The answer is: <span class="subst">&#123;rand_num&#125;</span>&quot;</span>)</span><br><span class="line">  <span class="keyword">return</span> win</span><br><span class="line"></span><br><span class="line"><span class="built_in">print</span>(<span class="string">&quot;Welcome\nAdd the values of the dice\n&quot;</span></span><br><span class="line">      <span class="string">&quot;It&#x27;s really that easy&quot;</span> )</span><br><span class="line">n = wins = <span class="number">0</span></span><br><span class="line"><span class="keyword">while</span> <span class="literal">True</span>:</span><br><span class="line">  n += <span class="number">1</span></span><br><span class="line">  <span class="built_in">print</span>(<span class="string">f&quot;Round <span class="subst">&#123;n&#125;</span>&quot;</span>)</span><br><span class="line">  guess_num = <span class="built_in">input</span>(<span class="string">&quot;What is your guess?: &quot;</span>)</span><br><span class="line">  win = GameRunner(guess_num)</span><br><span class="line">  wins += win </span><br><span class="line">  <span class="built_in">print</span>(<span class="string">f&quot;Wins: <span class="subst">&#123;wins&#125;</span> of <span class="subst">&#123;n&#125;</span>&quot;</span>)</span><br><span class="line">  play = <span class="built_in">input</span>(<span class="string">&quot;Would you like to play again?[Y/n]: &quot;</span>)</span><br><span class="line">  <span class="keyword">if</span> play == <span class="string">&#x27;n&#x27;</span>:</span><br><span class="line">    <span class="keyword">break</span> </span><br></pre></td></tr></table></figure>
+<h2 id="用法">用法</h2>
+<ul>
+<li>
+<p><strong>侵入式方法</strong>：需要在代码中插入 <code>pdb.set_trace()</code> 设置断点，当执行到断点时会停下来，进入交互式调试模式（内置函数 <code>breakpoint()</code>，当以默认参数调用它时，可以用来代替 <code>import pdb; pdb.set_trace()</code> ）<br>
+例如：</p>
+ <figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="comment"># dicegame.py</span></span><br><span class="line"><span class="keyword">import</span> random</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> pdb; pdb.set_trace() <span class="comment"># add pdb here</span></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">GameRunner</span>(<span class="params">guess_num</span>):</span><br><span class="line">  rand_num = random.randint(<span class="number">1</span>, <span class="number">6</span>) </span><br><span class="line">  win = rand_num == <span class="built_in">int</span>(guess_num)</span><br><span class="line">  ... ...</span><br><span class="line">  <span class="keyword">return</span> win</span><br><span class="line"><span class="comment"># do something ...</span></span><br></pre></td></tr></table></figure>
+<p>让我们运行脚本 <code>python dicegame.py</code></p>
+ <figure class="highlight python"><table><tr><td class="code"><pre><span class="line">$ python -m pdb dicegame.py</span><br><span class="line">&gt; c:\users\admin\documents\project\dicegame.py(<span class="number">2</span>)&lt;module&gt;()</span><br><span class="line">-&gt; <span class="keyword">import</span> random</span><br><span class="line">(Pdb)</span><br></pre></td></tr></table></figure>
+<p>当你在命令行看到提示符 <code>(Pdb)</code> 时，说明已经正确打开了pdb 。然后就可以输入 pdb 命令调试了。<br>
+其中<code>&gt;</code> 是文件标识； <code>dicegame.py(2)</code> 括号中的数字代表当前行数；<code>-&gt;</code> 是下一步要执行的代码标识。</p>
+</li>
+<li>
+<p><strong>非侵入式方法</strong>：不用额外修改源代码，可以将 <a target="_blank" rel="noopener external nofollow noreferrer" href="http://pdb.py">pdb.py</a> 作为脚本在命令行调用，来调试其他脚本。调试器将暂停在待执行脚本第一行前。例如</p>
+</li>
+</ul>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta prompt_">$ </span><span class="language-bash">python -m pdb dicegame.py</span></span><br><span class="line"><span class="meta prompt_">&gt; </span><span class="language-bash">c:\<span class="built_in">users</span>\admin\documents\project\dicegame.py(2)&lt;module&gt;()</span></span><br><span class="line"><span class="meta prompt_">-&gt; </span><span class="language-bash">import random</span></span><br><span class="line">(Pdb) </span><br></pre></td></tr></table></figure>
+<ul>
+<li><strong>事后调试模式</strong>：调用代码抛出错误后，可以使用 <code>pdb.pm()</code> 捕获异常并进入其事后调试模式</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> pdb;pdb.pm()</span><br></pre></td></tr></table></figure>
+<p>例如：</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="keyword">import</span> dicegame</span><br><span class="line">Welcome</span><br><span class="line">Add the values of the dice</span><br><span class="line">It<span class="string">&#x27;s really that easy</span></span><br><span class="line"><span class="string">Round 1</span></span><br><span class="line"><span class="string">What is your guess?: a</span></span><br><span class="line"><span class="string">Traceback (most recent call last):</span></span><br><span class="line"><span class="string">  File &quot;&lt;stdin&gt;&quot;, line 1, in &lt;module&gt;</span></span><br><span class="line"><span class="string">  File &quot;C:\Users\Admin\Documents\Project\dicegame.py&quot;, line 21, in &lt;module&gt;</span></span><br><span class="line"><span class="string">    win = GameRunner(guess_num)</span></span><br><span class="line"><span class="string">  File &quot;C:\Users\Admin\Documents\Project\dicegame.py&quot;, line 6, in GameRunner</span></span><br><span class="line"><span class="string">    win = rand_num == int(guess_num)</span></span><br><span class="line"><span class="string">ValueError: invalid literal for int() with base 10: &#x27;</span>a<span class="string">&#x27;</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">&gt;&gt;&gt; pdb.pm()</span></span><br><span class="line"><span class="string">&gt; c:\users\admin\documents\project\dicegame.py(6)GameRunner()</span></span><br><span class="line"><span class="string">-&gt; win = rand_num == int(guess_num)</span></span><br><span class="line"><span class="string">(Pdb)</span></span><br></pre></td></tr></table></figure>
+<h2 id="pdb-命令">pdb 命令</h2>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta prompt_">$ </span><span class="language-bash">python -m pdb dicegame.py</span></span><br><span class="line"><span class="meta prompt_">&gt; </span><span class="language-bash">c:\<span class="built_in">users</span>\admin\documents\project\dicegame.py(2)&lt;module&gt;()</span></span><br><span class="line"><span class="meta prompt_">-&gt; </span><span class="language-bash">import random</span></span><br><span class="line">(Pdb)</span><br></pre></td></tr></table></figure>
+<p>进入 pdb 交互式界面后，就可以输入pdb命令了，下面是常用命令。大多数命令可以缩写为一个或两个字母。命令的参数必须用空格（空格符或制表符）分隔。</p>
+<ul>
+<li>
+<p><code>h(help) [command]</code> - 不带参数显示可用的命令列表，带参数则显示有关该命令的帮助文档</p>
+</li>
+<li>
+<p><code>l(list)  [first[, last]]</code>  - 列出当前文件的源代码。当前行用 <code>-&gt;</code> 标记，异常行用<code>&gt;&gt;</code> 标记</p>
+<ul>
+<li>如果不带参数，则列出当前行周围的 11 行</li>
+<li>如果只带参数 <code>first</code>，则列出那一行周围的 11 行</li>
+<li>如果带有两个参数，则列出所给范围中的代码</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">(Pdb) l</span><br><span class="line">  <span class="number">9</span>       <span class="keyword">else</span>:</span><br><span class="line"> <span class="number">10</span>         <span class="built_in">print</span>(<span class="string">&quot;Sorry that&#x27;s wrong&quot;</span>)</span><br><span class="line"> <span class="number">11</span>         <span class="built_in">print</span>(<span class="string">f&quot;The answer is: <span class="subst">&#123;rand_num&#125;</span>&quot;</span>)</span><br><span class="line"> <span class="number">12</span>       <span class="keyword">return</span> win</span><br><span class="line"> <span class="number">13</span></span><br><span class="line"> <span class="number">14</span>  -&gt; <span class="built_in">print</span>(<span class="string">&quot;Welcome\nAdd the values of the dice\n&quot;</span></span><br><span class="line"> <span class="number">15</span>           <span class="string">&quot;It&#x27;s really that easy&quot;</span> )</span><br><span class="line"> <span class="number">16</span>     n = wins = <span class="number">0</span></span><br><span class="line"> <span class="number">17</span>     <span class="keyword">while</span> <span class="literal">True</span>:</span><br><span class="line"> <span class="number">18</span>       n += <span class="number">1</span></span><br><span class="line"> <span class="number">19</span>       <span class="built_in">print</span>(<span class="string">f&quot;Round <span class="subst">&#123;n&#125;</span>&quot;</span>)</span><br></pre></td></tr></table></figure>
+</li>
+<li>
+<p><code>ll(longlist)</code> - 列出所有源代码</p>
+</li>
+<li>
+<p><code>w(where) </code> -  打印目前所在的行号位置以及上下文信息</p>
+</li>
+<li>
+<p><code>j(jump) lineno</code>  - 跳转到指定行（注意，被跳过的代码不执行）</p>
+</li>
+<li>
+<p><code>n(next)</code> - 继续执行，直接运行函数</p>
+</li>
+<li>
+<p><code>s(step)</code> - 继续执行，可进入函数内部</p>
+</li>
+<li>
+<p><code>c(continue)</code> - 继续运行，直到遇到下一个断点</p>
+</li>
+<li>
+<p><code>unt(until) [lineno]</code> - 继续运行，直到超过指定行（或遇到断点）</p>
+</li>
+<li>
+<p><code>r(return)</code> - 继续运行，直接执行到函数返回处</p>
+</li>
+<li>
+<p><code>a(args)</code> - 进入函数内部后，打印函数的所有参数</p>
+</li>
+<li>
+<p><code>u(up) [count]</code> - 将当前帧向上移动count层，默认为1</p>
+</li>
+<li>
+<p><code>d(down) [count]</code> - 将当前帧向下移动count层，默认为1</p>
+</li>
+<li>
+<p><code>b(break) [filename:]lineno [,condition]</code> - 在指定文件（默认当前文件）指定行设置断点。condition 判断为True时断点才设置断点</p>
+</li>
+<li>
+<p><code>b(break) function [,condition]</code> - 指定函数第一行设置断点</p>
+</li>
+<li>
+<p><code>tbreak </code> - 临时断点，执行一次自动删除。用法与 break 相同。</p>
+</li>
+<li>
+<p><code>p(print) expression</code> - 打印表达式的值</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">(Pdb) n</span><br><span class="line">What <span class="keyword">is</span> your guess?: <span class="number">5</span></span><br><span class="line">&gt; c:\users\admin\documents\project\dicegame.py(<span class="number">21</span>)&lt;module&gt;()</span><br><span class="line">-&gt; win = GameRunner(guess_num)</span><br><span class="line">(Pdb) p guess_num</span><br><span class="line"><span class="string">&#x27;5&#x27;</span></span><br></pre></td></tr></table></figure>
+</li>
+<li>
+<p><code>pp(prettyprint) expression</code> - 格式化打印表达式的值</p>
+</li>
+<li>
+<p><code>whatis expression</code> - 打印 expression 的类型</p>
+</li>
+<li>
+<p><code>cl(clear) [filename:lineno | bpnumber ...]</code> - 清除断点</p>
+<ul>
+<li>如果参数是 <code>filename:lineno</code>，则清除此行上的所断点</li>
+<li>如果参数是空格分隔的断点编号列表，则清除这些断点</li>
+<li>如果不带参数，则清除所有断点（但会先提确认）</li>
+</ul>
+</li>
+<li>
+<p><code>disable [bpnumber ...]</code> - 禁用断点（并不会删除）</p>
+</li>
+<li>
+<p><code>enable [bpnumber ...]</code> - 启用断点</p>
+</li>
+<li>
+<p><code>run [args ...]</code></p>
+</li>
+<li>
+<p><code>restart [args ...]</code> - 重新启动调试器，断点等信息都会保留。restart 是 run 的一个别名</p>
+</li>
+<li>
+<p><code>q(quit)</code> - 退出调试模式，被执行的程序将被中止</p>
+</li>
+<li>
+<p><code>debug code</code> - 进入一个对代码参数执行步进的递归调试器（该参数是在当前环境中执行的任意表达式或语句）</p>
+</li>
+<li>
+<p><code>! statement</code> - 执行 (单行) Python 语句，代码中变量名与调试命令不冲突时，<code>!</code> 可省略</p>
+</li>
+<li>
+<p><code>Enter</code> - 重复最后输入的命令</p>
+</li>
+</ul>
+<h1 id="ipdb">ipdb</h1>
+<p>Python 提供了一个默认的 debug 工具 pdb，而 ipdb 是一款集成了 Ipython 的 Python 代码命令行调试工具，可以看做 pdb 的升级版，提供了补全、语法高亮等功能。</p>
+<p>ipdb不是python内置的，需要手动安装</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">pip install ipdb</span><br></pre></td></tr></table></figure>
+<p>ipdb 的用法和 pdb 类似</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> ipdb</span><br><span class="line">ipdb.set_trace()</span><br><span class="line">ipdb.set_trace(context=<span class="number">5</span>)  <span class="comment"># will show five lines of code</span></span><br><span class="line">                           <span class="comment"># instead of the default three lines</span></span><br><span class="line">                           <span class="comment"># or you can set it via IPDB_CONTEXT_SIZE env variable</span></span><br><span class="line">                           <span class="comment"># or setup.cfg file</span></span><br><span class="line">ipdb.pm()</span><br></pre></td></tr></table></figure>
+<p>命令行调用</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta prompt_">$ </span><span class="language-bash">bin/ipdb mymodule.py</span></span><br><span class="line"><span class="meta prompt_">$ </span><span class="language-bash">bin/ipdb3 mymodule.py</span></span><br><span class="line"><span class="meta prompt_">$ </span><span class="language-bash">python -m ipdb mymodule.py</span></span><br></pre></td></tr></table></figure>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta"><i class="fas fa-circle-user fa-fw"></i>文章作者: </span><span class="post-copyright-info"><a href="https://www.tinylei.tech">Tiny Lei</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta"><i class="fas fa-square-arrow-up-right fa-fw"></i>文章链接: </span><span class="post-copyright-info"><a href="https://www.tinylei.tech/posts/c924bbe/">https://www.tinylei.tech/posts/c924bbe/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta"><i class="fas fa-circle-exclamation fa-fw"></i>版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="external nofollow noreferrer" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来源 <a href="https://www.tinylei.tech" target="_blank">雷小小</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/python/">Python</a></div><div class="post-share"><div class="social-share" data-image="/img/python-debug.jpg" data-sites="wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.6/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.6/sharejs/dist/js/social-share.min.js" defer></script></div></div><div class="post-reward"><div class="reward-button"><i class="fas fa-qrcode"></i>赞助</div><div class="reward-main"><ul class="reward-all"><li class="reward-item"><a href="/img/morty3.jpg" target="_blank"><img class="post-qr-code-img" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/img/morty3.jpg" alt="Give me money!"/></a><div class="post-qr-code-desc">Give me money!</div></li></ul></div></div><nav class="pagination-post" id="pagination"><a class="pagination-related" href="/posts/64b738be/" title="Python(Standard Library)--string"><img class="cover" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/img/sudoku.jpeg" onerror="onerror=null;src='/img/404.jpg'" alt="cover of previous post"><div class="info"><div class="info-1"><div class="info-item-1">上一篇</div><div class="info-item-2">Python(Standard Library)--string</div></div><div class="info-2"><div class="info-item-1">Python3 字符串方法和格式化输出</div></div></div></a><a class="pagination-related" href="/posts/17cdf739/" title="JSON 介绍"><img class="cover" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/img/json-cover.jpg" onerror="onerror=null;src='/img/404.jpg'" alt="cover of next post"><div class="info text-right"><div class="info-1"><div class="info-item-1">下一篇</div><div class="info-item-2">JSON 介绍</div></div><div class="info-2"><div class="info-item-1">JSON 简介 JSON 指的是 JavaScript 对象表示法（JavaScript Object Notation），是一种轻量级的文本数据交换格式。它使得人们很容易的进行阅读和编写。同时...</div></div></div></a></nav><div class="relatedPosts"><div class="headline"><i class="fas fa-thumbs-up fa-fw"></i><span>相关推荐</span></div><div class="relatedPosts-list"><a class="pagination-related" href="/posts/61a3ce5f/" title="特征工程(IV)--特征选择"><img class="cover" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/img/FeatureEngine.png" alt="cover"><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2024-04-16</div><div class="info-item-2">特征工程(IV)--特征选择</div></div><div class="info-2"><div class="info-item-1">有这么一句话在业界广泛流传：数据和特征决定了机器学习的上限，而模型和算法只是逼近这个上限而已。由此可见，特征工程在机器学习中占有相当重要的地位。在实际应用当中，可以说特征工程是机器学习成功的关键...</div></div></div></a><a class="pagination-related" href="/posts/3d0ef432/" title="特征工程(VI)--机器学习"><img class="cover" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/img/FeatureEngine.png" alt="cover"><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2024-04-20</div><div class="info-item-2">特征工程(VI)--机器学习</div></div><div class="info-2"><div class="info-item-1">Jupyter Notebook 代码连接：machine_learning_demo Step 1: Imports and Configuration import pandas as pd...</div></div></div></a><a class="pagination-related" href="/posts/cb9fa048/" title="Python(Standard Library)--re"><img class="cover" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/img/regexp-demo.jpg" alt="cover"><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2018-05-09</div><div class="info-item-2">Python(Standard Library)--re</div></div><div class="info-2"><div class="info-item-1">re 模块使 Python 语言拥有全部的正则表达式功能。</div></div></div></a><a class="pagination-related" href="/posts/49513cf1/" title="Python(Visualise)--seaborn"><img class="cover" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/img/seaborn-cover.svg" alt="cover"><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2018-05-10</div><div class="info-item-2">Python(Visualise)--seaborn</div></div><div class="info-2"><div class="info-item-1">基于matplotlib封装的数据可视化库</div></div></div></a><a class="pagination-related" href="/posts/31520356/" title="Python(Data Analysis)--pandas(Time Series)"><img class="cover" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/img/pandas-cover.png" alt="cover"><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2018-05-12</div><div class="info-item-2">Python(Data Analysis)--pandas(Time Series)</div></div><div class="info-2"><div class="info-item-1">Pandas 时间序列数据处理工具</div></div></div></a><a class="pagination-related" href="/posts/95bcc2fb/" title="Python(Documentation)--PyYAML"><img class="cover" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/img/PyYAML-cover.png" alt="cover"><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2021-12-20</div><div class="info-item-2">Python(Documentation)--PyYAML</div></div><div class="info-2"><div class="info-item-1">Python 的 YAML 解析器和发射器</div></div></div></a></div></div><hr class="custom-hr"/><div id="post-comment"><div class="comment-head"><div class="comment-headline"><i class="fas fa-comments fa-fw"></i><span> 评论</span></div></div><div class="comment-wrap"><div><div id="gitalk-container"></div></div></div></div></div><div class="aside-content" id="aside-content"><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span><span class="toc-percentage"></span></div><div class="toc-content is-expand"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#assert"><span class="toc-number">1.</span> <span class="toc-text">assert</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#pdb"><span class="toc-number">2.</span> <span class="toc-text">pdb</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%94%A8%E6%B3%95"><span class="toc-number">2.1.</span> <span class="toc-text">用法</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#pdb-%E5%91%BD%E4%BB%A4"><span class="toc-number">2.2.</span> <span class="toc-text">pdb 命令</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#ipdb"><span class="toc-number">3.</span> <span class="toc-text">ipdb</span></a></li></ol></div></div></div></div></main><footer id="footer"><div class="footer-other"><div class="footer-copyright"><span class="copyright">&copy;&nbsp;2019 - 2026 By Tiny Lei</span><span class="framework-info"><span>框架 </span><a target="_blank" rel="noopener external nofollow noreferrer" href="https://hexo.io">Hexo 8.1.1</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener external nofollow noreferrer" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly 5.5.3</a></span></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="日间和夜间模式切换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside-config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><a id="to_comment" href="#post-comment" title="前往评论"><i class="fas fa-comments"></i></a><button id="go-up" type="button" title="回到顶部"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js?v=5.5.3"></script><script src="/js/main.js?v=5.5.3"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui@6.1.7/dist/fancybox/fancybox.umd.min.js"></script><script src="https://cdn.jsdelivr.net/npm/vanilla-lazyload@19.1.3/dist/lazyload.iife.min.js"></script><div class="js-pjax"><script>(() => {
+  const runMermaid = ele => {
+    window.loadMermaid = true
+    const theme = document.documentElement.getAttribute('data-theme') === 'dark' ? 'dark' : 'default'
+
+    ele.forEach((item, index) => {
+      const mermaidSrc = item.firstElementChild
+      const config = mermaidSrc.dataset.config ? JSON.parse(mermaidSrc.dataset.config) : {}
+      if (!config.theme) {
+        config.theme = theme
+      }
+      const mermaidThemeConfig = `%%{init: ${JSON.stringify(config)}}%%\n`
+      const mermaidID = `mermaid-${index}`
+      const mermaidDefinition = mermaidThemeConfig + mermaidSrc.textContent
+
+      const renderFn = mermaid.render(mermaidID, mermaidDefinition)
+      const renderMermaid = svg => {
+        mermaidSrc.insertAdjacentHTML('afterend', svg)
+      }
+
+      // mermaid v9 and v10 compatibility
+      typeof renderFn === 'string' ? renderMermaid(renderFn) : renderFn.then(({ svg }) => renderMermaid(svg))
+    })
+  }
+
+  const codeToMermaid = () => {
+    const codeMermaidEle = document.querySelectorAll('pre > code.mermaid')
+    if (codeMermaidEle.length === 0) return
+
+    codeMermaidEle.forEach(ele => {
+      const preEle = document.createElement('pre')
+      preEle.className = 'mermaid-src'
+      preEle.hidden = true
+      preEle.textContent = ele.textContent
+      const newEle = document.createElement('div')
+      newEle.className = 'mermaid-wrap'
+      newEle.appendChild(preEle)
+      ele.parentNode.replaceWith(newEle)
+    })
+  }
+
+  const loadMermaid = () => {
+    if (true) codeToMermaid()
+    const $mermaid = document.querySelectorAll('#article-container .mermaid-wrap')
+    if ($mermaid.length === 0) return
+
+    const runMermaidFn = () => runMermaid($mermaid)
+    btf.addGlobalFn('themeChange', runMermaidFn, 'mermaid')
+    window.loadMermaid ? runMermaidFn() : btf.getScript('https://cdn.jsdelivr.net/npm/mermaid@11.12.2/dist/mermaid.min.js').then(runMermaidFn)
+  }
+
+  btf.addGlobalFn('encrypt', loadMermaid, 'mermaid')
+  window.pjax ? loadMermaid() : document.addEventListener('DOMContentLoaded', loadMermaid)
+})()</script><script>(() => {
+  const isShuoshuo = GLOBAL_CONFIG_SITE.pageType === 'shuoshuo'
+  const option = null
+
+  const commentCount = n => {
+    const isCommentCount = document.querySelector('#post-meta .gitalk-comment-count')
+    if (isCommentCount) {
+      isCommentCount.textContent= n
+    }
+  }
+
+  const initGitalk = (el, path) => {
+    if (isShuoshuo) {
+      window.shuoshuoComment.destroyGitalk = () => {
+        if (el.children.length) {
+          el.innerHTML = ''
+          el.classList.add('no-comment')
+        }
+      }
+    }
+
+    const gitalk = new Gitalk({
+      clientID: '7c65134b48b13f306114',
+      clientSecret: 'f049f68368a11925fdb69e57c64839eac94e13c1',
+      repo: 'gitalk-comments',
+      owner: 'WilenWu',
+      admin: ['WilenWu'],
+      updateCountCallback: commentCount,
+      ...option,
+      id: isShuoshuo ? path : (option && option.id) || 'fb7f2ea7d1e202aac1b54d5b4cae893d'
+    })
+
+    gitalk.render('gitalk-container')
+  }
+
+  const loadGitalk = async(el, path) => {
+    if (typeof Gitalk === 'function') initGitalk(el, path)
+    else {
+      await btf.getCSS('https://cdn.jsdelivr.net/npm/gitalk@1.8.0/dist/gitalk.min.css')
+      await btf.getScript('https://cdn.jsdelivr.net/npm/gitalk@1.8.0/dist/gitalk.min.js')
+      initGitalk(el, path)
+    }
+  }
+
+  if (isShuoshuo) {
+    'Gitalk' === 'Gitalk'
+      ? window.shuoshuoComment = { loadComment: loadGitalk }
+      : window.loadOtherComment = loadGitalk
+    return
+  }
+
+  if ('Gitalk' === 'Gitalk' || !false) {
+    if (false) btf.loadComment(document.getElementById('gitalk-container'), loadGitalk)
+    else loadGitalk()
+  } else {
+    window.loadOtherComment = loadGitalk
+  }
+})()</script></div><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script><div id="local-search"><div class="search-dialog"><nav class="search-nav"><span class="search-dialog-title">搜索</span><i class="fas fa-spinner fa-pulse" id="loading-status" hidden="hidden"></i><button class="search-close-button"><i class="fas fa-times"></i></button></nav><div class="text-center" id="loading-database"><i class="fas fa-spinner fa-pulse"></i><span>  数据加载中</span></div><div class="local-search-input"><input placeholder="搜索文章" type="text"/></div><hr/><div id="local-search-results"></div><div class="ais-Pagination" id="local-search-pagination" style="display:none;"><ul class="ais-Pagination-list"></ul></div><div id="local-search-stats"></div></div><div id="search-mask"></div><script src="/js/search/local-search.js?v=5.5.3"></script></div></div></body></html>

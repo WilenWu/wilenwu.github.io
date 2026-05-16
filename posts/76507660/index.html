@@ -1,0 +1,1139 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0,viewport-fit=cover"><title>R(Machine Learning)--mlr | 雷小小</title><meta name="author" content="Tiny Lei"><meta name="copyright" content="Tiny Lei"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="机器学习（分类，回归，生存分析，聚类等）的可扩展框架，提供了用于分析的整套工具，包括重抽样，缺失值插补，模型评估(cv,etc)，超参数调优(grid-search,etc)，特征选择，可视化(ROC,learnning-curve,etc)等">
+<meta property="og:type" content="article">
+<meta property="og:title" content="R(Machine Learning)--mlr">
+<meta property="og:url" content="https://www.tinylei.tech/posts/76507660/index.html">
+<meta property="og:site_name" content="雷小小">
+<meta property="og:description" content="机器学习（分类，回归，生存分析，聚类等）的可扩展框架，提供了用于分析的整套工具，包括重抽样，缺失值插补，模型评估(cv,etc)，超参数调优(grid-search,etc)，特征选择，可视化(ROC,learnning-curve,etc)等">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://www.tinylei.tech/img/ml.jpg">
+<meta property="article:published_time" content="2018-05-03T17:08:17.000Z">
+<meta property="article:modified_time" content="2024-03-08T10:34:00.072Z">
+<meta property="article:author" content="Tiny Lei">
+<meta property="article:tag" content="R">
+<meta property="article:tag" content="机器学习">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://www.tinylei.tech/img/ml.jpg"><script type="application/ld+json">{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "R(Machine Learning)--mlr",
+  "url": "https://www.tinylei.tech/posts/76507660/",
+  "image": "https://www.tinylei.tech/img/ml.jpg",
+  "datePublished": "2018-05-03T17:08:17.000Z",
+  "dateModified": "2024-03-08T10:34:00.072Z",
+  "author": [
+    {
+      "@type": "Person",
+      "name": "Tiny Lei",
+      "url": "https://www.tinylei.tech"
+    }
+  ]
+}</script><link rel="shortcut icon" href="/img/favicon.png"><link rel="canonical" href="https://www.tinylei.tech/posts/76507660/index.html"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//hm.baidu.com"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><meta name="baidu-site-verification" content="code-7rymn5Bitx"/><link rel="stylesheet" href="/css/index.css?v=5.5.3"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@7.1.0/css/all.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui@6.1.7/dist/fancybox/fancybox.min.css" media="print" onload="this.media='all'"><script>
+    (() => {
+      
+    const saveToLocal = {
+      set: (key, value, ttl) => {
+        if (!ttl) return
+        const expiry = Date.now() + ttl * 86400000
+        localStorage.setItem(key, JSON.stringify({ value, expiry }))
+      },
+      get: key => {
+        const itemStr = localStorage.getItem(key)
+        if (!itemStr) return undefined
+        const { value, expiry } = JSON.parse(itemStr)
+        if (Date.now() > expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return value
+      }
+    }
+
+    window.btf = {
+      saveToLocal,
+      getScript: (url, attr = {}) => new Promise((resolve, reject) => {
+        const script = document.createElement('script')
+        script.src = url
+        script.async = true
+        Object.entries(attr).forEach(([key, val]) => script.setAttribute(key, val))
+        script.onload = script.onreadystatechange = () => {
+          if (!script.readyState || /loaded|complete/.test(script.readyState)) resolve()
+        }
+        script.onerror = reject
+        document.head.appendChild(script)
+      }),
+      getCSS: (url, id) => new Promise((resolve, reject) => {
+        const link = document.createElement('link')
+        link.rel = 'stylesheet'
+        link.href = url
+        if (id) link.id = id
+        link.onload = link.onreadystatechange = () => {
+          if (!link.readyState || /loaded|complete/.test(link.readyState)) resolve()
+        }
+        link.onerror = reject
+        document.head.appendChild(link)
+      }),
+      addGlobalFn: (key, fn, name = false, parent = window) => {
+        if (!false && key.startsWith('pjax')) return
+        const globalFn = parent.globalFn || {}
+        globalFn[key] = globalFn[key] || {}
+        globalFn[key][name || Object.keys(globalFn[key]).length] = fn
+        parent.globalFn = globalFn
+      }
+    }
+  
+      
+      const activateDarkMode = () => {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      const activateLightMode = () => {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+
+      btf.activateDarkMode = activateDarkMode
+      btf.activateLightMode = activateLightMode
+
+      const theme = saveToLocal.get('theme')
+    
+          const mediaQueryDark = window.matchMedia('(prefers-color-scheme: dark)')
+          const mediaQueryLight = window.matchMedia('(prefers-color-scheme: light)')
+
+          if (theme === undefined) {
+            if (mediaQueryLight.matches) activateLightMode()
+            else if (mediaQueryDark.matches) activateDarkMode()
+            else {
+              const hour = new Date().getHours()
+              const isNight = hour <= 6 || hour >= 18
+              isNight ? activateDarkMode() : activateLightMode()
+            }
+            mediaQueryDark.addEventListener('change', () => {
+              if (saveToLocal.get('theme') === undefined) {
+                e.matches ? activateDarkMode() : activateLightMode()
+              }
+            })
+          } else {
+            theme === 'light' ? activateLightMode() : activateDarkMode()
+          }
+        
+      
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        document.documentElement.classList.toggle('hide-aside', asideStatus === 'hide')
+      }
+    
+      
+    const detectApple = () => {
+      if (/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)) {
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+  
+    })()
+  </script><script>var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "https://hm.baidu.com/hm.js?654e7415ab55bed7c9c2bc6d665f03c5";
+  var s = document.getElementsByTagName("script")[0];
+  s.parentNode.insertBefore(hm, s);
+})();
+btf.addGlobalFn('pjaxComplete', () => {
+  _hmt.push(['_trackPageview',window.location.pathname])
+}, 'baidu_analytics')
+</script><script>const GLOBAL_CONFIG = {
+  root: '/',
+  algolia: undefined,
+  localSearch: {"path":"/search.json","preload":false,"top_n_per_article":1,"unescape":false,"pagination":{"enable":false,"hitsPerPage":8},"languages":{"hits_empty":"未找到符合您查询的内容：${query}","hits_stats":"共找到 ${hits} 篇文章"}},
+  translate: undefined,
+  highlight: {"plugin":"highlight.js","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":200,"highlightFullpage":false,"highlightMacStyle":false},
+  copy: {
+    success: '复制成功',
+    error: '复制失败',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '天',
+  dateSuffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'fancybox',
+  Snackbar: undefined,
+  infinitegrid: {
+    js: 'https://cdn.jsdelivr.net/npm/@egjs/infinitegrid@4.12.0/dist/infinitegrid.min.js',
+    buttonText: '加载更多'
+  },
+  isPhotoFigcaption: true,
+  islazyloadPlugin: true,
+  isAnchor: false,
+  percent: {
+    toc: false,
+    rightside: false,
+  },
+  autoDarkmode: true
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: 'R(Machine Learning)--mlr',
+  isHighlightShrink: false,
+  isToc: true,
+  pageType: 'post'
+}</script><link rel="stylesheet" href="//at.alicdn.com/t/font_2849223_xh1ftc8qym.css"><meta name="generator" content="Hexo 8.1.1"></head><body><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img text-center"><img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/img/avatar.jpg" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="site-data text-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">187</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">116</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">48</div></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/user-guide/"><i class="fa-fw fa fa-compass"></i><span> 用户指南</span></a></div><div class="menus_item"><span class="site-page group hide"><i class="fa-fw fa fa-book"></i><span> 页面</span><i class="fas fa-chevron-down"></i></span><ul class="menus_item_child"><li><a class="site-page child" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></li><li><a class="site-page child" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 归档</span></a></li><li><a class="site-page child" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/gallery/"><i class="fa-fw fa fa-images"></i><span> 图库</span></a></div><div class="menus_item"><a class="site-page" href="/ebook/"><i class="fa-fw fa fa-book-reader"></i><span> 电子书</span></a></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-star"></i><span> 收藏夹</span></a></div><div class="menus_item"><span class="site-page group hide"><i class="fa-fw fa-solid fa-circle-chevron-down"></i><span> 更多</span><i class="fas fa-chevron-down"></i></span><ul class="menus_item_child"><li><a class="site-page child" href="/about/"><i class="fa-fw fa fa-user"></i><span> 关于我</span></a></li><li><a class="site-page child" href="/log/"><i class="fa-fw fa fa-history"></i><span> 更新日志</span></a></li></ul></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url(/img/r-top-img.svg);"><nav id="nav"><span id="blog-info"><a class="nav-site-title" href="/"><img class="site-icon" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/img/favicon.png" alt="Logo"><span class="site-name">雷小小</span></a><a class="nav-page-title" href="/"><span class="site-name">R(Machine Learning)--mlr</span><span class="site-name"><i class="fa-solid fa-circle-arrow-left"></i><span>  返回首页</span></span></a></span><div id="menus"><div id="search-button"><span class="site-page social-icon search"><i class="fas fa-search fa-fw"></i><span> 搜索</span></span></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/user-guide/"><i class="fa-fw fa fa-compass"></i><span> 用户指南</span></a></div><div class="menus_item"><span class="site-page group hide"><i class="fa-fw fa fa-book"></i><span> 页面</span><i class="fas fa-chevron-down"></i></span><ul class="menus_item_child"><li><a class="site-page child" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></li><li><a class="site-page child" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 归档</span></a></li><li><a class="site-page child" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/gallery/"><i class="fa-fw fa fa-images"></i><span> 图库</span></a></div><div class="menus_item"><a class="site-page" href="/ebook/"><i class="fa-fw fa fa-book-reader"></i><span> 电子书</span></a></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-star"></i><span> 收藏夹</span></a></div><div class="menus_item"><span class="site-page group hide"><i class="fa-fw fa-solid fa-circle-chevron-down"></i><span> 更多</span><i class="fas fa-chevron-down"></i></span><ul class="menus_item_child"><li><a class="site-page child" href="/about/"><i class="fa-fw fa fa-user"></i><span> 关于我</span></a></li><li><a class="site-page child" href="/log/"><i class="fa-fw fa fa-history"></i><span> 更新日志</span></a></li></ul></div></div><div id="toggle-menu"><span class="site-page"><i class="fas fa-bars fa-fw"></i></span></div></div></nav><div id="post-info"><h1 class="post-title">R(Machine Learning)--mlr</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2018-05-03T17:08:17.000Z" title="发表于 2018-05-04 01:08:17">2018-05-04</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2024-03-08T10:34:00.072Z" title="更新于 2024-03-08 18:34:00">2024-03-08</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/r/">R</a><i class="fas fa-angle-right post-meta-separator"></i><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/r/machine-learning/">Machine Learning</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-wordcount"><i class="far fa-file-word fa-fw post-meta-icon"></i><span class="post-meta-label">总字数:</span><span class="word-count">3.8k</span><span class="post-meta-separator">|</span><i class="far fa-clock fa-fw post-meta-icon"></i><span class="post-meta-label">阅读时长:</span><span>16分钟</span></span><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title=""><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">浏览量:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="container post-content" id="article-container"><span id="more"></span>
+<h1 id="Introduction">Introduction</h1>
+<p><a target="_blank" rel="noopener external nofollow noreferrer" href="https://mlr-org.github.io/mlr/articles/mlr.html">mlr</a> 提供机器学习的统一接口：tasks, learners, hyperparameters, etc</p>
+<ul>
+<li><strong>Tasks</strong>：建立任务，包括任务描述(classification, regression, clustering, etc)和数据集</li>
+<li><strong>Learners</strong>：建立学习者，指定机器学习算法(GLM, SVM, xgboost, etc)和参数</li>
+<li><strong>Hyperparameters</strong>：对Learners直接指定超参数或超参数调优。给Learners一个可能的参数集列表。</li>
+<li><strong>Wrapped Models</strong>：已封装模型，已经被训练可以预测的模型</li>
+<li><strong>Predictions</strong>：应用模型到新数据或者原始数据进行预测</li>
+<li><strong>Meastures</strong>：模型评估指标(RMSE, logloss, AUC, etc)</li>
+<li><strong>Resampling</strong>：重抽样，通过分离训练集来拟合通用的模型，通常包括<strong>holdout</strong> 验证，K折交叉验证(<strong>K-fold cross-validation</strong>)，留一交叉验证(<strong>LOOCV</strong>)</li>
+</ul>
+<p><strong>Workflow</strong><br>
+<img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://warehouse-1310574346.cos.ap-shanghai.myqcloud.com/images/mlr/Workflow.png" alt=""></p>
+<h1 id="Preprocessing-data-预处理">Preprocessing data (预处理)</h1>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">函数</th>
+<th style="text-align:left">说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">createDummyFeatures(obj=,target=,method=,cols=)</td>
+<td style="text-align:left">为每一个非数值变量创建哑变量(0,1)，不包括目标变量target，也可以指定变量cols</td>
+</tr>
+<tr>
+<td style="text-align:left">normalizeFeatures(obj=,target=,method=,cols=, range=,on.constant=)</td>
+<td style="text-align:left">数字变量标准化，method: {“center”, “scale”,“standardize”,“range”(default range=c(0,1))  }</td>
+</tr>
+<tr>
+<td style="text-align:left">mergeSmallFactorLevels(task=,cols=,min.perc=)</td>
+<td style="text-align:left">组合进单一的factor level</td>
+</tr>
+<tr>
+<td style="text-align:left">summarizeColumns(obj=)</td>
+<td style="text-align:left">data.frame or Task的汇总说明</td>
+</tr>
+<tr>
+<td style="text-align:left">capLargeValues(obj,cols=NULL)</td>
+<td style="text-align:left">离群值转化（帽子法）</td>
+</tr>
+<tr>
+<td style="text-align:left">dropFeatures</td>
+<td style="text-align:left"></td>
+</tr>
+<tr>
+<td style="text-align:left">removeConstantFeatures</td>
+<td style="text-align:left"></td>
+</tr>
+<tr>
+<td style="text-align:left">summarizeLevels</td>
+<td style="text-align:left"></td>
+</tr>
+</tbody>
+</table>
+<h1 id="Task-and-Learner">Task and Learner</h1>
+<h2 id="Create-a-task">Create a task</h2>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">创建任务</th>
+<th style="text-align:left">说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">makeClassifTask(data=,target=)</td>
+<td style="text-align:left">回归问题</td>
+</tr>
+<tr>
+<td style="text-align:left">makeRegrTask(data=,target=)</td>
+<td style="text-align:left">分类，目标列必须是一个factor</td>
+</tr>
+<tr>
+<td style="text-align:left">makeMultilabelTask(data=,target=)</td>
+<td style="text-align:left">多标签分类问题，每个对象可以同时属于多个类别</td>
+</tr>
+<tr>
+<td style="text-align:left">makeClusterTask(data=)</td>
+<td style="text-align:left">聚类分析</td>
+</tr>
+<tr>
+<td style="text-align:left">makeSurvTask(data=,target=c(“time”,“event”))</td>
+<td style="text-align:left">生存分析</td>
+</tr>
+<tr>
+<td style="text-align:left">makeCostSensTask(data=,costs=)</td>
+<td style="text-align:left">成本敏感的分类，分类中的标准目标是获得较高的预测准确度，即最小化分类器产生的错误数量</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>getTaskDesc(x)</strong></td>
+<td style="text-align:left">获得总的任务描述，查看positiv</td>
+</tr>
+</tbody>
+</table>
+<p><img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://warehouse-1310574346.cos.ap-shanghai.myqcloud.com/images/mlr/make-task.png" alt=""></p>
+<p><strong>task的其他参数：</strong></p>
+<ul>
+<li><strong>weight</strong>：将权重向量应用到记录</li>
+<li><strong>block</strong>：传递因子向量将记录绑定到一块，重抽样的时候不会 被拆分</li>
+</ul>
+<h2 id="Making-a-learner">Making a learner</h2>
+<p><code>makeLearner(cl,predict.type = &quot;response&quot;,predict.threshold = NULL, ...,par.vals)</code>指定机器学习算法，也能一次指定多个</p>
+<p><strong>参数：</strong></p>
+<ul>
+<li>cl：指定要使用的算法名，cl= <code>&lt;task_Type&gt;.&lt;R_method_name&gt;</code> (“classif.xgboost”,<br>
+“regr.randomForest” ,“cluster.kmeans”,etc)</li>
+<li>predict.type：&quot;response&quot;返回原始数据，&quot;prob&quot;返回分类问题的概率，&quot;se&quot;返回回归问题的标准误</li>
+<li>par.vals：传递超参数列表，也能直接传递(…)</li>
+<li>predict.threshold ：生成类标签的阈值</li>
+</ul>
+<p>mlr有超过170个不同的是<strong>算法</strong>：<a target="_blank" rel="noopener external nofollow noreferrer" href="https://mlr-org.github.io/mlr-tutorial/devel/html/integrated_learners/index.html">mlr已经集成的算法</a></p>
+<ul>
+<li>listLearners()：展示所有的learner</li>
+<li>listLearners(task)：task允许的所有learner</li>
+<li>listLearners(“classif”,properties=c(“prob”, “factors”))：展示所有的分类问题中，能输出概率&quot;prob&quot;，和因子“factors”</li>
+<li>See also getLearnerProperties()</li>
+</ul>
+<h1 id="Training-Testing-训练和测试">Training &amp; Testing (训练和测试)</h1>
+<h2 id="Setting-hyperparameters-设置超参数">Setting hyperparameters (设置超参数)</h2>
+<p><code>setHyperPars(learner=,...)</code>传递超参数给learner<br>
+<code>getParamSet(learner=)</code>获得learner可能的超参数文本(such as “classif.qda”)</p>
+<h2 id="Train-a-model-and-predict-训练模型和预测">Train a model and predict (训练模型和预测)</h2>
+<p><code>train(learner, task,subset)</code>训练模型，subset设置训练集（默认是全部数据）<br>
+<code>getLearnerModel(model)</code>将底层的学习者模型纳入mlr</p>
+<p><code>predict(model,task,subset)</code>预测原始数据<br>
+<code>predict(model,newdata)</code>预测新数据<br>
+<code>as.data.frame(pred)</code>查看预测的结果</p>
+<p><code>pred2&lt;- setThreshold(pred, threshold)</code>重设分类问题的阈值，重新预测</p>
+<h2 id="Measuring-performance-模型评估质量">Measuring performance (模型评估质量)</h2>
+<p><code>performance(pred=,measures=)</code> 依照一个或几个指标评估模型<br>
+<code>getDefaultMeasure(task/learner)</code>查看默认指标<br>
+<code>listMeasures()</code>查看完整的指标列表<br>
+<code>listMeasures(task)</code>查看匹配指标</p>
+<blockquote>
+<p>通过参数measures=list(mse,medse,mae)指定评估指标</p>
+</blockquote>
+<ul>
+<li><strong>classif:</strong> acc auc bac ber brier[.scaled] f1 fdr fn<br>
+fnr fp fpr gmean multiclass[.au1u .aunp .aunu<br>
+.brier] npv ppv qsr ssr tn tnr tp tpr wkappa</li>
+<li><strong>regr:</strong>  arsq expvar kendalltau mae mape medae<br>
+medse mse msle rae rmse rmsle rrse rsq sae<br>
+spearmanrho sse</li>
+<li><strong>cluster:</strong> db dunn G1 G2 silhouette</li>
+<li><strong>multilabel:</strong>  multilabel[.f1 .subset01 .tpr .ppv<br>
+.acc .hamloss]</li>
+<li><strong>costsens:</strong> mcp meancosts</li>
+<li><strong>surv:</strong> cindex</li>
+<li><strong>other</strong>: featperc timeboth timepredict timetrain</li>
+</ul>
+<p><strong>分类任务的评估详情：</strong><br>
+<code>calculateConfusionMatrix(pred)</code>获得混淆矩阵<br>
+<code>calculateROCMeasures(pred)</code>ROC曲线</p>
+<h2 id="Resampling-a-learner-重抽样">Resampling a learner (重抽样)</h2>
+<p><code>makeResampleDesc(method=,...,stratify=)</code><br>
+<code>makeResampleInstance(desc=,task=)</code>确保每次抽样统一，以减少噪声值</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">参数</th>
+<th style="text-align:left">说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left"><strong>method</strong></td>
+<td style="text-align:left">重抽样的方法</td>
+</tr>
+<tr>
+<td style="text-align:left">“CV”</td>
+<td style="text-align:left">cross-volidation（交叉验证），用<code>iters</code>指定k-folds（K折）数</td>
+</tr>
+<tr>
+<td style="text-align:left">“LOO”</td>
+<td style="text-align:left">leave-one-out cross-volidation（留一交叉验证），用<code>iters</code>指定k-folds数</td>
+</tr>
+<tr>
+<td style="text-align:left">“RepCV”</td>
+<td style="text-align:left">repeated cross-volidation（反复交叉验证），<code>reps</code>指定重复数，用<code>iters</code>指定k-folds数</td>
+</tr>
+<tr>
+<td style="text-align:left">“Subsample”</td>
+<td style="text-align:left">aka Monte-Carlo cross-volidation ,用<code>iters</code>指定k-folds数,<code>split</code>指定<code>train%</code></td>
+</tr>
+<tr>
+<td style="text-align:left">“Bootstrap”</td>
+<td style="text-align:left">out-of-bag bootstrap（袋装法），<code>iters</code></td>
+</tr>
+<tr>
+<td style="text-align:left">“Holdout”</td>
+<td style="text-align:left">for train% use <code>split</code></td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>stratify</strong></td>
+<td style="text-align:left">保持目标变量的抽样比例</td>
+</tr>
+</tbody>
+</table>
+<p><code>resample(learner=,task=,resampling=,measures=)</code>通过指定重抽样训练和测试模型</p>
+<ul>
+<li>mlr有若干预先定义的重抽样：<br>
+<code>cv2</code>(2-koldscross-volidation),<br>
+<code>cv3, cv5, cv10,  hout</code>(holdout with split 2/3 for traing, 1/3 for testing)</li>
+<li>也可以用重抽样函数传递给<code>resample()</code><br>
+<code>crossval() repcv() holdout() subsample()</code><br>
+<code>bootstrapOOB() bootstrapB632() bootstrapB632plus()</code></li>
+</ul>
+<h1 id="Tuning-hyperparameters-超参数调优">Tuning hyperparameters (超参数调优)</h1>
+<h2 id="设定超参数搜索空间">设定超参数搜索空间</h2>
+<p><code>makeParamSet(make&lt;type&gt;Param())</code></p>
+<table>
+<thead>
+<tr>
+<th style="text-align:left"><code>make&lt;type&gt;Param()</code></th>
+<th style="text-align:left">指定超参数搜索类型和范围</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">makeNumericParam(id=,lower=,upper=,trafo=)</td>
+<td style="text-align:left">数字</td>
+</tr>
+<tr>
+<td style="text-align:left">makeIntegerParam(id=,lower=,upper=,trafo=)</td>
+<td style="text-align:left">整数</td>
+</tr>
+<tr>
+<td style="text-align:left">makeIntegerVectorParam(id=,len=,lower=,upper=,trafo=)</td>
+<td style="text-align:left">整数向量</td>
+</tr>
+<tr>
+<td style="text-align:left">makeDiscreteParam(id=,values=c(…))</td>
+<td style="text-align:left">分类变量</td>
+</tr>
+<tr>
+<td style="text-align:left">Logical, LogicalVector, CharacterVector, DiscreteVector</td>
+<td style="text-align:left">其他类型</td>
+</tr>
+</tbody>
+</table>
+<p>参数<strong>trafo</strong>可以用一个指定函数转换输出：例如<code>lower=-2,upper=2,trafo=function(x) 10^x</code>，输出值between 0.01 and 100</p>
+<h2 id="设定超参数搜索算法">设定超参数搜索算法</h2>
+<p><code>makeTuneControl&lt;type&gt;()</code></p>
+<table>
+<thead>
+<tr>
+<th style="text-align:left"><code>&lt;type&gt;</code></th>
+<th style="text-align:left">说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">Grid(resolution=10L)</td>
+<td style="text-align:left">所有可能的网格点</td>
+</tr>
+<tr>
+<td style="text-align:left">Random(maxit=100)</td>
+<td style="text-align:left">随机抽样搜索空间</td>
+</tr>
+<tr>
+<td style="text-align:left">MBO(budget=)</td>
+<td style="text-align:left">Bayesion model-based optimization（基于贝叶斯模型的最优化）</td>
+</tr>
+<tr>
+<td style="text-align:left">Irace(n.instances=)</td>
+<td style="text-align:left">迭代比赛过程</td>
+</tr>
+<tr>
+<td style="text-align:left">CMAES()</td>
+<td style="text-align:left"></td>
+</tr>
+<tr>
+<td style="text-align:left">Design()</td>
+<td style="text-align:left"></td>
+</tr>
+<tr>
+<td style="text-align:left">GenSA()</td>
+<td style="text-align:left"></td>
+</tr>
+</tbody>
+</table>
+<h2 id="超参数调优">超参数调优</h2>
+<p><code>tuneParams(learner=,task=,resampling=,measures=,par.set=,control=)</code>超参数调优函数</p>
+<h1 id="Quickstart">Quickstart</h1>
+<figure class="highlight r"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 预处理数据</span></span><br><span class="line">library<span class="punctuation">(</span>mlbench<span class="punctuation">)</span></span><br><span class="line">data<span class="punctuation">(</span>Soybean<span class="punctuation">)</span></span><br><span class="line">soy <span class="operator">=</span> createDummyFeatures<span class="punctuation">(</span>Soybean<span class="punctuation">,</span>target<span class="operator">=</span><span class="string">&quot;Class&quot;</span><span class="punctuation">)</span> <span class="comment">#转化因子变量为哑变量(0,1)，对xgboost模型有用</span></span><br><span class="line">tsk <span class="operator">=</span> makeClassifTask<span class="punctuation">(</span>data<span class="operator">=</span>soy<span class="punctuation">,</span>target<span class="operator">=</span><span class="string">&quot;Class&quot;</span><span class="punctuation">)</span> <span class="comment"># 建立任务</span></span><br><span class="line">ho <span class="operator">=</span> makeResampleInstance<span class="punctuation">(</span><span class="string">&quot;Holdout&quot;</span><span class="punctuation">,</span>tsk<span class="punctuation">)</span> <span class="comment"># 设定训练集和测试集(default 2/3 for traing, 1/3 for testing</span></span><br><span class="line">tsk.train <span class="operator">=</span> subsetTask<span class="punctuation">(</span>tsk<span class="punctuation">,</span>ho<span class="operator">$</span>train.inds<span class="punctuation">[[</span><span class="number">1</span><span class="punctuation">]</span><span class="punctuation">]</span><span class="punctuation">)</span></span><br><span class="line">tsk.test <span class="operator">=</span> subsetTask<span class="punctuation">(</span>tsk<span class="punctuation">,</span>ho<span class="operator">$</span>test.inds<span class="punctuation">[[</span><span class="number">1</span><span class="punctuation">]</span><span class="punctuation">]</span><span class="punctuation">)</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 设定learner和评估指标</span></span><br><span class="line">lrn <span class="operator">=</span> makeLearner<span class="punctuation">(</span><span class="string">&quot;classif.xgboost&quot;</span><span class="punctuation">,</span>nrounds<span class="operator">=</span><span class="number">10</span><span class="punctuation">)</span></span><br><span class="line">cv <span class="operator">=</span> makeResampleDesc<span class="punctuation">(</span><span class="string">&quot;CV&quot;</span><span class="punctuation">,</span>iters<span class="operator">=</span><span class="number">5</span><span class="punctuation">)</span> <span class="comment"># 5折交叉验证</span></span><br><span class="line">res <span class="operator">=</span> resample<span class="punctuation">(</span>lrn<span class="punctuation">,</span>tsk.train<span class="punctuation">,</span>cv<span class="punctuation">,</span>acc<span class="punctuation">)</span> <span class="comment"># 准确率作为评估指标</span></span><br><span class="line"></span><br><span class="line"><span class="comment">#超参数调优，重训练模型</span></span><br><span class="line">ps <span class="operator">=</span> makeParamSet<span class="punctuation">(</span>makeNumericParam<span class="punctuation">(</span><span class="string">&quot;eta&quot;</span><span class="punctuation">,</span><span class="number">0</span><span class="punctuation">,</span><span class="number">1</span><span class="punctuation">)</span><span class="punctuation">,</span> <span class="comment"># 调优超参数eta, lambda, max_depth</span></span><br><span class="line">  makeNumericParam<span class="punctuation">(</span><span class="string">&quot;lambda&quot;</span><span class="punctuation">,</span><span class="number">0</span><span class="punctuation">,</span><span class="number">200</span><span class="punctuation">)</span><span class="punctuation">,</span></span><br><span class="line">  makeIntegerParam<span class="punctuation">(</span><span class="string">&quot;max_depth&quot;</span><span class="punctuation">,</span><span class="number">1</span><span class="punctuation">,</span><span class="number">20</span><span class="punctuation">)</span><span class="punctuation">)</span></span><br><span class="line">tc <span class="operator">=</span> makeTuneControlMBO<span class="punctuation">(</span>budget<span class="operator">=</span><span class="number">100</span><span class="punctuation">)</span> <span class="comment"># 用MBO算法搜索</span></span><br><span class="line">tr <span class="operator">=</span> tuneParams<span class="punctuation">(</span>lrn<span class="punctuation">,</span>tsk.train<span class="punctuation">,</span>cv5<span class="punctuation">,</span>acc<span class="punctuation">,</span>ps<span class="punctuation">,</span>tc<span class="punctuation">)</span> <span class="comment"># 5折交叉验证调优</span></span><br><span class="line">lrn <span class="operator">=</span> setHyperPars<span class="punctuation">(</span>lrn<span class="punctuation">,</span>par.vals<span class="operator">=</span>tr<span class="operator">$</span>x<span class="punctuation">)</span></span><br><span class="line"></span><br><span class="line">mdl <span class="operator">=</span> train<span class="punctuation">(</span>lrn<span class="punctuation">,</span>tsk.train<span class="punctuation">)</span> <span class="comment">#测试集训练模型</span></span><br><span class="line">prd <span class="operator">=</span> predict<span class="punctuation">(</span>mdl<span class="punctuation">,</span>tsk.test<span class="punctuation">)</span> <span class="comment"># 预测</span></span><br><span class="line">calculateConfusionMatrix<span class="punctuation">(</span>prd<span class="punctuation">)</span> <span class="comment"># 混淆矩阵评估模型</span></span><br><span class="line">mdl <span class="operator">=</span> train<span class="punctuation">(</span>lrn<span class="punctuation">,</span>tsk<span class="punctuation">)</span> <span class="comment"># 用所有的数据重新训练模型，投入实用</span></span><br></pre></td></tr></table></figure>
+<h1 id="Configuration-配置">Configuration (配置)</h1>
+<p>用<code>getMlrOptions()</code>查看mlr 的现有设置<br>
+用<code>configureMlr()</code>更改mlr的默认设置</p>
+<p><strong>参数：</strong></p>
+<ul>
+<li><strong><a target="_blank" rel="noopener external nofollow noreferrer" href="http://show.info">show.info</a></strong>：(traning, tuning, resampling,etc)是否展示默认冗长的输出，默认TRUE</li>
+<li><strong>on.learner.error</strong>：怎样控制learner的错误， “stop”(default), “warn”, “quiet”</li>
+<li><strong>on.learner.warning</strong>：怎样控制learner的警告，“warn”(default) , “quiet”</li>
+<li><strong>on.par.without.desc</strong>：超参数控制，“stop”(default), “warn” ,“quiet”</li>
+<li><strong>on.par.out.of.bounds</strong>：超参数超出边界值，“stop”(default) ,“warn”, “quiet”</li>
+<li><strong>on.measure.not.applicable</strong>：评估指标对learner不适用，“stop”(default) , “warn”, “quiet”</li>
+<li><strong>show.learner.output</strong>：learner在训练的时候输出到控制台，默认TRUE</li>
+<li><strong>on.error.dump</strong>：是否为crashed learner创建一个error dump，当on.learner.error 没有被指定为&quot;stop&quot; 时，默认TRUE</li>
+</ul>
+<h1 id="Parallelization-并行">Parallelization (并行)</h1>
+<p>mlr结合parallelMap包利用多核和集群运算加快运行速度，mlr自动发现能进行并行的操作。</p>
+<p><strong>开始并行</strong>：<code>parallelStart(mode=,cpus=,level=)</code><br>
+<strong>结束并行</strong>：<code>parallelStop()</code></p>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">参数</th>
+<th style="text-align:left">说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left"><strong>mode</strong></td>
+<td style="text-align:left">决定并行的方式</td>
+</tr>
+<tr>
+<td style="text-align:left">“local”</td>
+<td style="text-align:left">无并行性，简单的使用mapply</td>
+</tr>
+<tr>
+<td style="text-align:left">“multicore”</td>
+<td style="text-align:left">单机器上多核，使用parallel::mclapply，windows上不适用</td>
+</tr>
+<tr>
+<td style="text-align:left">“socket”</td>
+<td style="text-align:left">多核socked mode</td>
+</tr>
+<tr>
+<td style="text-align:left">“mpi”</td>
+<td style="text-align:left">一个或多个机器上集群运算，使用parallel::makeCluster and parallel::clusterMap</td>
+</tr>
+<tr>
+<td style="text-align:left">“BatchJobs”</td>
+<td style="text-align:left">批排队HPC集群，使用BatchJobs::batchMap</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>cpus</strong></td>
+<td style="text-align:left">使用的物理内核数</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>level</strong></td>
+<td style="text-align:left">控制并行，使用&quot;mlr.benchmark&quot; “mlr.resample” “mlr.selectFeatures” “mlr.tuneParams” “mlr.ensemble”</td>
+</tr>
+</tbody>
+</table>
+<h1 id="Imputation-插补">Imputation (插补)</h1>
+<p><code>impute(obj=,target=,cols=,dummy.cols=,dummy.type=) </code><br>
+缺失的数据进行插补，返回一个列表，包括插补过额数据集或task，和插补描述</p>
+<p><code>reimpute(obj=,desc=)</code>用已被impute创建的插补描述(description, desc)插补缺失值</p>
+<ul>
+<li>obj= data.frame or task</li>
+<li>target= 指定目标变量，将不会被插补</li>
+<li>cols= 要插补的列名或逻辑列表</li>
+<li>dummy.cols= 建立NA(T/F)列的列名</li>
+<li>dummy.type= 设定&quot;numeric&quot;，用(0,1)代替(T/F)</li>
+<li>也能用classes 和dummy.classes 代替cols</li>
+</ul>
+<p>传递给cols或classes的list示例：<br>
+<code>cols=list(V1=imputeMean())</code> V1是要插补的列，imputeMean()为要插补的方法</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">允许的插补方法</th>
+<th style="text-align:left">说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">imputeConst(const=)</td>
+<td style="text-align:left">常数</td>
+</tr>
+<tr>
+<td style="text-align:left">imputeMedian()</td>
+<td style="text-align:left">中位数</td>
+</tr>
+<tr>
+<td style="text-align:left">imputeMode()</td>
+<td style="text-align:left">众数</td>
+</tr>
+<tr>
+<td style="text-align:left">imputeMin(multiplier=)</td>
+<td style="text-align:left">最小值</td>
+</tr>
+<tr>
+<td style="text-align:left">imputeMax(multiplier=)</td>
+<td style="text-align:left">最大值</td>
+</tr>
+<tr>
+<td style="text-align:left">imputeNormal(mean=,sd=)</td>
+<td style="text-align:left">正态插补</td>
+</tr>
+<tr>
+<td style="text-align:left">imputeHist(breaks=,use.mids=)</td>
+<td style="text-align:left"></td>
+</tr>
+<tr>
+<td style="text-align:left">imputeLearner(learner=,features=)</td>
+<td style="text-align:left">模型插补</td>
+</tr>
+</tbody>
+</table>
+<h1 id="Feature-Extraction-特征提取">Feature Extraction (特征提取)</h1>
+<h2 id="Feature-filtering-特征筛选">Feature filtering(特征筛选)</h2>
+<p><img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://warehouse-1310574346.cos.ap-shanghai.myqcloud.com/images/mlr/filterFeatures.png" alt="filter"></p>
+<p><code>filterFeatures(task=,method=,perc=,abs=,threshold=)</code><br>
+按特征的重要性进行排序，选择其中的top n percent(<code>perc=</code>), top n(<code>abs=</code>) or 设定阈值(<code>threshold=</code>)，返回task，没有被筛选的特征将会被删除。</p>
+<p>默认的筛选方法为<code>&quot;randomForestSRC.rfsrc&quot;</code>，也可以设置其他方法：<br>
+“anova.test” “carscore” “cforest.importance”<br>
+“chi.squared” “gain.ratio” “information.gain”<br>
+“kruskal.test” “linear.correlation” “mrmr” “oneR”<br>
+“permutation.importance” “randomForest.importance”<br>
+“randomForestSRC.rfsrc” “randomForestSRC.var.select”<br>
+“rank.correlation” “relief”<br>
+“symmetrical.uncertainty” “univariate.model.score”<br>
+“variance”</p>
+<h2 id="Feature-selection-特征选择">Feature selection(特征选择)</h2>
+<p><img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://warehouse-1310574346.cos.ap-shanghai.myqcloud.com/images/mlr/selectFeatures.png" alt="selection"></p>
+<p><code>selectFeatures(learner=,task=, resampling=,measures=,control=)</code><br>
+用一个特征选择算法(<code>control</code>)重抽样和建立模型，反复选择不同的特征集，直到找到最好的特征集。返回FeatSelResult对象，包括最佳选择和最佳路径。</p>
+<p><code>tsk = subsetTask(tsk,features=fsr$x)</code>应用最佳选择结果(fsr)到task(tsk)</p>
+<p><strong>特征选择算法(control)</strong>：</p>
+<ul>
+<li><code>makeFeatSelControlExhaustive(max.features=)</code>尝试每一种特征组合，可选参数max.features</li>
+<li><code>makeFeatSelControlRandom(maxit=,prob=,max.features=)</code>随机抽取特征集(概率<code>prob</code>,default 0.5) 迭代(<code>maxit</code>,default 100)，返回其中最好的。</li>
+<li><code>makeFeatSelControlSequential(method=,maxit=,max.features=,alpha=,beta=)</code>用以下的迭代算法搜寻，评估：<br>
+“sfs” forward search, “sffs” floating forward search,<br>
+“sbs” backward search , “sfbs”  floating backward search,<br>
+“alpha” 每次增加一个特征来改善评估，取最少特征集<br>
+“beta” 每次移除一个特征来改善评估，取最少特征集</li>
+<li><code>makeFeatSelControlGA(maxit=,max.features=,mu=,lambda=,crossover.rate=,mutation.rate=)</code>随机特征向量的遗传算法，然后利用最佳性能的交叉来产生后代，代代相传，参数：<br>
+mu是父系规模<br>
+lambda 是子系规模<br>
+crossover.rate 从第一亲本选择一点的概率<br>
+mutation.rate 是翻转的概率(on or off)</li>
+</ul>
+<h1 id="Benchmarking-基准点">Benchmarking (基准点)</h1>
+<p><code>benchmark(learners=,tasks=,resamplings=,measures=)</code><br>
+允许进行简单的比较：执行单一task的多重learner，执行多重task的单一learner，或者执行多重task的多重learner，返回一个基准结果对象。<br>
+基准结果被函数<code>getBMR&lt;object&gt; </code>接收：<br>
+AggrPerformance<br>
+FeatSelResults FilteredFeatures LearnerIds<br>
+LeanerShortNames Learners MeasureIds Measures<br>
+Models Performances Predictions TaskDescs TaskIds<br>
+TuneResults</p>
+<p>mlr内置了许多有趣的task，对基准学习很有帮助：<br>
+agri.task bc.task bh.task costiris.task iris.task<br>
+lung.task mtcars.task pid.task sonar.task<br>
+wpbc.task yeast.task</p>
+<h1 id="Visualization-可视化">Visualization (可视化)</h1>
+<p><strong>1. 可视化总表</strong></p>
+<table>
+<thead>
+<tr>
+<th>生成数据函数</th>
+<th>ggplot2绘图函数</th>
+<th>ggvis绘图函数</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>generateThreshVsPerfData</td>
+<td>plotThresVsPerf</td>
+<td>plotThreshVsPerfGGVIS</td>
+<td>性能</td>
+</tr>
+<tr>
+<td></td>
+<td>plotROCCurves</td>
+<td>-</td>
+<td>ROC分析</td>
+</tr>
+<tr>
+<td>generateCritDifferencesData</td>
+<td>plotCritDifferences</td>
+<td>-</td>
+<td>基准实验</td>
+</tr>
+<tr>
+<td>generateHyperParsEffectData</td>
+<td>plotHyperParsEffect</td>
+<td></td>
+<td>调整，超参数调整效果</td>
+</tr>
+<tr>
+<td>generateFilterValuesData</td>
+<td>plotFilterValues</td>
+<td>plotFilterValuesGGVIS</td>
+<td>功能选择</td>
+</tr>
+<tr>
+<td>generateLearningCurveData</td>
+<td>plotLearningCurve</td>
+<td>plotLearningCurveGGVIS</td>
+<td>学习曲线</td>
+</tr>
+<tr>
+<td>generatePartialDependenceData</td>
+<td>plotPartialDependence</td>
+<td>plotPartialDependenceGGVIS</td>
+<td>部分依赖情节</td>
+</tr>
+<tr>
+<td>generateFunctionalANOVAData</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>generateCalibrationData</td>
+<td>plotCalibration</td>
+<td>-</td>
+<td>分类器校准图</td>
+</tr>
+</tbody>
+</table>
+<p><strong>2. 可视化函数说明</strong></p>
+<table>
+<thead>
+<tr>
+<th>Performance</th>
+<th>表现</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>generateThreshVsPerfData(obj=,measures=)</td>
+<td>获得二分类问题不同切分点评估质量，促使选出最优阈值(threshold)</td>
+</tr>
+<tr>
+<td>plotThreshVsPerf(obj)</td>
+<td>用ThreshVsPerfData数据作出阈值可视化表现</td>
+</tr>
+<tr>
+<td>plotROCCurves(obj)</td>
+<td>用ThreshVsPerfData数据做出ROC曲线，一定要设定measures=list(fpr,tpr)</td>
+</tr>
+<tr>
+<td><strong>Residuals</strong></td>
+<td>残差</td>
+</tr>
+<tr>
+<td>plotResiduals(obj=)</td>
+<td>为Prediction 或BenchmarkResult对象作残差</td>
+</tr>
+</tbody>
+</table>
+<p><strong>示例</strong></p>
+<figure class="highlight r"><table><tr><td class="code"><pre><span class="line">n <span class="operator">=</span> getTaskSize<span class="punctuation">(</span>sonar.task<span class="punctuation">)</span></span><br><span class="line">train.set <span class="operator">=</span> sample<span class="punctuation">(</span>n<span class="punctuation">,</span> size <span class="operator">=</span> <span class="built_in">round</span><span class="punctuation">(</span><span class="number">2</span><span class="operator">/</span><span class="number">3</span> <span class="operator">*</span> n<span class="punctuation">)</span><span class="punctuation">)</span></span><br><span class="line">test.set <span class="operator">=</span> setdiff<span class="punctuation">(</span><span class="built_in">seq_len</span><span class="punctuation">(</span>n<span class="punctuation">)</span><span class="punctuation">,</span> train.set<span class="punctuation">)</span></span><br><span class="line"></span><br><span class="line">lrn1 <span class="operator">=</span> makeLearner<span class="punctuation">(</span><span class="string">&quot;classif.lda&quot;</span><span class="punctuation">,</span> predict.type <span class="operator">=</span> <span class="string">&quot;prob&quot;</span><span class="punctuation">)</span></span><br><span class="line">mod1 <span class="operator">=</span> train<span class="punctuation">(</span>lrn1<span class="punctuation">,</span> sonar.task<span class="punctuation">,</span> subset <span class="operator">=</span> train.set<span class="punctuation">)</span></span><br><span class="line">pred1 <span class="operator">=</span> predict<span class="punctuation">(</span>mod1<span class="punctuation">,</span> task <span class="operator">=</span> sonar.task<span class="punctuation">,</span> subset <span class="operator">=</span> test.set<span class="punctuation">)</span></span><br><span class="line"></span><br><span class="line">df <span class="operator">=</span> generateThreshVsPerfData<span class="punctuation">(</span>pred1<span class="punctuation">,</span> measures <span class="operator">=</span> <span class="built_in">list</span><span class="punctuation">(</span>fpr<span class="punctuation">,</span> tpr<span class="punctuation">,</span> mmce<span class="punctuation">)</span><span class="punctuation">)</span></span><br><span class="line">performance<span class="punctuation">(</span>pred1<span class="punctuation">,</span> auc<span class="punctuation">)</span></span><br><span class="line"><span class="comment">#&gt;      auc </span></span><br><span class="line"><span class="comment">#&gt; 0.847973</span></span><br><span class="line">plotThreshVsPerf<span class="punctuation">(</span>df<span class="punctuation">)</span></span><br><span class="line"></span><br><span class="line">lrn2 <span class="operator">=</span> makeLearner<span class="punctuation">(</span><span class="string">&quot;classif.ksvm&quot;</span><span class="punctuation">,</span> predict.type <span class="operator">=</span> <span class="string">&quot;prob&quot;</span><span class="punctuation">)</span>  <span class="comment"># 需要载入包kernlab</span></span><br><span class="line">mod2 <span class="operator">=</span> train<span class="punctuation">(</span>lrn2<span class="punctuation">,</span> sonar.task<span class="punctuation">,</span> subset <span class="operator">=</span> train.set<span class="punctuation">)</span></span><br><span class="line">pred2 <span class="operator">=</span> predict<span class="punctuation">(</span>mod2<span class="punctuation">,</span> task <span class="operator">=</span> sonar.task<span class="punctuation">,</span> subset <span class="operator">=</span> test.set<span class="punctuation">)</span></span><br><span class="line"></span><br><span class="line">df <span class="operator">=</span> generateThreshVsPerfData<span class="punctuation">(</span><span class="built_in">list</span><span class="punctuation">(</span>lda <span class="operator">=</span> pred1<span class="punctuation">,</span> ksvm <span class="operator">=</span> pred2<span class="punctuation">)</span><span class="punctuation">,</span> measures <span class="operator">=</span> <span class="built_in">list</span><span class="punctuation">(</span>fpr<span class="punctuation">,</span> tpr<span class="punctuation">)</span><span class="punctuation">)</span></span><br><span class="line">plotROCCurves<span class="punctuation">(</span>df<span class="punctuation">)</span></span><br></pre></td></tr></table></figure>
+<p><img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://warehouse-1310574346.cos.ap-shanghai.myqcloud.com/images/mlr/thresh.png" alt=""><br>
+<img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://warehouse-1310574346.cos.ap-shanghai.myqcloud.com/images/mlr/roc.png" alt=""></p>
+<table>
+<thead>
+<tr>
+<th>Learning curve</th>
+<th>学习曲线</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>generateLearningCurveData(learners=,task=,resampling=,percs=,measures=)</td>
+<td>获得不同百分比的task data上做模型评估质量数据</td>
+</tr>
+<tr>
+<td>plotLearningCurve(obj)</td>
+<td>比较数据的已使用和模型质量的关系，使用LearningCurveData对象</td>
+</tr>
+</tbody>
+</table>
+<p><strong>示例</strong></p>
+<figure class="highlight r"><table><tr><td class="code"><pre><span class="line">r <span class="operator">=</span> generateLearningCurveData<span class="punctuation">(</span></span><br><span class="line">  learners <span class="operator">=</span> <span class="built_in">c</span><span class="punctuation">(</span><span class="string">&quot;classif.rpart&quot;</span><span class="punctuation">,</span> <span class="string">&quot;classif.knn&quot;</span><span class="punctuation">)</span><span class="punctuation">,</span></span><br><span class="line">  task <span class="operator">=</span> sonar.task<span class="punctuation">,</span></span><br><span class="line">  percs <span class="operator">=</span> seq<span class="punctuation">(</span><span class="number">0.1</span><span class="punctuation">,</span> <span class="number">1</span><span class="punctuation">,</span> by <span class="operator">=</span> <span class="number">0.2</span><span class="punctuation">)</span><span class="punctuation">,</span></span><br><span class="line">  measures <span class="operator">=</span> <span class="built_in">list</span><span class="punctuation">(</span>tp<span class="punctuation">,</span> fp<span class="punctuation">,</span> tn<span class="punctuation">,</span> fn<span class="punctuation">)</span><span class="punctuation">,</span></span><br><span class="line">  resampling <span class="operator">=</span> makeResampleDesc<span class="punctuation">(</span>method <span class="operator">=</span> <span class="string">&quot;CV&quot;</span><span class="punctuation">,</span> iters <span class="operator">=</span> <span class="number">5</span><span class="punctuation">)</span><span class="punctuation">,</span></span><br><span class="line">  show.info <span class="operator">=</span> <span class="literal">FALSE</span><span class="punctuation">)</span></span><br><span class="line">plotLearningCurve<span class="punctuation">(</span>r<span class="punctuation">)</span></span><br></pre></td></tr></table></figure>
+<p><img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://warehouse-1310574346.cos.ap-shanghai.myqcloud.com/images/mlr/leaner.png" alt="学习曲线"></p>
+<table>
+<thead>
+<tr>
+<th>Feature importance</th>
+<th>特征重要性</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>generateFilterValuesData(task=,method=)</td>
+<td>用指定的选择方法获得排序的特征重要性</td>
+</tr>
+<tr>
+<td>plotFilterValues(obj=)</td>
+<td>可视化特征重要性，FilterValuesData对象</td>
+</tr>
+</tbody>
+</table>
+<p><strong>示例</strong></p>
+<figure class="highlight r"><table><tr><td class="code"><pre><span class="line">fv <span class="operator">=</span> generateFilterValuesData<span class="punctuation">(</span>iris.task<span class="punctuation">)</span></span><br><span class="line">plotFilterValues<span class="punctuation">(</span>fv<span class="punctuation">)</span></span><br></pre></td></tr></table></figure>
+<p><img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://warehouse-1310574346.cos.ap-shanghai.myqcloud.com/images/mlr/fv.png" alt=""></p>
+<table>
+<thead>
+<tr>
+<th>Hyperparameters tuning</th>
+<th>超参数调优</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>generateHyperParsEffectData(tune.result=)</td>
+<td>获得不同超参数的影响</td>
+</tr>
+<tr>
+<td>plotHyperParsEffect(hyperpars.effect.data=,x=,y=,z=)</td>
+<td>可视化超参数影响，HyperParsEffectData对象</td>
+</tr>
+<tr>
+<td>plotOptPath(op=)</td>
+<td>可视化最优进程详情，<code>&lt;obj&gt;$opt.path</code>对象， <code>&lt;obj&gt;</code>是 tuneResult或 featSelResult类的对象。</td>
+</tr>
+<tr>
+<td>plotTuneMultiCritResult(res=)</td>
+<td>展示pareto图，多重评估质量的调优结果</td>
+</tr>
+</tbody>
+</table>
+<p><strong>示例</strong></p>
+<figure class="highlight r"><table><tr><td class="code"><pre><span class="line">ps <span class="operator">=</span> makeParamSet<span class="punctuation">(</span></span><br><span class="line">  makeNumericParam<span class="punctuation">(</span><span class="string">&quot;C&quot;</span><span class="punctuation">,</span> lower <span class="operator">=</span> <span class="operator">-</span><span class="number">5</span><span class="punctuation">,</span> upper <span class="operator">=</span> <span class="number">5</span><span class="punctuation">,</span> trafo <span class="operator">=</span> <span class="keyword">function</span><span class="punctuation">(</span>x<span class="punctuation">)</span> <span class="number">2</span><span class="operator">^</span>x<span class="punctuation">)</span></span><br><span class="line"><span class="punctuation">)</span></span><br><span class="line">ctrl <span class="operator">=</span> makeTuneControlGrid<span class="punctuation">(</span><span class="punctuation">)</span></span><br><span class="line">rdesc <span class="operator">=</span> makeResampleDesc<span class="punctuation">(</span><span class="string">&quot;Holdout&quot;</span><span class="punctuation">)</span></span><br><span class="line">lrn <span class="operator">=</span> makeTuneWrapper<span class="punctuation">(</span><span class="string">&quot;classif.ksvm&quot;</span><span class="punctuation">,</span> control <span class="operator">=</span> ctrl<span class="punctuation">,</span></span><br><span class="line">                      measures <span class="operator">=</span> <span class="built_in">list</span><span class="punctuation">(</span>acc<span class="punctuation">,</span> mmce<span class="punctuation">)</span><span class="punctuation">,</span> resampling <span class="operator">=</span> rdesc<span class="punctuation">,</span> par.set <span class="operator">=</span> ps<span class="punctuation">,</span> show.info <span class="operator">=</span> <span class="literal">FALSE</span><span class="punctuation">)</span></span><br><span class="line">res <span class="operator">=</span> resample<span class="punctuation">(</span>lrn<span class="punctuation">,</span> task <span class="operator">=</span> pid.task<span class="punctuation">,</span> resampling <span class="operator">=</span> cv2<span class="punctuation">,</span> extract <span class="operator">=</span> getTuneResult<span class="punctuation">,</span> show.info <span class="operator">=</span> <span class="literal">FALSE</span><span class="punctuation">)</span></span><br><span class="line">data <span class="operator">=</span> generateHyperParsEffectData<span class="punctuation">(</span>res<span class="punctuation">)</span></span><br><span class="line">plotHyperParsEffect<span class="punctuation">(</span>data<span class="punctuation">,</span> x <span class="operator">=</span> <span class="string">&quot;C&quot;</span><span class="punctuation">,</span> y <span class="operator">=</span> <span class="string">&quot;acc.test.mean&quot;</span><span class="punctuation">,</span> plot.type <span class="operator">=</span> <span class="string">&quot;line&quot;</span><span class="punctuation">)</span></span><br></pre></td></tr></table></figure>
+<p><img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://warehouse-1310574346.cos.ap-shanghai.myqcloud.com/images/mlr/mlr_cv.png" alt=""></p>
+<table>
+<thead>
+<tr>
+<th>Partial dependence</th>
+<th>部分依赖</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>generatePartialDependenceData(obj=,input=)</td>
+<td>获得模型(obj)的部分依赖预测，通过每一次的特征数据输入(input)</td>
+</tr>
+<tr>
+<td>plotPartialDependence(obj=)</td>
+<td>部分依赖图，PartialDependenceData对象</td>
+</tr>
+</tbody>
+</table>
+<p><strong>示例</strong></p>
+<figure class="highlight r"><table><tr><td class="code"><pre><span class="line">lrn.regr <span class="operator">=</span> makeLearner<span class="punctuation">(</span><span class="string">&quot;regr.ksvm&quot;</span><span class="punctuation">)</span></span><br><span class="line">fit.regr <span class="operator">=</span> train<span class="punctuation">(</span>lrn.regr<span class="punctuation">,</span> bh.task<span class="punctuation">)</span></span><br><span class="line">pd.regr <span class="operator">=</span> generatePartialDependenceData<span class="punctuation">(</span>fit.regr<span class="punctuation">,</span> bh.task<span class="punctuation">,</span> <span class="string">&quot;lstat&quot;</span><span class="punctuation">,</span> fun <span class="operator">=</span> median<span class="punctuation">)</span></span><br><span class="line">plotPartialDependence<span class="punctuation">(</span>pd.regr<span class="punctuation">)</span></span><br><span class="line"></span><br><span class="line">lrn.classif <span class="operator">=</span> makeLearner<span class="punctuation">(</span><span class="string">&quot;classif.ksvm&quot;</span><span class="punctuation">,</span> predict.type <span class="operator">=</span> <span class="string">&quot;prob&quot;</span><span class="punctuation">)</span></span><br><span class="line">fit.classif <span class="operator">=</span> train<span class="punctuation">(</span>lrn.classif<span class="punctuation">,</span> iris.task<span class="punctuation">)</span></span><br><span class="line">pd.classif <span class="operator">=</span> generatePartialDependenceData<span class="punctuation">(</span>fit.classif<span class="punctuation">,</span> iris.task<span class="punctuation">,</span> <span class="string">&quot;Petal.Length&quot;</span><span class="punctuation">,</span> fun <span class="operator">=</span> median<span class="punctuation">)</span></span><br><span class="line">plotPartialDependence<span class="punctuation">(</span>pd.classif<span class="punctuation">)</span></span><br></pre></td></tr></table></figure>
+<p><img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://warehouse-1310574346.cos.ap-shanghai.myqcloud.com/images/mlr/mlr_reg.png" alt="reg"><img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://warehouse-1310574346.cos.ap-shanghai.myqcloud.com/images/mlr/mlr_calssfic.png" alt="calssfic"></p>
+<table>
+<thead>
+<tr>
+<th>Benchmarking</th>
+<th>基准点</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>plotBMRBoxplots(bmr=)</td>
+<td>表现的分类图</td>
+</tr>
+<tr>
+<td>plotBMRSummary(bmr=)</td>
+<td>平均表现的散点图</td>
+</tr>
+<tr>
+<td>plotBMRRanksAsBarChart(bmr=)</td>
+<td>learner 排序柱形图</td>
+</tr>
+</tbody>
+</table>
+<table>
+<thead>
+<tr>
+<th>Other</th>
+<th>其他图</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>generateCritDifferencesData(bmr=,measure=,p.value=,test=)</td>
+<td>执行临界差检验,用bonforroni-dunn(“bd”) 或&quot;Nemenyi&quot;检验</td>
+</tr>
+<tr>
+<td>plotCritDifferences(obj=)</td>
+<td>临界点检验可视化</td>
+</tr>
+<tr>
+<td>generateCalibrationData(obj=)</td>
+<td>评估概率预测与真实发生率的校准</td>
+</tr>
+<tr>
+<td>plotCalibration(obj=)</td>
+<td>校准图</td>
+</tr>
+</tbody>
+</table>
+<p><img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://warehouse-1310574346.cos.ap-shanghai.myqcloud.com/images/mlr/mlr4.png" alt=""><img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://warehouse-1310574346.cos.ap-shanghai.myqcloud.com/images/mlr/Calibration.png" alt=""></p>
+<h1 id="Wrappers-封装器">Wrappers (封装器)</h1>
+<p>封装器使具有附加功能的学习者融合。mlr把带有封装器的learner看作一个单独的learner，超参数的封装也会与基础模型参数联合调谐。带包装的模型将应用于新数据。<br>
+<img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://warehouse-1310574346.cos.ap-shanghai.myqcloud.com/images/mlr/mlr_wrappers.png" alt="wrappers"></p>
+<table>
+<thead>
+<tr>
+<th>Preprocessing and imputation</th>
+<th>预处理和插补</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>makeDummyFeaturesWrapper(learner=)</td>
+<td></td>
+</tr>
+<tr>
+<td>makeImputeWrapper(learner=,classes=,cols=)</td>
+<td></td>
+</tr>
+<tr>
+<td>makePreprocWrapper(learner=,train=,predict=)</td>
+<td></td>
+</tr>
+<tr>
+<td>makePreprocWrapperCaret(learner=,…)</td>
+<td></td>
+</tr>
+<tr>
+<td>makeRemoveConstantFeaturesWrapper(learner=)</td>
+<td></td>
+</tr>
+<tr>
+<td><strong>Class imbance</strong></td>
+<td>类别不平衡</td>
+</tr>
+<tr>
+<td>makeOverBaggingWrapper(learner=)</td>
+<td></td>
+</tr>
+<tr>
+<td>makeSMOTEWrapper(learner=)</td>
+<td></td>
+</tr>
+<tr>
+<td>makeUndersampleWrapper(learner=)</td>
+<td></td>
+</tr>
+<tr>
+<td>makeWeightedClassesWrapper(learner=)</td>
+<td></td>
+</tr>
+<tr>
+<td><strong>Cost-sensitive</strong></td>
+<td>成本分析</td>
+</tr>
+<tr>
+<td>makeCostSensClassifWrapper(learner=)</td>
+<td></td>
+</tr>
+<tr>
+<td>makeCostSensRegrWrapper(learner=)</td>
+<td></td>
+</tr>
+<tr>
+<td>makeCostSensWeightedPairsWrapper(learner=)</td>
+<td></td>
+</tr>
+<tr>
+<td><strong>Multilabel classification</strong></td>
+<td>多标签分类</td>
+</tr>
+<tr>
+<td>makeMultilabelBinaryRelevanceWrapper(learner=)</td>
+<td></td>
+</tr>
+<tr>
+<td>makeMultilabelClassifierChainsWrapper(learner=)</td>
+<td></td>
+</tr>
+<tr>
+<td>makeMultilabelDBRWrapper(learner=)</td>
+<td></td>
+</tr>
+<tr>
+<td>makeMultilabelNestedStackingWrapper(learner=)</td>
+<td></td>
+</tr>
+<tr>
+<td>makeMultilabelStackingWrapper(learner=)</td>
+<td></td>
+</tr>
+<tr>
+<td><strong>Other</strong></td>
+<td>其他</td>
+</tr>
+<tr>
+<td>makeBaggingWrapper(learner=)</td>
+<td></td>
+</tr>
+<tr>
+<td>makeConstantClassWrapper(learner=)</td>
+<td></td>
+</tr>
+<tr>
+<td>makeDownsampleWrapper(learner=,dw.perc=)</td>
+<td></td>
+</tr>
+<tr>
+<td>makeFeatSelWrapper(learner=,resampling=,control=)</td>
+<td></td>
+</tr>
+<tr>
+<td>makeFilterWrapper(learner=,fw.perc=,fw.abs=,fw.threshold=)</td>
+<td></td>
+</tr>
+<tr>
+<td>makeMultiClassWrapper(learner=)</td>
+<td></td>
+</tr>
+<tr>
+<td>makeTuneWrapper(learner=,resampling=,par.set=,control=)</td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<h1 id="Nested-Resampling-嵌套重采样">Nested Resampling (嵌套重采样)</h1>
+<p>mlr支持嵌套重采样进行复杂操作，例如通过包装来调优和特征选择等。为了获得良好的泛化性能估计和避免数据泄漏，建议使用外部（用于调优/特征选择）和内部（对于基本模型）重采样过程。</p>
+<ul>
+<li>外部重采样能在resample, benchmark中被指定</li>
+<li>内部重采样能在makeTuneWrapper, makeFeatSelWrapper, etc中被指定</li>
+</ul>
+<h1 id="Ensembles-集成">Ensembles (集成)</h1>
+<p><code>makeStackedLearner(base.learners=,super.learner=,method=)</code>将多重learner集成</p>
+<p><strong>参数：</strong></p>
+<ul>
+<li>base.learners= 使用初始预测的learners</li>
+<li>super.learner= 使用最终预测的learners</li>
+<li>method= 组合base learners预测的方法<br>
+“average”：所有base learners的平均<br>
+“stack.nocv” “<a target="_blank" rel="noopener external nofollow noreferrer" href="http://stack.cv">stack.cv</a>”：在base learners的结果上训练super learner (with or without cross-validation)<br>
+“hill.climb”：搜索最优权重平均<br>
+“compress”：用神经网络实现更快的性能</li>
+</ul>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta"><i class="fas fa-circle-user fa-fw"></i>文章作者: </span><span class="post-copyright-info"><a href="https://www.tinylei.tech">Tiny Lei</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta"><i class="fas fa-square-arrow-up-right fa-fw"></i>文章链接: </span><span class="post-copyright-info"><a href="https://www.tinylei.tech/posts/76507660/">https://www.tinylei.tech/posts/76507660/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta"><i class="fas fa-circle-exclamation fa-fw"></i>版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="external nofollow noreferrer" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来源 <a href="https://www.tinylei.tech" target="_blank">雷小小</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/r/">R</a><a class="post-meta__tags" href="/tags/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/">机器学习</a></div><div class="post-share"><div class="social-share" data-image="/img/ml.jpg" data-sites="wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.6/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.6/sharejs/dist/js/social-share.min.js" defer></script></div></div><div class="post-reward"><div class="reward-button"><i class="fas fa-qrcode"></i>赞助</div><div class="reward-main"><ul class="reward-all"><li class="reward-item"><a href="/img/morty3.jpg" target="_blank"><img class="post-qr-code-img" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/img/morty3.jpg" alt="Give me money!"/></a><div class="post-qr-code-desc">Give me money!</div></li></ul></div></div><nav class="pagination-post" id="pagination"><a class="pagination-related" href="/posts/2e6782e/" title="R(Model Tools)--modelr"><img class="cover" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/img/modelr-cover.png" onerror="onerror=null;src='/img/404.jpg'" alt="cover of previous post"><div class="info"><div class="info-1"><div class="info-item-1">上一篇</div><div class="info-item-2">R(Model Tools)--modelr</div></div><div class="info-2"><div class="info-item-1">辅助管道建模</div></div></div></a><a class="pagination-related" href="/posts/810a7dca/" title="R(Time Series)--forecast and prophet"><img class="cover" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/img/r-ts-cover.png" onerror="onerror=null;src='/img/404.jpg'" alt="cover of next post"><div class="info text-right"><div class="info-1"><div class="info-item-1">下一篇</div><div class="info-item-2">R(Time Series)--forecast and prophet</div></div><div class="info-2"><div class="info-item-1">线性或非线性模型高质量时间序列预测</div></div></div></a></nav><div class="relatedPosts"><div class="headline"><i class="fas fa-thumbs-up fa-fw"></i><span>相关推荐</span></div><div class="relatedPosts-list"><a class="pagination-related" href="/posts/251f7bf9/" title="R(Model Tools)--broom"><img class="cover" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/img/broom-cover.png" alt="cover"><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2018-05-04</div><div class="info-item-2">R(Model Tools)--broom</div></div><div class="info-2"><div class="info-item-1">Convert statistical analysis objects into tidy format</div></div></div></a><a class="pagination-related" href="/posts/2e6782e/" title="R(Model Tools)--modelr"><img class="cover" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/img/modelr-cover.png" alt="cover"><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2018-05-04</div><div class="info-item-2">R(Model Tools)--modelr</div></div><div class="info-2"><div class="info-item-1">辅助管道建模</div></div></div></a><a class="pagination-related" href="/posts/81860df8/" title="R(Common)--R语言入门"><img class="cover" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/img/r-base-cover.png" alt="cover"><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2018-05-26</div><div class="info-item-2">R(Common)--R语言入门</div></div><div class="info-2"><div class="info-item-1">包括Rstudio介绍，R的数据结构和基础语法等</div></div></div></a><a class="pagination-related" href="/posts/a8b6353d/" title="R(Visualise)--gganimate(ggplot2 extensions)"><img class="cover" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/img/gganimate-cover.png" alt="cover"><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2018-05-28</div><div class="info-item-2">R(Visualise)--gganimate(ggplot2 extensions)</div></div><div class="info-2"><div class="info-item-1">用ggplot2创建简单的动画</div></div></div></a><a class="pagination-related" href="/posts/4de35808/" title="R(Common)--data.table"><img class="cover" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/img/rdatatable-cover.png" alt="cover"><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2018-05-01</div><div class="info-item-2">R(Common)--data.table</div></div><div class="info-2"><div class="info-item-1">简短的代码实现快速操作数据</div></div></div></a><a class="pagination-related" href="/posts/3d0ef432/" title="特征工程(VI)--机器学习"><img class="cover" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/img/FeatureEngine.png" alt="cover"><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2024-04-20</div><div class="info-item-2">特征工程(VI)--机器学习</div></div><div class="info-2"><div class="info-item-1">Jupyter Notebook 代码连接：machine_learning_demo Step 1: Imports and Configuration import pandas as pd...</div></div></div></a></div></div><hr class="custom-hr"/><div id="post-comment"><div class="comment-head"><div class="comment-headline"><i class="fas fa-comments fa-fw"></i><span> 评论</span></div></div><div class="comment-wrap"><div><div id="gitalk-container"></div></div></div></div></div><div class="aside-content" id="aside-content"><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span><span class="toc-percentage"></span></div><div class="toc-content is-expand"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#Introduction"><span class="toc-number">1.</span> <span class="toc-text">Introduction</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Preprocessing-data-%E9%A2%84%E5%A4%84%E7%90%86"><span class="toc-number">2.</span> <span class="toc-text">Preprocessing data (预处理)</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Task-and-Learner"><span class="toc-number">3.</span> <span class="toc-text">Task and Learner</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#Create-a-task"><span class="toc-number">3.1.</span> <span class="toc-text">Create a task</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Making-a-learner"><span class="toc-number">3.2.</span> <span class="toc-text">Making a learner</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Training-Testing-%E8%AE%AD%E7%BB%83%E5%92%8C%E6%B5%8B%E8%AF%95"><span class="toc-number">4.</span> <span class="toc-text">Training &amp; Testing (训练和测试)</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#Setting-hyperparameters-%E8%AE%BE%E7%BD%AE%E8%B6%85%E5%8F%82%E6%95%B0"><span class="toc-number">4.1.</span> <span class="toc-text">Setting hyperparameters (设置超参数)</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Train-a-model-and-predict-%E8%AE%AD%E7%BB%83%E6%A8%A1%E5%9E%8B%E5%92%8C%E9%A2%84%E6%B5%8B"><span class="toc-number">4.2.</span> <span class="toc-text">Train a model and predict (训练模型和预测)</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Measuring-performance-%E6%A8%A1%E5%9E%8B%E8%AF%84%E4%BC%B0%E8%B4%A8%E9%87%8F"><span class="toc-number">4.3.</span> <span class="toc-text">Measuring performance (模型评估质量)</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Resampling-a-learner-%E9%87%8D%E6%8A%BD%E6%A0%B7"><span class="toc-number">4.4.</span> <span class="toc-text">Resampling a learner (重抽样)</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Tuning-hyperparameters-%E8%B6%85%E5%8F%82%E6%95%B0%E8%B0%83%E4%BC%98"><span class="toc-number">5.</span> <span class="toc-text">Tuning hyperparameters (超参数调优)</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%AE%BE%E5%AE%9A%E8%B6%85%E5%8F%82%E6%95%B0%E6%90%9C%E7%B4%A2%E7%A9%BA%E9%97%B4"><span class="toc-number">5.1.</span> <span class="toc-text">设定超参数搜索空间</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%AE%BE%E5%AE%9A%E8%B6%85%E5%8F%82%E6%95%B0%E6%90%9C%E7%B4%A2%E7%AE%97%E6%B3%95"><span class="toc-number">5.2.</span> <span class="toc-text">设定超参数搜索算法</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%B6%85%E5%8F%82%E6%95%B0%E8%B0%83%E4%BC%98"><span class="toc-number">5.3.</span> <span class="toc-text">超参数调优</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Quickstart"><span class="toc-number">6.</span> <span class="toc-text">Quickstart</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Configuration-%E9%85%8D%E7%BD%AE"><span class="toc-number">7.</span> <span class="toc-text">Configuration (配置)</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Parallelization-%E5%B9%B6%E8%A1%8C"><span class="toc-number">8.</span> <span class="toc-text">Parallelization (并行)</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Imputation-%E6%8F%92%E8%A1%A5"><span class="toc-number">9.</span> <span class="toc-text">Imputation (插补)</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Feature-Extraction-%E7%89%B9%E5%BE%81%E6%8F%90%E5%8F%96"><span class="toc-number">10.</span> <span class="toc-text">Feature Extraction (特征提取)</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#Feature-filtering-%E7%89%B9%E5%BE%81%E7%AD%9B%E9%80%89"><span class="toc-number">10.1.</span> <span class="toc-text">Feature filtering(特征筛选)</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Feature-selection-%E7%89%B9%E5%BE%81%E9%80%89%E6%8B%A9"><span class="toc-number">10.2.</span> <span class="toc-text">Feature selection(特征选择)</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Benchmarking-%E5%9F%BA%E5%87%86%E7%82%B9"><span class="toc-number">11.</span> <span class="toc-text">Benchmarking (基准点)</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Visualization-%E5%8F%AF%E8%A7%86%E5%8C%96"><span class="toc-number">12.</span> <span class="toc-text">Visualization (可视化)</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Wrappers-%E5%B0%81%E8%A3%85%E5%99%A8"><span class="toc-number">13.</span> <span class="toc-text">Wrappers (封装器)</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Nested-Resampling-%E5%B5%8C%E5%A5%97%E9%87%8D%E9%87%87%E6%A0%B7"><span class="toc-number">14.</span> <span class="toc-text">Nested Resampling (嵌套重采样)</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Ensembles-%E9%9B%86%E6%88%90"><span class="toc-number">15.</span> <span class="toc-text">Ensembles (集成)</span></a></li></ol></div></div></div></div></main><footer id="footer"><div class="footer-other"><div class="footer-copyright"><span class="copyright">&copy;&nbsp;2019 - 2026 By Tiny Lei</span><span class="framework-info"><span>框架 </span><a target="_blank" rel="noopener external nofollow noreferrer" href="https://hexo.io">Hexo 8.1.1</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener external nofollow noreferrer" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly 5.5.3</a></span></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="日间和夜间模式切换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside-config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><a id="to_comment" href="#post-comment" title="前往评论"><i class="fas fa-comments"></i></a><button id="go-up" type="button" title="回到顶部"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js?v=5.5.3"></script><script src="/js/main.js?v=5.5.3"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui@6.1.7/dist/fancybox/fancybox.umd.min.js"></script><script src="https://cdn.jsdelivr.net/npm/vanilla-lazyload@19.1.3/dist/lazyload.iife.min.js"></script><div class="js-pjax"><script>(() => {
+  const runMermaid = ele => {
+    window.loadMermaid = true
+    const theme = document.documentElement.getAttribute('data-theme') === 'dark' ? 'dark' : 'default'
+
+    ele.forEach((item, index) => {
+      const mermaidSrc = item.firstElementChild
+      const config = mermaidSrc.dataset.config ? JSON.parse(mermaidSrc.dataset.config) : {}
+      if (!config.theme) {
+        config.theme = theme
+      }
+      const mermaidThemeConfig = `%%{init: ${JSON.stringify(config)}}%%\n`
+      const mermaidID = `mermaid-${index}`
+      const mermaidDefinition = mermaidThemeConfig + mermaidSrc.textContent
+
+      const renderFn = mermaid.render(mermaidID, mermaidDefinition)
+      const renderMermaid = svg => {
+        mermaidSrc.insertAdjacentHTML('afterend', svg)
+      }
+
+      // mermaid v9 and v10 compatibility
+      typeof renderFn === 'string' ? renderMermaid(renderFn) : renderFn.then(({ svg }) => renderMermaid(svg))
+    })
+  }
+
+  const codeToMermaid = () => {
+    const codeMermaidEle = document.querySelectorAll('pre > code.mermaid')
+    if (codeMermaidEle.length === 0) return
+
+    codeMermaidEle.forEach(ele => {
+      const preEle = document.createElement('pre')
+      preEle.className = 'mermaid-src'
+      preEle.hidden = true
+      preEle.textContent = ele.textContent
+      const newEle = document.createElement('div')
+      newEle.className = 'mermaid-wrap'
+      newEle.appendChild(preEle)
+      ele.parentNode.replaceWith(newEle)
+    })
+  }
+
+  const loadMermaid = () => {
+    if (true) codeToMermaid()
+    const $mermaid = document.querySelectorAll('#article-container .mermaid-wrap')
+    if ($mermaid.length === 0) return
+
+    const runMermaidFn = () => runMermaid($mermaid)
+    btf.addGlobalFn('themeChange', runMermaidFn, 'mermaid')
+    window.loadMermaid ? runMermaidFn() : btf.getScript('https://cdn.jsdelivr.net/npm/mermaid@11.12.2/dist/mermaid.min.js').then(runMermaidFn)
+  }
+
+  btf.addGlobalFn('encrypt', loadMermaid, 'mermaid')
+  window.pjax ? loadMermaid() : document.addEventListener('DOMContentLoaded', loadMermaid)
+})()</script><script>(() => {
+  const isShuoshuo = GLOBAL_CONFIG_SITE.pageType === 'shuoshuo'
+  const option = null
+
+  const commentCount = n => {
+    const isCommentCount = document.querySelector('#post-meta .gitalk-comment-count')
+    if (isCommentCount) {
+      isCommentCount.textContent= n
+    }
+  }
+
+  const initGitalk = (el, path) => {
+    if (isShuoshuo) {
+      window.shuoshuoComment.destroyGitalk = () => {
+        if (el.children.length) {
+          el.innerHTML = ''
+          el.classList.add('no-comment')
+        }
+      }
+    }
+
+    const gitalk = new Gitalk({
+      clientID: '7c65134b48b13f306114',
+      clientSecret: 'f049f68368a11925fdb69e57c64839eac94e13c1',
+      repo: 'gitalk-comments',
+      owner: 'WilenWu',
+      admin: ['WilenWu'],
+      updateCountCallback: commentCount,
+      ...option,
+      id: isShuoshuo ? path : (option && option.id) || 'c07f68b41533194f5f38e97f2e6258a0'
+    })
+
+    gitalk.render('gitalk-container')
+  }
+
+  const loadGitalk = async(el, path) => {
+    if (typeof Gitalk === 'function') initGitalk(el, path)
+    else {
+      await btf.getCSS('https://cdn.jsdelivr.net/npm/gitalk@1.8.0/dist/gitalk.min.css')
+      await btf.getScript('https://cdn.jsdelivr.net/npm/gitalk@1.8.0/dist/gitalk.min.js')
+      initGitalk(el, path)
+    }
+  }
+
+  if (isShuoshuo) {
+    'Gitalk' === 'Gitalk'
+      ? window.shuoshuoComment = { loadComment: loadGitalk }
+      : window.loadOtherComment = loadGitalk
+    return
+  }
+
+  if ('Gitalk' === 'Gitalk' || !false) {
+    if (false) btf.loadComment(document.getElementById('gitalk-container'), loadGitalk)
+    else loadGitalk()
+  } else {
+    window.loadOtherComment = loadGitalk
+  }
+})()</script></div><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script><div id="local-search"><div class="search-dialog"><nav class="search-nav"><span class="search-dialog-title">搜索</span><i class="fas fa-spinner fa-pulse" id="loading-status" hidden="hidden"></i><button class="search-close-button"><i class="fas fa-times"></i></button></nav><div class="text-center" id="loading-database"><i class="fas fa-spinner fa-pulse"></i><span>  数据加载中</span></div><div class="local-search-input"><input placeholder="搜索文章" type="text"/></div><hr/><div id="local-search-results"></div><div class="ais-Pagination" id="local-search-pagination" style="display:none;"><ul class="ais-Pagination-list"></ul></div><div id="local-search-stats"></div></div><div id="search-mask"></div><script src="/js/search/local-search.js?v=5.5.3"></script></div></div></body></html>

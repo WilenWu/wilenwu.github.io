@@ -1,0 +1,395 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0,viewport-fit=cover"><title>R(Visualise)--ggmap and baidumap | 雷小小</title><meta name="author" content="Tiny Lei"><meta name="copyright" content="Tiny Lei"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="使用ggplot2在R中绘制静态地图">
+<meta property="og:type" content="article">
+<meta property="og:title" content="R(Visualise)--ggmap and baidumap">
+<meta property="og:url" content="https://www.tinylei.tech/posts/856dfd2b/index.html">
+<meta property="og:site_name" content="雷小小">
+<meta property="og:description" content="使用ggplot2在R中绘制静态地图">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://www.tinylei.tech/img/baidu-map-cover.png">
+<meta property="article:published_time" content="2018-05-03T15:25:52.000Z">
+<meta property="article:modified_time" content="2024-03-08T10:34:00.069Z">
+<meta property="article:author" content="Tiny Lei">
+<meta property="article:tag" content="R">
+<meta property="article:tag" content="ggmap">
+<meta property="article:tag" content="ggplot2">
+<meta property="article:tag" content="可视化">
+<meta property="article:tag" content="地图">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://www.tinylei.tech/img/baidu-map-cover.png"><script type="application/ld+json">{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "R(Visualise)--ggmap and baidumap",
+  "url": "https://www.tinylei.tech/posts/856dfd2b/",
+  "image": "https://www.tinylei.tech/img/baidu-map-cover.png",
+  "datePublished": "2018-05-03T15:25:52.000Z",
+  "dateModified": "2024-03-08T10:34:00.069Z",
+  "author": [
+    {
+      "@type": "Person",
+      "name": "Tiny Lei",
+      "url": "https://www.tinylei.tech"
+    }
+  ]
+}</script><link rel="shortcut icon" href="/img/favicon.png"><link rel="canonical" href="https://www.tinylei.tech/posts/856dfd2b/index.html"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//hm.baidu.com"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><meta name="baidu-site-verification" content="code-7rymn5Bitx"/><link rel="stylesheet" href="/css/index.css?v=5.5.3"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@7.1.0/css/all.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui@6.1.7/dist/fancybox/fancybox.min.css" media="print" onload="this.media='all'"><script>
+    (() => {
+      
+    const saveToLocal = {
+      set: (key, value, ttl) => {
+        if (!ttl) return
+        const expiry = Date.now() + ttl * 86400000
+        localStorage.setItem(key, JSON.stringify({ value, expiry }))
+      },
+      get: key => {
+        const itemStr = localStorage.getItem(key)
+        if (!itemStr) return undefined
+        const { value, expiry } = JSON.parse(itemStr)
+        if (Date.now() > expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return value
+      }
+    }
+
+    window.btf = {
+      saveToLocal,
+      getScript: (url, attr = {}) => new Promise((resolve, reject) => {
+        const script = document.createElement('script')
+        script.src = url
+        script.async = true
+        Object.entries(attr).forEach(([key, val]) => script.setAttribute(key, val))
+        script.onload = script.onreadystatechange = () => {
+          if (!script.readyState || /loaded|complete/.test(script.readyState)) resolve()
+        }
+        script.onerror = reject
+        document.head.appendChild(script)
+      }),
+      getCSS: (url, id) => new Promise((resolve, reject) => {
+        const link = document.createElement('link')
+        link.rel = 'stylesheet'
+        link.href = url
+        if (id) link.id = id
+        link.onload = link.onreadystatechange = () => {
+          if (!link.readyState || /loaded|complete/.test(link.readyState)) resolve()
+        }
+        link.onerror = reject
+        document.head.appendChild(link)
+      }),
+      addGlobalFn: (key, fn, name = false, parent = window) => {
+        if (!false && key.startsWith('pjax')) return
+        const globalFn = parent.globalFn || {}
+        globalFn[key] = globalFn[key] || {}
+        globalFn[key][name || Object.keys(globalFn[key]).length] = fn
+        parent.globalFn = globalFn
+      }
+    }
+  
+      
+      const activateDarkMode = () => {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      const activateLightMode = () => {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+
+      btf.activateDarkMode = activateDarkMode
+      btf.activateLightMode = activateLightMode
+
+      const theme = saveToLocal.get('theme')
+    
+          const mediaQueryDark = window.matchMedia('(prefers-color-scheme: dark)')
+          const mediaQueryLight = window.matchMedia('(prefers-color-scheme: light)')
+
+          if (theme === undefined) {
+            if (mediaQueryLight.matches) activateLightMode()
+            else if (mediaQueryDark.matches) activateDarkMode()
+            else {
+              const hour = new Date().getHours()
+              const isNight = hour <= 6 || hour >= 18
+              isNight ? activateDarkMode() : activateLightMode()
+            }
+            mediaQueryDark.addEventListener('change', () => {
+              if (saveToLocal.get('theme') === undefined) {
+                e.matches ? activateDarkMode() : activateLightMode()
+              }
+            })
+          } else {
+            theme === 'light' ? activateLightMode() : activateDarkMode()
+          }
+        
+      
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        document.documentElement.classList.toggle('hide-aside', asideStatus === 'hide')
+      }
+    
+      
+    const detectApple = () => {
+      if (/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)) {
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+  
+    })()
+  </script><script>var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "https://hm.baidu.com/hm.js?654e7415ab55bed7c9c2bc6d665f03c5";
+  var s = document.getElementsByTagName("script")[0];
+  s.parentNode.insertBefore(hm, s);
+})();
+btf.addGlobalFn('pjaxComplete', () => {
+  _hmt.push(['_trackPageview',window.location.pathname])
+}, 'baidu_analytics')
+</script><script>const GLOBAL_CONFIG = {
+  root: '/',
+  algolia: undefined,
+  localSearch: {"path":"/search.json","preload":false,"top_n_per_article":1,"unescape":false,"pagination":{"enable":false,"hitsPerPage":8},"languages":{"hits_empty":"未找到符合您查询的内容：${query}","hits_stats":"共找到 ${hits} 篇文章"}},
+  translate: undefined,
+  highlight: {"plugin":"highlight.js","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":200,"highlightFullpage":false,"highlightMacStyle":false},
+  copy: {
+    success: '复制成功',
+    error: '复制失败',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '天',
+  dateSuffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'fancybox',
+  Snackbar: undefined,
+  infinitegrid: {
+    js: 'https://cdn.jsdelivr.net/npm/@egjs/infinitegrid@4.12.0/dist/infinitegrid.min.js',
+    buttonText: '加载更多'
+  },
+  isPhotoFigcaption: true,
+  islazyloadPlugin: true,
+  isAnchor: false,
+  percent: {
+    toc: false,
+    rightside: false,
+  },
+  autoDarkmode: true
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: 'R(Visualise)--ggmap and baidumap',
+  isHighlightShrink: false,
+  isToc: true,
+  pageType: 'post'
+}</script><link rel="stylesheet" href="//at.alicdn.com/t/font_2849223_xh1ftc8qym.css"><meta name="generator" content="Hexo 8.1.1"></head><body><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img text-center"><img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/img/avatar.jpg" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="site-data text-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">187</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">116</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">48</div></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/user-guide/"><i class="fa-fw fa fa-compass"></i><span> 用户指南</span></a></div><div class="menus_item"><span class="site-page group hide"><i class="fa-fw fa fa-book"></i><span> 页面</span><i class="fas fa-chevron-down"></i></span><ul class="menus_item_child"><li><a class="site-page child" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></li><li><a class="site-page child" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 归档</span></a></li><li><a class="site-page child" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/gallery/"><i class="fa-fw fa fa-images"></i><span> 图库</span></a></div><div class="menus_item"><a class="site-page" href="/ebook/"><i class="fa-fw fa fa-book-reader"></i><span> 电子书</span></a></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-star"></i><span> 收藏夹</span></a></div><div class="menus_item"><span class="site-page group hide"><i class="fa-fw fa-solid fa-circle-chevron-down"></i><span> 更多</span><i class="fas fa-chevron-down"></i></span><ul class="menus_item_child"><li><a class="site-page child" href="/about/"><i class="fa-fw fa fa-user"></i><span> 关于我</span></a></li><li><a class="site-page child" href="/log/"><i class="fa-fw fa fa-history"></i><span> 更新日志</span></a></li></ul></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url(/img/ggplot2-top-img.png);"><nav id="nav"><span id="blog-info"><a class="nav-site-title" href="/"><img class="site-icon" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/img/favicon.png" alt="Logo"><span class="site-name">雷小小</span></a><a class="nav-page-title" href="/"><span class="site-name">R(Visualise)--ggmap and baidumap</span><span class="site-name"><i class="fa-solid fa-circle-arrow-left"></i><span>  返回首页</span></span></a></span><div id="menus"><div id="search-button"><span class="site-page social-icon search"><i class="fas fa-search fa-fw"></i><span> 搜索</span></span></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/user-guide/"><i class="fa-fw fa fa-compass"></i><span> 用户指南</span></a></div><div class="menus_item"><span class="site-page group hide"><i class="fa-fw fa fa-book"></i><span> 页面</span><i class="fas fa-chevron-down"></i></span><ul class="menus_item_child"><li><a class="site-page child" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></li><li><a class="site-page child" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 归档</span></a></li><li><a class="site-page child" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/gallery/"><i class="fa-fw fa fa-images"></i><span> 图库</span></a></div><div class="menus_item"><a class="site-page" href="/ebook/"><i class="fa-fw fa fa-book-reader"></i><span> 电子书</span></a></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-star"></i><span> 收藏夹</span></a></div><div class="menus_item"><span class="site-page group hide"><i class="fa-fw fa-solid fa-circle-chevron-down"></i><span> 更多</span><i class="fas fa-chevron-down"></i></span><ul class="menus_item_child"><li><a class="site-page child" href="/about/"><i class="fa-fw fa fa-user"></i><span> 关于我</span></a></li><li><a class="site-page child" href="/log/"><i class="fa-fw fa fa-history"></i><span> 更新日志</span></a></li></ul></div></div><div id="toggle-menu"><span class="site-page"><i class="fas fa-bars fa-fw"></i></span></div></div></nav><div id="post-info"><h1 class="post-title">R(Visualise)--ggmap and baidumap</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2018-05-03T15:25:52.000Z" title="发表于 2018-05-03 23:25:52">2018-05-03</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2024-03-08T10:34:00.069Z" title="更新于 2024-03-08 18:34:00">2024-03-08</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/r/">R</a><i class="fas fa-angle-right post-meta-separator"></i><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/r/visualise/">Visualise</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-wordcount"><i class="far fa-file-word fa-fw post-meta-icon"></i><span class="post-meta-label">总字数:</span><span class="word-count">1.3k</span><span class="post-meta-separator">|</span><i class="far fa-clock fa-fw post-meta-icon"></i><span class="post-meta-label">阅读时长:</span><span>6分钟</span></span><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title=""><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">浏览量:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="container post-content" id="article-container"><h1 id="ggmap">ggmap</h1>
+<p>ggmap可以轻松地从流行的在线地图服务（如Google Maps， OpenStreetMap，Stamen Maps）获得地图图块，并使用ggplot2绘制<strong>静态地图</strong>。</p>
+<span id="more"></span>
+<h2 id="获取地图图块">获取地图图块</h2>
+<figure class="highlight r"><table><tr><td class="code"><pre><span class="line">get_map<span class="punctuation">(</span>location<span class="punctuation">,</span>zoom<span class="punctuation">,</span>scale<span class="punctuation">,</span>maptype<span class="punctuation">,</span>source<span class="punctuation">,</span>...<span class="punctuation">)</span> <span class="comment">#主函数，返回ggmap对象</span></span><br><span class="line"></span><br><span class="line">get_cloudmademap<span class="punctuation">(</span><span class="punctuation">)</span>	<span class="comment">#Get a CloudMade map(需获取密钥)</span></span><br><span class="line">get_googlemap<span class="punctuation">(</span><span class="punctuation">)</span>	<span class="comment">#Get a Google Map (谷歌地图国内暂不能用）</span></span><br><span class="line">get_navermap<span class="punctuation">(</span><span class="punctuation">)</span>	<span class="comment">#Get a Naver Map</span></span><br><span class="line">get_openstreetmap<span class="punctuation">(</span><span class="punctuation">)</span>	<span class="comment">#Get an OpenStreetMap</span></span><br><span class="line">get_stamenmap<span class="punctuation">(</span><span class="punctuation">)</span>	<span class="comment">#Get a Stamen Map</span></span><br></pre></td></tr></table></figure>
+<p><strong>主要参数</strong></p>
+<ul>
+<li>location：地址，经度/纬度对（按顺序）或 左/下/右/上经纬度边界框</li>
+<li>zoom = “auto”：地图大小</li>
+<li>scale = “auto”</li>
+<li>maptype：获取地形图，卫星图，路线图，混合图或其他地图</li>
+<li>source =c(“google”, “osm”,  “stamen”, “cloudmade”)：地图来源</li>
+<li>filename = “ggmapTemp”</li>
+<li>color = c(“color”, “bw”)：color (“color”) or black-and-white (“bw”)</li>
+<li>language = “en-EN”：谷歌地图语言</li>
+<li>api_key：api_key for cloudmade maps</li>
+</ul>
+<blockquote>
+<p><strong>maptype参数:</strong>  获取地形图，卫星图，路线图，混合图或其他地图<br>
+from googlemap： terrain/terrain-background/ satellite/roadmap/hybrid<br>
+from stamen maps：terrain, “watercolor”, and “toner”<br>
+from cloudmade maps)：integer (from function get_cloudmademap)</p>
+</blockquote>
+<h2 id="作图函数">作图函数</h2>
+<figure class="highlight r"><table><tr><td class="code"><pre><span class="line">ggmap<span class="punctuation">(</span>ggmap<span class="punctuation">,</span> extent <span class="operator">=</span> <span class="string">&quot;panel&quot;</span><span class="punctuation">,</span> base_layer<span class="punctuation">,</span> maprange <span class="operator">=</span> <span class="literal">FALSE</span><span class="punctuation">,</span></span><br><span class="line">  legend <span class="operator">=</span> <span class="string">&quot;right&quot;</span><span class="punctuation">,</span> padding <span class="operator">=</span> <span class="number">0.02</span><span class="punctuation">,</span> darken <span class="operator">=</span> <span class="built_in">c</span><span class="punctuation">(</span><span class="number">0</span><span class="punctuation">,</span> <span class="string">&quot;black&quot;</span><span class="punctuation">)</span><span class="punctuation">,</span> ...<span class="punctuation">)</span></span><br><span class="line"></span><br><span class="line">qmap<span class="punctuation">(</span>location <span class="operator">=</span> <span class="string">&quot;houston&quot;</span><span class="punctuation">,</span> ...<span class="punctuation">)</span>   <span class="comment">#将get_map和ggmap结合，用于快速制图</span></span><br><span class="line">qmplot<span class="punctuation">(</span>lon<span class="punctuation">,</span>lat<span class="punctuation">,</span>...<span class="punctuation">,</span>data，zoom<span class="punctuation">)</span>    <span class="comment">#相当与ggplot2函数qplot</span></span><br></pre></td></tr></table></figure>
+<p><strong>参数</strong></p>
+<ul>
+<li>ggmap：用ggmap对象作图(from function <code>get_map</code>)</li>
+<li>extent = “panel”：地图细节(“normal”, “device”, or “panel”)</li>
+<li>base_layer：ggplot图层</li>
+<li>maprange = FALSE：与base_layer配合使用，定义x和y限制</li>
+<li>legend = “right”：<code>left/right/bottom/top/bottomleft/bottomright/topleft/topright</code><br>
+<code>none</code>(当extent=&quot;device&quot;时使用)</li>
+<li>padding = 0.02：距离 from legend to corner(和legend一起使用)</li>
+<li>darken = c(0, “black”)</li>
+</ul>
+<p><strong>示例：一般作图</strong></p>
+<figure class="highlight r"><table><tr><td class="code"><pre><span class="line">us <span class="operator">&lt;-</span> <span class="built_in">c</span><span class="punctuation">(</span>left <span class="operator">=</span> <span class="operator">-</span><span class="number">125</span><span class="punctuation">,</span> bottom <span class="operator">=</span> <span class="number">25.75</span><span class="punctuation">,</span> right <span class="operator">=</span> <span class="operator">-</span><span class="number">67</span><span class="punctuation">,</span> top <span class="operator">=</span> <span class="number">49</span><span class="punctuation">)</span></span><br><span class="line">map <span class="operator">&lt;-</span> get_stamenmap<span class="punctuation">(</span>us<span class="punctuation">,</span> zoom <span class="operator">=</span> <span class="number">5</span><span class="punctuation">,</span> maptype <span class="operator">=</span> <span class="string">&quot;toner-lite&quot;</span><span class="punctuation">)</span></span><br><span class="line">ggmap<span class="punctuation">(</span>map<span class="punctuation">)</span></span><br></pre></td></tr></table></figure>
+<p><img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://warehouse-1310574346.cos.ap-shanghai.myqcloud.com/images/ggplot2/us_map.png" alt=""></p>
+<p><strong>示例：qmplot作图</strong></p>
+<figure class="highlight r"><table><tr><td class="code"><pre><span class="line">library<span class="punctuation">(</span><span class="string">&quot;dplyr&quot;</span><span class="punctuation">)</span></span><br><span class="line">library<span class="punctuation">(</span><span class="string">&quot;forcats&quot;</span><span class="punctuation">)</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># define helper</span></span><br><span class="line">`%notin%` <span class="operator">&lt;-</span> <span class="keyword">function</span><span class="punctuation">(</span>lhs<span class="punctuation">,</span> rhs<span class="punctuation">)</span> <span class="operator">!</span><span class="punctuation">(</span>lhs <span class="operator">%in%</span> rhs<span class="punctuation">)</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># reduce crime to violent crimes in downtown houston</span></span><br><span class="line">violent_crimes <span class="operator">&lt;-</span> crime <span class="operator">%&gt;%</span> </span><br><span class="line">  filter<span class="punctuation">(</span></span><br><span class="line">    offense <span class="operator">%notin%</span> <span class="built_in">c</span><span class="punctuation">(</span><span class="string">&quot;auto theft&quot;</span><span class="punctuation">,</span> <span class="string">&quot;theft&quot;</span><span class="punctuation">,</span> <span class="string">&quot;burglary&quot;</span><span class="punctuation">)</span><span class="punctuation">,</span></span><br><span class="line">    <span class="operator">-</span><span class="number">95.39681</span> <span class="operator">&lt;=</span> lon <span class="operator">&amp;</span> lon <span class="operator">&lt;=</span> <span class="operator">-</span><span class="number">95.34188</span><span class="punctuation">,</span></span><br><span class="line">     <span class="number">29.73631</span> <span class="operator">&lt;=</span> lat <span class="operator">&amp;</span> lat <span class="operator">&lt;=</span>  <span class="number">29.78400</span></span><br><span class="line">  <span class="punctuation">)</span> <span class="operator">%&gt;%</span> </span><br><span class="line">  mutate<span class="punctuation">(</span></span><br><span class="line">    offense <span class="operator">=</span> fct_drop<span class="punctuation">(</span>offense<span class="punctuation">)</span><span class="punctuation">,</span></span><br><span class="line">    offense <span class="operator">=</span> fct_relevel<span class="punctuation">(</span>offense<span class="punctuation">,</span> </span><br><span class="line">      <span class="built_in">c</span><span class="punctuation">(</span><span class="string">&quot;robbery&quot;</span><span class="punctuation">,</span> <span class="string">&quot;aggravated assault&quot;</span><span class="punctuation">,</span> <span class="string">&quot;rape&quot;</span><span class="punctuation">,</span> <span class="string">&quot;murder&quot;</span><span class="punctuation">)</span></span><br><span class="line">    <span class="punctuation">)</span></span><br><span class="line">  <span class="punctuation">)</span></span><br><span class="line"></span><br><span class="line"><span class="comment">#qmplot函数作图</span></span><br><span class="line">qmplot<span class="punctuation">(</span>lon<span class="punctuation">,</span> lat<span class="punctuation">,</span> data <span class="operator">=</span> violent_crimes<span class="punctuation">,</span> maptype <span class="operator">=</span> <span class="string">&quot;toner-lite&quot;</span><span class="punctuation">,</span> geom <span class="operator">=</span> <span class="string">&quot;density2d&quot;</span><span class="punctuation">,</span> color <span class="operator">=</span> I<span class="punctuation">(</span><span class="string">&quot;red&quot;</span><span class="punctuation">)</span><span class="punctuation">)</span>  <span class="comment">#geom参数添加图层</span></span><br><span class="line"></span><br><span class="line">robberies <span class="operator">&lt;-</span> violent_crimes <span class="operator">%&gt;%</span> filter<span class="punctuation">(</span>offense <span class="operator">==</span> <span class="string">&quot;robbery&quot;</span><span class="punctuation">)</span></span><br><span class="line">qmplot<span class="punctuation">(</span>lon<span class="punctuation">,</span> lat<span class="punctuation">,</span> data <span class="operator">=</span> violent_crimes<span class="punctuation">,</span> geom <span class="operator">=</span> <span class="string">&quot;blank&quot;</span><span class="punctuation">,</span> </span><br><span class="line">  zoom <span class="operator">=</span> <span class="number">15</span><span class="punctuation">,</span> maptype <span class="operator">=</span> <span class="string">&quot;toner-background&quot;</span><span class="punctuation">,</span> darken <span class="operator">=</span> <span class="number">.7</span><span class="punctuation">,</span> legend <span class="operator">=</span> <span class="string">&quot;topleft&quot;</span></span><br><span class="line"><span class="punctuation">)</span> <span class="operator">+</span></span><br><span class="line">  stat_density_2d<span class="punctuation">(</span>aes<span class="punctuation">(</span>fill <span class="operator">=</span> ..level..<span class="punctuation">)</span><span class="punctuation">,</span> geom <span class="operator">=</span> <span class="string">&quot;polygon&quot;</span><span class="punctuation">,</span> alpha <span class="operator">=</span> <span class="number">.3</span><span class="punctuation">,</span> color <span class="operator">=</span> <span class="literal">NA</span><span class="punctuation">)</span> <span class="operator">+</span>  <span class="comment">#添加图层</span></span><br><span class="line">  scale_fill_gradient2<span class="punctuation">(</span><span class="string">&quot;Robbery\nPropensity&quot;</span><span class="punctuation">,</span> low <span class="operator">=</span> <span class="string">&quot;white&quot;</span><span class="punctuation">,</span> mid <span class="operator">=</span> <span class="string">&quot;yellow&quot;</span><span class="punctuation">,</span> high <span class="operator">=</span> <span class="string">&quot;red&quot;</span><span class="punctuation">,</span> midpoint <span class="operator">=</span> <span class="number">650</span><span class="punctuation">)</span> <span class="comment">#设置标尺</span></span><br></pre></td></tr></table></figure>
+<p><img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://warehouse-1310574346.cos.ap-shanghai.myqcloud.com/images/ggplot2/qmplot.png" alt=""><img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://warehouse-1310574346.cos.ap-shanghai.myqcloud.com/images/ggplot2/qmplot2.png" alt=""></p>
+<figure class="highlight r"><table><tr><td class="code"><pre><span class="line"><span class="comment">#刻面</span></span><br><span class="line">qmplot<span class="punctuation">(</span>lon<span class="punctuation">,</span> lat<span class="punctuation">,</span> data <span class="operator">=</span> violent_crimes<span class="punctuation">,</span> maptype <span class="operator">=</span> <span class="string">&quot;toner-background&quot;</span><span class="punctuation">,</span> color <span class="operator">=</span> offense<span class="punctuation">)</span> <span class="operator">+</span> </span><br><span class="line">  facet_wrap<span class="punctuation">(</span><span class="operator">~</span> offense<span class="punctuation">)</span></span><br><span class="line"></span><br><span class="line"><span class="comment">#获取欧洲地图</span></span><br><span class="line">europe <span class="operator">&lt;-</span> <span class="built_in">c</span><span class="punctuation">(</span>left <span class="operator">=</span> <span class="operator">-</span><span class="number">12</span><span class="punctuation">,</span> bottom <span class="operator">=</span> <span class="number">35</span><span class="punctuation">,</span> right <span class="operator">=</span> <span class="number">30</span><span class="punctuation">,</span> top <span class="operator">=</span> <span class="number">63</span><span class="punctuation">)</span></span><br><span class="line">get_stamenmap<span class="punctuation">(</span>europe<span class="punctuation">,</span> zoom <span class="operator">=</span> <span class="number">5</span><span class="punctuation">)</span> <span class="operator">%&gt;%</span> ggmap<span class="punctuation">(</span><span class="punctuation">)</span></span><br></pre></td></tr></table></figure>
+<p><img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://warehouse-1310574346.cos.ap-shanghai.myqcloud.com/images/ggplot2/ggmap1.png" alt=""><img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://warehouse-1310574346.cos.ap-shanghai.myqcloud.com/images/ggplot2/ggmap2.png" alt=""></p>
+<h2 id="经纬度信息">经纬度信息</h2>
+<figure class="highlight r"><table><tr><td class="code"><pre><span class="line"> <span class="comment">#返回经纬度信息（谷歌地图国内暂不能用）</span></span><br><span class="line">geocode<span class="punctuation">(</span>location<span class="punctuation">,</span> output <span class="operator">=</span> <span class="built_in">c</span><span class="punctuation">(</span><span class="string">&quot;latlon&quot;</span><span class="punctuation">,</span> <span class="string">&quot;latlona&quot;</span><span class="punctuation">,</span> <span class="string">&quot;more&quot;</span><span class="punctuation">,</span> <span class="string">&quot;all&quot;</span><span class="punctuation">)</span><span class="punctuation">,</span>   </span><br><span class="line">  source <span class="operator">=</span> <span class="built_in">c</span><span class="punctuation">(</span><span class="string">&quot;google&quot;</span><span class="punctuation">,</span> <span class="string">&quot;dsk&quot;</span><span class="punctuation">)</span><span class="punctuation">)</span> <span class="comment">#参数source：地理位置编码</span></span><br><span class="line"></span><br><span class="line"><span class="comment">#经纬度反编码（谷歌地图国内暂不能用）</span></span><br><span class="line">revgeocode<span class="punctuation">(</span>location<span class="punctuation">,</span> output <span class="operator">=</span> <span class="built_in">c</span><span class="punctuation">(</span><span class="string">&quot;address&quot;</span><span class="punctuation">,</span> <span class="string">&quot;more&quot;</span><span class="punctuation">,</span> <span class="string">&quot;all&quot;</span><span class="punctuation">)</span> </span><br><span class="line"><span class="comment">#编码信息，传递给geocode使用（谷歌地图国内暂不能用）</span></span><br><span class="line">mutate_geocode<span class="punctuation">(</span>data，location<span class="punctuation">)</span> </span><br></pre></td></tr></table></figure>
+<h2 id="从Google-Maps获取路线图">从Google Maps获取路线图</h2>
+<figure class="highlight r"><table><tr><td class="code"><pre><span class="line">route<span class="punctuation">(</span>from<span class="punctuation">,</span> to<span class="punctuation">,</span> mode <span class="operator">=</span> <span class="built_in">c</span><span class="punctuation">(</span><span class="string">&quot;driving&quot;</span><span class="punctuation">,</span> <span class="string">&quot;walking&quot;</span><span class="punctuation">,</span> <span class="string">&quot;bicycling&quot;</span><span class="punctuation">,</span> <span class="string">&quot;transit&quot;</span><span class="punctuation">)</span><span class="punctuation">,</span></span><br><span class="line">  structure <span class="operator">=</span> <span class="built_in">c</span><span class="punctuation">(</span><span class="string">&quot;legs&quot;</span><span class="punctuation">,</span> <span class="string">&quot;route&quot;</span><span class="punctuation">)</span><span class="punctuation">,</span> output <span class="operator">=</span> <span class="built_in">c</span><span class="punctuation">(</span><span class="string">&quot;simple&quot;</span><span class="punctuation">,</span> <span class="string">&quot;all&quot;</span><span class="punctuation">)</span><span class="punctuation">)</span> </span><br><span class="line">  <span class="comment">#（谷歌地图国内暂不能用）</span></span><br></pre></td></tr></table></figure>
+<h2 id="使用Google-Maps计算地图距离">使用Google Maps计算地图距离</h2>
+<figure class="highlight r"><table><tr><td class="code"><pre><span class="line">mapdist<span class="punctuation">(</span>from<span class="punctuation">,</span> to<span class="punctuation">,</span> mode <span class="operator">=</span> <span class="built_in">c</span><span class="punctuation">(</span><span class="string">&quot;driving&quot;</span><span class="punctuation">,</span> <span class="string">&quot;walking&quot;</span><span class="punctuation">,</span> <span class="string">&quot;bicycling&quot;</span><span class="punctuation">)</span><span class="punctuation">,</span> </span><br><span class="line">  output <span class="operator">=</span> <span class="built_in">c</span><span class="punctuation">(</span><span class="string">&quot;simple&quot;</span><span class="punctuation">,</span> <span class="string">&quot;all&quot;</span><span class="punctuation">)</span> <span class="comment">#（谷歌地图国内暂不能用）</span></span><br></pre></td></tr></table></figure>
+<h2 id="Google认证">Google认证</h2>
+<p>如果您拥有Google API密钥，则可以超出Google对查询的标准限制。</p>
+<hr>
+<h1 id="baidumap">baidumap</h1>
+<p>为百度地图API提供R接口，和ggmap一样，但从百度api而不是谷歌或openstreet获取地图。</p>
+<h2 id="密钥">密钥</h2>
+<p>需要从 <a target="_blank" rel="noopener external nofollow noreferrer" href="http://lbsyun.baidu.com/apiconsole/ke">lbsyun.baidu.com</a>申请密钥。然后在R注册你的钥匙。</p>
+<figure class="highlight r"><table><tr><td class="code"><pre><span class="line">library<span class="punctuation">(</span>baidumap<span class="punctuation">)</span></span><br><span class="line">options<span class="punctuation">(</span>baidumap.key <span class="operator">=</span> <span class="string">&#x27;XXX fill your key here XXX&#x27;</span><span class="punctuation">)</span></span><br></pre></td></tr></table></figure>
+<h2 id="从坐标数据获取位置">从坐标数据获取位置</h2>
+<p><code>getLocation(location,output = &quot;json&quot;)</code><br>
+参数ouput： 设置返回数据类型(‘json’, ‘xml’)</p>
+<figure class="highlight r"><table><tr><td class="code"><pre><span class="line">lon <span class="operator">=</span> matrix<span class="punctuation">(</span><span class="built_in">c</span><span class="punctuation">(</span><span class="number">117.93780</span><span class="punctuation">,</span> <span class="number">24.55730</span><span class="punctuation">,</span> <span class="number">117.93291</span><span class="punctuation">,</span> <span class="number">24.57745</span><span class="punctuation">,</span> <span class="number">117.23530</span><span class="punctuation">,</span> <span class="number">24.64210</span><span class="punctuation">,</span> <span class="number">117.05890</span><span class="punctuation">,</span> <span class="number">24.74860</span><span class="punctuation">)</span><span class="punctuation">,</span> byrow<span class="operator">=</span><span class="built_in">T</span><span class="punctuation">,</span> ncol<span class="operator">=</span><span class="number">2</span><span class="punctuation">)</span></span><br><span class="line"><span class="comment">## json </span></span><br><span class="line">location_json <span class="operator">=</span> getLocation<span class="punctuation">(</span>lon<span class="punctuation">[</span><span class="number">1</span><span class="punctuation">,</span><span class="punctuation">]</span><span class="punctuation">,</span> output<span class="operator">=</span><span class="string">&#x27;json&#x27;</span><span class="punctuation">)</span></span><br><span class="line"><span class="comment">## formatted</span></span><br><span class="line">location <span class="operator">=</span> getLocation<span class="punctuation">(</span>lon<span class="punctuation">[</span><span class="number">1</span><span class="punctuation">,</span> <span class="punctuation">]</span><span class="punctuation">,</span> formatted <span class="operator">=</span> <span class="built_in">T</span><span class="punctuation">)</span> </span><br></pre></td></tr></table></figure>
+<h2 id="从地址获取坐标数据">从地址获取坐标数据</h2>
+<p><code>getCoordinate(address, city = NULL,output = &quot;json&quot;,formatted = F) </code>#返回坐标或初始信息<br>
+参数ouput：设置返回数据类型(‘json’, ‘xml’)</p>
+<figure class="highlight r"><table><tr><td class="code"><pre><span class="line">getCoordinate<span class="punctuation">(</span><span class="string">&#x27;北京大学&#x27;</span><span class="punctuation">,</span> output<span class="operator">=</span><span class="string">&#x27;xml&#x27;</span><span class="punctuation">)</span> <span class="comment"># xml</span></span><br><span class="line">getCoordinate<span class="punctuation">(</span><span class="string">&#x27;北京大学&#x27;</span><span class="punctuation">,</span> formatted <span class="operator">=</span> <span class="built_in">T</span><span class="punctuation">)</span> <span class="comment"># character</span></span><br><span class="line">getCoordinate<span class="punctuation">(</span><span class="built_in">c</span><span class="punctuation">(</span><span class="string">&#x27;北京大学&#x27;</span><span class="punctuation">,</span> <span class="string">&#x27;清华大学&#x27;</span><span class="punctuation">)</span><span class="punctuation">,</span> formatted <span class="operator">=</span> <span class="built_in">T</span><span class="punctuation">)</span> <span class="comment"># matrix</span></span><br></pre></td></tr></table></figure>
+<h2 id="获取百度地图图块">获取百度地图图块</h2>
+<figure class="highlight r"><table><tr><td class="code"><pre><span class="line">getBaiduMap<span class="punctuation">(</span>location<span class="punctuation">,</span> width <span class="operator">=</span> <span class="number">400</span><span class="punctuation">,</span> height <span class="operator">=</span> <span class="number">400</span><span class="punctuation">,</span> zoom <span class="operator">=</span> <span class="number">10</span><span class="punctuation">,</span> scale <span class="operator">=</span> <span class="number">2</span><span class="punctuation">,</span></span><br><span class="line">  color <span class="operator">=</span> <span class="string">&quot;color&quot;</span><span class="punctuation">,</span> messaging <span class="operator">=</span> <span class="literal">TRUE</span><span class="punctuation">)</span> <span class="comment"># 返回ggmap对象</span></span><br></pre></td></tr></table></figure>
+<p><strong>参数</strong></p>
+<ul>
+<li>location：中心坐标或位置字符，</li>
+<li>width, height, zoom：图块大小</li>
+<li>scale：像素数的乘法因子</li>
+<li>color ：color or “bw”,(color or black-and-white)</li>
+<li>messaging：提示信息</li>
+</ul>
+<figure class="highlight r"><table><tr><td class="code"><pre><span class="line">getBaiduMap<span class="punctuation">(</span><span class="string">&#x27;中国&#x27;</span><span class="punctuation">,</span>zoom <span class="operator">=</span> <span class="number">4</span><span class="punctuation">)</span> <span class="operator">%&gt;%</span> ggmap</span><br></pre></td></tr></table></figure>
+<p><img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://warehouse-1310574346.cos.ap-shanghai.myqcloud.com/images/ggplot2/baidumap_china.png" alt="China"></p>
+<h2 id="搜索">搜索</h2>
+<figure class="highlight r"><table><tr><td class="code"><pre><span class="line">getPlace<span class="punctuation">(</span>place <span class="operator">=</span> <span class="literal">NULL</span><span class="punctuation">,</span> city <span class="operator">=</span> <span class="string">&quot;北京&quot;</span><span class="punctuation">,</span> page_size <span class="operator">=</span> <span class="number">20</span><span class="punctuation">,</span> pages <span class="operator">=</span> <span class="literal">Inf</span><span class="punctuation">,</span></span><br><span class="line">  scope <span class="operator">=</span> <span class="number">1</span><span class="punctuation">,</span> verbose <span class="operator">=</span> <span class="literal">TRUE</span><span class="punctuation">)</span>  <span class="comment">#用 baiduAPI搜索信息</span></span><br><span class="line"></span><br><span class="line">getRoute<span class="punctuation">(</span>origin<span class="punctuation">,</span> destination<span class="punctuation">,</span> mode<span class="punctuation">,</span>origin_region<span class="punctuation">,</span> destination_region<span class="punctuation">)</span>  <span class="comment">#获取路线图</span></span><br></pre></td></tr></table></figure>
+<p><strong>getRoute参数</strong></p>
+<ul>
+<li>origin, destination：初始位置和目的地</li>
+<li>mode：出行方式，‘driving’(default), ‘walking’, or ‘transit’</li>
+<li>region：城市</li>
+<li>origin_region, destination_region：不在一个城市时，设置原始城市和目的地城市</li>
+</ul>
+<figure class="highlight r"><table><tr><td class="code"><pre><span class="line"><span class="operator">&gt;</span><span class="operator">&gt;</span><span class="operator">&gt;</span> getPlace<span class="punctuation">(</span><span class="string">&#x27;麦当劳&#x27;</span><span class="punctuation">,</span> <span class="string">&#x27;上海&#x27;</span><span class="punctuation">)</span><span class="operator">%&gt;%</span><span class="built_in">names</span></span><br><span class="line">Get <span class="number">33</span> records<span class="punctuation">,</span> <span class="number">2</span> page. </span><br><span class="line">    Getting  <span class="number">0</span> th page </span><br><span class="line">    Getting  <span class="number">1</span> th page </span><br><span class="line">Done<span class="operator">!</span> </span><br><span class="line"><span class="punctuation">[</span><span class="number">1</span><span class="punctuation">]</span> <span class="string">&quot;name&quot;</span>      <span class="string">&quot;address&quot;</span>   <span class="string">&quot;lat&quot;</span>       <span class="string">&quot;lon&quot;</span>       <span class="string">&quot;telephone&quot;</span></span><br><span class="line"></span><br><span class="line"><span class="operator">&gt;</span><span class="operator">&gt;</span><span class="operator">&gt;</span> bjMap <span class="operator">=</span> getBaiduMap<span class="punctuation">(</span><span class="string">&#x27;北京&#x27;</span><span class="punctuation">,</span> color<span class="operator">=</span><span class="string">&#x27;bw&#x27;</span><span class="punctuation">)</span></span><br><span class="line"><span class="operator">&gt;</span><span class="operator">&gt;</span><span class="operator">&gt;</span> df <span class="operator">=</span> getRoute<span class="punctuation">(</span><span class="string">&#x27;首都国际机场&#x27;</span><span class="punctuation">,</span> <span class="string">&#x27;北京南苑机场&#x27;</span><span class="punctuation">,</span> region <span class="operator">=</span> <span class="string">&#x27;北京&#x27;</span><span class="punctuation">)</span></span><br><span class="line"><span class="operator">&gt;</span><span class="operator">&gt;</span><span class="operator">&gt;</span> ggmap<span class="punctuation">(</span>bjMap<span class="punctuation">)</span> <span class="operator">+</span> </span><br><span class="line">       geom_path<span class="punctuation">(</span>data <span class="operator">=</span> df<span class="punctuation">,</span> aes<span class="punctuation">(</span>lon<span class="punctuation">,</span> lat<span class="punctuation">)</span><span class="punctuation">,</span> alpha <span class="operator">=</span> <span class="number">0.5</span><span class="punctuation">,</span> col <span class="operator">=</span> <span class="string">&#x27;red&#x27;</span><span class="punctuation">)</span></span><br></pre></td></tr></table></figure>
+<p><img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://warehouse-1310574346.cos.ap-shanghai.myqcloud.com/images/ggplot2/baidumap_route.png" alt="route"></p>
+<h2 id="百度地理编码">百度地理编码</h2>
+<p><code>geoconv(geocode, from = 3, to = 5)</code>  别的地理编码转化成百度地理编码</p>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta"><i class="fas fa-circle-user fa-fw"></i>文章作者: </span><span class="post-copyright-info"><a href="https://www.tinylei.tech">Tiny Lei</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta"><i class="fas fa-square-arrow-up-right fa-fw"></i>文章链接: </span><span class="post-copyright-info"><a href="https://www.tinylei.tech/posts/856dfd2b/">https://www.tinylei.tech/posts/856dfd2b/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta"><i class="fas fa-circle-exclamation fa-fw"></i>版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="external nofollow noreferrer" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来源 <a href="https://www.tinylei.tech" target="_blank">雷小小</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/r/">R</a><a class="post-meta__tags" href="/tags/%E5%8F%AF%E8%A7%86%E5%8C%96/">可视化</a><a class="post-meta__tags" href="/tags/%E5%9C%B0%E5%9B%BE/">地图</a><a class="post-meta__tags" href="/tags/ggplot2/">ggplot2</a><a class="post-meta__tags" href="/tags/ggmap/">ggmap</a></div><div class="post-share"><div class="social-share" data-image="/img/baidu-map-cover.png" data-sites="wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.6/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.6/sharejs/dist/js/social-share.min.js" defer></script></div></div><div class="post-reward"><div class="reward-button"><i class="fas fa-qrcode"></i>赞助</div><div class="reward-main"><ul class="reward-all"><li class="reward-item"><a href="/img/morty3.jpg" target="_blank"><img class="post-qr-code-img" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/img/morty3.jpg" alt="Give me money!"/></a><div class="post-qr-code-desc">Give me money!</div></li></ul></div></div><nav class="pagination-post" id="pagination"><a class="pagination-related" href="/posts/74875eb3/" title="R(Visualise)--RColorBrewer and extrafont"><img class="cover" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/img/palette.png" onerror="onerror=null;src='/img/404.jpg'" alt="cover of previous post"><div class="info"><div class="info-1"><div class="info-item-1">上一篇</div><div class="info-item-2">R(Visualise)--RColorBrewer and extrafont</div></div><div class="info-2"><div class="info-item-1">调色板和字体配置</div></div></div></a><a class="pagination-related" href="/posts/8a9afcfe/" title="R(HTML Widgets)--leaflet"><img class="cover" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/img/leaflet-cover.png" onerror="onerror=null;src='/img/404.jpg'" alt="cover of next post"><div class="info text-right"><div class="info-1"><div class="info-item-1">下一篇</div><div class="info-item-2">R(HTML Widgets)--leaflet</div></div><div class="info-2"><div class="info-item-1">最流行的JavaScript库交互式地图之一，动态交互地图。</div></div></div></a></nav><div class="relatedPosts"><div class="headline"><i class="fas fa-thumbs-up fa-fw"></i><span>相关推荐</span></div><div class="relatedPosts-list"><a class="pagination-related" href="/posts/8f6de5fc/" title="R(Visualise)--ggplot2"><img class="cover" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/img/ggplot2-cover.png" alt="cover"><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2018-05-03</div><div class="info-item-2">R(Visualise)--ggplot2</div></div><div class="info-2"><div class="info-item-1">强大的绘图系统，并实现了许多扩展(Hadley)</div></div></div></a><a class="pagination-related" href="/posts/8a9afcfe/" title="R(HTML Widgets)--leaflet"><img class="cover" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/img/leaflet-cover.png" alt="cover"><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2018-05-04</div><div class="info-item-2">R(HTML Widgets)--leaflet</div></div><div class="info-2"><div class="info-item-1">最流行的JavaScript库交互式地图之一，动态交互地图。</div></div></div></a><a class="pagination-related" href="/posts/3c7fb28e/" title="R(HTML Widgets)--REmap"><img class="cover" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/img/echarts-cover.png" alt="cover"><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2018-06-01</div><div class="info-item-2">R(HTML Widgets)--REmap</div></div><div class="info-2"><div class="info-item-1">基于Echarts的简易动态交互地图</div></div></div></a><a class="pagination-related" href="/posts/a07d9d0c/" title="R(Visualise)--ggforce(ggplot2 extensions)"><img class="cover" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/img/ggforce-cover.png" alt="cover"><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2018-05-29</div><div class="info-item-2">R(Visualise)--ggforce(ggplot2 extensions)</div></div><div class="info-2"><div class="info-item-1">饼图</div></div></div></a><a class="pagination-related" href="/posts/8217ddda/" title="R(HTML Widgets)--shiny"><img class="cover" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/img/shiny-cover.png" alt="cover"><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2018-05-23</div><div class="info-item-2">R(HTML Widgets)--shiny</div></div><div class="info-2"><div class="info-item-1">使用R语言开发交互式web应用程序的工具</div></div></div></a><a class="pagination-related" href="/posts/cb53c844/" title="R(NLP)--jiebaR"><img class="cover" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/img/NLP.jpg" alt="cover"><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2018-05-04</div><div class="info-item-2">R(NLP)--jiebaR</div></div><div class="info-2"><div class="info-item-1">R语言词云和中文词典包</div></div></div></a></div></div><hr class="custom-hr"/><div id="post-comment"><div class="comment-head"><div class="comment-headline"><i class="fas fa-comments fa-fw"></i><span> 评论</span></div></div><div class="comment-wrap"><div><div id="gitalk-container"></div></div></div></div></div><div class="aside-content" id="aside-content"><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span><span class="toc-percentage"></span></div><div class="toc-content is-expand"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#ggmap"><span class="toc-number">1.</span> <span class="toc-text">ggmap</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%8E%B7%E5%8F%96%E5%9C%B0%E5%9B%BE%E5%9B%BE%E5%9D%97"><span class="toc-number">1.1.</span> <span class="toc-text">获取地图图块</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BD%9C%E5%9B%BE%E5%87%BD%E6%95%B0"><span class="toc-number">1.2.</span> <span class="toc-text">作图函数</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%BB%8F%E7%BA%AC%E5%BA%A6%E4%BF%A1%E6%81%AF"><span class="toc-number">1.3.</span> <span class="toc-text">经纬度信息</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BB%8EGoogle-Maps%E8%8E%B7%E5%8F%96%E8%B7%AF%E7%BA%BF%E5%9B%BE"><span class="toc-number">1.4.</span> <span class="toc-text">从Google Maps获取路线图</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BD%BF%E7%94%A8Google-Maps%E8%AE%A1%E7%AE%97%E5%9C%B0%E5%9B%BE%E8%B7%9D%E7%A6%BB"><span class="toc-number">1.5.</span> <span class="toc-text">使用Google Maps计算地图距离</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Google%E8%AE%A4%E8%AF%81"><span class="toc-number">1.6.</span> <span class="toc-text">Google认证</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#baidumap"><span class="toc-number">2.</span> <span class="toc-text">baidumap</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%AF%86%E9%92%A5"><span class="toc-number">2.1.</span> <span class="toc-text">密钥</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BB%8E%E5%9D%90%E6%A0%87%E6%95%B0%E6%8D%AE%E8%8E%B7%E5%8F%96%E4%BD%8D%E7%BD%AE"><span class="toc-number">2.2.</span> <span class="toc-text">从坐标数据获取位置</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BB%8E%E5%9C%B0%E5%9D%80%E8%8E%B7%E5%8F%96%E5%9D%90%E6%A0%87%E6%95%B0%E6%8D%AE"><span class="toc-number">2.3.</span> <span class="toc-text">从地址获取坐标数据</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%8E%B7%E5%8F%96%E7%99%BE%E5%BA%A6%E5%9C%B0%E5%9B%BE%E5%9B%BE%E5%9D%97"><span class="toc-number">2.4.</span> <span class="toc-text">获取百度地图图块</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%90%9C%E7%B4%A2"><span class="toc-number">2.5.</span> <span class="toc-text">搜索</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%99%BE%E5%BA%A6%E5%9C%B0%E7%90%86%E7%BC%96%E7%A0%81"><span class="toc-number">2.6.</span> <span class="toc-text">百度地理编码</span></a></li></ol></li></ol></div></div></div></div></main><footer id="footer"><div class="footer-other"><div class="footer-copyright"><span class="copyright">&copy;&nbsp;2019 - 2026 By Tiny Lei</span><span class="framework-info"><span>框架 </span><a target="_blank" rel="noopener external nofollow noreferrer" href="https://hexo.io">Hexo 8.1.1</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener external nofollow noreferrer" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly 5.5.3</a></span></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="日间和夜间模式切换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside-config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><a id="to_comment" href="#post-comment" title="前往评论"><i class="fas fa-comments"></i></a><button id="go-up" type="button" title="回到顶部"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js?v=5.5.3"></script><script src="/js/main.js?v=5.5.3"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui@6.1.7/dist/fancybox/fancybox.umd.min.js"></script><script src="https://cdn.jsdelivr.net/npm/vanilla-lazyload@19.1.3/dist/lazyload.iife.min.js"></script><div class="js-pjax"><script>(() => {
+  const runMermaid = ele => {
+    window.loadMermaid = true
+    const theme = document.documentElement.getAttribute('data-theme') === 'dark' ? 'dark' : 'default'
+
+    ele.forEach((item, index) => {
+      const mermaidSrc = item.firstElementChild
+      const config = mermaidSrc.dataset.config ? JSON.parse(mermaidSrc.dataset.config) : {}
+      if (!config.theme) {
+        config.theme = theme
+      }
+      const mermaidThemeConfig = `%%{init: ${JSON.stringify(config)}}%%\n`
+      const mermaidID = `mermaid-${index}`
+      const mermaidDefinition = mermaidThemeConfig + mermaidSrc.textContent
+
+      const renderFn = mermaid.render(mermaidID, mermaidDefinition)
+      const renderMermaid = svg => {
+        mermaidSrc.insertAdjacentHTML('afterend', svg)
+      }
+
+      // mermaid v9 and v10 compatibility
+      typeof renderFn === 'string' ? renderMermaid(renderFn) : renderFn.then(({ svg }) => renderMermaid(svg))
+    })
+  }
+
+  const codeToMermaid = () => {
+    const codeMermaidEle = document.querySelectorAll('pre > code.mermaid')
+    if (codeMermaidEle.length === 0) return
+
+    codeMermaidEle.forEach(ele => {
+      const preEle = document.createElement('pre')
+      preEle.className = 'mermaid-src'
+      preEle.hidden = true
+      preEle.textContent = ele.textContent
+      const newEle = document.createElement('div')
+      newEle.className = 'mermaid-wrap'
+      newEle.appendChild(preEle)
+      ele.parentNode.replaceWith(newEle)
+    })
+  }
+
+  const loadMermaid = () => {
+    if (true) codeToMermaid()
+    const $mermaid = document.querySelectorAll('#article-container .mermaid-wrap')
+    if ($mermaid.length === 0) return
+
+    const runMermaidFn = () => runMermaid($mermaid)
+    btf.addGlobalFn('themeChange', runMermaidFn, 'mermaid')
+    window.loadMermaid ? runMermaidFn() : btf.getScript('https://cdn.jsdelivr.net/npm/mermaid@11.12.2/dist/mermaid.min.js').then(runMermaidFn)
+  }
+
+  btf.addGlobalFn('encrypt', loadMermaid, 'mermaid')
+  window.pjax ? loadMermaid() : document.addEventListener('DOMContentLoaded', loadMermaid)
+})()</script><script>(() => {
+  const isShuoshuo = GLOBAL_CONFIG_SITE.pageType === 'shuoshuo'
+  const option = null
+
+  const commentCount = n => {
+    const isCommentCount = document.querySelector('#post-meta .gitalk-comment-count')
+    if (isCommentCount) {
+      isCommentCount.textContent= n
+    }
+  }
+
+  const initGitalk = (el, path) => {
+    if (isShuoshuo) {
+      window.shuoshuoComment.destroyGitalk = () => {
+        if (el.children.length) {
+          el.innerHTML = ''
+          el.classList.add('no-comment')
+        }
+      }
+    }
+
+    const gitalk = new Gitalk({
+      clientID: '7c65134b48b13f306114',
+      clientSecret: 'f049f68368a11925fdb69e57c64839eac94e13c1',
+      repo: 'gitalk-comments',
+      owner: 'WilenWu',
+      admin: ['WilenWu'],
+      updateCountCallback: commentCount,
+      ...option,
+      id: isShuoshuo ? path : (option && option.id) || '3c439cd0b6cbbcf981b91920fbef8c6b'
+    })
+
+    gitalk.render('gitalk-container')
+  }
+
+  const loadGitalk = async(el, path) => {
+    if (typeof Gitalk === 'function') initGitalk(el, path)
+    else {
+      await btf.getCSS('https://cdn.jsdelivr.net/npm/gitalk@1.8.0/dist/gitalk.min.css')
+      await btf.getScript('https://cdn.jsdelivr.net/npm/gitalk@1.8.0/dist/gitalk.min.js')
+      initGitalk(el, path)
+    }
+  }
+
+  if (isShuoshuo) {
+    'Gitalk' === 'Gitalk'
+      ? window.shuoshuoComment = { loadComment: loadGitalk }
+      : window.loadOtherComment = loadGitalk
+    return
+  }
+
+  if ('Gitalk' === 'Gitalk' || !false) {
+    if (false) btf.loadComment(document.getElementById('gitalk-container'), loadGitalk)
+    else loadGitalk()
+  } else {
+    window.loadOtherComment = loadGitalk
+  }
+})()</script></div><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script><div id="local-search"><div class="search-dialog"><nav class="search-nav"><span class="search-dialog-title">搜索</span><i class="fas fa-spinner fa-pulse" id="loading-status" hidden="hidden"></i><button class="search-close-button"><i class="fas fa-times"></i></button></nav><div class="text-center" id="loading-database"><i class="fas fa-spinner fa-pulse"></i><span>  数据加载中</span></div><div class="local-search-input"><input placeholder="搜索文章" type="text"/></div><hr/><div id="local-search-results"></div><div class="ais-Pagination" id="local-search-pagination" style="display:none;"><ul class="ais-Pagination-list"></ul></div><div id="local-search-stats"></div></div><div id="search-mask"></div><script src="/js/search/local-search.js?v=5.5.3"></script></div></div></body></html>

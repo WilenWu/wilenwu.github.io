@@ -1,0 +1,726 @@
+序号 英文术语 中文翻译 常用缩写
+1 0-1 Loss Function 0-1损失函数
+2 Accept-Reject Sampling Method 接受-拒绝抽样法/接受-拒绝采样法
+3 Accumulated Error Backpropagation 累积误差反向传播
+4 Accuracy 精度
+5 Acquisition Function 采集函数
+6 Action 动作
+7 Activation Function 激活函数
+8 Active Learning 主动学习
+9 Adaptive Bitrate Algorithm 自适应比特率算法 ABR
+10 Adaptive Boosting AdaBoost
+11 Adaptive Gradient Algorithm AdaGrad
+12 Adaptive Moment Estimation Algorithm Adam算法 Adam
+13 Adaptive Resonance Theory 自适应谐振理论 ART
+14 Additive Model 加性模型
+15 Affinity Matrix 亲和矩阵
+16 Agent 智能体
+17 Algorithm 算法
+18 Alpha-Beta Pruning α-β修剪法
+19 Anomaly Detection 异常检测
+20 Approximate Inference 近似推断
+21 Area Under ROC Curve AUC AUC
+22 Artificial Intelligence 人工智能 AI
+23 Artificial Neural Network 人工神经网络 ANN
+24 Artificial Neuron 人工神经元
+25 Attention 注意力
+26 Attention Mechanism 注意力机制
+27 Attribute 属性
+28 Attribute Space 属性空间
+29 Autoencoder 自编码器 AE
+30 Automatic Differentiation 自动微分 AD
+31 Autoregressive Model 自回归模型 AR
+32 Back Propagation 反向传播 BP
+33 Back Propagation Algorithm 反向传播算法
+34 Back Propagation Through Time 随时间反向传播 BPTT
+35 Backward Induction 反向归纳
+36 Backward Search 反向搜索
+37 Bag of Words 词袋 BOW
+38 Bandit 赌博机/老虎机
+39 Base Learner 基学习器
+40 Base Learning Algorithm 基学习算法
+41 Baseline 基准
+42 Batch 批量
+43 Batch Normalization 批量规范化 BN
+44 Bayes Decision Rule 贝叶斯决策准则
+45 Bayes Model Averaging 贝叶斯模型平均 BMA
+46 Bayes Optimal Classifier 贝叶斯最优分类器
+47 Bayes' Theorem 贝叶斯定理
+48 Bayesian Decision Theory 贝叶斯决策理论
+49 Bayesian Inference 贝叶斯推断
+50 Bayesian Learning 贝叶斯学习
+51 Bayesian Network 贝叶斯网/贝叶斯网络
+52 Bayesian Optimization 贝叶斯优化
+53 Beam Search 束搜索
+54 Benchmark 基准
+55 Belief Network 信念网/信念网络 BN
+56 Belief Propagation 信念传播 BP
+57 Bellman Equation 贝尔曼方程
+58 Bernoulli Distribution 伯努利分布
+59 Beta Distribution 贝塔分布
+60 Between-Class Scatter Matrix 类间散度矩阵
+61 BFGS BFGS
+62 Bias 偏差/偏置
+63 Bias In Affine Function 偏置
+64 Bias In Statistics 偏差
+65 Bias Shift 偏置偏移
+66 Bias-Variance Decomposition 偏差 - 方差分解
+67 Bias-Variance Dilemma 偏差 - 方差困境
+68 Bidirectional Recurrent Neural Network 双向循环神经网络 Bi-RNN
+69 Bigram 二元语法
+70 Bilingual Evaluation Understudy BLEU
+71 Binary Classification 二分类
+72 Binomial Distribution 二项分布
+73 Binomial Test 二项检验
+74 Boltzmann Distribution 玻尔兹曼分布
+75 Boltzmann Machine 玻尔兹曼机
+76 Boosting Boosting
+77 Bootstrap Aggregating Bagging
+78 Bootstrap Sampling 自助采样法
+79 Bootstrapping 自助法/自举法
+80 Break-Event Point 平衡点 BEP
+81 Bucketing 分桶
+82 Calculus of Variations 变分法
+83 Cascade-Correlation 级联相关
+84 Catastrophic Forgetting 灾难性遗忘
+85 Categorical Distribution 类别分布
+86 Cell 单元
+87 Chain Rule 链式法则
+88 Chebyshev Distance 切比雪夫距离
+89 Class 类别
+90 Class-Imbalance 类别不平衡
+91 Classification 分类
+92 Classification And Regression Tree 分类与回归树 CART
+93 Classifier 分类器
+94 Clique 团
+95 Cluster 簇
+96 Cluster Assumption 聚类假设
+97 Clustering 聚类
+98 Clustering Ensemble 聚类集成
+99 Co-Training 协同训练
+100 Coding Matrix 编码矩阵
+101 Collaborative Filtering 协同过滤
+102 Competitive Learning 竞争型学习
+103 Comprehensibility 可解释性
+104 Computation Graph 计算图
+105 Computational Learning Theory 计算学习理论
+106 Conditional Entropy 条件熵
+107 Conditional Probability 条件概率
+108 Conditional Probability Distribution 条件概率分布
+109 Conditional Random Field 条件随机场 CRF
+110 Conditional Risk 条件风险
+111 Confidence 置信度
+112 Confusion Matrix 混淆矩阵
+113 Conjugate Distribution 共轭分布
+114 Connection Weight 连接权
+115 Connectionism 连接主义
+116 Consistency 一致性
+117 Constrained Optimization 约束优化
+118 Context Variable 上下文变量
+119 Context Vector 上下文向量
+120 Context Window 上下文窗口
+121 Context Word 上下文词
+122 Contextual Bandit 上下文赌博机/上下文老虎机
+123 Contingency Table 列联表
+124 Continuous Attribute 连续属性
+125 Contrastive Divergence 对比散度
+126 Convergence 收敛
+127 Convex Optimization 凸优化
+128 Convex Quadratic Programming 凸二次规划
+129 Convolution 卷积
+130 Convolutional Kernel 卷积核
+131 Convolutional Neural Network 卷积神经网络 CNN
+132 Coordinate Descent 坐标下降
+133 Corpus 语料库
+134 Correlation Coefficient 相关系数
+135 Cosine Similarity 余弦相似度
+136 Cost 代价
+137 Cost Curve 代价曲线
+138 Cost Function 代价函数
+139 Cost Matrix 代价矩阵
+140 Cost-Sensitive 代价敏感
+141 Covariance 协方差
+142 Covariance Matrix 协方差矩阵
+143 Critical Point 临界点
+144 Cross Entropy 交叉熵
+145 Cross Validation 交叉验证
+146 Curse of Dimensionality 维数灾难
+147 Cutting Plane Algorithm 割平面法
+148 Data Mining 数据挖掘
+149 Data Set 数据集
+150 Davidon-Fletcher-Powell DFP
+151 Decision Boundary 决策边界
+152 Decision Function 决策函数
+153 Decision Stump 决策树桩
+154 Decision Tree 决策树
+155 Decoder 解码器
+156 Decoding 解码
+157 Deconvolution 反卷积
+158 Deconvolutional Network 反卷积网络
+159 Deduction 演绎
+160 Deep Belief Network 深度信念网络 DBN
+161 Deep Boltzmann Machine 深度玻尔兹曼机 DBM
+162 Deep Convolutional Generative Adversarial Network 深度卷积生成对抗网络 DCGAN
+163 Deep Learning 深度学习 DL
+164 Deep Neural Network 深度神经网络 DNN
+165 Deep Q-Network 深度Q网络 DQN
+166 Delta-Bar-Delta Delta-Bar-Delta
+167 Denoising 去噪
+168 Denoising Autoencoder 去噪自编码器
+169 Denoising Score Matching 去躁分数匹配
+170 Density Estimation 密度估计
+171 Density-Based Clustering 密度聚类
+172 Derivative 导数
+173 Determinant 行列式
+174 Diagonal Matrix 对角矩阵
+175 Dictionary Learning 字典学习
+176 Dimension Reduction 降维
+177 Directed Edge 有向边
+178 Directed Graphical Model 有向图模型
+179 Directed Separation 有向分离
+180 Dirichlet Distribution 狄利克雷分布
+181 Discriminative Model 判别式模型
+182 Discriminator 判别器
+183 Discriminator Network 判别网络
+184 Distance Measure 距离度量
+185 Distance Metric Learning 距离度量学习
+186 Distributed Representation 分布式表示
+187 Diverge 发散
+188 Divergence 散度
+189 Diversity 多样性
+190 Diversity Measure 多样性度量/差异性度量
+191 Domain Adaptation 领域自适应
+192 Dominant Strategy 主特征值
+193 Dominant Strategy 占优策略
+194 Down Sampling 下采样
+195 Dropout 暂退法
+196 Dropout Boosting 暂退Boosting
+197 Dropout Method 暂退法
+198 Dual Problem 对偶问题
+199 Dummy Node 哑结点
+200 Dynamic Bayesian Network 动态贝叶斯网络
+201 Dynamic Programming 动态规划
+202 Early Stopping 早停
+203 Eigendecomposition 特征分解
+204 Eigenvalue 特征值
+205 Element-Wise Product 逐元素积
+206 Embedding 嵌入
+207 Empirical Conditional Entropy 经验条件熵
+208 Empirical Distribution 经验分布
+209 Empirical Entropy 经验熵
+210 Empirical Error 经验误差
+211 Empirical Risk 经验风险
+212 Empirical Risk Minimization 经验风险最小化 ERM
+213 Encoder 编码器
+214 Encoding 编码
+215 End-To-End 端到端
+216 Energy Function 能量函数
+217 Energy-Based Model 基于能量的模型
+218 Ensemble Learning 集成学习
+219 Ensemble Pruning 集成修剪
+220 Entropy 熵
+221 Episode 回合
+222 Epoch 轮
+223 Error 误差
+224 Error Backpropagation Algorithm 误差反向传播算法
+225 Error Backpropagation 误差反向传播
+226 Error Correcting Output Codes 纠错输出编码 ECOC
+227 Error Rate 错误率
+228 Error-Ambiguity Decomposition 误差－分歧分解
+229 Estimator 估计/估计量
+230 Euclidean Distance 欧氏距离
+231 Evidence 证据
+232 Evidence Lower Bound 证据下界 ELBO
+233 Exact Inference 精确推断
+234 Example 样例
+235 Expectation 期望
+236 Expectation Maximization 期望最大化 EM
+237 Expected Loss 期望损失
+238 Expert System 专家系统
+239 Exploding Gradient 梯度爆炸
+240 Exponential Loss Function 指数损失函数
+241 Factor 因子
+242 Factorization 因子分解
+243 Feature 特征
+244 Feature Engineering 特征工程
+245 Feature Map 特征图
+246 Feature Selection 特征选择
+247 Feature Vector 特征向量
+248 Featured Learning 特征学习
+249 Feedforward 前馈
+250 Feedforward Neural Network 前馈神经网络 FNN
+251 Few-Shot Learning 少试学习
+252 Filter 滤波器
+253 Fine-Tuning 微调
+254 Fluctuation 振荡
+255 Forget Gate 遗忘门
+256 Forward Propagation 前向传播/正向传播
+257 Forward Stagewise Algorithm 前向分步算法
+258 Fractionally Strided Convolution 微步卷积
+259 Frobenius Norm Frobenius 范数
+260 Full Padding 全填充
+261 Functional 泛函
+262 Functional Neuron 功能神经元
+263 Gated Recurrent Unit 门控循环单元 GRU
+264 Gated RNN 门控RNN
+265 Gaussian Distribution 高斯分布
+266 Gaussian Kernel 高斯核
+267 Gaussian Kernel Function 高斯核函数
+268 Gaussian Mixture Model 高斯混合模型 GMM
+269 Gaussian Process 高斯过程
+270 Generalization Ability 泛化能力
+271 Generalization Error 泛化误差
+272 Generalization Error Bound 泛化误差上界
+273 Generalize 泛化
+274 Generalized Lagrange Function 广义拉格朗日函数
+275 Generalized Linear Model 广义线性模型
+276 Generalized Rayleigh Quotient 广义瑞利商
+277 Generative Adversarial Network 生成对抗网络
+278 Generative Model 生成式模型
+279 Generator 生成器
+280 Generator Network 生成器网络
+281 Genetic Algorithm 遗传算法 GA
+282 Gibbs Distribution 吉布斯分布
+283 Gibbs Sampling 吉布斯采样/吉布斯抽样
+284 Gini Index 基尼指数
+285 Global Markov Property 全局马尔可夫性
+286 Global Minimum 全局最小
+287 Gradient 梯度
+288 Gradient Clipping 梯度截断
+289 Gradient Descent 梯度下降
+290 Gradient Descent Method 梯度下降法
+291 Gradient Exploding Problem 梯度爆炸问题
+292 Gram Matrix Gram 矩阵
+293 Graph Convolutional Network 图卷积神经网络/图卷积网络 GCN
+294 Graph Neural Network 图神经网络 GNN
+295 Graphical Model 图模型 GM
+296 Grid Search 网格搜索
+297 Ground Truth 真实值
+298 Hadamard Product Hadamard积
+299 Hamming Distance 汉明距离
+300 Hard Margin 硬间隔
+301 Hebbian Rule 赫布法则
+302 Hidden Layer 隐藏层
+303 Hidden Markov Model 隐马尔可夫模型 HMM
+304 Hidden Variable 隐变量
+305 Hierarchical Clustering 层次聚类
+306 Hilbert Space 希尔伯特空间
+307 Hinge Loss Function 合页损失函数/Hinge损失函数
+308 Hold-Out 留出法
+309 Hyperparameter 超参数
+310 Hyperparameter Optimization 超参数优化
+311 Hypothesis 假设
+312 Hypothesis Space 假设空间
+313 Hypothesis Test 假设检验
+314 Identity Matrix 单位矩阵
+315 Imitation Learning 模仿学习
+316 Importance Sampling 重要性采样
+317 Improved Iterative Scaling 改进的迭代尺度法 IIS
+318 Incremental Learning 增量学习
+319 Independent and Identically Distributed 独立同分布 I.I.D.
+320 Indicator Function 指示函数
+321 Individual Learner 个体学习器
+322 Induction 归纳
+323 Inductive Bias 归纳偏好
+324 Inductive Learning 归纳学习
+325 Inductive Logic Programming 归纳逻辑程序设计 ILP
+326 Inference 推断
+327 Information Entropy 信息熵
+328 Information Gain 信息增益
+329 Inner Product 内积
+330 Instance 示例
+331 Internal Covariate Shift 内部协变量偏移
+332 Inverse Matrix 逆矩阵
+333 Inverse Resolution 逆归结
+334 Isometric Mapping 等度量映射 Isomap
+335 Jacobian Matrix 雅可比矩阵
+336 Jensen Inequality Jensen不等式
+337 Joint Probability Distribution 联合概率分布
+338 K-Armed Bandit Problem k-摇臂老虎机
+339 K-Fold Cross Validation k 折交叉验证
+340 Karush-Kuhn-Tucker Condition KKT条件
+341 Karush–Kuhn–Tucker Karush–Kuhn–Tucker
+342 Kernel Function 核函数
+343 Kernel Method 核方法
+344 Kernel Trick 核技巧
+345 Kernelized Linear Discriminant Analysis 核线性判别分析 KLDA
+346 KL Divergence KL散度
+347 L-BFGS L-BFGS
+348 Label 标签/标记
+349 Label Space 标记空间
+350 Lagrange Duality 拉格朗日对偶性
+351 Lagrange Multiplier 拉格朗日乘子
+352 Language Model 语言模型
+353 Laplace Smoothing 拉普拉斯平滑
+354 Laplacian Correction 拉普拉斯修正
+355 Latent Dirichlet Allocation 潜在狄利克雷分配 LDA
+356 Latent Semantic Analysis 潜在语义分析 LSA
+357 Latent Variable 潜变量/隐变量
+358 Law of Large Numbers 大数定律
+359 Layer Normalization 层规范化
+360 Lazy Learning 懒惰学习
+361 Leaky Relu 泄漏修正线性单元/泄漏整流线性单元
+362 Learner 学习器
+363 Learning 学习
+364 Learning By Analogy 类比学习
+365 Learning Rate 学习率
+366 Learning Vector Quantization 学习向量量化 LVQ
+367 Least Square Method 最小二乘法 LSM
+368 Least Squares Regression Tree 最小二乘回归树
+369 Left Singular Vector 左奇异向量
+370 Likelihood 似然
+371 Linear Chain Conditional Random Field 线性链条件随机场
+372 Linear Classification Model 线性分类模型
+373 Linear Classifier 线性分类器
+374 Linear Dependence 线性相关
+375 Linear Discriminant Analysis 线性判别分析 LDA
+376 Linear Model 线性模型
+377 Linear Regression 线性回归
+378 Link Function 联系函数
+379 Local Markov Property 局部马尔可夫性
+380 Local Minima 局部极小
+381 Local Minimum 局部极小
+382 Local Representation 局部式表示/局部式表征
+383 Log Likelihood 对数似然函数
+384 Log Linear Model 对数线性模型
+385 Log-Likelihood 对数似然
+386 Log-Linear Regression 对数线性回归
+387 Logistic Function 对数几率函数
+388 Logistic Regression 对数几率回归 LR
+389 Logit 对数几率
+390 Long Short Term Memory 长短期记忆 LSTM
+391 Long Short-Term Memory Network 长短期记忆网络 LSTM
+392 Loopy Belief Propagation 环状信念传播 LBP
+393 Loss Function 损失函数
+394 Low Rank Matrix Approximation 低秩矩阵近似
+395 Machine Learning 机器学习 ML
+396 Macron-R 宏查全率
+397 Manhattan Distance 曼哈顿距离
+398 Manifold 流形
+399 Manifold Assumption 流形假设
+400 Manifold Learning 流形学习
+401 Margin 间隔
+402 Marginal Distribution 边缘分布
+403 Marginal Independence 边缘独立性
+404 Marginalization 边缘化
+405 Markov Chain 马尔可夫链
+406 Markov Chain Monte Carlo 马尔可夫链蒙特卡罗 MCMC
+407 Markov Decision Process 马尔可夫决策过程 MDP
+408 Markov Network 马尔可夫网络
+409 Markov Process 马尔可夫过程
+410 Markov Random Field 马尔可夫随机场 MRF
+411 Mask 掩码
+412 Matrix 矩阵
+413 Matrix Inversion 逆矩阵
+414 Max Pooling 最大汇聚
+415 Maximal Clique 最大团
+416 Maximum Entropy Model 最大熵模型
+417 Maximum Likelihood Estimation 极大似然估计 MLE
+418 Maximum Margin 最大间隔
+419 Mean Filed 平均场
+420 Mean Pooling 平均汇聚
+421 Mean Squared Error 均方误差
+422 Mean-Field 平均场
+423 Memory Network 记忆网络 MN
+424 Message Passing 消息传递
+425 Metric Learning 度量学习
+426 Micro-R 微查全率
+427 Minibatch 小批量
+428 Minimal Description Length 最小描述长度 MDL
+429 Minimax Game 极小极大博弈
+430 Minkowski Distance 闵可夫斯基距离
+431 Mixture of Experts 混合专家模型
+432 Mixture-of-Gaussian 高斯混合
+433 Model 模型
+434 Model Selection 模型选择
+435 Momentum Method 动量法
+436 Monte Carlo Method 蒙特卡罗方法
+437 Moral Graph 端正图/道德图
+438 Moralization 道德化
+439 Multi-Class Classification 多分类
+440 Multi-Head Attention 多头注意力
+441 Multi-Head Self-Attention 多头自注意力
+442 Multi-Kernel Learning 多核学习
+443 Multi-Label Learning 多标记学习
+444 Multi-Layer Feedforward Neural Networks 多层前馈神经网络
+445 Multi-Layer Perceptron 多层感知机 MLP
+446 Multinomial Distribution 多项分布
+447 Multiple Dimensional Scaling 多维缩放
+448 Multiple Linear Regression 多元线性回归
+449 Multitask Learning 多任务学习
+450 Multivariate Normal Distribution 多元正态分布
+451 Mutual Information 互信息
+452 N-Gram Model N元模型
+453 Naive Bayes Classifier 朴素贝叶斯分类器
+454 Naive Bayes 朴素贝叶斯 NB
+455 Nearest Neighbor Classifier 最近邻分类器
+456 Negative Log Likelihood 负对数似然函数
+457 Neighbourhood Component Analysis 近邻成分分析 NCA
+458 Net Input 净输入
+459 Neural Network 神经网络 NN
+460 Neural Turing Machine 神经图灵机 NTM
+461 Neuron 神经元
+462 Newton Method 牛顿法
+463 No Free Lunch Theorem 没有免费午餐定理 NFL
+464 Noise-Contrastive Estimation 噪声对比估计 NCE
+465 Nominal Attribute 列名属性
+466 Non-Convex Optimization 非凸优化
+467 Non-Metric Distance 非度量距离
+468 Non-Negative Matrix Factorization 非负矩阵分解 NMF
+469 Non-Ordinal Attribute 无序属性
+470 Norm 范数
+471 Normal Distribution 正态分布
+472 Normalization 规范化
+473 Nuclear Norm 核范数
+474 Number of Epochs 轮数
+475 Numerical Attribute 数值属性
+476 Object Detection 目标检测
+477 Oblique Decision Tree 斜决策树
+478 Occam's Razor 奥卡姆剃刀
+479 Odds 几率
+480 Off-Policy 异策略
+481 On-Policy 同策略
+482 One-Dependent Estimator 独依赖估计 ODE
+483 One-Hot 独热
+484 Online Learning 在线学习
+485 Optimizer 优化器
+486 Ordinal Attribute 有序属性
+487 Orthogonal 正交
+488 Orthogonal Matrix 正交矩阵
+489 Out-Of-Bag Estimate 包外估计
+490 Outlier 异常点
+491 Over-Parameterized 过度参数化
+492 Overfitting 过拟合
+493 Oversampling 过采样
+494 Pac-Learnable PAC可学习
+495 Padding 填充
+496 Pairwise Markov Property 成对马尔可夫性
+497 Parallel Distributed Processing 分布式并行处理 PDP
+498 Parameter 参数
+499 Parameter Estimation 参数估计
+500 Parameter Space 参数空间
+501 Parameter Tuning 调参
+502 Parametric ReLU 参数化修正线性单元/参数化整流线性单元 PReLU
+503 Part-Of-Speech Tagging 词性标注
+504 Partial Derivative 偏导数
+505 Partially Observable Markov Decision Processes 部分可观测马尔可夫决策过程 POMDP
+506 Partition Function 配分函数
+507 Perceptron 感知机
+508 Performance Measure 性能度量
+509 Perplexity 困惑度
+510 Pointer Network 指针网络
+511 Policy 策略
+512 Policy Gradient 策略梯度
+513 Policy Iteration 策略迭代
+514 Polynomial Kernel Function 多项式核函数
+515 Pooling 汇聚
+516 Pooling Layer 汇聚层
+517 Positive Definite Matrix 正定矩阵
+518 Post-Pruning 后剪枝
+519 Potential Function 势函数
+520 Power Method 幂法
+521 Pre-Training 预训练
+522 Precision 查准率/准确率
+523 Prepruning 预剪枝
+524 Primal Problem 主问题
+525 Primary Visual Cortex 初级视觉皮层
+526 Principal Component Analysis 主成分分析 PCA
+527 Prior 先验
+528 Probabilistic Context-Free Grammar 概率上下文无关文法
+529 Probabilistic Graphical Model 概率图模型 PGM
+530 Probabilistic Model 概率模型
+531 Probability Density Function 概率密度函数 PDF
+532 Probability Distribution 概率分布
+533 Probably Approximately Correct 概率近似正确 PAC
+534 Proposal Distribution 提议分布
+535 Prototype-Based Clustering 原型聚类
+536 Proximal Gradient Descent 近端梯度下降 PGD
+537 Pruning 剪枝
+538 Quadratic Loss Function 平方损失函数
+539 Quadratic Programming 二次规划
+540 Quasi Newton Method 拟牛顿法
+541 Radial Basis Function 径向基函数 RBF
+542 Random Forest 随机森林 RF
+543 Random Sampling 随机采样
+544 Random Search 随机搜索
+545 Random Variable 随机变量
+546 Random Walk 随机游走
+547 Recall 查全率/召回率
+548 Receptive Field 感受野
+549 Reconstruction Error 重构误差
+550 Rectified Linear Unit 修正线性单元/整流线性单元 ReLU
+551 Recurrent Neural Network 循环神经网络 RNN
+552 Recursive Neural Network 递归神经网络 RecNN
+553 Regression 回归
+554 Regularization 正则化
+555 Regularizer 正则化项
+556 Reinforcement Learning 强化学习 RL
+557 Relative Entropy 相对熵
+558 Reparameterization 再参数化/重参数化
+559 Representation 表示
+560 Representation Learning 表示学习
+561 Representer Theorem 表示定理
+562 Reproducing Kernel Hilbert Space 再生核希尔伯特空间 RKHS
+563 Rescaling 再缩放
+564 Reset Gate 重置门
+565 Residual Connection 残差连接
+566 Residual Network 残差网络 ResNet
+567 Restricted Boltzmann Machine 受限玻尔兹曼机 RBM
+568 Reward 奖励
+569 Ridge Regression 岭回归
+570 Right Singular Vector 右奇异向量
+571 Risk 风险
+572 Robustness 稳健性
+573 Root Node 根结点
+574 Rule Learning 规则学习
+575 Saddle Point 鞍点
+576 Sample 样本
+577 Sample Complexity 样本复杂度
+578 Sample Space 样本空间
+579 Scalar 标量
+580 Selective Ensemble 选择性集成
+581 Self Information 自信息
+582 Self-Attention 自注意力
+583 Self-Organizing Map 自组织映射网 SOM
+584 Self-Training 自训练
+585 Semi-Definite Programming 半正定规划
+586 Semi-Naive Bayes Classifiers 半朴素贝叶斯分类器
+587 Semi-Restricted Boltzmann Machine 半受限玻尔兹曼机
+588 Semi-Supervised Clustering 半监督聚类
+589 Semi-Supervised Learning 半监督学习
+590 Semi-Supervised Support Vector Machine 半监督支持向量机 S3VM
+591 Sentiment Analysis 情感分析
+592 Separating Hyperplane 分离超平面
+593 Sequential Covering 序贯覆盖
+594 Sigmoid Belief Network Sigmoid信念网络 SBN
+595 Sigmoid Function Sigmoid函数
+596 Signed Distance 带符号距离
+597 Similarity Measure 相似度度量
+598 Simulated Annealing 模拟退火
+599 Simultaneous Localization And Mapping 即时定位与地图构建 SLAM
+600 Singular Value 奇异值
+601 Singular Value Decomposition 奇异值分解 SVD
+602 Skip-Gram Model 跳元模型
+603 Smoothing 平滑
+604 Soft Margin 软间隔
+605 Soft Margin Maximization 软间隔最大化
+606 Softmax Softmax/软最大化
+607 Softmax Function Softmax函数/软最大化函数
+608 Softmax Regression Softmax回归/软最大化回归
+609 Softplus Function Softplus函数
+610 Span 张成子空间
+611 Sparse Coding 稀疏编码
+612 Sparse Representation 稀疏表示
+613 Sparsity 稀疏性
+614 Specialization 特化
+615 Splitting Variable 切分变量
+616 Squashing Function 挤压函数
+617 Standard Normal Distribution 标准正态分布
+618 State 状态
+619 State Value Function 状态值函数
+620 State-Action Value Function 状态-动作值函数
+621 Stationary Distribution 平稳分布
+622 Stationary Point 驻点
+623 Statistical Learning 统计学习
+624 Steepest Descent 最速下降法
+625 Stochastic Gradient Descent 随机梯度下降
+626 Stochastic Matrix 随机矩阵
+627 Stochastic Process 随机过程
+628 Stratified Sampling 分层采样
+629 Stride 步幅
+630 Structural Risk 结构风险
+631 Structural Risk Minimization 结构风险最小化 SRM
+632 Subsample 子采样
+633 Subsampling 下采样
+634 Subset Search 子集搜索
+635 Subspace 子空间
+636 Supervised Learning 监督学习
+637 Support Vector 支持向量
+638 Support Vector Expansion 支持向量展式
+639 Support Vector Machine 支持向量机 SVM
+640 Surrogat Loss 替代损失
+641 Surrogate Function 替代函数
+642 Surrogate Loss Function 代理损失函数
+643 Symbolism 符号主义
+644 Tangent Propagation 正切传播
+645 Teacher Forcing 强制教学
+646 Temporal-Difference Learning 时序差分学习
+647 Tensor 张量
+648 Test Error 测试误差
+649 Test Sample 测试样本
+650 Test Set 测试集
+651 Threshold 阈值
+652 Threshold Logic Unit 阈值逻辑单元
+653 Threshold-Moving 阈值移动
+654 Tied Weight 捆绑权重
+655 Tikhonov Regularization Tikhonov正则化
+656 Time Delay Neural Network 时延神经网络 TDNN
+657 Time Homogenous Markov Chain 时间齐次马尔可夫链
+658 Time Step 时间步
+659 Token 词元
+660 Token 词元
+661 Tokenization 词元化
+662 Tokenizer 词元分析器
+663 Topic Model 话题模型
+664 Topic Modeling 话题分析
+665 Trace 迹
+666 Training 训练
+667 Training Error 训练误差
+668 Training Sample 训练样本
+669 Training Set 训练集
+670 Transductive Learning 直推学习
+671 Transductive Transfer Learning 直推迁移学习
+672 Transfer Learning 迁移学习
+673 Transformer Transformer
+674 Transformer Model Transformer模型
+675 Transpose 转置
+676 Transposed Convolution 转置卷积
+677 Trial And Error 试错
+678 Trigram 三元语法
+679 Turing Machine 图灵机
+680 Underfitting 欠拟合
+681 Undersampling 欠采样
+682 Undirected Graphical Model 无向图模型
+683 Uniform Distribution 均匀分布
+684 Unigram 一元语法
+685 Unit 单元
+686 Universal Approximation Theorem 通用近似定理
+687 Universal Approximator 通用近似器
+688 Universal Function Approximator 通用函数近似器
+689 Unknown Token 未知词元
+690 Unsupervised Layer-Wise Training 无监督逐层训练
+691 Unsupervised Learning 无监督学习 UL
+692 Update Gate 更新门
+693 Upsampling 上采样
+694 V-Structure V型结构
+695 Validation Set 验证集
+696 Validity Index 有效性指标
+697 Value Function Approximation 值函数近似
+698 Value Iteration 值迭代
+699 Vanishing Gradient Problem 梯度消失问题
+700 Vapnik-Chervonenkis Dimension VC维
+701 Variable Elimination 变量消去
+702 Variance 方差
+703 Variational Autoencoder 变分自编码器 VAE
+704 Variational Inference 变分推断
+705 Vector 向量
+706 Vector Space Model 向量空间模型 VSM
+707 Version Space 版本空间
+708 Viterbi Algorithm 维特比算法
+709 Vocabulary 词表
+710 Warp 线程束
+711 Weak Learner 弱学习器
+712 Weakly Supervised Learning 弱监督学习
+713 Weight 权重
+714 Weight Decay 权重衰减
+715 Weight Sharing 权共享
+716 Weighted Voting 加权投票
+717 Whitening 白化
+718 Winner-Take-All 胜者通吃
+719 Within-Class Scatter Matrix 类内散度矩阵
+720 Word Embedding 词嵌入
+721 Word Sense Disambiguation 词义消歧
+722 Word Vector 词向量
+723 Zero Padding 零填充
+724 Zero-Shot Learning 零试学习
+725 Zipf's Law 齐普夫定律

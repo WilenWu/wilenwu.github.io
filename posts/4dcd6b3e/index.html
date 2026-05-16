@@ -1,0 +1,620 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0,viewport-fit=cover"><title>R(Data Cleaning)--日期时间 | 雷小小</title><meta name="author" content="Tiny Lei"><meta name="copyright" content="Tiny Lei"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="for date and times.(Hadley)">
+<meta property="og:type" content="article">
+<meta property="og:title" content="R(Data Cleaning)--日期时间">
+<meta property="og:url" content="https://www.tinylei.tech/posts/4dcd6b3e/index.html">
+<meta property="og:site_name" content="雷小小">
+<meta property="og:description" content="for date and times.(Hadley)">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://www.tinylei.tech/img/r-datetime-cover.svg">
+<meta property="article:published_time" content="2018-05-01T15:06:29.000Z">
+<meta property="article:modified_time" content="2024-03-08T10:34:00.072Z">
+<meta property="article:author" content="Tiny Lei">
+<meta property="article:tag" content="R">
+<meta property="article:tag" content="tidyverse">
+<meta property="article:tag" content="数据清洗">
+<meta property="article:tag" content="时间序列">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://www.tinylei.tech/img/r-datetime-cover.svg"><script type="application/ld+json">{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "R(Data Cleaning)--日期时间",
+  "url": "https://www.tinylei.tech/posts/4dcd6b3e/",
+  "image": "https://www.tinylei.tech/img/r-datetime-cover.svg",
+  "datePublished": "2018-05-01T15:06:29.000Z",
+  "dateModified": "2024-03-08T10:34:00.072Z",
+  "author": [
+    {
+      "@type": "Person",
+      "name": "Tiny Lei",
+      "url": "https://www.tinylei.tech"
+    }
+  ]
+}</script><link rel="shortcut icon" href="/img/favicon.png"><link rel="canonical" href="https://www.tinylei.tech/posts/4dcd6b3e/index.html"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//hm.baidu.com"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><meta name="baidu-site-verification" content="code-7rymn5Bitx"/><link rel="stylesheet" href="/css/index.css?v=5.5.3"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@7.1.0/css/all.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui@6.1.7/dist/fancybox/fancybox.min.css" media="print" onload="this.media='all'"><script>
+    (() => {
+      
+    const saveToLocal = {
+      set: (key, value, ttl) => {
+        if (!ttl) return
+        const expiry = Date.now() + ttl * 86400000
+        localStorage.setItem(key, JSON.stringify({ value, expiry }))
+      },
+      get: key => {
+        const itemStr = localStorage.getItem(key)
+        if (!itemStr) return undefined
+        const { value, expiry } = JSON.parse(itemStr)
+        if (Date.now() > expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return value
+      }
+    }
+
+    window.btf = {
+      saveToLocal,
+      getScript: (url, attr = {}) => new Promise((resolve, reject) => {
+        const script = document.createElement('script')
+        script.src = url
+        script.async = true
+        Object.entries(attr).forEach(([key, val]) => script.setAttribute(key, val))
+        script.onload = script.onreadystatechange = () => {
+          if (!script.readyState || /loaded|complete/.test(script.readyState)) resolve()
+        }
+        script.onerror = reject
+        document.head.appendChild(script)
+      }),
+      getCSS: (url, id) => new Promise((resolve, reject) => {
+        const link = document.createElement('link')
+        link.rel = 'stylesheet'
+        link.href = url
+        if (id) link.id = id
+        link.onload = link.onreadystatechange = () => {
+          if (!link.readyState || /loaded|complete/.test(link.readyState)) resolve()
+        }
+        link.onerror = reject
+        document.head.appendChild(link)
+      }),
+      addGlobalFn: (key, fn, name = false, parent = window) => {
+        if (!false && key.startsWith('pjax')) return
+        const globalFn = parent.globalFn || {}
+        globalFn[key] = globalFn[key] || {}
+        globalFn[key][name || Object.keys(globalFn[key]).length] = fn
+        parent.globalFn = globalFn
+      }
+    }
+  
+      
+      const activateDarkMode = () => {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      const activateLightMode = () => {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+
+      btf.activateDarkMode = activateDarkMode
+      btf.activateLightMode = activateLightMode
+
+      const theme = saveToLocal.get('theme')
+    
+          const mediaQueryDark = window.matchMedia('(prefers-color-scheme: dark)')
+          const mediaQueryLight = window.matchMedia('(prefers-color-scheme: light)')
+
+          if (theme === undefined) {
+            if (mediaQueryLight.matches) activateLightMode()
+            else if (mediaQueryDark.matches) activateDarkMode()
+            else {
+              const hour = new Date().getHours()
+              const isNight = hour <= 6 || hour >= 18
+              isNight ? activateDarkMode() : activateLightMode()
+            }
+            mediaQueryDark.addEventListener('change', () => {
+              if (saveToLocal.get('theme') === undefined) {
+                e.matches ? activateDarkMode() : activateLightMode()
+              }
+            })
+          } else {
+            theme === 'light' ? activateLightMode() : activateDarkMode()
+          }
+        
+      
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        document.documentElement.classList.toggle('hide-aside', asideStatus === 'hide')
+      }
+    
+      
+    const detectApple = () => {
+      if (/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)) {
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+  
+    })()
+  </script><script>var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "https://hm.baidu.com/hm.js?654e7415ab55bed7c9c2bc6d665f03c5";
+  var s = document.getElementsByTagName("script")[0];
+  s.parentNode.insertBefore(hm, s);
+})();
+btf.addGlobalFn('pjaxComplete', () => {
+  _hmt.push(['_trackPageview',window.location.pathname])
+}, 'baidu_analytics')
+</script><script>const GLOBAL_CONFIG = {
+  root: '/',
+  algolia: undefined,
+  localSearch: {"path":"/search.json","preload":false,"top_n_per_article":1,"unescape":false,"pagination":{"enable":false,"hitsPerPage":8},"languages":{"hits_empty":"未找到符合您查询的内容：${query}","hits_stats":"共找到 ${hits} 篇文章"}},
+  translate: undefined,
+  highlight: {"plugin":"highlight.js","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":200,"highlightFullpage":false,"highlightMacStyle":false},
+  copy: {
+    success: '复制成功',
+    error: '复制失败',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '天',
+  dateSuffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'fancybox',
+  Snackbar: undefined,
+  infinitegrid: {
+    js: 'https://cdn.jsdelivr.net/npm/@egjs/infinitegrid@4.12.0/dist/infinitegrid.min.js',
+    buttonText: '加载更多'
+  },
+  isPhotoFigcaption: true,
+  islazyloadPlugin: true,
+  isAnchor: false,
+  percent: {
+    toc: false,
+    rightside: false,
+  },
+  autoDarkmode: true
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: 'R(Data Cleaning)--日期时间',
+  isHighlightShrink: false,
+  isToc: true,
+  pageType: 'post'
+}</script><link rel="stylesheet" href="//at.alicdn.com/t/font_2849223_xh1ftc8qym.css"><meta name="generator" content="Hexo 8.1.1"></head><body><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img text-center"><img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/img/avatar.jpg" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="site-data text-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">187</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">116</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">48</div></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/user-guide/"><i class="fa-fw fa fa-compass"></i><span> 用户指南</span></a></div><div class="menus_item"><span class="site-page group hide"><i class="fa-fw fa fa-book"></i><span> 页面</span><i class="fas fa-chevron-down"></i></span><ul class="menus_item_child"><li><a class="site-page child" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></li><li><a class="site-page child" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 归档</span></a></li><li><a class="site-page child" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/gallery/"><i class="fa-fw fa fa-images"></i><span> 图库</span></a></div><div class="menus_item"><a class="site-page" href="/ebook/"><i class="fa-fw fa fa-book-reader"></i><span> 电子书</span></a></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-star"></i><span> 收藏夹</span></a></div><div class="menus_item"><span class="site-page group hide"><i class="fa-fw fa-solid fa-circle-chevron-down"></i><span> 更多</span><i class="fas fa-chevron-down"></i></span><ul class="menus_item_child"><li><a class="site-page child" href="/about/"><i class="fa-fw fa fa-user"></i><span> 关于我</span></a></li><li><a class="site-page child" href="/log/"><i class="fa-fw fa fa-history"></i><span> 更新日志</span></a></li></ul></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url(/img/r-datetime-cover.svg);"><nav id="nav"><span id="blog-info"><a class="nav-site-title" href="/"><img class="site-icon" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/img/favicon.png" alt="Logo"><span class="site-name">雷小小</span></a><a class="nav-page-title" href="/"><span class="site-name">R(Data Cleaning)--日期时间</span><span class="site-name"><i class="fa-solid fa-circle-arrow-left"></i><span>  返回首页</span></span></a></span><div id="menus"><div id="search-button"><span class="site-page social-icon search"><i class="fas fa-search fa-fw"></i><span> 搜索</span></span></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/user-guide/"><i class="fa-fw fa fa-compass"></i><span> 用户指南</span></a></div><div class="menus_item"><span class="site-page group hide"><i class="fa-fw fa fa-book"></i><span> 页面</span><i class="fas fa-chevron-down"></i></span><ul class="menus_item_child"><li><a class="site-page child" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></li><li><a class="site-page child" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 归档</span></a></li><li><a class="site-page child" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/gallery/"><i class="fa-fw fa fa-images"></i><span> 图库</span></a></div><div class="menus_item"><a class="site-page" href="/ebook/"><i class="fa-fw fa fa-book-reader"></i><span> 电子书</span></a></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-star"></i><span> 收藏夹</span></a></div><div class="menus_item"><span class="site-page group hide"><i class="fa-fw fa-solid fa-circle-chevron-down"></i><span> 更多</span><i class="fas fa-chevron-down"></i></span><ul class="menus_item_child"><li><a class="site-page child" href="/about/"><i class="fa-fw fa fa-user"></i><span> 关于我</span></a></li><li><a class="site-page child" href="/log/"><i class="fa-fw fa fa-history"></i><span> 更新日志</span></a></li></ul></div></div><div id="toggle-menu"><span class="site-page"><i class="fas fa-bars fa-fw"></i></span></div></div></nav><div id="post-info"><h1 class="post-title">R(Data Cleaning)--日期时间</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2018-05-01T15:06:29.000Z" title="发表于 2018-05-01 23:06:29">2018-05-01</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2024-03-08T10:34:00.072Z" title="更新于 2024-03-08 18:34:00">2024-03-08</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/r/">R</a><i class="fas fa-angle-right post-meta-separator"></i><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/r/data-cleaning/">Data Cleaning</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-wordcount"><i class="far fa-file-word fa-fw post-meta-icon"></i><span class="post-meta-label">总字数:</span><span class="word-count">1.8k</span><span class="post-meta-separator">|</span><i class="far fa-clock fa-fw post-meta-icon"></i><span class="post-meta-label">阅读时长:</span><span>8分钟</span></span><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title=""><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">浏览量:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="container post-content" id="article-container"><p>日期和时间变量处理包</p>
+<span id="more"></span>
+<h1 id="lubridate-Dates-and-times">lubridate:  Dates and times</h1>
+<h2 id="Date-times">Date-times</h2>
+<p><img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://warehouse-1310574346.cos.ap-shanghai.myqcloud.com/images/lubridate/date-time.png" alt=""></p>
+<ul>
+<li><strong>date-time</strong> 是时间线上的一个点，以秒为存储单位，起始于1970-01-01 00:00:00 UTC   # <code>base::as.POSIXct(x,farmat,origin)</code></li>
+</ul>
+<figure class="highlight r"><table><tr><td class="code"><pre><span class="line">dt <span class="operator">&lt;-</span> as_datetime<span class="punctuation">(</span><span class="number">1511870400</span><span class="punctuation">)</span></span><br><span class="line"><span class="comment">## &quot;2017-11-28 12:00:00 UTC&quot;</span></span><br></pre></td></tr></table></figure>
+<ul>
+<li><strong>date</strong>是从1970-01-01开始的天数 # <code>base::as.Date(x,&quot;%Y-%m-%d&quot;)</code></li>
+</ul>
+<figure class="highlight r"><table><tr><td class="code"><pre><span class="line">d <span class="operator">&lt;-</span> as_date<span class="punctuation">(</span><span class="number">17498</span><span class="punctuation">)</span></span><br><span class="line"><span class="comment">## &quot;2017-11-28&quot;</span></span><br></pre></td></tr></table></figure>
+<ul>
+<li><strong>hms</strong>是从00:00:00开始的秒数</li>
+</ul>
+<figure class="highlight r"><table><tr><td class="code"><pre><span class="line">t <span class="operator">&lt;-</span> hms<span class="operator">::</span>as.hms<span class="punctuation">(</span><span class="number">85</span><span class="punctuation">)</span></span><br><span class="line"><span class="comment">## 00:01:25</span></span><br></pre></td></tr></table></figure>
+<ol>
+<li>解析时间 (Convert strings or numbers to date-times)</li>
+</ol>
+<ul>
+<li>识别出数据中 year (<strong>y</strong>), month (<strong>m</strong>), day (<strong>d</strong>), hour (<strong>h</strong>), minute (<strong>m</strong>) and second (<strong>s</strong>) 元素的顺序</li>
+<li>用下面的函数，函数的名字代表顺序，函数接收<strong>多种多样</strong>的输入形式<br>
+<img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://warehouse-1310574346.cos.ap-shanghai.myqcloud.com/images/lubridate/ymd-hms.png" alt=""></li>
+</ul>
+<p><strong>date_decimal</strong>(decimal, tz = “UTC”)  解析小数形式<br>
+<em>date_decimal(2017.5)</em></p>
+<p><strong>fast_strptime</strong>() 快速解析字符格式<br>
+<em>fast_strptime(‘9/1/01’, ‘%y/%m/%d’)</em></p>
+<p><strong>parse_date_time</strong>() 简单解析字符格式<br>
+<em>parse_date_time(“9/1/01”, “ymd”)</em></p>
+<p><strong>获取当前日期/时间</strong><br>
+<strong>today(tzone = “”)</strong>   Date object （base::Sys.Date() ）<br>
+<strong>now(tzone = “”)</strong>   POSIXct object（base::date() ）</p>
+<ol start="2">
+<li>获取/设置时间组件</li>
+</ol>
+<figure class="highlight r"><table><tr><td class="code"><pre><span class="line"><span class="operator">&gt;</span><span class="operator">&gt;</span><span class="operator">&gt;</span> d <span class="operator">&lt;-</span> ymd<span class="punctuation">(</span><span class="string">&quot;2017-11-28&quot;</span><span class="punctuation">)</span></span><br><span class="line"><span class="operator">&gt;</span><span class="operator">&gt;</span><span class="operator">&gt;</span> day<span class="punctuation">(</span>d<span class="punctuation">)</span></span><br><span class="line"><span class="number">28</span></span><br><span class="line"><span class="operator">&gt;</span><span class="operator">&gt;</span><span class="operator">&gt;</span> day<span class="punctuation">(</span>d<span class="punctuation">)</span> <span class="operator">&lt;-</span> <span class="number">1</span></span><br><span class="line"><span class="operator">&gt;</span><span class="operator">&gt;</span><span class="operator">&gt;</span> d </span><br><span class="line"><span class="string">&quot;2017-11-01&quot;</span></span><br></pre></td></tr></table></figure>
+<p><img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://warehouse-1310574346.cos.ap-shanghai.myqcloud.com/images/lubridate/lubridate-parts.png" alt="floor"></p>
+<p><img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://warehouse-1310574346.cos.ap-shanghai.myqcloud.com/images/lubridate/am-pm.png" alt=""></p>
+<p><strong>quarter</strong>(x, with_year = FALSE, fiscal_start = 1)  季度<br>
+<strong>semester</strong>(x, with_year = FALSE)  （尤指美国的大专院校的） 学期，半学年</p>
+<p><strong>dst(x)</strong>  夏令时(daylight savings time)?<br>
+<strong>leap_year(x)</strong> 闰年?<br>
+<strong>update</strong>(object, …, simple = FALSE)<br>
+<em>update(dt, mday = 2, hour = 1)</em></p>
+<h2 id="Round-Date-times">Round Date-times</h2>
+<figure class="highlight r"><table><tr><td class="code"><pre><span class="line">floor_date<span class="punctuation">(</span>x<span class="punctuation">,</span> unit <span class="operator">=</span> <span class="string">&quot;second&quot;</span><span class="punctuation">)</span> <span class="comment"># 向下滚动到最近的单位</span></span><br><span class="line">round_date<span class="punctuation">(</span>x<span class="punctuation">,</span> unit <span class="operator">=</span> <span class="string">&quot;second&quot;</span><span class="punctuation">)</span> <span class="comment"># 滚动到最近的单位</span></span><br><span class="line">ceiling_date<span class="punctuation">(</span>x<span class="punctuation">,</span> unit <span class="operator">=</span> <span class="string">&quot;second&quot;</span><span class="punctuation">,</span>change_on_boundary <span class="operator">=</span> <span class="literal">NULL</span><span class="punctuation">)</span> <span class="comment">#向上滚动到最近的单位</span></span><br><span class="line">rollback<span class="punctuation">(</span>dates<span class="punctuation">,</span> roll_to_first <span class="operator">=</span><span class="literal">FALSE</span><span class="punctuation">,</span> preserve_hms <span class="operator">=</span> <span class="literal">TRUE</span><span class="punctuation">)</span> <span class="comment">#滚动到上月最后一天或本月第一天</span></span><br></pre></td></tr></table></figure>
+<p><strong>图示</strong><br>
+<img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://warehouse-1310574346.cos.ap-shanghai.myqcloud.com/images/lubridate/floor_date.png" alt=""><br>
+<code>floor_date(dt, unit = &quot;month&quot;)</code><br>
+<img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://warehouse-1310574346.cos.ap-shanghai.myqcloud.com/images/lubridate/ceiling_date.png" alt="round"><br>
+<code>round_date(dt, unit = &quot;month&quot;)</code><br>
+<img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://warehouse-1310574346.cos.ap-shanghai.myqcloud.com/images/lubridate/round_date.png" alt="ceiling"><br>
+<code>ceiling_date(dt, unit = &quot;month&quot;)</code></p>
+<h2 id="Stamp-Date-times">Stamp Date-times</h2>
+<p>自定义一个Date-times的字符显示模板函数<br>
+<code>stamp() , stamp_date() and stamp_time()</code></p>
+<figure class="highlight r"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 1. 创建模板函数</span></span><br><span class="line">sf <span class="operator">&lt;-</span> stamp<span class="punctuation">(</span><span class="string">&quot;Created Sunday, Jan 17, 1999 3:34&quot;</span><span class="punctuation">)</span></span><br><span class="line"><span class="comment"># 2. 使用模板</span></span><br><span class="line">sf<span class="punctuation">(</span>ymd<span class="punctuation">(</span><span class="string">&quot;2010-04-05&quot;</span><span class="punctuation">)</span><span class="punctuation">)</span></span><br><span class="line"><span class="punctuation">[</span><span class="number">1</span><span class="punctuation">]</span> <span class="string">&quot;Created Monday, Apr 05, 2010 00:00&quot;</span> </span><br></pre></td></tr></table></figure>
+<h2 id="Time-Zones">Time Zones</h2>
+<p>R可以识别 ~600 个时区，每一个区块都有编码时区，夏令时，历史日历（time zone, Daylight Savings Time, and historical calendar）变量，R为每个赋值一个 time zone向量。</p>
+<p>通常用<strong>UTC</strong> 时区来避开夏令时<br>
+<strong>OlsonNames()</strong>  返回完整的时区名列表<br>
+<strong>with_tz()</strong> 返回另一个时区的date-time<br>
+<strong>force_tz</strong> 强制抓换时区，date-time数字不变<br>
+<img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://warehouse-1310574346.cos.ap-shanghai.myqcloud.com/images/lubridate/lubridate-tz.png" alt=""></p>
+<figure class="highlight r"><table><tr><td class="code"><pre><span class="line">meeting <span class="operator">&lt;-</span> ymd_hms<span class="punctuation">(</span><span class="string">&quot;2011-07-01 09:00:00&quot;</span><span class="punctuation">,</span> tz <span class="operator">=</span> <span class="string">&quot;Pacific/Auckland&quot;</span><span class="punctuation">)</span></span><br><span class="line">with_tz<span class="punctuation">(</span>meeting<span class="punctuation">,</span> <span class="string">&quot;America/Chicago&quot;</span><span class="punctuation">)</span></span><br><span class="line"><span class="comment">#&gt; [1] &quot;2011-06-30 16:00:00 CDT&quot;</span></span><br><span class="line"></span><br><span class="line">mistake <span class="operator">&lt;-</span> force_tz<span class="punctuation">(</span>meeting<span class="punctuation">,</span> <span class="string">&quot;America/Chicago&quot;</span><span class="punctuation">)</span></span><br><span class="line">with_tz<span class="punctuation">(</span>mistake<span class="punctuation">,</span> <span class="string">&quot;Pacific/Auckland&quot;</span><span class="punctuation">)</span></span><br><span class="line"><span class="comment">#&gt; [1] &quot;2011-07-02 02:00:00 NZST&quot;</span></span><br></pre></td></tr></table></figure>
+<h2 id="Time-Spans">Time Spans</h2>
+<p>lubridate提供三种类型的时间块</p>
+<ul>
+<li><strong>period</strong>：人类定义的时间单位， like years, months, and days.</li>
+<li><strong>duration</strong>：以秒为单位的时间跨度（<strong>difftime</strong>是base R 中一种特殊的duration），当这个数字很大时，period也会以较大的单位显示一个估计值，底层总是为固定的秒数，常见的转换有Minutes = 60 seconds, hours = 3600 seconds, days = 86400 seconds, weeks = 604800，由于其变化性，未使用大于周的单位。</li>
+<li><strong>interval</strong>：用指定的开始和结束日期创建的时间间隔。如果开始日期在结束日期之前发生，则间隔将为正值。否则，为负值。</li>
+</ul>
+<ol>
+<li>Period and Duration</li>
+</ol>
+<table>
+<thead>
+<tr>
+<th>period</th>
+<th>duration</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>period(num = NULL, units = “second”, …)<br><code>period(5, unit = &quot;years&quot;)</code></td>
+<td>duration(num = NULL, units = “second”, …)<br>duration(5, unit = “years”)</td>
+</tr>
+<tr>
+<td>as.period(x, unit)</td>
+<td>as.duration(x, …)</td>
+</tr>
+<tr>
+<td>is.period()</td>
+<td>is.duration(),is.difime()</td>
+</tr>
+<tr>
+<td>period_to_seconds(x)</td>
+<td>make_difime(x)<br><code>make_difftime(99999)</code></td>
+</tr>
+<tr>
+<td>seconds_to_period(x)</td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<table>
+<thead>
+<tr>
+<th>period unit</th>
+<th>说明</th>
+<th>duration unit</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>years(x = 1)</td>
+<td>years</td>
+<td>dyears(x = 1)</td>
+<td>31536000 seconds</td>
+</tr>
+<tr>
+<td>months(x)</td>
+<td>months</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>weeks(x = 1)</td>
+<td>weeks</td>
+<td>dweeks(x = 1)</td>
+<td>604800 seconds</td>
+</tr>
+<tr>
+<td>days(x = 1)</td>
+<td>days</td>
+<td>ddays(x = 1)</td>
+<td>86400 seconds</td>
+</tr>
+<tr>
+<td>hours(x = 1)</td>
+<td>hours</td>
+<td>dhours(x = 1)</td>
+<td>3600 seconds</td>
+</tr>
+<tr>
+<td>minutes(x = 1)</td>
+<td>minutes</td>
+<td>dminutes(x = 1)</td>
+<td>60 seconds</td>
+</tr>
+<tr>
+<td>seconds(x = 1)</td>
+<td>seconds</td>
+<td>dseconds(x = 1)</td>
+<td>seconds</td>
+</tr>
+<tr>
+<td>milliseconds(x = 1)</td>
+<td>milliseconds</td>
+<td>dmilliseconds(x = 1)</td>
+<td>10**3 seconds</td>
+</tr>
+<tr>
+<td>microseconds(x = 1)</td>
+<td>microseconds</td>
+<td>dmicroseconds(x = 1)</td>
+<td>10**6 seconds</td>
+</tr>
+<tr>
+<td>nanoseconds(x = 1)</td>
+<td>nanoseconds</td>
+<td>dnanoseconds(x = 1)</td>
+<td>10**9 seconds</td>
+</tr>
+<tr>
+<td>picoseconds(x = 1)</td>
+<td>picoseconds</td>
+<td>dpicoseconds(x = 1)</td>
+<td>10**12 seconds</td>
+</tr>
+</tbody>
+</table>
+<p><strong>示例</strong>：period和duration也可由组件的数学计算得到</p>
+<figure class="highlight r"><table><tr><td class="code"><pre><span class="line">period<span class="punctuation">(</span><span class="built_in">c</span><span class="punctuation">(</span><span class="number">90</span><span class="punctuation">,</span> <span class="number">5</span><span class="punctuation">)</span><span class="punctuation">,</span> <span class="built_in">c</span><span class="punctuation">(</span><span class="string">&quot;second&quot;</span><span class="punctuation">,</span> <span class="string">&quot;minute&quot;</span><span class="punctuation">)</span><span class="punctuation">)</span>  <span class="comment">#  &quot;5M 90S&quot;</span></span><br><span class="line">period<span class="punctuation">(</span>second <span class="operator">=</span> <span class="number">90</span><span class="punctuation">,</span> minute <span class="operator">=</span> <span class="number">5</span><span class="punctuation">)</span>  <span class="comment">#  &quot;5M 90S&quot;</span></span><br><span class="line">months<span class="punctuation">(</span><span class="number">3</span><span class="punctuation">)</span> <span class="operator">+</span> days<span class="punctuation">(</span><span class="number">12</span><span class="punctuation">)</span> <span class="comment"># &quot;3m 12d 0H 0M 0S&quot;</span></span><br><span class="line"></span><br><span class="line">ddays<span class="punctuation">(</span><span class="number">14</span><span class="punctuation">)</span>  <span class="comment"># &quot;1209600s (~2 weeks)&quot;</span></span><br></pre></td></tr></table></figure>
+<ol start="2">
+<li>Interval</li>
+</ol>
+<p><strong>interval</strong>：用指定的开始和结束日期创建的时间间隔。如果开始日期在结束日期之前发生，则间隔将为正值。否则，为负值。</p>
+<table>
+<thead>
+<tr>
+<th>创建</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>interval(start, end, tzone = tz(start))</td>
+<td></td>
+</tr>
+<tr>
+<td>start %–% end</td>
+<td>符号创建</td>
+</tr>
+<tr>
+<td>as.interval(x, start, …)</td>
+<td>参数x：duration, difftime, period, or numeric object</td>
+</tr>
+<tr>
+<td>base::difftime(time1, time2, tz,units =“auto”)</td>
+<td></td>
+</tr>
+<tr>
+<td>is.interval(x)</td>
+<td>判断函数</td>
+</tr>
+<tr>
+<td><strong>组件</strong></td>
+<td></td>
+</tr>
+<tr>
+<td>int_start(int)<br>int_start(int) &lt;- value</td>
+<td>date-time</td>
+</tr>
+<tr>
+<td>int_end(int)<br>int_end(int) &lt;- value</td>
+<td>结束date-time</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>interval的长度由使用时的对象(period, duration)划定</p>
+</blockquote>
+<figure class="highlight r"><table><tr><td class="code"><pre><span class="line">s<span class="operator">&lt;-</span> ymd<span class="punctuation">(</span><span class="string">&quot;2017-01-01&quot;</span><span class="punctuation">)</span>; e <span class="operator">&lt;-</span> ymd<span class="punctuation">(</span><span class="string">&quot;2017-11-28&quot;</span><span class="punctuation">)</span></span><br><span class="line">interval<span class="punctuation">(</span>s<span class="punctuation">,</span> e<span class="punctuation">)</span> <span class="comment">## 2017-01-01 UTC--2017-11-28 UTC</span></span><br><span class="line">s <span class="operator">%--%</span> e <span class="comment">## 2017-01-01 UTC--2017-11-28 UTC</span></span><br><span class="line"></span><br><span class="line">as.interval<span class="punctuation">(</span>days<span class="punctuation">(</span><span class="number">1</span><span class="punctuation">)</span><span class="punctuation">,</span> start <span class="operator">=</span> now<span class="punctuation">(</span><span class="punctuation">)</span><span class="punctuation">)</span> </span><br><span class="line"><span class="comment">##  2018-06-03 15:34:25 CST--2018-06-04 15:34:25 CST</span></span><br></pre></td></tr></table></figure>
+<table>
+<thead>
+<tr>
+<th>函数</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>a %within% b</td>
+<td>logical，a在b区间内,{a: interval or date-time object,b: interval}</td>
+</tr>
+<tr>
+<td>int_length(int)</td>
+<td>Length in seconds</td>
+</tr>
+<tr>
+<td>int_flip(int)</td>
+<td>反转</td>
+</tr>
+<tr>
+<td>int_standardize(int)</td>
+<td>标准化</td>
+</tr>
+<tr>
+<td>int_shift(int, by)</td>
+<td>平移interval</td>
+</tr>
+<tr>
+<td>int_overlaps(int1, int2)</td>
+<td>logical,判断int1和int2是否重叠</td>
+</tr>
+<tr>
+<td>int_aligns(int1, int2)</td>
+<td>int1, int2是否分享相同边界</td>
+</tr>
+<tr>
+<td>int_diff(times)</td>
+<td>用n个date-time分割成n-1个intervals向量</td>
+</tr>
+</tbody>
+</table>
+<figure class="highlight r"><table><tr><td class="code"><pre><span class="line"><span class="operator">&gt;</span><span class="operator">&gt;</span><span class="operator">&gt;</span> dt <span class="operator">&lt;-</span> today<span class="punctuation">(</span><span class="punctuation">)</span></span><br><span class="line"><span class="operator">&gt;</span><span class="operator">&gt;</span><span class="operator">&gt;</span> <span class="built_in">c</span><span class="punctuation">(</span>dt<span class="punctuation">,</span> dt <span class="operator">+</span> <span class="number">100</span><span class="punctuation">,</span> dt <span class="operator">+</span> <span class="number">1000</span><span class="punctuation">)</span><span class="operator">%&gt;%</span>int_diff<span class="punctuation">(</span><span class="punctuation">)</span></span><br><span class="line"><span class="number">2018</span><span class="operator">-</span><span class="number">06</span><span class="operator">-</span><span class="number">03</span> UTC<span class="operator">-</span><span class="operator">-</span><span class="number">2018</span><span class="operator">-</span><span class="number">09</span><span class="operator">-</span><span class="number">11</span> UTC     <span class="number">2018</span><span class="operator">-</span><span class="number">09</span><span class="operator">-</span><span class="number">11</span> UTC<span class="operator">-</span><span class="operator">-</span><span class="number">2021</span><span class="operator">-</span><span class="number">02</span><span class="operator">-</span><span class="number">27</span> UTC</span><br><span class="line"></span><br><span class="line"><span class="operator">&gt;</span><span class="operator">&gt;</span><span class="operator">&gt;</span> dt1 <span class="operator">&lt;-</span> interval<span class="punctuation">(</span>dt<span class="punctuation">,</span>dt<span class="operator">+</span><span class="number">1</span><span class="punctuation">)</span></span><br><span class="line"><span class="operator">&gt;</span><span class="operator">&gt;</span><span class="operator">&gt;</span> int_shift<span class="punctuation">(</span>dt1<span class="punctuation">,</span> days<span class="punctuation">(</span><span class="operator">-</span><span class="number">1</span><span class="punctuation">)</span><span class="punctuation">)</span></span><br><span class="line"><span class="number">2018</span><span class="operator">-</span><span class="number">06</span><span class="operator">-</span><span class="number">02</span> UTC<span class="operator">-</span><span class="operator">-</span><span class="number">2018</span><span class="operator">-</span><span class="number">06</span><span class="operator">-</span><span class="number">03</span> UTC</span><br></pre></td></tr></table></figure>
+<h2 id="Math-with-Date-times">Math with Date-times</h2>
+<ol>
+<li>夏令时(Daylight Saving Time, DST)</li>
+</ol>
+<p>夏令时（Daylight Saving Time：DST），又称“日光节约时制”和“夏令时间”，是一种为节约能源而人为规定地方时间的制度，在这一制度实行期间所采用的统一时间称为“夏令时间”。一般在天亮早的夏季人为将时间调快一小时，可以使人早起早睡，减少照明量，以充分利用光照资源，从而节约照明用电。各个采纳夏令时的国家具体规定不同。目前全世界有近110个国家每年要实行夏令时。</p>
+<p><img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://warehouse-1310574346.cos.ap-shanghai.myqcloud.com/images/lubridate/lubridate-math.png" alt=""></p>
+<ol start="2">
+<li>Date-times数学运算</li>
+</ol>
+<p>Date-times数学运算依赖于计算的时间点，位于夏令时开始、结束时间、润年、闰秒时，计算有所不同。<br>
+并不是所有的年都是365d，不是所有的分钟都是60s，普通的数据运算可能会产生虚拟日期，lubridate提供了操作符和函数。</p>
+<table>
+<thead>
+<tr>
+<th>数学运算</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>%m+%</code> and <code>%m-%</code></td>
+<td>滚动到前一月的最后一天</td>
+</tr>
+<tr>
+<td>add_with_rollback(e1, e2, roll_to_first =TRUE)</td>
+<td>滚动到新一月的第一天</td>
+</tr>
+</tbody>
+</table>
+<figure class="highlight r"><table><tr><td class="code"><pre><span class="line">jan31 <span class="operator">&lt;-</span> ymd<span class="punctuation">(</span><span class="number">20180131</span><span class="punctuation">)</span></span><br><span class="line">jan31 <span class="operator">+</span> months<span class="punctuation">(</span><span class="number">1</span><span class="punctuation">)</span></span><br><span class="line"><span class="comment">## NA </span></span><br><span class="line"></span><br><span class="line">jan31 <span class="operator">%m+%</span> months<span class="punctuation">(</span><span class="number">1</span><span class="punctuation">)</span></span><br><span class="line"><span class="comment">## &quot;2018-02-28&quot;</span></span><br><span class="line"></span><br><span class="line">add_with_rollback<span class="punctuation">(</span>jan31<span class="punctuation">,</span> months<span class="punctuation">(</span><span class="number">1</span><span class="punctuation">)</span><span class="punctuation">,</span>roll_to_first <span class="operator">=</span> <span class="literal">TRUE</span><span class="punctuation">)</span></span><br><span class="line"><span class="comment">## &quot;2018-03-01&quot;</span></span><br></pre></td></tr></table></figure>
+<hr>
+<h1 id="hms-time-of-day-values">hms: time-of-day values</h1>
+<p>hms包提供了一个简单的类来存储持续时间或时间值，并以<code>hh:mm:ss</code>格式显示它们。该类旨在简化与数据库，电子表格和其他数据源的数据交换。</p>
+<p><code>hms(seconds, minutes, hours, days)</code><br>
+<code>as.hms(x)</code> x可以是字符，数字等</p>
+<p><strong>Usage</strong></p>
+<figure class="highlight r"><table><tr><td class="code"><pre><span class="line">library<span class="punctuation">(</span>hms<span class="punctuation">)</span></span><br><span class="line">hms<span class="punctuation">(</span><span class="number">56</span><span class="punctuation">,</span> <span class="number">34</span><span class="punctuation">,</span> <span class="number">12</span><span class="punctuation">)</span></span><br><span class="line"><span class="comment">#&gt; 12:34:56</span></span><br><span class="line">as.hms<span class="punctuation">(</span><span class="number">1</span><span class="punctuation">)</span></span><br><span class="line"><span class="comment">#&gt; 00:00:01</span></span><br><span class="line">as.hms<span class="punctuation">(</span><span class="string">&quot;12:34:56&quot;</span><span class="punctuation">)</span></span><br><span class="line"><span class="comment">#&gt; 12:34:56</span></span><br><span class="line">as.hms<span class="punctuation">(</span>Sys.time<span class="punctuation">(</span><span class="punctuation">)</span><span class="punctuation">)</span></span><br><span class="line"><span class="comment">#&gt; 16:45:12.828186</span></span><br><span class="line">as.POSIXct<span class="punctuation">(</span>hms<span class="punctuation">(</span><span class="number">1</span><span class="punctuation">)</span><span class="punctuation">)</span></span><br><span class="line"><span class="comment">#&gt; [1] &quot;1970-01-01 00:00:01 UTC&quot;</span></span><br><span class="line"></span><br><span class="line">data.frame<span class="punctuation">(</span>hours <span class="operator">=</span> <span class="number">1</span><span class="operator">:</span><span class="number">3</span><span class="punctuation">,</span> hms <span class="operator">=</span> hms<span class="punctuation">(</span>hours <span class="operator">=</span> <span class="number">1</span><span class="operator">:</span><span class="number">3</span><span class="punctuation">)</span><span class="punctuation">)</span></span><br><span class="line"><span class="comment">#&gt;   hours      hms</span></span><br><span class="line"><span class="comment">#&gt; 1     1 01:00:00</span></span><br><span class="line"><span class="comment">#&gt; 2     2 02:00:00</span></span><br><span class="line"><span class="comment">#&gt; 3     3 03:00:00</span></span><br></pre></td></tr></table></figure>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta"><i class="fas fa-circle-user fa-fw"></i>文章作者: </span><span class="post-copyright-info"><a href="https://www.tinylei.tech">Tiny Lei</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta"><i class="fas fa-square-arrow-up-right fa-fw"></i>文章链接: </span><span class="post-copyright-info"><a href="https://www.tinylei.tech/posts/4dcd6b3e/">https://www.tinylei.tech/posts/4dcd6b3e/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta"><i class="fas fa-circle-exclamation fa-fw"></i>版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="external nofollow noreferrer" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来源 <a href="https://www.tinylei.tech" target="_blank">雷小小</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/r/">R</a><a class="post-meta__tags" href="/tags/tidyverse/">tidyverse</a><a class="post-meta__tags" href="/tags/%E6%95%B0%E6%8D%AE%E6%B8%85%E6%B4%97/">数据清洗</a><a class="post-meta__tags" href="/tags/%E6%97%B6%E9%97%B4%E5%BA%8F%E5%88%97/">时间序列</a></div><div class="post-share"><div class="social-share" data-image="/img/r-datetime-cover.svg" data-sites="wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.6/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.6/sharejs/dist/js/social-share.min.js" defer></script></div></div><div class="post-reward"><div class="reward-button"><i class="fas fa-qrcode"></i>赞助</div><div class="reward-main"><ul class="reward-all"><li class="reward-item"><a href="/img/morty3.jpg" target="_blank"><img class="post-qr-code-img" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/img/morty3.jpg" alt="Give me money!"/></a><div class="post-qr-code-desc">Give me money!</div></li></ul></div></div><nav class="pagination-post" id="pagination"><a class="pagination-related" href="/posts/c4e3d4d8/" title="R(Data Cleaning)--stringr"><img class="cover" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/img/stringr-cover.png" onerror="onerror=null;src='/img/404.jpg'" alt="cover of previous post"><div class="info"><div class="info-1"><div class="info-item-1">上一篇</div><div class="info-item-2">R(Data Cleaning)--stringr</div></div><div class="info-2"><div class="info-item-1">Simple, Consistent Wrappers for Common String Operations</div></div></div></a><a class="pagination-related" href="/posts/71c316f2/" title="R(Data Cleaning)--naniar and simputation"><img class="cover" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/img/naniar-cover.png" onerror="onerror=null;src='/img/404.jpg'" alt="cover of next post"><div class="info text-right"><div class="info-1"><div class="info-item-1">下一篇</div><div class="info-item-2">R(Data Cleaning)--naniar and simputation</div></div><div class="info-2"><div class="info-item-1">缺失数据概述、可视化和插补</div></div></div></a></nav><div class="relatedPosts"><div class="headline"><i class="fas fa-thumbs-up fa-fw"></i><span>相关推荐</span></div><div class="relatedPosts-list"><a class="pagination-related" href="/posts/4d122cf/" title="R(Data Cleaning)--dplyr and plyr"><img class="cover" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/img/dplyr-cover.png" alt="cover"><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2018-05-01</div><div class="info-item-2">R(Data Cleaning)--dplyr and plyr</div></div><div class="info-2"><div class="info-item-1">A Grammar of Data Manipulation</div></div></div></a><a class="pagination-related" href="/posts/3b11488b/" title="R(Time Series)--zoo"><img class="cover" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/img/zoo-cover.png" alt="cover"><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2018-05-28</div><div class="info-item-2">R(Time Series)--zoo</div></div><div class="info-2"><div class="info-item-1">zoo是对日期型数据进行清洗的R包</div></div></div></a><a class="pagination-related" href="/posts/c4e3d4d8/" title="R(Data Cleaning)--stringr"><img class="cover" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/img/stringr-cover.png" alt="cover"><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2018-05-01</div><div class="info-item-2">R(Data Cleaning)--stringr</div></div><div class="info-2"><div class="info-item-1">Simple, Consistent Wrappers for Common String Operations</div></div></div></a><a class="pagination-related" href="/posts/ea1d43b4/" title="R(Data Cleaning)--forcats"><img class="cover" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/img/forcats-cover.png" alt="cover"><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2018-05-28</div><div class="info-item-2">R(Data Cleaning)--forcats</div></div><div class="info-2"><div class="info-item-1">for factors.(Hadley)</div></div></div></a><a class="pagination-related" href="/posts/a54cead0/" title="R(Data Cleaning)--tidyr"><img class="cover" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/img/tidyr-cover.png" alt="cover"><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2018-05-28</div><div class="info-item-2">R(Data Cleaning)--tidyr</div></div><div class="info-2"><div class="info-item-1">清理数据，reshape2替代版(Hadley)</div></div></div></a><a class="pagination-related" href="/posts/e48a1906/" title="R(Import)--读取常用文件"><img class="cover" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/img/readr-cover.svg" alt="cover"><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2018-05-01</div><div class="info-item-2">R(Import)--读取常用文件</div></div><div class="info-2"><div class="info-item-1">for txt, excel, and json</div></div></div></a></div></div><hr class="custom-hr"/><div id="post-comment"><div class="comment-head"><div class="comment-headline"><i class="fas fa-comments fa-fw"></i><span> 评论</span></div></div><div class="comment-wrap"><div><div id="gitalk-container"></div></div></div></div></div><div class="aside-content" id="aside-content"><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span><span class="toc-percentage"></span></div><div class="toc-content is-expand"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#lubridate-Dates-and-times"><span class="toc-number">1.</span> <span class="toc-text">lubridate:  Dates and times</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#Date-times"><span class="toc-number">1.1.</span> <span class="toc-text">Date-times</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Round-Date-times"><span class="toc-number">1.2.</span> <span class="toc-text">Round Date-times</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Stamp-Date-times"><span class="toc-number">1.3.</span> <span class="toc-text">Stamp Date-times</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Time-Zones"><span class="toc-number">1.4.</span> <span class="toc-text">Time Zones</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Time-Spans"><span class="toc-number">1.5.</span> <span class="toc-text">Time Spans</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Math-with-Date-times"><span class="toc-number">1.6.</span> <span class="toc-text">Math with Date-times</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#hms-time-of-day-values"><span class="toc-number">2.</span> <span class="toc-text">hms: time-of-day values</span></a></li></ol></div></div></div></div></main><footer id="footer"><div class="footer-other"><div class="footer-copyright"><span class="copyright">&copy;&nbsp;2019 - 2026 By Tiny Lei</span><span class="framework-info"><span>框架 </span><a target="_blank" rel="noopener external nofollow noreferrer" href="https://hexo.io">Hexo 8.1.1</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener external nofollow noreferrer" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly 5.5.3</a></span></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="日间和夜间模式切换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside-config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><a id="to_comment" href="#post-comment" title="前往评论"><i class="fas fa-comments"></i></a><button id="go-up" type="button" title="回到顶部"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js?v=5.5.3"></script><script src="/js/main.js?v=5.5.3"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui@6.1.7/dist/fancybox/fancybox.umd.min.js"></script><script src="https://cdn.jsdelivr.net/npm/vanilla-lazyload@19.1.3/dist/lazyload.iife.min.js"></script><div class="js-pjax"><script>(() => {
+  const runMermaid = ele => {
+    window.loadMermaid = true
+    const theme = document.documentElement.getAttribute('data-theme') === 'dark' ? 'dark' : 'default'
+
+    ele.forEach((item, index) => {
+      const mermaidSrc = item.firstElementChild
+      const config = mermaidSrc.dataset.config ? JSON.parse(mermaidSrc.dataset.config) : {}
+      if (!config.theme) {
+        config.theme = theme
+      }
+      const mermaidThemeConfig = `%%{init: ${JSON.stringify(config)}}%%\n`
+      const mermaidID = `mermaid-${index}`
+      const mermaidDefinition = mermaidThemeConfig + mermaidSrc.textContent
+
+      const renderFn = mermaid.render(mermaidID, mermaidDefinition)
+      const renderMermaid = svg => {
+        mermaidSrc.insertAdjacentHTML('afterend', svg)
+      }
+
+      // mermaid v9 and v10 compatibility
+      typeof renderFn === 'string' ? renderMermaid(renderFn) : renderFn.then(({ svg }) => renderMermaid(svg))
+    })
+  }
+
+  const codeToMermaid = () => {
+    const codeMermaidEle = document.querySelectorAll('pre > code.mermaid')
+    if (codeMermaidEle.length === 0) return
+
+    codeMermaidEle.forEach(ele => {
+      const preEle = document.createElement('pre')
+      preEle.className = 'mermaid-src'
+      preEle.hidden = true
+      preEle.textContent = ele.textContent
+      const newEle = document.createElement('div')
+      newEle.className = 'mermaid-wrap'
+      newEle.appendChild(preEle)
+      ele.parentNode.replaceWith(newEle)
+    })
+  }
+
+  const loadMermaid = () => {
+    if (true) codeToMermaid()
+    const $mermaid = document.querySelectorAll('#article-container .mermaid-wrap')
+    if ($mermaid.length === 0) return
+
+    const runMermaidFn = () => runMermaid($mermaid)
+    btf.addGlobalFn('themeChange', runMermaidFn, 'mermaid')
+    window.loadMermaid ? runMermaidFn() : btf.getScript('https://cdn.jsdelivr.net/npm/mermaid@11.12.2/dist/mermaid.min.js').then(runMermaidFn)
+  }
+
+  btf.addGlobalFn('encrypt', loadMermaid, 'mermaid')
+  window.pjax ? loadMermaid() : document.addEventListener('DOMContentLoaded', loadMermaid)
+})()</script><script>(() => {
+  const isShuoshuo = GLOBAL_CONFIG_SITE.pageType === 'shuoshuo'
+  const option = null
+
+  const commentCount = n => {
+    const isCommentCount = document.querySelector('#post-meta .gitalk-comment-count')
+    if (isCommentCount) {
+      isCommentCount.textContent= n
+    }
+  }
+
+  const initGitalk = (el, path) => {
+    if (isShuoshuo) {
+      window.shuoshuoComment.destroyGitalk = () => {
+        if (el.children.length) {
+          el.innerHTML = ''
+          el.classList.add('no-comment')
+        }
+      }
+    }
+
+    const gitalk = new Gitalk({
+      clientID: '7c65134b48b13f306114',
+      clientSecret: 'f049f68368a11925fdb69e57c64839eac94e13c1',
+      repo: 'gitalk-comments',
+      owner: 'WilenWu',
+      admin: ['WilenWu'],
+      updateCountCallback: commentCount,
+      ...option,
+      id: isShuoshuo ? path : (option && option.id) || 'f3af3aceec25fda9893e607f10f50a53'
+    })
+
+    gitalk.render('gitalk-container')
+  }
+
+  const loadGitalk = async(el, path) => {
+    if (typeof Gitalk === 'function') initGitalk(el, path)
+    else {
+      await btf.getCSS('https://cdn.jsdelivr.net/npm/gitalk@1.8.0/dist/gitalk.min.css')
+      await btf.getScript('https://cdn.jsdelivr.net/npm/gitalk@1.8.0/dist/gitalk.min.js')
+      initGitalk(el, path)
+    }
+  }
+
+  if (isShuoshuo) {
+    'Gitalk' === 'Gitalk'
+      ? window.shuoshuoComment = { loadComment: loadGitalk }
+      : window.loadOtherComment = loadGitalk
+    return
+  }
+
+  if ('Gitalk' === 'Gitalk' || !false) {
+    if (false) btf.loadComment(document.getElementById('gitalk-container'), loadGitalk)
+    else loadGitalk()
+  } else {
+    window.loadOtherComment = loadGitalk
+  }
+})()</script></div><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script><div id="local-search"><div class="search-dialog"><nav class="search-nav"><span class="search-dialog-title">搜索</span><i class="fas fa-spinner fa-pulse" id="loading-status" hidden="hidden"></i><button class="search-close-button"><i class="fas fa-times"></i></button></nav><div class="text-center" id="loading-database"><i class="fas fa-spinner fa-pulse"></i><span>  数据加载中</span></div><div class="local-search-input"><input placeholder="搜索文章" type="text"/></div><hr/><div id="local-search-results"></div><div class="ais-Pagination" id="local-search-pagination" style="display:none;"><ul class="ais-Pagination-list"></ul></div><div id="local-search-stats"></div></div><div id="search-mask"></div><script src="/js/search/local-search.js?v=5.5.3"></script></div></div></body></html>

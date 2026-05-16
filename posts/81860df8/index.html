@@ -1,0 +1,748 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0,viewport-fit=cover"><title>R(Common)--R语言入门 | 雷小小</title><meta name="author" content="Tiny Lei"><meta name="copyright" content="Tiny Lei"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="包括Rstudio介绍，R的数据结构和基础语法等">
+<meta property="og:type" content="article">
+<meta property="og:title" content="R(Common)--R语言入门">
+<meta property="og:url" content="https://www.tinylei.tech/posts/81860df8/index.html">
+<meta property="og:site_name" content="雷小小">
+<meta property="og:description" content="包括Rstudio介绍，R的数据结构和基础语法等">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://www.tinylei.tech/img/r-base-cover.png">
+<meta property="article:published_time" content="2018-05-26T11:29:50.000Z">
+<meta property="article:modified_time" content="2024-03-08T10:34:00.072Z">
+<meta property="article:author" content="Tiny Lei">
+<meta property="article:tag" content="R">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://www.tinylei.tech/img/r-base-cover.png"><script type="application/ld+json">{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "R(Common)--R语言入门",
+  "url": "https://www.tinylei.tech/posts/81860df8/",
+  "image": "https://www.tinylei.tech/img/r-base-cover.png",
+  "datePublished": "2018-05-26T11:29:50.000Z",
+  "dateModified": "2024-03-08T10:34:00.072Z",
+  "author": [
+    {
+      "@type": "Person",
+      "name": "Tiny Lei",
+      "url": "https://www.tinylei.tech"
+    }
+  ]
+}</script><link rel="shortcut icon" href="/img/favicon.png"><link rel="canonical" href="https://www.tinylei.tech/posts/81860df8/index.html"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//hm.baidu.com"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><meta name="baidu-site-verification" content="code-7rymn5Bitx"/><link rel="stylesheet" href="/css/index.css?v=5.5.3"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@7.1.0/css/all.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui@6.1.7/dist/fancybox/fancybox.min.css" media="print" onload="this.media='all'"><script>
+    (() => {
+      
+    const saveToLocal = {
+      set: (key, value, ttl) => {
+        if (!ttl) return
+        const expiry = Date.now() + ttl * 86400000
+        localStorage.setItem(key, JSON.stringify({ value, expiry }))
+      },
+      get: key => {
+        const itemStr = localStorage.getItem(key)
+        if (!itemStr) return undefined
+        const { value, expiry } = JSON.parse(itemStr)
+        if (Date.now() > expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return value
+      }
+    }
+
+    window.btf = {
+      saveToLocal,
+      getScript: (url, attr = {}) => new Promise((resolve, reject) => {
+        const script = document.createElement('script')
+        script.src = url
+        script.async = true
+        Object.entries(attr).forEach(([key, val]) => script.setAttribute(key, val))
+        script.onload = script.onreadystatechange = () => {
+          if (!script.readyState || /loaded|complete/.test(script.readyState)) resolve()
+        }
+        script.onerror = reject
+        document.head.appendChild(script)
+      }),
+      getCSS: (url, id) => new Promise((resolve, reject) => {
+        const link = document.createElement('link')
+        link.rel = 'stylesheet'
+        link.href = url
+        if (id) link.id = id
+        link.onload = link.onreadystatechange = () => {
+          if (!link.readyState || /loaded|complete/.test(link.readyState)) resolve()
+        }
+        link.onerror = reject
+        document.head.appendChild(link)
+      }),
+      addGlobalFn: (key, fn, name = false, parent = window) => {
+        if (!false && key.startsWith('pjax')) return
+        const globalFn = parent.globalFn || {}
+        globalFn[key] = globalFn[key] || {}
+        globalFn[key][name || Object.keys(globalFn[key]).length] = fn
+        parent.globalFn = globalFn
+      }
+    }
+  
+      
+      const activateDarkMode = () => {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      const activateLightMode = () => {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+
+      btf.activateDarkMode = activateDarkMode
+      btf.activateLightMode = activateLightMode
+
+      const theme = saveToLocal.get('theme')
+    
+          const mediaQueryDark = window.matchMedia('(prefers-color-scheme: dark)')
+          const mediaQueryLight = window.matchMedia('(prefers-color-scheme: light)')
+
+          if (theme === undefined) {
+            if (mediaQueryLight.matches) activateLightMode()
+            else if (mediaQueryDark.matches) activateDarkMode()
+            else {
+              const hour = new Date().getHours()
+              const isNight = hour <= 6 || hour >= 18
+              isNight ? activateDarkMode() : activateLightMode()
+            }
+            mediaQueryDark.addEventListener('change', () => {
+              if (saveToLocal.get('theme') === undefined) {
+                e.matches ? activateDarkMode() : activateLightMode()
+              }
+            })
+          } else {
+            theme === 'light' ? activateLightMode() : activateDarkMode()
+          }
+        
+      
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        document.documentElement.classList.toggle('hide-aside', asideStatus === 'hide')
+      }
+    
+      
+    const detectApple = () => {
+      if (/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)) {
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+  
+    })()
+  </script><script>var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "https://hm.baidu.com/hm.js?654e7415ab55bed7c9c2bc6d665f03c5";
+  var s = document.getElementsByTagName("script")[0];
+  s.parentNode.insertBefore(hm, s);
+})();
+btf.addGlobalFn('pjaxComplete', () => {
+  _hmt.push(['_trackPageview',window.location.pathname])
+}, 'baidu_analytics')
+</script><script>const GLOBAL_CONFIG = {
+  root: '/',
+  algolia: undefined,
+  localSearch: {"path":"/search.json","preload":false,"top_n_per_article":1,"unescape":false,"pagination":{"enable":false,"hitsPerPage":8},"languages":{"hits_empty":"未找到符合您查询的内容：${query}","hits_stats":"共找到 ${hits} 篇文章"}},
+  translate: undefined,
+  highlight: {"plugin":"highlight.js","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":200,"highlightFullpage":false,"highlightMacStyle":false},
+  copy: {
+    success: '复制成功',
+    error: '复制失败',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '天',
+  dateSuffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'fancybox',
+  Snackbar: undefined,
+  infinitegrid: {
+    js: 'https://cdn.jsdelivr.net/npm/@egjs/infinitegrid@4.12.0/dist/infinitegrid.min.js',
+    buttonText: '加载更多'
+  },
+  isPhotoFigcaption: true,
+  islazyloadPlugin: true,
+  isAnchor: false,
+  percent: {
+    toc: false,
+    rightside: false,
+  },
+  autoDarkmode: true
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: 'R(Common)--R语言入门',
+  isHighlightShrink: false,
+  isToc: true,
+  pageType: 'post'
+}</script><link rel="stylesheet" href="//at.alicdn.com/t/font_2849223_xh1ftc8qym.css"><meta name="generator" content="Hexo 8.1.1"></head><body><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img text-center"><img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/img/avatar.jpg" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="site-data text-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">187</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">116</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">48</div></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/user-guide/"><i class="fa-fw fa fa-compass"></i><span> 用户指南</span></a></div><div class="menus_item"><span class="site-page group hide"><i class="fa-fw fa fa-book"></i><span> 页面</span><i class="fas fa-chevron-down"></i></span><ul class="menus_item_child"><li><a class="site-page child" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></li><li><a class="site-page child" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 归档</span></a></li><li><a class="site-page child" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/gallery/"><i class="fa-fw fa fa-images"></i><span> 图库</span></a></div><div class="menus_item"><a class="site-page" href="/ebook/"><i class="fa-fw fa fa-book-reader"></i><span> 电子书</span></a></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-star"></i><span> 收藏夹</span></a></div><div class="menus_item"><span class="site-page group hide"><i class="fa-fw fa-solid fa-circle-chevron-down"></i><span> 更多</span><i class="fas fa-chevron-down"></i></span><ul class="menus_item_child"><li><a class="site-page child" href="/about/"><i class="fa-fw fa fa-user"></i><span> 关于我</span></a></li><li><a class="site-page child" href="/log/"><i class="fa-fw fa fa-history"></i><span> 更新日志</span></a></li></ul></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url(/img/r-top-img.svg);"><nav id="nav"><span id="blog-info"><a class="nav-site-title" href="/"><img class="site-icon" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/img/favicon.png" alt="Logo"><span class="site-name">雷小小</span></a><a class="nav-page-title" href="/"><span class="site-name">R(Common)--R语言入门</span><span class="site-name"><i class="fa-solid fa-circle-arrow-left"></i><span>  返回首页</span></span></a></span><div id="menus"><div id="search-button"><span class="site-page social-icon search"><i class="fas fa-search fa-fw"></i><span> 搜索</span></span></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/user-guide/"><i class="fa-fw fa fa-compass"></i><span> 用户指南</span></a></div><div class="menus_item"><span class="site-page group hide"><i class="fa-fw fa fa-book"></i><span> 页面</span><i class="fas fa-chevron-down"></i></span><ul class="menus_item_child"><li><a class="site-page child" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></li><li><a class="site-page child" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 归档</span></a></li><li><a class="site-page child" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/gallery/"><i class="fa-fw fa fa-images"></i><span> 图库</span></a></div><div class="menus_item"><a class="site-page" href="/ebook/"><i class="fa-fw fa fa-book-reader"></i><span> 电子书</span></a></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-star"></i><span> 收藏夹</span></a></div><div class="menus_item"><span class="site-page group hide"><i class="fa-fw fa-solid fa-circle-chevron-down"></i><span> 更多</span><i class="fas fa-chevron-down"></i></span><ul class="menus_item_child"><li><a class="site-page child" href="/about/"><i class="fa-fw fa fa-user"></i><span> 关于我</span></a></li><li><a class="site-page child" href="/log/"><i class="fa-fw fa fa-history"></i><span> 更新日志</span></a></li></ul></div></div><div id="toggle-menu"><span class="site-page"><i class="fas fa-bars fa-fw"></i></span></div></div></nav><div id="post-info"><h1 class="post-title">R(Common)--R语言入门</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2018-05-26T11:29:50.000Z" title="发表于 2018-05-26 19:29:50">2018-05-26</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2024-03-08T10:34:00.072Z" title="更新于 2024-03-08 18:34:00">2024-03-08</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/r/">R</a><i class="fas fa-angle-right post-meta-separator"></i><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/r/general/">General</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-wordcount"><i class="far fa-file-word fa-fw post-meta-icon"></i><span class="post-meta-label">总字数:</span><span class="word-count">2.1k</span><span class="post-meta-separator">|</span><i class="far fa-clock fa-fw post-meta-icon"></i><span class="post-meta-label">阅读时长:</span><span>7分钟</span></span><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title=""><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">浏览量:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="container post-content" id="article-container"><p>说明：本节中大部分内容摘自书籍《R语言实战（第2版）》</p>
+<span id="more"></span>
+<h1 id="RStudio-Take-control-of-your-R-code">RStudio: Take control of your R code</h1>
+<p><img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://warehouse-1310574346.cos.ap-shanghai.myqcloud.com/images/common/rstudio.png" alt=""></p>
+<p>RStudio是R的集成开发环境（IDE）。它包括一个控制台，支持直接代码执行的语法高亮编辑器，以及绘图，历史记录，调试和工作区管理工具。</p>
+<p>RStudio可用于开源和商业版本，并可在桌面（Windows，Mac和Linux）或连接到RStudio Server或RStudio Server Pro（Debian / Ubuntu，RedHat / CentOS和SUSE Linux）的浏览器上运行。</p>
+<p><a target="_blank" rel="noopener external nofollow noreferrer" href="https://blog.csdn.net/qingchongxinshuru/article/details/52003704">在 RStudio 下使用 R 的基本功能</a><br>
+<a target="_blank" rel="noopener external nofollow noreferrer" href="https://github.com/rstudio/cheatsheets/raw/master/rstudio-ide.pdf">RStudio参考卡片</a></p>
+<h1 id="数据处理一般流程">数据处理一般流程</h1>
+<p><img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://warehouse-1310574346.cos.ap-shanghai.myqcloud.com/images/common/Rflow.png" alt=""></p>
+<h1 id="R-数据结构">R 数据结构</h1>
+<p>R拥有许多用于存储数据的对象类型，包括标量、向量、矩阵、数组、数据框和列表。<br>
+<img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://warehouse-1310574346.cos.ap-shanghai.myqcloud.com/images/common/r-dataframe.png" alt=""></p>
+<p><strong>1. 向量</strong><br>
+向量是用于存储数值型、字符型或逻辑型数据的一维数组。</p>
+<figure class="highlight r"><table><tr><td class="code"><pre><span class="line">a <span class="operator">&lt;-</span> <span class="built_in">c</span><span class="punctuation">(</span><span class="number">1</span><span class="punctuation">,</span> <span class="number">2</span><span class="punctuation">,</span> <span class="number">5</span><span class="punctuation">,</span> <span class="number">3</span><span class="punctuation">,</span> <span class="number">6</span><span class="punctuation">,</span> <span class="operator">-</span><span class="number">2</span><span class="punctuation">,</span> <span class="number">4</span><span class="punctuation">)</span> </span><br><span class="line">b <span class="operator">&lt;-</span> <span class="built_in">c</span><span class="punctuation">(</span><span class="string">&quot;one&quot;</span><span class="punctuation">,</span> <span class="string">&quot;two&quot;</span><span class="punctuation">,</span> <span class="string">&quot;three&quot;</span><span class="punctuation">)</span></span><br><span class="line"><span class="built_in">c</span> <span class="operator">&lt;-</span> <span class="built_in">c</span><span class="punctuation">(</span><span class="literal">TRUE</span><span class="punctuation">,</span> <span class="literal">TRUE</span><span class="punctuation">,</span> <span class="literal">TRUE</span><span class="punctuation">,</span> <span class="literal">FALSE</span><span class="punctuation">,</span> <span class="literal">TRUE</span><span class="punctuation">,</span> <span class="literal">FALSE</span><span class="punctuation">)</span> </span><br><span class="line"></span><br><span class="line">d<span class="operator">&lt;-</span><span class="number">1</span><span class="operator">:</span><span class="number">10</span> <span class="comment">#生成1-10整数向量</span></span><br></pre></td></tr></table></figure>
+<p><strong>2. 矩阵</strong><br>
+矩阵是一个二维数组，只是每个元素都拥有相同的模式（数值型、字符型或逻辑型）。</p>
+<figure class="highlight r"><table><tr><td class="code"><pre><span class="line">myymatrix <span class="operator">&lt;-</span> matrix<span class="punctuation">(</span>vector<span class="punctuation">,</span> nrow<span class="operator">=</span>number_of_rows<span class="punctuation">,</span>ncol<span class="operator">=</span>number_of_columns<span class="punctuation">,</span> byrow<span class="operator">=</span>logical_value<span class="punctuation">,</span> </span><br><span class="line">  <span class="built_in">dimnames</span><span class="operator">=</span><span class="built_in">list</span><span class="punctuation">(</span>char_vector_rownames<span class="punctuation">,</span> char_vector_colnames<span class="punctuation">)</span><span class="punctuation">)</span> </span><br></pre></td></tr></table></figure>
+<p><strong>3. 数组</strong><br>
+数组（array）与矩阵类似，但是维度可以大于2。</p>
+<figure class="highlight r"><table><tr><td class="code"><pre><span class="line">myarray <span class="operator">&lt;-</span> array<span class="punctuation">(</span>vector<span class="punctuation">,</span> dimensions<span class="punctuation">,</span> <span class="built_in">dimnames</span><span class="punctuation">)</span> </span><br></pre></td></tr></table></figure>
+<p><strong>4. 数据框</strong><br>
+由于不同的列可以包含不同模式（数值型、字符型等）的数据，数据框的概念较矩阵来说更 为一般。</p>
+<figure class="highlight r"><table><tr><td class="code"><pre><span class="line">mydata <span class="operator">&lt;-</span> data.frame<span class="punctuation">(</span>col1<span class="punctuation">,</span> col2<span class="punctuation">,</span> col3<span class="punctuation">,</span>...<span class="punctuation">)</span> </span><br></pre></td></tr></table></figure>
+<p><strong>5. 因子</strong><br>
+变量可归结为名义型、有序型或连续型变量。名义型变量是没有顺序之分的类别 变量。有序型变量表示一种顺序关系，而非数量关系。<br>
+类别（名义型）变量和有序类别（有序型）变量在R中称为因子（factor）。因子在R中非 常重要，因为它决定了数据的分析方式以及如何进行视觉呈现。</p>
+<figure class="highlight r"><table><tr><td class="code"><pre><span class="line">factor<span class="punctuation">(</span>x <span class="operator">=</span> character<span class="punctuation">(</span><span class="punctuation">)</span><span class="punctuation">,</span> levels<span class="punctuation">,</span> labels <span class="operator">=</span> levels<span class="punctuation">,</span></span><br><span class="line">       exclude <span class="operator">=</span> <span class="literal">NA</span><span class="punctuation">,</span> ordered <span class="operator">=</span> is.ordered<span class="punctuation">(</span>x<span class="punctuation">)</span><span class="punctuation">,</span> nmax <span class="operator">=</span> <span class="literal">NA</span><span class="punctuation">)</span></span><br></pre></td></tr></table></figure>
+<p><strong>6. 列表</strong></p>
+<p>列表（list）是R的数据类型中为复杂的一种。一般来说，列表就是一些对象（或成分， component）的有序集合。列表允许你整合若干（可能无关的）对象到单个对象名下。</p>
+<figure class="highlight r"><table><tr><td class="code"><pre><span class="line">mylist <span class="operator">&lt;-</span> <span class="built_in">list</span><span class="punctuation">(</span>object1<span class="punctuation">,</span> object2<span class="punctuation">,</span> ...<span class="punctuation">)</span></span><br></pre></td></tr></table></figure>
+<p><strong>7. 日期值</strong></p>
+<figure class="highlight r"><table><tr><td class="code"><pre><span class="line">as.Date<span class="punctuation">(</span>x<span class="punctuation">,</span> <span class="string">&quot;input_format&quot;</span><span class="punctuation">)</span></span><br></pre></td></tr></table></figure>
+<p>日期值的默认输入格式为<code>yyyy-mm-dd</code>。</p>
+<figure class="highlight r"><table><tr><td class="code"><pre><span class="line">mydates <span class="operator">&lt;-</span> as.Date<span class="punctuation">(</span><span class="built_in">c</span><span class="punctuation">(</span><span class="string">&quot;2007-06-22&quot;</span><span class="punctuation">,</span> <span class="string">&quot;2004-02-13&quot;</span><span class="punctuation">)</span><span class="punctuation">,</span><span class="string">&quot;%Y-%m-%d&quot;</span><span class="punctuation">)</span> </span><br></pre></td></tr></table></figure>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">format符号</th>
+<th style="text-align:left">含义</th>
+<th style="text-align:left">示例</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">%d</td>
+<td style="text-align:left">数字表示的日期（0~31）</td>
+<td style="text-align:left">01~31</td>
+</tr>
+<tr>
+<td style="text-align:left">%a</td>
+<td style="text-align:left">缩写的星期名</td>
+<td style="text-align:left">Mon</td>
+</tr>
+<tr>
+<td style="text-align:left">%A</td>
+<td style="text-align:left">非缩写星期名</td>
+<td style="text-align:left">Monday</td>
+</tr>
+<tr>
+<td style="text-align:left">%m</td>
+<td style="text-align:left">月份（00~12）</td>
+<td style="text-align:left">00~12</td>
+</tr>
+<tr>
+<td style="text-align:left">%b</td>
+<td style="text-align:left">缩写的月份</td>
+<td style="text-align:left">Jan</td>
+</tr>
+<tr>
+<td style="text-align:left">%B</td>
+<td style="text-align:left">非缩写月份</td>
+<td style="text-align:left">January</td>
+</tr>
+<tr>
+<td style="text-align:left">%y</td>
+<td style="text-align:left">两位数的年份</td>
+<td style="text-align:left">07</td>
+</tr>
+<tr>
+<td style="text-align:left">%Y</td>
+<td style="text-align:left">四位数的年份</td>
+<td style="text-align:left">2007</td>
+</tr>
+</tbody>
+</table>
+<p><strong>8. 索引和切片</strong><br>
+以data.frame为例</p>
+<figure class="highlight r"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 以data.frame为例</span></span><br><span class="line">df<span class="operator">&lt;-</span>data.frame<span class="punctuation">(</span>x<span class="operator">=</span><span class="number">1</span><span class="operator">:</span><span class="number">10</span><span class="punctuation">,</span>y<span class="operator">=</span>rnorm<span class="punctuation">(</span><span class="number">10</span><span class="punctuation">,</span> mean<span class="operator">=</span><span class="number">0</span><span class="punctuation">,</span> sd<span class="operator">=</span><span class="number">1</span><span class="punctuation">)</span><span class="punctuation">)</span></span><br></pre></td></tr></table></figure>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">用法</th>
+<th style="text-align:left">说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left"><code>df[3,5]</code></td>
+<td style="text-align:left"></td>
+</tr>
+<tr>
+<td style="text-align:left"><code>df['x']</code></td>
+<td style="text-align:left">返回x列，data.frame类型</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>df$x , df[[x]]</code></td>
+<td style="text-align:left">返回向量类型</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>df[c(1,3,5), ]</code></td>
+<td style="text-align:left"></td>
+</tr>
+<tr>
+<td style="text-align:left"><code>df[-(1:5),]</code></td>
+<td style="text-align:left">除了1-5列（R 中<code>-</code>是排除的意思）</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>df[x&gt;3,]</code></td>
+<td style="text-align:left">逻辑索引</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>df[x %in% c(3,5))]	</code></td>
+<td style="text-align:left"></td>
+</tr>
+</tbody>
+</table>
+<h1 id="R-运算符">R 运算符</h1>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">数学运算</th>
+<th style="text-align:left">描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left"><code>+, -, *, /</code></td>
+<td style="text-align:left"></td>
+</tr>
+<tr>
+<td style="text-align:left"><code>^, **</code></td>
+<td style="text-align:left">求幂</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>x%%y </code></td>
+<td style="text-align:left">求余（x mod y）。5%%2 的结果为 1</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>x%/%y</code></td>
+<td style="text-align:left">整数除法。5%/%2 的结果为 2</td>
+</tr>
+</tbody>
+</table>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">关系</th>
+<th style="text-align:left">逻辑运算</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left"><code>&lt; ,&lt;=</code></td>
+<td style="text-align:left"><code>!x</code></td>
+</tr>
+<tr>
+<td style="text-align:left"><code>&gt;,&gt;=</code></td>
+<td style="text-align:left">`x</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>==,!=</code></td>
+<td style="text-align:left"><code>x &amp; y</code></td>
+</tr>
+</tbody>
+</table>
+<h1 id="概率函数">概率函数</h1>
+<p>在R中，概率函数统一格式为：<code>[dpqr]distribution_abbreviation()</code><br>
+其中第一个字母表示其所指分布的某一方面</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">首字母</th>
+<th style="text-align:left">说明</th>
+<th style="text-align:left">主参数</th>
+<th style="text-align:left">返回值</th>
+<th style="text-align:left">示例</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">p</td>
+<td style="text-align:left">分布函数(distribution function)</td>
+<td style="text-align:left">分位数x值</td>
+<td style="text-align:left">概率值F(x)=P{X&lt;=x}</td>
+<td style="text-align:left">pnorm(q)</td>
+</tr>
+<tr>
+<td style="text-align:left">d</td>
+<td style="text-align:left">密度函数(density)</td>
+<td style="text-align:left">分位数x值</td>
+<td style="text-align:left">密度值f(x)=dF/dx</td>
+<td style="text-align:left">dnorm(x)</td>
+</tr>
+<tr>
+<td style="text-align:left">q</td>
+<td style="text-align:left">分位数函数(quantile function)</td>
+<td style="text-align:left">概率P值</td>
+<td style="text-align:left">分位数x</td>
+<td style="text-align:left">qnorm(p)</td>
+</tr>
+<tr>
+<td style="text-align:left">r</td>
+<td style="text-align:left">生成随机数</td>
+<td style="text-align:left">随机数n</td>
+<td style="text-align:left">随机向量密度值</td>
+<td style="text-align:left">rnorm(n)</td>
+</tr>
+</tbody>
+</table>
+<p><strong>概率分布</strong></p>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">分布名称</th>
+<th style="text-align:left">缩写</th>
+<th style="text-align:left">分布名称</th>
+<th style="text-align:left">缩写</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">Beta 分布</td>
+<td style="text-align:left">beta</td>
+<td style="text-align:left">Logistic 分布</td>
+<td style="text-align:left">logis</td>
+</tr>
+<tr>
+<td style="text-align:left">二项分布</td>
+<td style="text-align:left">binom</td>
+<td style="text-align:left">多项分布</td>
+<td style="text-align:left">multinom</td>
+</tr>
+<tr>
+<td style="text-align:left">柯西分布</td>
+<td style="text-align:left">cauchy</td>
+<td style="text-align:left">负二项分布</td>
+<td style="text-align:left">nbinom</td>
+</tr>
+<tr>
+<td style="text-align:left">(非中心)卡方分布</td>
+<td style="text-align:left">chsiq</td>
+<td style="text-align:left">正态分布</td>
+<td style="text-align:left">norm</td>
+</tr>
+<tr>
+<td style="text-align:left">指数分布</td>
+<td style="text-align:left">exp</td>
+<td style="text-align:left">泊松分布</td>
+<td style="text-align:left">pois</td>
+</tr>
+<tr>
+<td style="text-align:left">F分布</td>
+<td style="text-align:left">f</td>
+<td style="text-align:left">Wilcoxon 符号秩分布</td>
+<td style="text-align:left">signrank</td>
+</tr>
+<tr>
+<td style="text-align:left">Gamma分布</td>
+<td style="text-align:left">gamma</td>
+<td style="text-align:left">t分布</td>
+<td style="text-align:left">t</td>
+</tr>
+<tr>
+<td style="text-align:left">几何分布</td>
+<td style="text-align:left">geom</td>
+<td style="text-align:left">均匀分布</td>
+<td style="text-align:left">unif</td>
+</tr>
+<tr>
+<td style="text-align:left">超几何分布</td>
+<td style="text-align:left">hyper</td>
+<td style="text-align:left">Weibull 分布</td>
+<td style="text-align:left">weibull</td>
+</tr>
+<tr>
+<td style="text-align:left">对数正态分布</td>
+<td style="text-align:left">lnorm</td>
+<td style="text-align:left">Wilcoxon 秩和分布</td>
+<td style="text-align:left">wilcox</td>
+</tr>
+</tbody>
+</table>
+<figure class="highlight r"><table><tr><td class="code"><pre><span class="line">runif<span class="punctuation">(</span>n<span class="punctuation">,</span> <span class="built_in">min</span><span class="operator">=</span><span class="number">0</span><span class="punctuation">,</span> <span class="built_in">max</span><span class="operator">=</span><span class="number">1</span><span class="punctuation">)</span> <span class="comment">#均匀分布</span></span><br><span class="line">rnorm<span class="punctuation">(</span>n<span class="punctuation">,</span> mean<span class="operator">=</span><span class="number">0</span><span class="punctuation">,</span> sd<span class="operator">=</span><span class="number">1</span><span class="punctuation">)</span> <span class="comment">#正态分布</span></span><br></pre></td></tr></table></figure>
+<h1 id="控制语句与循环语句">控制语句与循环语句</h1>
+<p><strong>控制语句</strong></p>
+<figure class="highlight r"><table><tr><td class="code"><pre><span class="line"><span class="keyword">if</span><span class="punctuation">(</span>cond<span class="punctuation">)</span> expr</span><br><span class="line"><span class="keyword">if</span><span class="punctuation">(</span>cond<span class="punctuation">)</span> cons.expr <span class="keyword">else</span> alt.expr</span><br><span class="line">if...else if...else</span><br><span class="line">ifelse<span class="punctuation">(</span>test<span class="punctuation">,</span> yes<span class="punctuation">,</span> no<span class="punctuation">)</span></span><br><span class="line"></span><br><span class="line"><span class="built_in">switch</span><span class="punctuation">(</span>expr<span class="punctuation">,</span> ...<span class="punctuation">)</span></span><br><span class="line">  expr：可以为一个数字或字符串</span><br><span class="line">  ...<span class="operator">:</span>为一系列选择项列</span><br><span class="line">  若expr为字符串，...列表项为name_i<span class="operator">=</span>expr_i</span><br><span class="line">  若expr为数字，...列表项按顺序输出</span><br></pre></td></tr></table></figure>
+<p><strong>循环语句</strong></p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">for(var in seq) expr</span><br><span class="line">while(cond) expr</span><br><span class="line">repeat expr</span><br></pre></td></tr></table></figure>
+<p><strong>循环语句关键字</strong></p>
+<p><code>break</code>：跳出整个循环语句<br>
+<code>continue</code>: 跳出本次循环<br>
+<code>next</code>：跳出本次loop</p>
+<h1 id="自定义函数">自定义函数</h1>
+<figure class="highlight r"><table><tr><td class="code"><pre><span class="line"><span class="keyword">function</span><span class="punctuation">(</span> arglist <span class="punctuation">)</span> <span class="punctuation">&#123;</span></span><br><span class="line">  expr</span><br><span class="line">  <span class="built_in">return</span><span class="punctuation">(</span>object<span class="punctuation">)</span> <span class="punctuation">&#125;</span></span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>… (dot-dot-dot)：此特殊参数可以捕获任何数量的参数</p>
+</blockquote>
+<p>example:</p>
+<figure class="highlight r"><table><tr><td class="code"><pre><span class="line"><span class="operator">&gt;</span><span class="operator">&gt;</span><span class="operator">&gt;</span><span class="string">&quot;%s*%&quot;</span> <span class="operator">&lt;-</span> <span class="keyword">function</span><span class="punctuation">(</span>x<span class="punctuation">,</span>y<span class="punctuation">)</span> <span class="built_in">rep</span><span class="punctuation">(</span>x<span class="punctuation">,</span>y<span class="punctuation">)</span> <span class="comment">#自定义二元符号</span></span><br><span class="line"><span class="operator">&gt;</span><span class="operator">&gt;</span><span class="operator">&gt;</span><span class="string">&quot;a&quot;</span><span class="operator">%s*%</span><span class="number">5</span></span><br><span class="line"><span class="operator">&gt;</span><span class="operator">&gt;</span><span class="operator">&gt;</span><span class="string">&quot;aaaaa&quot;</span></span><br></pre></td></tr></table></figure>
+<h1 id="调试">调试</h1>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">函数</th>
+<th style="text-align:left">用法</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">stop(message)</td>
+<td style="text-align:left">停止执行当前表达式返回message(常与if配合检查自定义函数参数)</td>
+</tr>
+<tr>
+<td style="text-align:left">stopifnot(logit1,logit2,logit3…)</td>
+<td style="text-align:left">检查每个参数为TRUE，否则停止执行当前表达式返回message</td>
+</tr>
+</tbody>
+</table>
+<h1 id="拟合线性模型formula">拟合线性模型formula</h1>
+<p>在R中，拟合线性模型基本的函数就是lm()，格式为：</p>
+<figure class="highlight r"><table><tr><td class="code"><pre><span class="line">myfit <span class="operator">&lt;-</span> lm<span class="punctuation">(</span>formula<span class="punctuation">,</span> data<span class="punctuation">)</span> </span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>formula指要拟合的模型形式，<br>
+data是一个数据框，包含了用于拟合模型的数据。<br>
+结果对象（本例中是myfit）存储在一个列表中，包含了所拟合模型的大量信息。</p>
+</blockquote>
+<p>表达式（formula） 形式如下： <code>Y ~ X1 + X2 + ... + Xk </code><br>
+<code>~</code>左边为响应变量，右边为各个预测变量，预测变量之间用<code>+</code>符号分隔。</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">formula常用符号</th>
+<th style="text-align:left">说明</th>
+<th style="text-align:left">示例</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">~</td>
+<td style="text-align:left">分隔符，左边为响应变量，右边为解释变量</td>
+<td style="text-align:left"></td>
+</tr>
+<tr>
+<td style="text-align:left">+</td>
+<td style="text-align:left">预测变量分隔符</td>
+<td style="text-align:left">y~x+y</td>
+</tr>
+<tr>
+<td style="text-align:left">:</td>
+<td style="text-align:left">预测变量交互项</td>
+<td style="text-align:left">y~x+y+x:y</td>
+</tr>
+<tr>
+<td style="text-align:left">*</td>
+<td style="text-align:left">包含所有交互项的简洁方式</td>
+<td style="text-align:left">代码y~ x * z可展开为y ~ x + z + x:z</td>
+</tr>
+<tr>
+<td style="text-align:left">^</td>
+<td style="text-align:left">交互项的最高次数</td>
+<td style="text-align:left">代码 y ~ (x + z + w)^2 可展开为 y ~ x + z + w + x:z + x:w + z:w</td>
+</tr>
+<tr>
+<td style="text-align:left">.(dot)</td>
+<td style="text-align:left">除因变量外的所有变量</td>
+<td style="text-align:left">y~.</td>
+</tr>
+<tr>
+<td style="text-align:left">-</td>
+<td style="text-align:left">移除一项</td>
+<td style="text-align:left">y~x<em>z</em>w–x:z:w可展开为 y ~ (x + z + w)^2</td>
+</tr>
+<tr>
+<td style="text-align:left">-1</td>
+<td style="text-align:left">移除截距</td>
+<td style="text-align:left">y~x-1</td>
+</tr>
+<tr>
+<td style="text-align:left">I()</td>
+<td style="text-align:left">算术</td>
+<td style="text-align:left">y~x+I(x^2)</td>
+</tr>
+<tr>
+<td style="text-align:left">function</td>
+<td style="text-align:left">数学函数</td>
+<td style="text-align:left">log(y) ~ x + z + w</td>
+</tr>
+</tbody>
+</table>
+<h1 id="R语言可视化">R语言可视化</h1>
+<p>除了基础图形，grid、lattice和ggplot2软件包也提供了图形系统，它们克服了R基础图 形系统的低效性，大大扩展了R的绘图能力。</p>
+<ul>
+<li>grid图形系统可以很容易地控制图形基础单元，给予编程者创作图形的极大灵活性。</li>
+<li>lattice包通过一维、二维或三维条件绘图，即所谓的网格图形（trellis graph）来对多元变量关 系进行直观展示。</li>
+<li>ggplot2包极大地扩展 了R绘图的范畴，提高了图形的质量。</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">系统</th>
+<th style="text-align:left">基础安装中是否包含</th>
+<th style="text-align:left">是否需要显式加载</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">base</td>
+<td style="text-align:left">是</td>
+<td style="text-align:left">否</td>
+</tr>
+<tr>
+<td style="text-align:left">grid</td>
+<td style="text-align:left">是</td>
+<td style="text-align:left">是</td>
+</tr>
+<tr>
+<td style="text-align:left">lattice</td>
+<td style="text-align:left">是</td>
+<td style="text-align:left">是</td>
+</tr>
+<tr>
+<td style="text-align:left">ggplot2</td>
+<td style="text-align:left">否</td>
+<td style="text-align:left">是</td>
+</tr>
+</tbody>
+</table>
+<h1 id="data-table-和-tidyverse">data.table 和 tidyverse</h1>
+<p><strong>data.table</strong><br>
+R语言data.table包是自带包data.frame的升级版，用于数据框格式数据的处理，最大的特点快。<br>
+包括两个方面，一方面是写的快，代码简洁，只要一行命令就可以完成诸多任务。<br>
+另一方面是处理快，内部处理的步骤进行了程序上的优化，使用多线程，甚至很多函数是使用C写的，大大加快数据运行速度。因此，在对大数据处理上，使用data.table无疑具有极高的效率。</p>
+<p><strong>tidyverse</strong><br>
+<img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://warehouse-1310574346.cos.ap-shanghai.myqcloud.com/images/common/Hadley.png" alt="hadley" style="zoom: 33%;" /></p>
+<p>tidyverse是一系列包的组合，构建了一套完整的数据分析生态链，提供了一套整洁的数据导入，分析和建模方法，刷新了R语言原有的数据科学体系。</p>
+<p>作者 <a target="_blank" rel="noopener external nofollow noreferrer" href="http://hadley.nz/">Hadley Wickham</a> 在R语言数据科学领域是个鼎鼎有名的大人物，被称为<strong>一个改变了R的人</strong>。</p>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta"><i class="fas fa-circle-user fa-fw"></i>文章作者: </span><span class="post-copyright-info"><a href="https://www.tinylei.tech">Tiny Lei</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta"><i class="fas fa-square-arrow-up-right fa-fw"></i>文章链接: </span><span class="post-copyright-info"><a href="https://www.tinylei.tech/posts/81860df8/">https://www.tinylei.tech/posts/81860df8/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta"><i class="fas fa-circle-exclamation fa-fw"></i>版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="external nofollow noreferrer" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来源 <a href="https://www.tinylei.tech" target="_blank">雷小小</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/r/">R</a></div><div class="post-share"><div class="social-share" data-image="/img/r-base-cover.png" data-sites="wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.6/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.6/sharejs/dist/js/social-share.min.js" defer></script></div></div><div class="post-reward"><div class="reward-button"><i class="fas fa-qrcode"></i>赞助</div><div class="reward-main"><ul class="reward-all"><li class="reward-item"><a href="/img/morty3.jpg" target="_blank"><img class="post-qr-code-img" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/img/morty3.jpg" alt="Give me money!"/></a><div class="post-qr-code-desc">Give me money!</div></li></ul></div></div><nav class="pagination-post" id="pagination"><a class="pagination-related" href="/posts/62196d29/" title="Python(IDE)--常用的Python IDE"><img class="cover" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/img/jupyterlab-logo.png" onerror="onerror=null;src='/img/404.jpg'" alt="cover of previous post"><div class="info"><div class="info-1"><div class="info-item-1">上一篇</div><div class="info-item-2">Python(IDE)--常用的Python IDE</div></div><div class="info-2"><div class="info-item-1">集成开发环境（IDE，Integrated Development Environment ）是用于提供程序开发环境的应用程序，一般包括代码编辑器、编译器、调试器和图形用户界面等工具。  常用 ...</div></div></div></a><a class="pagination-related" href="/posts/a54cead0/" title="R(Data Cleaning)--tidyr"><img class="cover" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/img/tidyr-cover.png" onerror="onerror=null;src='/img/404.jpg'" alt="cover of next post"><div class="info text-right"><div class="info-1"><div class="info-item-1">下一篇</div><div class="info-item-2">R(Data Cleaning)--tidyr</div></div><div class="info-2"><div class="info-item-1">清理数据，reshape2替代版(Hadley)</div></div></div></a></nav><div class="relatedPosts"><div class="headline"><i class="fas fa-thumbs-up fa-fw"></i><span>相关推荐</span></div><div class="relatedPosts-list"><a class="pagination-related" href="/posts/2e6782e/" title="R(Model Tools)--modelr"><img class="cover" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/img/modelr-cover.png" alt="cover"><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2018-05-04</div><div class="info-item-2">R(Model Tools)--modelr</div></div><div class="info-2"><div class="info-item-1">辅助管道建模</div></div></div></a><a class="pagination-related" href="/posts/856dfd2b/" title="R(Visualise)--ggmap and baidumap"><img class="cover" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/img/baidu-map-cover.png" alt="cover"><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2018-05-03</div><div class="info-item-2">R(Visualise)--ggmap and baidumap</div></div><div class="info-2"><div class="info-item-1">使用ggplot2在R中绘制静态地图</div></div></div></a><a class="pagination-related" href="/posts/e48a1906/" title="R(Import)--读取常用文件"><img class="cover" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/img/readr-cover.svg" alt="cover"><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2018-05-01</div><div class="info-item-2">R(Import)--读取常用文件</div></div><div class="info-2"><div class="info-item-1">for txt, excel, and json</div></div></div></a><a class="pagination-related" href="/posts/ec283a1d/" title="R(Import)--DBI"><img class="cover" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/img/dbi-cover.png" alt="cover"><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2018-05-01</div><div class="info-item-2">R(Import)--DBI</div></div><div class="info-2"><div class="info-item-1">definition for communication between R and RDBMSs</div></div></div></a><a class="pagination-related" href="/posts/74875eb3/" title="R(Visualise)--RColorBrewer and extrafont"><img class="cover" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/img/palette.png" alt="cover"><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2018-05-03</div><div class="info-item-2">R(Visualise)--RColorBrewer and extrafont</div></div><div class="info-2"><div class="info-item-1">调色板和字体配置</div></div></div></a><a class="pagination-related" href="/posts/251f7bf9/" title="R(Model Tools)--broom"><img class="cover" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/img/broom-cover.png" alt="cover"><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2018-05-04</div><div class="info-item-2">R(Model Tools)--broom</div></div><div class="info-2"><div class="info-item-1">Convert statistical analysis objects into tidy format</div></div></div></a></div></div><hr class="custom-hr"/><div id="post-comment"><div class="comment-head"><div class="comment-headline"><i class="fas fa-comments fa-fw"></i><span> 评论</span></div></div><div class="comment-wrap"><div><div id="gitalk-container"></div></div></div></div></div><div class="aside-content" id="aside-content"><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span><span class="toc-percentage"></span></div><div class="toc-content is-expand"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#RStudio-Take-control-of-your-R-code"><span class="toc-number">1.</span> <span class="toc-text">RStudio: Take control of your R code</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E6%95%B0%E6%8D%AE%E5%A4%84%E7%90%86%E4%B8%80%E8%88%AC%E6%B5%81%E7%A8%8B"><span class="toc-number">2.</span> <span class="toc-text">数据处理一般流程</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#R-%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84"><span class="toc-number">3.</span> <span class="toc-text">R 数据结构</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#R-%E8%BF%90%E7%AE%97%E7%AC%A6"><span class="toc-number">4.</span> <span class="toc-text">R 运算符</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E6%A6%82%E7%8E%87%E5%87%BD%E6%95%B0"><span class="toc-number">5.</span> <span class="toc-text">概率函数</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E6%8E%A7%E5%88%B6%E8%AF%AD%E5%8F%A5%E4%B8%8E%E5%BE%AA%E7%8E%AF%E8%AF%AD%E5%8F%A5"><span class="toc-number">6.</span> <span class="toc-text">控制语句与循环语句</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E8%87%AA%E5%AE%9A%E4%B9%89%E5%87%BD%E6%95%B0"><span class="toc-number">7.</span> <span class="toc-text">自定义函数</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E8%B0%83%E8%AF%95"><span class="toc-number">8.</span> <span class="toc-text">调试</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E6%8B%9F%E5%90%88%E7%BA%BF%E6%80%A7%E6%A8%A1%E5%9E%8Bformula"><span class="toc-number">9.</span> <span class="toc-text">拟合线性模型formula</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#R%E8%AF%AD%E8%A8%80%E5%8F%AF%E8%A7%86%E5%8C%96"><span class="toc-number">10.</span> <span class="toc-text">R语言可视化</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#data-table-%E5%92%8C-tidyverse"><span class="toc-number">11.</span> <span class="toc-text">data.table 和 tidyverse</span></a></li></ol></div></div></div></div></main><footer id="footer"><div class="footer-other"><div class="footer-copyright"><span class="copyright">&copy;&nbsp;2019 - 2026 By Tiny Lei</span><span class="framework-info"><span>框架 </span><a target="_blank" rel="noopener external nofollow noreferrer" href="https://hexo.io">Hexo 8.1.1</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener external nofollow noreferrer" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly 5.5.3</a></span></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="日间和夜间模式切换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside-config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><a id="to_comment" href="#post-comment" title="前往评论"><i class="fas fa-comments"></i></a><button id="go-up" type="button" title="回到顶部"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js?v=5.5.3"></script><script src="/js/main.js?v=5.5.3"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui@6.1.7/dist/fancybox/fancybox.umd.min.js"></script><script src="https://cdn.jsdelivr.net/npm/vanilla-lazyload@19.1.3/dist/lazyload.iife.min.js"></script><div class="js-pjax"><script>(() => {
+  const runMermaid = ele => {
+    window.loadMermaid = true
+    const theme = document.documentElement.getAttribute('data-theme') === 'dark' ? 'dark' : 'default'
+
+    ele.forEach((item, index) => {
+      const mermaidSrc = item.firstElementChild
+      const config = mermaidSrc.dataset.config ? JSON.parse(mermaidSrc.dataset.config) : {}
+      if (!config.theme) {
+        config.theme = theme
+      }
+      const mermaidThemeConfig = `%%{init: ${JSON.stringify(config)}}%%\n`
+      const mermaidID = `mermaid-${index}`
+      const mermaidDefinition = mermaidThemeConfig + mermaidSrc.textContent
+
+      const renderFn = mermaid.render(mermaidID, mermaidDefinition)
+      const renderMermaid = svg => {
+        mermaidSrc.insertAdjacentHTML('afterend', svg)
+      }
+
+      // mermaid v9 and v10 compatibility
+      typeof renderFn === 'string' ? renderMermaid(renderFn) : renderFn.then(({ svg }) => renderMermaid(svg))
+    })
+  }
+
+  const codeToMermaid = () => {
+    const codeMermaidEle = document.querySelectorAll('pre > code.mermaid')
+    if (codeMermaidEle.length === 0) return
+
+    codeMermaidEle.forEach(ele => {
+      const preEle = document.createElement('pre')
+      preEle.className = 'mermaid-src'
+      preEle.hidden = true
+      preEle.textContent = ele.textContent
+      const newEle = document.createElement('div')
+      newEle.className = 'mermaid-wrap'
+      newEle.appendChild(preEle)
+      ele.parentNode.replaceWith(newEle)
+    })
+  }
+
+  const loadMermaid = () => {
+    if (true) codeToMermaid()
+    const $mermaid = document.querySelectorAll('#article-container .mermaid-wrap')
+    if ($mermaid.length === 0) return
+
+    const runMermaidFn = () => runMermaid($mermaid)
+    btf.addGlobalFn('themeChange', runMermaidFn, 'mermaid')
+    window.loadMermaid ? runMermaidFn() : btf.getScript('https://cdn.jsdelivr.net/npm/mermaid@11.12.2/dist/mermaid.min.js').then(runMermaidFn)
+  }
+
+  btf.addGlobalFn('encrypt', loadMermaid, 'mermaid')
+  window.pjax ? loadMermaid() : document.addEventListener('DOMContentLoaded', loadMermaid)
+})()</script><script>(() => {
+  const isShuoshuo = GLOBAL_CONFIG_SITE.pageType === 'shuoshuo'
+  const option = null
+
+  const commentCount = n => {
+    const isCommentCount = document.querySelector('#post-meta .gitalk-comment-count')
+    if (isCommentCount) {
+      isCommentCount.textContent= n
+    }
+  }
+
+  const initGitalk = (el, path) => {
+    if (isShuoshuo) {
+      window.shuoshuoComment.destroyGitalk = () => {
+        if (el.children.length) {
+          el.innerHTML = ''
+          el.classList.add('no-comment')
+        }
+      }
+    }
+
+    const gitalk = new Gitalk({
+      clientID: '7c65134b48b13f306114',
+      clientSecret: 'f049f68368a11925fdb69e57c64839eac94e13c1',
+      repo: 'gitalk-comments',
+      owner: 'WilenWu',
+      admin: ['WilenWu'],
+      updateCountCallback: commentCount,
+      ...option,
+      id: isShuoshuo ? path : (option && option.id) || 'b05640e2c5f555a8e2083b67904c72a7'
+    })
+
+    gitalk.render('gitalk-container')
+  }
+
+  const loadGitalk = async(el, path) => {
+    if (typeof Gitalk === 'function') initGitalk(el, path)
+    else {
+      await btf.getCSS('https://cdn.jsdelivr.net/npm/gitalk@1.8.0/dist/gitalk.min.css')
+      await btf.getScript('https://cdn.jsdelivr.net/npm/gitalk@1.8.0/dist/gitalk.min.js')
+      initGitalk(el, path)
+    }
+  }
+
+  if (isShuoshuo) {
+    'Gitalk' === 'Gitalk'
+      ? window.shuoshuoComment = { loadComment: loadGitalk }
+      : window.loadOtherComment = loadGitalk
+    return
+  }
+
+  if ('Gitalk' === 'Gitalk' || !false) {
+    if (false) btf.loadComment(document.getElementById('gitalk-container'), loadGitalk)
+    else loadGitalk()
+  } else {
+    window.loadOtherComment = loadGitalk
+  }
+})()</script></div><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script><div id="local-search"><div class="search-dialog"><nav class="search-nav"><span class="search-dialog-title">搜索</span><i class="fas fa-spinner fa-pulse" id="loading-status" hidden="hidden"></i><button class="search-close-button"><i class="fas fa-times"></i></button></nav><div class="text-center" id="loading-database"><i class="fas fa-spinner fa-pulse"></i><span>  数据加载中</span></div><div class="local-search-input"><input placeholder="搜索文章" type="text"/></div><hr/><div id="local-search-results"></div><div class="ais-Pagination" id="local-search-pagination" style="display:none;"><ul class="ais-Pagination-list"></ul></div><div id="local-search-stats"></div></div><div id="search-mask"></div><script src="/js/search/local-search.js?v=5.5.3"></script></div></div></body></html>

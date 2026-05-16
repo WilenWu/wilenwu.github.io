@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<svg width="100%" height="100%" version="1.1" xmlns="http://www.w3.org/2000/svg" viewBox="-22 -72 1260 1260" >
+  <defs>
+    <linearGradient id="grad" x1="0%" y1="100%" x2="25%" y2="0%">
+      <stop offset="75%" stop-color="#012558" />
+      <stop offset="100%" stop-color="#0149aa" />
+    </linearGradient>
+  </defs>
+  <!--眼睛-->
+  <path d="M78,291 v-36 l34,-5 l22,16 l3,41 l-40,3" fill="#0149aa" stroke="none" />
+  <polyline points="137,307 199,370 231,500" fill="none" stroke="#0149aa" stroke-width="12" stroke-linecap="square"/>
+  <path d="M0,407 l12,-20 h32 l12,20 l-12,20 h-32" fill="#012558" stroke="none" />
+  <polyline points="56,407 140,420 231,500" fill="none" stroke="#012558" stroke-width="12" stroke-linecap="square"/>
+  <!--头-->
+  <path d="M423,697 l-140,120 l-132,-33 l0,-175 l100,-100 l172,43 Z" fill="url(#grad)" stroke="none"/>
+  <path d="M555,710 l-78,78 l-45,-101 85,-70 Z" fill="#012558" stroke="none"/>
+  <!--身体-->
+  <path d="M755,760 l-140,140 l-100,-25 l140,-140 l-68,-153 l100,25 Z" fill="url(#grad)" stroke="none"/>
+  <path d="M955,810 l-140,140 l-100,-25 l140,-140 l-68,-153 l100,25 Z" fill="url(#grad)" stroke="none"/>
+  <!--翅膀-->
+  <path d="M520,600 l-84,-189  l55,-220 l150,-115 l94,176.5 l-62,248 Z
+           M550,500 l-44,-99 l40,-160 l69,-53 l45,85 l-46.5,186 Z" 
+        fill="#0149aa" stroke="none" fill-rule="evenodd"/>
+  <path d="M830,493 L1084,422 l-20,78 L1306,450 L1000,560 l22,-85.8" fill="#0149aa" stroke="none"/>
+  <polygon points="1143,866 959,850 984,825 984,803" fill="#012558" stroke="none"/>
+
+  <!--circle cx="608" cy="558" r="630" fill="none"  stroke="red" /-->
+</svg>

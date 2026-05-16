@@ -1,0 +1,549 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0,viewport-fit=cover"><title>R(HTML Widgets)--leaflet | 雷小小</title><meta name="author" content="Tiny Lei"><meta name="copyright" content="Tiny Lei"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="最流行的JavaScript库交互式地图之一，动态交互地图。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="R(HTML Widgets)--leaflet">
+<meta property="og:url" content="https://www.tinylei.tech/posts/8a9afcfe/index.html">
+<meta property="og:site_name" content="雷小小">
+<meta property="og:description" content="最流行的JavaScript库交互式地图之一，动态交互地图。">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://www.tinylei.tech/img/leaflet-cover.png">
+<meta property="article:published_time" content="2018-05-03T16:13:03.000Z">
+<meta property="article:modified_time" content="2024-03-08T10:34:00.048Z">
+<meta property="article:author" content="Tiny Lei">
+<meta property="article:tag" content="R">
+<meta property="article:tag" content="leaflet">
+<meta property="article:tag" content="可视化">
+<meta property="article:tag" content="地图">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://www.tinylei.tech/img/leaflet-cover.png"><script type="application/ld+json">{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "R(HTML Widgets)--leaflet",
+  "url": "https://www.tinylei.tech/posts/8a9afcfe/",
+  "image": "https://www.tinylei.tech/img/leaflet-cover.png",
+  "datePublished": "2018-05-03T16:13:03.000Z",
+  "dateModified": "2024-03-08T10:34:00.048Z",
+  "author": [
+    {
+      "@type": "Person",
+      "name": "Tiny Lei",
+      "url": "https://www.tinylei.tech"
+    }
+  ]
+}</script><link rel="shortcut icon" href="/img/favicon.png"><link rel="canonical" href="https://www.tinylei.tech/posts/8a9afcfe/index.html"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//hm.baidu.com"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><meta name="baidu-site-verification" content="code-7rymn5Bitx"/><link rel="stylesheet" href="/css/index.css?v=5.5.3"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@7.1.0/css/all.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui@6.1.7/dist/fancybox/fancybox.min.css" media="print" onload="this.media='all'"><script>
+    (() => {
+      
+    const saveToLocal = {
+      set: (key, value, ttl) => {
+        if (!ttl) return
+        const expiry = Date.now() + ttl * 86400000
+        localStorage.setItem(key, JSON.stringify({ value, expiry }))
+      },
+      get: key => {
+        const itemStr = localStorage.getItem(key)
+        if (!itemStr) return undefined
+        const { value, expiry } = JSON.parse(itemStr)
+        if (Date.now() > expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return value
+      }
+    }
+
+    window.btf = {
+      saveToLocal,
+      getScript: (url, attr = {}) => new Promise((resolve, reject) => {
+        const script = document.createElement('script')
+        script.src = url
+        script.async = true
+        Object.entries(attr).forEach(([key, val]) => script.setAttribute(key, val))
+        script.onload = script.onreadystatechange = () => {
+          if (!script.readyState || /loaded|complete/.test(script.readyState)) resolve()
+        }
+        script.onerror = reject
+        document.head.appendChild(script)
+      }),
+      getCSS: (url, id) => new Promise((resolve, reject) => {
+        const link = document.createElement('link')
+        link.rel = 'stylesheet'
+        link.href = url
+        if (id) link.id = id
+        link.onload = link.onreadystatechange = () => {
+          if (!link.readyState || /loaded|complete/.test(link.readyState)) resolve()
+        }
+        link.onerror = reject
+        document.head.appendChild(link)
+      }),
+      addGlobalFn: (key, fn, name = false, parent = window) => {
+        if (!false && key.startsWith('pjax')) return
+        const globalFn = parent.globalFn || {}
+        globalFn[key] = globalFn[key] || {}
+        globalFn[key][name || Object.keys(globalFn[key]).length] = fn
+        parent.globalFn = globalFn
+      }
+    }
+  
+      
+      const activateDarkMode = () => {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      const activateLightMode = () => {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+
+      btf.activateDarkMode = activateDarkMode
+      btf.activateLightMode = activateLightMode
+
+      const theme = saveToLocal.get('theme')
+    
+          const mediaQueryDark = window.matchMedia('(prefers-color-scheme: dark)')
+          const mediaQueryLight = window.matchMedia('(prefers-color-scheme: light)')
+
+          if (theme === undefined) {
+            if (mediaQueryLight.matches) activateLightMode()
+            else if (mediaQueryDark.matches) activateDarkMode()
+            else {
+              const hour = new Date().getHours()
+              const isNight = hour <= 6 || hour >= 18
+              isNight ? activateDarkMode() : activateLightMode()
+            }
+            mediaQueryDark.addEventListener('change', () => {
+              if (saveToLocal.get('theme') === undefined) {
+                e.matches ? activateDarkMode() : activateLightMode()
+              }
+            })
+          } else {
+            theme === 'light' ? activateLightMode() : activateDarkMode()
+          }
+        
+      
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        document.documentElement.classList.toggle('hide-aside', asideStatus === 'hide')
+      }
+    
+      
+    const detectApple = () => {
+      if (/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)) {
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+  
+    })()
+  </script><script>var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "https://hm.baidu.com/hm.js?654e7415ab55bed7c9c2bc6d665f03c5";
+  var s = document.getElementsByTagName("script")[0];
+  s.parentNode.insertBefore(hm, s);
+})();
+btf.addGlobalFn('pjaxComplete', () => {
+  _hmt.push(['_trackPageview',window.location.pathname])
+}, 'baidu_analytics')
+</script><script>const GLOBAL_CONFIG = {
+  root: '/',
+  algolia: undefined,
+  localSearch: {"path":"/search.json","preload":false,"top_n_per_article":1,"unescape":false,"pagination":{"enable":false,"hitsPerPage":8},"languages":{"hits_empty":"未找到符合您查询的内容：${query}","hits_stats":"共找到 ${hits} 篇文章"}},
+  translate: undefined,
+  highlight: {"plugin":"highlight.js","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":200,"highlightFullpage":false,"highlightMacStyle":false},
+  copy: {
+    success: '复制成功',
+    error: '复制失败',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '天',
+  dateSuffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'fancybox',
+  Snackbar: undefined,
+  infinitegrid: {
+    js: 'https://cdn.jsdelivr.net/npm/@egjs/infinitegrid@4.12.0/dist/infinitegrid.min.js',
+    buttonText: '加载更多'
+  },
+  isPhotoFigcaption: true,
+  islazyloadPlugin: true,
+  isAnchor: false,
+  percent: {
+    toc: false,
+    rightside: false,
+  },
+  autoDarkmode: true
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: 'R(HTML Widgets)--leaflet',
+  isHighlightShrink: false,
+  isToc: true,
+  pageType: 'post'
+}</script><link rel="stylesheet" href="//at.alicdn.com/t/font_2849223_xh1ftc8qym.css"><meta name="generator" content="Hexo 8.1.1"></head><body><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img text-center"><img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/img/avatar.jpg" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="site-data text-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">187</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">116</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">48</div></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/user-guide/"><i class="fa-fw fa fa-compass"></i><span> 用户指南</span></a></div><div class="menus_item"><span class="site-page group hide"><i class="fa-fw fa fa-book"></i><span> 页面</span><i class="fas fa-chevron-down"></i></span><ul class="menus_item_child"><li><a class="site-page child" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></li><li><a class="site-page child" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 归档</span></a></li><li><a class="site-page child" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/gallery/"><i class="fa-fw fa fa-images"></i><span> 图库</span></a></div><div class="menus_item"><a class="site-page" href="/ebook/"><i class="fa-fw fa fa-book-reader"></i><span> 电子书</span></a></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-star"></i><span> 收藏夹</span></a></div><div class="menus_item"><span class="site-page group hide"><i class="fa-fw fa-solid fa-circle-chevron-down"></i><span> 更多</span><i class="fas fa-chevron-down"></i></span><ul class="menus_item_child"><li><a class="site-page child" href="/about/"><i class="fa-fw fa fa-user"></i><span> 关于我</span></a></li><li><a class="site-page child" href="/log/"><i class="fa-fw fa fa-history"></i><span> 更新日志</span></a></li></ul></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url(/img/leaflet-cover.png);"><nav id="nav"><span id="blog-info"><a class="nav-site-title" href="/"><img class="site-icon" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/img/favicon.png" alt="Logo"><span class="site-name">雷小小</span></a><a class="nav-page-title" href="/"><span class="site-name">R(HTML Widgets)--leaflet</span><span class="site-name"><i class="fa-solid fa-circle-arrow-left"></i><span>  返回首页</span></span></a></span><div id="menus"><div id="search-button"><span class="site-page social-icon search"><i class="fas fa-search fa-fw"></i><span> 搜索</span></span></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/user-guide/"><i class="fa-fw fa fa-compass"></i><span> 用户指南</span></a></div><div class="menus_item"><span class="site-page group hide"><i class="fa-fw fa fa-book"></i><span> 页面</span><i class="fas fa-chevron-down"></i></span><ul class="menus_item_child"><li><a class="site-page child" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></li><li><a class="site-page child" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 归档</span></a></li><li><a class="site-page child" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/gallery/"><i class="fa-fw fa fa-images"></i><span> 图库</span></a></div><div class="menus_item"><a class="site-page" href="/ebook/"><i class="fa-fw fa fa-book-reader"></i><span> 电子书</span></a></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-star"></i><span> 收藏夹</span></a></div><div class="menus_item"><span class="site-page group hide"><i class="fa-fw fa-solid fa-circle-chevron-down"></i><span> 更多</span><i class="fas fa-chevron-down"></i></span><ul class="menus_item_child"><li><a class="site-page child" href="/about/"><i class="fa-fw fa fa-user"></i><span> 关于我</span></a></li><li><a class="site-page child" href="/log/"><i class="fa-fw fa fa-history"></i><span> 更新日志</span></a></li></ul></div></div><div id="toggle-menu"><span class="site-page"><i class="fas fa-bars fa-fw"></i></span></div></div></nav><div id="post-info"><h1 class="post-title">R(HTML Widgets)--leaflet</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2018-05-03T16:13:03.000Z" title="发表于 2018-05-04 00:13:03">2018-05-04</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2024-03-08T10:34:00.048Z" title="更新于 2024-03-08 18:34:00">2024-03-08</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/r/">R</a><i class="fas fa-angle-right post-meta-separator"></i><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/r/html-widgets/">HTML Widgets</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-wordcount"><i class="far fa-file-word fa-fw post-meta-icon"></i><span class="post-meta-label">总字数:</span><span class="word-count">1.6k</span><span class="post-meta-separator">|</span><i class="far fa-clock fa-fw post-meta-icon"></i><span class="post-meta-label">阅读时长:</span><span>7分钟</span></span><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title=""><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">浏览量:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="container post-content" id="article-container"><h1 id="leaflet">leaflet</h1>
+<p><a target="_blank" rel="noopener external nofollow noreferrer" href="http://rstudio.github.io/leaflet/">Leaflet</a>是一个用于交互式地图的开源JavaScript库。这个R包可以很容易地从R创建Leaflet地图。<br>
+语法：leaflet通过管道操作<code>%&gt;%</code>叠加图层作图。</p>
+<span id="more"></span>
+<h2 id="基本用法">基本用法</h2>
+<p>您使用以下基本步骤创建Leaflet地图：</p>
+<ol>
+<li>通过<code>leaflet()</code>调用创建地图小部件。</li>
+<li>通过使用层功能（例如，addTiles，addMarkers，addPolygons）添加层到地图，来修改窗口小部件的地图。</li>
+<li>根据需要重复步骤2。</li>
+<li>打印地图小部件以显示它。</li>
+</ol>
+<figure class="highlight r"><table><tr><td class="code"><pre><span class="line">library<span class="punctuation">(</span>leaflet<span class="punctuation">)</span></span><br><span class="line">m <span class="operator">&lt;-</span> leaflet<span class="punctuation">(</span><span class="punctuation">)</span> <span class="operator">%&gt;%</span></span><br><span class="line">  addTiles<span class="punctuation">(</span><span class="punctuation">)</span> <span class="operator">%&gt;%</span>  <span class="comment"># Add default OpenStreetMap map tiles</span></span><br><span class="line">  addMarkers<span class="punctuation">(</span>lng<span class="operator">=</span><span class="number">174.768</span><span class="punctuation">,</span> lat<span class="operator">=</span><span class="operator">-</span><span class="number">36.852</span><span class="punctuation">,</span> popup<span class="operator">=</span><span class="string">&quot;The birthplace of R&quot;</span><span class="punctuation">)</span></span><br><span class="line">m  <span class="comment"># Print the map</span></span><br></pre></td></tr></table></figure>
+<p><img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://warehouse-1310574346.cos.ap-shanghai.myqcloud.com/images/leaflet/map.png" alt=""></p>
+<h2 id="Map-Widget：地图控件">Map Widget：地图控件</h2>
+<blockquote>
+<p><a target="_blank" rel="noopener external nofollow noreferrer" href="http://blog.csdn.net/itas109/article/details/70054588?locationNum=10&amp;fps=1">已整理的组件用法链接</a></p>
+</blockquote>
+<p><strong>Initialization (初始化)</strong></p>
+<table>
+<thead>
+<tr>
+<th>函数</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>leaflet()</td>
+<td>标准函数</td>
+</tr>
+<tr>
+<td>center</td>
+<td>Initial geographic center of the map</td>
+</tr>
+<tr>
+<td>zoom</td>
+<td>Initial map zoom level</td>
+</tr>
+<tr>
+<td>minZoom</td>
+<td>Minimum zoom level of themap</td>
+</tr>
+<tr>
+<td>maxZoom</td>
+<td>Maximum zoom level of thema</td>
+</tr>
+</tbody>
+</table>
+<figure class="highlight r"><table><tr><td class="code"><pre><span class="line">leaflet<span class="punctuation">(</span>data <span class="operator">=</span> <span class="literal">NULL</span><span class="punctuation">,</span>width <span class="operator">=</span> <span class="literal">NULL</span><span class="punctuation">,</span> height <span class="operator">=</span> <span class="literal">NULL</span><span class="punctuation">,</span> </span><br><span class="line">  padding <span class="operator">=</span> <span class="number">0</span><span class="punctuation">,</span>options <span class="operator">=</span> leafletOptions<span class="punctuation">(</span><span class="punctuation">)</span><span class="punctuation">)</span></span><br></pre></td></tr></table></figure>
+<p><strong>Map Methods (作图方法)</strong></p>
+<table>
+<thead>
+<tr>
+<th>函数</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>setView(map,lng,lat,zoom,	options	=	list()) )</td>
+<td>设置地图视图的中心和缩放级别</td>
+</tr>
+<tr>
+<td>fitBounds(map, lng1, lat1, lng2, lat2)</td>
+<td>设定边界经纬度</td>
+</tr>
+<tr>
+<td>clearBounds(map)</td>
+<td>清除边界，从地图元素中自动设定</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Data Object (数据对象)</strong></p>
+<p><strong>leaflet()<strong>图层和</strong>map</strong>图层都有一个data参数，用来接收空间数据，data的格式如下：</p>
+<ul>
+<li><strong>Base R</strong> : data.frame对象</li>
+</ul>
+<figure class="highlight r"><table><tr><td class="code"><pre><span class="line"> df <span class="operator">&lt;-</span>data.frame<span class="punctuation">(</span>lat <span class="operator">=</span> ...<span class="punctuation">,</span> lng<span class="operator">=</span> ... <span class="punctuation">)</span> </span><br><span class="line">leaflet<span class="punctuation">(</span>df<span class="punctuation">)</span> <span class="operator">%&gt;%</span> addTiles<span class="punctuation">(</span><span class="punctuation">)</span> <span class="operator">%&gt;%</span> addCircles<span class="punctuation">(</span><span class="punctuation">)</span></span><br></pre></td></tr></table></figure>
+<ul>
+<li>
+<p><strong>sp package</strong> library(sp) Useful functions<br>
+<code>SpatialPoints, SpatialLines, SpatialPolygons, ... </code></p>
+</li>
+<li>
+<p><strong>maps package</strong> library(maps)</p>
+</li>
+</ul>
+<figure class="highlight r"><table><tr><td class="code"><pre><span class="line">mapStates <span class="operator">&lt;-</span>map<span class="punctuation">(</span><span class="string">&quot;state&quot;</span><span class="punctuation">,</span> fill <span class="operator">=</span> <span class="literal">TRUE</span><span class="punctuation">,</span> plot <span class="operator">=</span> <span class="literal">FALSE</span><span class="punctuation">)</span></span><br><span class="line">leaflet<span class="punctuation">(</span>mapStates<span class="punctuation">)</span> <span class="operator">%&gt;%</span> </span><br><span class="line">  addTiles<span class="punctuation">(</span><span class="punctuation">)</span> <span class="operator">%&gt;%</span> </span><br><span class="line">  addPolygons<span class="punctuation">(</span>fillColor <span class="operator">=</span> topo.colors<span class="punctuation">(</span><span class="number">10</span><span class="punctuation">,</span> alpha <span class="operator">=</span> <span class="literal">NULL</span><span class="punctuation">)</span><span class="punctuation">,</span> stroke <span class="operator">=</span> <span class="literal">FALSE</span><span class="punctuation">)</span>`</span><br></pre></td></tr></table></figure>
+<p><strong>示例</strong></p>
+<figure class="highlight r"><table><tr><td class="code"><pre><span class="line">library<span class="punctuation">(</span>maps<span class="punctuation">)</span></span><br><span class="line">mapStates <span class="operator">=</span> map<span class="punctuation">(</span><span class="string">&quot;state&quot;</span><span class="punctuation">,</span> fill <span class="operator">=</span> <span class="literal">TRUE</span><span class="punctuation">,</span> plot <span class="operator">=</span> <span class="literal">FALSE</span><span class="punctuation">)</span></span><br><span class="line">leaflet<span class="punctuation">(</span>data <span class="operator">=</span> mapStates<span class="punctuation">)</span> <span class="operator">%&gt;%</span> addTiles<span class="punctuation">(</span><span class="punctuation">)</span> <span class="operator">%&gt;%</span></span><br><span class="line">  addPolygons<span class="punctuation">(</span>fillColor <span class="operator">=</span> topo.colors<span class="punctuation">(</span><span class="number">10</span><span class="punctuation">,</span> alpha <span class="operator">=</span> <span class="literal">NULL</span><span class="punctuation">)</span><span class="punctuation">,</span> stroke <span class="operator">=</span> <span class="literal">FALSE</span><span class="punctuation">)</span></span><br></pre></td></tr></table></figure>
+<p><img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://warehouse-1310574346.cos.ap-shanghai.myqcloud.com/images/leaflet/us_map.png" alt=""></p>
+<h2 id="Basemaps：底图">Basemaps：底图</h2>
+<p><code>addTiles()</code> 添加地图瓦片，默认OpenStreetMap图块<br>
+<code>addProviderTiles(map, provider)</code> 添加<a target="_blank" rel="noopener external nofollow noreferrer" href="http://leaflet-extras.github.io/leaflet-providers/preview/index.html">第三方图块</a><br>
+<code>addWMSTiles()</code> 添加WMS (Web Map Service) 图块</p>
+<blockquote>
+<p>names(providers) : 查看所有第三方图块<br>
+参数provider = c(providers$Stamen.Toner, CartoDB.Positron, Esri.NatGeoWorldMap)</p>
+</blockquote>
+<p><img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://warehouse-1310574346.cos.ap-shanghai.myqcloud.com/images/leaflet/basemap.png" alt=""></p>
+<h2 id="Markers：标记">Markers：标记</h2>
+<p>接收经纬度坐标latitude/longitude ，标记出icons or  circles，data数据来自向量或已赋值data.frame或sp对象。</p>
+<p><strong>1. Icon Markers</strong></p>
+<figure class="highlight r"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 添加默认标记</span></span><br><span class="line">addMarkers<span class="punctuation">(</span>map<span class="punctuation">,</span> lng <span class="operator">=</span> <span class="literal">NULL</span><span class="punctuation">,</span> lat <span class="operator">=</span> <span class="literal">NULL</span><span class="punctuation">,</span>icon <span class="operator">=</span> <span class="literal">NULL</span><span class="punctuation">,</span> </span><br><span class="line">  popup <span class="operator">=</span> <span class="literal">NULL</span><span class="punctuation">,</span> label <span class="operator">=</span> <span class="literal">NULL</span><span class="punctuation">,</span>clusterOptions <span class="operator">=</span> <span class="literal">NULL</span><span class="punctuation">)</span> </span><br><span class="line"></span><br><span class="line"><span class="comment">#定制标记</span></span><br><span class="line">makeIcon<span class="operator">/</span>icons<span class="punctuation">(</span>iconUrl<span class="punctuation">,</span> iconWidth<span class="punctuation">,</span> iconHeight<span class="punctuation">,</span> iconAnchorX<span class="punctuation">,</span> iconAnchorY<span class="punctuation">,</span> shadowUrl<span class="punctuation">,</span> shadowWidth<span class="punctuation">,</span> shadowHeight<span class="punctuation">,</span> ... <span class="punctuation">)</span> </span><br><span class="line"></span><br><span class="line"><span class="comment"># 创建图表列表，通过位置或名称从该列表中进行选择</span></span><br><span class="line">iconList<span class="punctuation">(</span>icon1<span class="operator">=</span> makeIcon<span class="punctuation">(</span>…<span class="punctuation">)</span><span class="punctuation">,</span> icon2<span class="operator">=</span> makeIcon<span class="punctuation">(</span>…<span class="punctuation">)</span><span class="punctuation">)</span> </span><br><span class="line"></span><br><span class="line"><span class="comment"># 自定义标记</span></span><br><span class="line">addAwesomeMarkers<span class="punctuation">,</span> makeAwesomeIcon<span class="punctuation">,</span> awesomeIcons<span class="punctuation">,</span> awesomeIconList</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>addMarkers()参数：<br>
+icon, popup : 点击时要显示的消息<br>
+label : 鼠标静止时显示的信息<br>
+clusterOptions = markerClusterOptions()  : 大量标记时集群显示选项</p>
+</blockquote>
+<p><strong>示例 1</strong></p>
+<figure class="highlight r"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 默认markers</span></span><br><span class="line">data<span class="punctuation">(</span>quakes<span class="punctuation">)</span> <span class="comment"># Show first 20 rows from the `quakes` dataset</span></span><br><span class="line">leaflet<span class="punctuation">(</span>data <span class="operator">=</span> quakes<span class="punctuation">[</span><span class="number">1</span><span class="operator">:</span><span class="number">20</span><span class="punctuation">,</span><span class="punctuation">]</span><span class="punctuation">)</span> <span class="operator">%&gt;%</span> addTiles<span class="punctuation">(</span><span class="punctuation">)</span> <span class="operator">%&gt;%</span></span><br><span class="line">  addMarkers<span class="punctuation">(</span><span class="operator">~</span>long<span class="punctuation">,</span> <span class="operator">~</span>lat<span class="punctuation">,</span> popup <span class="operator">=</span> <span class="operator">~</span><span class="built_in">as.character</span><span class="punctuation">(</span>mag<span class="punctuation">)</span><span class="punctuation">,</span> label <span class="operator">=</span> <span class="operator">~</span><span class="built_in">as.character</span><span class="punctuation">(</span>mag<span class="punctuation">)</span><span class="punctuation">)</span></span><br></pre></td></tr></table></figure>
+<p><img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://warehouse-1310574346.cos.ap-shanghai.myqcloud.com/images/leaflet/marker1.png" alt=""></p>
+<p><strong>示例 2</strong></p>
+<figure class="highlight r"><table><tr><td class="code"><pre><span class="line">quakes1 <span class="operator">&lt;-</span> quakes<span class="punctuation">[</span><span class="number">1</span><span class="operator">:</span><span class="number">10</span><span class="punctuation">,</span><span class="punctuation">]</span></span><br><span class="line"></span><br><span class="line">leafIcons <span class="operator">&lt;-</span> icons<span class="punctuation">(</span></span><br><span class="line">  iconUrl <span class="operator">=</span> ifelse<span class="punctuation">(</span>quakes1<span class="operator">$</span>mag <span class="operator">&lt;</span> <span class="number">4.6</span><span class="punctuation">,</span></span><br><span class="line">    <span class="string">&quot;http://leafletjs.com/examples/custom-icons/leaf-green.png&quot;</span><span class="punctuation">,</span></span><br><span class="line">    <span class="string">&quot;http://leafletjs.com/examples/custom-icons/leaf-red.png&quot;</span></span><br><span class="line">  <span class="punctuation">)</span><span class="punctuation">,</span></span><br><span class="line">  iconWidth <span class="operator">=</span> <span class="number">38</span><span class="punctuation">,</span> iconHeight <span class="operator">=</span> <span class="number">95</span><span class="punctuation">,</span></span><br><span class="line">  iconAnchorX <span class="operator">=</span> <span class="number">22</span><span class="punctuation">,</span> iconAnchorY <span class="operator">=</span> <span class="number">94</span><span class="punctuation">,</span></span><br><span class="line">  shadowUrl <span class="operator">=</span> <span class="string">&quot;http://leafletjs.com/examples/custom-icons/leaf-shadow.png&quot;</span><span class="punctuation">,</span></span><br><span class="line">  shadowWidth <span class="operator">=</span> <span class="number">50</span><span class="punctuation">,</span> shadowHeight <span class="operator">=</span> <span class="number">64</span><span class="punctuation">,</span></span><br><span class="line">  shadowAnchorX <span class="operator">=</span> <span class="number">4</span><span class="punctuation">,</span> shadowAnchorY <span class="operator">=</span> <span class="number">62</span></span><br><span class="line"><span class="punctuation">)</span></span><br><span class="line"></span><br><span class="line">leaflet<span class="punctuation">(</span>data <span class="operator">=</span> quakes1<span class="punctuation">)</span> <span class="operator">%&gt;%</span> addTiles<span class="punctuation">(</span><span class="punctuation">)</span> <span class="operator">%&gt;%</span></span><br><span class="line">  addMarkers<span class="punctuation">(</span><span class="operator">~</span>long<span class="punctuation">,</span> <span class="operator">~</span>lat<span class="punctuation">,</span> icon <span class="operator">=</span> leafIcons<span class="punctuation">)</span></span><br></pre></td></tr></table></figure>
+<p><img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://warehouse-1310574346.cos.ap-shanghai.myqcloud.com/images/leaflet/marker2.png" alt=""></p>
+<p><strong>示例 3</strong></p>
+<figure class="highlight r"><table><tr><td class="code"><pre><span class="line">leaflet<span class="punctuation">(</span>quakes<span class="punctuation">)</span> <span class="operator">%&gt;%</span> addTiles<span class="punctuation">(</span><span class="punctuation">)</span> <span class="operator">%&gt;%</span> addMarkers<span class="punctuation">(</span></span><br><span class="line">  clusterOptions <span class="operator">=</span> markerClusterOptions<span class="punctuation">(</span><span class="punctuation">)</span></span><br><span class="line"><span class="punctuation">)</span></span><br></pre></td></tr></table></figure>
+<p><img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://warehouse-1310574346.cos.ap-shanghai.myqcloud.com/images/leaflet/marker3.png" alt=""></p>
+<p><strong>2. Circle Markers</strong></p>
+<figure class="highlight r"><table><tr><td class="code"><pre><span class="line">addCircleMarkers<span class="punctuation">(</span>map<span class="punctuation">,</span> color<span class="punctuation">,</span> radius<span class="punctuation">,</span> stroke<span class="punctuation">,</span> opacity<span class="punctuation">,</span> ... <span class="punctuation">)</span></span><br><span class="line"><span class="comment">#设定原标记的颜色，半径，点击，模糊度</span></span><br></pre></td></tr></table></figure>
+<p><strong>示例 4</strong></p>
+<figure class="highlight r"><table><tr><td class="code"><pre><span class="line"><span class="comment"># Create a palette that maps factor levels to colors</span></span><br><span class="line">pal <span class="operator">&lt;-</span> colorFactor<span class="punctuation">(</span><span class="built_in">c</span><span class="punctuation">(</span><span class="string">&quot;navy&quot;</span><span class="punctuation">,</span> <span class="string">&quot;red&quot;</span><span class="punctuation">)</span><span class="punctuation">,</span> domain <span class="operator">=</span> <span class="built_in">c</span><span class="punctuation">(</span><span class="string">&quot;ship&quot;</span><span class="punctuation">,</span> <span class="string">&quot;pirate&quot;</span><span class="punctuation">)</span><span class="punctuation">)</span></span><br><span class="line"></span><br><span class="line">leaflet<span class="punctuation">(</span>df<span class="punctuation">)</span> <span class="operator">%&gt;%</span> addTiles<span class="punctuation">(</span><span class="punctuation">)</span> <span class="operator">%&gt;%</span></span><br><span class="line">  addCircleMarkers<span class="punctuation">(</span></span><br><span class="line">    radius <span class="operator">=</span> <span class="operator">~</span>ifelse<span class="punctuation">(</span>type <span class="operator">==</span> <span class="string">&quot;ship&quot;</span><span class="punctuation">,</span> <span class="number">6</span><span class="punctuation">,</span> <span class="number">10</span><span class="punctuation">)</span><span class="punctuation">,</span></span><br><span class="line">    color <span class="operator">=</span> <span class="operator">~</span>pal<span class="punctuation">(</span>type<span class="punctuation">)</span><span class="punctuation">,</span></span><br><span class="line">    stroke <span class="operator">=</span> <span class="literal">FALSE</span><span class="punctuation">,</span> fillOpacity <span class="operator">=</span> <span class="number">0.5</span></span><br><span class="line">  <span class="punctuation">)</span></span><br></pre></td></tr></table></figure>
+<p><img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://warehouse-1310574346.cos.ap-shanghai.myqcloud.com/images/leaflet/marker4.png" alt=""></p>
+<h2 id="Popups-and-Labels：弹出窗口和标签">Popups and Labels：弹出窗口和标签</h2>
+<figure class="highlight r"><table><tr><td class="code"><pre><span class="line">addPopups<span class="punctuation">(</span>map<span class="punctuation">,</span> lng<span class="punctuation">,</span> lat<span class="punctuation">,</span> ...content...<span class="punctuation">,</span> options<span class="punctuation">)</span><span class="comment">#添加标准弹出窗口</span></span><br><span class="line"><span class="comment"># options = popupOptions(closeButton=FALSE)</span></span><br><span class="line"></span><br><span class="line">addMarkers<span class="punctuation">(</span>...<span class="punctuation">,</span> popup<span class="punctuation">,</span> ... <span class="punctuation">)</span> <span class="comment">#在markers中添加窗口</span></span><br><span class="line">addMarkers<span class="punctuation">(</span>...<span class="punctuation">,</span> label<span class="punctuation">,</span> labelOptions... <span class="punctuation">)</span> <span class="comment">#在markers中添加标签 </span></span><br><span class="line"><span class="comment"># labelOptions = labelOptions(noHide,	textOnly,	textsize,	direction,	style) </span></span><br><span class="line"></span><br><span class="line">addLabelOnlyMarkers<span class="punctuation">(</span><span class="punctuation">)</span> <span class="comment">#只添加标签</span></span><br></pre></td></tr></table></figure>
+<p><strong>示例</strong></p>
+<figure class="highlight r"><table><tr><td class="code"><pre><span class="line">content <span class="operator">&lt;-</span> paste<span class="punctuation">(</span>sep <span class="operator">=</span> <span class="string">&quot;&lt;br/&gt;&quot;</span><span class="punctuation">,</span></span><br><span class="line">  <span class="string">&quot;&lt;b&gt;&lt;a href=&#x27;http://www.samurainoodle.com&#x27;&gt;Samurai Noodle&lt;/a&gt;&lt;/b&gt;&quot;</span><span class="punctuation">,</span></span><br><span class="line">  <span class="string">&quot;606 5th Ave. S&quot;</span><span class="punctuation">,</span></span><br><span class="line">  <span class="string">&quot;Seattle, WA 98138&quot;</span></span><br><span class="line"><span class="punctuation">)</span></span><br><span class="line"></span><br><span class="line">leaflet<span class="punctuation">(</span><span class="punctuation">)</span> <span class="operator">%&gt;%</span> addTiles<span class="punctuation">(</span><span class="punctuation">)</span> <span class="operator">%&gt;%</span></span><br><span class="line">  addPopups<span class="punctuation">(</span><span class="operator">-</span><span class="number">122.327298</span><span class="punctuation">,</span> <span class="number">47.597131</span><span class="punctuation">,</span> content<span class="punctuation">,</span></span><br><span class="line">    options <span class="operator">=</span> popupOptions<span class="punctuation">(</span>closeButton <span class="operator">=</span> <span class="literal">FALSE</span><span class="punctuation">)</span></span><br><span class="line">  <span class="punctuation">)</span></span><br></pre></td></tr></table></figure>
+<p><img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://warehouse-1310574346.cos.ap-shanghai.myqcloud.com/images/leaflet/popup.png" alt="cl"></p>
+<h2 id="Lines-and-Shapes：线条和几何形状">Lines and Shapes：线条和几何形状</h2>
+<p><strong>Polygons and Polylines</strong></p>
+<figure class="highlight r"><table><tr><td class="code"><pre><span class="line">addPolygons<span class="punctuation">(</span>map<span class="punctuation">,</span> lng <span class="operator">=</span> <span class="literal">NULL</span><span class="punctuation">,</span> lat <span class="operator">=</span> <span class="literal">NULL</span> <span class="punctuation">,</span></span><br><span class="line">  color <span class="operator">=</span> <span class="string">&quot;03F&quot;</span><span class="punctuation">,</span> weight <span class="operator">=</span> <span class="number">5</span><span class="punctuation">,</span> opacity <span class="operator">=</span> <span class="number">0.5</span><span class="punctuation">,</span>    <span class="comment">#线条颜色，粗细，不透明度</span></span><br><span class="line">  fill <span class="operator">=</span> <span class="literal">TRUE</span><span class="punctuation">,</span> fillColor <span class="operator">=</span> color<span class="punctuation">,</span> fillOpacity <span class="operator">=</span> <span class="number">0.2</span><span class="punctuation">,</span> </span><br><span class="line">  popup <span class="operator">=</span> <span class="literal">NULL</span><span class="punctuation">,</span>highlightOptions<span class="punctuation">,</span>...<span class="punctuation">)</span></span><br><span class="line"><span class="comment"># highlightOptions(color, weight=2, bringToFront=TRUE) 高亮图形</span></span><br><span class="line"><span class="comment"># 使用rmapshaper::ms_simplify 简化复杂的图形</span></span><br></pre></td></tr></table></figure>
+<p><strong>Circles and Rectangles</strong></p>
+<figure class="highlight r"><table><tr><td class="code"><pre><span class="line">addCircles<span class="punctuation">(</span>map<span class="punctuation">,</span>lng <span class="operator">=</span> <span class="literal">NULL</span><span class="punctuation">,</span>lat <span class="operator">=</span> <span class="literal">NULL</span><span class="punctuation">,</span>radius <span class="operator">=</span> <span class="number">10</span><span class="punctuation">,</span>...<span class="punctuation">)</span><span class="comment"># 圆形，半径以米为单位</span></span><br><span class="line">addRectangles<span class="punctuation">(</span>map<span class="punctuation">,</span> lng1<span class="punctuation">,</span> lat1<span class="punctuation">,</span> lng2<span class="punctuation">,</span> lat2<span class="punctuation">,</span>...<span class="punctuation">)</span><span class="comment"># 对角线参数指定矩形</span></span><br></pre></td></tr></table></figure>
+<p><strong>示例</strong></p>
+<figure class="highlight r"><table><tr><td class="code"><pre><span class="line">cities <span class="operator">&lt;-</span> read.csv<span class="punctuation">(</span>textConnection<span class="punctuation">(</span><span class="string">&quot;</span></span><br><span class="line"><span class="string">City,Lat,Long,Pop</span></span><br><span class="line"><span class="string">Boston,42.3601,-71.0589,645966</span></span><br><span class="line"><span class="string">Hartford,41.7627,-72.6743,125017</span></span><br><span class="line"><span class="string">New York City,40.7127,-74.0059,8406000</span></span><br><span class="line"><span class="string">Philadelphia,39.9500,-75.1667,1553000</span></span><br><span class="line"><span class="string">Pittsburgh,40.4397,-79.9764,305841</span></span><br><span class="line"><span class="string">Providence,41.8236,-71.4222,177994</span></span><br><span class="line"><span class="string">&quot;</span><span class="punctuation">)</span><span class="punctuation">)</span></span><br><span class="line"></span><br><span class="line">leaflet<span class="punctuation">(</span>cities<span class="punctuation">)</span> <span class="operator">%&gt;%</span> addTiles<span class="punctuation">(</span><span class="punctuation">)</span> <span class="operator">%&gt;%</span></span><br><span class="line">  addCircles<span class="punctuation">(</span>lng <span class="operator">=</span> <span class="operator">~</span>Long<span class="punctuation">,</span> lat <span class="operator">=</span> <span class="operator">~</span>Lat<span class="punctuation">,</span> weight <span class="operator">=</span> <span class="number">1</span><span class="punctuation">,</span></span><br><span class="line">    radius <span class="operator">=</span> <span class="operator">~</span><span class="built_in">sqrt</span><span class="punctuation">(</span>Pop<span class="punctuation">)</span> <span class="operator">*</span> <span class="number">30</span><span class="punctuation">,</span> popup <span class="operator">=</span> <span class="operator">~</span>City</span><br><span class="line">  <span class="punctuation">)</span></span><br></pre></td></tr></table></figure>
+<p><img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://warehouse-1310574346.cos.ap-shanghai.myqcloud.com/images/leaflet/circle.png" alt=""></p>
+<h2 id="其他组件">其他组件</h2>
+<table>
+<thead>
+<tr>
+<th>组件</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>addLegend()</td>
+<td>图例</td>
+</tr>
+<tr>
+<td>addMeasure()</td>
+<td>测量插件</td>
+</tr>
+<tr>
+<td>addGraticule()</td>
+<td>网格线</td>
+</tr>
+<tr>
+<td>addTerminator()</td>
+<td>日夜线</td>
+</tr>
+<tr>
+<td>addMiniMap()</td>
+<td>迷你地图</td>
+</tr>
+</tbody>
+</table>
+<h2 id="GeoJSON-and-TopoJSON">GeoJSON and TopoJSON</h2>
+<p>有两种方法来使用GeoJSON/TopoJSON data</p>
+<ul>
+<li>使用geojsonio or rgdal package 读入sp 对象<br>
+<code>geojsonio :: geojson_read (..., what =“ sp ”)  </code><br>
+<code>rgdal :: readOGR (...,“ OGRGeoJSON ”) </code></li>
+<li>使用本包 addGeoJSON() and addTopoJSON() 函数<br>
+<code>addTopoJSON / addGeoJSON (... weight , color , fill , opacity , fillOpacity ... ) </code></li>
+<li>另外的包RJSONIO and jsonlite 也能很快解析</li>
+</ul>
+<h2 id="Shiny-Integration">Shiny Integration</h2>
+<p><strong>UI 部分</strong>：leafletOutput(“name”)<br>
+<strong>server 部分</strong>：renderLeaflet(…)<br>
+<strong>渲染</strong>：renderLeaflet ()  返回Leaflet map 对象</p>
+<p><strong>修改</strong></p>
+<table>
+<thead>
+<tr>
+<th>函数举例</th>
+<th>在serve中修改</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>leafletProxy()</td>
+<td>通用修改</td>
+</tr>
+<tr>
+<td>fitBounds(0, 0, 11, 11)</td>
+<td>配置边界</td>
+</tr>
+<tr>
+<td>addCircles(1:10, 1:10, layerId = LETTERS[1:10])</td>
+<td>添加圆形</td>
+</tr>
+<tr>
+<td>removeShape(c(“B”, “F”))</td>
+<td>移除形状</td>
+</tr>
+<tr>
+<td>clearShapes()</td>
+<td>清除形状</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Inputs/Events</strong></p>
+<ul>
+<li>对象事件<br>
+<code>input$MAPID_OBJCATEGORY_EVENTNAME</code>抓取事件变化的值赋给shiny变量<br>
+<code>OBJCATEGORY</code>:  marker, shape, geojson and topojson<br>
+<code>EVENTNAME</code>:  click, mouseover and mouseout.</li>
+</ul>
+<p>所有这些事件都被设为<code>NULL</code>或<code>list(lat,lng,id)</code>（被触发时）</p>
+<ul>
+<li>地图事件<br>
+<code>input$MAPID_click</code>：地图背景或basemap被敲击时提供<code>list(lat,lng)</code><br>
+<code>input$MAPID_bounds</code>：list(north,east,south,west)<br>
+<code>input$MAPID_zoom</code>：zoom level</li>
+</ul>
+<h1 id="leafletCN">leafletCN</h1>
+<p>leafletCN是一个基于leaflet的中国扩展包, 里面保存了一些适用于中国的区域划分数据以及一些有帮助的函数, 地理区划数据来源于github的[geojson-map-china][chinamap]项目. 数据细分到县级市.<br>
+[chinamap]: <a target="_blank" rel="noopener external nofollow noreferrer" href="https://github.com/longwosion/geojson-map-china">https://github.com/longwosion/geojson-map-china</a></p>
+<h2 id="自带地图数据（GeoJSON）">自带地图数据（GeoJSON）</h2>
+<p><code>regionNames(mapName) </code>返回地图的区域名，细分到县(world,china,city,…)</p>
+<h2 id="绘图（leaflet封装）">绘图（leaflet封装）</h2>
+<p><code>demomap (mapName)</code> 传入地图名绘制地图，等同于(leaflet包， leaflet+addTiles +addPolygons)</p>
+<p><strong>示例</strong></p>
+<figure class="highlight r"><table><tr><td class="code"><pre><span class="line">demomap<span class="punctuation">(</span><span class="string">&quot;上海&quot;</span><span class="punctuation">)</span></span><br></pre></td></tr></table></figure>
+<p><img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://warehouse-1310574346.cos.ap-shanghai.myqcloud.com/images/leaflet/sh1.png" alt=""></p>
+<p><code>geojsonMap(dat, mapName)</code> 底图+填色地图，dat赋值data.frame(regions,values)</p>
+<figure class="highlight r"><table><tr><td class="code"><pre><span class="line">sh <span class="operator">=</span> regionNames<span class="punctuation">(</span><span class="string">&quot;上海&quot;</span><span class="punctuation">)</span></span><br><span class="line">dat <span class="operator">=</span> data.frame<span class="punctuation">(</span>name <span class="operator">=</span> sh<span class="punctuation">,</span>value <span class="operator">=</span> rnorm<span class="punctuation">(</span><span class="built_in">length</span><span class="punctuation">(</span>sh<span class="punctuation">)</span><span class="punctuation">)</span><span class="punctuation">)</span></span><br><span class="line">geojsonMap<span class="punctuation">(</span>dat<span class="punctuation">,</span><span class="string">&quot;上海&quot;</span><span class="punctuation">)</span></span><br></pre></td></tr></table></figure>
+<p><img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://warehouse-1310574346.cos.ap-shanghai.myqcloud.com/images/leaflet/sh2.png" alt=""></p>
+<h2 id="辅助函数">辅助函数</h2>
+<p><code>amap(map) </code>高德地图底图，方便leaflet包调用<br>
+<code>read.geoShape(geojson)</code> 读取一个geojson的对象，保存成sp对象<br>
+<code>leafletGeo(mapName,dat = NULL)</code> 用地图名和数据框把地图和数值组合在一起</p>
+<figure class="highlight r"><table><tr><td class="code"><pre><span class="line">system.file<span class="punctuation">(</span><span class="string">&quot;geojson/china.json&quot;</span><span class="punctuation">,</span>package <span class="operator">=</span> <span class="string">&quot;leafletCN&quot;</span><span class="punctuation">)</span><span class="operator">%&gt;%</span></span><br><span class="line">  read.geoShape<span class="punctuation">(</span><span class="punctuation">)</span><span class="operator">%&gt;%</span></span><br><span class="line">  plot<span class="punctuation">(</span><span class="punctuation">)</span></span><br></pre></td></tr></table></figure>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta"><i class="fas fa-circle-user fa-fw"></i>文章作者: </span><span class="post-copyright-info"><a href="https://www.tinylei.tech">Tiny Lei</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta"><i class="fas fa-square-arrow-up-right fa-fw"></i>文章链接: </span><span class="post-copyright-info"><a href="https://www.tinylei.tech/posts/8a9afcfe/">https://www.tinylei.tech/posts/8a9afcfe/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta"><i class="fas fa-circle-exclamation fa-fw"></i>版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="external nofollow noreferrer" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来源 <a href="https://www.tinylei.tech" target="_blank">雷小小</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/r/">R</a><a class="post-meta__tags" href="/tags/%E5%8F%AF%E8%A7%86%E5%8C%96/">可视化</a><a class="post-meta__tags" href="/tags/%E5%9C%B0%E5%9B%BE/">地图</a><a class="post-meta__tags" href="/tags/leaflet/">leaflet</a></div><div class="post-share"><div class="social-share" data-image="/img/leaflet-cover.png" data-sites="wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.6/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.6/sharejs/dist/js/social-share.min.js" defer></script></div></div><div class="post-reward"><div class="reward-button"><i class="fas fa-qrcode"></i>赞助</div><div class="reward-main"><ul class="reward-all"><li class="reward-item"><a href="/img/morty3.jpg" target="_blank"><img class="post-qr-code-img" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/img/morty3.jpg" alt="Give me money!"/></a><div class="post-qr-code-desc">Give me money!</div></li></ul></div></div><nav class="pagination-post" id="pagination"><a class="pagination-related" href="/posts/856dfd2b/" title="R(Visualise)--ggmap and baidumap"><img class="cover" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/img/baidu-map-cover.png" onerror="onerror=null;src='/img/404.jpg'" alt="cover of previous post"><div class="info"><div class="info-1"><div class="info-item-1">上一篇</div><div class="info-item-2">R(Visualise)--ggmap and baidumap</div></div><div class="info-2"><div class="info-item-1">使用ggplot2在R中绘制静态地图</div></div></div></a><a class="pagination-related" href="/posts/a235a5ba/" title="R(Parallel Computing)--foreach"><img class="cover" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/img/foreach-cover.png" onerror="onerror=null;src='/img/404.jpg'" alt="cover of next post"><div class="info text-right"><div class="info-1"><div class="info-item-1">下一篇</div><div class="info-item-2">R(Parallel Computing)--foreach</div></div><div class="info-2"><div class="info-item-1">在循环(loop)中并行化运算</div></div></div></a></nav><div class="relatedPosts"><div class="headline"><i class="fas fa-thumbs-up fa-fw"></i><span>相关推荐</span></div><div class="relatedPosts-list"><a class="pagination-related" href="/posts/856dfd2b/" title="R(Visualise)--ggmap and baidumap"><img class="cover" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/img/baidu-map-cover.png" alt="cover"><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2018-05-03</div><div class="info-item-2">R(Visualise)--ggmap and baidumap</div></div><div class="info-2"><div class="info-item-1">使用ggplot2在R中绘制静态地图</div></div></div></a><a class="pagination-related" href="/posts/3c7fb28e/" title="R(HTML Widgets)--REmap"><img class="cover" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/img/echarts-cover.png" alt="cover"><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2018-06-01</div><div class="info-item-2">R(HTML Widgets)--REmap</div></div><div class="info-2"><div class="info-item-1">基于Echarts的简易动态交互地图</div></div></div></a><a class="pagination-related" href="/posts/cb53c844/" title="R(NLP)--jiebaR"><img class="cover" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/img/NLP.jpg" alt="cover"><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2018-05-04</div><div class="info-item-2">R(NLP)--jiebaR</div></div><div class="info-2"><div class="info-item-1">R语言词云和中文词典包</div></div></div></a><a class="pagination-related" href="/posts/28aaa9da/" title="R(NLP)--wordcloud2"><img class="cover" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/img/love-cloud.png" alt="cover"><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2018-05-28</div><div class="info-item-2">R(NLP)--wordcloud2</div></div><div class="info-2"><div class="info-item-1">R interface to wordcloud for data visualization</div></div></div></a><a class="pagination-related" href="/posts/74875eb3/" title="R(Visualise)--RColorBrewer and extrafont"><img class="cover" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/img/palette.png" alt="cover"><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2018-05-03</div><div class="info-item-2">R(Visualise)--RColorBrewer and extrafont</div></div><div class="info-2"><div class="info-item-1">调色板和字体配置</div></div></div></a><a class="pagination-related" href="/posts/8f6de5fc/" title="R(Visualise)--ggplot2"><img class="cover" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/img/ggplot2-cover.png" alt="cover"><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2018-05-03</div><div class="info-item-2">R(Visualise)--ggplot2</div></div><div class="info-2"><div class="info-item-1">强大的绘图系统，并实现了许多扩展(Hadley)</div></div></div></a></div></div><hr class="custom-hr"/><div id="post-comment"><div class="comment-head"><div class="comment-headline"><i class="fas fa-comments fa-fw"></i><span> 评论</span></div></div><div class="comment-wrap"><div><div id="gitalk-container"></div></div></div></div></div><div class="aside-content" id="aside-content"><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span><span class="toc-percentage"></span></div><div class="toc-content is-expand"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#leaflet"><span class="toc-number">1.</span> <span class="toc-text">leaflet</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%9F%BA%E6%9C%AC%E7%94%A8%E6%B3%95"><span class="toc-number">1.1.</span> <span class="toc-text">基本用法</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Map-Widget%EF%BC%9A%E5%9C%B0%E5%9B%BE%E6%8E%A7%E4%BB%B6"><span class="toc-number">1.2.</span> <span class="toc-text">Map Widget：地图控件</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Basemaps%EF%BC%9A%E5%BA%95%E5%9B%BE"><span class="toc-number">1.3.</span> <span class="toc-text">Basemaps：底图</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Markers%EF%BC%9A%E6%A0%87%E8%AE%B0"><span class="toc-number">1.4.</span> <span class="toc-text">Markers：标记</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Popups-and-Labels%EF%BC%9A%E5%BC%B9%E5%87%BA%E7%AA%97%E5%8F%A3%E5%92%8C%E6%A0%87%E7%AD%BE"><span class="toc-number">1.5.</span> <span class="toc-text">Popups and Labels：弹出窗口和标签</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Lines-and-Shapes%EF%BC%9A%E7%BA%BF%E6%9D%A1%E5%92%8C%E5%87%A0%E4%BD%95%E5%BD%A2%E7%8A%B6"><span class="toc-number">1.6.</span> <span class="toc-text">Lines and Shapes：线条和几何形状</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%85%B6%E4%BB%96%E7%BB%84%E4%BB%B6"><span class="toc-number">1.7.</span> <span class="toc-text">其他组件</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#GeoJSON-and-TopoJSON"><span class="toc-number">1.8.</span> <span class="toc-text">GeoJSON and TopoJSON</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Shiny-Integration"><span class="toc-number">1.9.</span> <span class="toc-text">Shiny Integration</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#leafletCN"><span class="toc-number">2.</span> <span class="toc-text">leafletCN</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%87%AA%E5%B8%A6%E5%9C%B0%E5%9B%BE%E6%95%B0%E6%8D%AE%EF%BC%88GeoJSON%EF%BC%89"><span class="toc-number">2.1.</span> <span class="toc-text">自带地图数据（GeoJSON）</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%BB%98%E5%9B%BE%EF%BC%88leaflet%E5%B0%81%E8%A3%85%EF%BC%89"><span class="toc-number">2.2.</span> <span class="toc-text">绘图（leaflet封装）</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%BE%85%E5%8A%A9%E5%87%BD%E6%95%B0"><span class="toc-number">2.3.</span> <span class="toc-text">辅助函数</span></a></li></ol></li></ol></div></div></div></div></main><footer id="footer"><div class="footer-other"><div class="footer-copyright"><span class="copyright">&copy;&nbsp;2019 - 2026 By Tiny Lei</span><span class="framework-info"><span>框架 </span><a target="_blank" rel="noopener external nofollow noreferrer" href="https://hexo.io">Hexo 8.1.1</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener external nofollow noreferrer" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly 5.5.3</a></span></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="日间和夜间模式切换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside-config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><a id="to_comment" href="#post-comment" title="前往评论"><i class="fas fa-comments"></i></a><button id="go-up" type="button" title="回到顶部"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js?v=5.5.3"></script><script src="/js/main.js?v=5.5.3"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui@6.1.7/dist/fancybox/fancybox.umd.min.js"></script><script src="https://cdn.jsdelivr.net/npm/vanilla-lazyload@19.1.3/dist/lazyload.iife.min.js"></script><div class="js-pjax"><script>(() => {
+  const runMermaid = ele => {
+    window.loadMermaid = true
+    const theme = document.documentElement.getAttribute('data-theme') === 'dark' ? 'dark' : 'default'
+
+    ele.forEach((item, index) => {
+      const mermaidSrc = item.firstElementChild
+      const config = mermaidSrc.dataset.config ? JSON.parse(mermaidSrc.dataset.config) : {}
+      if (!config.theme) {
+        config.theme = theme
+      }
+      const mermaidThemeConfig = `%%{init: ${JSON.stringify(config)}}%%\n`
+      const mermaidID = `mermaid-${index}`
+      const mermaidDefinition = mermaidThemeConfig + mermaidSrc.textContent
+
+      const renderFn = mermaid.render(mermaidID, mermaidDefinition)
+      const renderMermaid = svg => {
+        mermaidSrc.insertAdjacentHTML('afterend', svg)
+      }
+
+      // mermaid v9 and v10 compatibility
+      typeof renderFn === 'string' ? renderMermaid(renderFn) : renderFn.then(({ svg }) => renderMermaid(svg))
+    })
+  }
+
+  const codeToMermaid = () => {
+    const codeMermaidEle = document.querySelectorAll('pre > code.mermaid')
+    if (codeMermaidEle.length === 0) return
+
+    codeMermaidEle.forEach(ele => {
+      const preEle = document.createElement('pre')
+      preEle.className = 'mermaid-src'
+      preEle.hidden = true
+      preEle.textContent = ele.textContent
+      const newEle = document.createElement('div')
+      newEle.className = 'mermaid-wrap'
+      newEle.appendChild(preEle)
+      ele.parentNode.replaceWith(newEle)
+    })
+  }
+
+  const loadMermaid = () => {
+    if (true) codeToMermaid()
+    const $mermaid = document.querySelectorAll('#article-container .mermaid-wrap')
+    if ($mermaid.length === 0) return
+
+    const runMermaidFn = () => runMermaid($mermaid)
+    btf.addGlobalFn('themeChange', runMermaidFn, 'mermaid')
+    window.loadMermaid ? runMermaidFn() : btf.getScript('https://cdn.jsdelivr.net/npm/mermaid@11.12.2/dist/mermaid.min.js').then(runMermaidFn)
+  }
+
+  btf.addGlobalFn('encrypt', loadMermaid, 'mermaid')
+  window.pjax ? loadMermaid() : document.addEventListener('DOMContentLoaded', loadMermaid)
+})()</script><script>(() => {
+  const isShuoshuo = GLOBAL_CONFIG_SITE.pageType === 'shuoshuo'
+  const option = null
+
+  const commentCount = n => {
+    const isCommentCount = document.querySelector('#post-meta .gitalk-comment-count')
+    if (isCommentCount) {
+      isCommentCount.textContent= n
+    }
+  }
+
+  const initGitalk = (el, path) => {
+    if (isShuoshuo) {
+      window.shuoshuoComment.destroyGitalk = () => {
+        if (el.children.length) {
+          el.innerHTML = ''
+          el.classList.add('no-comment')
+        }
+      }
+    }
+
+    const gitalk = new Gitalk({
+      clientID: '7c65134b48b13f306114',
+      clientSecret: 'f049f68368a11925fdb69e57c64839eac94e13c1',
+      repo: 'gitalk-comments',
+      owner: 'WilenWu',
+      admin: ['WilenWu'],
+      updateCountCallback: commentCount,
+      ...option,
+      id: isShuoshuo ? path : (option && option.id) || '7f3cb3389e51e323567b008e8fa9b204'
+    })
+
+    gitalk.render('gitalk-container')
+  }
+
+  const loadGitalk = async(el, path) => {
+    if (typeof Gitalk === 'function') initGitalk(el, path)
+    else {
+      await btf.getCSS('https://cdn.jsdelivr.net/npm/gitalk@1.8.0/dist/gitalk.min.css')
+      await btf.getScript('https://cdn.jsdelivr.net/npm/gitalk@1.8.0/dist/gitalk.min.js')
+      initGitalk(el, path)
+    }
+  }
+
+  if (isShuoshuo) {
+    'Gitalk' === 'Gitalk'
+      ? window.shuoshuoComment = { loadComment: loadGitalk }
+      : window.loadOtherComment = loadGitalk
+    return
+  }
+
+  if ('Gitalk' === 'Gitalk' || !false) {
+    if (false) btf.loadComment(document.getElementById('gitalk-container'), loadGitalk)
+    else loadGitalk()
+  } else {
+    window.loadOtherComment = loadGitalk
+  }
+})()</script></div><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script><div id="local-search"><div class="search-dialog"><nav class="search-nav"><span class="search-dialog-title">搜索</span><i class="fas fa-spinner fa-pulse" id="loading-status" hidden="hidden"></i><button class="search-close-button"><i class="fas fa-times"></i></button></nav><div class="text-center" id="loading-database"><i class="fas fa-spinner fa-pulse"></i><span>  数据加载中</span></div><div class="local-search-input"><input placeholder="搜索文章" type="text"/></div><hr/><div id="local-search-results"></div><div class="ais-Pagination" id="local-search-pagination" style="display:none;"><ul class="ais-Pagination-list"></ul></div><div id="local-search-stats"></div></div><div id="search-mask"></div><script src="/js/search/local-search.js?v=5.5.3"></script></div></div></body></html>
