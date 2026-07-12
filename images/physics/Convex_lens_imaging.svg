@@ -1,0 +1,110 @@
+<svg    x="0"
+   y="0"
+   width="360"
+   height="420" 
+  viewBox="0 0 360 420" xmlns="http://www.w3.org/2000/svg" version="1.1" encoding="UTF-8">
+ <defs>
+  <marker orient="auto" markerHeight="3" markerWidth="3" refY="5" refX="1" viewBox="0 0 10 10" id="arrow">
+   <path fill="red" d="m0,0l10,5l-10,5l0,-10z"/>
+  </marker>
+  <marker orient="auto" markerHeight="5" markerWidth="5" refY="5" refX="1" viewBox="0 0 10 10" id="a2">
+   <path stroke="orange" stroke-width="2" fill="none" d="m0,0l10,5l-10,5"/>
+  </marker>
+ </defs>
+<title>convex lens</title>
+
+<g transform="translate(180,80)">
+   <!-- 中线 -->
+   <line x1="-160" y1="0" x2="160" y2="0" stroke="gray" stroke-width="1" stroke-dasharray="10,5,2,5"/>
+   <!-- 镜 -->
+   <ellipse cx="0" cy="0" rx="8" ry="40" fill="#19AEFF" stroke="#0084C8" fill-opacity="0.5"/>
+   <!-- 焦距 -->
+   <g stroke="black" stroke-width="1" fill="none">
+    <path d="m-50,0l0,-5"/>
+    <path d="m50,0l0,-5"/>
+   </g>
+   <!-- 物 -->
+   <path d="m-30,0l0,-15" stroke="red" stroke-width="2" marker-end="url(#arrow)"/>
+   <!-- 虚像 -->
+   <path d="m-75,0l0,-45" stroke="red" stroke-width="2" stroke-dasharray="2,2" marker-end="url(#arrow)"/>
+   <!-- 光线 -->
+   <g fill="none" stroke="orange" stroke-width="1">
+    <path d="m-30,-20L0,-20"/>
+    <path d="m0,-20l35,14l35,14" marker-mid="url(#a2)"/>
+    <path d="m-75,-50L0,-20" stroke-dasharray="4,4"/>
+    <path d="m-30,-20L0,0" />
+    <path d="m0,0l27,18l27,18" marker-mid="url(#a2)"/>
+    <path d="m-75,-50L-30,-20" stroke-dasharray="4,4"/>
+   </g>
+<text x="0" y="-60" font-family="Serif" text-anchor="middle">u&lt;f</text>
+<text font-family="Serif" text-anchor="middle" font-size="12">
+<tspan x="-50" y="12">f</tspan>
+<tspan x="50" y="12">f</tspan>
+</text>
+</g>
+
+<g transform="translate(180,220)">
+   <!-- 中线 -->
+   <line x1="-160" y1="0" x2="160" y2="0" stroke="gray" stroke-width="1" stroke-dasharray="10,5,2,5"/>
+   <!-- 镜 -->
+   <ellipse cx="0" cy="0" rx="8" ry="40" fill="#19AEFF" stroke="#0084C8" fill-opacity="0.5"/>
+   <!-- 焦距 -->
+   <g stroke="black" stroke-width="1" fill="none">
+    <path d="m-100,0l0,-5"/>
+    <path d="m-50,0l0,-5"/>
+    <path d="m50,0l0,-5"/>
+    <path d="m100,0l0,-5"/>
+   </g>
+   <!-- 物 -->
+   <path d="m-75,0l0,-15" stroke="red" stroke-width="2" marker-end="url(#arrow)"/>
+   <!-- 像 -->
+   <path d="m150,0l0,35" stroke="red" stroke-width="2" marker-end="url(#arrow)"/>
+   <!-- 光线 -->
+   <g fill="none" stroke="orange" stroke-width="1" marker-mid="url(#a2)">
+    <path d="m-75,-20L-37.5,-20L0,-20" />
+    <path d="M0,-20L75,10L150,40" />
+    <path d="m-75,-20L-37.5,-10L0,0" />
+    <path d="M0,0L75,20L150,40" />
+   </g>
+<text x="0" y="-60" font-family="Serif" text-anchor="middle">f&lt;u&lt;2f</text>
+<text text-anchor="middle" font-size="12">
+<tspan x="-100" y="12">2f</tspan>
+<tspan x="-50" y="12">f</tspan>
+<tspan x="50" y="12">f</tspan>
+<tspan x="100" y="12">2f</tspan>
+</text>
+</g>
+
+<g transform="translate(180,360)">
+   <!-- 中线 -->
+   <line x1="-160" y1="0" x2="160" y2="0" stroke="gray" stroke-width="1" stroke-dasharray="10,5,2,5"/>
+   <!-- 镜 -->
+   <ellipse cx="0" cy="0" rx="8" ry="40" fill="#19AEFF" stroke="#0084C8" fill-opacity="0.5"/>
+   <!-- 焦距 -->
+   <g stroke="black" stroke-width="1" fill="none">
+    <path d="m-100,0l0,-5"/>
+    <path d="m-50,0l0,-5"/>
+    <path d="m50,0l0,-5"/>
+    <path d="m100,0l0,-5"/>
+   </g>
+   <!-- 物 -->
+   <path d="m-150,0l0,-15" stroke="red" stroke-width="2" marker-end="url(#arrow)"/>
+   <!-- 像 -->
+   <path d="m75,0l0,5" stroke="red" stroke-width="2" marker-end="url(#arrow)"/>
+   <!-- 光线 -->
+   <g fill="none" stroke="orange" stroke-width="1" marker-mid="url(#a2)">
+    <path d="m-150,-20L-75,-20L0,-20" />
+    <path d="m0,-20L37.5,-5L75,10" />
+    <path d="m-150,-20L-75,-10L0,0" />
+    <path d="m0,0L37.5,5L75,10" />
+   </g>
+<text x="0" y="-60" font-family="Serif" text-anchor="middle">f&lt;u&lt;2f</text>
+<text text-anchor="middle" font-size="12">
+<tspan x="-100" y="12">2f</tspan>
+<tspan x="-50" y="12">f</tspan>
+<tspan x="50" y="12">f</tspan>
+<tspan x="100" y="12">2f</tspan>
+</text>
+</g>
+</svg>
+

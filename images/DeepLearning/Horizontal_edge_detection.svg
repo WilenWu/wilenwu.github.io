@@ -1,0 +1,1285 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg
+   x="0"
+   y="0"
+   width="760"
+   height="355"
+   style="fill:none"
+   version="1.1"
+   id="svg666"
+   sodipodi:docname="Horizontal_edge_detection.svg"
+   inkscape:version="1.2.2 (b0a8486, 2022-12-01)"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg">
+  <defs
+     id="defs670" />
+  <sodipodi:namedview
+     id="namedview668"
+     pagecolor="#ffffff"
+     bordercolor="#000000"
+     borderopacity="0.25"
+     inkscape:showpageshadow="2"
+     inkscape:pageopacity="0.0"
+     inkscape:pagecheckerboard="0"
+     inkscape:deskcolor="#d1d1d1"
+     showgrid="false"
+     inkscape:zoom="1.1808732"
+     inkscape:cx="812.95775"
+     inkscape:cy="225.25704"
+     inkscape:window-width="1280"
+     inkscape:window-height="658"
+     inkscape:window-x="0"
+     inkscape:window-y="25"
+     inkscape:window-maximized="0"
+     inkscape:current-layer="svg666" />
+  <svg
+     version="1.1"
+     id="svg2"
+     width="100%"
+     height="100%" />
+  <svg
+     class="role-diagram-draw-area"
+     version="1.1"
+     id="svg76"
+     width="100%"
+     height="100%">
+    <g
+       class="shapes-region"
+       style="fill:none;stroke:#000000"
+       id="g68">
+      <g
+         class="composite-shape"
+         id="g12">
+        <path
+           class="real"
+           d="M 63,71.33 H 292.33 V 300.02 H 63 Z"
+           style="fill:none;fill-opacity:1;stroke:none;stroke-width:1;stroke-opacity:1"
+           id="path4" />
+        <path
+           class="real"
+           d="M 63,71.33 V 300.02 M 101,71.33 V 300.02 M 139,71.33 V 300.02 M 177,71.33 V 300.02 M 215,71.33 V 300.02 M 253,71.33 V 300.02 M 291,71.33 v 228.69"
+           style="fill:none;fill-opacity:1;stroke:#4a4a4a;stroke-width:1;stroke-opacity:1"
+           id="path6" />
+        <path
+           class="real"
+           d="M 63,71.33 H 292.33 M 63,109.33 H 292.33 M 63,147.33 H 292.33 M 63,185.33 H 292.33 M 63,223.33 H 292.33 M 63,261.33 H 292.33 M 63,299.33 h 229.33"
+           style="fill:none;fill-opacity:1;stroke:#4a4a4a;stroke-width:1;stroke-opacity:1"
+           id="path8" />
+        <path
+           class="real"
+           d=""
+           style="fill:none;fill-opacity:1;stroke:#4a4a4a;stroke-width:1;stroke-opacity:1"
+           id="path10" />
+      </g>
+      <g
+         class="composite-shape"
+         id="g22">
+        <path
+           class="real"
+           d="M 372,131.33 H 488.33 V 247.02 H 372 Z"
+           style="fill:none;fill-opacity:1;stroke:none;stroke-width:1;stroke-opacity:1"
+           id="path14" />
+        <path
+           class="real"
+           d="M 372,131.33 V 247.02 M 410,131.33 V 247.02 M 448,131.33 V 247.02 M 486,131.33 V 247.02"
+           style="fill:none;fill-opacity:1;stroke:#4a4a4a;stroke-width:1;stroke-opacity:1"
+           id="path16" />
+        <path
+           class="real"
+           d="M 372,131.33 H 488.33 M 372,169.33 H 488.33 M 372,207.33 H 488.33 M 372,245.33 H 488.33"
+           style="fill:none;fill-opacity:1;stroke:#4a4a4a;stroke-width:1;stroke-opacity:1"
+           id="path18" />
+        <path
+           class="real"
+           d=""
+           style="fill:none;fill-opacity:1;stroke:#4a4a4a;stroke-width:1;stroke-opacity:1"
+           id="path20" />
+      </g>
+      <g
+         class="composite-shape"
+         id="g32">
+        <path
+           class="real"
+           d="M 580,109.98 H 732.33 V 262.02 H 580 Z"
+           style="fill:none;fill-opacity:1;stroke:none;stroke-width:1;stroke-opacity:1"
+           id="path24" />
+        <path
+           class="real"
+           d="M 580,109.98 V 262.02 M 618,109.98 V 262.02 M 656,109.98 V 262.02 M 694,109.98 V 262.02 M 732,109.98 V 262.02"
+           style="fill:none;fill-opacity:1;stroke:#4a4a4a;stroke-width:1;stroke-opacity:1"
+           id="path26" />
+        <path
+           class="real"
+           d="M 580,109.98 H 732.33 M 580,147.98 H 732.33 M 580,185.98 H 732.33 M 580,223.98 H 732.33 M 580,261.98 H 732.33"
+           style="fill:none;fill-opacity:1;stroke:#4a4a4a;stroke-width:1;stroke-opacity:1"
+           id="path28" />
+        <path
+           class="real"
+           d=""
+           style="fill:none;fill-opacity:1;stroke:#4a4a4a;stroke-width:1;stroke-opacity:1"
+           id="path30" />
+      </g>
+      <g
+         class="composite-shape"
+         id="g36">
+        <path
+           class="real"
+           d="m 63,71.33 h 114 v 114 H 63 Z"
+           style="fill:#b8e986;fill-opacity:0.3;stroke:none;stroke-width:1;stroke-opacity:1"
+           id="path34" />
+      </g>
+      <g
+         class="composite-shape"
+         id="g40">
+        <path
+           class="real"
+           d="m 372,131.33 h 114 v 38 H 372 Z"
+           style="fill:#b8e986;fill-opacity:0.3;stroke:none;stroke-width:1;stroke-opacity:1"
+           id="path38" />
+      </g>
+      <g
+         class="composite-shape"
+         id="g44">
+        <path
+           class="real"
+           d="m 372,207.33 h 114 v 38 H 372 Z"
+           style="fill:#4a90e2;fill-opacity:0.2;stroke:none;stroke-width:1;stroke-opacity:1"
+           id="path42" />
+      </g>
+      <g
+         class="composite-shape"
+         id="g48">
+        <path
+           class="real"
+           d="m 177,185.33 h 114 v 114 H 177 Z"
+           style="fill:#b8e986;fill-opacity:0.3;stroke:none;stroke-width:1;stroke-opacity:1"
+           id="path46" />
+      </g>
+      <g
+         class="composite-shape"
+         id="g52">
+        <path
+           class="real"
+           d="m 580,147.98 h 38 v 76 h -38 z"
+           style="fill:#b8e986;fill-opacity:0.6;stroke:none;stroke-width:1;stroke-opacity:1"
+           id="path50" />
+      </g>
+      <g
+         class="composite-shape"
+         id="g56">
+        <path
+           class="real"
+           d="m 618,147.98 h 38 v 76 h -38 z"
+           style="fill:#b8e986;fill-opacity:0.3;stroke:none;stroke-width:1;stroke-opacity:1"
+           id="path54" />
+      </g>
+      <g
+         class="composite-shape"
+         id="g60">
+        <path
+           class="real"
+           d="m 656,147.98 h 38 v 76 h -38 z"
+           style="fill:#4a90e2;fill-opacity:0.2;stroke:none;stroke-width:1;stroke-opacity:1"
+           id="path58" />
+      </g>
+      <g
+         class="composite-shape"
+         id="g64">
+        <path
+           class="real"
+           d="m 694,147.98 h 38 v 76 h -38 z"
+           style="fill:#4a90e2;fill-opacity:0.4;stroke:none;stroke-width:1;stroke-opacity:1"
+           id="path62" />
+      </g>
+      <g
+         id="g66" />
+    </g>
+    <g
+       id="g70" />
+    <g
+       id="g72" />
+    <g
+       id="g74" />
+  </svg>
+  <svg
+     width="960"
+     height="353"
+     style="font-family:Asana-Math, Asana"
+     version="1.1"
+     id="svg664">
+    <g
+       id="g84">
+      <g
+         id="g82">
+        <g
+           id="g80">
+          <text
+             x="79"
+             y="79.328125"
+             style="font-style:normal;font-weight:400;font-size:21.6px;font-family:Arial, Helvetica, sans-serif;text-decoration:none;text-decoration-line:none;dominant-baseline:text-before-edge;white-space:pre;fill:#000000;fill-opacity:1;stroke:none"
+             id="text78">5</text>
+        </g>
+      </g>
+    </g>
+    <g
+       id="g92">
+      <g
+         id="g90">
+        <g
+           id="g88">
+          <text
+             x="79"
+             y="118.32812"
+             style="font-style:normal;font-weight:400;font-size:21.6px;font-family:Arial, Helvetica, sans-serif;text-decoration:none;text-decoration-line:none;dominant-baseline:text-before-edge;white-space:pre;fill:#000000;fill-opacity:1;stroke:none"
+             id="text86">5</text>
+        </g>
+      </g>
+    </g>
+    <g
+       id="g100">
+      <g
+         id="g98">
+        <g
+           id="g96">
+          <text
+             x="79"
+             y="156.32812"
+             style="font-style:normal;font-weight:400;font-size:21.6px;font-family:Arial, Helvetica, sans-serif;text-decoration:none;text-decoration-line:none;dominant-baseline:text-before-edge;white-space:pre;fill:#000000;fill-opacity:1;stroke:none"
+             id="text94">5</text>
+        </g>
+      </g>
+    </g>
+    <g
+       id="g108">
+      <g
+         id="g106">
+        <g
+           id="g104">
+          <text
+             x="193"
+             y="190.32812"
+             style="font-style:normal;font-weight:400;font-size:21.6px;font-family:Arial, Helvetica, sans-serif;text-decoration:none;text-decoration-line:none;dominant-baseline:text-before-edge;white-space:pre;fill:#000000;fill-opacity:1;stroke:none"
+             id="text102">5</text>
+        </g>
+      </g>
+    </g>
+    <g
+       id="g116">
+      <g
+         id="g114">
+        <g
+           id="g112">
+          <text
+             x="193"
+             y="230.32812"
+             style="font-style:normal;font-weight:400;font-size:21.6px;font-family:Arial, Helvetica, sans-serif;text-decoration:none;text-decoration-line:none;dominant-baseline:text-before-edge;white-space:pre;fill:#000000;fill-opacity:1;stroke:none"
+             id="text110">5</text>
+        </g>
+      </g>
+    </g>
+    <g
+       id="g124">
+      <g
+         id="g122">
+        <g
+           id="g120">
+          <text
+             x="193"
+             y="268.32812"
+             style="font-style:normal;font-weight:400;font-size:21.6px;font-family:Arial, Helvetica, sans-serif;text-decoration:none;text-decoration-line:none;dominant-baseline:text-before-edge;white-space:pre;fill:#000000;fill-opacity:1;stroke:none"
+             id="text118">5</text>
+        </g>
+      </g>
+    </g>
+    <g
+       id="g132">
+      <g
+         id="g130">
+        <g
+           id="g128">
+          <text
+             x="319"
+             y="148.32812"
+             style="font-style:normal;font-weight:400;font-size:60px;font-family:Arial, Helvetica, sans-serif;text-decoration:none;text-decoration-line:none;dominant-baseline:text-before-edge;white-space:pre;fill:#000000;fill-opacity:1;stroke:none"
+             id="text126">∗</text>
+        </g>
+      </g>
+    </g>
+    <g
+       id="g140">
+      <g
+         id="g138">
+        <g
+           id="g136">
+          <text
+             x="386"
+             y="136.96875"
+             style="font-style:normal;font-weight:400;font-size:21.6px;font-family:Arial, Helvetica, sans-serif;text-decoration:none;text-decoration-line:none;dominant-baseline:text-before-edge;white-space:pre;fill:#000000;fill-opacity:1;stroke:none"
+             id="text134">1</text>
+        </g>
+      </g>
+    </g>
+    <g
+       id="g148">
+      <g
+         id="g146">
+        <g
+           id="g144">
+          <text
+             x="425"
+             y="136.96875"
+             style="font-style:normal;font-weight:400;font-size:21.6px;font-family:Arial, Helvetica, sans-serif;text-decoration:none;text-decoration-line:none;dominant-baseline:text-before-edge;white-space:pre;fill:#000000;fill-opacity:1;stroke:none"
+             id="text142">1</text>
+        </g>
+      </g>
+    </g>
+    <g
+       id="g156">
+      <g
+         id="g154">
+        <g
+           id="g152">
+          <text
+             x="460"
+             y="136.96875"
+             style="font-style:normal;font-weight:400;font-size:21.6px;font-family:Arial, Helvetica, sans-serif;text-decoration:none;text-decoration-line:none;dominant-baseline:text-before-edge;white-space:pre;fill:#000000;fill-opacity:1;stroke:none"
+             id="text150">1</text>
+        </g>
+      </g>
+    </g>
+    <g
+       id="g164">
+      <g
+         id="g162">
+        <g
+           id="g160">
+          <text
+             x="386"
+             y="176.96875"
+             style="font-style:normal;font-weight:400;font-size:21.6px;font-family:Arial, Helvetica, sans-serif;text-decoration:none;text-decoration-line:none;dominant-baseline:text-before-edge;white-space:pre;fill:#000000;fill-opacity:1;stroke:none"
+             id="text158">0</text>
+        </g>
+      </g>
+    </g>
+    <g
+       id="g172">
+      <g
+         id="g170">
+        <g
+           id="g168">
+          <text
+             x="425"
+             y="176.96875"
+             style="font-style:normal;font-weight:400;font-size:21.6px;font-family:Arial, Helvetica, sans-serif;text-decoration:none;text-decoration-line:none;dominant-baseline:text-before-edge;white-space:pre;fill:#000000;fill-opacity:1;stroke:none"
+             id="text166">0</text>
+        </g>
+      </g>
+    </g>
+    <g
+       id="g180">
+      <g
+         id="g178">
+        <g
+           id="g176">
+          <text
+             x="384"
+             y="214.96875"
+             style="font-style:normal;font-weight:400;font-size:21.6px;font-family:Arial, Helvetica, sans-serif;text-decoration:none;text-decoration-line:none;dominant-baseline:text-before-edge;white-space:pre;fill:#000000;fill-opacity:1;stroke:none"
+             id="text174">-1</text>
+        </g>
+      </g>
+    </g>
+    <g
+       id="g188">
+      <g
+         id="g186">
+        <g
+           id="g184">
+          <text
+             x="421"
+             y="214.96875"
+             style="font-style:normal;font-weight:400;font-size:21.6px;font-family:Arial, Helvetica, sans-serif;text-decoration:none;text-decoration-line:none;dominant-baseline:text-before-edge;white-space:pre;fill:#000000;fill-opacity:1;stroke:none"
+             id="text182">-1</text>
+        </g>
+      </g>
+    </g>
+    <g
+       id="g196">
+      <g
+         id="g194">
+        <g
+           id="g192">
+          <text
+             x="461"
+             y="175.96875"
+             style="font-style:normal;font-weight:400;font-size:21.6px;font-family:Arial, Helvetica, sans-serif;text-decoration:none;text-decoration-line:none;dominant-baseline:text-before-edge;white-space:pre;fill:#000000;fill-opacity:1;stroke:none"
+             id="text190">0</text>
+        </g>
+      </g>
+    </g>
+    <g
+       id="g204">
+      <g
+         id="g202">
+        <g
+           id="g200">
+          <text
+             x="459"
+             y="213.96875"
+             style="font-style:normal;font-weight:400;font-size:21.6px;font-family:Arial, Helvetica, sans-serif;text-decoration:none;text-decoration-line:none;dominant-baseline:text-before-edge;white-space:pre;fill:#000000;fill-opacity:1;stroke:none"
+             id="text198">-1</text>
+        </g>
+      </g>
+    </g>
+    <g
+       id="g212">
+      <g
+         id="g210">
+        <g
+           id="g208">
+          <text
+             x="593"
+             y="116.96875"
+             style="font-style:normal;font-weight:400;font-size:21.6px;font-family:Arial, Helvetica, sans-serif;text-decoration:none;text-decoration-line:none;dominant-baseline:text-before-edge;white-space:pre;fill:#000000;fill-opacity:1;stroke:none"
+             id="text206">0</text>
+        </g>
+      </g>
+    </g>
+    <g
+       id="g220">
+      <g
+         id="g218">
+        <g
+           id="g216">
+          <text
+             x="631"
+             y="116.96875"
+             style="font-style:normal;font-weight:400;font-size:21.6px;font-family:Arial, Helvetica, sans-serif;text-decoration:none;text-decoration-line:none;dominant-baseline:text-before-edge;white-space:pre;fill:#000000;fill-opacity:1;stroke:none"
+             id="text214">0</text>
+        </g>
+      </g>
+    </g>
+    <g
+       id="g228">
+      <g
+         id="g226">
+        <g
+           id="g224">
+          <text
+             x="707"
+             y="117.96875"
+             style="font-style:normal;font-weight:400;font-size:21.6px;font-family:Arial, Helvetica, sans-serif;text-decoration:none;text-decoration-line:none;dominant-baseline:text-before-edge;white-space:pre;fill:#000000;fill-opacity:1;stroke:none"
+             id="text222">0</text>
+        </g>
+      </g>
+    </g>
+    <g
+       id="g236">
+      <g
+         id="g234">
+        <g
+           id="g232">
+          <text
+             x="587"
+             y="156.96875"
+             style="font-style:normal;font-weight:400;font-size:21.6px;font-family:Arial, Helvetica, sans-serif;text-decoration:none;text-decoration-line:none;dominant-baseline:text-before-edge;white-space:pre;fill:#000000;fill-opacity:1;stroke:none"
+             id="text230">15</text>
+        </g>
+      </g>
+    </g>
+    <g
+       id="g244">
+      <g
+         id="g242">
+        <g
+           id="g240">
+          <text
+             x="594"
+             y="229.96875"
+             style="font-style:normal;font-weight:400;font-size:21.6px;font-family:Arial, Helvetica, sans-serif;text-decoration:none;text-decoration-line:none;dominant-baseline:text-before-edge;white-space:pre;fill:#000000;fill-opacity:1;stroke:none"
+             id="text238">0</text>
+        </g>
+      </g>
+    </g>
+    <g
+       id="g252">
+      <g
+         id="g250">
+        <g
+           id="g248">
+          <text
+             x="523"
+             y="159.32812"
+             style="font-style:normal;font-weight:400;font-size:49.9995px;font-family:Arial, Helvetica, sans-serif;text-decoration:none;text-decoration-line:none;dominant-baseline:text-before-edge;white-space:pre;fill:#000000;fill-opacity:1;stroke:none"
+             id="text246">=</text>
+        </g>
+      </g>
+    </g>
+    <g
+       id="g274">
+      <g
+         id="g272">
+        <g
+           id="g258">
+          <g
+             transform="translate(155,331.72812)"
+             id="g256">
+            <path
+               transform="scale(0.0204,-0.0204)"
+               d="m 131,331 c 21,181 110,280 290,334 l -42,24 C 283,657 242,637 191,593 88,506 32,384 32,247 32,82 112,-20 241,-20 c 130,0 227,103 227,239 0,115 -69,190 -175,190 -77,0 -109,-39 -162,-78 z m 124,18 C 331,349 382,283 382,184 382,80 331,13 254,13 169,13 123,86 123,220 c 0,35 4,54 15,71 22,34 69,58 117,58 z"
+               stroke="#000000"
+               stroke-opacity="1"
+               stroke-width="8"
+               fill="#000000"
+               fill-opacity="1"
+               id="path254" />
+          </g>
+        </g>
+        <g
+           id="g264">
+          <g
+             transform="translate(169.25775,331.72812)"
+             id="g262">
+            <path
+               transform="scale(0.0204,-0.0204)"
+               d="M 611,37 376,271 611,505 568,547 335,313 101,547 59,505 293,271 59,37 101,-5 335,229 568,-5 Z"
+               stroke="#000000"
+               stroke-opacity="1"
+               stroke-width="8"
+               fill="#000000"
+               fill-opacity="1"
+               id="path260" />
+          </g>
+        </g>
+        <g
+           id="g270">
+          <g
+             transform="translate(186.96307,331.72812)"
+             id="g268">
+            <path
+               transform="scale(0.0204,-0.0204)"
+               d="m 131,331 c 21,181 110,280 290,334 l -42,24 C 283,657 242,637 191,593 88,506 32,384 32,247 32,82 112,-20 241,-20 c 130,0 227,103 227,239 0,115 -69,190 -175,190 -77,0 -109,-39 -162,-78 z m 124,18 C 331,349 382,283 382,184 382,80 331,13 254,13 169,13 123,86 123,220 c 0,35 4,54 15,71 22,34 69,58 117,58 z"
+               stroke="#000000"
+               stroke-opacity="1"
+               stroke-width="8"
+               fill="#000000"
+               fill-opacity="1"
+               id="path266" />
+          </g>
+        </g>
+      </g>
+    </g>
+    <g
+       id="g296">
+      <g
+         id="g294">
+        <g
+           id="g280">
+          <g
+             transform="translate(407,273.72812)"
+             id="g278">
+            <path
+               transform="scale(0.0204,-0.0204)"
+               d="m 462,224 c 0,121 -107,142 -154,150 80,62 110,108 110,167 0,89 -74,148 -185,148 -68,0 -113,-19 -161,-67 L 43,498 h 31 l 18,56 c 11,34 74,68 126,68 65,0 118,-53 118,-116 0,-75 -59,-138 -130,-138 -8,0 -19,1 -32,2 l -15,1 -12,-53 7,-6 c 38,17 57,22 84,22 83,0 131,-53 131,-144 C 369,88 308,21 215,21 169,21 128,36 98,64 74,86 61,109 42,163 L 15,153 C 36,92 44,56 50,6 c 53,-18 97,-26 134,-26 123,0 278,107 278,244 z"
+               stroke="#000000"
+               stroke-opacity="1"
+               stroke-width="8"
+               fill="#000000"
+               fill-opacity="1"
+               id="path276" />
+          </g>
+        </g>
+        <g
+           id="g286">
+          <g
+             transform="translate(421.25775,273.72812)"
+             id="g284">
+            <path
+               transform="scale(0.0204,-0.0204)"
+               d="M 611,37 376,271 611,505 568,547 335,313 101,547 59,505 293,271 59,37 101,-5 335,229 568,-5 Z"
+               stroke="#000000"
+               stroke-opacity="1"
+               stroke-width="8"
+               fill="#000000"
+               fill-opacity="1"
+               id="path282" />
+          </g>
+        </g>
+        <g
+           id="g292">
+          <g
+             transform="translate(438.96307,273.72812)"
+             id="g290">
+            <path
+               transform="scale(0.0204,-0.0204)"
+               d="m 462,224 c 0,121 -107,142 -154,150 80,62 110,108 110,167 0,89 -74,148 -185,148 -68,0 -113,-19 -161,-67 L 43,498 h 31 l 18,56 c 11,34 74,68 126,68 65,0 118,-53 118,-116 0,-75 -59,-138 -130,-138 -8,0 -19,1 -32,2 l -15,1 -12,-53 7,-6 c 38,17 57,22 84,22 83,0 131,-53 131,-144 C 369,88 308,21 215,21 169,21 128,36 98,64 74,86 61,109 42,163 L 15,153 C 36,92 44,56 50,6 c 53,-18 97,-26 134,-26 123,0 278,107 278,244 z"
+               stroke="#000000"
+               stroke-opacity="1"
+               stroke-width="8"
+               fill="#000000"
+               fill-opacity="1"
+               id="path288" />
+          </g>
+        </g>
+      </g>
+    </g>
+    <g
+       id="g304">
+      <g
+         id="g302">
+        <g
+           id="g300">
+          <text
+             x="388"
+             y="284.32812"
+             style="font-style:normal;font-weight:400;font-size:19.9995px;font-family:Arial, Helvetica, sans-serif;text-decoration:none;text-decoration-line:none;dominant-baseline:text-before-edge;white-space:pre;fill:#000000;fill-opacity:1;stroke:none"
+             id="text298">horizontal</text>
+        </g>
+      </g>
+    </g>
+    <g
+       id="g326">
+      <g
+         id="g324">
+        <g
+           id="g310">
+          <g
+             transform="translate(644,291.72812)"
+             id="g308">
+            <path
+               transform="scale(0.0204,-0.0204)"
+               d="M 280,181 V 106 C 280,46 269,32 220,30 L 158,27 V -3 c 133,3 133,3 157,3 24,0 24,0 157,-3 v 30 l -48,3 c -49,3 -60,16 -60,76 v 75 c 59,0 80,-1 108,-4 v 71 L 364,245 365,697 285,667 2,204 v -23 z m 0,64 H 65 l 215,352 z"
+               stroke="#000000"
+               stroke-opacity="1"
+               stroke-width="8"
+               fill="#000000"
+               fill-opacity="1"
+               id="path306" />
+          </g>
+        </g>
+        <g
+           id="g316">
+          <g
+             transform="translate(658.25769,291.72812)"
+             id="g314">
+            <path
+               transform="scale(0.0204,-0.0204)"
+               d="M 611,37 376,271 611,505 568,547 335,313 101,547 59,505 293,271 59,37 101,-5 335,229 568,-5 Z"
+               stroke="#000000"
+               stroke-opacity="1"
+               stroke-width="8"
+               fill="#000000"
+               fill-opacity="1"
+               id="path312" />
+          </g>
+        </g>
+        <g
+           id="g322">
+          <g
+             transform="translate(675.96301,291.72812)"
+             id="g320">
+            <path
+               transform="scale(0.0204,-0.0204)"
+               d="M 280,181 V 106 C 280,46 269,32 220,30 L 158,27 V -3 c 133,3 133,3 157,3 24,0 24,0 157,-3 v 30 l -48,3 c -49,3 -60,16 -60,76 v 75 c 59,0 80,-1 108,-4 v 71 L 364,245 365,697 285,667 2,204 v -23 z m 0,64 H 65 l 215,352 z"
+               stroke="#000000"
+               stroke-opacity="1"
+               stroke-width="8"
+               fill="#000000"
+               fill-opacity="1"
+               id="path318" />
+          </g>
+        </g>
+      </g>
+    </g>
+    <g
+       id="g334">
+      <g
+         id="g332">
+        <g
+           id="g330">
+          <text
+             x="708"
+             y="232.96875"
+             style="font-style:normal;font-weight:400;font-size:21.6px;font-family:Arial, Helvetica, sans-serif;text-decoration:none;text-decoration-line:none;dominant-baseline:text-before-edge;white-space:pre;fill:#000000;fill-opacity:1;stroke:none"
+             id="text328">0</text>
+        </g>
+      </g>
+    </g>
+    <g
+       id="g342">
+      <g
+         id="g340">
+        <g
+           id="g338">
+          <text
+             x="195"
+             y="75.6875"
+             style="font-style:normal;font-weight:400;font-size:21.6px;font-family:Arial, Helvetica, sans-serif;text-decoration:none;text-decoration-line:none;dominant-baseline:text-before-edge;white-space:pre;fill:#000000;fill-opacity:1;stroke:none"
+             id="text336">0</text>
+        </g>
+      </g>
+    </g>
+    <g
+       id="g350">
+      <g
+         id="g348">
+        <g
+           id="g346">
+          <text
+             x="195"
+             y="114.6875"
+             style="font-style:normal;font-weight:400;font-size:21.6px;font-family:Arial, Helvetica, sans-serif;text-decoration:none;text-decoration-line:none;dominant-baseline:text-before-edge;white-space:pre;fill:#000000;fill-opacity:1;stroke:none"
+             id="text344">0</text>
+        </g>
+      </g>
+    </g>
+    <g
+       id="g358">
+      <g
+         id="g356">
+        <g
+           id="g354">
+          <text
+             x="195"
+             y="152.6875"
+             style="font-style:normal;font-weight:400;font-size:21.6px;font-family:Arial, Helvetica, sans-serif;text-decoration:none;text-decoration-line:none;dominant-baseline:text-before-edge;white-space:pre;fill:#000000;fill-opacity:1;stroke:none"
+             id="text352">0</text>
+        </g>
+      </g>
+    </g>
+    <g
+       id="g366">
+      <g
+         id="g364">
+        <g
+           id="g362">
+          <text
+             x="77"
+             y="192.6875"
+             style="font-style:normal;font-weight:400;font-size:21.6px;font-family:Arial, Helvetica, sans-serif;text-decoration:none;text-decoration-line:none;dominant-baseline:text-before-edge;white-space:pre;fill:#000000;fill-opacity:1;stroke:none"
+             id="text360">0</text>
+        </g>
+      </g>
+    </g>
+    <g
+       id="g374">
+      <g
+         id="g372">
+        <g
+           id="g370">
+          <text
+             x="77"
+             y="232.6875"
+             style="font-style:normal;font-weight:400;font-size:21.6px;font-family:Arial, Helvetica, sans-serif;text-decoration:none;text-decoration-line:none;dominant-baseline:text-before-edge;white-space:pre;fill:#000000;fill-opacity:1;stroke:none"
+             id="text368">0</text>
+        </g>
+      </g>
+    </g>
+    <g
+       id="g382">
+      <g
+         id="g380">
+        <g
+           id="g378">
+          <text
+             x="77"
+             y="270.6875"
+             style="font-style:normal;font-weight:400;font-size:21.6px;font-family:Arial, Helvetica, sans-serif;text-decoration:none;text-decoration-line:none;dominant-baseline:text-before-edge;white-space:pre;fill:#000000;fill-opacity:1;stroke:none"
+             id="text376">0</text>
+        </g>
+      </g>
+    </g>
+    <g
+       id="g390">
+      <g
+         id="g388">
+        <g
+           id="g386">
+          <text
+             x="155"
+             y="77.328125"
+             style="font-style:normal;font-weight:400;font-size:21.6px;font-family:Arial, Helvetica, sans-serif;text-decoration:none;text-decoration-line:none;dominant-baseline:text-before-edge;white-space:pre;fill:#000000;fill-opacity:1;stroke:none"
+             id="text384">5</text>
+        </g>
+      </g>
+    </g>
+    <g
+       id="g398">
+      <g
+         id="g396">
+        <g
+           id="g394">
+          <text
+             x="155"
+             y="116.32812"
+             style="font-style:normal;font-weight:400;font-size:21.6px;font-family:Arial, Helvetica, sans-serif;text-decoration:none;text-decoration-line:none;dominant-baseline:text-before-edge;white-space:pre;fill:#000000;fill-opacity:1;stroke:none"
+             id="text392">5</text>
+        </g>
+      </g>
+    </g>
+    <g
+       id="g406">
+      <g
+         id="g404">
+        <g
+           id="g402">
+          <text
+             x="155"
+             y="154.32812"
+             style="font-style:normal;font-weight:400;font-size:21.6px;font-family:Arial, Helvetica, sans-serif;text-decoration:none;text-decoration-line:none;dominant-baseline:text-before-edge;white-space:pre;fill:#000000;fill-opacity:1;stroke:none"
+             id="text400">5</text>
+        </g>
+      </g>
+    </g>
+    <g
+       id="g414">
+      <g
+         id="g412">
+        <g
+           id="g410">
+          <text
+             x="269"
+             y="190.32812"
+             style="font-style:normal;font-weight:400;font-size:21.6px;font-family:Arial, Helvetica, sans-serif;text-decoration:none;text-decoration-line:none;dominant-baseline:text-before-edge;white-space:pre;fill:#000000;fill-opacity:1;stroke:none"
+             id="text408">5</text>
+        </g>
+      </g>
+    </g>
+    <g
+       id="g422">
+      <g
+         id="g420">
+        <g
+           id="g418">
+          <text
+             x="269"
+             y="228.32812"
+             style="font-style:normal;font-weight:400;font-size:21.6px;font-family:Arial, Helvetica, sans-serif;text-decoration:none;text-decoration-line:none;dominant-baseline:text-before-edge;white-space:pre;fill:#000000;fill-opacity:1;stroke:none"
+             id="text416">5</text>
+        </g>
+      </g>
+    </g>
+    <g
+       id="g430">
+      <g
+         id="g428">
+        <g
+           id="g426">
+          <text
+             x="269"
+             y="266.32812"
+             style="font-style:normal;font-weight:400;font-size:21.6px;font-family:Arial, Helvetica, sans-serif;text-decoration:none;text-decoration-line:none;dominant-baseline:text-before-edge;white-space:pre;fill:#000000;fill-opacity:1;stroke:none"
+             id="text424">5</text>
+        </g>
+      </g>
+    </g>
+    <g
+       id="g438">
+      <g
+         id="g436">
+        <g
+           id="g434">
+          <text
+             x="270"
+             y="76.65625"
+             style="font-style:normal;font-weight:400;font-size:21.6px;font-family:Arial, Helvetica, sans-serif;text-decoration:none;text-decoration-line:none;dominant-baseline:text-before-edge;white-space:pre;fill:#000000;fill-opacity:1;stroke:none"
+             id="text432">0</text>
+        </g>
+      </g>
+    </g>
+    <g
+       id="g446">
+      <g
+         id="g444">
+        <g
+           id="g442">
+          <text
+             x="270"
+             y="115.65625"
+             style="font-style:normal;font-weight:400;font-size:21.6px;font-family:Arial, Helvetica, sans-serif;text-decoration:none;text-decoration-line:none;dominant-baseline:text-before-edge;white-space:pre;fill:#000000;fill-opacity:1;stroke:none"
+             id="text440">0</text>
+        </g>
+      </g>
+    </g>
+    <g
+       id="g454">
+      <g
+         id="g452">
+        <g
+           id="g450">
+          <text
+             x="270"
+             y="153.65625"
+             style="font-style:normal;font-weight:400;font-size:21.6px;font-family:Arial, Helvetica, sans-serif;text-decoration:none;text-decoration-line:none;dominant-baseline:text-before-edge;white-space:pre;fill:#000000;fill-opacity:1;stroke:none"
+             id="text448">0</text>
+        </g>
+      </g>
+    </g>
+    <g
+       id="g462">
+      <g
+         id="g460">
+        <g
+           id="g458">
+          <text
+             x="152"
+             y="193.65625"
+             style="font-style:normal;font-weight:400;font-size:21.6px;font-family:Arial, Helvetica, sans-serif;text-decoration:none;text-decoration-line:none;dominant-baseline:text-before-edge;white-space:pre;fill:#000000;fill-opacity:1;stroke:none"
+             id="text456">0</text>
+        </g>
+      </g>
+    </g>
+    <g
+       id="g470">
+      <g
+         id="g468">
+        <g
+           id="g466">
+          <text
+             x="152"
+             y="233.65625"
+             style="font-style:normal;font-weight:400;font-size:21.6px;font-family:Arial, Helvetica, sans-serif;text-decoration:none;text-decoration-line:none;dominant-baseline:text-before-edge;white-space:pre;fill:#000000;fill-opacity:1;stroke:none"
+             id="text464">0</text>
+        </g>
+      </g>
+    </g>
+    <g
+       id="g478">
+      <g
+         id="g476">
+        <g
+           id="g474">
+          <text
+             x="152"
+             y="271.65625"
+             style="font-style:normal;font-weight:400;font-size:21.6px;font-family:Arial, Helvetica, sans-serif;text-decoration:none;text-decoration-line:none;dominant-baseline:text-before-edge;white-space:pre;fill:#000000;fill-opacity:1;stroke:none"
+             id="text472">0</text>
+        </g>
+      </g>
+    </g>
+    <g
+       id="g486">
+      <g
+         id="g484">
+        <g
+           id="g482">
+          <text
+             x="233"
+             y="76.65625"
+             style="font-style:normal;font-weight:400;font-size:21.6px;font-family:Arial, Helvetica, sans-serif;text-decoration:none;text-decoration-line:none;dominant-baseline:text-before-edge;white-space:pre;fill:#000000;fill-opacity:1;stroke:none"
+             id="text480">0</text>
+        </g>
+      </g>
+    </g>
+    <g
+       id="g494">
+      <g
+         id="g492">
+        <g
+           id="g490">
+          <text
+             x="233"
+             y="115.65625"
+             style="font-style:normal;font-weight:400;font-size:21.6px;font-family:Arial, Helvetica, sans-serif;text-decoration:none;text-decoration-line:none;dominant-baseline:text-before-edge;white-space:pre;fill:#000000;fill-opacity:1;stroke:none"
+             id="text488">0</text>
+        </g>
+      </g>
+    </g>
+    <g
+       id="g502">
+      <g
+         id="g500">
+        <g
+           id="g498">
+          <text
+             x="233"
+             y="153.65625"
+             style="font-style:normal;font-weight:400;font-size:21.6px;font-family:Arial, Helvetica, sans-serif;text-decoration:none;text-decoration-line:none;dominant-baseline:text-before-edge;white-space:pre;fill:#000000;fill-opacity:1;stroke:none"
+             id="text496">0</text>
+        </g>
+      </g>
+    </g>
+    <g
+       id="g510">
+      <g
+         id="g508">
+        <g
+           id="g506">
+          <text
+             x="115"
+             y="193.65625"
+             style="font-style:normal;font-weight:400;font-size:21.6px;font-family:Arial, Helvetica, sans-serif;text-decoration:none;text-decoration-line:none;dominant-baseline:text-before-edge;white-space:pre;fill:#000000;fill-opacity:1;stroke:none"
+             id="text504">0</text>
+        </g>
+      </g>
+    </g>
+    <g
+       id="g518">
+      <g
+         id="g516">
+        <g
+           id="g514">
+          <text
+             x="115"
+             y="233.65625"
+             style="font-style:normal;font-weight:400;font-size:21.6px;font-family:Arial, Helvetica, sans-serif;text-decoration:none;text-decoration-line:none;dominant-baseline:text-before-edge;white-space:pre;fill:#000000;fill-opacity:1;stroke:none"
+             id="text512">0</text>
+        </g>
+      </g>
+    </g>
+    <g
+       id="g526">
+      <g
+         id="g524">
+        <g
+           id="g522">
+          <text
+             x="115"
+             y="271.65625"
+             style="font-style:normal;font-weight:400;font-size:21.6px;font-family:Arial, Helvetica, sans-serif;text-decoration:none;text-decoration-line:none;dominant-baseline:text-before-edge;white-space:pre;fill:#000000;fill-opacity:1;stroke:none"
+             id="text520">0</text>
+        </g>
+      </g>
+    </g>
+    <g
+       id="g534">
+      <g
+         id="g532">
+        <g
+           id="g530">
+          <text
+             x="118"
+             y="77.65625"
+             style="font-style:normal;font-weight:400;font-size:21.6px;font-family:Arial, Helvetica, sans-serif;text-decoration:none;text-decoration-line:none;dominant-baseline:text-before-edge;white-space:pre;fill:#000000;fill-opacity:1;stroke:none"
+             id="text528">5</text>
+        </g>
+      </g>
+    </g>
+    <g
+       id="g542">
+      <g
+         id="g540">
+        <g
+           id="g538">
+          <text
+             x="118"
+             y="116.65625"
+             style="font-style:normal;font-weight:400;font-size:21.6px;font-family:Arial, Helvetica, sans-serif;text-decoration:none;text-decoration-line:none;dominant-baseline:text-before-edge;white-space:pre;fill:#000000;fill-opacity:1;stroke:none"
+             id="text536">5</text>
+        </g>
+      </g>
+    </g>
+    <g
+       id="g550">
+      <g
+         id="g548">
+        <g
+           id="g546">
+          <text
+             x="118"
+             y="154.65625"
+             style="font-style:normal;font-weight:400;font-size:21.6px;font-family:Arial, Helvetica, sans-serif;text-decoration:none;text-decoration-line:none;dominant-baseline:text-before-edge;white-space:pre;fill:#000000;fill-opacity:1;stroke:none"
+             id="text544">5</text>
+        </g>
+      </g>
+    </g>
+    <g
+       id="g558">
+      <g
+         id="g556">
+        <g
+           id="g554">
+          <text
+             x="232"
+             y="191.65625"
+             style="font-style:normal;font-weight:400;font-size:21.6px;font-family:Arial, Helvetica, sans-serif;text-decoration:none;text-decoration-line:none;dominant-baseline:text-before-edge;white-space:pre;fill:#000000;fill-opacity:1;stroke:none"
+             id="text552">5</text>
+        </g>
+      </g>
+    </g>
+    <g
+       id="g566">
+      <g
+         id="g564">
+        <g
+           id="g562">
+          <text
+             x="232"
+             y="228.65625"
+             style="font-style:normal;font-weight:400;font-size:21.6px;font-family:Arial, Helvetica, sans-serif;text-decoration:none;text-decoration-line:none;dominant-baseline:text-before-edge;white-space:pre;fill:#000000;fill-opacity:1;stroke:none"
+             id="text560">5</text>
+        </g>
+      </g>
+    </g>
+    <g
+       id="g574">
+      <g
+         id="g572">
+        <g
+           id="g570">
+          <text
+             x="232"
+             y="266.65625"
+             style="font-style:normal;font-weight:400;font-size:21.6px;font-family:Arial, Helvetica, sans-serif;text-decoration:none;text-decoration-line:none;dominant-baseline:text-before-edge;white-space:pre;fill:#000000;fill-opacity:1;stroke:none"
+             id="text568">5</text>
+        </g>
+      </g>
+    </g>
+    <g
+       id="g582">
+      <g
+         id="g580">
+        <g
+           id="g578">
+          <text
+             x="632"
+             y="155.96875"
+             style="font-style:normal;font-weight:400;font-size:21.6px;font-family:Arial, Helvetica, sans-serif;text-decoration:none;text-decoration-line:none;dominant-baseline:text-before-edge;white-space:pre;fill:#000000;fill-opacity:1;stroke:none"
+             id="text576">5</text>
+        </g>
+      </g>
+    </g>
+    <g
+       id="g590">
+      <g
+         id="g588">
+        <g
+           id="g586">
+          <text
+             x="633"
+             y="230.96875"
+             style="font-style:normal;font-weight:400;font-size:21.6px;font-family:Arial, Helvetica, sans-serif;text-decoration:none;text-decoration-line:none;dominant-baseline:text-before-edge;white-space:pre;fill:#000000;fill-opacity:1;stroke:none"
+             id="text584">0</text>
+        </g>
+      </g>
+    </g>
+    <g
+       id="g598">
+      <g
+         id="g596">
+        <g
+           id="g594">
+          <text
+             x="669"
+             y="117.96875"
+             style="font-style:normal;font-weight:400;font-size:21.6px;font-family:Arial, Helvetica, sans-serif;text-decoration:none;text-decoration-line:none;dominant-baseline:text-before-edge;white-space:pre;fill:#000000;fill-opacity:1;stroke:none"
+             id="text592">0</text>
+        </g>
+      </g>
+    </g>
+    <g
+       id="g606">
+      <g
+         id="g604">
+        <g
+           id="g602">
+          <text
+             x="664"
+             y="155.96875"
+             style="font-style:normal;font-weight:400;font-size:21.6px;font-family:Arial, Helvetica, sans-serif;text-decoration:none;text-decoration-line:none;dominant-baseline:text-before-edge;white-space:pre;fill:#000000;fill-opacity:1;stroke:none"
+             id="text600">-5</text>
+        </g>
+      </g>
+    </g>
+    <g
+       id="g614">
+      <g
+         id="g612">
+        <g
+           id="g610">
+          <text
+             x="669"
+             y="230.96875"
+             style="font-style:normal;font-weight:400;font-size:21.6px;font-family:Arial, Helvetica, sans-serif;text-decoration:none;text-decoration-line:none;dominant-baseline:text-before-edge;white-space:pre;fill:#000000;fill-opacity:1;stroke:none"
+             id="text608">0</text>
+        </g>
+      </g>
+    </g>
+    <g
+       id="g622">
+      <g
+         id="g620">
+        <g
+           id="g618">
+          <text
+             x="328"
+             y="24.6875"
+             style="font-style:normal;font-weight:400;font-size:21.6px;font-family:Arial, Helvetica, sans-serif;text-decoration:none;text-decoration-line:none;dominant-baseline:text-before-edge;white-space:pre;fill:#000000;fill-opacity:1;stroke:none"
+             id="text616">Horizontal edge detection</text>
+        </g>
+      </g>
+    </g>
+    <g
+       id="g630">
+      <g
+         id="g628">
+        <g
+           id="g626">
+          <text
+             x="699"
+             y="155.96875"
+             style="font-style:normal;font-weight:400;font-size:21.6px;font-family:Arial, Helvetica, sans-serif;text-decoration:none;text-decoration-line:none;dominant-baseline:text-before-edge;white-space:pre;fill:#000000;fill-opacity:1;stroke:none"
+             id="text624">-15</text>
+        </g>
+      </g>
+    </g>
+    <g
+       id="g638">
+      <g
+         id="g636">
+        <g
+           id="g634">
+          <text
+             x="587"
+             y="192.96875"
+             style="font-style:normal;font-weight:400;font-size:21.6px;font-family:Arial, Helvetica, sans-serif;text-decoration:none;text-decoration-line:none;dominant-baseline:text-before-edge;white-space:pre;fill:#000000;fill-opacity:1;stroke:none"
+             id="text632">15</text>
+        </g>
+      </g>
+    </g>
+    <g
+       id="g646">
+      <g
+         id="g644">
+        <g
+           id="g642">
+          <text
+             x="632"
+             y="191.96875"
+             style="font-style:normal;font-weight:400;font-size:21.6px;font-family:Arial, Helvetica, sans-serif;text-decoration:none;text-decoration-line:none;dominant-baseline:text-before-edge;white-space:pre;fill:#000000;fill-opacity:1;stroke:none"
+             id="text640">5</text>
+        </g>
+      </g>
+    </g>
+    <g
+       id="g654">
+      <g
+         id="g652">
+        <g
+           id="g650">
+          <text
+             x="664"
+             y="191.96875"
+             style="font-style:normal;font-weight:400;font-size:21.6px;font-family:Arial, Helvetica, sans-serif;text-decoration:none;text-decoration-line:none;dominant-baseline:text-before-edge;white-space:pre;fill:#000000;fill-opacity:1;stroke:none"
+             id="text648">-5</text>
+        </g>
+      </g>
+    </g>
+    <g
+       id="g662">
+      <g
+         id="g660">
+        <g
+           id="g658">
+          <text
+             x="698"
+             y="190.96875"
+             style="font-style:normal;font-weight:400;font-size:21.6px;font-family:Arial, Helvetica, sans-serif;text-decoration:none;text-decoration-line:none;dominant-baseline:text-before-edge;white-space:pre;fill:#000000;fill-opacity:1;stroke:none"
+             id="text656">-15</text>
+        </g>
+      </g>
+    </g>
+  </svg>
+</svg>

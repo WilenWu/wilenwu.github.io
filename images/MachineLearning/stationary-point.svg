@@ -1,0 +1,186 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg
+   x="0"
+   y="0"
+   width="410"
+   height="270"
+   style="fill:none"
+   version="1.1"
+   id="svg159"
+   sodipodi:docname="stationary-point.svg.svg"
+   inkscape:version="1.1.2 (b8e25be833, 2022-02-05)"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg">
+  <defs
+     id="defs163" />
+  <sodipodi:namedview
+     id="namedview161"
+     pagecolor="#ffffff"
+     bordercolor="#666666"
+     borderopacity="1.0"
+     inkscape:pageshadow="2"
+     inkscape:pageopacity="0.0"
+     inkscape:pagecheckerboard="0"
+     showgrid="false"
+     inkscape:zoom="1.454637"
+     inkscape:cx="330.66669"
+     inkscape:cy="134.74152"
+     inkscape:window-width="1920"
+     inkscape:window-height="986"
+     inkscape:window-x="-11"
+     inkscape:window-y="-11"
+     inkscape:window-maximized="1"
+     inkscape:current-layer="svg159" />
+  <svg
+     version="1.1"
+     id="svg87"
+     width="100%"
+     height="100%" />
+  <svg
+     class="role-diagram-draw-area"
+     version="1.1"
+     id="svg131"
+     width="100%"
+     height="100%">
+    <g
+       class="shapes-region"
+       style="fill:none;stroke:#000000"
+       id="g123">
+      <g
+         class="composite-shape"
+         id="g91">
+        <path
+           class="real"
+           d="M 15,16 H 392.33 V 252 H 15 Z"
+           style="fill:none;fill-opacity:1;stroke:#000000;stroke-width:1"
+           id="path89" />
+      </g>
+      <g
+         class="arrow-line"
+         id="g95">
+        <path
+           class="connection real"
+           stroke-dasharray="none"
+           d="m 46.62,140 c 38.99,-10 19.5,-42 58.49,-58 38.99,-16 23.39,83 61.08,102 37.69,19 31.19,-64 102.68,-66 71.48,-2 51.98,-51 97.47,-72"
+           style="fill:none;fill-opacity:1;stroke:#000000;stroke-width:1"
+           id="path93" />
+      </g>
+      <g
+         class="arrow-line"
+         id="g103">
+        <path
+           class="connection real"
+           stroke-dasharray="none"
+           d="m 120.71,52 -7.13,20.11"
+           style="fill:none;fill-opacity:1;stroke:#000000;stroke-width:1"
+           id="path97" />
+        <g
+           stroke="#000"
+           transform="rotate(-70.48,108.82686,-42.909698)"
+           style="stroke:#000000;stroke-width:1"
+           id="g101">
+          <path
+             d="M 10.93,-3.29 Q 4.96,-0.45 0,0 4.96,0.45 10.93,3.29"
+             id="path99" />
+        </g>
+      </g>
+      <g
+         class="arrow-line"
+         id="g111">
+        <path
+           class="connection real"
+           stroke-dasharray="none"
+           d="m 170.09,214 7.13,-20.11"
+           style="fill:none;fill-opacity:1;stroke:#000000;stroke-width:1"
+           id="path105" />
+        <g
+           stroke="#000"
+           transform="rotate(109.52,21.124099,158.83689)"
+           style="stroke:#000000;stroke-width:1"
+           id="g109">
+          <path
+             d="M 10.93,-3.29 Q 4.96,-0.45 0,0 4.96,0.45 10.93,3.29"
+             id="path107" />
+        </g>
+      </g>
+      <g
+         class="arrow-line"
+         id="g119">
+        <path
+           class="connection real"
+           stroke-dasharray="none"
+           d="m 281.86,147 -5.88,-18.1"
+           style="fill:none;fill-opacity:1;stroke:#000000;stroke-width:1"
+           id="path113" />
+        <g
+           stroke="#000"
+           transform="rotate(72,50.281903,253.00323)"
+           style="stroke:#000000;stroke-width:1"
+           id="g117">
+          <path
+             d="M 10.93,-3.29 Q 4.96,-0.45 0,0 4.96,0.45 10.93,3.29"
+             id="path115" />
+        </g>
+      </g>
+      <g
+         id="g121" />
+    </g>
+    <g
+       id="g125" />
+    <g
+       id="g127" />
+    <g
+       id="g129" />
+  </svg>
+  <svg
+     width="660"
+     height="268.66669"
+     style="font-family:Asana-Math, Asana"
+     version="1.1"
+     id="svg157">
+    <g
+       id="g139">
+      <g
+         id="g137">
+        <g
+           id="g135">
+          <text
+             x="138.02081"
+             y="218.66669"
+             style="font-style:normal;font-weight:400;font-size:15px;font-family:Arial, Helvetica, sans-serif;text-decoration:none;text-decoration-line:none;text-decoration-style:solid;text-decoration-color:#000000;dominant-baseline:text-before-edge;white-space:pre;fill:#000000;fill-opacity:1;stroke:none"
+             id="text133">Minimum</text>
+        </g>
+      </g>
+    </g>
+    <g
+       id="g147">
+      <g
+         id="g145">
+        <g
+           id="g143">
+          <text
+             x="93.135406"
+             y="33.666687"
+             style="font-style:normal;font-weight:400;font-size:15px;font-family:Arial, Helvetica, sans-serif;text-decoration:none;text-decoration-line:none;text-decoration-style:solid;text-decoration-color:#000000;dominant-baseline:text-before-edge;white-space:pre;fill:#000000;fill-opacity:1;stroke:none"
+             id="text141">Maximum</text>
+        </g>
+      </g>
+    </g>
+    <g
+       id="g155">
+      <g
+         id="g153">
+        <g
+           id="g151">
+          <text
+             x="240.23956"
+             y="149.66669"
+             style="font-style:normal;font-weight:400;font-size:15px;font-family:Arial, Helvetica, sans-serif;text-decoration:none;text-decoration-line:none;text-decoration-style:solid;text-decoration-color:#000000;dominant-baseline:text-before-edge;white-space:pre;fill:#000000;fill-opacity:1;stroke:none"
+             id="text149">Saddle point</text>
+        </g>
+      </g>
+    </g>
+  </svg>
+</svg>

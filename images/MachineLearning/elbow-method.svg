@@ -1,0 +1,283 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg
+   x="0"
+   y="0"
+   width="310"
+   height="302"
+   style="fill:none"
+   version="1.1"
+   id="svg247"
+   sodipodi:docname="elbow-method.svg"
+   inkscape:version="1.1.2 (b8e25be833, 2022-02-05)"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg">
+  <defs
+     id="defs251" />
+  <sodipodi:namedview
+     id="namedview249"
+     pagecolor="#ffffff"
+     bordercolor="#666666"
+     borderopacity="1.0"
+     inkscape:pageshadow="2"
+     inkscape:pageopacity="0.0"
+     inkscape:pagecheckerboard="0"
+     showgrid="false"
+     inkscape:zoom="1.4531722"
+     inkscape:cx="331"
+     inkscape:cy="150.70478"
+     inkscape:window-width="1920"
+     inkscape:window-height="986"
+     inkscape:window-x="-11"
+     inkscape:window-y="-11"
+     inkscape:window-maximized="1"
+     inkscape:current-layer="svg247" />
+  <svg
+     version="1.1"
+     id="svg131"
+     width="100%"
+     height="100%" />
+  <svg
+     class="role-diagram-draw-area"
+     version="1.1"
+     id="svg167"
+     width="100%"
+     height="100%">
+    <g
+       class="shapes-region"
+       style="fill:none;stroke:#000000"
+       id="g159">
+      <g
+         class="composite-shape axis2d"
+         style="stroke:#000000;stroke-width:1"
+         id="g139">
+        <path
+           class="real"
+           d="M 40,243 H 297 M 40,47.67 V 243 Z"
+           id="path133" />
+        <path
+           d="m 290,238 7,5 -7,5"
+           id="path135" />
+        <path
+           d="m 35,54.67 5,-7 5,7"
+           id="path137" />
+      </g>
+      <g
+         class="arrow-line"
+         id="g143">
+        <path
+           class="connection real"
+           stroke-dasharray="none"
+           d="m 40,243 228,-0.33 m -187.01,-3.73 0.02,8 m 40.98,-8.06 0.02,8 m 40.98,-8.06 0.02,8 m 40.98,-8.06 0.02,8 m 40.98,-8.06 0.02,8"
+           style="fill:none;fill-opacity:1;stroke:#000000;stroke-width:1"
+           id="path141" />
+      </g>
+      <g
+         class="arrow-line"
+         id="g147">
+        <path
+           class="connection real"
+           stroke-dasharray="none"
+           d="m 54,80.33 c 29,129 34,140 206,145"
+           style="fill:none;fill-opacity:1;stroke:#000000;stroke-width:2"
+           id="path145" />
+      </g>
+      <g
+         class="arrow-line"
+         id="g155">
+        <path
+           class="connection real"
+           stroke-dasharray="none"
+           d="m 133,158.33 -20.92,21.84"
+           style="fill:none;fill-opacity:1;stroke:#000000;stroke-width:1"
+           id="path149" />
+        <g
+           stroke="none"
+           transform="rotate(-46.22,268.63393,-37.716695)"
+           style="fill:#000000;stroke:none;stroke-width:1"
+           fill="#000"
+           id="g153">
+          <path
+             d="M 8.93,-4.29 0,0 8.93,4.29 Z"
+             id="path151" />
+        </g>
+      </g>
+      <g
+         id="g157" />
+    </g>
+    <g
+       id="g161" />
+    <g
+       id="g163" />
+    <g
+       id="g165" />
+  </svg>
+  <svg
+     width="660"
+     height="300"
+     style="font-family:Asana-Math, Asana"
+     version="1.1"
+     id="svg245">
+    <g
+       id="g175">
+      <g
+         id="g173">
+        <g
+           id="g171">
+          <text
+             x="141"
+             y="144"
+             style="font-style:normal;font-weight:400;font-size:15px;font-family:Arial, Helvetica, sans-serif;text-decoration:none;text-decoration-line:none;text-decoration-style:solid;text-decoration-color:#000000;dominant-baseline:text-before-edge;white-space:pre;fill:#000000;fill-opacity:1;stroke:none"
+             id="text169">Elbow Point</text>
+        </g>
+      </g>
+    </g>
+    <g
+       id="g183">
+      <g
+         id="g181">
+        <g
+           id="g179">
+          <text
+             x="27"
+             y="19"
+             style="font-style:normal;font-weight:400;font-size:15px;font-family:Arial, Helvetica, sans-serif;text-decoration:none;text-decoration-line:none;text-decoration-style:solid;text-decoration-color:#000000;dominant-baseline:text-before-edge;white-space:pre;fill:#000000;fill-opacity:1;stroke:none"
+             id="text177">Elbow Method</text>
+        </g>
+      </g>
+    </g>
+    <g
+       id="g193">
+      <g
+         id="g191">
+        <g
+           id="g189">
+          <g
+             transform="translate(77,268.33334)"
+             id="g187">
+            <path
+               transform="scale(0.017,-0.017)"
+               d="m 418,-3 v 30 l -52,3 c -55,3 -65,14 -65,66 V 700 L 60,598 67,548 217,614 V 96 C 217,44 206,33 152,30 L 96,27 V -3 c 154,3 154,3 165,3 31,0 141,-3 157,-3 z"
+               stroke="#000000"
+               stroke-opacity="1"
+               stroke-width="8"
+               fill="#000000"
+               fill-opacity="1"
+               id="path185" />
+          </g>
+        </g>
+      </g>
+    </g>
+    <g
+       id="g203">
+      <g
+         id="g201">
+        <g
+           id="g199">
+          <g
+             transform="translate(31,267.33334)"
+             id="g197">
+            <path
+               transform="scale(0.017,-0.017)"
+               d="M 263,689 C 108,689 29,566 29,324 29,207 50,106 85,57 c 35,-49 91,-77 153,-77 151,0 227,130 227,386 0,219 -65,323 -202,323 z M 245,654 C 342,654 381,556 381,316 381,103 343,15 251,15 154,15 113,116 113,360 c 0,211 37,294 132,294 z"
+               stroke="#000000"
+               stroke-opacity="1"
+               stroke-width="8"
+               fill="#000000"
+               fill-opacity="1"
+               id="path195" />
+          </g>
+        </g>
+      </g>
+    </g>
+    <g
+       id="g213">
+      <g
+         id="g211">
+        <g
+           id="g209">
+          <g
+             transform="translate(117,267.33334)"
+             id="g207">
+            <path
+               transform="scale(0.017,-0.017)"
+               d="M 16,23 V -3 c 187,0 187,3 223,3 36,0 36,-3 229,-3 V 82 C 353,77 307,81 122,77 l 182,193 c 97,103 127,158 127,233 0,115 -78,186 -205,186 -72,0 -121,-20 -170,-70 L 39,483 h 29 l 13,46 c 16,58 52,83 119,83 86,0 141,-54 141,-139 0,-75 -42,-149 -155,-269 z"
+               stroke="#000000"
+               stroke-opacity="1"
+               stroke-width="8"
+               fill="#000000"
+               fill-opacity="1"
+               id="path205" />
+          </g>
+        </g>
+      </g>
+    </g>
+    <g
+       id="g223">
+      <g
+         id="g221">
+        <g
+           id="g219">
+          <g
+             transform="translate(159,268.33334)"
+             id="g217">
+            <path
+               transform="scale(0.017,-0.017)"
+               d="m 462,224 c 0,121 -107,142 -154,150 80,62 110,108 110,167 0,89 -74,148 -185,148 -68,0 -113,-19 -161,-67 L 43,498 h 31 l 18,56 c 11,34 74,68 126,68 65,0 118,-53 118,-116 0,-75 -59,-138 -130,-138 -8,0 -19,1 -32,2 l -15,1 -12,-53 7,-6 c 38,17 57,22 84,22 83,0 131,-53 131,-144 C 369,88 308,21 215,21 169,21 128,36 98,64 74,86 61,109 42,163 L 15,153 C 36,92 44,56 50,6 c 53,-18 97,-26 134,-26 123,0 278,107 278,244 z"
+               stroke="#000000"
+               stroke-opacity="1"
+               stroke-width="8"
+               fill="#000000"
+               fill-opacity="1"
+               id="path215" />
+          </g>
+        </g>
+      </g>
+    </g>
+    <g
+       id="g233">
+      <g
+         id="g231">
+        <g
+           id="g229">
+          <g
+             transform="translate(201,268.33334)"
+             id="g227">
+            <path
+               transform="scale(0.017,-0.017)"
+               d="M 280,181 V 106 C 280,46 269,32 220,30 L 158,27 V -3 c 133,3 133,3 157,3 24,0 24,0 157,-3 v 30 l -48,3 c -49,3 -60,16 -60,76 v 75 c 59,0 80,-1 108,-4 v 71 L 364,245 365,697 285,667 2,204 v -23 z m 0,64 H 65 l 215,352 z"
+               stroke="#000000"
+               stroke-opacity="1"
+               stroke-width="8"
+               fill="#000000"
+               fill-opacity="1"
+               id="path225" />
+          </g>
+        </g>
+      </g>
+    </g>
+    <g
+       id="g243">
+      <g
+         id="g241">
+        <g
+           id="g239">
+          <g
+             transform="translate(241,266.33334)"
+             id="g237">
+            <path
+               transform="scale(0.017,-0.017)"
+               d="m 459,253 c 0,113 -81,193 -195,193 -48,0 -84,-3 -137,-50 v 209 l 305,-1 v 85 L 75,690 V 322 l 20,-6 c 47,47 74,61 123,61 96,0 156,-68 156,-176 C 374,90 310,25 201,25 147,25 97,43 83,69 L 37,151 13,137 C 36,80 48,48 62,4 c 28,-15 68,-24 111,-24 128,0 286,109 286,273 z"
+               stroke="#000000"
+               stroke-opacity="1"
+               stroke-width="8"
+               fill="#000000"
+               fill-opacity="1"
+               id="path235" />
+          </g>
+        </g>
+      </g>
+    </g>
+  </svg>
+</svg>

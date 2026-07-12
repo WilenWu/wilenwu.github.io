@@ -1,0 +1,144 @@
+<svg    x="0"
+   y="0"
+   width="250"
+   height="550" 
+viewBox="0 0 250 550" xmlns="http://www.w3.org/2000/svg" version="1.1" encoding="UTF-8">
+ <defs>
+  <marker orient="auto" markerHeight="3" markerWidth="3" refY="5" refX="1" viewBox="0 0 10 10" id="arrow">
+   <path fill="red" d="m0,0l10,5l-10,5l0,-10z"/>
+  </marker>
+  <marker orient="auto" markerHeight="5" markerWidth="5" refY="5" refX="1" viewBox="0 0 10 10" id="a2">
+   <path stroke="orange" stroke-width="2" fill="none" d="m0,0l10,5l-10,5"/>
+  </marker>
+ </defs>
+<title>concave lens</title>
+
+<g transform="translate(140,80)">
+   <!-- 中线 -->
+   <line x1="-140" y1="0" x2="110" y2="0" stroke="gray" stroke-width="1" stroke-dasharray="10,5,2,5"/>
+   <!-- 镜 -->
+   <path d="M-8 -40Q0 0 -8 40L8 40Q0 0 8 -40z" fill="#19AEFF" stroke="#0084C8" fill-opacity="0.5"/>
+   <!-- 焦距 -->
+   <g stroke="black" stroke-width="1" fill="none">
+    <path d="m-40,0l0,-5"/>
+    <path d="m40,0l0,-5"/>
+   </g>
+   <!-- 物 -->
+   <path d="m-60,0l0,-25" stroke="red" stroke-width="2" marker-end="url(#arrow)"/>
+   <!-- 虚像 -->
+   <path d="m-24,0l0,-7" stroke="red" stroke-width="2" stroke-dasharray="2,2" marker-end="url(#arrow)"/>
+   <!-- 光线 -->
+   <g fill="none" stroke="orange" stroke-width="1">
+    <path d="m-60,-30L-30,-15L0,0" marker-mid="url(#a2)"/>
+    <path d="m0,0l30,15l30,15" marker-mid="url(#a2)"/>
+    <path d="m-60,-30L-30,-21L0,-12" marker-mid="url(#a2)"/>
+    <path d="m0,-12L20,-12L50,-12" marker-mid="url(#a2)"/>
+    <path d="m0,-12L40,0" stroke-dasharray="4,4"/>
+    <path d="m0,-12L-24,-12" stroke-dasharray="4,4"/>
+   </g>
+<text font-family="Serif" text-anchor="middle" font-size="12">
+<tspan x="0" y="-55">实物</tspan>
+<tspan x="-40" y="12">f</tspan>
+<tspan x="40" y="12">f</tspan>
+</text>
+</g>
+
+<g transform="translate(140,220)">
+   <!-- 中线 -->
+   <line x1="-140" y1="0" x2="110" y2="0" stroke="gray" stroke-width="1" stroke-dasharray="10,5,2,5"/>
+   <!-- 镜 -->
+   <path d="M-8 -40Q0 0 -8 40L8 40Q0 0 8 -40z" fill="#19AEFF" stroke="#0084C8" fill-opacity="0.5"/>
+   <!-- 焦距 -->
+   <g stroke="black" stroke-width="1" fill="none">
+    <path d="m-40,0l0,-5"/>
+    <path d="m40,0l0,-5"/>
+   </g>
+   <!-- 虚物 -->
+   <path d="m25,0L25,-25" stroke="red" stroke-width="2" stroke-dasharray="2,2" marker-end="url(#arrow)"/>
+   <!-- 虚像 -->
+   <path d="m66.67,0L066.67,-75" stroke="red" stroke-width="2" stroke-dasharray="2,2" marker-end="url(#arrow)"/>
+   <!-- 光线 -->
+   <g fill="none" stroke="orange" stroke-width="1">
+    <path d="m-60,-30L-30,-30L0,-30" marker-mid="url(#a2)"/>
+    <path d="m0,-30L20,-45L80,-90" marker-mid="url(#a2)"/>
+    <path d="m0,-30L25,-30" stroke-dasharray="4,4"/>
+    <path d="m0,-30L-40,0" stroke-dasharray="4,4"/>
+
+    <path d="m-37.5,45L-25,30L0,0" marker-mid="url(#a2)"/>
+    <path d="m0,0L37.5,-45L75,-90" marker-mid="url(#a2)"/>
+   </g>
+<text font-family="Serif" text-anchor="middle" font-size="12">
+<tspan x="0" y="-55">u&lt;f (虚物)</tspan>
+<tspan x="-40" y="12">f</tspan>
+<tspan x="40" y="12">f</tspan>
+</text>
+</g>
+
+<g transform="translate(140,360)">
+   <!-- 中线 -->
+   <line x1="-140" y1="0" x2="110" y2="0" stroke="gray" stroke-width="1" stroke-dasharray="10,5,2,5"/>
+   <!-- 镜 -->
+   <path d="M-8 -40Q0 0 -8 40L8 40Q0 0 8 -40z" fill="#19AEFF" stroke="#0084C8" fill-opacity="0.5"/>
+   <!-- 焦距 -->
+   <g stroke="black" stroke-width="1" fill="none">
+    <path d="m-40,0l0,-5"/>
+    <path d="m40,0l0,-5"/>
+    <path d="m80,0l0,-5"/>
+   </g>
+   <!-- 虚物 -->
+   <path d="m60,0L60,-25" stroke="red" stroke-width="2" stroke-dasharray="2,2" marker-end="url(#arrow)"/>
+   <!-- 虚像 -->
+   <path d="m-120,0L-120,55" stroke="red" stroke-width="2" stroke-dasharray="2,2" marker-end="url(#arrow)"/>
+   <!-- 光线 -->
+   <g fill="none" stroke="orange" stroke-width="1">
+    <path d="m-80,-30L-30,-30L0,-30" marker-mid="url(#a2)"/>
+    <path d="m0,-30L20,-45L40,-60" marker-mid="url(#a2)"/>
+    <path d="m0,-30L60,-30" stroke-dasharray="4,4"/>
+    <path d="m0,-30L-120,60" stroke-dasharray="4,4"/>
+
+    <path d="m-140,70L-30,15L0,0" marker-mid="url(#a2)"/>
+    <path d="m0,0l30,-15L60,-30" marker-mid="url(#a2)"/>
+   </g>
+<text font-family="Serif" text-anchor="middle" font-size="12">
+<tspan x="0" y="-65">f&lt;u&lt;2f (虚物)</tspan>
+<tspan x="-40" y="12">f</tspan>
+<tspan x="40" y="12">f</tspan>
+<tspan x="80" y="12">2f</tspan>
+</text>
+</g>
+
+<g transform="translate(140,500)">
+   <!-- 中线 -->
+   <line x1="-140" y1="0" x2="110" y2="0" stroke="gray" stroke-width="1" stroke-dasharray="10,5,2,5"/>
+   <!-- 镜 -->
+   <path d="M-8 -40Q0 0 -8 40L8 40Q0 0 8 -40z" fill="#19AEFF" stroke="#0084C8" fill-opacity="0.5"/>
+   <!-- 焦距 -->
+   <g stroke="black" stroke-width="1" fill="none">
+    <path d="m-80,0l0,-5"/>
+    <path d="m-40,0l0,-5"/>
+    <path d="m40,0l0,-5"/>
+    <path d="m80,0l0,-5"/>
+   </g>
+   <!-- 虚物 -->
+   <path d="m90,0L90,-25" stroke="red" stroke-width="2" stroke-dasharray="2,2" marker-end="url(#arrow)"/>
+   <!-- 虚像 -->
+   <path d="m-60,0L-60,15" stroke="red" stroke-width="2" stroke-dasharray="2,2" marker-end="url(#arrow)"/>
+   <!-- 光线 -->
+   <g fill="none" stroke="orange" stroke-width="1">
+    <path d="m-80,-30L-30,-30L0,-30" marker-mid="url(#a2)"/>
+    <path d="m0,-30L20,-45L40,-60" marker-mid="url(#a2)"/>
+    <path d="m0,-30L90,-30" stroke-dasharray="4,4"/>
+    <path d="m0,-30L-60,20" stroke-dasharray="4,4"/>
+
+    <path d="m-90,30L-45,15L0,0" marker-mid="url(#a2)"/>
+    <path d="m0,0l45,-15L90,-30" marker-mid="url(#a2)"/>
+   </g>
+<text font-family="Serif" text-anchor="middle" font-size="12">
+<tspan x="0" y="-65">2f&lt;u (虚物)</tspan>
+<tspan x="-40" y="12">f</tspan>
+<tspan x="-80" y="12">2f</tspan>
+<tspan x="40" y="12">f</tspan>
+<tspan x="80" y="12">2f</tspan>
+</text>
+</g>
+</svg>

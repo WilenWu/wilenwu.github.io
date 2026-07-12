@@ -1,0 +1,151 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg
+   x="0"
+   y="0"
+   width="280"
+   height="214.66667"
+   style="fill:none"
+   version="1.1"
+   id="svg21"
+   sodipodi:docname="Venn_diagram_for_radical.svg"
+   inkscape:version="1.4.2 (f4327f4, 2025-05-13)"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg">
+  <defs
+     id="defs21" />
+  <sodipodi:namedview
+     id="namedview21"
+     pagecolor="#ffffff"
+     bordercolor="#000000"
+     borderopacity="0.25"
+     inkscape:showpageshadow="2"
+     inkscape:pageopacity="0.0"
+     inkscape:pagecheckerboard="0"
+     inkscape:deskcolor="#d1d1d1"
+     inkscape:zoom="2.6733869"
+     inkscape:cx="217.70137"
+     inkscape:cy="107.16743"
+     inkscape:window-width="1920"
+     inkscape:window-height="974"
+     inkscape:window-x="-11"
+     inkscape:window-y="-11"
+     inkscape:window-maximized="1"
+     inkscape:current-layer="svg21" />
+  <svg
+     version="1.1"
+     id="svg1"
+     width="100%"
+     height="100%" />
+  <svg
+     class="role-diagram-draw-area"
+     version="1.1"
+     id="svg8"
+     width="100%"
+     height="100%">
+    <g
+       class="shapes-region"
+       style="fill:none;stroke:#000000"
+       id="g5">
+      <g
+         class="composite-shape"
+         id="g1">
+        <path
+           class="real"
+           d="M 13,126.35 C 13,83.63 69.04,49 138.17,49 c 69.12,0 125.16,34.63 125.16,77.35 0,42.72 -56.04,77.35 -125.16,77.35 C 69.04,203.7 13,169.07 13,126.35 Z"
+           style="fill:none;fill-opacity:1;stroke:#000000;stroke-width:1"
+           id="path1" />
+      </g>
+      <g
+         class="composite-shape"
+         id="g2">
+        <path
+           class="real"
+           d="m 34.33,145.7 c 0,-28.17 45.89,-51 102.5,-51 56.61,0 102.5,22.83 102.5,51 0,28.16 -45.89,51 -102.5,51 -56.61,0 -102.5,-22.84 -102.5,-51 z"
+           style="fill:none;fill-opacity:1;stroke:#000000;stroke-width:1"
+           id="path2" />
+      </g>
+      <g
+         class="composite-shape"
+         id="g3">
+        <path
+           class="real"
+           d="m 84,162.35 c 0,-14 20.45,-25.35 45.67,-25.35 25.22,0 45.66,11.35 45.66,25.35 0,14 -20.44,25.35 -45.66,25.35 C 104.45,187.7 84,176.35 84,162.35 Z"
+           style="fill:none;fill-opacity:1;stroke:#000000;stroke-width:1"
+           id="path3" />
+      </g>
+      <g
+         id="g4" />
+    </g>
+    <g
+       id="g6" />
+    <g
+       id="g7" />
+    <g
+       id="g8" />
+  </svg>
+  <svg
+     width="660"
+     height="213.33334"
+     style="font-family:Asana-Math, Asana"
+     version="1.1"
+     id="svg20">
+    <g
+       id="g11">
+      <g
+         id="g10">
+        <g
+           id="g9">
+          <text
+             x="80.666656"
+             y="14.666656"
+             style="font-style:normal;font-weight:400;font-size:15px;font-family:Arial, Helvetica, sans-serif;text-decoration:none;text-decoration-line:none;dominant-baseline:text-before-edge;white-space:pre;fill:#000000;fill-opacity:1;stroke:none"
+             id="text8">Complex Number</text>
+        </g>
+      </g>
+    </g>
+    <g
+       id="g14">
+      <g
+         id="g13">
+        <g
+           id="g12">
+          <text
+             x="100.66666"
+             y="107.66666"
+             style="font-style:normal;font-weight:400;font-size:15px;font-family:Arial, Helvetica, sans-serif;text-decoration:none;text-decoration-line:none;dominant-baseline:text-before-edge;white-space:pre;fill:#000000;fill-opacity:1;stroke:none"
+             id="text11">Algebraic</text>
+        </g>
+      </g>
+    </g>
+    <g
+       id="g17">
+      <g
+         id="g16">
+        <g
+           id="g15">
+          <text
+             x="85.666656"
+             y="66.666656"
+             style="font-style:normal;font-weight:400;font-size:15px;font-family:Arial, Helvetica, sans-serif;text-decoration:none;text-decoration-line:none;dominant-baseline:text-before-edge;white-space:pre;fill:#000000;fill-opacity:1;stroke:none"
+             id="text14">Transcendental</text>
+        </g>
+      </g>
+    </g>
+    <g
+       id="g20">
+      <g
+         id="g19">
+        <g
+           id="g18">
+          <text
+             x="103.66666"
+             y="155.66666"
+             style="font-style:normal;font-weight:400;font-size:15px;font-family:Arial, Helvetica, sans-serif;text-decoration:none;text-decoration-line:none;dominant-baseline:text-before-edge;white-space:pre;fill:#000000;fill-opacity:1;stroke:none"
+             id="text17">Radical</text>
+        </g>
+      </g>
+    </g>
+  </svg>
+</svg>

@@ -1,0 +1,374 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg
+   x="0"
+   y="0"
+   width="650"
+   height="210.33334"
+   style="fill:none"
+   version="1.1"
+   id="svg2711"
+   sodipodi:docname="boosting-flowchart.svg"
+   inkscape:version="1.1.2 (b8e25be833, 2022-02-05)"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg">
+  <defs
+     id="defs2715" />
+  <sodipodi:namedview
+     id="namedview2713"
+     pagecolor="#ffffff"
+     bordercolor="#666666"
+     borderopacity="1.0"
+     inkscape:pageshadow="2"
+     inkscape:pageopacity="0.0"
+     inkscape:pagecheckerboard="0"
+     showgrid="false"
+     inkscape:zoom="1.6015689"
+     inkscape:cx="403.97888"
+     inkscape:cy="104.89714"
+     inkscape:window-width="1920"
+     inkscape:window-height="986"
+     inkscape:window-x="-11"
+     inkscape:window-y="-11"
+     inkscape:window-maximized="1"
+     inkscape:current-layer="svg2711" />
+  <svg
+     version="1.1"
+     id="svg2543"
+     width="100%"
+     height="100%" />
+  <svg
+     class="role-diagram-draw-area"
+     version="1.1"
+     id="svg2601"
+     width="100%"
+     height="100%">
+    <g
+       class="shapes-region"
+       style="fill:none;stroke:#000000"
+       id="g2593">
+      <g
+         class="composite-shape"
+         id="g2547">
+        <path
+           class="real"
+           d="M 15,45.47 C 15,35.82 22.82,28 32.47,28 h 84.06 c 9.65,0 17.47,7.82 17.47,17.47 v 52.4 c 0,9.64 -7.82,17.46 -17.47,17.46 H 32.47 C 22.82,115.33 15,107.51 15,97.87 Z"
+           style="fill:#ffffff;fill-opacity:1;stroke:#4a90e2;stroke-width:2;stroke-opacity:1"
+           id="path2545" />
+      </g>
+      <g
+         class="composite-shape"
+         id="g2551">
+        <path
+           class="real"
+           d="m 60,103.33 c 0,-4.41 3.58,-8 8,-8 h 75.53 c 4.42,0 8,3.59 8,8 v 24 c 0,4.42 -3.58,8 -8,8 H 68 c -4.42,0 -8,-3.58 -8,-8 z"
+           style="fill:#4a90e2;fill-opacity:1;stroke:none;stroke-width:1;stroke-opacity:1"
+           id="path2549" />
+      </g>
+      <g
+         class="composite-shape"
+         id="g2555">
+        <path
+           class="real"
+           d="M 196,47.47 C 196,37.82 203.82,30 213.47,30 h 84.06 c 9.65,0 17.47,7.82 17.47,17.47 v 52.4 c 0,9.64 -7.82,17.46 -17.47,17.46 h -84.06 c -9.65,0 -17.47,-7.82 -17.47,-17.46 z"
+           style="fill:#ffffff;fill-opacity:1;stroke:#4a90e2;stroke-width:2;stroke-opacity:1"
+           id="path2553" />
+      </g>
+      <g
+         class="composite-shape"
+         id="g2559">
+        <path
+           class="real"
+           d="m 248,20.33 c 0,-4.41 3.58,-8 8,-8 h 75.53 c 4.42,0 8,3.59 8,8 v 24 c 0,4.42 -3.58,8 -8,8 H 256 c -4.42,0 -8,-3.58 -8,-8 z"
+           style="fill:#4a90e2;fill-opacity:1;stroke:none;stroke-width:1;stroke-opacity:1"
+           id="path2557" />
+      </g>
+      <g
+         class="composite-shape"
+         id="g2563">
+        <path
+           class="real"
+           d="M 384,46.47 C 384,36.82 391.82,29 401.47,29 h 94.06 c 9.65,0 17.47,7.82 17.47,17.47 v 52.4 c 0,9.64 -7.82,17.46 -17.47,17.46 h -94.06 c -9.65,0 -17.47,-7.82 -17.47,-17.46 z"
+           style="fill:#ffffff;fill-opacity:1;stroke:#4a90e2;stroke-width:2;stroke-opacity:1"
+           id="path2561" />
+      </g>
+      <g
+         class="composite-shape"
+         id="g2567">
+        <path
+           class="real"
+           d="m 400,104.33 c 0,-4.41 3.58,-8 8,-8 h 113 c 4.42,0 8,3.59 8,8 v 24 c 0,4.42 -3.58,8 -8,8 H 408 c -4.42,0 -8,-3.58 -8,-8 z"
+           style="fill:#4a90e2;fill-opacity:1;stroke:none;stroke-width:1;stroke-opacity:1"
+           id="path2565" />
+      </g>
+      <g
+         class="composite-shape"
+         id="g2571">
+        <path
+           class="real"
+           d="m 142,63.5 h 32 V 57.33 L 190,69.67 174,82 v -6.17 h -32 z"
+           style="fill:#4a90e2;fill-opacity:0.5;stroke:#4a90e2;stroke-width:1;stroke-opacity:1"
+           id="path2569" />
+      </g>
+      <g
+         class="composite-shape"
+         id="g2575">
+        <path
+           class="real"
+           d="m 327,68.5 h 32 V 62.33 L 375,74.67 359,87 v -6.17 h -32 z"
+           style="fill:#4a90e2;fill-opacity:0.5;stroke:#4a90e2;stroke-width:1;stroke-opacity:1"
+           id="path2573" />
+      </g>
+      <g
+         class="composite-shape"
+         id="g2581">
+        <path
+           class="real"
+           d="m 265.31,193.34 c 98.45,0.03 178.27,-22.57 178.28,-50.48 l 26.42,0.01 c -0.01,27.91 -79.83,50.51 -178.28,50.48"
+           style="fill:#4a90e2;fill-opacity:0.5;stroke:#4a90e2;stroke-width:1;stroke-opacity:1"
+           id="path2577" />
+        <path
+           class="real"
+           d="m 291.73,193.35 c -79.24,-0.03 -146.4,-14.71 -169.58,-35 h 12.06 l -33.93,-15.61 -16.62,15.6 h 12.06 c 23.19,20.29 90.35,34.97 169.59,35 m 26.42,0.01 -26.42,-0.01"
+           style="fill:#4a90e2;fill-opacity:0.5;stroke:#4a90e2;stroke-width:1;stroke-opacity:1"
+           id="path2579" />
+      </g>
+      <g
+         class="composite-shape"
+         id="g2585">
+        <path
+           class="real"
+           d="m 523,64.5 h 32 V 58.33 L 571,70.67 555,83 v -6.17 h -32 z"
+           style="fill:#4a90e2;fill-opacity:0.5;stroke:#4a90e2;stroke-width:1;stroke-opacity:1"
+           id="path2583" />
+      </g>
+      <g
+         class="composite-shape"
+         id="g2589">
+        <path
+           class="real"
+           d="M 579,70.5 C 579,54.76 591.76,42 607.5,42 623.24,42 636,54.76 636,70.5 636,86.24 623.24,99 607.5,99 591.76,99 579,86.24 579,70.5 Z"
+           style="fill:#ffffff;fill-opacity:1;stroke:#d0021b;stroke-width:2;stroke-opacity:1"
+           id="path2587" />
+      </g>
+      <g
+         id="g2591" />
+    </g>
+    <g
+       id="g2595" />
+    <g
+       id="g2597" />
+    <g
+       id="g2599" />
+  </svg>
+  <svg
+     width="806"
+     height="209"
+     style="font-family:Asana-Math, Asana"
+     version="1.1"
+     id="svg2709">
+    <g
+       id="g2639">
+      <g
+         id="g2607">
+        <g
+           id="g2605">
+          <text
+             x="33.666656"
+             y="43.666672"
+             style="font-style:normal;font-weight:400;font-size:18px;font-family:Arial, Helvetica, sans-serif;text-decoration:none;text-decoration-line:none;text-decoration-style:solid;text-decoration-color:#000000;dominant-baseline:text-before-edge;white-space:pre;fill:#000000;fill-opacity:1;stroke:none"
+             id="text2603">样本权重</text>
+        </g>
+      </g>
+      <g
+         id="g2637">
+        <g
+           id="g2611">
+          <text
+             x="33.666656"
+             y="70.864578"
+             style="font-style:normal;font-weight:400;font-size:18px;font-family:Arial, Helvetica, sans-serif;text-decoration:none;text-decoration-line:none;text-decoration-style:solid;text-decoration-color:#000000;dominant-baseline:text-before-edge;white-space:pre;fill:#000000;fill-opacity:1;stroke:none"
+             id="text2609">均为 </text>
+        </g>
+        <g
+           id="g2635">
+          <g
+             id="g2633">
+            <g
+               id="g2631">
+              <g
+                 id="g2617">
+                <g
+                   transform="translate(74.677063,86.597922)"
+                   id="g2615">
+                  <path
+                     transform="scale(0.0204,-0.0204)"
+                     d="m 418,-3 v 30 l -52,3 c -55,3 -65,14 -65,66 V 700 L 60,598 67,548 217,614 V 96 C 217,44 206,33 152,30 L 96,27 V -3 c 154,3 154,3 165,3 31,0 141,-3 157,-3 z"
+                     stroke="#000000"
+                     stroke-opacity="1"
+                     stroke-width="8"
+                     fill="#000000"
+                     fill-opacity="1"
+                     id="path2613" />
+                </g>
+              </g>
+              <g
+                 id="g2623">
+                <g
+                   transform="translate(88.927063,86.597922)"
+                   id="g2621">
+                  <path
+                     transform="scale(0.0204,-0.0204)"
+                     d="M 297,714 H 242 L -37,-169 h 55 z"
+                     stroke="#000000"
+                     stroke-opacity="1"
+                     stroke-width="8"
+                     fill="#000000"
+                     fill-opacity="1"
+                     id="path2619" />
+                </g>
+              </g>
+              <g
+                 id="g2629">
+                <g
+                   transform="translate(98.833313,86.597922)"
+                   id="g2627">
+                  <path
+                     transform="scale(0.0204,-0.0204)"
+                     d="M 582,103 237,692 H 75 l -5,-28 35,-2 c 45,-2 79,-47 80,-56 L 92,102 C 80,40 74,32 38,28 L 7,25 2,-3 113,0 c 12,0 13,0 110,-3 l 5,28 -42,3 c -40,3 -49,11 -49,44 0,8 1,19 3,30 l 80,464 338,-577 h 50 l 94,553 c 21,113 23,117 60,120 l 37,2 3,27 -213,1 -5,-28 47,-2 c 26,-1 36,-8 36,-24 0,-7 -83,-522 -85,-535 z"
+                     stroke="#000000"
+                     stroke-opacity="1"
+                     stroke-width="8"
+                     fill="#000000"
+                     fill-opacity="1"
+                     id="path2625" />
+                </g>
+              </g>
+            </g>
+          </g>
+        </g>
+      </g>
+    </g>
+    <g
+       id="g2647">
+      <g
+         id="g2645">
+        <g
+           id="g2643">
+          <text
+             x="77.666656"
+             y="105.66667"
+             style="font-style:normal;font-weight:400;font-size:18px;font-family:Arial, Helvetica, sans-serif;text-decoration:none;text-decoration-line:none;text-decoration-style:solid;text-decoration-color:#000000;dominant-baseline:text-before-edge;white-space:pre;fill:#ffffff;fill-opacity:1;stroke:none"
+             id="text2641">初始化</text>
+        </g>
+      </g>
+    </g>
+    <g
+       id="g2661">
+      <g
+         id="g2653">
+        <g
+           id="g2651">
+          <text
+             x="218.66669"
+             y="57.666672"
+             style="font-style:normal;font-weight:400;font-size:18px;font-family:Arial, Helvetica, sans-serif;text-decoration:none;text-decoration-line:none;text-decoration-style:solid;text-decoration-color:#000000;dominant-baseline:text-before-edge;white-space:pre;fill:#000000;fill-opacity:1;stroke:none"
+             id="text2649">根据当前</text>
+        </g>
+      </g>
+      <g
+         id="g2659">
+        <g
+           id="g2657">
+          <text
+             x="218.66669"
+             y="82.864578"
+             style="font-style:normal;font-weight:400;font-size:18px;font-family:Arial, Helvetica, sans-serif;text-decoration:none;text-decoration-line:none;text-decoration-style:solid;text-decoration-color:#000000;dominant-baseline:text-before-edge;white-space:pre;fill:#000000;fill-opacity:1;stroke:none"
+             id="text2655">样本分布</text>
+        </g>
+      </g>
+    </g>
+    <g
+       id="g2669">
+      <g
+         id="g2667">
+        <g
+           id="g2665">
+          <text
+             x="276.66669"
+             y="21.666672"
+             style="font-style:normal;font-weight:400;font-size:18px;font-family:Arial, Helvetica, sans-serif;text-decoration:none;text-decoration-line:none;text-decoration-style:solid;text-decoration-color:#000000;dominant-baseline:text-before-edge;white-space:pre;fill:#ffffff;fill-opacity:1;stroke:none"
+             id="text2663">抽样</text>
+        </g>
+      </g>
+    </g>
+    <g
+       id="g2683">
+      <g
+         id="g2675">
+        <g
+           id="g2673">
+          <text
+             x="413.66669"
+             y="41.666672"
+             style="font-style:normal;font-weight:400;font-size:18px;font-family:Arial, Helvetica, sans-serif;text-decoration:none;text-decoration-line:none;text-decoration-style:solid;text-decoration-color:#000000;dominant-baseline:text-before-edge;white-space:pre;fill:#000000;fill-opacity:1;stroke:none"
+             id="text2671">拟合当前</text>
+        </g>
+      </g>
+      <g
+         id="g2681">
+        <g
+           id="g2679">
+          <text
+             x="422.66669"
+             y="66.864578"
+             style="font-style:normal;font-weight:400;font-size:18px;font-family:Arial, Helvetica, sans-serif;text-decoration:none;text-decoration-line:none;text-decoration-style:solid;text-decoration-color:#000000;dominant-baseline:text-before-edge;white-space:pre;fill:#000000;fill-opacity:1;stroke:none"
+             id="text2677">数据集</text>
+        </g>
+      </g>
+    </g>
+    <g
+       id="g2691">
+      <g
+         id="g2689">
+        <g
+           id="g2687">
+          <text
+             x="410.66669"
+             y="107.66667"
+             style="font-style:normal;font-weight:400;font-size:18px;font-family:Arial, Helvetica, sans-serif;text-decoration:none;text-decoration-line:none;text-decoration-style:solid;text-decoration-color:#000000;dominant-baseline:text-before-edge;white-space:pre;fill:#ffffff;fill-opacity:1;stroke:none"
+             id="text2685">初构建学习器</text>
+        </g>
+      </g>
+    </g>
+    <g
+       id="g2699">
+      <g
+         id="g2697">
+        <g
+           id="g2695">
+          <text
+             x="223.66669"
+             y="157.66667"
+             style="font-style:normal;font-weight:400;font-size:18px;font-family:Arial, Helvetica, sans-serif;text-decoration:none;text-decoration-line:none;text-decoration-style:solid;text-decoration-color:#000000;dominant-baseline:text-before-edge;white-space:pre;fill:#000000;fill-opacity:1;stroke:none"
+             id="text2693">调整样本权重</text>
+        </g>
+      </g>
+    </g>
+    <g
+       id="g2707">
+      <g
+         id="g2705">
+        <g
+           id="g2703">
+          <text
+             x="589.66669"
+             y="59.666672"
+             style="font-style:normal;font-weight:400;font-size:18px;font-family:Arial, Helvetica, sans-serif;text-decoration:none;text-decoration-line:none;text-decoration-style:solid;text-decoration-color:#000000;dominant-baseline:text-before-edge;white-space:pre;fill:#000000;fill-opacity:1;stroke:none"
+             id="text2701">集成</text>
+        </g>
+      </g>
+    </g>
+  </svg>
+</svg>

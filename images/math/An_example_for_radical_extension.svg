@@ -1,0 +1,582 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg
+   x="0"
+   y="0"
+   width="225"
+   height="232.66667"
+   style="fill:none"
+   version="1.1"
+   id="svg69"
+   sodipodi:docname="an_example_for_radical extension.svg"
+   inkscape:version="1.4.2 (f4327f4, 2025-05-13)"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg">
+  <defs
+     id="defs69" />
+  <sodipodi:namedview
+     id="namedview69"
+     pagecolor="#ffffff"
+     bordercolor="#000000"
+     borderopacity="0.25"
+     inkscape:showpageshadow="2"
+     inkscape:pageopacity="0.0"
+     inkscape:pagecheckerboard="0"
+     inkscape:deskcolor="#d1d1d1"
+     inkscape:zoom="2.6733869"
+     inkscape:cx="330.66669"
+     inkscape:cy="116.51886"
+     inkscape:window-width="1920"
+     inkscape:window-height="974"
+     inkscape:window-x="-11"
+     inkscape:window-y="-11"
+     inkscape:window-maximized="1"
+     inkscape:current-layer="svg69" />
+  <svg
+     version="1.1"
+     id="svg1"
+     width="100%"
+     height="100%" />
+  <svg
+     class="role-diagram-draw-area"
+     version="1.1"
+     id="svg9"
+     width="100%"
+     height="100%">
+    <g
+       class="shapes-region"
+       style="fill:none;stroke:#000000"
+       id="g6">
+      <g
+         class="arrow-line"
+         id="g1">
+        <path
+           class="connection real"
+           stroke-dasharray="none"
+           d="m 80.33,100.03 -3,31.33"
+           style="fill:none;fill-opacity:1;stroke:#000000;stroke-width:1"
+           id="path1" />
+      </g>
+      <g
+         class="arrow-line"
+         id="g2">
+        <path
+           class="connection real"
+           stroke-dasharray="none"
+           d="m 84.33,174.03 40,26.33"
+           style="fill:none;fill-opacity:1;stroke:#000000;stroke-width:1"
+           id="path2" />
+      </g>
+      <g
+         class="arrow-line"
+         id="g3">
+        <path
+           class="connection real"
+           stroke-dasharray="none"
+           d="m 182.33,173.03 -39,26.33"
+           style="fill:none;fill-opacity:1;stroke:#000000;stroke-width:1"
+           id="path3" />
+      </g>
+      <g
+         class="arrow-line"
+         id="g4">
+        <path
+           class="connection real"
+           stroke-dasharray="none"
+           d="m 110.33,31.03 -23,21.33"
+           style="fill:none;fill-opacity:1;stroke:#000000;stroke-width:1"
+           id="path4" />
+      </g>
+      <g
+         id="g5" />
+    </g>
+    <g
+       id="g7" />
+    <g
+       id="g8" />
+    <g
+       id="g9" />
+  </svg>
+  <svg
+     width="660"
+     height="231.33334"
+     style="font-family:Asana-Math, Asana"
+     version="1.1"
+     id="svg68">
+    <g
+       id="g20">
+      <g
+         id="g19">
+        <g
+           id="g11">
+          <g
+             transform="translate(162.66669,161)"
+             id="g10">
+            <path
+               transform="scale(0.017,-0.017)"
+               d="m 408,-20 v 2 C 602,-11 764,160 764,367 764,589 612,709 398,709 166,709 22,552 22,348 22,118 166,-19 377,-19 h 6 v -2 l -11,-4 c -19,-7 -61,-35 -109,-72 l -2,-32 59,32 c 7,4 15,8 26,8 23,0 47,-5 80,-15 l 148,-45 c 42,-13 74,-20 106,-27 l 84,56 v 21 C 616,-129 518,-32 408,-20 Z M 657,336 C 657,152 583,23 409,23 349,23 300,40 261,67 v 575 c 34,16 74,25 121,25 186,0 275,-133 275,-331 z M 215,109 c -59,70 -86,172 -86,272 0,97 28,179 86,230 z"
+               stroke="#000000"
+               stroke-opacity="1"
+               stroke-width="8"
+               fill="#000000"
+               fill-opacity="1"
+               id="path9" />
+          </g>
+        </g>
+        <g
+           id="g12">
+          <svg
+             x="177.20831"
+             overflow="visible"
+             y="140.66669"
+             height="28"
+             width="8.5"
+             version="1.1"
+             id="svg12">
+            <path
+               d="M 6.27,1.7 C 6.27,1.64 6.23,1.62 6.19,1.62 6.16,1.62 6.13,1.63 6.11,1.64 3.56,2.98 1.46,5.37 1.46,11.04 v 0.6 h 1.53 v -0.6 C 2.99,7.81 3.63,4.01 6.3,1.98 6.42,1.89 6.43,1.79 6.43,1.7 Z m -4.83,9.94 v 4.72 h 1.53 v -4.72 z"
+               style="fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-opacity:1"
+               id="path11" />
+            <path
+               d="m 6.27,26.3 c 0,0.06 -0.04,0.08 -0.08,0.08 -0.03,0 -0.06,-0.01 -0.08,-0.02 -2.55,-1.34 -4.65,-3.73 -4.65,-9.4 v -0.6 h 1.53 v 0.6 c 0,3.23 0.64,7.03 3.31,9.06 0.12,0.09 0.13,0.19 0.13,0.28 z"
+               style="fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-opacity:1"
+               id="path12" />
+          </svg>
+        </g>
+        <g
+           id="g17">
+          <g
+             id="g16">
+            <g
+               id="g15">
+              <g
+                 id="g14">
+                <g
+                   transform="translate(201.01044,161)"
+                   id="g13">
+                  <path
+                     transform="scale(0.017,-0.017)"
+                     d="M 16,23 V -3 c 187,0 187,3 223,3 36,0 36,-3 229,-3 V 82 C 353,77 307,81 122,77 l 182,193 c 97,103 127,158 127,233 0,115 -78,186 -205,186 -72,0 -121,-20 -170,-70 L 39,483 h 29 l 13,46 c 16,58 52,83 119,83 86,0 141,-54 141,-139 0,-75 -42,-149 -155,-269 z"
+                     stroke="#000000"
+                     stroke-opacity="1"
+                     stroke-width="8"
+                     fill="#000000"
+                     fill-opacity="1"
+                     id="path13" />
+                </g>
+              </g>
+            </g>
+          </g>
+          <svg
+             x="184.01044"
+             overflow="visible"
+             y="142.66669"
+             height="17"
+             width="25.5"
+             version="1.1"
+             id="svg16">
+            <polygon
+               points="0.64,10.77 0.35,10.28 4.79,7.91 9.66,18.23 16.36,0 25.5,0 25.5,1.05 17.09,1.05 9.18,22.58 3.1,9.85 "
+               style="fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-opacity:1"
+               id="polygon16" />
+          </svg>
+        </g>
+        <g
+           id="g18">
+          <svg
+             x="207.8125"
+             overflow="visible"
+             y="140.66669"
+             height="28"
+             width="8.5"
+             version="1.1"
+             id="svg18">
+            <path
+               d="m 1.75,1.7 c 0,-0.06 0.04,-0.08 0.08,-0.08 0.03,0 0.06,0.01 0.08,0.02 2.55,1.34 4.65,3.73 4.65,9.4 v 0.6 H 5.03 v -0.6 C 5.03,7.81 4.39,4.01 1.72,1.98 1.6,1.89 1.59,1.79 1.59,1.7 Z m 4.83,9.94 v 4.72 H 5.05 v -4.72 z"
+               style="fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-opacity:1"
+               id="path17" />
+            <path
+               d="m 1.75,26.3 c 0,0.06 0.04,0.08 0.08,0.08 0.03,0 0.06,-0.01 0.08,-0.02 2.55,-1.34 4.65,-3.73 4.65,-9.4 v -0.6 H 5.03 v 0.6 c 0,3.23 -0.64,7.03 -3.31,9.06 -0.12,0.09 -0.13,0.19 -0.13,0.28 z"
+               style="fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-opacity:1"
+               id="path18" />
+          </svg>
+        </g>
+      </g>
+    </g>
+    <g
+       id="g24">
+      <g
+         id="g23">
+        <g
+           id="g22">
+          <g
+             transform="translate(127.66669,219)"
+             id="g21">
+            <path
+               transform="scale(0.017,-0.017)"
+               d="m 408,-20 v 2 C 602,-11 764,160 764,367 764,589 612,709 398,709 166,709 22,552 22,348 22,118 166,-19 377,-19 h 6 v -2 l -11,-4 c -19,-7 -61,-35 -109,-72 l -2,-32 59,32 c 7,4 15,8 26,8 23,0 47,-5 80,-15 l 148,-45 c 42,-13 74,-20 106,-27 l 84,56 v 21 C 616,-129 518,-32 408,-20 Z M 657,336 C 657,152 583,23 409,23 349,23 300,40 261,67 v 575 c 34,16 74,25 121,25 186,0 275,-133 275,-331 z M 215,109 c -59,70 -86,172 -86,272 0,97 28,179 86,230 z"
+               stroke="#000000"
+               stroke-opacity="1"
+               stroke-width="8"
+               fill="#000000"
+               fill-opacity="1"
+               id="path20" />
+          </g>
+        </g>
+      </g>
+    </g>
+    <g
+       id="g35">
+      <g
+         id="g34">
+        <g
+           id="g26">
+          <g
+             transform="translate(42.666656,157)"
+             id="g25">
+            <path
+               transform="scale(0.017,-0.017)"
+               d="m 408,-20 v 2 C 602,-11 764,160 764,367 764,589 612,709 398,709 166,709 22,552 22,348 22,118 166,-19 377,-19 h 6 v -2 l -11,-4 c -19,-7 -61,-35 -109,-72 l -2,-32 59,32 c 7,4 15,8 26,8 23,0 47,-5 80,-15 l 148,-45 c 42,-13 74,-20 106,-27 l 84,56 v 21 C 616,-129 518,-32 408,-20 Z M 657,336 C 657,152 583,23 409,23 349,23 300,40 261,67 v 575 c 34,16 74,25 121,25 186,0 275,-133 275,-331 z M 215,109 c -59,70 -86,172 -86,272 0,97 28,179 86,230 z"
+               stroke="#000000"
+               stroke-opacity="1"
+               stroke-width="8"
+               fill="#000000"
+               fill-opacity="1"
+               id="path24" />
+          </g>
+        </g>
+        <g
+           id="g27">
+          <svg
+             x="57.208313"
+             overflow="visible"
+             y="136.66669"
+             height="28"
+             width="8.5"
+             version="1.1"
+             id="svg27">
+            <path
+               d="M 6.27,1.7 C 6.27,1.64 6.23,1.62 6.19,1.62 6.16,1.62 6.13,1.63 6.11,1.64 3.56,2.98 1.46,5.37 1.46,11.04 v 0.6 h 1.53 v -0.6 C 2.99,7.81 3.63,4.01 6.3,1.98 6.42,1.89 6.43,1.79 6.43,1.7 Z m -4.83,9.94 v 4.72 h 1.53 v -4.72 z"
+               style="fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-opacity:1"
+               id="path26" />
+            <path
+               d="m 6.27,26.3 c 0,0.06 -0.04,0.08 -0.08,0.08 -0.03,0 -0.06,-0.01 -0.08,-0.02 -2.55,-1.34 -4.65,-3.73 -4.65,-9.4 v -0.6 h 1.53 v 0.6 c 0,3.23 0.64,7.03 3.31,9.06 0.12,0.09 0.13,0.19 0.13,0.28 z"
+               style="fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-opacity:1"
+               id="path27" />
+          </svg>
+        </g>
+        <g
+           id="g32">
+          <g
+             id="g31">
+            <g
+               id="g30">
+              <g
+                 id="g29">
+                <g
+                   transform="translate(81.010406,157)"
+                   id="g28">
+                  <path
+                     transform="scale(0.017,-0.017)"
+                     d="m 462,224 c 0,121 -107,142 -154,150 80,62 110,108 110,167 0,89 -74,148 -185,148 -68,0 -113,-19 -161,-67 L 43,498 h 31 l 18,56 c 11,34 74,68 126,68 65,0 118,-53 118,-116 0,-75 -59,-138 -130,-138 -8,0 -19,1 -32,2 l -15,1 -12,-53 7,-6 c 38,17 57,22 84,22 83,0 131,-53 131,-144 C 369,88 308,21 215,21 169,21 128,36 98,64 74,86 61,109 42,163 L 15,153 C 36,92 44,56 50,6 c 53,-18 97,-26 134,-26 123,0 278,107 278,244 z"
+                     stroke="#000000"
+                     stroke-opacity="1"
+                     stroke-width="8"
+                     fill="#000000"
+                     fill-opacity="1"
+                     id="path28" />
+                </g>
+              </g>
+            </g>
+          </g>
+          <svg
+             x="64.010406"
+             overflow="visible"
+             y="138.66669"
+             height="17"
+             width="25.5"
+             version="1.1"
+             id="svg31">
+            <polygon
+               points="0.64,10.77 0.35,10.28 4.79,7.91 9.66,18.23 16.36,0 25.5,0 25.5,1.05 17.09,1.05 9.18,22.58 3.1,9.85 "
+               style="fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-opacity:1"
+               id="polygon31" />
+          </svg>
+        </g>
+        <g
+           id="g33">
+          <svg
+             x="87.8125"
+             overflow="visible"
+             y="136.66669"
+             height="28"
+             width="8.5"
+             version="1.1"
+             id="svg33">
+            <path
+               d="m 1.75,1.7 c 0,-0.06 0.04,-0.08 0.08,-0.08 0.03,0 0.06,0.01 0.08,0.02 2.55,1.34 4.65,3.73 4.65,9.4 v 0.6 H 5.03 v -0.6 C 5.03,7.81 4.39,4.01 1.72,1.98 1.6,1.89 1.59,1.79 1.59,1.7 Z m 4.83,9.94 v 4.72 H 5.05 v -4.72 z"
+               style="fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-opacity:1"
+               id="path32" />
+            <path
+               d="m 1.75,26.3 c 0,0.06 0.04,0.08 0.08,0.08 0.03,0 0.06,-0.01 0.08,-0.02 2.55,-1.34 4.65,-3.73 4.65,-9.4 v -0.6 H 5.03 v 0.6 c 0,3.23 -0.64,7.03 -3.31,9.06 -0.12,0.09 -0.13,0.19 -0.13,0.28 z"
+               style="fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-opacity:1"
+               id="path33" />
+          </svg>
+        </g>
+      </g>
+    </g>
+    <g
+       id="g64">
+      <g
+         id="g63">
+        <g
+           id="g37">
+          <g
+             transform="translate(15.666656,88.03125)"
+             id="g36">
+            <path
+               transform="scale(0.017,-0.017)"
+               d="m 408,-20 v 2 C 602,-11 764,160 764,367 764,589 612,709 398,709 166,709 22,552 22,348 22,118 166,-19 377,-19 h 6 v -2 l -11,-4 c -19,-7 -61,-35 -109,-72 l -2,-32 59,32 c 7,4 15,8 26,8 23,0 47,-5 80,-15 l 148,-45 c 42,-13 74,-20 106,-27 l 84,56 v 21 C 616,-129 518,-32 408,-20 Z M 657,336 C 657,152 583,23 409,23 349,23 300,40 261,67 v 575 c 34,16 74,25 121,25 186,0 275,-133 275,-331 z M 215,109 c -59,70 -86,172 -86,272 0,97 28,179 86,230 z"
+               stroke="#000000"
+               stroke-opacity="1"
+               stroke-width="8"
+               fill="#000000"
+               fill-opacity="1"
+               id="path35" />
+          </g>
+        </g>
+        <g
+           id="g38">
+          <svg
+             x="30.208313"
+             overflow="visible"
+             y="61.697937"
+             height="34"
+             width="8.5"
+             version="1.1"
+             id="svg38">
+            <path
+               d="M 6.27,1.7 C 6.27,1.64 6.23,1.62 6.19,1.62 6.16,1.62 6.13,1.63 6.11,1.64 3.56,2.98 1.46,5.37 1.46,11.04 v 0.6 h 1.53 v -0.6 C 2.99,7.81 3.63,4.01 6.3,1.98 6.42,1.89 6.43,1.79 6.43,1.7 Z M 1.44,11.64 V 22.36 H 2.97 V 11.64 Z"
+               style="fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-opacity:1"
+               id="path37" />
+            <path
+               d="m 6.27,32.3 c 0,0.06 -0.04,0.08 -0.08,0.08 -0.03,0 -0.06,-0.01 -0.08,-0.02 -2.55,-1.34 -4.65,-3.73 -4.65,-9.4 v -0.6 h 1.53 v 0.6 c 0,3.23 0.64,7.03 3.31,9.06 0.12,0.09 0.13,0.19 0.13,0.28 z"
+               style="fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-opacity:1"
+               id="path38" />
+          </svg>
+        </g>
+        <g
+           id="g43">
+          <g
+             id="g42">
+            <g
+               id="g41">
+              <g
+                 id="g40">
+                <g
+                   transform="translate(54.010406,88.03125)"
+                   id="g39">
+                  <path
+                     transform="scale(0.017,-0.017)"
+                     d="m 462,224 c 0,121 -107,142 -154,150 80,62 110,108 110,167 0,89 -74,148 -185,148 -68,0 -113,-19 -161,-67 L 43,498 h 31 l 18,56 c 11,34 74,68 126,68 65,0 118,-53 118,-116 0,-75 -59,-138 -130,-138 -8,0 -19,1 -32,2 l -15,1 -12,-53 7,-6 c 38,17 57,22 84,22 83,0 131,-53 131,-144 C 369,88 308,21 215,21 169,21 128,36 98,64 74,86 61,109 42,163 L 15,153 C 36,92 44,56 50,6 c 53,-18 97,-26 134,-26 123,0 278,107 278,244 z"
+                     stroke="#000000"
+                     stroke-opacity="1"
+                     stroke-width="8"
+                     fill="#000000"
+                     fill-opacity="1"
+                     id="path39" />
+                </g>
+              </g>
+            </g>
+          </g>
+          <svg
+             x="37.010406"
+             overflow="visible"
+             y="69.697937"
+             height="17"
+             width="25.5"
+             version="1.1"
+             id="svg42">
+            <polygon
+               points="0.64,10.77 0.35,10.28 4.79,7.91 9.66,18.23 16.36,0 25.5,0 25.5,1.05 17.09,1.05 9.18,22.58 3.1,9.85 "
+               style="fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-opacity:1"
+               id="polygon42" />
+          </svg>
+        </g>
+        <g
+           id="g45">
+          <g
+             transform="translate(62.510406,88.03125)"
+             id="g44">
+            <path
+               transform="scale(0.017,-0.017)"
+               d="M 204,123 C 177,114 159,108 106,93 99,17 74,-48 16,-144 l 14,-11 41,19 c 81,105 119,168 147,245 z"
+               stroke="#000000"
+               stroke-opacity="1"
+               stroke-width="8"
+               fill="#000000"
+               fill-opacity="1"
+               id="path43" />
+          </g>
+        </g>
+        <g
+           id="g61">
+          <g
+             id="g49">
+            <g
+               id="g48">
+              <g
+                 id="g47">
+                <g
+                   transform="translate(74.666656,74.9)"
+                   id="g46">
+                  <path
+                     transform="scale(0.0119,-0.0119)"
+                     d="m 462,224 c 0,121 -107,142 -154,150 80,62 110,108 110,167 0,89 -74,148 -185,148 -68,0 -113,-19 -161,-67 L 43,498 h 31 l 18,56 c 11,34 74,68 126,68 65,0 118,-53 118,-116 0,-75 -59,-138 -130,-138 -8,0 -19,1 -32,2 l -15,1 -12,-53 7,-6 c 38,17 57,22 84,22 83,0 131,-53 131,-144 C 369,88 308,21 215,21 169,21 128,36 98,64 74,86 61,109 42,163 L 15,153 C 36,92 44,56 50,6 c 53,-18 97,-26 134,-26 123,0 278,107 278,244 z"
+                     stroke="#000000"
+                     stroke-opacity="1"
+                     stroke-width="8"
+                     fill="#000000"
+                     fill-opacity="1"
+                     id="path45" />
+                </g>
+              </g>
+            </g>
+          </g>
+          <g
+             id="g60">
+            <g
+               id="g59">
+              <g
+                 id="g51">
+                <g
+                   transform="translate(87.145813,88.03125)"
+                   id="g50">
+                  <path
+                     transform="scale(0.017,-0.017)"
+                     d="M 16,23 V -3 c 187,0 187,3 223,3 36,0 36,-3 229,-3 V 82 C 353,77 307,81 122,77 l 182,193 c 97,103 127,158 127,233 0,115 -78,186 -205,186 -72,0 -121,-20 -170,-70 L 39,483 h 29 l 13,46 c 16,58 52,83 119,83 86,0 141,-54 141,-139 0,-75 -42,-149 -155,-269 z"
+                     stroke="#000000"
+                     stroke-opacity="1"
+                     stroke-width="8"
+                     fill="#000000"
+                     fill-opacity="1"
+                     id="path49" />
+                </g>
+              </g>
+              <g
+                 id="g53">
+                <g
+                   transform="translate(99.03125,88.03125)"
+                   id="g52">
+                  <path
+                     transform="scale(0.017,-0.017)"
+                     d="m 604,241 v 59 H 364 V 538 H 305 V 300 H 65 V 241 H 305 V 0 h 59 v 241 z"
+                     stroke="#000000"
+                     stroke-opacity="1"
+                     stroke-width="8"
+                     fill="#000000"
+                     fill-opacity="1"
+                     id="path51" />
+                </g>
+              </g>
+              <g
+                 id="g58">
+                <g
+                   id="g57">
+                  <g
+                     id="g56">
+                    <g
+                       id="g55">
+                      <g
+                         transform="translate(130.79169,88.03125)"
+                         id="g54">
+                        <path
+                           transform="scale(0.017,-0.017)"
+                           d="m 462,224 c 0,121 -107,142 -154,150 80,62 110,108 110,167 0,89 -74,148 -185,148 -68,0 -113,-19 -161,-67 L 43,498 h 31 l 18,56 c 11,34 74,68 126,68 65,0 118,-53 118,-116 0,-75 -59,-138 -130,-138 -8,0 -19,1 -32,2 l -15,1 -12,-53 7,-6 c 38,17 57,22 84,22 83,0 131,-53 131,-144 C 369,88 308,21 215,21 169,21 128,36 98,64 74,86 61,109 42,163 L 15,153 C 36,92 44,56 50,6 c 53,-18 97,-26 134,-26 123,0 278,107 278,244 z"
+                           stroke="#000000"
+                           stroke-opacity="1"
+                           stroke-width="8"
+                           fill="#000000"
+                           fill-opacity="1"
+                           id="path53" />
+                      </g>
+                    </g>
+                  </g>
+                </g>
+                <svg
+                   x="113.79169"
+                   overflow="visible"
+                   y="69.697937"
+                   height="17"
+                   width="25.5"
+                   version="1.1"
+                   id="svg57">
+                  <polygon
+                     points="0.64,10.77 0.35,10.28 4.79,7.91 9.66,18.23 16.36,0 25.5,0 25.5,1.05 17.09,1.05 9.18,22.58 3.1,9.85 "
+                     style="fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-opacity:1"
+                     id="polygon57" />
+                </svg>
+              </g>
+            </g>
+          </g>
+          <svg
+             x="70.145813"
+             overflow="visible"
+             y="63.697937"
+             height="17"
+             width="69.145836"
+             version="1.1"
+             id="svg60">
+            <polygon
+               points="0.64,16.77 0.35,16.28 4.79,13.91 9.46,23.82 16.36,0 69.15,0 69.15,1.05 17.11,1.05 9.18,28.58 3.1,15.85 "
+               style="fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-opacity:1"
+               id="polygon60" />
+          </svg>
+        </g>
+        <g
+           id="g62">
+          <svg
+             x="137.59375"
+             overflow="visible"
+             y="61.697937"
+             height="34"
+             width="8.5"
+             version="1.1"
+             id="svg62">
+            <path
+               d="m 1.75,1.7 c 0,-0.06 0.04,-0.08 0.08,-0.08 0.03,0 0.06,0.01 0.08,0.02 2.55,1.34 4.65,3.73 4.65,9.4 v 0.6 H 5.03 v -0.6 C 5.03,7.81 4.39,4.01 1.72,1.98 1.6,1.89 1.59,1.79 1.59,1.7 Z m 4.83,9.94 V 22.36 H 5.05 V 11.64 Z"
+               style="fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-opacity:1"
+               id="path61" />
+            <path
+               d="m 1.75,32.3 c 0,0.06 0.04,0.08 0.08,0.08 0.03,0 0.06,-0.01 0.08,-0.02 2.55,-1.34 4.65,-3.73 4.65,-9.4 v -0.6 H 5.03 v 0.6 c 0,3.23 -0.64,7.03 -3.31,9.06 -0.12,0.09 -0.13,0.19 -0.13,0.28 z"
+               style="fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-opacity:1"
+               id="path62" />
+          </svg>
+        </g>
+      </g>
+    </g>
+    <g
+       id="g68">
+      <g
+         id="g67">
+        <g
+           id="g66">
+          <g
+             transform="translate(116.78125,29.4)"
+             id="g65">
+            <path
+               transform="scale(0.0204,-0.0204)"
+               d="m 499,329 c -30,0 -57,-28 -57,-58 0,-30 27,-58 56,-58 32,0 60,27 60,58 0,30 -28,58 -59,58 z m -333,0 c -30,0 -57,-28 -57,-58 0,-30 27,-58 56,-58 32,0 60,27 60,58 0,30 -28,58 -59,58 z m 666,0 c -30,0 -57,-28 -57,-58 0,-30 27,-58 56,-58 32,0 60,27 60,58 0,30 -28,58 -59,58 z"
+               stroke="#000000"
+               stroke-opacity="1"
+               stroke-width="8"
+               fill="#000000"
+               fill-opacity="1"
+               id="path64" />
+          </g>
+        </g>
+      </g>
+    </g>
+  </svg>
+</svg>

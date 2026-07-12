@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="500" height="500" version="1.1" xmlns="http://www.w3.org/2000/svg">
+	<marker id="a" overflow="visible" orient="auto">
+		<path transform="scale(.4) rotate(180) translate(10)" d="m0 0 5-5-17.5 5 17.5 5-5-5z" fill="#999" fill-rule="evenodd" stroke="#999" stroke-width="1pt"/>
+	</marker>
+	<g fill="none" stroke="#999" stroke-width="3">
+		<path d="m106 146 24 17" marker-end="url(#a)"/>
+		<path d="m250 72v31" marker-end="url(#a)"/>
+		<path d="m394 146-24 17" marker-end="url(#a)"/>
+		<path d="m422 296-30-8" marker-end="url(#a)"/>
+		<path d="m318 414-12-28" marker-end="url(#a)"/>
+		<path d="m182 414 12-28" marker-end="url(#a)"/>
+		<path d="m78 296 30-8" marker-end="url(#a)"/>
+		<path d="m221 155-27 14" marker-end="url(#a)"/>
+		<path d="m231 166-61 84" marker-end="url(#a)"/>
+		<path d="m244 171-29 144" marker-end="url(#a)"/>
+		<path d="m257 171 28 144" marker-end="url(#a)"/>
+		<path d="m279 155 27 13" marker-end="url(#a)"/>
+		<path d="m319 210-88 112" marker-end="url(#a)"/>
+		<path d="m330 216-28 100" marker-end="url(#a)"/>
+		<path d="m170 216 28 100" marker-end="url(#a)"/>
+		<path d="M 181,211 269,322" marker-end="url(#a)"/>
+		<path d="m193 185h109" marker-end="url(#a)"/>
+	</g>
+	<circle cx="250" cy="40" r="30" fill="#fbd484"/>
+	<circle cx="80" cy="127" r="30" fill="#f6b393"/>
+	<circle cx="250" cy="140" r="30" fill="#f8a909"/>
+	<circle cx="161" cy="185" r="30" fill="#ec6728"/>
+	<circle cx="339" cy="185" r="30" fill="#cf122d"/>
+	<circle cx="144" cy="279" r="30" fill="#62a830"/>
+	<circle cx="47" cy="304" r="30" fill="#b0d498"/>
+	<circle cx="356" cy="279" r="30" fill="#ab378c"/>
+	<circle cx="453" cy="304" r="30" fill="#d59bc6"/>
+	<circle cx="292" cy="352" r="30" fill="#412884"/>
+	<circle cx="208" cy="352" r="30" fill="#195da9"/>
+	<circle cx="170" cy="444" r="30" fill="#8caed4"/>
+	<circle cx="330" cy="444" r="30" fill="#a093c2"/>
+	<circle cx="420" cy="127" r="30" fill="#e78996"/>
+	<g font-family="DejaVu Sans" font-size="25" text-anchor="middle">
+		<g font-weight="bold">
+			<g>
+				<text x="80" y="133">c</text>
+				<text x="420" y="136" font-style="oblique">h</text>
+				<text x="47" y="311" font-style="oblique">e</text>
+			</g>
+			<g fill="#fff">
+				<text x="161" y="192">m</text>
+				<text x="250" y="147">s</text>
+				<text x="339" y="192">kg</text>
+				<text x="144" y="288">A</text>
+				<text x="356" y="288" font-stretch="semi-condensed">mol</text>
+				<text x="206" y="361">K</text>
+				<text x="293" y="361">cd</text>
+			</g>
+			<g font-style="oblique">
+				<text><tspan x="453" y="311">N<tspan baseline-shift="sub" font-family="'DejaVu Sans'" font-size="65%" font-style="normal" font-weight="bold">A</tspan></tspan></text>
+				<text><tspan x="170" y="451"><tspan>k</tspan><tspan baseline-shift="sub" font-size="65%">B</tspan></tspan></text>
+				<text><tspan x="331" y="451"><tspan>K</tspan><tspan baseline-shift="sub" font-size="65%">cd</tspan></tspan></text>
+			</g>
+		</g>
+		<text><tspan x="250" y="47">Δ<tspan font-family="DejaVu Serif" font-style="italic">v</tspan><tspan baseline-shift="sub" font-size="65%">cs</tspan></tspan></text>
+	</g>
+</svg>

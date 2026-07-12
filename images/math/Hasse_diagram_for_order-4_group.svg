@@ -1,0 +1,690 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg
+   x="0"
+   y="0"
+   width="420"
+   height="214"
+   style="fill:none"
+   version="1.1"
+   id="svg272"
+   sodipodi:docname="Hasse_diagram_for_order-4_group.svg"
+   inkscape:version="1.2.2 (b0a8486, 2022-12-01)"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg">
+  <defs
+     id="defs276" />
+  <sodipodi:namedview
+     id="namedview274"
+     pagecolor="#ffffff"
+     bordercolor="#000000"
+     borderopacity="0.25"
+     inkscape:showpageshadow="2"
+     inkscape:pageopacity="0.0"
+     inkscape:pagecheckerboard="0"
+     inkscape:deskcolor="#d1d1d1"
+     showgrid="false"
+     inkscape:zoom="1.6238671"
+     inkscape:cx="348.8586"
+     inkscape:cy="133.32372"
+     inkscape:window-width="1219"
+     inkscape:window-height="747"
+     inkscape:window-x="61"
+     inkscape:window-y="25"
+     inkscape:window-maximized="0"
+     inkscape:current-layer="svg272" />
+  <svg
+     class="role-diagram-draw-area"
+     version="1.1"
+     id="svg44"
+     width="100%"
+     height="100%">
+    <g
+       class="shapes-region"
+       style="fill:none;stroke:#000000"
+       id="g36">
+      <g
+         class="arrow-line"
+         id="g4">
+        <path
+           class="connection real"
+           stroke-dasharray="none"
+           d="M 58,60 V 94.06"
+           style="fill:none;fill-opacity:1;stroke:#000000;stroke-width:1"
+           id="path2" />
+      </g>
+      <g
+         class="arrow-line"
+         id="g8">
+        <path
+           class="connection real"
+           stroke-dasharray="none"
+           d="m 58,126 v 34.06"
+           style="fill:none;fill-opacity:1;stroke:#000000;stroke-width:1"
+           id="path6" />
+      </g>
+      <g
+         class="arrow-line"
+         id="g12">
+        <path
+           class="connection real"
+           stroke-dasharray="none"
+           d="M 283,55 V 89.06"
+           style="fill:none;fill-opacity:1;stroke:#000000;stroke-width:1"
+           id="path10" />
+      </g>
+      <g
+         class="arrow-line"
+         id="g16">
+        <path
+           class="connection real"
+           stroke-dasharray="none"
+           d="m 283,121 v 34.06"
+           style="fill:none;fill-opacity:1;stroke:#000000;stroke-width:1"
+           id="path14" />
+      </g>
+      <g
+         class="arrow-line"
+         id="g20">
+        <path
+           class="connection real"
+           stroke-dasharray="none"
+           d="m 301,44.06 65,45"
+           style="fill:none;fill-opacity:1;stroke:#000000;stroke-width:1"
+           id="path18" />
+      </g>
+      <g
+         class="arrow-line"
+         id="g24">
+        <path
+           class="connection real"
+           stroke-dasharray="none"
+           d="M 193,93 266,43.06"
+           style="fill:none;fill-opacity:1;stroke:#000000;stroke-width:1"
+           id="path22" />
+      </g>
+      <g
+         class="arrow-line"
+         id="g28">
+        <path
+           class="connection real"
+           stroke-dasharray="none"
+           d="m 192,125 74,47.06"
+           style="fill:none;fill-opacity:1;stroke:#000000;stroke-width:1"
+           id="path26" />
+      </g>
+      <g
+         class="arrow-line"
+         id="g32">
+        <path
+           class="connection real"
+           stroke-dasharray="none"
+           d="m 369,121.06 -64,50"
+           style="fill:none;fill-opacity:1;stroke:#000000;stroke-width:1"
+           id="path30" />
+      </g>
+      <g
+         id="g34" />
+    </g>
+    <g
+       id="g38" />
+    <g
+       id="g40" />
+    <g
+       id="g42" />
+  </svg>
+  <svg
+     width="660"
+     height="212"
+     style="font-family:Asana-Math, Asana"
+     version="1.1"
+     id="svg270">
+    <g
+       id="g66">
+      <g
+         id="g64">
+        <g
+           id="g50">
+          <g
+             transform="translate(49,49)"
+             id="g48">
+            <path
+               transform="scale(0.017,-0.017)"
+               d="m 788,173 h -34 l -6,-57 C 741,48 723,44 574,44 H 301 l 486,619 -4,29 c -52,-1 -44,-3 -96,-3 H 477 c -132,0 -265,2 -397,3 4,-54 4,-108 0,-163 h 34 l 6,72 c 3,33 14,47 152,47 H 500 C 478,609 444,568 414,529 L 112,142 C 81,102 47,64 15,25 V -3 c 104,1 358,3 462,3 103,0 207,-2 305,-3 0,57 1,121 6,176 z M 709,648 C 688,609 654,568 624,529 L 322,142 C 296,108 268,76 241,44 h -90 l 474,604 z"
+               stroke="#000000"
+               stroke-opacity="1"
+               stroke-width="8"
+               fill="#000000"
+               fill-opacity="1"
+               id="path46" />
+          </g>
+        </g>
+        <g
+           id="g62">
+          <g
+             id="g60">
+            <g
+               id="g58">
+              <g
+                 id="g56">
+                <g
+                   transform="translate(63.359375,52.009375)"
+                   id="g54">
+                  <path
+                     transform="scale(0.0119,-0.0119)"
+                     d="M 280,181 V 106 C 280,46 269,32 220,30 L 158,27 V -3 c 133,3 133,3 157,3 24,0 24,0 157,-3 v 30 l -48,3 c -49,3 -60,16 -60,76 v 75 c 59,0 80,-1 108,-4 v 71 L 364,245 365,697 285,667 2,204 v -23 z m 0,64 H 65 l 215,352 z"
+                     stroke="#000000"
+                     stroke-opacity="1"
+                     stroke-width="8"
+                     fill="#000000"
+                     fill-opacity="1"
+                     id="path52" />
+                </g>
+              </g>
+            </g>
+          </g>
+        </g>
+      </g>
+    </g>
+    <g
+       id="g100">
+      <g
+         id="g98">
+        <g
+           id="g72">
+          <g
+             transform="translate(37,116)"
+             id="g70">
+            <path
+               transform="scale(0.017,-0.017)"
+               d="m 289,-175 c -63,14 -83,58 -83,130 v 173 c 0,79 -9,125 -81,144 v 2 c 69,18 81,61 81,135 v 186 c 0,72 18,112 83,131 C 189,726 134,703 134,578 V 392 c 0,-65 -14,-100 -76,-119 66,-19 76,-50 76,-122 V -17 c 0,-132 42,-158 155,-158 z"
+               stroke="#000000"
+               stroke-opacity="1"
+               stroke-width="8"
+               fill="#000000"
+               fill-opacity="1"
+               id="path68" />
+          </g>
+        </g>
+        <g
+           id="g78">
+          <g
+             transform="translate(43.5,116)"
+             id="g76">
+            <path
+               transform="scale(0.017,-0.017)"
+               d="M 263,689 C 108,689 29,566 29,324 29,207 50,106 85,57 c 35,-49 91,-77 153,-77 151,0 227,130 227,386 0,219 -65,323 -202,323 z M 245,654 C 342,654 381,556 381,316 381,103 343,15 251,15 154,15 113,116 113,360 c 0,211 37,294 132,294 z"
+               stroke="#000000"
+               stroke-opacity="1"
+               stroke-width="8"
+               fill="#000000"
+               fill-opacity="1"
+               id="path74" />
+          </g>
+        </g>
+        <g
+           id="g84">
+          <g
+             transform="translate(51.983002,116)"
+             id="g82">
+            <path
+               transform="scale(0.017,-0.017)"
+               d="M 204,123 C 177,114 159,108 106,93 99,17 74,-48 16,-144 l 14,-11 41,19 c 81,105 119,168 147,245 z"
+               stroke="#000000"
+               stroke-opacity="1"
+               stroke-width="8"
+               fill="#000000"
+               fill-opacity="1"
+               id="path80" />
+          </g>
+        </g>
+        <g
+           id="g90">
+          <g
+             transform="translate(59.606628,116)"
+             id="g88">
+            <path
+               transform="scale(0.017,-0.017)"
+               d="M 265,23 V -3 c 187,0 187,3 223,3 36,0 36,-3 229,-3 V 82 C 602,77 556,81 371,77 l 182,193 c 97,103 127,158 127,233 0,115 -78,186 -205,186 -72,0 -121,-20 -170,-70 L 288,483 h 29 l 13,46 c 16,58 52,83 119,83 86,0 141,-54 141,-139 0,-75 -42,-149 -155,-269 z"
+               stroke="#000000"
+               stroke-opacity="1"
+               stroke-width="8"
+               fill="#000000"
+               fill-opacity="1"
+               id="path86" />
+          </g>
+        </g>
+        <g
+           id="g96">
+          <g
+             transform="translate(73.15625,116)"
+             id="g94">
+            <path
+               transform="scale(0.017,-0.017)"
+               d="m 275,273 c -62,19 -76,54 -76,119 v 186 c 0,125 -55,148 -155,148 65,-19 83,-59 83,-131 V 409 c 0,-74 12,-117 81,-135 v -2 C 136,253 127,207 127,128 V -45 c 0,-72 -20,-116 -83,-130 113,0 155,26 155,158 v 168 c 0,72 10,103 76,122 z"
+               stroke="#000000"
+               stroke-opacity="1"
+               stroke-width="8"
+               fill="#000000"
+               fill-opacity="1"
+               id="path92" />
+          </g>
+        </g>
+      </g>
+    </g>
+    <g
+       id="g122">
+      <g
+         id="g120">
+        <g
+           id="g106">
+          <g
+             transform="translate(49,184)"
+             id="g104">
+            <path
+               transform="scale(0.017,-0.017)"
+               d="m 289,-175 c -63,14 -83,58 -83,130 v 173 c 0,79 -9,125 -81,144 v 2 c 69,18 81,61 81,135 v 186 c 0,72 18,112 83,131 C 189,726 134,703 134,578 V 392 c 0,-65 -14,-100 -76,-119 66,-19 76,-50 76,-122 V -17 c 0,-132 42,-158 155,-158 z"
+               stroke="#000000"
+               stroke-opacity="1"
+               stroke-width="8"
+               fill="#000000"
+               fill-opacity="1"
+               id="path102" />
+          </g>
+        </g>
+        <g
+           id="g112">
+          <g
+             transform="translate(55.5,184)"
+             id="g110">
+            <path
+               transform="scale(0.017,-0.017)"
+               d="M 263,689 C 108,689 29,566 29,324 29,207 50,106 85,57 c 35,-49 91,-77 153,-77 151,0 227,130 227,386 0,219 -65,323 -202,323 z M 245,654 C 342,654 381,556 381,316 381,103 343,15 251,15 154,15 113,116 113,360 c 0,211 37,294 132,294 z"
+               stroke="#000000"
+               stroke-opacity="1"
+               stroke-width="8"
+               fill="#000000"
+               fill-opacity="1"
+               id="path108" />
+          </g>
+        </g>
+        <g
+           id="g118">
+          <g
+             transform="translate(64.8125,184)"
+             id="g116">
+            <path
+               transform="scale(0.017,-0.017)"
+               d="m 275,273 c -62,19 -76,54 -76,119 v 186 c 0,125 -55,148 -155,148 65,-19 83,-59 83,-131 V 409 c 0,-74 12,-117 81,-135 v -2 C 136,253 127,207 127,128 V -45 c 0,-72 -20,-116 -83,-130 113,0 155,26 155,158 v 168 c 0,72 10,103 76,122 z"
+               stroke="#000000"
+               stroke-opacity="1"
+               stroke-width="8"
+               fill="#000000"
+               fill-opacity="1"
+               id="path114" />
+          </g>
+        </g>
+      </g>
+    </g>
+    <g
+       id="g144">
+      <g
+         id="g142">
+        <g
+           id="g128">
+          <g
+             transform="translate(273,44)"
+             id="g126">
+            <path
+               transform="scale(0.017,-0.017)"
+               d="m 310,96 -71,528 c -2,22 2,37 42,38 l 42,2 v 28 l -41,-1 c -37,-1 -65,-2 -83,-2 -18,0 -46,1 -83,2 l -41,1 v -28 l 25,-2 c 44,-3 52,-11 59,-48 L 247,-8 h 49 l 378,619 c 25,40 33,47 62,51 l 18,2 v 28 l -30,-1 c -27,-1 -50,-2 -66,-2 -10,0 -37,1 -78,2 l -46,1 v -28 l 26,-2 c 38,-3 57,-13 57,-32 0,-11 -4,-22 -16,-42 z"
+               stroke="#000000"
+               stroke-opacity="1"
+               stroke-width="8"
+               fill="#000000"
+               fill-opacity="1"
+               id="path124" />
+          </g>
+        </g>
+        <g
+           id="g140">
+          <g
+             id="g138">
+            <g
+               id="g136">
+              <g
+                 id="g134">
+                <g
+                   transform="translate(285.75,47.009375)"
+                   id="g132">
+                  <path
+                     transform="scale(0.0119,-0.0119)"
+                     d="M 280,181 V 106 C 280,46 269,32 220,30 L 158,27 V -3 c 133,3 133,3 157,3 24,0 24,0 157,-3 v 30 l -48,3 c -49,3 -60,16 -60,76 v 75 c 59,0 80,-1 108,-4 v 71 L 364,245 365,697 285,667 2,204 v -23 z m 0,64 H 65 l 215,352 z"
+                     stroke="#000000"
+                     stroke-opacity="1"
+                     stroke-width="8"
+                     fill="#000000"
+                     fill-opacity="1"
+                     id="path130" />
+                </g>
+              </g>
+            </g>
+          </g>
+        </g>
+      </g>
+    </g>
+    <g
+       id="g178">
+      <g
+         id="g176">
+        <g
+           id="g150">
+          <g
+             transform="translate(262,111)"
+             id="g148">
+            <path
+               transform="scale(0.017,-0.017)"
+               d="m 289,-175 c -63,14 -83,58 -83,130 v 173 c 0,79 -9,125 -81,144 v 2 c 69,18 81,61 81,135 v 186 c 0,72 18,112 83,131 C 189,726 134,703 134,578 V 392 c 0,-65 -14,-100 -76,-119 66,-19 76,-50 76,-122 V -17 c 0,-132 42,-158 155,-158 z"
+               stroke="#000000"
+               stroke-opacity="1"
+               stroke-width="8"
+               fill="#000000"
+               fill-opacity="1"
+               id="path146" />
+          </g>
+        </g>
+        <g
+           id="g156">
+          <g
+             transform="translate(268.5,111)"
+             id="g154">
+            <path
+               transform="scale(0.017,-0.017)"
+               d="M 328,111 304,94 C 251,56 203,36 167,36 c -47,0 -76,37 -76,97 0,25 3,52 8,81 17,4 126,34 151,45 85,37 124,83 124,145 0,47 -34,78 -84,78 C 222,496 112,423 75,349 45,299 15,180 15,113 15,35 59,-11 131,-11 188,-11 244,17 336,92 Z M 113,274 c 17,69 37,112 66,138 18,16 49,28 73,28 29,0 48,-20 48,-52 0,-44 -35,-91 -87,-116 -28,-14 -64,-25 -109,-35 z"
+               stroke="#000000"
+               stroke-opacity="1"
+               stroke-width="8"
+               fill="#000000"
+               fill-opacity="1"
+               id="path152" />
+          </g>
+        </g>
+        <g
+           id="g162">
+          <g
+             transform="translate(275.09601,111)"
+             id="g160">
+            <path
+               transform="scale(0.017,-0.017)"
+               d="M 204,123 C 177,114 159,108 106,93 99,17 74,-48 16,-144 l 14,-11 41,19 c 81,105 119,168 147,245 z"
+               stroke="#000000"
+               stroke-opacity="1"
+               stroke-width="8"
+               fill="#000000"
+               fill-opacity="1"
+               id="path158" />
+          </g>
+        </g>
+        <g
+           id="g168">
+          <g
+             transform="translate(282.7196,111)"
+             id="g166">
+            <path
+               transform="scale(0.017,-0.017)"
+               d="m 415,420 c 21,0 37,1 63,4 C 367,304 325,221 325,121 c 0,-77 46,-132 110,-132 138,0 291,247 291,395 0,57 -26,98 -62,98 -13,0 -25,-4 -33,-12 l -50,-47 11,-19 c 9,6 18,9 27,9 27,0 43,-23 43,-63 0,-148 -97,-311 -185,-311 -49,0 -80,42 -80,107 0,105 39,196 137,318 l -10,18 c -20,-9 -33,-12 -61,-12 -28,0 -70,2 -99,5 l -12,1 c -6,1 -11,1 -12,1 -12,0 -21,-2 -32,-7 -14,-27 -25,-63 -38,-118 h 22 l 17,42 c 7,17 27,28 51,28 33,0 17,-2 55,-2 z"
+               stroke="#000000"
+               stroke-opacity="1"
+               stroke-width="8"
+               fill="#000000"
+               fill-opacity="1"
+               id="path164" />
+          </g>
+        </g>
+        <g
+           id="g174">
+          <g
+             transform="translate(296.26562,111)"
+             id="g172">
+            <path
+               transform="scale(0.017,-0.017)"
+               d="m 275,273 c -62,19 -76,54 -76,119 v 186 c 0,125 -55,148 -155,148 65,-19 83,-59 83,-131 V 409 c 0,-74 12,-117 81,-135 v -2 C 136,253 127,207 127,128 V -45 c 0,-72 -20,-116 -83,-130 113,0 155,26 155,158 v 168 c 0,72 10,103 76,122 z"
+               stroke="#000000"
+               stroke-opacity="1"
+               stroke-width="8"
+               fill="#000000"
+               fill-opacity="1"
+               id="path170" />
+          </g>
+        </g>
+      </g>
+    </g>
+    <g
+       id="g200">
+      <g
+         id="g198">
+        <g
+           id="g184">
+          <g
+             transform="translate(274,179)"
+             id="g182">
+            <path
+               transform="scale(0.017,-0.017)"
+               d="m 289,-175 c -63,14 -83,58 -83,130 v 173 c 0,79 -9,125 -81,144 v 2 c 69,18 81,61 81,135 v 186 c 0,72 18,112 83,131 C 189,726 134,703 134,578 V 392 c 0,-65 -14,-100 -76,-119 66,-19 76,-50 76,-122 V -17 c 0,-132 42,-158 155,-158 z"
+               stroke="#000000"
+               stroke-opacity="1"
+               stroke-width="8"
+               fill="#000000"
+               fill-opacity="1"
+               id="path180" />
+          </g>
+        </g>
+        <g
+           id="g190">
+          <g
+             transform="translate(280.5,179)"
+             id="g188">
+            <path
+               transform="scale(0.017,-0.017)"
+               d="M 328,111 304,94 C 251,56 203,36 167,36 c -47,0 -76,37 -76,97 0,25 3,52 8,81 17,4 126,34 151,45 85,37 124,83 124,145 0,47 -34,78 -84,78 C 222,496 112,423 75,349 45,299 15,180 15,113 15,35 59,-11 131,-11 188,-11 244,17 336,92 Z M 113,274 c 17,69 37,112 66,138 18,16 49,28 73,28 29,0 48,-20 48,-52 0,-44 -35,-91 -87,-116 -28,-14 -64,-25 -109,-35 z"
+               stroke="#000000"
+               stroke-opacity="1"
+               stroke-width="8"
+               fill="#000000"
+               fill-opacity="1"
+               id="path186" />
+          </g>
+        </g>
+        <g
+           id="g196">
+          <g
+             transform="translate(287.9375,179)"
+             id="g194">
+            <path
+               transform="scale(0.017,-0.017)"
+               d="m 275,273 c -62,19 -76,54 -76,119 v 186 c 0,125 -55,148 -155,148 65,-19 83,-59 83,-131 V 409 c 0,-74 12,-117 81,-135 v -2 C 136,253 127,207 127,128 V -45 c 0,-72 -20,-116 -83,-130 113,0 155,26 155,158 v 168 c 0,72 10,103 76,122 z"
+               stroke="#000000"
+               stroke-opacity="1"
+               stroke-width="8"
+               fill="#000000"
+               fill-opacity="1"
+               id="path192" />
+          </g>
+        </g>
+      </g>
+    </g>
+    <g
+       id="g234">
+      <g
+         id="g232">
+        <g
+           id="g206">
+          <g
+             transform="translate(171,113)"
+             id="g204">
+            <path
+               transform="scale(0.017,-0.017)"
+               d="m 289,-175 c -63,14 -83,58 -83,130 v 173 c 0,79 -9,125 -81,144 v 2 c 69,18 81,61 81,135 v 186 c 0,72 18,112 83,131 C 189,726 134,703 134,578 V 392 c 0,-65 -14,-100 -76,-119 66,-19 76,-50 76,-122 V -17 c 0,-132 42,-158 155,-158 z"
+               stroke="#000000"
+               stroke-opacity="1"
+               stroke-width="8"
+               fill="#000000"
+               fill-opacity="1"
+               id="path202" />
+          </g>
+        </g>
+        <g
+           id="g212">
+          <g
+             transform="translate(177.5,113)"
+             id="g210">
+            <path
+               transform="scale(0.017,-0.017)"
+               d="M 328,111 304,94 C 251,56 203,36 167,36 c -47,0 -76,37 -76,97 0,25 3,52 8,81 17,4 126,34 151,45 85,37 124,83 124,145 0,47 -34,78 -84,78 C 222,496 112,423 75,349 45,299 15,180 15,113 15,35 59,-11 131,-11 188,-11 244,17 336,92 Z M 113,274 c 17,69 37,112 66,138 18,16 49,28 73,28 29,0 48,-20 48,-52 0,-44 -35,-91 -87,-116 -28,-14 -64,-25 -109,-35 z"
+               stroke="#000000"
+               stroke-opacity="1"
+               stroke-width="8"
+               fill="#000000"
+               fill-opacity="1"
+               id="path208" />
+          </g>
+        </g>
+        <g
+           id="g218">
+          <g
+             transform="translate(184.09601,113)"
+             id="g216">
+            <path
+               transform="scale(0.017,-0.017)"
+               d="M 204,123 C 177,114 159,108 106,93 99,17 74,-48 16,-144 l 14,-11 41,19 c 81,105 119,168 147,245 z"
+               stroke="#000000"
+               stroke-opacity="1"
+               stroke-width="8"
+               fill="#000000"
+               fill-opacity="1"
+               id="path214" />
+          </g>
+        </g>
+        <g
+           id="g224">
+          <g
+             transform="translate(191.7196,113)"
+             id="g222">
+            <path
+               transform="scale(0.017,-0.017)"
+               d="m 485,722 -12,11 C 428,711 387,697 313,691 l -4,-21 h 48 c 18,0 34,-3 34,-23 0,-6 0,-15 -2,-25 L 347,388 C 327,272 285,80 259,2 l 7,-11 69,16 c 8,57 22,157 62,229 45,81 148,178 190,178 11,0 22,-7 22,-21 0,-18 -5,-51 -15,-90 L 543,107 C 537,85 530,55 530,31 530,6 540,-9 561,-9 593,-9 661,41 720,85 L 710,103 684,86 C 661,71 635,56 623,56 c -7,0 -13,9 -13,20 0,12 3,25 7,40 l 64,256 c 6,26 11,51 11,75 0,17 -6,35 -32,35 -35,0 -112,-45 -180,-108 -33,-31 -59,-66 -87,-101 l -4,2 z"
+               stroke="#000000"
+               stroke-opacity="1"
+               stroke-width="8"
+               fill="#000000"
+               fill-opacity="1"
+               id="path220" />
+          </g>
+        </g>
+        <g
+           id="g230">
+          <g
+             transform="translate(205.26562,113)"
+             id="g228">
+            <path
+               transform="scale(0.017,-0.017)"
+               d="m 275,273 c -62,19 -76,54 -76,119 v 186 c 0,125 -55,148 -155,148 65,-19 83,-59 83,-131 V 409 c 0,-74 12,-117 81,-135 v -2 C 136,253 127,207 127,128 V -45 c 0,-72 -20,-116 -83,-130 113,0 155,26 155,158 v 168 c 0,72 10,103 76,122 z"
+               stroke="#000000"
+               stroke-opacity="1"
+               stroke-width="8"
+               fill="#000000"
+               fill-opacity="1"
+               id="path226" />
+          </g>
+        </g>
+      </g>
+    </g>
+    <g
+       id="g268">
+      <g
+         id="g266">
+        <g
+           id="g240">
+          <g
+             transform="translate(351,110)"
+             id="g238">
+            <path
+               transform="scale(0.017,-0.017)"
+               d="m 289,-175 c -63,14 -83,58 -83,130 v 173 c 0,79 -9,125 -81,144 v 2 c 69,18 81,61 81,135 v 186 c 0,72 18,112 83,131 C 189,726 134,703 134,578 V 392 c 0,-65 -14,-100 -76,-119 66,-19 76,-50 76,-122 V -17 c 0,-132 42,-158 155,-158 z"
+               stroke="#000000"
+               stroke-opacity="1"
+               stroke-width="8"
+               fill="#000000"
+               fill-opacity="1"
+               id="path236" />
+          </g>
+        </g>
+        <g
+           id="g246">
+          <g
+             transform="translate(357.5,110)"
+             id="g244">
+            <path
+               transform="scale(0.017,-0.017)"
+               d="M 328,111 304,94 C 251,56 203,36 167,36 c -47,0 -76,37 -76,97 0,25 3,52 8,81 17,4 126,34 151,45 85,37 124,83 124,145 0,47 -34,78 -84,78 C 222,496 112,423 75,349 45,299 15,180 15,113 15,35 59,-11 131,-11 188,-11 244,17 336,92 Z M 113,274 c 17,69 37,112 66,138 18,16 49,28 73,28 29,0 48,-20 48,-52 0,-44 -35,-91 -87,-116 -28,-14 -64,-25 -109,-35 z"
+               stroke="#000000"
+               stroke-opacity="1"
+               stroke-width="8"
+               fill="#000000"
+               fill-opacity="1"
+               id="path242" />
+          </g>
+        </g>
+        <g
+           id="g252">
+          <g
+             transform="translate(364.09601,110)"
+             id="g250">
+            <path
+               transform="scale(0.017,-0.017)"
+               d="M 204,123 C 177,114 159,108 106,93 99,17 74,-48 16,-144 l 14,-11 41,19 c 81,105 119,168 147,245 z"
+               stroke="#000000"
+               stroke-opacity="1"
+               stroke-width="8"
+               fill="#000000"
+               fill-opacity="1"
+               id="path248" />
+          </g>
+        </g>
+        <g
+           id="g258">
+          <g
+             transform="translate(371.7196,110)"
+             id="g256">
+            <path
+               transform="scale(0.017,-0.017)"
+               d="m 617,365 c 3,38 8,70 16,111 -11,5 -15,6 -20,6 -31,0 -62,-24 -98,-75 -39,-56 -78,-116 -94,-151 l 32,152 c 4,17 6,30 6,42 0,20 -8,32 -23,32 -21,0 -59,-21 -133,-74 l -28,-20 7,-20 32,21 c 28,18 39,23 48,23 10,0 17,-9 17,-22 0,-58 -43,-264 -83,-392 l 10,-7 c 15,5 31,8 54,13 l 13,2 26,120 c 18,83 41,136 85,193 34,44 61,65 83,65 15,0 25,-5 36,-19 z"
+               stroke="#000000"
+               stroke-opacity="1"
+               stroke-width="8"
+               fill="#000000"
+               fill-opacity="1"
+               id="path254" />
+          </g>
+        </g>
+        <g
+           id="g264">
+          <g
+             transform="translate(383.39062,110)"
+             id="g262">
+            <path
+               transform="scale(0.017,-0.017)"
+               d="m 275,273 c -62,19 -76,54 -76,119 v 186 c 0,125 -55,148 -155,148 65,-19 83,-59 83,-131 V 409 c 0,-74 12,-117 81,-135 v -2 C 136,253 127,207 127,128 V -45 c 0,-72 -20,-116 -83,-130 113,0 155,26 155,158 v 168 c 0,72 10,103 76,122 z"
+               stroke="#000000"
+               stroke-opacity="1"
+               stroke-width="8"
+               fill="#000000"
+               fill-opacity="1"
+               id="path260" />
+          </g>
+        </g>
+      </g>
+    </g>
+  </svg>
+</svg>

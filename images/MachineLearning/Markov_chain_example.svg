@@ -1,0 +1,148 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg
+   x="0"
+   y="0"
+   width="320"
+   height="108"
+   style="fill:none"
+   version="1.1"
+   id="svg56"
+   sodipodi:docname="Markov_chain_example.svg"
+   inkscape:version="1.2.2 (b0a8486, 2022-12-01)"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg">
+  <defs
+     id="defs60" />
+  <sodipodi:namedview
+     id="namedview58"
+     pagecolor="#ffffff"
+     bordercolor="#000000"
+     borderopacity="0.25"
+     inkscape:showpageshadow="2"
+     inkscape:pageopacity="0.0"
+     inkscape:pagecheckerboard="0"
+     inkscape:deskcolor="#d1d1d1"
+     showgrid="false"
+     inkscape:zoom="1.1808732"
+     inkscape:cx="481"
+     inkscape:cy="54.197183"
+     inkscape:window-width="1280"
+     inkscape:window-height="658"
+     inkscape:window-x="0"
+     inkscape:window-y="25"
+     inkscape:window-maximized="0"
+     inkscape:current-layer="svg56" />
+  <svg
+     class="role-diagram-draw-area"
+     version="1.1"
+     id="svg28"
+     width="100%"
+     height="100%">
+    <g
+       class="shapes-region"
+       style="fill:none;stroke:#000000"
+       id="g20">
+      <g
+         class="arrow-line"
+         id="g8">
+        <path
+           class="connection real"
+           stroke-dasharray="none"
+           d="m 84,52 h 48"
+           style="fill:none;fill-opacity:1;stroke:#4a90e2;stroke-width:2;stroke-opacity:1"
+           id="path2" />
+        <g
+           stroke="none"
+           fill="rgb(74,144,226)"
+           fill-opacity="1"
+           transform="rotate(180,68,26)"
+           style="fill:#4a90e2;stroke:none;stroke-width:2"
+           id="g6">
+          <path
+             d="M 11.61,-5.58 0,0 11.61,5.58 Z"
+             id="path4" />
+        </g>
+      </g>
+      <g
+         class="arrow-line"
+         id="g16">
+        <path
+           class="connection real"
+           stroke-dasharray="none"
+           d="m 198,52 48,0.92"
+           style="fill:none;fill-opacity:1;stroke:#4a90e2;stroke-width:2;stroke-opacity:1"
+           id="path10" />
+        <g
+           stroke="none"
+           fill="rgb(74,144,226)"
+           fill-opacity="1"
+           transform="rotate(-178.9,125.25439,25.300049)"
+           style="fill:#4a90e2;stroke:none;stroke-width:2"
+           id="g14">
+          <path
+             d="M 11.61,-5.58 0,0 11.61,5.58 Z"
+             id="path12" />
+        </g>
+      </g>
+      <g
+         id="g18" />
+    </g>
+    <g
+       id="g22" />
+    <g
+       id="g24" />
+    <g
+       id="g26" />
+  </svg>
+  <svg
+     width="960"
+     height="106"
+     style="font-family:Asana-Math, Asana"
+     version="1.1"
+     id="svg54">
+    <g
+       id="g36">
+      <g
+         id="g34">
+        <g
+           id="g32">
+          <text
+             x="35"
+             y="33"
+             style="font-style:normal;font-weight:400;font-size:37.35px;font-family:Arial, Helvetica, sans-serif;text-decoration:none;text-decoration-line:none;dominant-baseline:text-before-edge;white-space:pre;fill:#000000;fill-opacity:1;stroke:none"
+             id="text30">🌧️</text>
+        </g>
+      </g>
+    </g>
+    <g
+       id="g44">
+      <g
+         id="g42">
+        <g
+           id="g40">
+          <text
+             x="144"
+             y="67.916664"
+             style="font-style:normal;font-weight:400;font-size:42.33px;font-family:Asana-Math, Asana;text-decoration:none;text-decoration-line:none;dominant-baseline:auto;white-space:pre;fill:#000000;fill-opacity:1;stroke:none"
+             id="text38">☀️</text>
+        </g>
+      </g>
+    </g>
+    <g
+       id="g52">
+      <g
+         id="g50">
+        <g
+           id="g48">
+          <text
+             x="259"
+             y="31"
+             style="font-style:normal;font-weight:400;font-size:37.35px;font-family:Arial, Helvetica, sans-serif;text-decoration:none;text-decoration-line:none;dominant-baseline:text-before-edge;white-space:pre;fill:#000000;fill-opacity:1;stroke:none"
+             id="text46">☁️</text>
+        </g>
+      </g>
+    </g>
+  </svg>
+</svg>

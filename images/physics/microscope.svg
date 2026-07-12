@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg width="650" height="500" version="1.1" id="svg16438" xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg">
+   <defs id="defs16356">
+      <marker orient="auto" markerHeight="3" markerWidth="3" refY="5" refX="1" viewBox="0 0 10 10" id="arrow">
+         <path fill="red" d="m0,0l10,5l-10,5l0,-10z" id="path16350" />
+      </marker>
+      <marker orient="auto" markerHeight="6" markerWidth="6" refY="5" refX="1" viewBox="0 0 10 10" id="a2">
+         <path stroke="orange" stroke-width="2" fill="none" d="m0,0l10,5l-10,5" id="path16353" />
+      </marker>
+      <linearGradient id="linearGradient11284">
+         <stop style="stop-color:#717071;stop-opacity:1;" offset="0" id="stop11282" />
+      </linearGradient>
+      <filter style="color-interpolation-filters:sRGB" id="filter15685" x="-0.020703181" y="-0.012841916"
+         width="1.1318783" height="1.0317712">
+         <feGaussianBlur stdDeviation="0.029430329" id="feGaussianBlur15687" />
+      </filter>
+      <filter style="color-interpolation-filters:sRGB" id="filter15689" x="-0.005411379" y="-0.0020851174"
+         width="1.0108228" height="1.0041702">
+         <feGaussianBlur stdDeviation="0.01272477" id="feGaussianBlur15691" />
+      </filter>
+   </defs>
+   <g id="g16436">
+      <!-- 中线 -->
+      <line x1="50" y1="250" x2="580" y2="250" stroke="gray" stroke-width="2" stroke-dasharray="10,5,2,5"
+         id="line16358" />
+      <path d="m180,80l0,40m140,-20l-125,0" stroke="#0084C8" stroke-width="2" marker-end="url(#a2)" id="path16360" />
+      <path d="m500,80l0,40m-140,-20l125,0" stroke="#0084C8" stroke-width="2" marker-end="url(#a2)" id="path16362" />
+      <text x="335" y="105" font-size="18" id="text16364">L</text>
+      <!-- 物 -->
+      <path d="m100,250l0,-10" stroke="red" stroke-width="4" marker-end="url(#arrow)" id="path16366" />
+      <!-- 物镜 -->
+      <ellipse cx="180" cy="250" rx="12" ry="50" fill="#19AEFF" stroke="#0084C8" fill-opacity="0.5" id="ellipse16368" />
+      <!-- 目镜 -->
+      <ellipse cx="500" cy="250" rx="10" ry="120" fill="#19AEFF" stroke="#0084C8" fill-opacity="0.5"
+         id="ellipse16370" />
+      <!-- 光线 -->
+      <g fill="none" stroke-width="2" id="g16384">
+         <path d="m100,230l300,75l100,25" stroke="orange" marker-mid="url(#a2)" id="path16372" />
+         <path d="m100,230l80,0" stroke="orange" id="path16374" />
+         <path d="m180,230l200,80l120,48" stroke="orange" marker-mid="url(#a2)" id="path16376" />
+         <path d="m100,230l80,70" stroke="orange" id="path16378" />
+         <path d="m180,300l200,-25l120,-15" stroke="orange" marker-mid="url(#a2)" id="path16380" />
+         <path d="m100,230l80,0l320,128l0,-98l-320,40l-80,-70z" fill="orange" fill-opacity="0.5" id="path16382" />
+      </g>
+      <!-- 中间实像 -->
+      <path d="m313.33,250l0,23.33" stroke="red" stroke-width="4" marker-end="url(#arrow)" id="path16386" />
+      <!-- 虚像 -->
+      <path d="m80,250l0,90" stroke="red" stroke-width="4" stroke-dasharray="5,5" marker-end="url(#arrow)"
+         id="path16388" />
+      <!-- 光线 -->
+      <g fill="none" stroke-width="2" id="g16404">
+         <path d="m80,350l420,-90" stroke="orange" stroke-dasharray="10,10" id="path16390" />
+         <path d="m80,350l420,-20" stroke="orange" stroke-dasharray="10,10" id="path16392" />
+         <path d="m80,350l420,8" stroke="orange" stroke-dasharray="10,10" id="path16394" />
+         <path d="m500,260l40,-8.5l40,-8.5" stroke="orange" marker-mid="url(#a2)" id="path16396" />
+         <path d="m500,330l40,-1.9l40,-1.9" stroke="orange" marker-mid="url(#a2)" id="path16398" />
+         <path d="m500,358l40,0.76l40,0.76" stroke="orange" marker-mid="url(#a2)" id="path16400" />
+         <path d="m570,359.33l-70,-1.33l0,-98l70,-17.15" fill="orange" fill-opacity="0.5" id="path16402" />
+      </g>
+      <!-- 焦距 -->
+      <g stroke="black" stroke-width="2" fill="none" id="g16412">
+         <path d="m230,250l0,-10" id="path16406" />
+         <path d="m130,250l0,-10" id="path16408" />
+         <path d="m300,250l0,-10" id="path16410" />
+      </g>
+      <text x="96" y="266" font-size="15" id="text16414">A</text>
+      <text x="95" y="222" font-size="15" id="text16416">B</text>
+      <text x="61" y="265" font-size="15" id="text16418">A'</text>
+      <text x="58" y="350" font-size="15" id="text16420">B'</text>
+      <text x="320" y="248" font-size="15" id="text16422">A&quot;</text>
+      <text x="320" y="283" font-size="15" id="text16424">B&quot;</text>
+      <text x="125" y="228" font-size="15" id="text16426">F1</text>
+      <text x="223" y="234" font-size="15" id="text16428">F1</text>
+      <text x="291" y="230" font-size="15" id="text16430">F2</text>
+      <text x="485" y="387" font-size="15" id="text16432">目镜</text>
+      <text x="166" y="319" font-size="15" id="text16434">物镜</text>
+   </g>
+   <g id="eye" transform="translate(588.90654,280.10751)">
+      <g id="g15278" style="stroke-width:1.5;stroke-miterlimit:4;stroke-dasharray:none;filter:url(#filter15685)">
+         <path
+            style="fill:none;stroke:#000000;stroke-width:1.5;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+            d="m 32.090299,21.527661 c 0,0 -8.500408,-4.426248 -10.814129,-6.99146" id="path9754" />
+         <path
+            style="fill:none;stroke:#000000;stroke-width:1.5;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+            d="m 22.43303,11.468007 -1.15686,3.068194 -2.162826,1.358054 c 0,0 10.814129,9.254882 15.793658,9.556672 0,0 -12.373375,8.299215 -14.988885,12.121884"
+            id="path9756" />
+         <path
+            style="opacity:0.8;fill:none;stroke:#000000;stroke-width:1.5;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+            d="m 20.678238,17.182683 c 0,0 -3.849552,8.853843 0.914253,18.494953" id="path9758" />
+         <path
+            style="fill:none;stroke:#000000;stroke-width:1.5;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+            d="m 19.851778,16.510789 c 0,0 -2.231031,1.427709 -5.928499,-0.62323" id="path9873" />
+      </g>
+      <path
+         style="opacity:0.7;fill:#717071;fill-opacity:0.126812;stroke:#000000;stroke-width:0;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none"
+         id="path10366" d="m 12.76782,24.322409 a 1.3576641,3.2930577 0 0 1 -2.5e-5,0.02012 l -1.357639,-0.02012 z" />
+      <g id="g15283" transform="translate(0.18567323,-0.4951286)" style="filter:url(#filter15689)">
+         <ellipse
+            style="opacity:1;fill:#717071;stroke:#000000;stroke-width:0;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none"
+            id="path9897" ry="7.3371634" rx="2.830874" cy="27.825363" cx="20.185982" transform="rotate(-2.7984513)" />
+         <ellipse
+            style="opacity:1;fill:#ffffff;fill-opacity:1;stroke:#000000;stroke-width:0;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none"
+            id="path11170" ry="1.7476314" rx="0.72216201" cy="21.803059" cx="21.841869" transform="rotate(3.902859)" />
+         <ellipse
+            style="fill:#ffffff;fill-opacity:1;stroke:#000000;stroke-width:0;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none"
+            id="path11170-1" ry="0.64870894" rx="0.3362841" cy="24.219318" cx="23.263311"
+            transform="matrix(0.99853098,0.05418377,-0.08546059,0.99634155,0,0)" />
+      </g>
+   </g>
+</svg>
