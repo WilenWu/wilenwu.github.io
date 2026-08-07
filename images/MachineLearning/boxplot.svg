@@ -1,11 +1,377 @@
-<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0" y="0" width="400" height="266.66668701171875" style="
-        width:400px;
-        height:266.66668701171875px;
-        background: #FFF;
-        fill: none;
-">
-        <svg xmlns="http://www.w3.org/2000/svg"/>
-        
-        <svg xmlns="http://www.w3.org/2000/svg" class="role-diagram-draw-area"><g class="shapes-region" style="stroke: black; fill: none;"><g class="arrow-line"><path class="connection real" stroke-dasharray="" d="  M321.92,131.33 L59.92,131.33" style="stroke: rgb(0, 0, 0); stroke-opacity: 1; stroke-width: 1; fill: none; fill-opacity: 1;"/></g><g class="composite-shape"><path class="real" d=" M232.5,83.17 L232.5,179.5 L149.33,179.5 L149.33,83.17 Z" style="stroke-width: 1; stroke: rgb(0, 0, 0); fill: rgb(245, 166, 35); fill-opacity: 1;"/></g><g class="arrow-line"><path class="connection real" stroke-dasharray="" d="  M190.5,83.17 L190.5,179.5" style="stroke: rgb(0, 0, 0); stroke-width: 2; fill: none; fill-opacity: 1;"/></g><g class="arrow-line"><path class="connection real" stroke-dasharray="" d="  M321.92,107.17 L321.92,155.5" style="stroke: rgb(0, 0, 0); stroke-width: 1; fill: none; fill-opacity: 1;"/></g><g class="arrow-line"><path class="connection real" stroke-dasharray="" d="  M59.92,107.17 L59.92,155.5" style="stroke: rgb(0, 0, 0); stroke-width: 1; fill: none; fill-opacity: 1;"/></g><g class="composite-shape"><path class="real" d=" M33.67,126.17 C36.52,126.17 38.83,128.48 38.83,131.33 C38.83,134.19 36.52,136.5 33.67,136.5 C30.81,136.5 28.5,134.19 28.5,131.33 C28.5,128.48 30.81,126.17 33.67,126.17 Z" style="stroke-width: 1; stroke: rgb(0, 0, 0); fill: rgb(208, 2, 27); fill-opacity: 1;"/></g><g class="composite-shape"><path class="real" d=" M49.67,126.17 C52.52,126.17 54.83,128.48 54.83,131.33 C54.83,134.19 52.52,136.5 49.67,136.5 C46.81,136.5 44.5,134.19 44.5,131.33 C44.5,128.48 46.81,126.17 49.67,126.17 Z" style="stroke-width: 1; stroke: rgb(0, 0, 0); fill: rgb(208, 2, 27); fill-opacity: 1;"/></g><g class="composite-shape"><path class="real" d=" M333.67,126.17 C336.52,126.17 338.83,128.48 338.83,131.33 C338.83,134.19 336.52,136.5 333.67,136.5 C330.81,136.5 328.5,134.19 328.5,131.33 C328.5,128.48 330.81,126.17 333.67,126.17 Z" style="stroke-width: 1; stroke: rgb(0, 0, 0); fill: rgb(208, 2, 27); fill-opacity: 1;"/></g><g class="arrow-line"><path class="connection real" stroke-dasharray="" d="  M149.33,69.67 L232.5,70" style="stroke: rgb(0, 0, 0); stroke-width: 1; fill: none; fill-opacity: 1;"/><g stroke="#000" transform="matrix(-0.9999919428800662,-0.00401424649846379,0.00401424649846379,-0.9999919428800662,232.49998474121094,70)" style="stroke: rgb(0, 0, 0); stroke-width: 1;"><path d=" M0,7.83 L0,-7.83"/></g><g stroke="#000" transform="matrix(-0.9999919428800662,-0.00401424649846379,0.00401424649846379,-0.9999919428800662,149.33331298828128,69.66665649414062)" style="stroke: rgb(0, 0, 0); stroke-width: 1;"><path d=" M0,7.83 L0,-7.83"/></g></g><g class="arrow-line"><path class="connection real" stroke-dasharray="" d="  M38.33,84.67 L38.33,112.67" style="stroke: rgb(0, 0, 0); stroke-width: 1; fill: none; fill-opacity: 1;"/><g stroke="#000" transform="matrix(-1.8369701987210297e-16,-1,1,-1.8369701987210297e-16,38.33331298828125,114.66665649414062)" style="stroke: rgb(0, 0, 0); stroke-width: 1;"><path d=" M10.93,-3.29 Q4.96,-0.45 0,0 Q4.96,0.45 10.93,3.29"/></g></g><g class="arrow-line"><path class="connection real" stroke-dasharray="" d="  M333.33,82.67 L333.33,110.67" style="stroke: rgb(0, 0, 0); stroke-width: 1; fill: none; fill-opacity: 1;"/><g stroke="#000" transform="matrix(-1.8369701987210297e-16,-1,1,-1.8369701987210297e-16,333.33331298828125,112.66665649414062)" style="stroke: rgb(0, 0, 0); stroke-width: 1;"><path d=" M10.93,-3.29 Q4.96,-0.45 0,0 Q4.96,0.45 10.93,3.29"/></g></g><g class="composite-shape"><path class="real" d=" M316.33,118.67 Q316.3,111.67 309.3,111.7 L286.64,111.79 Q276.64,111.83 276.61,104.83 Q276.64,111.83 266.64,111.87 M269.64,111.86 L243.97,111.97 Q236.97,112 237,119" style="stroke-width: 1; stroke: rgb(0, 0, 0); fill: none; fill-opacity: 1;"/></g><g class="composite-shape"><path class="real" d=" M144.33,118.67 Q144.3,111.67 137.3,111.7 L114.64,111.79 Q104.64,111.83 104.61,104.83 Q104.64,111.83 94.64,111.87 M97.64,111.86 L71.97,111.97 Q64.97,112 65,119" style="stroke-width: 1; stroke: rgb(0, 0, 0); fill: none; fill-opacity: 1;"/></g><g/></g><g/><g/><g/></svg>
-        <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="660" height="265.3333435058594" style="width:660px;height:265.3333435058594px;font-family:Asana-Math, Asana;background:#FFF;"><g><g><g><text x="16.98956298828125" y="60.666664123535156" style="white-space:pre;stroke:none;fill:rgb(0,0,0);fill-opacity:1;font-size:15px;font-family:Arial, Helvetica, sans-serif;font-weight:400;font-style:normal;dominant-baseline:text-before-edge;text-decoration:none solid rgb(0, 0, 0);">outliers</text></g></g></g><g><g><g><text x="310.66668701171875" y="58.666664123535156" style="white-space:pre;stroke:none;fill:rgb(0,0,0);fill-opacity:1;font-size:15px;font-family:Arial, Helvetica, sans-serif;font-weight:400;font-style:normal;dominant-baseline:text-before-edge;text-decoration:none solid rgb(0, 0, 0);">outliers</text></g></g></g><g><g><g><text x="165.66668701171875" y="186.66666412353516" style="white-space:pre;stroke:none;fill:rgb(0,0,0);fill-opacity:1;font-size:15px;font-family:Arial, Helvetica, sans-serif;font-weight:400;font-style:normal;dominant-baseline:text-before-edge;text-decoration:none solid rgb(0, 0, 0);">median</text></g></g></g><g><g><g><text x="139.5" y="202.66666412353516" style="white-space:pre;stroke:none;fill:rgb(0,0,0);fill-opacity:1;font-size:15px;font-family:Arial, Helvetica, sans-serif;font-weight:400;font-style:normal;dominant-baseline:text-before-edge;text-decoration:none solid rgb(0, 0, 0);">Q1</text></g></g><g><g><text x="111.98956298828125" y="225.00000762939453" style="white-space:pre;stroke:none;fill:rgb(0,0,0);fill-opacity:1;font-size:13.5px;font-family:Arial, Helvetica, sans-serif;font-weight:400;font-style:normal;dominant-baseline:text-before-edge;text-decoration:none solid rgb(0, 0, 0);">(1st quartile)</text></g></g></g><g><g><g><text x="172.32293701171875" y="40.666664123535156" style="white-space:pre;stroke:none;fill:rgb(0,0,0);fill-opacity:1;font-size:15px;font-family:Arial, Helvetica, sans-serif;font-weight:400;font-style:normal;dominant-baseline:text-before-edge;text-decoration:none solid rgb(0, 0, 0);">(IQR)</text></g></g></g><g><g><g><text x="124.66668701171875" y="21.666664123535156" style="white-space:pre;stroke:none;fill:rgb(0,0,0);fill-opacity:1;font-size:15px;font-family:Arial, Helvetica, sans-serif;font-weight:400;font-style:normal;dominant-baseline:text-before-edge;text-decoration:none solid rgb(0, 0, 0);">InterQuartile Range</text></g></g></g><g><g><g><text x="283.66668701171875" y="166.66666412353516" style="white-space:pre;stroke:none;fill:rgb(0,0,0);fill-opacity:1;font-size:15px;font-family:Arial, Helvetica, sans-serif;font-weight:400;font-style:normal;dominant-baseline:text-before-edge;text-decoration:none solid rgb(0, 0, 0);">&quot;maximum&quot;</text></g></g></g><g><g><g><text x="20.666656494140625" y="164.66666412353516" style="white-space:pre;stroke:none;fill:rgb(0,0,0);fill-opacity:1;font-size:15px;font-family:Arial, Helvetica, sans-serif;font-weight:400;font-style:normal;dominant-baseline:text-before-edge;text-decoration:none solid rgb(0, 0, 0);">&quot;minimum&quot;</text></g></g></g><g><g><g><text x="224.92706298828125" y="201.66666412353516" style="white-space:pre;stroke:none;fill:rgb(0,0,0);fill-opacity:1;font-size:15px;font-family:Arial, Helvetica, sans-serif;font-weight:400;font-style:normal;dominant-baseline:text-before-edge;text-decoration:none solid rgb(0, 0, 0);">Q3</text></g></g><g><g><text x="196.66668701171875" y="224.00000762939453" style="white-space:pre;stroke:none;fill:rgb(0,0,0);fill-opacity:1;font-size:13.5px;font-family:Arial, Helvetica, sans-serif;font-weight:400;font-style:normal;dominant-baseline:text-before-edge;text-decoration:none solid rgb(0, 0, 0);">(3rd quartile)</text></g></g></g><g><g><g><text x="251.66668701171875" y="84.66666412353516" style="white-space:pre;stroke:none;fill:rgb(0,0,0);fill-opacity:1;font-size:13.5px;font-family:Arial, Helvetica, sans-serif;font-weight:400;font-style:normal;dominant-baseline:text-before-edge;text-decoration:none solid rgb(0, 0, 0);">1.5×IQR</text></g></g></g><g><g><g><text x="79.66665649414062" y="84.66666412353516" style="white-space:pre;stroke:none;fill:rgb(0,0,0);fill-opacity:1;font-size:13.5px;font-family:Arial, Helvetica, sans-serif;font-weight:400;font-style:normal;dominant-baseline:text-before-edge;text-decoration:none solid rgb(0, 0, 0);">1.5×IQR</text></g></g></g></svg>
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg
+   x="0"
+   y="0"
+   width="400"
+   height="266.66669"
+   style="fill:none"
+   version="1.1"
+   id="svg61"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg">
+  <defs
+     id="defs61" />
+  <svg
+     class="role-diagram-draw-area"
+     version="1.1"
+     id="svg23"
+     width="100%"
+     height="100%">
+    <g
+       class="shapes-region"
+       style="fill:none;stroke:#000000"
+       id="g20">
+      <g
+         class="arrow-line"
+         id="g1">
+        <path
+           class="connection real"
+           stroke-dasharray="none"
+           d="m 321.92,131.33 h -262"
+           style="fill:none;fill-opacity:1;stroke:#000000;stroke-width:1;stroke-opacity:1"
+           id="path1" />
+      </g>
+      <g
+         class="composite-shape"
+         id="g2">
+        <path
+           class="real"
+           d="M 232.5,83.17 V 179.5 H 149.33 V 83.17 Z"
+           style="fill:#f5a623;fill-opacity:1;stroke:#000000;stroke-width:1"
+           id="path2" />
+      </g>
+      <g
+         class="arrow-line"
+         id="g3">
+        <path
+           class="connection real"
+           stroke-dasharray="none"
+           d="M 190.5,83.17 V 179.5"
+           style="fill:none;fill-opacity:1;stroke:#000000;stroke-width:2"
+           id="path3" />
+      </g>
+      <g
+         class="arrow-line"
+         id="g4">
+        <path
+           class="connection real"
+           stroke-dasharray="none"
+           d="M 321.92,107.17 V 155.5"
+           style="fill:none;fill-opacity:1;stroke:#000000;stroke-width:1"
+           id="path4" />
+      </g>
+      <g
+         class="arrow-line"
+         id="g5">
+        <path
+           class="connection real"
+           stroke-dasharray="none"
+           d="M 59.92,107.17 V 155.5"
+           style="fill:none;fill-opacity:1;stroke:#000000;stroke-width:1"
+           id="path5" />
+      </g>
+      <g
+         class="composite-shape"
+         id="g6">
+        <path
+           class="real"
+           d="m 33.67,126.17 c 2.85,0 5.16,2.31 5.16,5.16 0,2.86 -2.31,5.17 -5.16,5.17 -2.86,0 -5.17,-2.31 -5.17,-5.17 0,-2.85 2.31,-5.16 5.17,-5.16 z"
+           style="fill:#d0021b;fill-opacity:1;stroke:#000000;stroke-width:1"
+           id="path6" />
+      </g>
+      <g
+         class="composite-shape"
+         id="g7">
+        <path
+           class="real"
+           d="m 49.67,126.17 c 2.85,0 5.16,2.31 5.16,5.16 0,2.86 -2.31,5.17 -5.16,5.17 -2.86,0 -5.17,-2.31 -5.17,-5.17 0,-2.85 2.31,-5.16 5.17,-5.16 z"
+           style="fill:#d0021b;fill-opacity:1;stroke:#000000;stroke-width:1"
+           id="path7" />
+      </g>
+      <g
+         class="composite-shape"
+         id="g8">
+        <path
+           class="real"
+           d="m 333.67,126.17 c 2.85,0 5.16,2.31 5.16,5.16 0,2.86 -2.31,5.17 -5.16,5.17 -2.86,0 -5.17,-2.31 -5.17,-5.17 0,-2.85 2.31,-5.16 5.17,-5.16 z"
+           style="fill:#d0021b;fill-opacity:1;stroke:#000000;stroke-width:1"
+           id="path8" />
+      </g>
+      <g
+         class="arrow-line"
+         id="g12">
+        <path
+           class="connection real"
+           stroke-dasharray="none"
+           d="M 149.33,69.67 232.5,70"
+           style="fill:none;fill-opacity:1;stroke:#000000;stroke-width:1"
+           id="path9" />
+        <g
+           stroke="#000"
+           transform="rotate(-179.77,116.32024,34.766671)"
+           style="stroke:#000000;stroke-width:1"
+           id="g10">
+          <path
+             d="M 0,7.83 V -7.83"
+             id="path10" />
+        </g>
+        <g
+           stroke="#000"
+           transform="rotate(-179.77,74.736572,34.683462)"
+           style="stroke:#000000;stroke-width:1"
+           id="g11">
+          <path
+             d="M 0,7.83 V -7.83"
+             id="path11" />
+        </g>
+      </g>
+      <g
+         class="arrow-line"
+         id="g14">
+        <path
+           class="connection real"
+           stroke-dasharray="none"
+           d="m 38.33,84.67 v 28"
+           style="fill:none;fill-opacity:1;stroke:#000000;stroke-width:1"
+           id="path12" />
+        <g
+           stroke="#000"
+           transform="rotate(-90,76.499985,38.166672)"
+           style="stroke:#000000;stroke-width:1"
+           id="g13">
+          <path
+             d="M 10.93,-3.29 Q 4.96,-0.45 0,0 4.96,0.45 10.93,3.29"
+             id="path13" />
+        </g>
+      </g>
+      <g
+         class="arrow-line"
+         id="g16">
+        <path
+           class="connection real"
+           stroke-dasharray="none"
+           d="m 333.33,82.67 v 28"
+           style="fill:none;fill-opacity:1;stroke:#000000;stroke-width:1"
+           id="path14" />
+        <g
+           stroke="#000"
+           transform="rotate(-90,222.99998,-110.33333)"
+           style="stroke:#000000;stroke-width:1"
+           id="g15">
+          <path
+             d="M 10.93,-3.29 Q 4.96,-0.45 0,0 4.96,0.45 10.93,3.29"
+             id="path15" />
+        </g>
+      </g>
+      <g
+         class="composite-shape"
+         id="g17">
+        <path
+           class="real"
+           d="m 316.33,118.67 q -0.03,-7 -7.03,-6.97 l -22.66,0.09 q -10,0.04 -10.03,-6.96 0.03,7 -9.97,7.04 m 3,-0.01 -25.67,0.11 q -7,0.03 -6.97,7.03"
+           style="fill:none;fill-opacity:1;stroke:#000000;stroke-width:1"
+           id="path16" />
+      </g>
+      <g
+         class="composite-shape"
+         id="g18">
+        <path
+           class="real"
+           d="m 144.33,118.67 q -0.03,-7 -7.03,-6.97 l -22.66,0.09 q -10,0.04 -10.03,-6.96 0.03,7 -9.97,7.04 m 3,-0.01 -25.67,0.11 Q 64.97,112 65,119"
+           style="fill:none;fill-opacity:1;stroke:#000000;stroke-width:1"
+           id="path17" />
+      </g>
+      <g
+         id="g19" />
+    </g>
+    <g
+       id="g21" />
+    <g
+       id="g22" />
+    <g
+       id="g23" />
+  </svg>
+  <svg
+     width="660"
+     height="265.33334"
+     style="font-family:Asana-Math, Asana"
+     version="1.1"
+     id="svg60">
+    <g
+       id="g26">
+      <g
+         id="g25">
+        <g
+           id="g24">
+          <text
+             x="16.989563"
+             y="60.666664"
+             style="font-style:normal;font-weight:400;font-size:15px;font-family:Arial, Helvetica, sans-serif;text-decoration:none;text-decoration-line:none;text-decoration-style:solid;text-decoration-color:#000000;dominant-baseline:text-before-edge;white-space:pre;fill:#000000;fill-opacity:1;stroke:none"
+             id="text23">outliers</text>
+        </g>
+      </g>
+    </g>
+    <g
+       id="g29">
+      <g
+         id="g28">
+        <g
+           id="g27">
+          <text
+             x="310.66669"
+             y="58.666664"
+             style="font-style:normal;font-weight:400;font-size:15px;font-family:Arial, Helvetica, sans-serif;text-decoration:none;text-decoration-line:none;text-decoration-style:solid;text-decoration-color:#000000;dominant-baseline:text-before-edge;white-space:pre;fill:#000000;fill-opacity:1;stroke:none"
+             id="text26">outliers</text>
+        </g>
+      </g>
+    </g>
+    <g
+       id="g32">
+      <g
+         id="g31">
+        <g
+           id="g30">
+          <text
+             x="165.66669"
+             y="186.66666"
+             style="font-style:normal;font-weight:400;font-size:15px;font-family:Arial, Helvetica, sans-serif;text-decoration:none;text-decoration-line:none;text-decoration-style:solid;text-decoration-color:#000000;dominant-baseline:text-before-edge;white-space:pre;fill:#000000;fill-opacity:1;stroke:none"
+             id="text29">median</text>
+        </g>
+      </g>
+    </g>
+    <g
+       id="g37">
+      <g
+         id="g34">
+        <g
+           id="g33">
+          <text
+             x="139.5"
+             y="202.66666"
+             style="font-style:normal;font-weight:400;font-size:15px;font-family:Arial, Helvetica, sans-serif;text-decoration:none;text-decoration-line:none;text-decoration-style:solid;text-decoration-color:#000000;dominant-baseline:text-before-edge;white-space:pre;fill:#000000;fill-opacity:1;stroke:none"
+             id="text32">Q1</text>
+        </g>
+      </g>
+      <g
+         id="g36">
+        <g
+           id="g35">
+          <text
+             x="111.98956"
+             y="225"
+             style="font-style:normal;font-weight:400;font-size:13.5px;font-family:Arial, Helvetica, sans-serif;text-decoration:none;text-decoration-line:none;text-decoration-style:solid;text-decoration-color:#000000;dominant-baseline:text-before-edge;white-space:pre;fill:#000000;fill-opacity:1;stroke:none"
+             id="text34">(1st quartile)</text>
+        </g>
+      </g>
+    </g>
+    <g
+       id="g40">
+      <g
+         id="g39">
+        <g
+           id="g38">
+          <text
+             x="172.32294"
+             y="40.666664"
+             style="font-style:normal;font-weight:400;font-size:15px;font-family:Arial, Helvetica, sans-serif;text-decoration:none;text-decoration-line:none;text-decoration-style:solid;text-decoration-color:#000000;dominant-baseline:text-before-edge;white-space:pre;fill:#000000;fill-opacity:1;stroke:none"
+             id="text37">(IQR)</text>
+        </g>
+      </g>
+    </g>
+    <g
+       id="g43">
+      <g
+         id="g42">
+        <g
+           id="g41">
+          <text
+             x="124.66669"
+             y="21.666664"
+             style="font-style:normal;font-weight:400;font-size:15px;font-family:Arial, Helvetica, sans-serif;text-decoration:none;text-decoration-line:none;text-decoration-style:solid;text-decoration-color:#000000;dominant-baseline:text-before-edge;white-space:pre;fill:#000000;fill-opacity:1;stroke:none"
+             id="text40">InterQuartile Range</text>
+        </g>
+      </g>
+    </g>
+    <g
+       id="g46">
+      <g
+         id="g45">
+        <g
+           id="g44">
+          <text
+             x="283.66669"
+             y="166.66666"
+             style="font-style:normal;font-weight:400;font-size:15px;font-family:Arial, Helvetica, sans-serif;text-decoration:none;text-decoration-line:none;text-decoration-style:solid;text-decoration-color:#000000;dominant-baseline:text-before-edge;white-space:pre;fill:#000000;fill-opacity:1;stroke:none"
+             id="text43">&quot;maximum&quot;</text>
+        </g>
+      </g>
+    </g>
+    <g
+       id="g49">
+      <g
+         id="g48">
+        <g
+           id="g47">
+          <text
+             x="20.666656"
+             y="164.66666"
+             style="font-style:normal;font-weight:400;font-size:15px;font-family:Arial, Helvetica, sans-serif;text-decoration:none;text-decoration-line:none;text-decoration-style:solid;text-decoration-color:#000000;dominant-baseline:text-before-edge;white-space:pre;fill:#000000;fill-opacity:1;stroke:none"
+             id="text46">&quot;minimum&quot;</text>
+        </g>
+      </g>
+    </g>
+    <g
+       id="g54">
+      <g
+         id="g51">
+        <g
+           id="g50">
+          <text
+             x="224.92706"
+             y="201.66666"
+             style="font-style:normal;font-weight:400;font-size:15px;font-family:Arial, Helvetica, sans-serif;text-decoration:none;text-decoration-line:none;text-decoration-style:solid;text-decoration-color:#000000;dominant-baseline:text-before-edge;white-space:pre;fill:#000000;fill-opacity:1;stroke:none"
+             id="text49">Q3</text>
+        </g>
+      </g>
+      <g
+         id="g53">
+        <g
+           id="g52">
+          <text
+             x="196.66669"
+             y="224"
+             style="font-style:normal;font-weight:400;font-size:13.5px;font-family:Arial, Helvetica, sans-serif;text-decoration:none;text-decoration-line:none;text-decoration-style:solid;text-decoration-color:#000000;dominant-baseline:text-before-edge;white-space:pre;fill:#000000;fill-opacity:1;stroke:none"
+             id="text51">(3rd quartile)</text>
+        </g>
+      </g>
+    </g>
+    <g
+       id="g57">
+      <g
+         id="g56">
+        <g
+           id="g55">
+          <text
+             x="251.66669"
+             y="84.666664"
+             style="font-style:normal;font-weight:400;font-size:13.5px;font-family:Arial, Helvetica, sans-serif;text-decoration:none;text-decoration-line:none;text-decoration-style:solid;text-decoration-color:#000000;dominant-baseline:text-before-edge;white-space:pre;fill:#000000;fill-opacity:1;stroke:none"
+             id="text54">1.5×IQR</text>
+        </g>
+      </g>
+    </g>
+    <g
+       id="g60">
+      <g
+         id="g59">
+        <g
+           id="g58">
+          <text
+             x="79.666656"
+             y="84.666664"
+             style="font-style:normal;font-weight:400;font-size:13.5px;font-family:Arial, Helvetica, sans-serif;text-decoration:none;text-decoration-line:none;text-decoration-style:solid;text-decoration-color:#000000;dominant-baseline:text-before-edge;white-space:pre;fill:#000000;fill-opacity:1;stroke:none"
+             id="text57">1.5×IQR</text>
+        </g>
+      </g>
+    </g>
+  </svg>
 </svg>
